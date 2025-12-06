@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Sidebar } from "@/widgets/sidebar";
 import { Header } from "@/widgets/header";
+import { Footer } from "@/widgets/footer";
 import { ThemeProvider, JsonLd } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
 import "./globals.css";
@@ -77,6 +78,7 @@ export default function RootLayout({
             <main className="flex-1 flex flex-col overflow-hidden">
               <Header />
               <div className="flex-1 overflow-y-auto p-6">{children}</div>
+              <Footer />
             </main>
           </div>
         </ThemeProvider>
