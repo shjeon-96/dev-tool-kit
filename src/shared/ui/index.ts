@@ -29,3 +29,4 @@ export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 export { Textarea } from "./textarea";
 export { ThemeProvider } from "./theme-provider";
 export { JsonLd, BreadcrumbJsonLd, FaqJsonLd } from "./json-ld";
+export { AdUnit, AdSidebar } from "./ad-unit";

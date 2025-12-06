@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
+import { useTranslations } from "next-intl";
 import type { ToolSlug } from "@/entities/tool";
 
 const toolComponents: Record<ToolSlug, React.ComponentType> = {
@@ -66,7 +67,8 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     { ssr: false }
   ),
   "markdown-preview": dynamic(
-    () => import("@/features/markdown-preview").then((mod) => mod.MarkdownPreview),
+    () =>
+      import("@/features/markdown-preview").then((mod) => mod.MarkdownPreview),
     { ssr: false }
   ),
   "diff-checker": dynamic(
@@ -90,7 +92,10 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     { ssr: false }
   ),
   "gradient-generator": dynamic(
-    () => import("@/features/gradient-generator").then((mod) => mod.GradientGenerator),
+    () =>
+      import("@/features/gradient-generator").then(
+        (mod) => mod.GradientGenerator
+      ),
     { ssr: false }
   ),
   "ua-parser": dynamic(
@@ -143,14 +148,11 @@ interface ToolRendererProps {
 }
 
 export function ToolRenderer({ slug }: ToolRendererProps) {
+  const t = useTranslations("common");
   const ToolComponent = toolComponents[slug];
 
   if (!ToolComponent) {
-    return (
-      <p className="text-muted-foreground">
-        이 도구는 아직 구현 중입니다.
-      </p>
-    );
+    return <p className="text-muted-foreground">{t("loading")}</p>;
   }
 
   return (

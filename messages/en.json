@@ -1,0 +1,733 @@
+{
+  "site": {
+    "title": "Web Toolkit",
+    "description": "All-in-one web-based toolkit for developers. Use JSON Formatter, JWT Decoder, Image Resizer and more directly in your browser without installation.",
+    "keywords": "developer tools, JSON formatter, JWT decoder, image resizer, web tools"
+  },
+  "navigation": {
+    "home": "Home",
+    "tools": "Tools",
+    "skipToContent": "Skip to main content"
+  },
+  "sidebar": {
+    "allTools": "All Tools",
+    "categories": {
+      "text": "Text",
+      "media": "Media",
+      "converters": "Converters",
+      "security": "Security"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Web Toolkit. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "github": "GitHub"
+  },
+  "common": {
+    "copy": "Copy",
+    "copied": "Copied!",
+    "clear": "Clear",
+    "download": "Download",
+    "upload": "Upload",
+    "generate": "Generate",
+    "format": "Format",
+    "minify": "Minify",
+    "encode": "Encode",
+    "decode": "Decode",
+    "convert": "Convert",
+    "reset": "Reset",
+    "input": "Input",
+    "output": "Output",
+    "result": "Result",
+    "error": "Error",
+    "success": "Success",
+    "loading": "Loading...",
+    "noData": "No data"
+  },
+  "tools": {
+    "json-formatter": {
+      "title": "JSON Formatter",
+      "description": "Format, minify, and validate JSON data."
+    },
+    "jwt-decoder": {
+      "title": "JWT Decoder",
+      "description": "Decode JWT tokens to view Header, Payload, and expiration time."
+    },
+    "image-resizer": {
+      "title": "Image Resizer",
+      "description": "Resize images, convert formats, and adjust quality in your browser."
+    },
+    "unix-timestamp": {
+      "title": "Unix Timestamp",
+      "description": "Convert between Unix timestamps and human-readable dates."
+    },
+    "base64-converter": {
+      "title": "Base64 Converter",
+      "description": "Encode and decode text or files to/from Base64."
+    },
+    "app-icon-generator": {
+      "title": "App Icon Generator",
+      "description": "Generate app icons for iOS, Android, and Favicon in all required sizes."
+    },
+    "qr-generator": {
+      "title": "QR Code Generator",
+      "description": "Generate QR codes for URLs, WiFi, contacts, and more."
+    },
+    "color-picker": {
+      "title": "Color Picker",
+      "description": "Extract colors from images and generate color palettes."
+    },
+    "url-parser": {
+      "title": "URL Parser",
+      "description": "Parse URLs into components and edit query parameters."
+    },
+    "uuid-generator": {
+      "title": "UUID/ULID Generator",
+      "description": "Generate UUID v1, v4, and ULID with various format options."
+    },
+    "base-converter": {
+      "title": "Number Base Converter",
+      "description": "Convert between binary, octal, decimal, and hexadecimal."
+    },
+    "hash-generator": {
+      "title": "Hash Generator",
+      "description": "Generate and compare MD5, SHA-1, SHA-256, SHA-512 hashes."
+    },
+    "sql-formatter": {
+      "title": "SQL Formatter",
+      "description": "Format SQL queries with support for multiple dialects."
+    },
+    "cron-parser": {
+      "title": "Cron Parser",
+      "description": "Parse cron expressions and predict next execution times."
+    },
+    "markdown-preview": {
+      "title": "Markdown Preview",
+      "description": "Live preview Markdown with syntax highlighting support."
+    },
+    "diff-checker": {
+      "title": "Diff Checker",
+      "description": "Compare two texts and visualize the differences."
+    },
+    "lorem-generator": {
+      "title": "Lorem Ipsum Generator",
+      "description": "Generate placeholder text by words, sentences, or paragraphs."
+    },
+    "url-encoder": {
+      "title": "URL Encoder/Decoder",
+      "description": "Encode or decode URLs for safe transmission."
+    },
+    "html-entity": {
+      "title": "HTML Entity Encoder",
+      "description": "Encode and decode HTML special characters to entities."
+    },
+    "box-shadow": {
+      "title": "Box Shadow Generator",
+      "description": "Visually edit CSS box-shadow and generate code."
+    },
+    "gradient-generator": {
+      "title": "Gradient Generator",
+      "description": "Visually create CSS gradients and generate code."
+    },
+    "ua-parser": {
+      "title": "User Agent Parser",
+      "description": "Parse User Agent strings to identify browser, OS, and device."
+    },
+    "regex-tester": {
+      "title": "Regex Tester",
+      "description": "Test regular expressions and see matches in real-time."
+    },
+    "meta-generator": {
+      "title": "Meta Tag Generator",
+      "description": "Generate SEO meta tags, Open Graph, and Twitter Cards."
+    },
+    "curl-builder": {
+      "title": "cURL Builder",
+      "description": "Build HTTP requests and generate cURL commands."
+    },
+    "svg-optimizer": {
+      "title": "SVG Optimizer",
+      "description": "Optimize SVG files to reduce file size."
+    },
+    "css-to-tailwind": {
+      "title": "CSS to Tailwind",
+      "description": "Convert CSS properties to Tailwind CSS classes."
+    },
+    "prettier-playground": {
+      "title": "Prettier Playground",
+      "description": "Format code in various languages using Prettier."
+    }
+  },
+  "seo": {
+    "breadcrumb": {
+      "home": "Home",
+      "tools": "Tools"
+    },
+    "sections": {
+      "whatIs": "What is this tool?",
+      "howToUse": "How to Use",
+      "features": "Features",
+      "faq": "Frequently Asked Questions"
+    },
+    "json-formatter": {
+      "whatIs": "JSON Formatter is an online tool that automatically organizes and indents JSON data for better readability. Transform compressed JSON into clean, formatted output with a single click.",
+      "howToUse": "Paste your JSON data in the left input area. The formatted result appears automatically on the right. Choose indentation size (2, 4, or tab) and use the minify button for compact output.",
+      "features": [
+        "100% client-side processing - your data never leaves your browser",
+        "Real-time syntax validation with error highlighting",
+        "Dark mode support for comfortable viewing",
+        "One-click copy to clipboard"
+      ],
+      "faq": [
+        {
+          "q": "Is my JSON data stored on your servers?",
+          "a": "No. All processing happens in your browser. Your data is never transmitted or stored anywhere."
+        },
+        {
+          "q": "Can I format large JSON files?",
+          "a": "Yes, files up to several MB work smoothly, limited only by your browser's memory."
+        }
+      ]
+    },
+    "jwt-decoder": {
+      "whatIs": "JWT Decoder is a secure tool that decodes JSON Web Tokens to reveal their header, payload, and signature components. Verify token expiration and claims instantly.",
+      "howToUse": "Paste your JWT token in the input field. The decoded header and payload will appear immediately. Check expiration status and verify token structure at a glance.",
+      "features": [
+        "Instant decoding without server communication",
+        "Visual expiration status indicator",
+        "Support for all JWT algorithms (HS256, RS256, etc.)",
+        "Formatted JSON output for easy reading"
+      ],
+      "faq": [
+        {
+          "q": "Is it safe to decode my JWT here?",
+          "a": "Yes. All decoding happens in your browser. Your token never leaves your device."
+        },
+        {
+          "q": "Can I verify JWT signatures?",
+          "a": "This tool decodes tokens for inspection. For signature verification, you need the secret or public key."
+        }
+      ]
+    },
+    "image-resizer": {
+      "whatIs": "Image Resizer is a browser-based tool that resizes images, converts formats, and adjusts quality without uploading to any server. Fast, private, and works offline.",
+      "howToUse": "Upload an image or drag and drop. Set your desired dimensions or scale percentage. Choose output format (PNG, JPEG, WebP) and quality level, then download the result.",
+      "features": [
+        "Process images entirely in your browser - no upload required",
+        "Support for PNG, JPEG, WebP, and GIF formats",
+        "Maintain aspect ratio or use custom dimensions",
+        "Batch resize multiple images at once"
+      ],
+      "faq": [
+        {
+          "q": "Are my images uploaded to a server?",
+          "a": "No. All processing happens locally in your browser. Your images stay on your device."
+        },
+        {
+          "q": "What's the maximum file size I can process?",
+          "a": "There's no strict limit, but very large files may be slower depending on your device's memory."
+        }
+      ]
+    },
+    "hash-generator": {
+      "whatIs": "Hash Generator creates cryptographic hashes using MD5, SHA-1, SHA-256, and SHA-512 algorithms. Perfect for file integrity verification and password hashing needs.",
+      "howToUse": "Enter text or upload a file to hash. Select the algorithm(s) you need. Copy the generated hash values or compare with expected hashes.",
+      "features": [
+        "Multiple hash algorithms in one tool",
+        "File hashing for integrity verification",
+        "Hash comparison for validation",
+        "Client-side processing for security"
+      ],
+      "faq": [
+        {
+          "q": "Which hash algorithm should I use?",
+          "a": "SHA-256 is recommended for most uses. MD5 and SHA-1 are faster but less secure."
+        },
+        {
+          "q": "Can I hash large files?",
+          "a": "Yes, files are processed in chunks to handle large sizes efficiently."
+        }
+      ]
+    },
+    "uuid-generator": {
+      "whatIs": "UUID/ULID Generator creates unique identifiers in various formats. Generate UUID v1 (time-based), UUID v4 (random), or ULID (sortable) instantly.",
+      "howToUse": "Select the ID type you need. Click generate to create new IDs. Copy to clipboard or generate multiple IDs at once for bulk needs.",
+      "features": [
+        "UUID v1, v4, and ULID support",
+        "Bulk generation for multiple IDs",
+        "Various format options (standard, compact, uppercase)",
+        "Instant copy to clipboard"
+      ],
+      "faq": [
+        {
+          "q": "What's the difference between UUID and ULID?",
+          "a": "UUIDs are standard unique identifiers. ULIDs are sortable by creation time and more URL-friendly."
+        },
+        {
+          "q": "Are generated IDs truly unique?",
+          "a": "Yes. UUID v4 uses cryptographically secure random generation with collision probability near zero."
+        }
+      ]
+    },
+    "qr-generator": {
+      "whatIs": "QR Code Generator creates scannable QR codes for URLs, WiFi credentials, contact cards, and plain text. Customize colors and size for your needs.",
+      "howToUse": "Select the QR code type, enter your data, and see the preview instantly. Customize foreground and background colors, then download in PNG or SVG format.",
+      "features": [
+        "Multiple QR types: URL, WiFi, vCard, text",
+        "Custom colors and size options",
+        "PNG and SVG download formats",
+        "Error correction levels for reliability"
+      ],
+      "faq": [
+        {
+          "q": "What size should my QR code be?",
+          "a": "For print, use at least 2cm x 2cm. For digital display, 200x200 pixels is usually sufficient."
+        },
+        {
+          "q": "Can I add a logo to my QR code?",
+          "a": "Error correction allows partial obstruction, but we recommend keeping the center clear for reliable scanning."
+        }
+      ]
+    },
+    "color-picker": {
+      "whatIs": "Color Picker extracts colors from images and converts between color formats. Create harmonious color palettes for your design projects.",
+      "howToUse": "Upload an image to extract colors or enter a color value directly. Convert between HEX, RGB, HSL formats and copy values for use in your projects.",
+      "features": [
+        "Extract colors from any image",
+        "Convert between HEX, RGB, HSL, HSV",
+        "Generate complementary color palettes",
+        "Save favorite colors for later"
+      ],
+      "faq": [
+        {
+          "q": "Can I extract multiple colors from one image?",
+          "a": "Yes. Click anywhere on the image to pick colors, and view the extracted palette."
+        },
+        {
+          "q": "What color formats are supported?",
+          "a": "HEX, RGB, HSL, and HSV formats are fully supported with instant conversion."
+        }
+      ]
+    },
+    "base64-converter": {
+      "whatIs": "Base64 Converter encodes and decodes text and files to/from Base64 format. Essential for embedding data in HTML, CSS, or transmitting binary data as text.",
+      "howToUse": "Enter text or upload a file. Click encode to convert to Base64, or paste Base64 text and decode to reveal the original content.",
+      "features": [
+        "Text and file encoding/decoding",
+        "Data URL generation for images",
+        "Handle large files efficiently",
+        "Copy or download results"
+      ],
+      "faq": [
+        {
+          "q": "What is Base64 used for?",
+          "a": "Base64 converts binary data to ASCII text, useful for embedding images in HTML/CSS or transmitting data in JSON."
+        },
+        {
+          "q": "Does Base64 encrypt my data?",
+          "a": "No. Base64 is an encoding scheme, not encryption. The data can be easily decoded by anyone."
+        }
+      ]
+    },
+    "base-converter": {
+      "whatIs": "Number Base Converter instantly converts numbers between binary, octal, decimal, and hexadecimal formats. Essential for programmers and computer science students.",
+      "howToUse": "Enter a number in any supported base (binary, octal, decimal, or hexadecimal). See instant conversions to all other bases with proper formatting.",
+      "features": [
+        "Binary, octal, decimal, hexadecimal conversion",
+        "Real-time bidirectional conversion",
+        "Support for large numbers",
+        "One-click copy for each format"
+      ],
+      "faq": [
+        {
+          "q": "What number bases are supported?",
+          "a": "Binary (base 2), octal (base 8), decimal (base 10), and hexadecimal (base 16) are fully supported."
+        },
+        {
+          "q": "Can I convert very large numbers?",
+          "a": "Yes, the converter handles numbers up to JavaScript's safe integer limits and provides accurate results."
+        }
+      ]
+    },
+    "sql-formatter": {
+      "whatIs": "SQL Formatter beautifies and formats SQL queries for improved readability. Support for multiple SQL dialects including MySQL, PostgreSQL, and SQLite.",
+      "howToUse": "Paste your SQL query in the input area. Select your SQL dialect for accurate formatting. Copy the formatted result or download as a file.",
+      "features": [
+        "Multiple SQL dialect support",
+        "Customizable indentation and style",
+        "Syntax highlighting for readability",
+        "Preserve or remove comments"
+      ],
+      "faq": [
+        {
+          "q": "Which SQL dialects are supported?",
+          "a": "MySQL, PostgreSQL, SQLite, SQL Server, and standard SQL are fully supported."
+        },
+        {
+          "q": "Will formatting change my query's behavior?",
+          "a": "No. Formatting only affects whitespace and indentation, not the query logic."
+        }
+      ]
+    },
+    "cron-parser": {
+      "whatIs": "Cron Parser interprets cron expressions and shows upcoming execution times. Understand and validate your scheduled task configurations easily.",
+      "howToUse": "Enter a cron expression to see its human-readable description. View the next execution times and verify your schedule is correct.",
+      "features": [
+        "Human-readable cron descriptions",
+        "Next 10 execution times preview",
+        "Common cron examples library",
+        "Validation with error messages"
+      ],
+      "faq": [
+        {
+          "q": "What format does the cron parser accept?",
+          "a": "Standard 5-field cron format (minute, hour, day, month, weekday) and 6-field with seconds."
+        },
+        {
+          "q": "Can I generate cron expressions from a schedule?",
+          "a": "Yes, use the visual schedule builder to create expressions without memorizing syntax."
+        }
+      ]
+    },
+    "markdown-preview": {
+      "whatIs": "Markdown Preview renders Markdown text in real-time with full GFM (GitHub Flavored Markdown) support. Perfect for README files, documentation, and notes.",
+      "howToUse": "Type or paste Markdown in the editor. See the rendered preview instantly on the right. Export to HTML or copy the rendered content.",
+      "features": [
+        "Real-time live preview",
+        "GitHub Flavored Markdown support",
+        "Syntax highlighting for code blocks",
+        "Export to HTML"
+      ],
+      "faq": [
+        {
+          "q": "Is GitHub Flavored Markdown supported?",
+          "a": "Yes. Tables, task lists, strikethrough, and all GFM features are fully supported."
+        },
+        {
+          "q": "Can I export the rendered HTML?",
+          "a": "Yes. Use the export button to download the rendered content as an HTML file."
+        }
+      ]
+    },
+    "diff-checker": {
+      "whatIs": "Diff Checker compares two texts and highlights the differences. Essential for code reviews, document comparisons, and tracking changes.",
+      "howToUse": "Paste original text on the left and modified text on the right. See additions, deletions, and changes highlighted. Toggle between inline and side-by-side view.",
+      "features": [
+        "Side-by-side and inline diff views",
+        "Line-by-line and character-level comparison",
+        "Syntax highlighting for code",
+        "Ignore whitespace option"
+      ],
+      "faq": [
+        {
+          "q": "Can I compare code files?",
+          "a": "Yes. The diff checker works great with code and includes syntax highlighting for common languages."
+        },
+        {
+          "q": "Is there a size limit for comparison?",
+          "a": "Large texts work well, but very large files may be slower depending on your device."
+        }
+      ]
+    },
+    "url-parser": {
+      "whatIs": "URL Parser breaks down URLs into their components: protocol, host, path, query parameters, and fragment. Essential for debugging and understanding web addresses.",
+      "howToUse": "Paste a URL to see it parsed into components. Edit query parameters individually. Build new URLs by modifying any part.",
+      "features": [
+        "Complete URL component breakdown",
+        "Query parameter editor",
+        "URL encoding/decoding",
+        "Build URLs from components"
+      ],
+      "faq": [
+        {
+          "q": "What URL components are shown?",
+          "a": "Protocol, host, port, path, query parameters, and hash fragment are all displayed."
+        },
+        {
+          "q": "Can I edit and rebuild URLs?",
+          "a": "Yes. Modify any component and the tool will build the complete URL for you."
+        }
+      ]
+    },
+    "regex-tester": {
+      "whatIs": "Regex Tester validates regular expressions and shows matches in real-time. Test and debug your patterns with instant visual feedback.",
+      "howToUse": "Enter your regex pattern and test string. See matches highlighted instantly. Use flags like global (g), case-insensitive (i), and multiline (m).",
+      "features": [
+        "Real-time match highlighting",
+        "Capture group display",
+        "Common regex patterns library",
+        "Flag toggle (g, i, m, s)"
+      ],
+      "faq": [
+        {
+          "q": "Which regex flavor is used?",
+          "a": "JavaScript regex syntax is used, which is compatible with most modern languages."
+        },
+        {
+          "q": "Can I see capture groups?",
+          "a": "Yes. Named and numbered capture groups are displayed with their matched values."
+        }
+      ]
+    },
+    "meta-generator": {
+      "whatIs": "Meta Tag Generator creates SEO-optimized meta tags, Open Graph tags, and Twitter Cards. Improve your website's search visibility and social sharing.",
+      "howToUse": "Fill in your page title, description, and other details. Preview how your page will appear in search results and social shares. Copy the generated HTML tags.",
+      "features": [
+        "SEO meta tags generation",
+        "Open Graph tags for social sharing",
+        "Twitter Card support",
+        "Google search preview"
+      ],
+      "faq": [
+        {
+          "q": "What meta tags should every page have?",
+          "a": "At minimum: title, description, viewport, and charset. Add Open Graph for social sharing."
+        },
+        {
+          "q": "How long should my meta description be?",
+          "a": "Keep it between 150-160 characters for optimal display in search results."
+        }
+      ]
+    },
+    "curl-builder": {
+      "whatIs": "cURL Builder creates cURL commands from HTTP request specifications. Perfect for API testing, debugging, and sharing request examples.",
+      "howToUse": "Select the HTTP method, enter the URL, add headers and body as needed. Copy the generated cURL command or execute it directly.",
+      "features": [
+        "All HTTP methods supported",
+        "Custom headers editor",
+        "Request body formatting",
+        "Import/export requests"
+      ],
+      "faq": [
+        {
+          "q": "Can I import existing cURL commands?",
+          "a": "Yes. Paste a cURL command to parse it into the visual builder for editing."
+        },
+        {
+          "q": "What body formats are supported?",
+          "a": "JSON, form data, raw text, and multipart file uploads are all supported."
+        }
+      ]
+    },
+    "svg-optimizer": {
+      "whatIs": "SVG Optimizer reduces SVG file sizes by removing unnecessary data, optimizing paths, and cleaning up markup while maintaining visual quality.",
+      "howToUse": "Upload or paste your SVG code. See the optimized result with size reduction percentage. Download the optimized file or copy the code.",
+      "features": [
+        "Significant file size reduction",
+        "Preserve visual quality",
+        "Remove metadata and comments",
+        "Optimize paths and shapes"
+      ],
+      "faq": [
+        {
+          "q": "How much can file sizes be reduced?",
+          "a": "Typically 30-70% reduction depending on the SVG complexity and editor that created it."
+        },
+        {
+          "q": "Will optimization affect the SVG appearance?",
+          "a": "No. Optimization removes unnecessary data while preserving the visual output."
+        }
+      ]
+    },
+    "css-to-tailwind": {
+      "whatIs": "CSS to Tailwind converts standard CSS properties to Tailwind CSS utility classes. Speed up your migration to Tailwind or learn the equivalent classes.",
+      "howToUse": "Paste your CSS code in the input area. See the equivalent Tailwind classes generated. Copy individual classes or the complete conversion.",
+      "features": [
+        "Instant CSS to Tailwind conversion",
+        "Support for common CSS properties",
+        "Learn Tailwind class equivalents",
+        "Handle nested selectors"
+      ],
+      "faq": [
+        {
+          "q": "Does it support all CSS properties?",
+          "a": "Most common properties are supported. Some complex or custom properties may not have direct Tailwind equivalents."
+        },
+        {
+          "q": "Which Tailwind version is used?",
+          "a": "Tailwind CSS v3.x classes are generated by default."
+        }
+      ]
+    },
+    "prettier-playground": {
+      "whatIs": "Prettier Playground formats code in JavaScript, TypeScript, CSS, HTML, JSON, and more using the official Prettier formatter.",
+      "howToUse": "Paste your code, select the language, and see it formatted instantly. Customize Prettier options like tab width and quotes style.",
+      "features": [
+        "Multiple language support",
+        "Customizable formatting options",
+        "Real-time formatting",
+        "Official Prettier engine"
+      ],
+      "faq": [
+        {
+          "q": "Which languages are supported?",
+          "a": "JavaScript, TypeScript, CSS, HTML, JSON, Markdown, YAML, and GraphQL are supported."
+        },
+        {
+          "q": "Can I customize formatting rules?",
+          "a": "Yes. Configure tab width, semicolons, quotes, and other Prettier options."
+        }
+      ]
+    },
+    "unix-timestamp": {
+      "whatIs": "Unix Timestamp Converter transforms between Unix epoch timestamps and human-readable dates. Essential for debugging logs and working with APIs.",
+      "howToUse": "Enter a Unix timestamp to see the date, or pick a date to get the timestamp. Support for seconds and milliseconds precision.",
+      "features": [
+        "Bidirectional conversion",
+        "Multiple timezone support",
+        "Seconds and milliseconds precision",
+        "Current timestamp display"
+      ],
+      "faq": [
+        {
+          "q": "What is a Unix timestamp?",
+          "a": "It's the number of seconds elapsed since January 1, 1970 (Unix Epoch), used widely in computing."
+        },
+        {
+          "q": "Does it handle different timezones?",
+          "a": "Yes. Select your timezone or use UTC for consistent conversions."
+        }
+      ]
+    },
+    "box-shadow": {
+      "whatIs": "Box Shadow Generator creates CSS box-shadow effects with a visual editor. Design beautiful shadows and copy the CSS code directly.",
+      "howToUse": "Adjust shadow offset, blur, spread, and color using sliders. See the live preview and copy the generated CSS code.",
+      "features": [
+        "Visual shadow editor",
+        "Multiple shadow layers",
+        "Inset shadow support",
+        "Live CSS preview"
+      ],
+      "faq": [
+        {
+          "q": "Can I add multiple shadows?",
+          "a": "Yes. Layer multiple shadows to create complex depth effects."
+        },
+        {
+          "q": "Is the CSS cross-browser compatible?",
+          "a": "Yes. The generated CSS works in all modern browsers without vendor prefixes."
+        }
+      ]
+    },
+    "gradient-generator": {
+      "whatIs": "Gradient Generator creates CSS linear and radial gradients with a visual editor. Design beautiful color transitions for your web projects.",
+      "howToUse": "Add color stops, adjust positions, and set gradient direction. See the live preview and copy CSS code for use in your stylesheets.",
+      "features": [
+        "Linear and radial gradients",
+        "Multiple color stops",
+        "Angle and direction control",
+        "CSS and Tailwind output"
+      ],
+      "faq": [
+        {
+          "q": "Can I create radial gradients?",
+          "a": "Yes. Switch between linear and radial gradient types with full customization."
+        },
+        {
+          "q": "How many colors can I use?",
+          "a": "Unlimited. Add as many color stops as needed to create complex gradients."
+        }
+      ]
+    },
+    "app-icon-generator": {
+      "whatIs": "App Icon Generator creates all required icon sizes for iOS, Android, and web favicons from a single image. Save hours of manual resizing.",
+      "howToUse": "Upload your high-resolution icon (1024x1024 recommended). Select platforms and download a ZIP with all generated sizes.",
+      "features": [
+        "iOS and Android icon sets",
+        "Favicon and web app icons",
+        "All required sizes generated",
+        "ZIP download for convenience"
+      ],
+      "faq": [
+        {
+          "q": "What image size should I upload?",
+          "a": "Use 1024x1024 pixels for best quality across all generated sizes."
+        },
+        {
+          "q": "Which platforms are supported?",
+          "a": "iOS (all iPhone/iPad sizes), Android (mdpi to xxxhdpi), and web favicons."
+        }
+      ]
+    },
+    "ua-parser": {
+      "whatIs": "User Agent Parser analyzes browser user agent strings to extract browser name, version, operating system, and device information.",
+      "howToUse": "Paste a user agent string or use your current browser's UA. See the parsed information including browser, OS, and device details.",
+      "features": [
+        "Browser detection",
+        "Operating system identification",
+        "Device type recognition",
+        "Bot detection"
+      ],
+      "faq": [
+        {
+          "q": "What information can be extracted?",
+          "a": "Browser name/version, OS name/version, device type, and whether it's a bot."
+        },
+        {
+          "q": "Is user agent parsing reliable?",
+          "a": "Generally yes, but some browsers spoof UAs. Use for analytics, not security."
+        }
+      ]
+    },
+    "lorem-generator": {
+      "whatIs": "Lorem Ipsum Generator creates placeholder text for design mockups and development. Generate words, sentences, or paragraphs as needed.",
+      "howToUse": "Select the type (words, sentences, paragraphs) and quantity. Click generate to create placeholder text and copy to clipboard.",
+      "features": [
+        "Words, sentences, paragraphs",
+        "Custom quantity",
+        "Classic Lorem Ipsum text",
+        "One-click copy"
+      ],
+      "faq": [
+        {
+          "q": "What is Lorem Ipsum?",
+          "a": "It's placeholder text used in design since the 1500s, based on Latin literature."
+        },
+        {
+          "q": "Why use Lorem Ipsum instead of real text?",
+          "a": "It helps focus on visual design without the distraction of readable content."
+        }
+      ]
+    },
+    "url-encoder": {
+      "whatIs": "URL Encoder/Decoder converts special characters to URL-safe format (percent-encoding) and vice versa. Essential for working with web URLs and query strings.",
+      "howToUse": "Paste text to encode for URLs or paste encoded text to decode. Toggle between full encoding and component-only encoding.",
+      "features": [
+        "Encode special characters",
+        "Decode percent-encoded strings",
+        "Component and full URL modes",
+        "Handle Unicode characters"
+      ],
+      "faq": [
+        {
+          "q": "What characters need URL encoding?",
+          "a": "Spaces, special characters (&, =, ?, #), and non-ASCII characters need encoding."
+        },
+        {
+          "q": "What's the difference between encode modes?",
+          "a": "Component encoding is for query values; full encoding handles the entire URL string."
+        }
+      ]
+    },
+    "html-entity": {
+      "whatIs": "HTML Entity Encoder converts special characters to HTML entities and back. Prevent XSS attacks and display special characters correctly in web pages.",
+      "howToUse": "Enter text with special characters to encode, or paste HTML entities to decode. See the converted result and copy to use in your HTML.",
+      "features": [
+        "Named and numeric entities",
+        "Security-focused encoding",
+        "Handle all special characters",
+        "Bulk conversion"
+      ],
+      "faq": [
+        {
+          "q": "Why use HTML entities?",
+          "a": "To display characters like <, >, & correctly in HTML and prevent security issues."
+        },
+        {
+          "q": "What's the difference between named and numeric?",
+          "a": "Named (&amp;) is readable; numeric (&#38;) works for any Unicode character."
+        }
+      ]
+    }
+  }
+}
