@@ -1,15 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import * as prettier from "prettier/standalone";
-import * as parserBabel from "prettier/plugins/babel";
-import * as parserEstree from "prettier/plugins/estree";
-import * as parserTypescript from "prettier/plugins/typescript";
-import * as parserHtml from "prettier/plugins/html";
-import * as parserCss from "prettier/plugins/postcss";
-import * as parserMarkdown from "prettier/plugins/markdown";
-import * as parserYaml from "prettier/plugins/yaml";
-import * as parserGraphql from "prettier/plugins/graphql";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 export type Language =
   | "javascript"
@@ -66,17 +57,9 @@ const languageParserMap: Record<Language, string> = {
   graphql: "graphql",
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const plugins: any[] = [
-  parserBabel,
-  parserEstree,
-  parserTypescript,
-  parserHtml,
-  parserCss,
-  parserMarkdown,
-  parserYaml,
-  parserGraphql,
-];
+interface PrettierModule {
+  format: (code: string, options: Record<string, unknown>) => Promise<string>;
+}
 
 export function usePrettierPlayground() {
   const [inputCode, setInputCode] = useState("");
@@ -85,6 +68,60 @@ export function usePrettierPlayground() {
   const [options, setOptions] = useState<PrettierOptions>(defaultOptions);
   const [isFormatting, setIsFormatting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Store prettier and plugins in refs to avoid re-loading
+  const prettierRef = useRef<PrettierModule | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pluginsRef = useRef<any[] | null>(null);
+
+  // Load prettier and plugins dynamically
+  useEffect(() => {
+    const loadPrettier = async () => {
+      try {
+        const [
+          prettier,
+          parserBabel,
+          parserEstree,
+          parserTypescript,
+          parserHtml,
+          parserCss,
+          parserMarkdown,
+          parserYaml,
+          parserGraphql,
+        ] = await Promise.all([
+          import("prettier/standalone"),
+          import("prettier/plugins/babel"),
+          import("prettier/plugins/estree"),
+          import("prettier/plugins/typescript"),
+          import("prettier/plugins/html"),
+          import("prettier/plugins/postcss"),
+          import("prettier/plugins/markdown"),
+          import("prettier/plugins/yaml"),
+          import("prettier/plugins/graphql"),
+        ]);
+
+        prettierRef.current = prettier;
+        pluginsRef.current = [
+          parserBabel,
+          parserEstree,
+          parserTypescript,
+          parserHtml,
+          parserCss,
+          parserMarkdown,
+          parserYaml,
+          parserGraphql,
+        ];
+        setIsLoading(false);
+      } catch (err) {
+        console.error("Failed to load Prettier:", err);
+        setError("Prettier 로드 중 오류가 발생했습니다");
+        setIsLoading(false);
+      }
+    };
+
+    loadPrettier();
+  }, []);
 
   const updateOption = useCallback(
     <K extends keyof PrettierOptions>(key: K, value: PrettierOptions[K]) => {
@@ -104,13 +141,17 @@ export function usePrettierPlayground() {
       return;
     }
 
+    if (!prettierRef.current || !pluginsRef.current) {
+      return;
+    }
+
     setIsFormatting(true);
     setError(null);
 
     try {
-      const result = await prettier.format(inputCode, {
+      const result = await prettierRef.current.format(inputCode, {
         parser: languageParserMap[language],
-        plugins,
+        plugins: pluginsRef.current,
         ...options,
       });
       setOutputCode(result);
@@ -124,11 +165,13 @@ export function usePrettierPlayground() {
 
   // Auto-format on input/option change with debounce
   useEffect(() => {
+    if (isLoading) return;
+
     const timer = setTimeout(() => {
       format();
     }, 300);
     return () => clearTimeout(timer);
-  }, [format]);
+  }, [format, isLoading]);
 
   const generateConfig = useCallback(() => {
     const config: Record<string, unknown> = {};
@@ -207,7 +250,7 @@ hobbies:
     options,
     updateOption,
     resetOptions,
-    isFormatting,
+    isFormatting: isFormatting || isLoading,
     error,
     generateConfig,
     copyToClipboard,

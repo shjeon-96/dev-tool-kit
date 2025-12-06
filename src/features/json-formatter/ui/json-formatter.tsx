@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, Trash2, ClipboardPaste } from "lucide-react";
+import { Copy, Check, Trash2, ClipboardPaste, History, X } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
 
@@ -17,9 +17,14 @@ export function JsonFormatter() {
     handleCopy,
     handleClear,
     handlePaste,
+    history,
+    hasHistory,
+    clearHistory,
+    loadFromHistory,
   } = useJsonFormatter();
 
   const [copied, setCopied] = useState(false);
+  const [showHistory, setShowHistory] = useState(false);
 
   const onCopy = async () => {
     const success = await handleCopy();
@@ -34,6 +39,21 @@ export function JsonFormatter() {
     { mode: "minify", label: "Minify" },
     { mode: "validate", label: "Validate" },
   ];
+
+  const formatTimestamp = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString("ko-KR", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const truncateText = (text: string, maxLength: number = 50) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + "...";
+  };
 
   return (
     <div className="space-y-4">
@@ -67,7 +87,66 @@ export function JsonFormatter() {
           <Trash2 className="h-4 w-4 mr-1" />
           Clear
         </Button>
+
+        {hasHistory && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowHistory(!showHistory)}
+          >
+            <History className="h-4 w-4 mr-1" />
+            History
+          </Button>
+        )}
       </div>
+
+      {/* History Panel */}
+      {showHistory && hasHistory && (
+        <div className="rounded-md border bg-muted/30 p-4">
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-medium">Recent History</h3>
+            <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearHistory}
+                className="text-destructive hover:text-destructive"
+              >
+                <Trash2 className="h-3 w-3 mr-1" />
+                Clear All
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowHistory(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          <div className="space-y-2 max-h-48 overflow-y-auto">
+            {history.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  loadFromHistory(item.input, item.output);
+                  setShowHistory(false);
+                }}
+                className="w-full text-left p-2 rounded-md hover:bg-muted transition-colors text-sm"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs text-muted-foreground">
+                    {truncateText(item.input)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    {formatTimestamp(item.timestamp)}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Error display */}
       {error && (

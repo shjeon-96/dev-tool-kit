@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useToolHistory } from "@/shared/lib";
 import {
   formatJson,
   minifyJson,
@@ -15,6 +16,13 @@ export function useJsonFormatter() {
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [indent, setIndent] = useState(2);
+
+  const {
+    history,
+    addToHistory,
+    clearHistory,
+    hasHistory,
+  } = useToolHistory("json-formatter");
 
   const handleFormat = useCallback(
     (mode: FormatMode) => {
@@ -43,12 +51,14 @@ export function useJsonFormatter() {
       if (result.success) {
         setOutput(result.output);
         setError(null);
+        // 히스토리에 저장
+        addToHistory(input, result.output);
       } else {
         setError(result.error || "오류가 발생했습니다");
         setOutput("");
       }
     },
-    [input, indent]
+    [input, indent, addToHistory]
   );
 
   const handleCopy = useCallback(async () => {
@@ -77,6 +87,15 @@ export function useJsonFormatter() {
     }
   }, []);
 
+  const loadFromHistory = useCallback(
+    (historyInput: string, historyOutput: string) => {
+      setInput(historyInput);
+      setOutput(historyOutput);
+      setError(null);
+    },
+    []
+  );
+
   return {
     input,
     output,
@@ -88,5 +107,10 @@ export function useJsonFormatter() {
     handleCopy,
     handleClear,
     handlePaste,
+    // 히스토리 관련
+    history,
+    hasHistory,
+    clearHistory,
+    loadFromHistory,
   };
 }

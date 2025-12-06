@@ -211,21 +211,44 @@ const t = await getTranslations("tools");
 ## Shared Hooks
 
 ### useToolHistory
-도구별 입출력 기록 저장 (LocalStorage 기반)
+도구별 입출력 기록 저장 (LocalStorage 기반, 최대 20개)
 
 ```typescript
 import { useToolHistory } from "@/shared/lib";
 
-const { history, addToHistory, clearHistory } = useToolHistory("json-formatter");
+const {
+  history,           // HistoryItem[] - 기록 목록
+  hasHistory,        // boolean - 기록 존재 여부
+  addToHistory,      // (input, output) => void - 기록 추가
+  clearHistory,      // () => void - 전체 삭제
+  loadFromHistory,   // (input, output) => void - 기록 불러오기
+} = useToolHistory("json-formatter");
 
-// 기록 추가
-addToHistory(inputValue, outputValue);
-
-// 기록 조회
-history.forEach(item => {
-  console.log(item.input, item.output, item.timestamp);
-});
+// 적용된 도구: JSON Formatter
+// 사용법: History 버튼 클릭 → 이전 기록 선택
 ```
+
+## 광고 컴포넌트
+
+### AdUnit 컴포넌트
+```typescript
+import { AdUnit, AdSidebar, ToolResultAd } from "@/shared/ui";
+
+// 일반 광고 (자동 포맷)
+<AdUnit slot="SLOT_ID" format="auto" />
+
+// 사이드바 스티키 광고 (세로형)
+<AdSidebar slot="SLOT_ID" />
+
+// 도구 결과창 주변 광고 (가로형)
+<ToolResultAd slot="SLOT_ID" position="bottom" />
+```
+
+| 컴포넌트 | 위치 | 포맷 |
+|----------|------|------|
+| `AdUnit` | 범용 | auto/horizontal/vertical/rectangle |
+| `AdSidebar` | 사이드바 하단 (sticky) | vertical |
+| `ToolResultAd` | 결과창 상단/하단 | horizontal |
 
 ## Analytics
 
