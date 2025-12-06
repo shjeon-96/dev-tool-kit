@@ -23,6 +23,10 @@ import {
   Monitor,
   Regex,
   Tags,
+  Terminal,
+  FileImage,
+  Paintbrush,
+  Sparkles,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -169,6 +173,30 @@ export const tools: Record<ToolSlug, Tool> = {
     title: "Meta Tag Generator",
     description: "SEO용 메타 태그, Open Graph, Twitter Card를 생성합니다.",
     icon: Tags,
+    category: "text",
+  },
+  "curl-builder": {
+    title: "cURL Builder",
+    description: "HTTP 요청을 구성하고 cURL 명령어를 생성합니다.",
+    icon: Terminal,
+    category: "text",
+  },
+  "svg-optimizer": {
+    title: "SVG Optimizer",
+    description: "SVG 파일을 최적화하여 파일 크기를 줄입니다.",
+    icon: FileImage,
+    category: "media",
+  },
+  "css-to-tailwind": {
+    title: "CSS to Tailwind",
+    description: "CSS 속성을 Tailwind CSS 클래스로 변환합니다.",
+    icon: Paintbrush,
+    category: "converters",
+  },
+  "prettier-playground": {
+    title: "Prettier Playground",
+    description: "다양한 언어의 코드를 Prettier로 포맷팅합니다.",
+    icon: Sparkles,
     category: "text",
   },
 };

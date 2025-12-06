@@ -33,4 +33,8 @@ export type ToolSlug =
   | "gradient-generator"
   | "ua-parser"
   | "regex-tester"
-  | "meta-generator";
+  | "meta-generator"
+  | "curl-builder"
+  | "svg-optimizer"
+  | "css-to-tailwind"
+  | "prettier-playground";

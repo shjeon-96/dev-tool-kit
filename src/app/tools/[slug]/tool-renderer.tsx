@@ -105,6 +105,25 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/meta-generator").then((mod) => mod.MetaGenerator),
     { ssr: false }
   ),
+  "curl-builder": dynamic(
+    () => import("@/features/curl-builder").then((mod) => mod.CurlBuilder),
+    { ssr: false }
+  ),
+  "svg-optimizer": dynamic(
+    () => import("@/features/svg-optimizer").then((mod) => mod.SvgOptimizer),
+    { ssr: false }
+  ),
+  "css-to-tailwind": dynamic(
+    () => import("@/features/css-to-tailwind").then((mod) => mod.CssToTailwind),
+    { ssr: false }
+  ),
+  "prettier-playground": dynamic(
+    () =>
+      import("@/features/prettier-playground").then(
+        (mod) => mod.PrettierPlayground
+      ),
+    { ssr: false }
+  ),
 };
 
 function ToolSkeleton() {
