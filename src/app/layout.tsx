@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     google: "UbK-cRKd2S1F-xeGfKZsoDQqr5t9EXk8upUmWhqLb0w",
     other: {
       "naver-site-verification": "12d9409b0e0f7faf6b74da7f2bc059e6a6683a37",
+      "google-adsense-account": "ca-pub-4981986991458105",
     },
   },
 };
