@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { tools, type ToolSlug } from "@/entities/tool";
+import { tools, ToolSeoSection, type ToolSlug } from "@/entities/tool";
 import { ToolRenderer } from "./tool-renderer";
 
 interface Props {
@@ -58,6 +58,8 @@ export default async function ToolPage({ params }: Props) {
       <div className="rounded-lg border p-6">
         <ToolRenderer slug={slug as ToolSlug} />
       </div>
+
+      <ToolSeoSection slug={slug as ToolSlug} />
     </div>
   );
 }

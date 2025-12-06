@@ -13,7 +13,7 @@ export function Footer() {
             개인정보처리방침
           </Link>
           <Link
-            href="https://github.com/jsh-me"
+            href="https://github.com/shjeon-96"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline hover:text-foreground transition-colors"
