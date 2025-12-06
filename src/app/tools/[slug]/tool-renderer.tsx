@@ -41,6 +41,38 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/color-picker").then((mod) => mod.ColorPicker),
     { ssr: false }
   ),
+  "url-parser": dynamic(
+    () => import("@/features/url-parser").then((mod) => mod.UrlParser),
+    { ssr: false }
+  ),
+  "uuid-generator": dynamic(
+    () => import("@/features/uuid-generator").then((mod) => mod.UuidGenerator),
+    { ssr: false }
+  ),
+  "base-converter": dynamic(
+    () => import("@/features/base-converter").then((mod) => mod.BaseConverter),
+    { ssr: false }
+  ),
+  "hash-generator": dynamic(
+    () => import("@/features/hash-generator").then((mod) => mod.HashGenerator),
+    { ssr: false }
+  ),
+  "sql-formatter": dynamic(
+    () => import("@/features/sql-formatter").then((mod) => mod.SqlFormatter),
+    { ssr: false }
+  ),
+  "cron-parser": dynamic(
+    () => import("@/features/cron-parser").then((mod) => mod.CronParser),
+    { ssr: false }
+  ),
+  "markdown-preview": dynamic(
+    () => import("@/features/markdown-preview").then((mod) => mod.MarkdownPreview),
+    { ssr: false }
+  ),
+  "diff-checker": dynamic(
+    () => import("@/features/diff-checker").then((mod) => mod.DiffChecker),
+    { ssr: false }
+  ),
 };
 
 function ToolSkeleton() {

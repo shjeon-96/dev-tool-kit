@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import cronstrue from "cronstrue/i18n";
-import { parseExpression } from "cron-parser";
+import cronParser from "cron-parser";
 
 export interface CronPreset {
   label: string;
@@ -56,7 +56,7 @@ export function useCronParser() {
     if (!expression.trim() || error) return [];
 
     try {
-      const interval = parseExpression(expression);
+      const interval = cronParser.parse(expression);
       const executions: Date[] = [];
 
       for (let i = 0; i < nextCount; i++) {

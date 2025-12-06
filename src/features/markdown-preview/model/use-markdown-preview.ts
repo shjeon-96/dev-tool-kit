@@ -48,7 +48,16 @@ function hello() {
 export function useMarkdownPreview() {
   const [input, setInput] = useState(sampleMarkdown);
 
-  const md = useMemo(() => {
+  const md: MarkdownIt = useMemo(() => {
+    const escapeHtml = (str: string) => {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
     return new MarkdownIt({
       html: true,
       linkify: true,
@@ -65,9 +74,7 @@ export function useMarkdownPreview() {
             // Ignore highlighting errors
           }
         }
-        return (
-          '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + "</code></pre>"
-        );
+        return '<pre class="hljs"><code>' + escapeHtml(str) + "</code></pre>";
       },
     });
   }, []);

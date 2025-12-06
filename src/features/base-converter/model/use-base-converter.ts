@@ -53,7 +53,7 @@ export function useBaseConverter() {
       }
 
       // Handle negative numbers for display
-      const isNegative = decimalValue < 0n;
+      const isNegative = decimalValue < BigInt(0);
       const absValue = isNegative ? -decimalValue : decimalValue;
 
       return {

@@ -17,4 +17,12 @@ export type ToolSlug =
   | "base64-converter"
   | "app-icon-generator"
   | "qr-generator"
-  | "color-picker";
+  | "color-picker"
+  | "url-parser"
+  | "uuid-generator"
+  | "base-converter"
+  | "hash-generator"
+  | "sql-formatter"
+  | "cron-parser"
+  | "markdown-preview"
+  | "diff-checker";
