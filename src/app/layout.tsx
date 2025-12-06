@@ -33,11 +33,20 @@ export const metadata: Metadata = {
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
     siteName: SITE_CONFIG.title,
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: SITE_CONFIG.title,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
+    images: ["/api/og"],
   },
   verification: {
     google: "UbK-cRKd2S1F-xeGfKZsoDQqr5t9EXk8upUmWhqLb0w",
@@ -55,9 +64,32 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
+      <head>
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-NKT5P48C');
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NKT5P48C"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4981986991458105"
@@ -71,11 +103,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <a href="#main-content" className="skip-link">
+            본문으로 건너뛰기
+          </a>
           <div className="flex h-screen bg-background">
-            <aside className="hidden w-64 flex-col md:flex">
+            <aside className="hidden w-64 flex-col md:flex" aria-label="사이드바 네비게이션">
               <Sidebar />
             </aside>
-            <main className="flex-1 flex flex-col overflow-hidden">
+            <main id="main-content" className="flex-1 flex flex-col overflow-hidden" role="main">
               <Header />
               <div className="flex-1 overflow-y-auto p-6">{children}</div>
               <Footer />
