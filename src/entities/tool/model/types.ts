@@ -25,4 +25,12 @@ export type ToolSlug =
   | "sql-formatter"
   | "cron-parser"
   | "markdown-preview"
-  | "diff-checker";
+  | "diff-checker"
+  | "lorem-generator"
+  | "url-encoder"
+  | "html-entity"
+  | "box-shadow"
+  | "gradient-generator"
+  | "ua-parser"
+  | "regex-tester"
+  | "meta-generator";

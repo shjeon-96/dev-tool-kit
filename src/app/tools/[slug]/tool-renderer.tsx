@@ -73,6 +73,38 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/diff-checker").then((mod) => mod.DiffChecker),
     { ssr: false }
   ),
+  "lorem-generator": dynamic(
+    () => import("@/features/lorem-generator").then((mod) => mod.LoremGenerator),
+    { ssr: false }
+  ),
+  "url-encoder": dynamic(
+    () => import("@/features/url-encoder").then((mod) => mod.UrlEncoder),
+    { ssr: false }
+  ),
+  "html-entity": dynamic(
+    () => import("@/features/html-entity").then((mod) => mod.HtmlEntity),
+    { ssr: false }
+  ),
+  "box-shadow": dynamic(
+    () => import("@/features/box-shadow").then((mod) => mod.BoxShadow),
+    { ssr: false }
+  ),
+  "gradient-generator": dynamic(
+    () => import("@/features/gradient-generator").then((mod) => mod.GradientGenerator),
+    { ssr: false }
+  ),
+  "ua-parser": dynamic(
+    () => import("@/features/ua-parser").then((mod) => mod.UAParser),
+    { ssr: false }
+  ),
+  "regex-tester": dynamic(
+    () => import("@/features/regex-tester").then((mod) => mod.RegexTester),
+    { ssr: false }
+  ),
+  "meta-generator": dynamic(
+    () => import("@/features/meta-generator").then((mod) => mod.MetaGenerator),
+    { ssr: false }
+  ),
 };
 
 function ToolSkeleton() {

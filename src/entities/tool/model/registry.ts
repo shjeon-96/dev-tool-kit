@@ -15,6 +15,14 @@ import {
   FileText,
   GitCompare,
   Calculator,
+  TextCursorInput,
+  Link2,
+  Code,
+  Square,
+  Blend,
+  Monitor,
+  Regex,
+  Tags,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -113,6 +121,54 @@ export const tools: Record<ToolSlug, Tool> = {
     title: "Diff Checker",
     description: "두 텍스트의 차이점을 비교하고 변경 사항을 시각화합니다.",
     icon: GitCompare,
+    category: "text",
+  },
+  "lorem-generator": {
+    title: "Lorem Ipsum Generator",
+    description: "더미 텍스트를 단어, 문장, 문단 단위로 생성합니다.",
+    icon: TextCursorInput,
+    category: "text",
+  },
+  "url-encoder": {
+    title: "URL Encoder/Decoder",
+    description: "URL을 인코딩하거나 디코딩합니다.",
+    icon: Link2,
+    category: "converters",
+  },
+  "html-entity": {
+    title: "HTML Entity Encoder",
+    description: "HTML 특수문자를 엔티티로 인코딩/디코딩합니다.",
+    icon: Code,
+    category: "converters",
+  },
+  "box-shadow": {
+    title: "Box Shadow Generator",
+    description: "CSS box-shadow를 시각적으로 편집하고 코드를 생성합니다.",
+    icon: Square,
+    category: "media",
+  },
+  "gradient-generator": {
+    title: "Gradient Generator",
+    description: "CSS 그라디언트를 시각적으로 편집하고 코드를 생성합니다.",
+    icon: Blend,
+    category: "media",
+  },
+  "ua-parser": {
+    title: "User Agent Parser",
+    description: "User Agent 문자열을 분석하여 브라우저, OS, 디바이스 정보를 확인합니다.",
+    icon: Monitor,
+    category: "text",
+  },
+  "regex-tester": {
+    title: "Regex Tester",
+    description: "정규식을 테스트하고 매칭 결과를 실시간으로 확인합니다.",
+    icon: Regex,
+    category: "text",
+  },
+  "meta-generator": {
+    title: "Meta Tag Generator",
+    description: "SEO용 메타 태그, Open Graph, Twitter Card를 생성합니다.",
+    icon: Tags,
     category: "text",
   },
 };

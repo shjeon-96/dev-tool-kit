@@ -26,5 +26,6 @@ export {
 export { Slider } from "./slider";
 export { Switch } from "./switch";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
+export { Textarea } from "./textarea";
 export { ThemeProvider } from "./theme-provider";
 export { JsonLd } from "./json-ld";
