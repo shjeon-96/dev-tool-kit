@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Sidebar } from "@/widgets/sidebar";
 import { Header } from "@/widgets/header";
 import { ThemeProvider, JsonLd } from "@/shared/ui";
@@ -55,6 +56,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
       >
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4981986991458105"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <JsonLd />
         <ThemeProvider
           attribute="class"
