@@ -42,7 +42,11 @@
     "error": "오류",
     "success": "성공",
     "loading": "로딩 중...",
-    "noData": "데이터 없음"
+    "noData": "데이터 없음",
+    "searchTools": "도구 검색...",
+    "searchPlaceholder": "도구 이름을 입력하세요...",
+    "noResults": "결과가 없습니다.",
+    "tools": "도구"
   },
   "tools": {
     "json-formatter": {

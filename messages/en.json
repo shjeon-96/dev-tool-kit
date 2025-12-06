@@ -42,7 +42,11 @@
     "error": "Error",
     "success": "Success",
     "loading": "Loading...",
-    "noData": "No data"
+    "noData": "No data",
+    "searchTools": "Search tools...",
+    "searchPlaceholder": "Type a tool name...",
+    "noResults": "No results found.",
+    "tools": "Tools"
   },
   "tools": {
     "json-formatter": {
