@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useToolHistory } from "@/shared/lib";
 
 export interface DecodedToken {
   header: Record<string, unknown>;
@@ -17,7 +18,14 @@ export function useJwtDecoder() {
   const [error, setError] = useState<string | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
 
-  const decodeToken = useCallback((token: string) => {
+  const {
+    history,
+    addToHistory,
+    clearHistory,
+    hasHistory,
+  } = useToolHistory("jwt-decoder");
+
+  const decodeToken = useCallback((token: string, saveToHistory: boolean = true) => {
     if (!token.trim()) {
       setDecoded(null);
       setError(null);
@@ -48,11 +56,17 @@ export function useJwtDecoder() {
         issuedAt,
       });
       setError(null);
+
+      // 히스토리에 저장 (JWT 앞부분만 저장하여 보안 유지)
+      if (saveToHistory) {
+        const truncatedToken = token.length > 50 ? token.substring(0, 50) + "..." : token;
+        addToHistory(truncatedToken, JSON.stringify(payload, null, 2));
+      }
     } catch (e) {
       setDecoded(null);
       setError(e instanceof Error ? e.message : "Invalid JWT token");
     }
-  }, []);
+  }, [addToHistory]);
 
   const handleInputChange = useCallback(
     (value: string) => {
@@ -111,6 +125,27 @@ export function useJwtDecoder() {
     return () => clearInterval(interval);
   }, [decoded?.expiresAt, decoded?.isExpired]);
 
+  const loadFromHistory = useCallback(
+    (historyInput: string, historyOutput: string) => {
+      // 히스토리에서 불러올 때는 출력 결과만 표시
+      setInput(historyInput);
+      try {
+        const payload = JSON.parse(historyOutput);
+        setDecoded({
+          header: {},
+          payload,
+          isExpired: false,
+          expiresAt: null,
+          issuedAt: null,
+        });
+        setError(null);
+      } catch {
+        setError("Failed to load from history");
+      }
+    },
+    []
+  );
+
   return {
     input,
     decoded,
@@ -119,5 +154,10 @@ export function useJwtDecoder() {
     handleInputChange,
     handleClear,
     handlePaste,
+    // 히스토리 관련
+    history,
+    hasHistory,
+    clearHistory,
+    loadFromHistory,
   };
 }

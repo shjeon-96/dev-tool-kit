@@ -12,7 +12,7 @@ import {
   TabsTrigger,
   TabsContent,
 } from "@/shared/ui";
-import { Copy, Check, RotateCcw, FileText, Type, CheckCircle, XCircle } from "lucide-react";
+import { Copy, Check, RotateCcw, FileText, Type, CheckCircle, XCircle, History, Trash2, X } from "lucide-react";
 
 export function HashGenerator() {
   const {
@@ -30,9 +30,29 @@ export function HashGenerator() {
     compareWithHash,
     copyToClipboard,
     handleClear,
+    history,
+    hasHistory,
+    clearHistory,
+    loadFromHistory,
   } = useHashGenerator();
 
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
+
+  const formatTimestamp = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString("ko-KR", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const truncateText = (text: string, maxLength: number = 30) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + "...";
+  };
 
   const handleCopy = async (text: string, index: number) => {
     const success = await copyToClipboard(text);
@@ -62,11 +82,71 @@ export function HashGenerator() {
               파일
             </TabsTrigger>
           </TabsList>
-          <Button variant="outline" size="sm" onClick={handleClear}>
-            <RotateCcw className="h-4 w-4 mr-2" />
-            초기화
-          </Button>
+          <div className="flex gap-2">
+            {hasHistory && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowHistory(!showHistory)}
+              >
+                <History className="h-4 w-4 mr-2" />
+                History
+              </Button>
+            )}
+            <Button variant="outline" size="sm" onClick={handleClear}>
+              <RotateCcw className="h-4 w-4 mr-2" />
+              초기화
+            </Button>
+          </div>
         </div>
+
+        {/* History Panel */}
+        {showHistory && hasHistory && (
+          <div className="rounded-md border bg-muted/30 p-4 mt-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-medium">Recent History</h3>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearHistory}
+                  className="text-destructive hover:text-destructive"
+                >
+                  <Trash2 className="h-3 w-3 mr-1" />
+                  Clear All
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowHistory(false)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {history.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => {
+                    loadFromHistory(item.input, item.output);
+                    setShowHistory(false);
+                  }}
+                  className="w-full text-left p-2 rounded-md hover:bg-muted transition-colors text-sm"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs text-muted-foreground">
+                      {truncateText(item.input)}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {formatTimestamp(item.timestamp)}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Text Input */}
         <TabsContent value="text" className="space-y-4">

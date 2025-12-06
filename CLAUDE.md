@@ -18,7 +18,7 @@ npm run analyze  # 번들 분석 (ANALYZE=true)
 - **Next.js 16** (App Router) + **React 19** + **TypeScript** (strict)
 - **Tailwind CSS v4** + **shadcn/ui** (Radix UI)
 - **Zustand** (상태), **Framer Motion** (애니메이션), **next-themes** (다크모드)
-- **next-intl** (i18n, `messages/ko.json`, `messages/en.json`)
+- **next-intl** (i18n, `messages/en.json`, `messages/ko.json`, `messages/ja.json`)
 - **next-pwa** (PWA 지원, 오프라인, 앱 설치)
 
 ## Architecture (FSD)
@@ -173,8 +173,14 @@ const sortedCategories = getSortedCategories();
 ## i18n 구조
 
 ### 번역 파일
-- `messages/en.json` - 영어
+- `messages/en.json` - 영어 (기본값)
 - `messages/ko.json` - 한국어
+- `messages/ja.json` - 일본어
+
+### 언어 추가 방법
+1. `messages/` 폴더에 새 언어 파일 생성 (예: `messages/es.json`)
+2. `src/i18n/routing.ts`에 locale 추가: `locales: ["en", "ko", "ja", "es"]`
+3. `src/widgets/header/ui/language-switcher.tsx`에 언어 옵션 추가
 
 ### 주요 네임스페이스
 | Namespace | 용도 |
@@ -224,7 +230,7 @@ const {
   loadFromHistory,   // (input, output) => void - 기록 불러오기
 } = useToolHistory("json-formatter");
 
-// 적용된 도구: JSON Formatter
+// 적용된 도구: JSON Formatter, JWT Decoder, Hash Generator
 // 사용법: History 버튼 클릭 → 이전 기록 선택
 ```
 
