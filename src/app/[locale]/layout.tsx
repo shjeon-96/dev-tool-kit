@@ -7,7 +7,7 @@ import Script from "next/script";
 import { Sidebar } from "@/widgets/sidebar";
 import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
-import { ThemeProvider, JsonLd } from "@/shared/ui";
+import { ThemeProvider, JsonLd, ClarityScript } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -169,6 +169,7 @@ export default async function LocaleLayout({
           strategy="afterInteractive"
         />
         <JsonLd />
+        <ClarityScript />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider
             attribute="class"

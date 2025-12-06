@@ -8,6 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev      # 개발 서버 (http://localhost:3000)
 npm run build    # 프로덕션 빌드
 npm run lint     # ESLint
+npm run analyze  # 번들 분석 (ANALYZE=true)
 ```
 
 **Node.js 20+ 필수** (`nvm use 20`)
@@ -18,6 +19,7 @@ npm run lint     # ESLint
 - **Tailwind CSS v4** + **shadcn/ui** (Radix UI)
 - **Zustand** (상태), **Framer Motion** (애니메이션), **next-themes** (다크모드)
 - **next-intl** (i18n, `messages/ko.json`, `messages/en.json`)
+- **next-pwa** (PWA 지원, 오프라인, 앱 설치)
 
 ## Architecture (FSD)
 
@@ -198,3 +200,36 @@ import { getTranslations } from "next-intl/server";
 
 const t = await getTranslations("tools");
 ```
+
+## PWA
+
+- **manifest.json**: `public/manifest.json`
+- **아이콘**: `public/icons/` (72x72 ~ 512x512)
+- **아이콘 생성**: `node scripts/generate-icons.mjs`
+- **설정**: `next.config.ts` (next-pwa)
+
+## Shared Hooks
+
+### useToolHistory
+도구별 입출력 기록 저장 (LocalStorage 기반)
+
+```typescript
+import { useToolHistory } from "@/shared/lib";
+
+const { history, addToHistory, clearHistory } = useToolHistory("json-formatter");
+
+// 기록 추가
+addToHistory(inputValue, outputValue);
+
+// 기록 조회
+history.forEach(item => {
+  console.log(item.input, item.output, item.timestamp);
+});
+```
+
+## Analytics
+
+- **Google Analytics**: GA4 (G-BHCZK28NQQ)
+- **Google Tag Manager**: GTM-NKT5P48C
+- **Microsoft Clarity**: 환경변수 `NEXT_PUBLIC_CLARITY_ID` 설정 시 활성화
+- **AdSense**: ca-pub-4981986991458105
