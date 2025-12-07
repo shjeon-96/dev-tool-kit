@@ -768,6 +768,30 @@
     "react": {
       "title": "React 치트시트",
       "description": "React 참조 - 컴포넌트, 훅(useState, useEffect, useRef), Context, 패턴, React 18/19 기능"
+    },
+    "vue": {
+      "title": "Vue.js 치트시트",
+      "description": "Vue 3 참조 - Composition API, 반응성, 디렉티브, 라이프사이클 훅, Pinia, Vue Router"
+    },
+    "nextjs": {
+      "title": "Next.js 치트시트",
+      "description": "Next.js App Router 참조 - 서버 컴포넌트, 라우팅, 메타데이터, 캐싱, API 라우트"
+    },
+    "tailwind": {
+      "title": "Tailwind CSS 치트시트",
+      "description": "Tailwind CSS 참조 - 유틸리티 클래스, Flexbox, Grid, 반응형 디자인, 커스텀 값"
+    },
+    "nodejs": {
+      "title": "Node.js 치트시트",
+      "description": "Node.js 참조 - fs, path, http, process, events, child_process, 내장 모듈"
+    },
+    "docker": {
+      "title": "Docker 치트시트",
+      "description": "Docker 참조 - 컨테이너, 이미지, Dockerfile, docker-compose, 네트워크, 볼륨"
+    },
+    "bash": {
+      "title": "Bash/Shell 치트시트",
+      "description": "Bash 참조 - 명령어, 파일 작업, 파이프, 스크립팅, 시스템 관리"
     }
   }
 }

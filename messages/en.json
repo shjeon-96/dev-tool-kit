@@ -768,6 +768,30 @@
     "react": {
       "title": "React Cheatsheet",
       "description": "React reference - components, hooks (useState, useEffect, useRef), context, patterns, and React 18/19 features."
+    },
+    "vue": {
+      "title": "Vue.js Cheatsheet",
+      "description": "Vue 3 reference - Composition API, reactivity, directives, lifecycle hooks, Pinia, and Vue Router."
+    },
+    "nextjs": {
+      "title": "Next.js Cheatsheet",
+      "description": "Next.js App Router reference - server components, routing, metadata, caching, and API routes."
+    },
+    "tailwind": {
+      "title": "Tailwind CSS Cheatsheet",
+      "description": "Tailwind CSS reference - utility classes, flexbox, grid, responsive design, and custom values."
+    },
+    "nodejs": {
+      "title": "Node.js Cheatsheet",
+      "description": "Node.js reference - fs, path, http, process, events, child_process, and built-in modules."
+    },
+    "docker": {
+      "title": "Docker Cheatsheet",
+      "description": "Docker reference - containers, images, Dockerfile, docker-compose, networks, and volumes."
+    },
+    "bash": {
+      "title": "Bash/Shell Cheatsheet",
+      "description": "Bash reference - commands, file operations, pipes, scripting, and system administration."
     }
   }
 }

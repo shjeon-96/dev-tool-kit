@@ -10,6 +10,12 @@ import {
   Palette,
   FileType,
   Atom,
+  Triangle,
+  Hexagon,
+  Wind,
+  Server,
+  Container,
+  Terminal,
 } from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -68,6 +74,42 @@ const cheatsheets = [
     icon: Atom,
     color: "text-cyan-500",
     bgColor: "bg-cyan-500/10",
+  },
+  {
+    slug: "vue",
+    icon: Triangle,
+    color: "text-emerald-500",
+    bgColor: "bg-emerald-500/10",
+  },
+  {
+    slug: "nextjs",
+    icon: Hexagon,
+    color: "text-neutral-700 dark:text-neutral-300",
+    bgColor: "bg-neutral-700/10 dark:bg-neutral-300/10",
+  },
+  {
+    slug: "tailwind",
+    icon: Wind,
+    color: "text-sky-500",
+    bgColor: "bg-sky-500/10",
+  },
+  {
+    slug: "nodejs",
+    icon: Server,
+    color: "text-green-600",
+    bgColor: "bg-green-600/10",
+  },
+  {
+    slug: "docker",
+    icon: Container,
+    color: "text-blue-400",
+    bgColor: "bg-blue-400/10",
+  },
+  {
+    slug: "bash",
+    icon: Terminal,
+    color: "text-gray-600 dark:text-gray-400",
+    bgColor: "bg-gray-600/10 dark:bg-gray-400/10",
   },
 ];
 

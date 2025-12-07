@@ -10,4 +10,10 @@ export {
   cssSyntax,
   typescriptSyntax,
   reactSyntax,
+  vueSyntax,
+  nextjsSyntax,
+  tailwindSyntax,
+  nodejsSyntax,
+  dockerSyntax,
+  bashSyntax,
 } from "./data";

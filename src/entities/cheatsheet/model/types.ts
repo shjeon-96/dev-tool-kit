@@ -21,7 +21,13 @@ export type CheatsheetSlug =
   | "javascript"
   | "css"
   | "typescript"
-  | "react";
+  | "react"
+  | "vue"
+  | "nextjs"
+  | "tailwind"
+  | "nodejs"
+  | "docker"
+  | "bash";
 
 export const CHEATSHEET_SLUGS: CheatsheetSlug[] = [
   "git",
@@ -32,4 +38,10 @@ export const CHEATSHEET_SLUGS: CheatsheetSlug[] = [
   "css",
   "typescript",
   "react",
+  "vue",
+  "nextjs",
+  "tailwind",
+  "nodejs",
+  "docker",
+  "bash",
 ] as const;

@@ -775,6 +775,30 @@
     "react": {
       "title": "React チートシート",
       "description": "Reactリファレンス - コンポーネント、フック（useState、useEffect、useRef）、Context、パターン、React 18/19機能"
+    },
+    "vue": {
+      "title": "Vue.js チートシート",
+      "description": "Vue 3リファレンス - Composition API、リアクティビティ、ディレクティブ、ライフサイクルフック、Pinia、Vue Router"
+    },
+    "nextjs": {
+      "title": "Next.js チートシート",
+      "description": "Next.js App Routerリファレンス - サーバーコンポーネント、ルーティング、メタデータ、キャッシュ、APIルート"
+    },
+    "tailwind": {
+      "title": "Tailwind CSS チートシート",
+      "description": "Tailwind CSSリファレンス - ユーティリティクラス、Flexbox、Grid、レスポンシブデザイン、カスタム値"
+    },
+    "nodejs": {
+      "title": "Node.js チートシート",
+      "description": "Node.jsリファレンス - fs、path、http、process、events、child_process、組み込みモジュール"
+    },
+    "docker": {
+      "title": "Docker チートシート",
+      "description": "Dockerリファレンス - コンテナ、イメージ、Dockerfile、docker-compose、ネットワーク、ボリューム"
+    },
+    "bash": {
+      "title": "Bash/Shell チートシート",
+      "description": "Bashリファレンス - コマンド、ファイル操作、パイプ、スクリプティング、システム管理"
     }
   }
 }
