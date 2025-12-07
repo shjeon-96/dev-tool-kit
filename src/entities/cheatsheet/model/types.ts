@@ -13,11 +13,21 @@ export interface Cheatsheet {
   items: CheatsheetItem[];
 }
 
-export type CheatsheetSlug = "git" | "http-status" | "regex" | "mime-types";
+export type CheatsheetSlug =
+  | "git"
+  | "http-status"
+  | "regex"
+  | "mime-types"
+  | "javascript"
+  | "css"
+  | "typescript";
 
 export const CHEATSHEET_SLUGS: CheatsheetSlug[] = [
   "git",
   "http-status",
   "regex",
   "mime-types",
+  "javascript",
+  "css",
+  "typescript",
 ] as const;

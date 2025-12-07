@@ -1,7 +1,15 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { GitBranch, Globe, Hash, FileCode } from "lucide-react";
+import {
+  GitBranch,
+  Globe,
+  Hash,
+  FileCode,
+  Braces,
+  Palette,
+  FileType,
+} from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("cheatsheets");
@@ -35,6 +43,24 @@ const cheatsheets = [
     icon: FileCode,
     color: "text-purple-500",
     bgColor: "bg-purple-500/10",
+  },
+  {
+    slug: "javascript",
+    icon: Braces,
+    color: "text-yellow-500",
+    bgColor: "bg-yellow-500/10",
+  },
+  {
+    slug: "css",
+    icon: Palette,
+    color: "text-pink-500",
+    bgColor: "bg-pink-500/10",
+  },
+  {
+    slug: "typescript",
+    icon: FileType,
+    color: "text-blue-600",
+    bgColor: "bg-blue-600/10",
   },
 ];
 

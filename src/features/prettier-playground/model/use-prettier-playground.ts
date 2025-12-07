@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
 
 export type Language =
   | "javascript"
@@ -127,7 +127,7 @@ export function usePrettierPlayground() {
     <K extends keyof PrettierOptions>(key: K, value: PrettierOptions[K]) => {
       setOptions((prev) => ({ ...prev, [key]: value }));
     },
-    []
+    [],
   );
 
   const resetOptions = useCallback(() => {
@@ -156,7 +156,9 @@ export function usePrettierPlayground() {
       });
       setOutputCode(result);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "포맷팅 중 오류가 발생했습니다");
+      setError(
+        err instanceof Error ? err.message : "포맷팅 중 오류가 발생했습니다",
+      );
       setOutputCode("");
     } finally {
       setIsFormatting(false);
@@ -182,12 +184,16 @@ export function usePrettierPlayground() {
     if (options.useTabs) config.useTabs = options.useTabs;
     if (!options.semi) config.semi = options.semi;
     if (options.singleQuote) config.singleQuote = options.singleQuote;
-    if (options.quoteProps !== "as-needed") config.quoteProps = options.quoteProps;
+    if (options.quoteProps !== "as-needed")
+      config.quoteProps = options.quoteProps;
     if (options.jsxSingleQuote) config.jsxSingleQuote = options.jsxSingleQuote;
-    if (options.trailingComma !== "all") config.trailingComma = options.trailingComma;
+    if (options.trailingComma !== "all")
+      config.trailingComma = options.trailingComma;
     if (!options.bracketSpacing) config.bracketSpacing = options.bracketSpacing;
-    if (options.bracketSameLine) config.bracketSameLine = options.bracketSameLine;
-    if (options.arrowParens !== "always") config.arrowParens = options.arrowParens;
+    if (options.bracketSameLine)
+      config.bracketSameLine = options.bracketSameLine;
+    if (options.arrowParens !== "always")
+      config.arrowParens = options.arrowParens;
     if (options.proseWrap !== "preserve") config.proseWrap = options.proseWrap;
     if (options.htmlWhitespaceSensitivity !== "css")
       config.htmlWhitespaceSensitivity = options.htmlWhitespaceSensitivity;
@@ -205,22 +211,23 @@ export function usePrettierPlayground() {
     }
   }, []);
 
-  const exampleCode: Record<Language, string> = {
-    javascript: `const hello = (name) => {console.log("Hello, " + name + "!")}
+  const exampleCode: Record<Language, string> = useMemo(
+    () => ({
+      javascript: `const hello = (name) => {console.log("Hello, " + name + "!")}
 function add(a,b){return a+b}
 const arr=[1,2,3,4,5].map(x=>x*2).filter(x=>x>5)`,
-    typescript: `interface User {name:string;age:number;email?:string}
+      typescript: `interface User {name:string;age:number;email?:string}
 const greet = (user: User): string => {return \`Hello, \${user.name}!\`}
 type Result<T> = {success:boolean;data:T|null;error?:string}`,
-    json: `{"name":"John","age":30,"address":{"city":"Seoul","country":"Korea"},"hobbies":["reading","coding","gaming"]}`,
-    html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Hello</title></head><body><div class="container"><h1>Hello World</h1><p>This is a paragraph</p></div></body></html>`,
-    css: `.container{display:flex;justify-content:center;align-items:center;padding:20px;margin:10px auto;background-color:#f0f0f0;border-radius:8px}`,
-    markdown: `# Title
+      json: `{"name":"John","age":30,"address":{"city":"Seoul","country":"Korea"},"hobbies":["reading","coding","gaming"]}`,
+      html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Hello</title></head><body><div class="container"><h1>Hello World</h1><p>This is a paragraph</p></div></body></html>`,
+      css: `.container{display:flex;justify-content:center;align-items:center;padding:20px;margin:10px auto;background-color:#f0f0f0;border-radius:8px}`,
+      markdown: `# Title
 This is a paragraph with **bold** and *italic* text.
 - Item 1
 - Item 2
   - Nested item`,
-    yaml: `name: John Doe
+      yaml: `name: John Doe
 age: 30
 address:
   city: Seoul
@@ -228,8 +235,10 @@ address:
 hobbies:
   - reading
   - coding`,
-    graphql: `query GetUser($id: ID!) {user(id: $id) {id name email posts {title content}}}`,
-  };
+      graphql: `query GetUser($id: ID!) {user(id: $id) {id name email posts {title content}}}`,
+    }),
+    [],
+  );
 
   const loadExample = useCallback(() => {
     setInputCode(exampleCode[language]);

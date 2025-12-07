@@ -759,6 +759,18 @@
     "mime-types": {
       "title": "MIMEタイプリファレンス",
       "description": "ウェブ開発で一般的なMIMEタイプ - text、image、audio、video、application"
+    },
+    "javascript": {
+      "title": "JavaScript チートシート",
+      "description": "JavaScript完全リファレンス - 変数、配列、オブジェクト、関数、async/await、クラス、ES6+機能"
+    },
+    "css": {
+      "title": "CSS チートシート",
+      "description": "CSSクイックリファレンス - セレクタ、Flexbox、Grid、ポジショニング、タイポグラフィ、アニメーション、メディアクエリ"
+    },
+    "typescript": {
+      "title": "TypeScript チートシート",
+      "description": "TypeScriptリファレンス - 型、インターフェース、ジェネリクス、ユーティリティ型、型ガード、高度なパターン"
     }
   }
 }

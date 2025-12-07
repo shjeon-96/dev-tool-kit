@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { iconPlatforms, getActualSize, type IconPlatform } from "../lib/icon-sizes";
+import { iconPlatforms, getActualSize } from "../lib/icon-sizes";
 
 export interface SourceImage {
   file: File;
@@ -14,7 +14,11 @@ export interface SourceImage {
 
 export function useAppIconGenerator() {
   const [sourceImage, setSourceImage] = useState<SourceImage | null>(null);
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(["ios", "android", "favicon"]);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([
+    "ios",
+    "android",
+    "favicon",
+  ]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -55,14 +59,14 @@ export function useAppIconGenerator() {
         setError(e instanceof Error ? e.message : "Failed to load image");
       }
     },
-    [loadImage]
+    [loadImage],
   );
 
   const togglePlatform = useCallback((platformId: string) => {
     setSelectedPlatforms((prev) =>
       prev.includes(platformId)
         ? prev.filter((id) => id !== platformId)
-        : [...prev, platformId]
+        : [...prev, platformId],
     );
   }, []);
 
@@ -89,11 +93,11 @@ export function useAppIconGenerator() {
             else reject(new Error("Failed to create blob"));
           },
           "image/png",
-          1.0
+          1.0,
         );
       });
     },
-    []
+    [],
   );
 
   const generateIcons = useCallback(async () => {
@@ -114,7 +118,7 @@ export function useAppIconGenerator() {
       });
 
       const platforms = iconPlatforms.filter((p) =>
-        selectedPlatforms.includes(p.id)
+        selectedPlatforms.includes(p.id),
       );
 
       const totalIcons = platforms.reduce((sum, p) => sum + p.sizes.length, 0);

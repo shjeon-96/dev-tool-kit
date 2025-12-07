@@ -10,7 +10,7 @@ import {
   ArrowRightLeft,
 } from "lucide-react";
 import { Button } from "@/shared/ui";
-import { useBase64, type ConversionMode } from "../model/use-base64";
+import { useBase64 } from "../model/use-base64";
 
 export function Base64Converter() {
   const {
@@ -201,7 +201,8 @@ export function Base64Converter() {
         <p className="text-xs text-muted-foreground">
           Base64 is a binary-to-text encoding scheme that represents binary data
           in an ASCII string format. It&apos;s commonly used to encode binary
-          data for storage or transfer over media that only support text content.
+          data for storage or transfer over media that only support text
+          content.
         </p>
       </div>
     </div>

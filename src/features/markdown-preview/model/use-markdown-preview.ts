@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
-import MarkdownIt from "markdown-it";
-import hljs from "highlight.js";
+import { useState, useCallback, useEffect, useRef } from "react";
+import type MarkdownIt from "markdown-it";
 
 const sampleMarkdown = `# Markdown Preview
 
@@ -45,48 +44,74 @@ function hello() {
 | B | 두 번째 |
 `;
 
+const escapeHtml = (str: string) => {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
+
 export function useMarkdownPreview() {
   const [input, setInput] = useState(sampleMarkdown);
+  const [renderedHtml, setRenderedHtml] = useState("");
+  const mdRef = useRef<MarkdownIt | null>(null);
 
-  const md: MarkdownIt = useMemo(() => {
-    const escapeHtml = (str: string) => {
-      return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+  // Dynamic import and render
+  useEffect(() => {
+    const renderMarkdown = async () => {
+      if (!input.trim()) {
+        setRenderedHtml("");
+        return;
+      }
+
+      try {
+        // Dynamic import markdown-it and highlight.js
+        if (!mdRef.current) {
+          const [MarkdownItModule, hljsModule] = await Promise.all([
+            import("markdown-it"),
+            import("highlight.js"),
+          ]);
+
+          const MarkdownItClass = MarkdownItModule.default;
+          const hljs = hljsModule.default;
+
+          mdRef.current = new MarkdownItClass({
+            html: true,
+            linkify: true,
+            typographer: true,
+            highlight: function (str: string, lang: string) {
+              if (lang && hljs.getLanguage(lang)) {
+                try {
+                  return (
+                    '<pre class="hljs"><code>' +
+                    hljs.highlight(str, {
+                      language: lang,
+                      ignoreIllegals: true,
+                    }).value +
+                    "</code></pre>"
+                  );
+                } catch {
+                  // Ignore highlighting errors
+                }
+              }
+              return (
+                '<pre class="hljs"><code>' + escapeHtml(str) + "</code></pre>"
+              );
+            },
+          });
+        }
+
+        setRenderedHtml(mdRef.current.render(input));
+      } catch {
+        setRenderedHtml("<p>렌더링 오류가 발생했습니다.</p>");
+      }
     };
 
-    return new MarkdownIt({
-      html: true,
-      linkify: true,
-      typographer: true,
-      highlight: function (str, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-          try {
-            return (
-              '<pre class="hljs"><code>' +
-              hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-              "</code></pre>"
-            );
-          } catch {
-            // Ignore highlighting errors
-          }
-        }
-        return '<pre class="hljs"><code>' + escapeHtml(str) + "</code></pre>";
-      },
-    });
-  }, []);
-
-  const renderedHtml = useMemo(() => {
-    if (!input.trim()) return "";
-    try {
-      return md.render(input);
-    } catch {
-      return "<p>렌더링 오류가 발생했습니다.</p>";
-    }
-  }, [input, md]);
+    const debounceTimer = setTimeout(renderMarkdown, 150);
+    return () => clearTimeout(debounceTimer);
+  }, [input]);
 
   const copyToClipboard = useCallback(async (text: string) => {
     try {

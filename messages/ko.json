@@ -752,6 +752,18 @@
     "mime-types": {
       "title": "MIME 타입 참조",
       "description": "웹 개발에서 사용하는 MIME 타입 - text, image, audio, video, application"
+    },
+    "javascript": {
+      "title": "JavaScript 치트시트",
+      "description": "JavaScript 전체 참조 - 변수, 배열, 객체, 함수, async/await, 클래스, ES6+ 기능"
+    },
+    "css": {
+      "title": "CSS 치트시트",
+      "description": "CSS 빠른 참조 - 선택자, Flexbox, Grid, 포지셔닝, 타이포그래피, 애니메이션, 미디어 쿼리"
+    },
+    "typescript": {
+      "title": "TypeScript 치트시트",
+      "description": "TypeScript 참조 - 타입, 인터페이스, 제네릭, 유틸리티 타입, 타입 가드, 고급 패턴"
     }
   }
 }

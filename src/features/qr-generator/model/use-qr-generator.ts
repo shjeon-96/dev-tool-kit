@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import QRCode from "qrcode";
+import { useState, useCallback, useEffect, useRef } from "react";
+import type QRCodeType from "qrcode";
 
 export type QRType = "url" | "text" | "wifi" | "vcard";
 
@@ -32,6 +32,8 @@ export interface QROptions {
 }
 
 export function useQrGenerator() {
+  const qrCodeRef = useRef<typeof QRCodeType | null>(null);
+
   const [options, setOptions] = useState<QROptions>({
     type: "url",
     content: "https://example.com",
@@ -93,7 +95,14 @@ END:VCARD`;
 
     try {
       setError(null);
-      const dataUrl = await QRCode.toDataURL(content, {
+
+      // Dynamic import QRCode library
+      if (!qrCodeRef.current) {
+        const QRCodeModule = await import("qrcode");
+        qrCodeRef.current = QRCodeModule.default;
+      }
+
+      const dataUrl = await qrCodeRef.current.toDataURL(content, {
         width: options.size,
         margin: 2,
         color: {
@@ -118,7 +127,7 @@ END:VCARD`;
   }, [generateQR]);
 
   const downloadQR = useCallback(
-    (format: "png" | "svg") => {
+    async (format: "png" | "svg") => {
       if (!qrDataUrl) return;
 
       if (format === "png") {
@@ -127,8 +136,14 @@ END:VCARD`;
         link.download = "qrcode.png";
         link.click();
       } else {
+        // Dynamic import QRCode library for SVG
+        if (!qrCodeRef.current) {
+          const QRCodeModule = await import("qrcode");
+          qrCodeRef.current = QRCodeModule.default;
+        }
+
         const content = getQRContent();
-        QRCode.toString(content, {
+        const svg = await qrCodeRef.current.toString(content, {
           type: "svg",
           width: options.size,
           margin: 2,
@@ -137,18 +152,17 @@ END:VCARD`;
             light: options.backgroundColor,
           },
           errorCorrectionLevel: options.errorCorrectionLevel,
-        }).then((svg) => {
-          const blob = new Blob([svg], { type: "image/svg+xml" });
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement("a");
-          link.href = url;
-          link.download = "qrcode.svg";
-          link.click();
-          URL.revokeObjectURL(url);
         });
+        const blob = new Blob([svg], { type: "image/svg+xml" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "qrcode.svg";
+        link.click();
+        URL.revokeObjectURL(url);
       }
     },
-    [qrDataUrl, options, getQRContent]
+    [qrDataUrl, options, getQRContent],
   );
 
   const updateOptions = useCallback((updates: Partial<QROptions>) => {

@@ -752,6 +752,18 @@
     "mime-types": {
       "title": "MIME Types Reference",
       "description": "Common MIME types for web development - text, image, audio, video, application types."
+    },
+    "javascript": {
+      "title": "JavaScript Cheatsheet",
+      "description": "Complete JavaScript reference - variables, arrays, objects, functions, async/await, classes, and ES6+ features."
+    },
+    "css": {
+      "title": "CSS Cheatsheet",
+      "description": "CSS quick reference - selectors, flexbox, grid, positioning, typography, animations, and media queries."
+    },
+    "typescript": {
+      "title": "TypeScript Cheatsheet",
+      "description": "TypeScript reference - types, interfaces, generics, utility types, type guards, and advanced patterns."
     }
   }
 }
