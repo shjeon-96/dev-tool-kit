@@ -31,3 +31,4 @@ export { ThemeProvider } from "./theme-provider";
 export { JsonLd, BreadcrumbJsonLd, FaqJsonLd } from "./json-ld";
 export { AdUnit, AdSidebar, ToolResultAd } from "./ad-unit";
 export { ClarityScript } from "./clarity";
+export { ShareButton } from "./share-button";

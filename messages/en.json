@@ -733,5 +733,25 @@
         }
       ]
     }
+  },
+  "cheatsheets": {
+    "title": "Developer Cheatsheets",
+    "description": "Quick reference guides for developers",
+    "git": {
+      "title": "Git Commands Cheatsheet",
+      "description": "Complete reference for Git commands - init, clone, commit, push, pull, branch, merge, and more."
+    },
+    "http-status": {
+      "title": "HTTP Status Codes",
+      "description": "Complete list of HTTP status codes with descriptions - 1xx, 2xx, 3xx, 4xx, 5xx."
+    },
+    "regex": {
+      "title": "Regex Syntax Cheatsheet",
+      "description": "Regular expression patterns and syntax reference - metacharacters, quantifiers, groups, and examples."
+    },
+    "mime-types": {
+      "title": "MIME Types Reference",
+      "description": "Common MIME types for web development - text, image, audio, video, application types."
+    }
   }
 }

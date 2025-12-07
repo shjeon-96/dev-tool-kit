@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { UAParser } from "ua-parser-js";
 
 export interface ParsedUA {
@@ -27,15 +27,17 @@ export interface ParsedUA {
   };
 }
 
-export function useUAParser() {
-  const [userAgent, setUserAgent] = useState("");
-  const [isCurrentBrowser, setIsCurrentBrowser] = useState(true);
+// Get initial user agent from browser
+function getInitialUserAgent(): string {
+  if (typeof navigator !== "undefined") {
+    return navigator.userAgent;
+  }
+  return "";
+}
 
-  useEffect(() => {
-    if (typeof navigator !== "undefined") {
-      setUserAgent(navigator.userAgent);
-    }
-  }, []);
+export function useUAParser() {
+  const [userAgent, setUserAgent] = useState(getInitialUserAgent);
+  const [isCurrentBrowser, setIsCurrentBrowser] = useState(true);
 
   const parsedResult = useMemo((): ParsedUA | null => {
     if (!userAgent) return null;
@@ -124,7 +126,7 @@ export function useUAParser() {
         ua: "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
       },
     ],
-    []
+    [],
   );
 
   return {

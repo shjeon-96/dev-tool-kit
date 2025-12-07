@@ -1,15 +1,17 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import CryptoJS from "crypto-js";
 import { useToolHistory } from "@/shared/lib";
+import {
+  computeHash,
+  computeAllHashes,
+  compareHashes,
+  type HashAlgorithm,
+  type HashResult,
+} from "../lib/hash";
 
-export type HashAlgorithm = "md5" | "sha1" | "sha256" | "sha512";
-
-export interface HashResult {
-  algorithm: HashAlgorithm;
-  hash: string;
-}
+// Re-export types for external use
+export type { HashAlgorithm, HashResult };
 
 export type InputMode = "text" | "file";
 
@@ -17,49 +19,21 @@ export function useHashGenerator() {
   const [inputMode, setInputMode] = useState<InputMode>("text");
   const [textInput, setTextInput] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [fileContent, setFileContent] = useState<string | null>(null);
   const [hashes, setHashes] = useState<HashResult[]>([]);
-  const [compareHash, setCompareHash] = useState("");
+  const [compareHashInput, setCompareHashInput] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const {
-    history,
-    addToHistory,
-    clearHistory,
-    hasHistory,
-  } = useToolHistory("hash-generator");
+  const { history, addToHistory, clearHistory, hasHistory } =
+    useToolHistory("hash-generator");
 
   // 히스토리 저장 트리거 추적
   const lastSavedInput = useRef<string>("");
 
-  const algorithms: HashAlgorithm[] = ["md5", "sha1", "sha256", "sha512"];
-
-  const computeHash = useCallback((input: string, algorithm: HashAlgorithm): string => {
-    switch (algorithm) {
-      case "md5":
-        return CryptoJS.MD5(input).toString();
-      case "sha1":
-        return CryptoJS.SHA1(input).toString();
-      case "sha256":
-        return CryptoJS.SHA256(input).toString();
-      case "sha512":
-        return CryptoJS.SHA512(input).toString();
-      default:
-        return "";
-    }
+  const generateHashes = useCallback((input: string) => {
+    const results = computeAllHashes(input);
+    setHashes(results);
   }, []);
-
-  const generateHashes = useCallback(
-    (input: string) => {
-      const results: HashResult[] = algorithms.map((algorithm) => ({
-        algorithm,
-        hash: computeHash(input, algorithm),
-      }));
-      setHashes(results);
-    },
-    [computeHash]
-  );
 
   // Generate hashes for text input (with debounce)
   useEffect(() => {
@@ -72,8 +46,11 @@ export function useHashGenerator() {
 
         // 히스토리에 저장 (중복 방지)
         if (textInput !== lastSavedInput.current && textInput.length > 0) {
-          const sha256Hash = CryptoJS.SHA256(textInput).toString();
-          const truncatedInput = textInput.length > 50 ? textInput.substring(0, 50) + "..." : textInput;
+          const sha256Hash = computeHash(textInput, "sha256");
+          const truncatedInput =
+            textInput.length > 50
+              ? textInput.substring(0, 50) + "..."
+              : textInput;
           addToHistory(truncatedInput, sha256Hash);
           lastSavedInput.current = textInput;
         }
@@ -86,25 +63,16 @@ export function useHashGenerator() {
   }, [textInput, inputMode, generateHashes, addToHistory]);
 
   // Process file when selected
-  useEffect(() => {
-    if (inputMode !== "file" || !file) return;
-
+  const processFile = useCallback((selectedFile: File) => {
     setIsProcessing(true);
     setError(null);
 
     const reader = new FileReader();
     reader.onload = (e) => {
       const content = e.target?.result as string;
-      // For binary files, use base64 encoding
-      const wordArray = CryptoJS.enc.Latin1.parse(content);
-      const base64 = CryptoJS.enc.Base64.stringify(wordArray);
-      setFileContent(base64);
 
-      // Generate hashes from the raw content
-      const results: HashResult[] = algorithms.map((algorithm) => ({
-        algorithm,
-        hash: computeHash(content, algorithm),
-      }));
+      // Generate hashes from the raw content using pure function
+      const results = computeAllHashes(content);
       setHashes(results);
       setIsProcessing(false);
     };
@@ -112,12 +80,20 @@ export function useHashGenerator() {
       setError("파일을 읽는데 실패했습니다");
       setIsProcessing(false);
     };
-    reader.readAsBinaryString(file);
-  }, [file, inputMode, computeHash]);
+    reader.readAsBinaryString(selectedFile);
+  }, []);
+
+  // Trigger file processing when file changes
+  useEffect(() => {
+    if (inputMode !== "file" || !file) return;
+    // Use requestAnimationFrame to avoid synchronous setState in effect
+    requestAnimationFrame(() => {
+      processFile(file);
+    });
+  }, [file, inputMode, processFile]);
 
   const handleFileSelect = useCallback((selectedFile: File) => {
     setFile(selectedFile);
-    setFileContent(null);
     setHashes([]);
   }, []);
 
@@ -127,18 +103,14 @@ export function useHashGenerator() {
     setError(null);
     if (mode === "text") {
       setFile(null);
-      setFileContent(null);
     } else {
       setTextInput("");
     }
   }, []);
 
   const compareWithHash = useCallback((): boolean | null => {
-    if (!compareHash.trim() || hashes.length === 0) return null;
-
-    const normalizedCompare = compareHash.toLowerCase().trim();
-    return hashes.some((h) => h.hash.toLowerCase() === normalizedCompare);
-  }, [compareHash, hashes]);
+    return compareHashes(hashes, compareHashInput);
+  }, [compareHashInput, hashes]);
 
   const copyToClipboard = useCallback(async (text: string) => {
     try {
@@ -152,9 +124,8 @@ export function useHashGenerator() {
   const handleClear = useCallback(() => {
     setTextInput("");
     setFile(null);
-    setFileContent(null);
     setHashes([]);
-    setCompareHash("");
+    setCompareHashInput("");
     setError(null);
   }, []);
 
@@ -166,7 +137,7 @@ export function useHashGenerator() {
       setError(null);
       setInputMode("text");
     },
-    []
+    [],
   );
 
   return {
@@ -174,11 +145,11 @@ export function useHashGenerator() {
     textInput,
     file,
     hashes,
-    compareHash,
+    compareHash: compareHashInput,
     isProcessing,
     error,
     setTextInput,
-    setCompareHash,
+    setCompareHash: setCompareHashInput,
     handleFileSelect,
     handleModeChange,
     compareWithHash,

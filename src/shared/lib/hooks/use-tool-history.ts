@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback, useSyncExternalStore } from "react";
 
 export interface HistoryItem {
   id: string;
@@ -12,22 +12,40 @@ export interface HistoryItem {
 const STORAGE_PREFIX = "tool-history";
 const MAX_ITEMS = 20;
 
+// Helper to get initial value from localStorage
+function getStoredHistory(storageKey: string): HistoryItem[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const stored = localStorage.getItem(storageKey);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
 export function useToolHistory(slug: string) {
-  const [history, setHistory] = useState<HistoryItem[]>([]);
   const storageKey = `${STORAGE_PREFIX}-${slug}`;
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+  // Use lazy initialization for state
+  const [history, setHistory] = useState<HistoryItem[]>(() =>
+    getStoredHistory(storageKey),
+  );
 
-    try {
-      const stored = localStorage.getItem(storageKey);
-      if (stored) {
-        setHistory(JSON.parse(stored));
+  // Subscribe to storage events for cross-tab sync
+  useSyncExternalStore(
+    (callback) => {
+      window.addEventListener("storage", callback);
+      return () => window.removeEventListener("storage", callback);
+    },
+    () => {
+      try {
+        return localStorage.getItem(storageKey) || "[]";
+      } catch {
+        return "[]";
       }
-    } catch (error) {
-      console.error("Failed to load history:", error);
-    }
-  }, [storageKey]);
+    },
+    () => "[]",
+  );
 
   const addToHistory = useCallback(
     (input: string, output: string) => {
@@ -50,7 +68,7 @@ export function useToolHistory(slug: string) {
         return updated;
       });
     },
-    [storageKey]
+    [storageKey],
   );
 
   const removeFromHistory = useCallback(
@@ -65,7 +83,7 @@ export function useToolHistory(slug: string) {
         return updated;
       });
     },
-    [storageKey]
+    [storageKey],
   );
 
   const clearHistory = useCallback(() => {
@@ -81,7 +99,7 @@ export function useToolHistory(slug: string) {
     (id: string) => {
       return history.find((item) => item.id === id);
     },
-    [history]
+    [history],
   );
 
   return {

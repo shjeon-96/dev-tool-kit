@@ -733,5 +733,32 @@
         }
       ]
     }
+  },
+  "cheatsheets": {
+    "title": "開発者チートシート",
+    "description": "開発者のためのクイックリファレンスガイド",
+    "searchPlaceholder": "検索...",
+    "copySuccess": "コピーしました！",
+    "tableHeaders": {
+      "code": "コード",
+      "name": "名前",
+      "description": "説明"
+    },
+    "git": {
+      "title": "Git コマンド チートシート",
+      "description": "Gitコマンド完全リファレンス - init、clone、commit、push、pull、branch、mergeなど"
+    },
+    "http-status": {
+      "title": "HTTPステータスコード",
+      "description": "HTTPステータスコード完全リスト - 1xx、2xx、3xx、4xx、5xx"
+    },
+    "regex": {
+      "title": "正規表現チートシート",
+      "description": "正規表現パターンと構文リファレンス - メタ文字、量指定子、グループ、例"
+    },
+    "mime-types": {
+      "title": "MIMEタイプリファレンス",
+      "description": "ウェブ開発で一般的なMIMEタイプ - text、image、audio、video、application"
+    }
   }
 }

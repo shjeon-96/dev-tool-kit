@@ -22,34 +22,39 @@ export interface QueryParam {
 }
 
 export function useUrlParser() {
-  const [input, setInput] = useState("https://example.com/path?name=value&foo=bar#section");
-  const [error, setError] = useState<string | null>(null);
+  const [input, setInput] = useState(
+    "https://example.com/path?name=value&foo=bar#section",
+  );
 
-  const parsedUrl = useMemo((): ParsedUrl | null => {
+  // Parse URL and return result with error
+  const { parsedUrl, error } = useMemo((): {
+    parsedUrl: ParsedUrl | null;
+    error: string | null;
+  } => {
     if (!input.trim()) {
-      setError(null);
-      return null;
+      return { parsedUrl: null, error: null };
     }
 
     try {
       const url = new URL(input);
-      setError(null);
       return {
-        href: url.href,
-        protocol: url.protocol,
-        host: url.host,
-        hostname: url.hostname,
-        port: url.port,
-        pathname: url.pathname,
-        search: url.search,
-        hash: url.hash,
-        origin: url.origin,
-        username: url.username,
-        password: url.password,
+        parsedUrl: {
+          href: url.href,
+          protocol: url.protocol,
+          host: url.host,
+          hostname: url.hostname,
+          port: url.port,
+          pathname: url.pathname,
+          search: url.search,
+          hash: url.hash,
+          origin: url.origin,
+          username: url.username,
+          password: url.password,
+        },
+        error: null,
       };
     } catch {
-      setError("유효한 URL이 아닙니다");
-      return null;
+      return { parsedUrl: null, error: "유효한 URL이 아닙니다" };
     }
   }, [input]);
 
@@ -92,7 +97,7 @@ export function useUrlParser() {
         // Ignore errors during editing
       }
     },
-    [parsedUrl]
+    [parsedUrl],
   );
 
   const addQueryParam = useCallback(() => {
@@ -130,7 +135,7 @@ export function useUrlParser() {
         // Ignore errors
       }
     },
-    [parsedUrl]
+    [parsedUrl],
   );
 
   const copyToClipboard = useCallback(async (text: string) => {
@@ -144,7 +149,6 @@ export function useUrlParser() {
 
   const handleClear = useCallback(() => {
     setInput("");
-    setError(null);
   }, []);
 
   return {

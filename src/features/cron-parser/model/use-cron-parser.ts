@@ -25,29 +25,26 @@ export const cronPresets: CronPreset[] = [
 export function useCronParser() {
   const [expression, setExpression] = useState("0 0 * * *");
   const [nextCount, setNextCount] = useState(5);
-  const [error, setError] = useState<string | null>(null);
 
-  const description = useMemo(() => {
-    if (!expression.trim()) return null;
+  // Parse cron expression and return description and error
+  const { description, error } = useMemo(() => {
+    if (!expression.trim()) return { description: null, error: null };
 
     try {
       const desc = cronstrue.toString(expression, {
         locale: "ko",
         use24HourTimeFormat: true,
       });
-      setError(null);
-      return desc;
+      return { description: desc, error: null };
     } catch {
       try {
         // Try English if Korean fails
         const desc = cronstrue.toString(expression, {
           use24HourTimeFormat: true,
         });
-        setError(null);
-        return desc;
-      } catch (e) {
-        setError("유효하지 않은 Cron 표현식입니다");
-        return null;
+        return { description: desc, error: null };
+      } catch {
+        return { description: null, error: "유효하지 않은 Cron 표현식입니다" };
       }
     }
   }, [expression]);
@@ -71,7 +68,6 @@ export function useCronParser() {
 
   const applyPreset = useCallback((preset: CronPreset) => {
     setExpression(preset.expression);
-    setError(null);
   }, []);
 
   const copyToClipboard = useCallback(async (text: string) => {
@@ -85,7 +81,6 @@ export function useCronParser() {
 
   const handleClear = useCallback(() => {
     setExpression("");
-    setError(null);
   }, []);
 
   return {
