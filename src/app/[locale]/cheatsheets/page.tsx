@@ -9,6 +9,7 @@ import {
   Braces,
   Palette,
   FileType,
+  Atom,
 } from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -61,6 +62,12 @@ const cheatsheets = [
     icon: FileType,
     color: "text-blue-600",
     bgColor: "bg-blue-600/10",
+  },
+  {
+    slug: "react",
+    icon: Atom,
+    color: "text-cyan-500",
+    bgColor: "bg-cyan-500/10",
   },
 ];
 

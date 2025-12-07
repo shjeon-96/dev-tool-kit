@@ -9,4 +9,5 @@ export {
   javascriptSyntax,
   cssSyntax,
   typescriptSyntax,
+  reactSyntax,
 } from "./data";

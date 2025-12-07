@@ -771,6 +771,10 @@
     "typescript": {
       "title": "TypeScript チートシート",
       "description": "TypeScriptリファレンス - 型、インターフェース、ジェネリクス、ユーティリティ型、型ガード、高度なパターン"
+    },
+    "react": {
+      "title": "React チートシート",
+      "description": "Reactリファレンス - コンポーネント、フック（useState、useEffect、useRef）、Context、パターン、React 18/19機能"
     }
   }
 }

@@ -764,6 +764,10 @@
     "typescript": {
       "title": "TypeScript 치트시트",
       "description": "TypeScript 참조 - 타입, 인터페이스, 제네릭, 유틸리티 타입, 타입 가드, 고급 패턴"
+    },
+    "react": {
+      "title": "React 치트시트",
+      "description": "React 참조 - 컴포넌트, 훅(useState, useEffect, useRef), Context, 패턴, React 18/19 기능"
     }
   }
 }

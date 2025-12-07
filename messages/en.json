@@ -764,6 +764,10 @@
     "typescript": {
       "title": "TypeScript Cheatsheet",
       "description": "TypeScript reference - types, interfaces, generics, utility types, type guards, and advanced patterns."
+    },
+    "react": {
+      "title": "React Cheatsheet",
+      "description": "React reference - components, hooks (useState, useEffect, useRef), context, patterns, and React 18/19 features."
     }
   }
 }
