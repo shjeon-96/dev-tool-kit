@@ -28,7 +28,7 @@ export function Sidebar({ className }: { className?: string }) {
     <div
       className={cn(
         "h-full border-r bg-card flex flex-col overflow-hidden",
-        className
+        className,
       )}
     >
       <div className="flex-1 overflow-y-auto py-4">
@@ -43,7 +43,7 @@ export function Sidebar({ className }: { className?: string }) {
               variant={pathname === basePath ? "secondary" : "ghost"}
               className={cn(
                 "w-full justify-start",
-                pathname === basePath && "bg-secondary font-medium"
+                pathname === basePath && "bg-secondary font-medium",
               )}
               asChild
             >
@@ -76,13 +76,19 @@ export function Sidebar({ className }: { className?: string }) {
                           key={slug}
                           variant={isActive ? "secondary" : "ghost"}
                           className={cn(
-                            "w-full justify-start",
-                            isActive && "bg-secondary font-medium"
+                            "w-full justify-start relative",
+                            isActive &&
+                              "bg-secondary font-medium before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-6 before:w-1 before:bg-primary before:rounded-r-full",
                           )}
                           asChild
                         >
                           <Link href={href}>
-                            <tool.icon className="mr-2 h-4 w-4" />
+                            <tool.icon
+                              className={cn(
+                                "mr-2 h-4 w-4 transition-colors",
+                                isActive && "text-primary",
+                              )}
+                            />
                             {t(`${slug as ToolSlug}.title`)}
                           </Link>
                         </Button>

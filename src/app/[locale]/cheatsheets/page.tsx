@@ -123,24 +123,26 @@ export default async function CheatsheetsPage() {
         <p className="text-muted-foreground">{t("description")}</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {cheatsheets.map((sheet) => {
           const Icon = sheet.icon;
           return (
             <Link
               key={sheet.slug}
               href={`/cheatsheets/${sheet.slug}`}
-              className="group block rounded-lg border p-6 hover:border-primary transition-colors"
+              className="group block rounded-lg border p-5 transition-all duration-200 hover:border-primary/50 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5"
             >
               <div className="flex items-start gap-4">
-                <div className={`p-3 rounded-lg ${sheet.bgColor}`}>
+                <div
+                  className={`p-3 rounded-lg ${sheet.bgColor} transition-transform group-hover:scale-110`}
+                >
                   <Icon className={`h-6 w-6 ${sheet.color}`} />
                 </div>
-                <div>
-                  <h2 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                <div className="flex-1 min-w-0">
+                  <h2 className="text-lg font-semibold group-hover:text-primary transition-colors truncate">
                     {t(`${sheet.slug}.title`)}
                   </h2>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
                     {t(`${sheet.slug}.description`)}
                   </p>
                 </div>
