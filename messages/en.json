@@ -793,5 +793,149 @@
       "title": "Bash/Shell Cheatsheet",
       "description": "Bash reference - commands, file operations, pipes, scripting, and system administration."
     }
+  },
+  "guides": {
+    "title": "Developer Guides",
+    "description": "Step-by-step guides to help you master our developer tools",
+    "viewGuide": "View Guide",
+    "backToGuides": "Back to Guides",
+    "tableOfContents": "Table of Contents",
+    "relatedTools": "Related Tools",
+    "difficulty": "Difficulty",
+    "readTime": "Read Time",
+    "minutes": "min",
+    "tryItYourself": "Try it yourself",
+    "previousGuide": "Previous",
+    "nextGuide": "Next",
+    "difficultyLevels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "json-formatter": {
+      "summary": "Learn how to format, validate, and debug JSON data effectively",
+      "sections": {
+        "what-is-json": {
+          "title": "What is JSON?",
+          "content": "JSON (JavaScript Object Notation) is a lightweight data interchange format. It's easy for humans to read and write, and easy for machines to parse and generate.\n\nJSON is built on two structures:\n• A collection of name/value pairs (like an object or dictionary)\n• An ordered list of values (like an array)\n\nJSON is language-independent but uses conventions familiar to programmers of C-family languages."
+        },
+        "common-errors": {
+          "title": "Common JSON Errors and How to Fix Them",
+          "content": "These are the most common JSON syntax errors developers encounter:\n\n1. Missing quotes around keys - JSON requires all keys to be strings in double quotes\n2. Trailing commas - Unlike JavaScript, JSON doesn't allow trailing commas\n3. Single quotes - JSON only accepts double quotes for strings\n4. Unescaped characters - Special characters like newlines and tabs must be escaped\n5. Comments - JSON doesn't support comments (use JSONC for that)"
+        },
+        "how-to-use": {
+          "title": "How to Use the JSON Formatter",
+          "content": "Using our JSON Formatter is simple:\n\n1. Paste your JSON in the input area on the left\n2. The formatted result appears automatically on the right\n3. Choose your preferred indentation (2 spaces, 4 spaces, or tab)\n4. Use the Minify button to compress JSON for production\n5. Click Copy to copy the result to your clipboard\n\nThe tool validates your JSON in real-time and highlights any syntax errors with their exact location."
+        },
+        "advanced-features": {
+          "title": "Advanced Features",
+          "content": "Beyond basic formatting, our tool offers:\n\n• Minification - Remove all whitespace to reduce file size\n• Validation - Real-time syntax checking with error messages\n• Line numbers - Easy navigation in large JSON files\n• Dark mode - Comfortable viewing in low-light environments\n• No data transmission - All processing happens in your browser"
+        },
+        "api-debugging": {
+          "title": "Real-World Example: API Debugging",
+          "content": "When debugging API responses, formatted JSON is essential:\n\n1. Copy the raw API response from your browser's Network tab\n2. Paste it into the formatter to see the structure clearly\n3. Identify nested objects, arrays, and data types\n4. Find the specific fields you need for your application\n\nThis workflow saves hours when working with complex APIs and helps you understand data structures quickly."
+        }
+      }
+    },
+    "jwt-decoder": {
+      "summary": "Understand JWT tokens, decode them safely, and debug authentication issues",
+      "sections": {
+        "what-is-jwt": {
+          "title": "What is a JWT?",
+          "content": "JWT (JSON Web Token) is an open standard for securely transmitting information between parties as a JSON object.\n\nJWTs are commonly used for:\n• Authentication - Proving user identity\n• Authorization - Granting access to resources\n• Information exchange - Securely transmitting data\n\nA JWT is a string with three parts separated by dots: header.payload.signature"
+        },
+        "jwt-structure": {
+          "title": "JWT Structure Explained",
+          "content": "Every JWT has three parts:\n\n1. Header - Contains the token type (JWT) and signing algorithm (like HS256 or RS256)\n\n2. Payload - Contains the claims (statements about the user and additional data)\n\n3. Signature - Verifies the token hasn't been tampered with\n\nBoth header and payload are Base64Url encoded JSON objects."
+        },
+        "common-claims": {
+          "title": "Common JWT Claims",
+          "content": "Standard claims you'll encounter:\n\n• iss (Issuer) - Who created the token\n• sub (Subject) - Who the token identifies (usually user ID)\n• aud (Audience) - Who the token is intended for\n• exp (Expiration) - When the token expires (Unix timestamp)\n• iat (Issued At) - When the token was created\n• nbf (Not Before) - Token not valid before this time\n• jti (JWT ID) - Unique identifier for the token\n\nCustom claims can contain any application-specific data."
+        },
+        "debugging-expired": {
+          "title": "Debugging Expired Tokens",
+          "content": "Token expiration is a common issue. Here's how to debug:\n\n1. Decode the token to view the payload\n2. Find the 'exp' claim (expiration timestamp)\n3. Convert the timestamp to a readable date\n4. Compare with the current time\n\nOur decoder shows expiration status automatically - look for the red 'Expired' or green 'Valid' badge.\n\nCommon fixes:\n• Refresh the token before it expires\n• Check server/client time synchronization\n• Verify token lifetime settings in your auth server"
+        },
+        "security-tips": {
+          "title": "JWT Security Best Practices",
+          "content": "Keep your JWTs secure:\n\n1. Never store sensitive data in the payload - It's encoded, not encrypted\n2. Use short expiration times - Refresh tokens instead of long-lived access tokens\n3. Validate tokens server-side - Never trust client-side validation alone\n4. Use HTTPS - Prevent token interception\n5. Store tokens securely - HttpOnly cookies are safer than localStorage\n6. Implement token revocation - For logout and security events\n\nRemember: JWTs are decoded, not decrypted. Anyone can read the payload!"
+        }
+      }
+    },
+    "base64-converter": {
+      "summary": "Master Base64 encoding for images, files, and data transmission",
+      "sections": {
+        "what-is-base64": {
+          "title": "What is Base64?",
+          "content": "Base64 is a binary-to-text encoding scheme that converts binary data into ASCII characters.\n\nWhy Base64 exists:\n• Safely transmit binary data over text-only channels (like email)\n• Embed binary data in text formats (like JSON or XML)\n• Include images directly in HTML/CSS without separate files\n\nBase64 uses 64 characters: A-Z, a-z, 0-9, +, and / (with = for padding)."
+        },
+        "encoding-images": {
+          "title": "Encoding Images for Web",
+          "content": "Base64-encoded images can be embedded directly in HTML or CSS:\n\nAdvantages:\n• Reduces HTTP requests\n• Works offline once loaded\n• Simple deployment (no separate image files)\n\nDisadvantages:\n• ~33% larger than binary\n• No browser caching\n• Increases HTML/CSS file size\n\nBest practice: Use Base64 for small images (icons, logos) under 10KB."
+        },
+        "common-use-cases": {
+          "title": "Common Use Cases",
+          "content": "Base64 is essential for:\n\n1. Data URLs - Embedding resources in web pages\n2. Email attachments - MIME encoding\n3. API payloads - Sending binary data in JSON\n4. Authentication - Basic auth headers (username:password)\n5. Certificates - PEM format for SSL/TLS\n\nOur tool handles text and files, generating proper data URLs automatically."
+        },
+        "data-urls": {
+          "title": "Understanding Data URLs",
+          "content": "Data URLs embed content directly in the URL:\n\nFormat: data:[mediatype][;base64],<data>\n\nComponents:\n• data: - The URL scheme\n• mediatype - MIME type (e.g., image/png, text/plain)\n• ;base64 - Indicates Base64 encoding\n• data - The actual encoded content\n\nData URLs work anywhere a regular URL works: img src, CSS url(), fetch(), and more."
+        },
+        "size-considerations": {
+          "title": "Size and Performance",
+          "content": "Important considerations:\n\n• Base64 increases size by ~33% (3 bytes become 4 characters)\n• Large Base64 strings can slow page rendering\n• Browser decode limits vary (usually safe up to several MB)\n• Consider gzip compression for text-based formats\n\nRule of thumb:\n• Under 10KB: Base64 is usually beneficial\n• 10-50KB: Evaluate case by case\n• Over 50KB: Use regular file URLs instead"
+        }
+      }
+    },
+    "regex-tester": {
+      "summary": "Learn regular expressions with practical examples for validation and parsing",
+      "sections": {
+        "what-is-regex": {
+          "title": "What is Regex?",
+          "content": "Regular expressions (regex) are patterns used to match character combinations in strings.\n\nRegex is used for:\n• Validation - Check if input matches a pattern\n• Searching - Find text matching a pattern\n• Extraction - Pull specific data from strings\n• Replacement - Transform text based on patterns\n\nWhile regex syntax looks cryptic at first, it's incredibly powerful once learned."
+        },
+        "email-validation": {
+          "title": "Email Validation Pattern",
+          "content": "Email validation is one of the most common regex use cases.\n\nA basic email pattern checks for:\n• Username part (letters, numbers, dots, hyphens)\n• @ symbol\n• Domain name\n• TLD (top-level domain)\n\nNote: Perfect email validation is actually impossible with regex alone. The best approach is a simple pattern plus sending a verification email."
+        },
+        "phone-validation": {
+          "title": "Phone Number Patterns",
+          "content": "Phone numbers vary by country and format:\n\nUS formats to consider:\n• 123-456-7890 (dashed)\n• (123) 456-7890 (parentheses)\n• +1 123 456 7890 (international)\n\nFor international support, the E.164 format (+[country][number]) is most reliable.\n\nTip: Store phone numbers in a normalized format and display them formatted for the user's locale."
+        },
+        "common-patterns": {
+          "title": "Common Regex Patterns",
+          "content": "Patterns every developer should know:\n\n• URL - Matches http/https URLs\n• IP Address - Validates IPv4 addresses\n• Date - Matches YYYY-MM-DD format\n• Hex Color - Matches #RGB or #RRGGBB\n• Password - Enforces complexity requirements\n\nOur tool includes a library of these patterns for quick reference."
+        },
+        "flags-modifiers": {
+          "title": "Regex Flags and Modifiers",
+          "content": "Flags change how the regex engine matches:\n\n• g (global) - Find all matches, not just the first\n• i (case-insensitive) - Ignore uppercase/lowercase\n• m (multiline) - ^ and $ match line beginnings/endings\n• s (dotall) - . matches newlines too\n• u (unicode) - Full Unicode support\n• y (sticky) - Match at exact position only\n\nCombine flags as needed: /pattern/gi for global case-insensitive matching."
+        }
+      }
+    },
+    "hash-generator": {
+      "summary": "Understand cryptographic hashes and when to use MD5, SHA-256, or SHA-512",
+      "sections": {
+        "what-is-hash": {
+          "title": "What is a Hash?",
+          "content": "A hash function takes input of any size and produces a fixed-size output (the hash or digest).\n\nKey properties:\n• Deterministic - Same input always produces same output\n• One-way - Cannot reverse a hash to get the original input\n• Collision-resistant - Different inputs rarely produce same hash\n• Avalanche effect - Small input changes create very different hashes\n\nHashes are fingerprints for data - unique identifiers for any content."
+        },
+        "md5-vs-sha": {
+          "title": "MD5 vs SHA: Which to Use?",
+          "content": "Choosing the right algorithm:\n\nMD5 (128-bit):\n• Fast but cryptographically broken\n• OK for checksums, NOT for security\n• Collisions can be created intentionally\n\nSHA-1 (160-bit):\n• Deprecated for security uses\n• Still seen in legacy systems\n\nSHA-256 (256-bit):\n• Current standard for most uses\n• Good balance of security and speed\n\nSHA-512 (512-bit):\n• Maximum security\n• Slightly slower, longer output"
+        },
+        "use-cases": {
+          "title": "Real-World Use Cases",
+          "content": "Hashes are everywhere in software:\n\n1. File integrity - Verify downloads haven't been corrupted\n2. Password storage - Store hashes, not plain passwords (use bcrypt/argon2!)\n3. Data deduplication - Identify duplicate files by hash\n4. Git commits - SHA-1 identifies every commit\n5. Blockchain - Chain of hashes ensures integrity\n\nImportant: For passwords, use specialized hashing (bcrypt, argon2) not raw SHA-256!"
+        },
+        "hash-verification": {
+          "title": "Verifying File Integrity",
+          "content": "Always verify important downloads:\n\n1. Download the file\n2. Get the expected hash from the official source\n3. Calculate the hash of your downloaded file\n4. Compare the two hashes\n\nIf they match exactly, the file hasn't been modified. Even one bit difference produces a completely different hash.\n\nOur tool makes this easy - paste the expected hash and we'll tell you if it matches."
+        },
+        "security-best-practices": {
+          "title": "Security Best Practices",
+          "content": "Hash security guidelines:\n\n• Never use MD5 or SHA-1 for security purposes\n• Use SHA-256 or SHA-512 for data integrity\n• For passwords, use bcrypt, scrypt, or argon2 (with salt)\n• Store hashes, never plaintext\n• Use constant-time comparison to prevent timing attacks\n• Consider HMAC when you need authentication\n\nRemember: Hashes verify integrity, not confidentiality. Use encryption if data must stay secret."
+        }
+      }
+    }
   }
 }
