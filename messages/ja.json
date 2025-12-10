@@ -943,6 +943,489 @@
           "content": "セキュリティに関する重要な考慮事項：\n\n• パスワードには単純なハッシュを使用しない - bcryptやArgon2を使用\n• データ整合性にはSHA-256以上を推奨\n• レインボーテーブル攻撃を防ぐためにソルトを使用\n• セキュリティクリティカルな用途にはMD5/SHA-1を使用しない\n• ハッシュ衝突のリスクを理解する"
         }
       }
+    },
+    "image-resizer": {
+      "summary": "品質を維持しながら画像をリサイズ・変換",
+      "sections": {
+        "whatIs": {
+          "title": "画像リサイズの理解",
+          "content": "画像リサイズは、品質を維持しながら画像の寸法を変更するプロセスです。解像度、アスペクト比、品質を考慮することが重要です。\n\n主な概念：\n• 解像度 - ピクセル寸法（例：1920x1080）\n• アスペクト比 - 幅と高さの関係（例：16:9）\n• 圧縮 - ファイルサイズと品質のバランス"
+        },
+        "formats": {
+          "title": "画像フォーマット",
+          "content": "各フォーマットには特徴があります：\n\n• JPEG - 写真に最適、非可逆圧縮\n• PNG - 透過背景をサポート、可逆圧縮\n• WebP - モダンフォーマット、優れた圧縮率\n• GIF - アニメーション対応、256色制限\n• AVIF - 次世代フォーマット、最高の圧縮効率"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "1. 画像をドラッグ＆ドロップまたは選択\n2. 目的の寸法を入力\n3. アスペクト比をロックするかどうかを選択\n4. 出力フォーマットと品質を設定\n5. リサイズをクリックしてダウンロード\n\nヒント：アスペクト比をロックすると画像の歪みを防げます。"
+        },
+        "tips": {
+          "title": "最適化のヒント",
+          "content": "Web最適化のベストプラクティス：\n\n• Webには72-96 DPIで十分\n• 写真にはJPEG品質80-85%を推奨\n• グラフィックやアイコンにはPNGを使用\n• レスポンシブ画像には複数サイズを用意\n• 遅延読み込みでパフォーマンス向上"
+        }
+      }
+    },
+    "unix-timestamp": {
+      "summary": "Unixタイムスタンプと日付形式の変換",
+      "sections": {
+        "whatIs": {
+          "title": "Unixタイムスタンプとは",
+          "content": "Unixタイムスタンプ（エポック時間）は、1970年1月1日00:00:00 UTCからの経過秒数を表す数値です。タイムゾーンに依存しない時刻表現方法として広く使用されています。\n\n例：\n• 0 = 1970-01-01 00:00:00 UTC\n• 1000000000 = 2001-09-09 01:46:40 UTC\n• 現在の時刻 = 秒単位の大きな数値"
+        },
+        "formats": {
+          "title": "一般的な形式",
+          "content": "タイムスタンプの種類：\n\n• 秒（Unix標準）- 10桁\n• ミリ秒（JavaScript）- 13桁\n• マイクロ秒（一部のシステム）- 16桁\n• ナノ秒（高精度用途）- 19桁\n\n日付形式：\n• ISO 8601: 2024-01-15T09:30:00Z\n• RFC 2822: Mon, 15 Jan 2024 09:30:00 +0000"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "変換方法：\n\n1. タイムスタンプ → 日付：数値を入力すると人間が読める日付に変換\n2. 日付 → タイムスタンプ：日付/時刻を選択してタイムスタンプを取得\n3. 現在時刻：リアルタイムで現在のタイムスタンプを表示\n\nタイムゾーンを選択して、ローカル時刻またはUTCで表示できます。"
+        },
+        "programming": {
+          "title": "プログラミングでの使用",
+          "content": "各言語での取得方法：\n\n• JavaScript: Date.now() または new Date().getTime()\n• Python: import time; time.time()\n• PHP: time()\n• Java: System.currentTimeMillis() / 1000\n• Go: time.Now().Unix()\n\nデータベースやAPIでは、タイムスタンプでの保存が推奨されます。"
+        }
+      }
+    },
+    "qr-generator": {
+      "summary": "URL、テキスト、連絡先情報のQRコードを生成",
+      "sections": {
+        "whatIs": {
+          "title": "QRコードとは",
+          "content": "QRコード（Quick Response Code）は、スマートフォンなどで素早く読み取れる2次元バーコードです。最大4,296文字の英数字を格納でき、約30%のエラー訂正機能を持っています。\n\n用途：\n• URL共有\n• 連絡先情報（vCard）\n• Wi-Fi接続情報\n• 決済情報"
+        },
+        "types": {
+          "title": "QRコードの種類",
+          "content": "一般的なQRコードタイプ：\n\n• URL - ウェブサイトへのリンク\n• テキスト - プレーンテキスト\n• メール - mailto:リンク\n• 電話 - tel:リンク\n• SMS - sms:リンク\n• Wi-Fi - ネットワーク認証情報\n• vCard - 連絡先情報\n• 位置情報 - 地図座標"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "QRコード生成手順：\n\n1. コンテンツタイプを選択（URL、テキストなど）\n2. データを入力\n3. サイズとエラー訂正レベルを設定\n4. 色やスタイルをカスタマイズ（オプション）\n5. 生成をクリックしてダウンロード\n\nエラー訂正レベル：L（7%）、M（15%）、Q（25%）、H（30%）"
+        },
+        "bestPractices": {
+          "title": "ベストプラクティス",
+          "content": "効果的なQRコードのために：\n\n• 十分なサイズを確保（最小2cm x 2cm）\n• 高コントラストの色を使用\n• 背景との十分な余白を確保\n• 短いURLを使用（URL短縮サービス活用）\n• 印刷前にテストスキャン\n• ロゴを追加する場合は中央に小さく"
+        }
+      }
+    },
+    "app-icon-generator": {
+      "summary": "すべてのプラットフォーム向けアプリアイコンを生成",
+      "sections": {
+        "whatIs": {
+          "title": "アプリアイコンサイズ",
+          "content": "各プラットフォームには異なるアイコンサイズが必要です：\n\n• iOS: 1024x1024（App Store）、180x180（iPhone）、152x152（iPad）\n• Android: 512x512（Play Store）、192x192、144x144、96x96、72x72、48x48\n• Web: 512x512、192x192、180x180、32x32、16x16\n• Windows: 256x256、48x48、32x32、16x16"
+        },
+        "requirements": {
+          "title": "プラットフォーム要件",
+          "content": "各プラットフォームのガイドライン：\n\n• iOS: 角丸なし（システムが適用）、透過なし\n• Android: アダプティブアイコン対応、セーフゾーン考慮\n• Web (PWA): manifest.jsonで定義、複数サイズ必須\n• Favicon: .icoフォーマット、複数サイズ含む\n\n推奨：1024x1024以上の高解像度ソースを使用"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "アイコン生成手順：\n\n1. 高解像度の画像をアップロード（1024x1024推奨）\n2. 対象プラットフォームを選択\n3. 必要に応じて背景色を設定\n4. 生成をクリック\n5. ZIPファイルで全サイズをダウンロード\n\nソース画像は中央に主要な要素を配置してください。"
+        },
+        "tips": {
+          "title": "デザインのヒント",
+          "content": "効果的なアプリアイコンのために：\n\n• シンプルで認識しやすいデザイン\n• 小サイズでも判別できる太い線\n• 背景との十分なコントラスト\n• テキストは避ける（小サイズで読めない）\n• ブランドカラーの一貫した使用\n• セーフゾーン内に重要な要素を配置"
+        }
+      }
+    },
+    "color-picker": {
+      "summary": "色の選択、フォーマット変換、パレット生成",
+      "sections": {
+        "whatIs": {
+          "title": "カラーフォーマットの理解",
+          "content": "色は複数のフォーマットで表現できます：\n\n• HEX - #FF5733（Web標準）\n• RGB - rgb(255, 87, 51)（画面表示用）\n• HSL - hsl(11, 100%, 60%)（色相・彩度・明度）\n• CMYK - 印刷用カラーモデル\n• HSV/HSB - デザインツールで使用"
+        },
+        "colorFormats": {
+          "title": "フォーマット詳細",
+          "content": "各フォーマットの特徴：\n\n• HEX: 6桁の16進数、#RRGGBB形式\n• RGB: 0-255の3つの値、透過度はRGBA\n• HSL: 色相(0-360°)、彩度(0-100%)、明度(0-100%)\n• Named Colors: CSS標準の140色以上の名前付き色\n\n変換例：#FF5733 = rgb(255, 87, 51) = hsl(11, 100%, 60%)"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "カラーピッカーの使い方：\n\n1. カラーホイールから色を選択、または値を直接入力\n2. フォーマット間で自動変換\n3. スポイトツールで画面から色を抽出\n4. 履歴から以前の色を再利用\n5. クリックでコードをコピー"
+        },
+        "colorPalettes": {
+          "title": "カラーパレット",
+          "content": "調和のとれた配色を作成：\n\n• 補色 - 色相環の反対側の色\n• 類似色 - 色相環の隣接する色\n• トライアド - 120°間隔の3色\n• スプリット補色 - 補色の両隣の色\n• テトラード - 90°間隔の4色\n\nアクセシビリティのためにコントラスト比も確認してください。"
+        }
+      }
+    },
+    "url-parser": {
+      "summary": "URLコンポーネントの解析と検証",
+      "sections": {
+        "whatIs": {
+          "title": "URL構造の理解",
+          "content": "URLは複数のコンポーネントで構成されます：\n\nhttps://user:pass@example.com:8080/path?query=value#hash\n\n• プロトコル: https://\n• 認証: user:pass@\n• ホスト: example.com\n• ポート: :8080\n• パス: /path\n• クエリ: ?query=value\n• フラグメント: #hash"
+        },
+        "components": {
+          "title": "URLコンポーネント",
+          "content": "各コンポーネントの役割：\n\n• プロトコル - 通信方式（http, https, ftp, mailto）\n• ホスト - ドメイン名またはIPアドレス\n• ポート - サーバーポート（省略時はデフォルト使用）\n• パス - リソースの場所\n• クエリ文字列 - キーと値のペア\n• フラグメント - ページ内の位置"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "URL解析の手順：\n\n1. URLを入力欄に貼り付け\n2. 自動的にコンポーネントに分解\n3. 各部分を個別に編集可能\n4. クエリパラメータを追加・削除・編集\n5. 変更後のURLを取得"
+        },
+        "encoding": {
+          "title": "URLエンコーディング",
+          "content": "特殊文字の処理：\n\n• スペース → %20 または +\n• 日本語 → UTF-8エンコード（%E3%81%82など）\n• 予約文字 → パーセントエンコード\n\nJavaScript: encodeURIComponent()とdecodeURIComponent()を使用"
+        }
+      }
+    },
+    "uuid-generator": {
+      "summary": "一意識別子の生成と検証",
+      "sections": {
+        "whatIs": {
+          "title": "UUIDとは",
+          "content": "UUID（Universally Unique Identifier）は128ビットの一意識別子です。データベースの主キーやセッションID、トランザクションIDなど、一意性が必要な場面で広く使用されます。\n\n形式: xxxxxxxx-xxxx-Mxxx-Nxxx-xxxxxxxxxxxx\n• M: バージョン（1-5）\n• N: バリアント（8, 9, a, b）"
+        },
+        "versions": {
+          "title": "UUIDバージョン",
+          "content": "主なバージョン：\n\n• v1 - タイムスタンプ + MACアドレス\n• v4 - ランダム生成（最も一般的）\n• v5 - 名前空間 + SHA-1ハッシュ\n• v7 - タイムスタンプ + ランダム（新しい標準）\n\nv4が最も広く使用され、衝突確率は約2^122分の1です。"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "UUID生成手順：\n\n1. バージョンを選択（v4が推奨）\n2. 必要な数量を指定\n3. 生成をクリック\n4. ハイフンあり/なしの形式を選択\n5. コピーまたはエクスポート\n\n検証: 既存のUUIDの形式とバージョンを確認できます。"
+        },
+        "useCases": {
+          "title": "使用例",
+          "content": "UUIDの一般的な用途：\n\n• データベース主キー（順序予測不可）\n• APIトランザクションID\n• セッション識別子\n• ファイル名の一意化\n• 分散システムのID生成\n\n注意: 連番の代わりにUUIDを使用するとインデックス効率に影響する場合があります。"
+        }
+      }
+    },
+    "base-converter": {
+      "summary": "2進数、10進数、16進数などの基数変換",
+      "sections": {
+        "whatIs": {
+          "title": "基数変換の理解",
+          "content": "数値は異なる基数（底）で表現できます：\n\n• 2進数（基数2）- 0と1のみ、コンピュータの基本\n• 8進数（基数8）- 0-7、Unixパーミッション\n• 10進数（基数10）- 日常使用\n• 16進数（基数16）- 0-9とA-F、色コードやメモリアドレス"
+        },
+        "conversionTable": {
+          "title": "変換早見表",
+          "content": "よく使う変換例：\n\n| 10進 | 2進 | 16進 | 8進 |\n|------|------|------|------|\n| 10 | 1010 | A | 12 |\n| 15 | 1111 | F | 17 |\n| 255 | 11111111 | FF | 377 |\n| 256 | 100000000 | 100 | 400 |"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "基数変換の手順：\n\n1. 変換元の基数を選択\n2. 数値を入力\n3. 変換先の基数を選択\n4. 自動的に結果を表示\n\n複数の基数に同時変換することもできます。"
+        },
+        "programming": {
+          "title": "プログラミングでの表記",
+          "content": "各言語での基数表記：\n\n• 2進数: 0b1010（JavaScript、Python）\n• 8進数: 0o12 または 012\n• 16進数: 0x0A\n\n変換関数：\n• JavaScript: parseInt('1010', 2), (10).toString(16)\n• Python: int('1010', 2), hex(10), bin(10)"
+        }
+      }
+    },
+    "sql-formatter": {
+      "summary": "SQLクエリの整形と構文ハイライト",
+      "sections": {
+        "whatIs": {
+          "title": "SQLフォーマットについて",
+          "content": "SQLフォーマッターは、SQLクエリを読みやすく整形するツールです。適切なインデント、改行、キーワードの大文字化により、コードの可読性とメンテナンス性が向上します。\n\n整形前：select * from users where id=1 and status='active'\n整形後：\nSELECT *\nFROM users\nWHERE id = 1\n  AND status = 'active'"
+        },
+        "dialects": {
+          "title": "SQLダイアレクト",
+          "content": "主なSQLダイアレクト：\n\n• MySQL - WEB開発で広く使用\n• PostgreSQL - 高度な機能、JSON対応\n• SQLite - 軽量、組み込み用\n• SQL Server - Microsoft製品\n• Oracle - エンタープライズ向け\n\n各ダイアレクトで構文が若干異なります。"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "SQLフォーマット手順：\n\n1. SQLクエリを貼り付け\n2. SQLダイアレクトを選択\n3. インデントスタイルを設定（スペース/タブ）\n4. キーワードの大文字/小文字を選択\n5. フォーマットをクリック"
+        },
+        "bestPractices": {
+          "title": "ベストプラクティス",
+          "content": "読みやすいSQLのために：\n\n• キーワードは大文字（SELECT, FROM, WHERE）\n• テーブル名・カラム名は小文字またはスネークケース\n• 複雑なクエリはCTEで分割\n• 適切なエイリアスを使用\n• JOINは明示的に記述\n• インデントで階層を表現"
+        }
+      }
+    },
+    "cron-parser": {
+      "summary": "Cron式の解析とスケジュール計算",
+      "sections": {
+        "whatIs": {
+          "title": "Cron式とは",
+          "content": "Cron式は、定期的なタスクのスケジュールを定義する形式です。5つまたは6つのフィールドで構成されます：\n\n分 時 日 月 曜日 [年]\n\n例：\n• 0 9 * * * - 毎日9:00\n• */15 * * * * - 15分ごと\n• 0 0 1 * * - 毎月1日の0:00"
+        },
+        "fields": {
+          "title": "フィールド詳細",
+          "content": "各フィールドの範囲：\n\n• 分: 0-59\n• 時: 0-23\n• 日: 1-31\n• 月: 1-12 または JAN-DEC\n• 曜日: 0-6 または SUN-SAT（0=日曜）\n\n特殊文字：\n• * - すべての値\n• , - 複数値（1,3,5）\n• - - 範囲（1-5）\n• / - 間隔（*/5）"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "Cron解析の手順：\n\n1. Cron式を入力\n2. 自動的に人間が読める形式に変換\n3. 次回実行時刻を確認\n4. 今後のスケジュールをプレビュー\n\n逆に、スケジュールを選択してCron式を生成することもできます。"
+        },
+        "examples": {
+          "title": "よく使う例",
+          "content": "一般的なCron式：\n\n• 0 0 * * * - 毎日深夜0時\n• 0 */2 * * * - 2時間ごと\n• 0 9-17 * * 1-5 - 平日9-17時の毎時\n• 0 0 * * 0 - 毎週日曜0時\n• 0 0 1,15 * * - 毎月1日と15日\n• 0 0 L * * - 毎月最終日（一部システム）"
+        }
+      }
+    },
+    "markdown-preview": {
+      "summary": "Markdownのリアルタイムプレビューと変換",
+      "sections": {
+        "whatIs": {
+          "title": "Markdownとは",
+          "content": "Markdownは、プレーンテキストで書式付きドキュメントを作成するための軽量マークアップ言語です。GitHub README、ブログ、ドキュメントで広く使用されています。\n\n特徴：\n• シンプルな構文\n• HTMLに変換可能\n• 可読性が高い\n• 多くのプラットフォームでサポート"
+        },
+        "basicSyntax": {
+          "title": "基本構文",
+          "content": "よく使う構文：\n\n• # 見出し1、## 見出し2、### 見出し3\n• **太字**、*斜体*、~~取り消し線~~\n• [リンクテキスト](URL)\n• ![画像代替テキスト](画像URL)\n• `インラインコード`\n• > 引用\n• - または * でリスト\n• 1. で番号付きリスト"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "Markdownプレビューの使い方：\n\n1. 左側のエディタにMarkdownを入力\n2. 右側でリアルタイムプレビュー\n3. 構文ハイライトで編集をサポート\n4. HTMLまたはPDFでエクスポート可能\n\n編集とプレビューを並べて表示できます。"
+        },
+        "advanced": {
+          "title": "拡張機能",
+          "content": "拡張Markdown機能（GitHub Flavored Markdown）：\n\n• テーブル: | 列1 | 列2 |\n• タスクリスト: - [ ] 未完了、- [x] 完了\n• コードブロック: ```言語名\n• 脚注: [^1]\n• 数式: $E=mc^2$（一部対応）\n• Mermaid図: ```mermaid"
+        }
+      }
+    },
+    "diff-checker": {
+      "summary": "テキストの差分比較と変更検出",
+      "sections": {
+        "whatIs": {
+          "title": "差分比較とは",
+          "content": "差分チェッカーは、2つのテキストを比較して違いを視覚化するツールです。コードレビュー、ドキュメント更新、設定ファイルの変更確認などに役立ちます。\n\n表示形式：\n• 行単位の追加・削除・変更\n• インライン差分（文字単位）\n• 並列表示または統一表示"
+        },
+        "viewModes": {
+          "title": "表示モード",
+          "content": "差分の表示方法：\n\n• サイドバイサイド - 左右に並べて比較\n• インライン - 1つのビューで追加・削除を表示\n• 文字単位 - 行内の細かい変更をハイライト\n\n色の意味：\n• 緑/+ - 追加された行\n• 赤/- - 削除された行\n• 黄色 - 変更された部分"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "差分比較の手順：\n\n1. 「元のテキスト」に比較元を貼り付け\n2. 「新しいテキスト」に比較先を貼り付け\n3. 比較をクリック\n4. 差分がハイライト表示される\n5. 表示モードを切り替えて確認"
+        },
+        "useCases": {
+          "title": "使用例",
+          "content": "差分チェッカーの活用場面：\n\n• コードレビュー - 変更点の確認\n• 設定ファイル比較 - 環境間の違い\n• ドキュメント更新 - 改訂履歴の確認\n• デバッグ - 動作する/しないコードの比較\n• マージコンフリクト解決の補助"
+        }
+      }
+    },
+    "lorem-generator": {
+      "summary": "Lorem Ipsumダミーテキストの生成",
+      "sections": {
+        "whatIs": {
+          "title": "Lorem Ipsumとは",
+          "content": "Lorem Ipsumは、デザインやレイアウトのプレースホルダーとして使用されるダミーテキストです。16世紀から使われており、意味のある内容に気を取られずにデザインに集中できます。\n\n語源：キケロの「De Finibus Bonorum et Malorum」（紀元前45年）の一部を変形したもの。"
+        },
+        "types": {
+          "title": "生成タイプ",
+          "content": "生成オプション：\n\n• 段落 - 複数文の段落\n• 文 - 個別の文\n• 単語 - 指定数の単語\n• バイト - 特定のファイルサイズ用\n\nバリエーション：\n• クラシック（ラテン語風）\n• ビジネス用語\n• 技術用語\n• 日本語ダミーテキスト"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "ダミーテキスト生成手順：\n\n1. 生成タイプを選択（段落/文/単語）\n2. 数量を指定\n3. オプションを設定（HTMLタグを含むなど）\n4. 生成をクリック\n5. テキストをコピー"
+        },
+        "webDesign": {
+          "title": "Webデザインでの活用",
+          "content": "デザインでの使用ヒント：\n\n• 実際のコンテンツ量を想定した長さで生成\n• 見出し、本文、リストなど複数パターンを用意\n• 日本語サイトでは日本語ダミーテキストを推奨\n• レスポンシブデザインでは異なる長さでテスト\n• 最終的には実際のコンテンツに置き換えること"
+        }
+      }
+    },
+    "url-encoder": {
+      "summary": "URLのエンコードとデコード",
+      "sections": {
+        "whatIs": {
+          "title": "URLエンコーディングとは",
+          "content": "URLエンコーディング（パーセントエンコーディング）は、URLで使用できない文字を安全に表現する方法です。特殊文字や非ASCII文字を%XXの形式に変換します。\n\n例：\n• スペース → %20 または +\n• こんにちは → %E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF"
+        },
+        "reservedChars": {
+          "title": "予約文字",
+          "content": "URLで特別な意味を持つ文字：\n\n• : / ? # [ ] @ - 一般的な区切り文字\n• ! $ & ' ( ) * + , ; = - サブ区切り文字\n\nこれらをデータとして使用する場合はエンコードが必要です。\n\n安全な文字（エンコード不要）：\n• A-Z, a-z, 0-9\n• - _ . ~"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "エンコード/デコード手順：\n\n1. テキストまたはURLを入力\n2. エンコードまたはデコードを選択\n3. 結果を取得\n\nオプション：\n• 完全エンコード（すべての特殊文字）\n• コンポーネントエンコード（パスやクエリ用）"
+        },
+        "javascript": {
+          "title": "JavaScriptでの使用",
+          "content": "JavaScript関数：\n\n• encodeURI() - URL全体用、予約文字は保持\n• encodeURIComponent() - パラメータ用、すべてエンコード\n• decodeURI() / decodeURIComponent() - デコード用\n\n例：\nencodeURIComponent('hello world') // 'hello%20world'\ndecodeURIComponent('%E3%81%82') // 'あ'"
+        }
+      }
+    },
+    "html-entity": {
+      "summary": "HTML文字実体参照の変換",
+      "sections": {
+        "whatIs": {
+          "title": "HTML文字実体とは",
+          "content": "HTML文字実体参照は、HTMLで特殊文字を安全に表示するための表記法です。予約文字やキーボードで入力困難な文字を表現します。\n\n形式：\n• 名前参照: &nbsp; &lt; &gt;\n• 数値参照: &#160; &#60; &#62;\n• 16進参照: &#x00A0; &#x003C;"
+        },
+        "commonEntities": {
+          "title": "よく使う実体参照",
+          "content": "頻繁に使用される実体参照：\n\n• &lt; (<) &gt; (>) - タグ記号\n• &amp; (&) - アンパサンド\n• &quot; (\") &apos; (') - 引用符\n• &nbsp; - 改行しないスペース\n• &copy; (©) &reg; (®) - 著作権・登録商標\n• &mdash; (—) &ndash; (–) - ダッシュ"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "変換手順：\n\n1. テキストまたはHTMLを入力\n2. エンコードまたはデコードを選択\n3. 結果を取得\n\nエンコード：特殊文字 → 実体参照\nデコード：実体参照 → 特殊文字"
+        },
+        "security": {
+          "title": "セキュリティ",
+          "content": "XSS対策として重要：\n\n• ユーザー入力は必ずエスケープ\n• < > \" ' & を常にエンコード\n• サーバーサイドでの処理を推奨\n• フレームワークの自動エスケープ機能を活用\n\nセキュリティ上、HTML出力時は常にエスケープすることが重要です。"
+        }
+      }
+    },
+    "box-shadow": {
+      "summary": "CSSボックスシャドウの視覚的作成",
+      "sections": {
+        "whatIs": {
+          "title": "Box Shadowプロパティ",
+          "content": "CSS box-shadowは要素に影を追加します。カードのような立体感やフォーカス効果、装飾的なデザインに使用されます。\n\n構文：\nbox-shadow: [inset] offset-x offset-y blur spread color;\n\n例：box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
+        },
+        "properties": {
+          "title": "プロパティ詳細",
+          "content": "各プロパティの説明：\n\n• offset-x - 水平方向のオフセット（正=右、負=左）\n• offset-y - 垂直方向のオフセット（正=下、負=上）\n• blur - ぼかし半径（大きいほど柔らかい影）\n• spread - 拡散半径（影のサイズ調整）\n• color - 影の色（rgba推奨）\n• inset - 内側の影（オプション）"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "シャドウ生成手順：\n\n1. スライダーで各値を調整\n2. リアルタイムでプレビュー確認\n3. 色を選択（透明度も設定可能）\n4. 複数の影を重ねて効果を追加\n5. CSSコードをコピー"
+        },
+        "examples": {
+          "title": "デザイン例",
+          "content": "よく使うシャドウパターン：\n\n• 軽い浮遊感: 0 2px 4px rgba(0,0,0,0.1)\n• カード効果: 0 4px 6px -1px rgba(0,0,0,0.1)\n• ボタンの押下: inset 0 2px 4px rgba(0,0,0,0.2)\n• ネオン効果: 0 0 10px #00ffff\n• 多層影: 複数のbox-shadowをカンマで区切る"
+        }
+      }
+    },
+    "gradient-generator": {
+      "summary": "CSSグラデーションの視覚的作成",
+      "sections": {
+        "whatIs": {
+          "title": "CSSグラデーション",
+          "content": "CSSグラデーションは、2つ以上の色間の滑らかな遷移を作成します。背景、ボタン、装飾的な要素に使用されます。\n\nタイプ：\n• linear-gradient - 直線的な色の遷移\n• radial-gradient - 中心から外側への遷移\n• conic-gradient - 角度に沿った遷移"
+        },
+        "linearGradient": {
+          "title": "リニアグラデーション",
+          "content": "直線的なグラデーション：\n\n構文：linear-gradient(direction, color1, color2, ...);\n\n方向の指定：\n• to right - 左から右\n• to bottom - 上から下（デフォルト）\n• 45deg - 角度指定\n• to top right - 対角線\n\n例：background: linear-gradient(135deg, #667eea, #764ba2);"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "グラデーション作成手順：\n\n1. グラデーションタイプを選択\n2. 色を追加（複数可）\n3. 各色の位置を調整\n4. 角度や方向を設定\n5. プレビューで確認\n6. CSSコードをコピー"
+        },
+        "tips": {
+          "title": "デザインのヒント",
+          "content": "効果的なグラデーションのコツ：\n\n• 類似色を使うと自然な遷移に\n• 補色を使うとダイナミックな効果\n• 透明度を含めると重ね合わせが可能\n• 複数のグラデーションを組み合わせ可能\n• パフォーマンス: 画像よりCSSグラデーションが軽量"
+        }
+      }
+    },
+    "ua-parser": {
+      "summary": "User-Agent文字列の解析",
+      "sections": {
+        "whatIs": {
+          "title": "User-Agentとは",
+          "content": "User-Agent（UA）は、ブラウザがサーバーに送信する識別文字列です。ブラウザ名、バージョン、OS、デバイス情報などを含みます。\n\n例：\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        },
+        "components": {
+          "title": "UA構成要素",
+          "content": "User-Agentの各部分：\n\n• ブラウザ名とバージョン\n• レンダリングエンジン（Blink, Gecko, WebKit）\n• OS情報（Windows, macOS, Linux, iOS, Android）\n• デバイスタイプ（デスクトップ、モバイル、タブレット）\n• CPUアーキテクチャ（x64, ARM）\n• ボット識別（Googlebot等）"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "User-Agent解析手順：\n\n1. User-Agent文字列を貼り付け\n2. または「現在のブラウザ」をクリック\n3. 解析結果を確認\n\n表示される情報：\n• ブラウザ名とバージョン\n• OS名とバージョン\n• デバイスタイプ\n• レンダリングエンジン"
+        },
+        "useCases": {
+          "title": "活用例",
+          "content": "User-Agent解析の用途：\n\n• ブラウザ互換性のデバッグ\n• アクセス解析\n• デバイス別のコンテンツ提供\n• ボットの検出と対応\n• 機能サポートの判定\n\n注意: User-Agentは偽装可能なため、信頼しすぎないこと。"
+        }
+      }
+    },
+    "meta-generator": {
+      "summary": "SEO用メタタグの生成",
+      "sections": {
+        "whatIs": {
+          "title": "メタタグとは",
+          "content": "メタタグは、HTMLの<head>内に記述する、ページの情報を定義する要素です。検索エンジン、SNS、ブラウザがこの情報を利用します。\n\n主なメタタグ：\n• title - ページタイトル\n• description - ページの説明\n• viewport - モバイル表示設定\n• robots - 検索エンジン制御"
+        },
+        "ogTags": {
+          "title": "OGPタグ",
+          "content": "Open Graph Protocol（SNS共有用）：\n\n• og:title - 共有時のタイトル\n• og:description - 共有時の説明\n• og:image - 共有時の画像（1200x630推奨）\n• og:url - 正規URL\n• og:type - コンテンツタイプ（website, article等）\n\nTwitter Cards:\n• twitter:card - カードタイプ\n• twitter:site - Twitterアカウント"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "メタタグ生成手順：\n\n1. 基本情報を入力（タイトル、説明）\n2. OGP情報を設定\n3. Twitter Cards情報を設定\n4. プレビューで確認\n5. HTMLコードをコピーして<head>に貼り付け"
+        },
+        "seoTips": {
+          "title": "SEOのヒント",
+          "content": "効果的なメタタグのために：\n\n• title: 60文字以内、キーワードを含む\n• description: 160文字以内、行動を促す内容\n• 各ページに固有のメタタグを設定\n• 画像は高品質、適切なサイズで用意\n• 正規URLを必ず設定\n• 構造化データ(JSON-LD)も検討"
+        }
+      }
+    },
+    "curl-builder": {
+      "summary": "cURLコマンドの視覚的構築",
+      "sections": {
+        "whatIs": {
+          "title": "cURLとは",
+          "content": "cURL（Client URL）は、コマンドラインからHTTPリクエストを送信するツールです。API開発、テスト、デバッグで広く使用されています。\n\n基本構文：\ncurl [options] [URL]\n\n例：curl -X GET https://api.example.com/users"
+        },
+        "options": {
+          "title": "主要オプション",
+          "content": "よく使うcURLオプション：\n\n• -X, --request - HTTPメソッド（GET, POST, PUT, DELETE）\n• -H, --header - ヘッダー追加\n• -d, --data - リクエストボディ\n• -F, --form - フォームデータ\n• -o, --output - 出力ファイル\n• -v, --verbose - 詳細出力\n• -s, --silent - 進捗非表示"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "cURLコマンド構築手順：\n\n1. URLを入力\n2. HTTPメソッドを選択\n3. ヘッダーを追加（Content-Type, Authorization等）\n4. リクエストボディを入力（該当する場合）\n5. オプションを設定\n6. コマンドをコピー"
+        },
+        "examples": {
+          "title": "使用例",
+          "content": "一般的なcURLの例：\n\n• GET:\ncurl https://api.example.com/users\n\n• POST（JSON）:\ncurl -X POST -H \"Content-Type: application/json\" -d '{\"name\":\"test\"}' https://api.example.com/users\n\n• 認証付き:\ncurl -H \"Authorization: Bearer token\" https://api.example.com/data"
+        }
+      }
+    },
+    "svg-optimizer": {
+      "summary": "SVGファイルの最適化と圧縮",
+      "sections": {
+        "whatIs": {
+          "title": "SVG最適化とは",
+          "content": "SVG最適化は、SVGファイルサイズを削減しながら品質を維持するプロセスです。不要なメタデータ、コメント、空白を削除し、パスを簡略化します。\n\n効果：\n• ファイルサイズを50-90%削減\n• ページ読み込み速度の向上\n• 帯域幅の節約"
+        },
+        "optimizations": {
+          "title": "最適化項目",
+          "content": "実行される最適化：\n\n• メタデータ削除（エディター情報等）\n• コメント削除\n• 未使用のdefs削除\n• ID短縮\n• 小数点精度の調整\n• パスの簡略化\n• 色コードの短縮（#ffffff → #fff）\n• 不要な属性の削除"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "SVG最適化の手順：\n\n1. SVGファイルをアップロードまたはコードを貼り付け\n2. 最適化オプションを選択\n3. プレビューで結果を確認\n4. 最適化されたSVGをダウンロード\n\n複数ファイルの一括処理も可能です。"
+        },
+        "tips": {
+          "title": "最適化のヒント",
+          "content": "効果的なSVG最適化のために：\n\n• デザインツールから書き出し時に不要なレイヤーを削除\n• パスを結合して要素数を減らす\n• インラインSVGはgzip圧縮が効果的\n• アイコンはSVGスプライトにまとめる\n• アニメーションSVGは慎重に最適化"
+        }
+      }
+    },
+    "css-to-tailwind": {
+      "summary": "CSSをTailwindユーティリティクラスに変換",
+      "sections": {
+        "whatIs": {
+          "title": "Tailwind CSSとは",
+          "content": "Tailwind CSSは、ユーティリティファーストのCSSフレームワークです。事前定義されたクラスを組み合わせて、HTMLに直接スタイルを適用します。\n\n従来のCSS:\n.card { display: flex; padding: 16px; }\n\nTailwind:\n<div class=\"flex p-4\">...</div>"
+        },
+        "commonConversions": {
+          "title": "よく使う変換",
+          "content": "一般的な変換例：\n\n• margin: 16px → m-4\n• padding: 8px 16px → px-4 py-2\n• display: flex → flex\n• justify-content: center → justify-center\n• color: #3b82f6 → text-blue-500\n• font-size: 18px → text-lg\n• font-weight: bold → font-bold"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "変換手順：\n\n1. CSSコードを入力欄に貼り付け\n2. 変換をクリック\n3. Tailwindクラスを取得\n4. 必要に応じて調整\n\n注意: すべてのCSSがTailwindに直接変換できるわけではありません。"
+        },
+        "responsive": {
+          "title": "レスポンシブ対応",
+          "content": "Tailwindのレスポンシブ設計：\n\nブレークポイント:\n• sm: 640px以上\n• md: 768px以上\n• lg: 1024px以上\n• xl: 1280px以上\n• 2xl: 1536px以上\n\n使用例:\n<div class=\"w-full md:w-1/2 lg:w-1/3\">\nモバイルで全幅、タブレットで半分、デスクトップで1/3"
+        }
+      }
+    },
+    "prettier-playground": {
+      "summary": "Prettierを使ったコードフォーマット",
+      "sections": {
+        "whatIs": {
+          "title": "Prettierとは",
+          "content": "Prettierは、一貫したコードスタイルを自動的に適用するコードフォーマッターです。JavaScript、TypeScript、CSS、HTML、JSON、Markdownなど多くの言語をサポートしています。\n\n整形前:\nconst user={name:\"John\",age:30}\n\n整形後:\nconst user = {\n  name: \"John\",\n  age: 30,\n};"
+        },
+        "languages": {
+          "title": "対応言語",
+          "content": "サポートされる言語：\n\n• JavaScript / TypeScript\n• JSX / TSX\n• CSS / SCSS / Less\n• HTML / Vue / Angular\n• JSON / YAML\n• Markdown / MDX\n• GraphQL\n• PHP（プラグイン）"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "フォーマット手順：\n\n1. 言語を選択\n2. コードを貼り付け\n3. オプションを設定（必要に応じて）\n4. 整形されたコードを取得\n\nリアルタイムでフォーマット結果がプレビューされます。"
+        },
+        "config": {
+          "title": "設定オプション",
+          "content": "主な設定項目：\n\n• printWidth: 行の最大幅（デフォルト: 80）\n• tabWidth: タブ幅（デフォルト: 2）\n• useTabs: タブを使用（デフォルト: false）\n• semi: セミコロン（デフォルト: true）\n• singleQuote: シングルクォート（デフォルト: false）\n• trailingComma: 末尾カンマ（es5, none, all）\n• bracketSpacing: オブジェクト内スペース"
+        }
+      }
     }
   }
 }

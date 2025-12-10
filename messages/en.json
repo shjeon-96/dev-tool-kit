@@ -23,6 +23,36 @@
     "privacy": "Privacy Policy",
     "github": "GitHub"
   },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "description": "Choose the plan that fits your needs. All plans include our core tools.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "savePercent": "(Save 17%)",
+    "month": "month",
+    "billedYearly": "billed yearly",
+    "free": "Free",
+    "custom": "Custom",
+    "mostPopular": "Most Popular",
+    "currentPlan": "Current Plan",
+    "getStarted": "Get Started",
+    "subscribe": "Subscribe",
+    "contactSales": "Contact Sales",
+    "processing": "Processing...",
+    "successMessage": "Thank you for subscribing! Your Pro features are now active.",
+    "canceledMessage": "Checkout was canceled. Feel free to try again when you're ready.",
+    "faqTitle": "Frequently Asked Questions",
+    "faq": {
+      "q1": "Can I cancel my subscription anytime?",
+      "a1": "Yes, you can cancel your subscription at any time. You'll continue to have access to Pro features until the end of your billing period.",
+      "q2": "What payment methods do you accept?",
+      "a2": "We accept all major credit cards (Visa, MasterCard, American Express) through our secure payment provider Stripe.",
+      "q3": "Is there a free trial?",
+      "a3": "We don't offer a free trial, but our Free tier gives you access to all tools with some usage limits. You can upgrade anytime.",
+      "q4": "What happens when I exceed my usage limits?",
+      "a4": "On the Free tier, you'll be prompted to upgrade. Pro users have significantly higher limits, and usage resets each billing period."
+    }
+  },
   "common": {
     "copy": "Copy",
     "copied": "Copied!",
@@ -794,6 +824,41 @@
       "description": "Bash reference - commands, file operations, pipes, scripting, and system administration."
     }
   },
+  "auth": {
+    "signin": {
+      "title": "Sign In",
+      "description": "Sign in to your account to access premium features",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "loading": "Signing in...",
+      "error": "An error occurred. Please try again.",
+      "google": "Continue with Google",
+      "github": "Continue with GitHub",
+      "or": "Or continue with email",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create Account",
+      "description": "Create an account to access premium features",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create Account",
+      "loading": "Creating account...",
+      "error": "An error occurred. Please try again.",
+      "passwordMismatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "success": "Check your email for a confirmation link!",
+      "goToSignin": "Go to Sign In",
+      "google": "Continue with Google",
+      "github": "Continue with GitHub",
+      "or": "Or continue with email",
+      "hasAccount": "Already have an account?",
+      "signinLink": "Sign in"
+    }
+  },
   "guides": {
     "title": "Developer Guides",
     "description": "Step-by-step guides to help you master our developer tools",
@@ -934,6 +999,489 @@
         "security-best-practices": {
           "title": "Security Best Practices",
           "content": "Hash security guidelines:\n\n• Never use MD5 or SHA-1 for security purposes\n• Use SHA-256 or SHA-512 for data integrity\n• For passwords, use bcrypt, scrypt, or argon2 (with salt)\n• Store hashes, never plaintext\n• Use constant-time comparison to prevent timing attacks\n• Consider HMAC when you need authentication\n\nRemember: Hashes verify integrity, not confidentiality. Use encryption if data must stay secret."
+        }
+      }
+    },
+    "image-resizer": {
+      "summary": "Resize, compress, and convert images directly in your browser",
+      "sections": {
+        "whatIs": {
+          "title": "What is Image Resizing?",
+          "content": "Image resizing is the process of changing the dimensions of an image while maintaining visual quality. This is essential for:\n\n• Web optimization - Reduce file sizes for faster loading\n• Social media - Match platform-specific dimensions\n• Responsive design - Create multiple sizes for different devices\n• Storage - Save space without losing important detail"
+        },
+        "formats": {
+          "title": "Image Formats Explained",
+          "content": "Choose the right format for your needs:\n\n• JPEG - Best for photos, supports compression, no transparency\n• PNG - Lossless quality, supports transparency, larger files\n• WebP - Modern format, excellent compression, wide browser support\n• GIF - For simple animations, limited colors\n\nFor web use, WebP offers the best balance of quality and file size."
+        },
+        "howToUse": {
+          "title": "How to Use the Image Resizer",
+          "content": "Resize your images in three easy steps:\n\n1. Upload your image by dragging it or clicking to select\n2. Set your desired dimensions or percentage\n3. Choose output format and quality\n4. Download your optimized image\n\nAll processing happens in your browser - your images are never uploaded to any server."
+        },
+        "tips": {
+          "title": "Optimization Tips",
+          "content": "Get the best results:\n\n• Use 80-85% quality for JPEG - barely noticeable difference\n• Keep aspect ratio locked to prevent distortion\n• For web: aim for under 200KB per image\n• Use WebP for modern browsers\n• Resize before applying effects for better performance"
+        }
+      }
+    },
+    "unix-timestamp": {
+      "summary": "Convert between Unix timestamps and human-readable dates",
+      "sections": {
+        "whatIs": {
+          "title": "What is a Unix Timestamp?",
+          "content": "A Unix timestamp (also called Epoch time) is the number of seconds that have elapsed since January 1, 1970, at 00:00:00 UTC.\n\nWhy use timestamps?\n• Language-independent - Same value worldwide\n• Easy to compare - Simple integer comparison\n• Timezone-safe - Always UTC-based\n• Compact storage - Just one number"
+        },
+        "conversion": {
+          "title": "Converting Timestamps",
+          "content": "Common conversions:\n\n• Seconds to Date: new Date(timestamp * 1000)\n• Date to Seconds: Math.floor(date.getTime() / 1000)\n• Current time: Math.floor(Date.now() / 1000)\n\nNote: JavaScript uses milliseconds, so multiply/divide by 1000."
+        },
+        "howToUse": {
+          "title": "How to Use This Tool",
+          "content": "Our converter supports bidirectional conversion:\n\n1. Enter a Unix timestamp to see the human-readable date\n2. Enter a date/time to get the Unix timestamp\n3. View results in multiple formats and timezones\n4. Copy the result with one click\n\nThe tool updates in real-time as you type."
+        },
+        "commonValues": {
+          "title": "Notable Timestamps",
+          "content": "Important timestamps to know:\n\n• 0 - January 1, 1970 (Unix Epoch)\n• 1000000000 - September 9, 2001\n• 2147483647 - January 19, 2038 (Y2K38 problem for 32-bit systems)\n• Current time: Check the live display above\n\nThe Year 2038 problem affects systems using 32-bit signed integers for timestamps."
+        }
+      }
+    },
+    "qr-generator": {
+      "summary": "Generate QR codes for URLs, text, WiFi credentials, and more",
+      "sections": {
+        "whatIs": {
+          "title": "What is a QR Code?",
+          "content": "QR (Quick Response) codes are two-dimensional barcodes that can store various types of data.\n\nQR codes can contain:\n• URLs and website links\n• Plain text messages\n• Contact information (vCard)\n• WiFi network credentials\n• Email addresses\n• Phone numbers"
+        },
+        "types": {
+          "title": "QR Code Types",
+          "content": "Different data types for different uses:\n\n• URL - Opens a website when scanned\n• Text - Displays plain text\n• WiFi - Auto-connects to network\n• vCard - Adds contact to phone\n• Email - Opens email composer\n• SMS - Opens messaging app\n\nChoose the type that matches your intended use."
+        },
+        "howToUse": {
+          "title": "How to Generate QR Codes",
+          "content": "Create your QR code:\n\n1. Select the content type\n2. Enter your data (URL, text, etc.)\n3. Customize size and error correction\n4. Download as PNG or SVG\n\nHigher error correction allows the code to work even when partially damaged."
+        },
+        "bestPractices": {
+          "title": "QR Code Best Practices",
+          "content": "Tips for effective QR codes:\n\n• Test before printing - Always scan your QR code first\n• Provide context - Tell users what they'll get\n• Ensure contrast - Dark code on light background\n• Size matters - Minimum 2cm for print, larger for distance\n• Use URL shorteners - Simpler codes are easier to scan"
+        }
+      }
+    },
+    "app-icon-generator": {
+      "summary": "Generate app icons for iOS, Android, and web platforms",
+      "sections": {
+        "whatIs": {
+          "title": "What are App Icons?",
+          "content": "App icons are the visual identity of your application. Different platforms require different sizes:\n\n• iOS - Multiple sizes from 20px to 1024px\n• Android - Adaptive icons with foreground/background\n• Web - Favicons and PWA icons\n• macOS - Up to 512px with optional padding"
+        },
+        "platforms": {
+          "title": "Platform Requirements",
+          "content": "Each platform has specific requirements:\n\niOS: Square icons, no transparency, rounded corners applied by system\n\nAndroid: Adaptive icons with safe zone, supports transparency\n\nWeb PWA: 192px and 512px required, maskable icons recommended\n\nOur tool generates all required sizes automatically."
+        },
+        "howToUse": {
+          "title": "How to Generate Icons",
+          "content": "Generate icons for all platforms:\n\n1. Upload your source image (1024x1024 recommended)\n2. Select target platforms\n3. Preview how icons will look\n4. Download the icon pack as ZIP\n\nIncludes proper naming and folder structure for each platform."
+        },
+        "designTips": {
+          "title": "Icon Design Tips",
+          "content": "Create effective app icons:\n\n• Keep it simple - Recognizable at small sizes\n• Use bold colors - Stand out on home screens\n• Avoid text - Illegible at small sizes\n• Test at multiple sizes - Check 29px and 1024px\n• Consider context - Light and dark backgrounds"
+        }
+      }
+    },
+    "color-picker": {
+      "summary": "Pick colors, convert between formats, and generate palettes",
+      "sections": {
+        "whatIs": {
+          "title": "Understanding Color Formats",
+          "content": "Colors can be represented in several formats:\n\n• HEX - #FF5733 (web standard)\n• RGB - rgb(255, 87, 51) (screen colors)\n• HSL - hsl(14, 100%, 60%) (intuitive adjustments)\n• RGBA/HSLA - With alpha for transparency\n\nEach format has its advantages depending on use case."
+        },
+        "colorFormats": {
+          "title": "When to Use Each Format",
+          "content": "Choose the right format:\n\nHEX: CSS, design tools, compact notation\nRGB: Programmatic color manipulation\nHSL: Easy hue/saturation adjustments\nRGBA/HSLA: When transparency is needed\n\nHSL is particularly useful for generating color variations."
+        },
+        "howToUse": {
+          "title": "How to Use the Color Picker",
+          "content": "Multiple ways to pick colors:\n\n1. Use the visual color picker\n2. Enter any color format directly\n3. Extract colors from uploaded images\n4. Browse preset color palettes\n\nAll formats are converted automatically."
+        },
+        "colorPalettes": {
+          "title": "Generating Color Palettes",
+          "content": "Create harmonious palettes:\n\n• Complementary - Opposite on color wheel\n• Analogous - Adjacent colors\n• Triadic - Three evenly spaced\n• Tetradic - Four colors, two pairs\n\nOur tool generates these automatically from any base color."
+        }
+      }
+    },
+    "url-parser": {
+      "summary": "Parse and analyze URL components including query parameters",
+      "sections": {
+        "whatIs": {
+          "title": "What is a URL?",
+          "content": "A URL (Uniform Resource Locator) is the address of a resource on the internet.\n\nURL components:\n• Protocol - http, https, ftp\n• Host - Domain name or IP\n• Port - Optional, defaults vary\n• Path - Resource location\n• Query - Key-value parameters\n• Hash - In-page anchor"
+        },
+        "components": {
+          "title": "URL Components Explained",
+          "content": "Breaking down a URL:\n\nhttps://user:pass@example.com:8080/path?query=value#hash\n\n• Protocol: https\n• Username: user\n• Password: pass\n• Hostname: example.com\n• Port: 8080\n• Pathname: /path\n• Search: ?query=value\n• Hash: #hash"
+        },
+        "howToUse": {
+          "title": "How to Use the URL Parser",
+          "content": "Parse any URL:\n\n1. Paste your URL in the input field\n2. View all components broken down\n3. Edit individual components\n4. Copy the modified URL\n\nQuery parameters are parsed and displayed as editable key-value pairs."
+        },
+        "queryParams": {
+          "title": "Working with Query Parameters",
+          "content": "Query parameters pass data in URLs:\n\n?key1=value1&key2=value2\n\nCommon uses:\n• Search queries (?q=search+term)\n• Pagination (?page=2&limit=10)\n• Tracking (?utm_source=google)\n• Filters (?category=tech&sort=date)\n\nOur tool parses and displays them in an editable table."
+        }
+      }
+    },
+    "uuid-generator": {
+      "summary": "Generate UUIDs and ULIDs for unique identifiers",
+      "sections": {
+        "whatIs": {
+          "title": "What is a UUID?",
+          "content": "UUID (Universally Unique Identifier) is a 128-bit identifier that's practically unique across all systems.\n\nFormat: 550e8400-e29b-41d4-a716-446655440000\n\nUUIDs are used for:\n• Database primary keys\n• Session identifiers\n• Distributed systems\n• File naming"
+        },
+        "versions": {
+          "title": "UUID Versions",
+          "content": "Different UUID versions:\n\n• v1 - Timestamp + MAC address\n• v4 - Random (most common)\n• v5 - Namespace + Name (SHA-1)\n• v7 - Timestamp-based, sortable (new)\n\nv4 is the most widely used - purely random and simple to generate."
+        },
+        "uuidVsUlid": {
+          "title": "UUID vs ULID",
+          "content": "ULID (Universally Unique Lexicographically Sortable Identifier):\n\n• 26 characters vs UUID's 36\n• Sortable by creation time\n• No special characters\n• Case insensitive\n\nUse ULID when you need sortable IDs or compact storage."
+        },
+        "howToUse": {
+          "title": "How to Generate IDs",
+          "content": "Generate unique identifiers:\n\n1. Choose UUID version or ULID\n2. Generate single or bulk IDs\n3. Copy to clipboard\n4. Use format options (with/without dashes)\n\nAll generation happens client-side - your IDs are never logged or stored."
+        }
+      }
+    },
+    "base-converter": {
+      "summary": "Convert numbers between binary, decimal, hexadecimal, and other bases",
+      "sections": {
+        "whatIs": {
+          "title": "Understanding Number Bases",
+          "content": "A number base (or radix) determines how many unique digits are used:\n\n• Binary (base 2) - 0, 1\n• Octal (base 8) - 0-7\n• Decimal (base 10) - 0-9\n• Hexadecimal (base 16) - 0-9, A-F\n\nThe same number looks different in each base but represents the same value."
+        },
+        "commonBases": {
+          "title": "Common Number Bases",
+          "content": "When to use each base:\n\nBinary: Hardware, bitwise operations, permissions\nOctal: Unix file permissions (chmod 755)\nDecimal: Human-readable numbers\nHexadecimal: Colors (#FF0000), memory addresses, byte values"
+        },
+        "howToUse": {
+          "title": "How to Convert Numbers",
+          "content": "Convert between any bases:\n\n1. Enter your number\n2. Select the source base\n3. View conversions to all common bases\n4. Or select a specific target base\n\nSupports bases from 2 to 36."
+        },
+        "programming": {
+          "title": "Number Bases in Programming",
+          "content": "Programming language prefixes:\n\n• Binary: 0b1010 (JavaScript, Python)\n• Octal: 0o755 or 0755\n• Hex: 0xFF or 0xff\n\nConversion functions:\n• parseInt('FF', 16) → 255\n• (255).toString(2) → '11111111'"
+        }
+      }
+    },
+    "sql-formatter": {
+      "summary": "Format and beautify SQL queries for better readability",
+      "sections": {
+        "whatIs": {
+          "title": "Why Format SQL?",
+          "content": "Formatted SQL is easier to read, debug, and maintain.\n\nBenefits:\n• Improved readability\n• Easier debugging\n• Better code reviews\n• Consistent team standards\n\nWell-formatted SQL makes complex queries manageable."
+        },
+        "options": {
+          "title": "Formatting Options",
+          "content": "Customize your formatting:\n\n• Indentation style and size\n• Keyword case (UPPER, lower, Preserve)\n• Line breaks before/after clauses\n• Comma placement (before or after)\n\nFind settings that match your team's style guide."
+        },
+        "howToUse": {
+          "title": "How to Format SQL",
+          "content": "Format your queries:\n\n1. Paste your SQL query\n2. Select formatting options\n3. Click Format\n4. Copy the beautified result\n\nSupports SELECT, INSERT, UPDATE, DELETE, and complex joins."
+        },
+        "dialects": {
+          "title": "SQL Dialects",
+          "content": "Different databases have different syntax:\n\n• MySQL - LIMIT, backticks\n• PostgreSQL - LIMIT, double quotes\n• SQL Server - TOP, square brackets\n• Oracle - ROWNUM, no LIMIT\n\nOur formatter handles common syntax across dialects."
+        }
+      }
+    },
+    "cron-parser": {
+      "summary": "Parse and generate cron expressions for scheduled tasks",
+      "sections": {
+        "whatIs": {
+          "title": "What is Cron?",
+          "content": "Cron is a time-based job scheduler in Unix-like systems.\n\nCron expression format:\n* * * * *\n│ │ │ │ │\n│ │ │ │ └─ Day of week (0-6)\n│ │ │ └─── Month (1-12)\n│ │ └───── Day of month (1-31)\n│ └─────── Hour (0-23)\n└───────── Minute (0-59)"
+        },
+        "patterns": {
+          "title": "Common Cron Patterns",
+          "content": "Frequently used patterns:\n\n• 0 * * * * - Every hour\n• 0 0 * * * - Daily at midnight\n• 0 0 * * 0 - Weekly on Sunday\n• */15 * * * * - Every 15 minutes\n• 0 9-17 * * 1-5 - Weekdays 9AM-5PM"
+        },
+        "howToUse": {
+          "title": "How to Use the Parser",
+          "content": "Build cron expressions:\n\n1. Enter a cron expression to see plain English description\n2. Or use the builder to create expressions\n3. View next scheduled run times\n4. Copy for use in crontab\n\nValidation helps catch syntax errors."
+        },
+        "special": {
+          "title": "Special Characters",
+          "content": "Cron special characters:\n\n• * - Any value\n• , - List (1,3,5)\n• - - Range (1-5)\n• / - Step (*/15)\n• ? - No specific value (day fields)\n• L - Last (last day of month)\n• W - Weekday (nearest weekday)"
+        }
+      }
+    },
+    "markdown-preview": {
+      "summary": "Write and preview Markdown with live rendering",
+      "sections": {
+        "whatIs": {
+          "title": "What is Markdown?",
+          "content": "Markdown is a lightweight markup language for creating formatted text.\n\nUsed for:\n• README files\n• Documentation\n• Blog posts\n• Comments and issues\n• Note-taking\n\nSimple syntax converts to HTML."
+        },
+        "syntax": {
+          "title": "Markdown Syntax",
+          "content": "Basic syntax:\n\n# Heading 1\n## Heading 2\n**bold** *italic*\n- list item\n1. numbered item\n[link](url)\n![image](url)\n`code`\n\nExtended: tables, task lists, footnotes"
+        },
+        "howToUse": {
+          "title": "How to Use the Preview",
+          "content": "Write with live preview:\n\n1. Type Markdown in the editor\n2. See rendered preview instantly\n3. Toggle between edit/preview/split views\n4. Export to HTML or copy Markdown\n\nSyntax highlighting helps catch formatting errors."
+        },
+        "advanced": {
+          "title": "Advanced Features",
+          "content": "Beyond basic Markdown:\n\n• Code blocks with syntax highlighting\n• Tables with alignment\n• Task lists with checkboxes\n• Footnotes and references\n• HTML embedding\n\nGitHub Flavored Markdown (GFM) supported."
+        }
+      }
+    },
+    "diff-checker": {
+      "summary": "Compare text and code to find differences",
+      "sections": {
+        "whatIs": {
+          "title": "What is Diff?",
+          "content": "A diff shows the differences between two texts or files.\n\nUseful for:\n• Code review\n• Version comparison\n• Finding changes in configs\n• Debugging modifications\n\nAdditions, deletions, and changes are highlighted."
+        },
+        "types": {
+          "title": "Diff View Types",
+          "content": "Different ways to view diffs:\n\n• Side by side - Both versions visible\n• Inline/Unified - Single column with changes marked\n• Word level - Character-by-character comparison\n• Line level - Line-by-line comparison\n\nChoose based on your comparison needs."
+        },
+        "howToUse": {
+          "title": "How to Compare Text",
+          "content": "Compare any text:\n\n1. Paste original text on the left\n2. Paste modified text on the right\n3. View highlighted differences\n4. Toggle between view modes\n\nWorks with any text: code, configs, documents."
+        },
+        "useCases": {
+          "title": "Common Use Cases",
+          "content": "When to use diff:\n\n• Before committing code changes\n• Comparing config file versions\n• Reviewing API response changes\n• Verifying data transformations\n• Documentation updates\n\nSaves time spotting what changed."
+        }
+      }
+    },
+    "lorem-generator": {
+      "summary": "Generate placeholder text for designs and mockups",
+      "sections": {
+        "whatIs": {
+          "title": "What is Lorem Ipsum?",
+          "content": "Lorem Ipsum is placeholder text used in design and publishing.\n\nWhy use it?\n• Focus on design, not content\n• Realistic text flow\n• Industry standard\n• Prevents premature content decisions\n\nThe text is derived from a work by Cicero (45 BC)."
+        },
+        "options": {
+          "title": "Generation Options",
+          "content": "Customize your placeholder:\n\n• Paragraphs - For body text\n• Sentences - For shorter sections\n• Words - For specific word counts\n• Lists - For bullet points\n\nSet exact amounts needed for your design."
+        },
+        "howToUse": {
+          "title": "How to Generate Text",
+          "content": "Generate placeholder text:\n\n1. Choose unit type (paragraphs, sentences, words)\n2. Set the quantity\n3. Select start with 'Lorem ipsum' or random\n4. Copy the generated text\n\nPaste directly into your design tools."
+        },
+        "design": {
+          "title": "Using in Design",
+          "content": "Best practices:\n\n• Match text length to real content\n• Use different amounts for variety\n• Consider line lengths and readability\n• Replace with real content early\n\nPlaceholder text helps visualize the final design."
+        }
+      }
+    },
+    "url-encoder": {
+      "summary": "Encode and decode URLs for safe transmission",
+      "sections": {
+        "whatIs": {
+          "title": "What is URL Encoding?",
+          "content": "URL encoding converts special characters to percent-encoded format.\n\nWhy needed?\n• URLs can only contain ASCII characters\n• Some characters have special meaning in URLs\n• Spaces and symbols must be encoded\n\nExample: Hello World → Hello%20World"
+        },
+        "special": {
+          "title": "Special Characters",
+          "content": "Characters that need encoding:\n\n• Space → %20 (or +)\n• & → %26\n• = → %3D\n• ? → %3F\n• # → %23\n\nReserved characters have special URL meaning."
+        },
+        "howToUse": {
+          "title": "How to Encode/Decode",
+          "content": "Encode or decode text:\n\n1. Enter text to encode\n2. Or enter encoded text to decode\n3. View the result instantly\n4. Copy with one click\n\nHandles full URLs or individual components."
+        },
+        "programming": {
+          "title": "URL Encoding in Code",
+          "content": "Programming functions:\n\nJavaScript:\n• encodeURIComponent() - For query params\n• encodeURI() - For full URLs\n\nPython:\n• urllib.parse.quote()\n• urllib.parse.urlencode()"
+        }
+      }
+    },
+    "html-entity": {
+      "summary": "Convert special characters to HTML entities",
+      "sections": {
+        "whatIs": {
+          "title": "What are HTML Entities?",
+          "content": "HTML entities represent special characters in HTML.\n\nWhy needed?\n• < and > have special meaning in HTML\n• Some characters aren't on keyboards\n• Ensures proper rendering\n\nFormat: &name; or &#number;"
+        },
+        "common": {
+          "title": "Common HTML Entities",
+          "content": "Frequently used entities:\n\n• &lt; (<)\n• &gt; (>)\n• &amp; (&)\n• &quot; (\")\n• &nbsp; (non-breaking space)\n• &copy; (©)\n• &trade; (™)"
+        },
+        "howToUse": {
+          "title": "How to Convert",
+          "content": "Convert characters:\n\n1. Enter text with special characters\n2. View HTML entity equivalents\n3. Or enter entities to decode\n4. Copy the result\n\nEssential for displaying code in HTML."
+        },
+        "security": {
+          "title": "Security Importance",
+          "content": "Why entity encoding matters:\n\n• Prevents XSS attacks\n• Safely display user input\n• Required for code samples\n\nAlways encode user-generated content before displaying in HTML."
+        }
+      }
+    },
+    "box-shadow": {
+      "summary": "Generate CSS box-shadow with visual editor",
+      "sections": {
+        "whatIs": {
+          "title": "Understanding Box Shadow",
+          "content": "CSS box-shadow adds shadow effects to elements.\n\nSyntax:\nbox-shadow: offset-x offset-y blur spread color;\n\nMultiple shadows can be stacked for complex effects."
+        },
+        "properties": {
+          "title": "Shadow Properties",
+          "content": "Each property explained:\n\n• offset-x - Horizontal position\n• offset-y - Vertical position\n• blur - Blur radius (soft edges)\n• spread - Shadow size\n• color - Shadow color (use rgba for transparency)\n• inset - Inner shadow"
+        },
+        "howToUse": {
+          "title": "How to Use the Generator",
+          "content": "Create shadows visually:\n\n1. Adjust sliders for each property\n2. See live preview\n3. Add multiple shadow layers\n4. Copy the CSS code\n\nNo need to memorize syntax!"
+        },
+        "tips": {
+          "title": "Design Tips",
+          "content": "Shadow best practices:\n\n• Subtle shadows (low opacity) look more natural\n• Match shadow direction with light source\n• Use multiple layers for depth\n• Avoid harsh edges (add blur)\n• Consider dark mode compatibility"
+        }
+      }
+    },
+    "gradient-generator": {
+      "summary": "Create CSS gradients with visual controls",
+      "sections": {
+        "whatIs": {
+          "title": "Understanding CSS Gradients",
+          "content": "Gradients are smooth transitions between colors.\n\nTypes:\n• Linear - Along a line\n• Radial - From a center point\n• Conic - Around a center point\n\nGradients can replace images for better performance."
+        },
+        "types": {
+          "title": "Gradient Types",
+          "content": "When to use each:\n\nLinear: Backgrounds, buttons, progress bars\nRadial: Spotlights, orbs, vignettes\nConic: Pie charts, color wheels\n\nCombine with transparency for overlays."
+        },
+        "howToUse": {
+          "title": "How to Create Gradients",
+          "content": "Build gradients visually:\n\n1. Choose gradient type\n2. Add color stops\n3. Adjust angle or position\n4. Copy CSS code\n\nPreview updates in real-time."
+        },
+        "advanced": {
+          "title": "Advanced Techniques",
+          "content": "Pro gradient tips:\n\n• Multiple color stops for complex gradients\n• Use transparent colors for overlays\n• Combine with background-blend-mode\n• Animate with CSS transitions\n• Stack multiple gradients"
+        }
+      }
+    },
+    "ua-parser": {
+      "summary": "Parse User-Agent strings to identify browsers and devices",
+      "sections": {
+        "whatIs": {
+          "title": "What is a User-Agent?",
+          "content": "The User-Agent string identifies the browser and system to websites.\n\nContains:\n• Browser name and version\n• Operating system\n• Device type\n• Rendering engine\n\nUsed for compatibility and analytics."
+        },
+        "components": {
+          "title": "UA String Components",
+          "content": "Breaking down a User-Agent:\n\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36\n\n• Platform: Windows 10 64-bit\n• Engine: Blink (Chrome)\n• Browser: Chrome 120"
+        },
+        "howToUse": {
+          "title": "How to Parse User-Agents",
+          "content": "Analyze any UA string:\n\n1. Paste a User-Agent string\n2. View parsed components\n3. See browser, OS, device info\n4. Check your current UA\n\nUseful for debugging browser-specific issues."
+        },
+        "patterns": {
+          "title": "Common Detection Patterns",
+          "content": "Identifying browsers:\n\n• Chrome: 'Chrome' but not 'Edg'\n• Firefox: 'Firefox'\n• Safari: 'Safari' but not 'Chrome'\n• Edge: 'Edg'\n• Mobile: 'Mobile' or 'Android'\n\nNote: UA strings can be spoofed."
+        }
+      }
+    },
+    "meta-generator": {
+      "summary": "Generate meta tags for SEO and social sharing",
+      "sections": {
+        "whatIs": {
+          "title": "What are Meta Tags?",
+          "content": "Meta tags provide information about your webpage.\n\nPurposes:\n• SEO - Help search engines understand content\n• Social sharing - Control how links appear\n• Browser behavior - Viewport, charset\n\nPlaced in the <head> of your HTML."
+        },
+        "og": {
+          "title": "Open Graph Tags",
+          "content": "Open Graph controls social previews:\n\n• og:title - Link title\n• og:description - Link description\n• og:image - Preview image\n• og:url - Canonical URL\n\nUsed by Facebook, LinkedIn, and others."
+        },
+        "howToUse": {
+          "title": "How to Generate Tags",
+          "content": "Create meta tags:\n\n1. Enter your page information\n2. Add social media details\n3. Preview how it will appear\n4. Copy the HTML code\n\nIncludes both basic and social meta tags."
+        },
+        "twitter": {
+          "title": "Twitter Card Tags",
+          "content": "Twitter-specific meta tags:\n\n• twitter:card - Card type\n• twitter:title - Tweet title\n• twitter:description - Description\n• twitter:image - Card image\n\nUse summary_large_image for prominent images."
+        }
+      }
+    },
+    "curl-builder": {
+      "summary": "Build cURL commands for API testing",
+      "sections": {
+        "whatIs": {
+          "title": "What is cURL?",
+          "content": "cURL is a command-line tool for making HTTP requests.\n\nUsed for:\n• API testing\n• Debugging requests\n• Automation scripts\n• Downloading files\n\nAvailable on all major operating systems."
+        },
+        "options": {
+          "title": "Common cURL Options",
+          "content": "Frequently used flags:\n\n• -X - HTTP method (GET, POST, etc.)\n• -H - Add header\n• -d - Request body data\n• -o - Output to file\n• -v - Verbose output\n• -L - Follow redirects"
+        },
+        "howToUse": {
+          "title": "How to Build Commands",
+          "content": "Create cURL commands:\n\n1. Enter the URL\n2. Select HTTP method\n3. Add headers and body\n4. Copy the command\n\nSupports JSON, form data, and authentication."
+        },
+        "auth": {
+          "title": "Authentication Examples",
+          "content": "Common auth methods:\n\n• Bearer token: -H 'Authorization: Bearer TOKEN'\n• Basic auth: -u username:password\n• API key: -H 'X-API-Key: KEY'\n\nNever commit tokens to version control!"
+        }
+      }
+    },
+    "svg-optimizer": {
+      "summary": "Optimize SVG files by removing unnecessary code",
+      "sections": {
+        "whatIs": {
+          "title": "Why Optimize SVGs?",
+          "content": "SVG files often contain unnecessary data:\n\n• Editor metadata\n• Redundant attributes\n• Empty groups\n• Decimal precision\n\nOptimization reduces file size by 30-80%."
+        },
+        "techniques": {
+          "title": "Optimization Techniques",
+          "content": "What gets optimized:\n\n• Remove comments and metadata\n• Minify path data\n• Merge similar paths\n• Remove empty elements\n• Shorten color values\n• Reduce decimal precision"
+        },
+        "howToUse": {
+          "title": "How to Optimize",
+          "content": "Optimize your SVGs:\n\n1. Upload or paste SVG code\n2. Preview the result\n3. Compare file sizes\n4. Download optimized SVG\n\nPreview ensures quality isn't affected."
+        },
+        "bestPractices": {
+          "title": "SVG Best Practices",
+          "content": "Tips for SVG optimization:\n\n• Remove hidden layers before export\n• Use simple shapes when possible\n• Avoid embedded fonts\n• Consider inline SVG for icons\n• Test after optimization"
+        }
+      }
+    },
+    "css-to-tailwind": {
+      "summary": "Convert CSS to Tailwind utility classes",
+      "sections": {
+        "whatIs": {
+          "title": "Why Convert to Tailwind?",
+          "content": "Tailwind CSS uses utility classes instead of custom CSS.\n\nBenefits:\n• Consistent design system\n• Smaller bundle size\n• Faster development\n• Easy responsive design\n\nConvert existing CSS to adopt Tailwind."
+        },
+        "conversions": {
+          "title": "Common Conversions",
+          "content": "CSS to Tailwind mappings:\n\n• margin: 16px → m-4\n• display: flex → flex\n• color: blue → text-blue-500\n• font-size: 18px → text-lg\n\nSpacing uses a scale: 4 = 16px, 8 = 32px, etc."
+        },
+        "howToUse": {
+          "title": "How to Convert",
+          "content": "Convert your CSS:\n\n1. Paste CSS rules\n2. View equivalent Tailwind classes\n3. Copy class names\n4. Apply to your HTML\n\nHandles common CSS properties."
+        },
+        "responsive": {
+          "title": "Responsive Design",
+          "content": "Tailwind breakpoint prefixes:\n\n• sm: 640px+\n• md: 768px+\n• lg: 1024px+\n• xl: 1280px+\n\nExample: md:w-1/2 lg:w-1/3"
+        }
+      }
+    },
+    "prettier-playground": {
+      "summary": "Format code with Prettier in the browser",
+      "sections": {
+        "whatIs": {
+          "title": "What is Prettier?",
+          "content": "Prettier is an opinionated code formatter.\n\nBenefits:\n• Consistent code style\n• No style debates\n• Automatic formatting\n• Supports many languages\n\nThe same code, formatted the same way, everywhere."
+        },
+        "languages": {
+          "title": "Supported Languages",
+          "content": "Prettier formats:\n\n• JavaScript/TypeScript\n• HTML/CSS/SCSS\n• JSON/YAML/Markdown\n• JSX/TSX\n• And more...\n\nAuto-detects language from content."
+        },
+        "howToUse": {
+          "title": "How to Format Code",
+          "content": "Format your code:\n\n1. Paste code in the editor\n2. Select language (or auto-detect)\n3. Adjust options if needed\n4. Copy formatted result\n\nSee changes instantly."
+        },
+        "config": {
+          "title": "Configuration Options",
+          "content": "Common Prettier options:\n\n• printWidth - Line length\n• tabWidth - Spaces per tab\n• semi - Semicolons\n• singleQuote - Quote style\n• trailingComma - Trailing commas\n\nMatch your project's .prettierrc"
         }
       }
     }
