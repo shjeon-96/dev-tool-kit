@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { useToolHistory } from "@/shared/lib";
+import { useToolHistory, useUrlState } from "@/shared/lib";
 
 export interface DecodedToken {
   header: Record<string, unknown>;
@@ -12,76 +12,104 @@ export interface DecodedToken {
   issuedAt: Date | null;
 }
 
+interface JwtDecoderState {
+  token: string;
+}
+
 export function useJwtDecoder() {
-  const [input, setInput] = useState("");
+  // URL State for sharing
+  const {
+    state: urlState,
+    setState: setUrlState,
+    getShareUrl,
+    hasUrlState,
+    clearUrl,
+  } = useUrlState<JwtDecoderState>({
+    key: "jwt",
+    defaultValue: { token: "" },
+  });
+
+  const [input, setInputInternal] = useState(urlState.token);
   const [decoded, setDecoded] = useState<DecodedToken | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [timeRemaining, setTimeRemaining] = useState<string | null>(null);
 
-  const {
-    history,
-    addToHistory,
-    clearHistory,
-    hasHistory,
-  } = useToolHistory("jwt-decoder");
+  const { history, addToHistory, clearHistory, hasHistory } =
+    useToolHistory("jwt-decoder");
 
-  const decodeToken = useCallback((token: string, saveToHistory: boolean = true) => {
-    if (!token.trim()) {
-      setDecoded(null);
-      setError(null);
-      return;
-    }
-
-    try {
-      const parts = token.split(".");
-      if (parts.length !== 3) {
-        throw new Error("Invalid JWT format: must have 3 parts");
-      }
-
-      const header = JSON.parse(atob(parts[0]));
-      const payload = jwtDecode<Record<string, unknown>>(token);
-
-      const exp = payload.exp as number | undefined;
-      const iat = payload.iat as number | undefined;
-
-      const expiresAt = exp ? new Date(exp * 1000) : null;
-      const issuedAt = iat ? new Date(iat * 1000) : null;
-      const isExpired = expiresAt ? expiresAt < new Date() : false;
-
-      setDecoded({
-        header,
-        payload,
-        isExpired,
-        expiresAt,
-        issuedAt,
+  // Sync input with URL state changes (e.g., browser back/forward)
+  useEffect(() => {
+    if (urlState.token !== input) {
+      queueMicrotask(() => {
+        setInputInternal(urlState.token);
       });
-      setError(null);
-
-      // 히스토리에 저장 (JWT 앞부분만 저장하여 보안 유지)
-      if (saveToHistory) {
-        const truncatedToken = token.length > 50 ? token.substring(0, 50) + "..." : token;
-        addToHistory(truncatedToken, JSON.stringify(payload, null, 2));
-      }
-    } catch (e) {
-      setDecoded(null);
-      setError(e instanceof Error ? e.message : "Invalid JWT token");
     }
-  }, [addToHistory]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlState.token]);
+
+  const decodeToken = useCallback(
+    (token: string, saveToHistory: boolean = true) => {
+      if (!token.trim()) {
+        setDecoded(null);
+        setError(null);
+        return;
+      }
+
+      try {
+        const parts = token.split(".");
+        if (parts.length !== 3) {
+          throw new Error("Invalid JWT format: must have 3 parts");
+        }
+
+        const header = JSON.parse(atob(parts[0]));
+        const payload = jwtDecode<Record<string, unknown>>(token);
+
+        const exp = payload.exp as number | undefined;
+        const iat = payload.iat as number | undefined;
+
+        const expiresAt = exp ? new Date(exp * 1000) : null;
+        const issuedAt = iat ? new Date(iat * 1000) : null;
+        const isExpired = expiresAt ? expiresAt < new Date() : false;
+
+        setDecoded({
+          header,
+          payload,
+          isExpired,
+          expiresAt,
+          issuedAt,
+        });
+        setError(null);
+
+        // 히스토리에 저장 (JWT 앞부분만 저장하여 보안 유지)
+        if (saveToHistory) {
+          const truncatedToken =
+            token.length > 50 ? token.substring(0, 50) + "..." : token;
+          addToHistory(truncatedToken, JSON.stringify(payload, null, 2));
+        }
+      } catch (e) {
+        setDecoded(null);
+        setError(e instanceof Error ? e.message : "Invalid JWT token");
+      }
+    },
+    [addToHistory],
+  );
 
   const handleInputChange = useCallback(
     (value: string) => {
-      setInput(value);
+      setInputInternal(value);
+      setUrlState({ token: value });
       decodeToken(value);
     },
-    [decodeToken]
+    [decodeToken, setUrlState],
   );
 
   const handleClear = useCallback(() => {
-    setInput("");
+    setInputInternal("");
     setDecoded(null);
     setError(null);
     setTimeRemaining(null);
-  }, []);
+    clearUrl();
+  }, [clearUrl]);
 
   const handlePaste = useCallback(async () => {
     try {
@@ -116,7 +144,7 @@ export function useJwtDecoder() {
       setTimeRemaining(
         `${hours.toString().padStart(2, "0")}:${minutes
           .toString()
-          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
       );
     };
 
@@ -128,7 +156,8 @@ export function useJwtDecoder() {
   const loadFromHistory = useCallback(
     (historyInput: string, historyOutput: string) => {
       // 히스토리에서 불러올 때는 출력 결과만 표시
-      setInput(historyInput);
+      setInputInternal(historyInput);
+      setUrlState({ token: historyInput });
       try {
         const payload = JSON.parse(historyOutput);
         setDecoded({
@@ -143,7 +172,7 @@ export function useJwtDecoder() {
         setError("Failed to load from history");
       }
     },
-    []
+    [setUrlState],
   );
 
   return {
@@ -159,5 +188,8 @@ export function useJwtDecoder() {
     hasHistory,
     clearHistory,
     loadFromHistory,
+    // URL 공유 관련
+    getShareUrl,
+    hasUrlState,
   };
 }

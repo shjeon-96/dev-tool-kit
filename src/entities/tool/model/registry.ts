@@ -27,6 +27,9 @@ import {
   FileImage,
   Paintbrush,
   Sparkles,
+  FileCode,
+  Minimize2,
+  CaseSensitive,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -39,13 +42,15 @@ export const tools: Record<ToolSlug, Tool> = {
   },
   "jwt-decoder": {
     title: "JWT Decoder",
-    description: "JWT 토큰을 디코딩하여 Header, Payload, 만료 시간을 확인합니다.",
+    description:
+      "JWT 토큰을 디코딩하여 Header, Payload, 만료 시간을 확인합니다.",
     icon: Lock,
     category: "security",
   },
   "image-resizer": {
     title: "Image Resizer",
-    description: "이미지 크기 조절, 포맷 변환, 품질 조정을 브라우저에서 처리합니다.",
+    description:
+      "이미지 크기 조절, 포맷 변환, 품질 조정을 브라우저에서 처리합니다.",
     icon: ImageIcon,
     category: "media",
   },
@@ -63,7 +68,8 @@ export const tools: Record<ToolSlug, Tool> = {
   },
   "app-icon-generator": {
     title: "App Icon Generator",
-    description: "iOS, Android, Favicon 규격에 맞는 앱 아이콘을 일괄 생성합니다.",
+    description:
+      "iOS, Android, Favicon 규격에 맞는 앱 아이콘을 일괄 생성합니다.",
     icon: Smartphone,
     category: "media",
   },
@@ -81,7 +87,8 @@ export const tools: Record<ToolSlug, Tool> = {
   },
   "url-parser": {
     title: "URL Parser",
-    description: "URL을 분석하여 구성 요소를 분해하고 쿼리 파라미터를 편집합니다.",
+    description:
+      "URL을 분석하여 구성 요소를 분해하고 쿼리 파라미터를 편집합니다.",
     icon: Link,
     category: "text",
   },
@@ -117,7 +124,8 @@ export const tools: Record<ToolSlug, Tool> = {
   },
   "markdown-preview": {
     title: "Markdown Preview",
-    description: "Markdown을 실시간으로 렌더링하고 코드 하이라이팅을 지원합니다.",
+    description:
+      "Markdown을 실시간으로 렌더링하고 코드 하이라이팅을 지원합니다.",
     icon: FileText,
     category: "text",
   },
@@ -159,7 +167,8 @@ export const tools: Record<ToolSlug, Tool> = {
   },
   "ua-parser": {
     title: "User Agent Parser",
-    description: "User Agent 문자열을 분석하여 브라우저, OS, 디바이스 정보를 확인합니다.",
+    description:
+      "User Agent 문자열을 분석하여 브라우저, OS, 디바이스 정보를 확인합니다.",
     icon: Monitor,
     category: "text",
   },
@@ -198,6 +207,25 @@ export const tools: Record<ToolSlug, Tool> = {
     description: "다양한 언어의 코드를 Prettier로 포맷팅합니다.",
     icon: Sparkles,
     category: "text",
+  },
+  "json-to-typescript": {
+    title: "JSON to TypeScript",
+    description: "JSON 데이터를 TypeScript 인터페이스/타입으로 변환합니다.",
+    icon: FileCode,
+    category: "converters",
+  },
+  "css-minifier": {
+    title: "CSS Minifier",
+    description: "CSS 코드를 압축하고 최적화합니다.",
+    icon: Minimize2,
+    category: "text",
+  },
+  "text-case-converter": {
+    title: "Text Case Converter",
+    description:
+      "텍스트를 다양한 케이스(camelCase, snake_case 등)로 변환합니다.",
+    icon: CaseSensitive,
+    category: "converters",
   },
 };
 

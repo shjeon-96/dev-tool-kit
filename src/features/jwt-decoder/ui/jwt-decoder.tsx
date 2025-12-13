@@ -1,8 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Trash2, ClipboardPaste, Clock, AlertTriangle, History, X } from "lucide-react";
-import { Button } from "@/shared/ui";
+import {
+  Trash2,
+  ClipboardPaste,
+  Clock,
+  AlertTriangle,
+  History,
+  X,
+} from "lucide-react";
+import { Button, ShareButton } from "@/shared/ui";
 import { useJwtDecoder } from "../model/use-jwt-decoder";
 
 export function JwtDecoder() {
@@ -18,6 +25,7 @@ export function JwtDecoder() {
     hasHistory,
     clearHistory,
     loadFromHistory,
+    getShareUrl,
   } = useJwtDecoder();
 
   const [showHistory, setShowHistory] = useState(false);
@@ -60,6 +68,8 @@ export function JwtDecoder() {
             History
           </Button>
         )}
+
+        {input && <ShareButton getShareUrl={getShareUrl} />}
 
         {/* Timer */}
         {timeRemaining && (
@@ -186,7 +196,11 @@ export function JwtDecoder() {
                         <span>
                           {String(value)}
                           <span className="text-muted-foreground ml-2">
-                            ({new Date((value as number) * 1000).toLocaleString()})
+                            (
+                            {new Date(
+                              (value as number) * 1000,
+                            ).toLocaleString()}
+                            )
                           </span>
                         </span>
                       ) : typeof value === "object" ? (

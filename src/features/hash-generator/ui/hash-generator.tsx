@@ -11,8 +11,20 @@ import {
   TabsList,
   TabsTrigger,
   TabsContent,
+  ShareButton,
 } from "@/shared/ui";
-import { Copy, Check, RotateCcw, FileText, Type, CheckCircle, XCircle, History, Trash2, X } from "lucide-react";
+import {
+  Copy,
+  Check,
+  RotateCcw,
+  FileText,
+  Type,
+  CheckCircle,
+  XCircle,
+  History,
+  Trash2,
+  X,
+} from "lucide-react";
 
 export function HashGenerator() {
   const {
@@ -34,6 +46,7 @@ export function HashGenerator() {
     hasHistory,
     clearHistory,
     loadFromHistory,
+    getShareUrl,
   } = useHashGenerator();
 
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
@@ -92,6 +105,9 @@ export function HashGenerator() {
                 <History className="h-4 w-4 mr-2" />
                 History
               </Button>
+            )}
+            {textInput && inputMode === "text" && (
+              <ShareButton getShareUrl={getShareUrl} />
             )}
             <Button variant="outline" size="sm" onClick={handleClear}>
               <RotateCcw className="h-4 w-4 mr-2" />

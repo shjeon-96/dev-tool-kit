@@ -2,18 +2,16 @@
 
 import { useState } from "react";
 import { Copy, Check, Trash2, ClipboardPaste, History, X } from "lucide-react";
-import { Button, ShareButton } from "@/shared/ui";
-import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
+import { Button } from "@/shared/ui";
+import { useTextCaseConverter } from "../model/use-text-case-converter";
+import { caseOptions } from "../lib/converter";
 
-export function JsonFormatter() {
+export function TextCaseConverter() {
   const {
     input,
-    output,
+    outputs,
     error,
-    indent,
     setInput,
-    setIndent,
-    handleFormat,
     handleCopy,
     handleClear,
     handlePaste,
@@ -21,29 +19,24 @@ export function JsonFormatter() {
     hasHistory,
     clearHistory,
     loadFromHistory,
-    getShareUrl,
-  } = useJsonFormatter();
+  } = useTextCaseConverter();
 
-  const [copied, setCopied] = useState(false);
+  const [copiedCase, setCopiedCase] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
 
-  const onCopy = async () => {
-    const success = await handleCopy();
+  const onCopy = async (caseType: string) => {
+    const success = await handleCopy(
+      caseType as Parameters<typeof handleCopy>[0],
+    );
     if (success) {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setCopiedCase(caseType);
+      setTimeout(() => setCopiedCase(null), 2000);
     }
   };
 
-  const formatButtons: { mode: FormatMode; label: string }[] = [
-    { mode: "beautify", label: "Beautify" },
-    { mode: "minify", label: "Minify" },
-    { mode: "validate", label: "Validate" },
-  ];
-
   const formatTimestamp = (timestamp: number) => {
     const date = new Date(timestamp);
-    return date.toLocaleString("ko-KR", {
+    return date.toLocaleString("en-US", {
       month: "short",
       day: "numeric",
       hour: "2-digit",
@@ -51,7 +44,7 @@ export function JsonFormatter() {
     });
   };
 
-  const truncateText = (text: string, maxLength: number = 50) => {
+  const truncateText = (text: string, maxLength: number = 40) => {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength) + "...";
   };
@@ -60,25 +53,6 @@ export function JsonFormatter() {
     <div className="space-y-4">
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-2">
-        {formatButtons.map(({ mode, label }) => (
-          <Button key={mode} onClick={() => handleFormat(mode)} size="sm">
-            {label}
-          </Button>
-        ))}
-
-        <div className="flex items-center gap-2 ml-auto">
-          <label className="text-sm text-muted-foreground">Indent:</label>
-          <select
-            value={indent}
-            onChange={(e) => setIndent(Number(e.target.value))}
-            className="h-8 rounded-md border bg-background px-2 text-sm"
-          >
-            <option value={2}>2 spaces</option>
-            <option value={4}>4 spaces</option>
-            <option value={1}>1 tab</option>
-          </select>
-        </div>
-
         <Button variant="outline" size="sm" onClick={handlePaste}>
           <ClipboardPaste className="h-4 w-4 mr-1" />
           Paste
@@ -99,8 +73,6 @@ export function JsonFormatter() {
             History
           </Button>
         )}
-
-        {input && <ShareButton getShareUrl={getShareUrl} />}
       </div>
 
       {/* History Panel */}
@@ -132,7 +104,7 @@ export function JsonFormatter() {
               <button
                 key={item.id}
                 onClick={() => {
-                  loadFromHistory(item.input, item.output);
+                  loadFromHistory(item.input);
                   setShowHistory(false);
                 }}
                 className="w-full text-left p-2 rounded-md hover:bg-muted transition-colors text-sm"
@@ -158,42 +130,60 @@ export function JsonFormatter() {
         </div>
       )}
 
-      {/* Input/Output */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Input</label>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder='{"key": "value"}'
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-            spellCheck={false}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label className="text-sm font-medium">Output</label>
-            {output && (
-              <Button variant="ghost" size="sm" onClick={onCopy}>
-                {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
-                ) : (
-                  <Copy className="h-4 w-4" />
-                )}
-                <span className="ml-1">{copied ? "Copied!" : "Copy"}</span>
-              </Button>
-            )}
-          </div>
-          <textarea
-            value={output}
-            readOnly
-            placeholder="Formatted output will appear here"
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
-            spellCheck={false}
-          />
-        </div>
+      {/* Input */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Input Text</label>
+        <textarea
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Enter text to convert..."
+          className="h-[120px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+          spellCheck={false}
+        />
       </div>
+
+      {/* Output Grid */}
+      {input.trim() && (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {caseOptions.map((option) => (
+            <div
+              key={option.type}
+              className="rounded-lg border bg-card p-3 space-y-2"
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-medium text-muted-foreground">
+                  {option.label}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-2"
+                  onClick={() => onCopy(option.type)}
+                >
+                  {copiedCase === option.type ? (
+                    <Check className="h-3 w-3 text-green-500" />
+                  ) : (
+                    <Copy className="h-3 w-3" />
+                  )}
+                </Button>
+              </div>
+              <div className="font-mono text-sm break-all bg-muted/50 rounded p-2 min-h-[40px]">
+                {outputs[option.type] || ""}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Empty state */}
+      {!input.trim() && (
+        <div className="text-center py-12 text-muted-foreground">
+          <p>Enter text above to see all case conversions</p>
+          <p className="text-sm mt-2">
+            Supports: camelCase, PascalCase, snake_case, kebab-case, and more
+          </p>
+        </div>
+      )}
     </div>
   );
 }

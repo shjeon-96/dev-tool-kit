@@ -7,6 +7,7 @@ import {
   getSortedCategories,
   type ToolSlug,
 } from "@/entities/tool";
+import { FavoriteRecentSection } from "@/widgets/tools-list";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -29,6 +30,9 @@ export default async function ToolsPage({ params }: Props) {
         <h1 className="text-3xl font-bold tracking-tight">DevToolkit</h1>
         <p className="text-muted-foreground">{tSite("description")}</p>
       </div>
+
+      {/* Favorites & Recent Tools */}
+      <FavoriteRecentSection />
 
       {sortedCategories.map((category) => {
         const toolSlugs = groupedTools.get(category.id) || [];

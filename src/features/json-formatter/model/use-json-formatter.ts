@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useToolHistory } from "@/shared/lib";
+import { useState, useCallback, useEffect } from "react";
+import { useToolHistory, useUrlState } from "@/shared/lib";
 import {
   formatJson,
   minifyJson,
@@ -11,18 +11,58 @@ import {
 
 export type FormatMode = "beautify" | "minify" | "validate";
 
+interface JsonFormatterState {
+  input: string;
+  indent: number;
+}
+
 export function useJsonFormatter() {
-  const [input, setInput] = useState("");
+  // URL State for sharing
+  const {
+    state: urlState,
+    setState: setUrlState,
+    getShareUrl,
+    hasUrlState,
+    clearUrl,
+  } = useUrlState<JsonFormatterState>({
+    key: "json",
+    defaultValue: { input: "", indent: 2 },
+  });
+
+  const [input, setInputInternal] = useState(urlState.input);
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [indent, setIndent] = useState(2);
+  const [indent, setIndentInternal] = useState(urlState.indent);
 
-  const {
-    history,
-    addToHistory,
-    clearHistory,
-    hasHistory,
-  } = useToolHistory("json-formatter");
+  // Sync input with URL state changes (e.g., browser back/forward)
+  // This is a valid pattern for external state synchronization
+  useEffect(() => {
+    // Use queueMicrotask to avoid synchronous setState warning
+    queueMicrotask(() => {
+      setInputInternal(urlState.input);
+      setIndentInternal(urlState.indent);
+    });
+  }, [urlState.input, urlState.indent]);
+
+  // Update URL state when input changes (debounced)
+  const setInput = useCallback(
+    (value: string) => {
+      setInputInternal(value);
+      setUrlState({ input: value, indent });
+    },
+    [indent, setUrlState],
+  );
+
+  const setIndent = useCallback(
+    (value: number) => {
+      setIndentInternal(value);
+      setUrlState({ input, indent: value });
+    },
+    [input, setUrlState],
+  );
+
+  const { history, addToHistory, clearHistory, hasHistory } =
+    useToolHistory("json-formatter");
 
   const handleFormat = useCallback(
     (mode: FormatMode) => {
@@ -58,7 +98,7 @@ export function useJsonFormatter() {
         setOutput("");
       }
     },
-    [input, indent, addToHistory]
+    [input, indent, addToHistory],
   );
 
   const handleCopy = useCallback(async () => {
@@ -72,10 +112,11 @@ export function useJsonFormatter() {
   }, [output]);
 
   const handleClear = useCallback(() => {
-    setInput("");
+    setInputInternal("");
     setOutput("");
     setError(null);
-  }, []);
+    clearUrl();
+  }, [clearUrl]);
 
   const handlePaste = useCallback(async () => {
     try {
@@ -85,7 +126,7 @@ export function useJsonFormatter() {
     } catch {
       setError("클립보드에서 붙여넣기 실패");
     }
-  }, []);
+  }, [setInput]);
 
   const loadFromHistory = useCallback(
     (historyInput: string, historyOutput: string) => {
@@ -93,7 +134,7 @@ export function useJsonFormatter() {
       setOutput(historyOutput);
       setError(null);
     },
-    []
+    [setInput],
   );
 
   return {
@@ -112,5 +153,8 @@ export function useJsonFormatter() {
     hasHistory,
     clearHistory,
     loadFromHistory,
+    // URL 공유 관련
+    getShareUrl,
+    hasUrlState,
   };
 }

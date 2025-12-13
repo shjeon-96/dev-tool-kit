@@ -37,4 +37,7 @@ export type ToolSlug =
   | "curl-builder"
   | "svg-optimizer"
   | "css-to-tailwind"
-  | "prettier-playground";
+  | "prettier-playground"
+  | "json-to-typescript"
+  | "css-minifier"
+  | "text-case-converter";

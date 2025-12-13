@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
-import { useToolHistory } from "@/shared/lib";
+import { useToolHistory, useUrlState } from "@/shared/lib";
 import {
   computeHash,
   computeAllHashes,
@@ -15,9 +15,26 @@ export type { HashAlgorithm, HashResult };
 
 export type InputMode = "text" | "file";
 
+interface HashGeneratorState {
+  input: string;
+  mode: InputMode;
+}
+
 export function useHashGenerator() {
-  const [inputMode, setInputMode] = useState<InputMode>("text");
-  const [textInput, setTextInput] = useState("");
+  // URL State for sharing
+  const {
+    state: urlState,
+    setState: setUrlState,
+    getShareUrl,
+    hasUrlState,
+    clearUrl,
+  } = useUrlState<HashGeneratorState>({
+    key: "hash",
+    defaultValue: { input: "", mode: "text" },
+  });
+
+  const [inputMode, setInputMode] = useState<InputMode>(urlState.mode);
+  const [textInput, setTextInputInternal] = useState(urlState.input);
   const [file, setFile] = useState<File | null>(null);
   const [hashes, setHashes] = useState<HashResult[]>([]);
   const [compareHashInput, setCompareHashInput] = useState("");
@@ -29,6 +46,35 @@ export function useHashGenerator() {
 
   // 히스토리 저장 트리거 추적
   const lastSavedInput = useRef<string>("");
+
+  // Sync input with URL state changes (e.g., browser back/forward)
+  // This is a valid pattern for external state synchronization
+  const prevUrlStateRef = useRef({
+    input: urlState.input,
+    mode: urlState.mode,
+  });
+  useEffect(() => {
+    if (
+      prevUrlStateRef.current.input !== urlState.input ||
+      prevUrlStateRef.current.mode !== urlState.mode
+    ) {
+      prevUrlStateRef.current = { input: urlState.input, mode: urlState.mode };
+      // Use queueMicrotask to avoid synchronous setState warning
+      queueMicrotask(() => {
+        setTextInputInternal(urlState.input);
+        setInputMode(urlState.mode);
+      });
+    }
+  }, [urlState.input, urlState.mode]);
+
+  // Update URL state when text input changes
+  const setTextInput = useCallback(
+    (value: string) => {
+      setTextInputInternal(value);
+      setUrlState({ input: value, mode: inputMode });
+    },
+    [inputMode, setUrlState],
+  );
 
   const generateHashes = useCallback((input: string) => {
     const results = computeAllHashes(input);
@@ -97,16 +143,20 @@ export function useHashGenerator() {
     setHashes([]);
   }, []);
 
-  const handleModeChange = useCallback((mode: InputMode) => {
-    setInputMode(mode);
-    setHashes([]);
-    setError(null);
-    if (mode === "text") {
-      setFile(null);
-    } else {
-      setTextInput("");
-    }
-  }, []);
+  const handleModeChange = useCallback(
+    (mode: InputMode) => {
+      setInputMode(mode);
+      setHashes([]);
+      setError(null);
+      if (mode === "text") {
+        setFile(null);
+      } else {
+        setTextInputInternal("");
+      }
+      setUrlState({ input: "", mode });
+    },
+    [setUrlState],
+  );
 
   const compareWithHash = useCallback((): boolean | null => {
     return compareHashes(hashes, compareHashInput);
@@ -122,22 +172,25 @@ export function useHashGenerator() {
   }, []);
 
   const handleClear = useCallback(() => {
-    setTextInput("");
+    setTextInputInternal("");
     setFile(null);
     setHashes([]);
     setCompareHashInput("");
     setError(null);
-  }, []);
+    clearUrl();
+  }, [clearUrl]);
 
   const loadFromHistory = useCallback(
     (historyInput: string, historyOutput: string) => {
-      setTextInput(historyInput.replace("...", ""));
+      const cleanInput = historyInput.replace("...", "");
+      setTextInputInternal(cleanInput);
+      setUrlState({ input: cleanInput, mode: "text" });
       // 저장된 SHA-256 해시로 표시 (전체 해시를 다시 생성)
       setHashes([{ algorithm: "sha256", hash: historyOutput }]);
       setError(null);
       setInputMode("text");
     },
-    [],
+    [setUrlState],
   );
 
   return {
@@ -160,5 +213,8 @@ export function useHashGenerator() {
     hasHistory,
     clearHistory,
     loadFromHistory,
+    // URL 공유 관련
+    getShareUrl,
+    hasUrlState,
   };
 }

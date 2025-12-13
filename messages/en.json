@@ -11,6 +11,9 @@
   },
   "sidebar": {
     "allTools": "All Tools",
+    "favorites": "Favorites",
+    "recentlyUsed": "Recently Used",
+    "clearRecent": "Clear",
     "categories": {
       "text": "Text",
       "media": "Media",
@@ -190,6 +193,18 @@
     "prettier-playground": {
       "title": "Prettier Playground",
       "description": "Format code in various languages using Prettier."
+    },
+    "json-to-typescript": {
+      "title": "JSON to TypeScript",
+      "description": "Convert JSON data to TypeScript interfaces or types."
+    },
+    "css-minifier": {
+      "title": "CSS Minifier",
+      "description": "Compress and optimize CSS code."
+    },
+    "text-case-converter": {
+      "title": "Text Case Converter",
+      "description": "Convert text to various cases (camelCase, snake_case, etc.)."
     }
   },
   "seo": {
@@ -760,6 +775,66 @@
         {
           "q": "What's the difference between named and numeric?",
           "a": "Named (&amp;) is readable; numeric (&#38;) works for any Unicode character."
+        }
+      ]
+    },
+    "json-to-typescript": {
+      "whatIs": "JSON to TypeScript converts JSON data to TypeScript interfaces or type definitions. Generate type-safe code from API responses instantly.",
+      "howToUse": "Paste your JSON data and configure options like root name, interface vs type, and optional properties. Copy the generated TypeScript code.",
+      "features": [
+        "Interface and type alias output",
+        "Optional properties support",
+        "Nested object handling",
+        "Export statement option"
+      ],
+      "faq": [
+        {
+          "q": "Should I use interface or type?",
+          "a": "Interfaces are preferred for objects as they can be extended. Types are better for unions and complex types."
+        },
+        {
+          "q": "Does it handle nested JSON?",
+          "a": "Yes, nested objects are converted to separate interfaces/types automatically."
+        }
+      ]
+    },
+    "css-minifier": {
+      "whatIs": "CSS Minifier compresses CSS code by removing whitespace, comments, and optimizing syntax. Reduce file size for faster page loads.",
+      "howToUse": "Paste your CSS code and click minify. Configure options like removing comments, shortening colors, and merging selectors. Copy or download the result.",
+      "features": [
+        "Remove comments and whitespace",
+        "Shorten color values",
+        "Merge duplicate selectors",
+        "Beautify option included"
+      ],
+      "faq": [
+        {
+          "q": "How much can file size be reduced?",
+          "a": "Typically 20-60% depending on the original CSS formatting and comments."
+        },
+        {
+          "q": "Will minification break my CSS?",
+          "a": "No, minification only removes unnecessary characters while preserving functionality."
+        }
+      ]
+    },
+    "text-case-converter": {
+      "whatIs": "Text Case Converter transforms text between various naming conventions including camelCase, snake_case, kebab-case, and more.",
+      "howToUse": "Enter your text and see instant conversions to all supported cases. Click any result to copy it to your clipboard.",
+      "features": [
+        "12+ case formats supported",
+        "Real-time conversion",
+        "One-click copy",
+        "Programming naming conventions"
+      ],
+      "faq": [
+        {
+          "q": "What cases are supported?",
+          "a": "camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+        },
+        {
+          "q": "When should I use each case?",
+          "a": "camelCase for JavaScript variables, snake_case for Python, kebab-case for CSS classes and URLs."
         }
       ]
     }

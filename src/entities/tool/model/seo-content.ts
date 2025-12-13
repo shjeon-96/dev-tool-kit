@@ -651,4 +651,73 @@ export const toolSeoContent: Record<ToolSlug, ToolSeoContent> = {
       },
     ],
   },
+
+  "json-to-typescript": {
+    whatIs:
+      "JSON to TypeScript는 JSON 데이터를 TypeScript 인터페이스나 타입 정의로 변환하는 도구입니다. API 응답에서 타입 안전한 코드를 즉시 생성할 수 있습니다.",
+    howToUse:
+      "JSON 데이터를 붙여넣고 루트 타입 이름, interface/type 선택, 옵셔널 속성 여부 등의 옵션을 설정하세요. 생성된 TypeScript 코드를 복사하여 프로젝트에 사용하세요.",
+    features: [
+      "인터페이스 및 타입 별칭 출력",
+      "옵셔널 속성 지원",
+      "중첩 객체 자동 처리",
+      "export 문 옵션",
+    ],
+    faq: [
+      {
+        q: "interface와 type 중 무엇을 사용해야 하나요?",
+        a: "객체에는 확장 가능한 interface가 선호됩니다. type은 유니온과 복잡한 타입에 적합합니다.",
+      },
+      {
+        q: "중첩된 JSON도 처리하나요?",
+        a: "네, 중첩된 객체는 자동으로 별도의 인터페이스/타입으로 변환됩니다.",
+      },
+    ],
+  },
+
+  "css-minifier": {
+    whatIs:
+      "CSS Minifier는 공백, 주석을 제거하고 구문을 최적화하여 CSS 코드를 압축하는 도구입니다. 더 빠른 페이지 로드를 위해 파일 크기를 줄일 수 있습니다.",
+    howToUse:
+      "CSS 코드를 붙여넣고 Minify 버튼을 클릭하세요. 주석 제거, 색상 단축, 선택자 병합 등의 옵션을 설정할 수 있습니다. 결과를 복사하거나 다운로드하세요.",
+    features: [
+      "주석 및 공백 제거",
+      "색상 값 단축 (#ffffff → #fff)",
+      "중복 선택자 병합",
+      "Beautify 기능 포함",
+    ],
+    faq: [
+      {
+        q: "파일 크기를 얼마나 줄일 수 있나요?",
+        a: "원본 CSS 포맷팅과 주석에 따라 일반적으로 20-60% 감소합니다.",
+      },
+      {
+        q: "압축이 CSS를 손상시키나요?",
+        a: "아니요, 압축은 기능을 유지하면서 불필요한 문자만 제거합니다.",
+      },
+    ],
+  },
+
+  "text-case-converter": {
+    whatIs:
+      "Text Case Converter는 camelCase, snake_case, kebab-case 등 다양한 명명 규칙으로 텍스트를 변환하는 도구입니다.",
+    howToUse:
+      "텍스트를 입력하면 지원되는 모든 케이스로 즉시 변환됩니다. 원하는 결과를 클릭하여 클립보드에 복사하세요.",
+    features: [
+      "12가지 이상의 케이스 포맷 지원",
+      "실시간 변환",
+      "원클릭 복사",
+      "프로그래밍 명명 규칙 지원",
+    ],
+    faq: [
+      {
+        q: "어떤 케이스가 지원되나요?",
+        a: "camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, path/case 등이 지원됩니다.",
+      },
+      {
+        q: "각 케이스는 언제 사용해야 하나요?",
+        a: "JavaScript 변수에는 camelCase, Python에는 snake_case, CSS 클래스와 URL에는 kebab-case를 사용하세요.",
+      },
+    ],
+  },
 };

@@ -11,6 +11,9 @@
   },
   "sidebar": {
     "allTools": "すべてのツール",
+    "favorites": "お気に入り",
+    "recentlyUsed": "最近使用",
+    "clearRecent": "クリア",
     "categories": {
       "text": "テキスト",
       "media": "メディア",
@@ -160,6 +163,18 @@
     "prettier-playground": {
       "title": "Prettier Playground",
       "description": "様々な言語のコードをPrettierでフォーマットします。"
+    },
+    "json-to-typescript": {
+      "title": "JSON to TypeScript",
+      "description": "JSONデータをTypeScriptインターフェース/型に変換します。"
+    },
+    "css-minifier": {
+      "title": "CSS Minifier",
+      "description": "CSSコードを圧縮・最適化します。"
+    },
+    "text-case-converter": {
+      "title": "Text Case Converter",
+      "description": "テキストを様々なケース（camelCase、snake_caseなど）に変換します。"
     }
   },
   "seo": {
@@ -730,6 +745,66 @@
         {
           "q": "名前エンティティと数値エンティティの違いは？",
           "a": "名前（&amp;）は読みやすい；数値（&#38;）は全てのUnicode文字に動作します。"
+        }
+      ]
+    },
+    "json-to-typescript": {
+      "whatIs": "JSON to TypeScriptは、JSONデータをTypeScriptインターフェースまたは型定義に変換します。APIレスポンスから型安全なコードを即座に生成します。",
+      "howToUse": "JSONデータを貼り付けて、ルート名、interface/type選択、オプショナルプロパティなどのオプションを設定してください。生成されたTypeScriptコードをコピーしてください。",
+      "features": [
+        "インターフェースおよび型エイリアス出力",
+        "オプショナルプロパティサポート",
+        "ネストされたオブジェクト処理",
+        "export文オプション"
+      ],
+      "faq": [
+        {
+          "q": "interfaceとtypeのどちらを使用すべきですか？",
+          "a": "オブジェクトには拡張可能なinterfaceが推奨されます。typeはユニオンや複雑な型に適しています。"
+        },
+        {
+          "q": "ネストされたJSONも処理しますか？",
+          "a": "はい、ネストされたオブジェクトは自動的に別のインターフェース/型に変換されます。"
+        }
+      ]
+    },
+    "css-minifier": {
+      "whatIs": "CSS Minifierは、空白、コメントを削除し、構文を最適化してCSSコードを圧縮します。より高速なページロードのためにファイルサイズを削減します。",
+      "howToUse": "CSSコードを貼り付けてminifyをクリックしてください。コメント削除、色の短縮、セレクタの結合などのオプションを設定してください。結果をコピーまたはダウンロードしてください。",
+      "features": [
+        "コメントと空白の削除",
+        "色の値の短縮",
+        "重複セレクタの結合",
+        "Beautifyオプション含む"
+      ],
+      "faq": [
+        {
+          "q": "ファイルサイズはどのくらい削減できますか？",
+          "a": "元のCSSフォーマットとコメントに応じて、通常20〜60%削減されます。"
+        },
+        {
+          "q": "圧縮でCSSが壊れますか？",
+          "a": "いいえ、圧縮は機能を保持しながら不要な文字のみを削除します。"
+        }
+      ]
+    },
+    "text-case-converter": {
+      "whatIs": "Text Case Converterは、camelCase、snake_case、kebab-caseなど、様々な命名規則にテキストを変換します。",
+      "howToUse": "テキストを入力すると、サポートされているすべてのケースに即座に変換されます。結果をクリックしてクリップボードにコピーしてください。",
+      "features": [
+        "12以上のケース形式をサポート",
+        "リアルタイム変換",
+        "ワンクリックコピー",
+        "プログラミング命名規則"
+      ],
+      "faq": [
+        {
+          "q": "どのケースがサポートされていますか？",
+          "a": "camelCase、PascalCase、snake_case、kebab-case、CONSTANT_CASEなどがサポートされています。"
+        },
+        {
+          "q": "各ケースはいつ使用すべきですか？",
+          "a": "JavaScript変数にはcamelCase、Pythonにはsnake_case、CSSクラスやURLにはkebab-caseを使用してください。"
         }
       ]
     }

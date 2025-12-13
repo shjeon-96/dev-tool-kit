@@ -6,6 +6,7 @@ import { BreadcrumbJsonLd, FaqJsonLd } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
 import { ToolRenderer } from "./tool-renderer";
 import { ToolSeoSection } from "./tool-seo-section";
+import { ToolHeaderActions } from "./tool-header-actions";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -108,14 +109,17 @@ export default async function ToolPage({ params }: Props) {
       {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
 
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
-            <tool.icon className="h-6 w-6" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <tool.icon className="h-6 w-6" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+              <p className="text-muted-foreground">{description}</p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-            <p className="text-muted-foreground">{description}</p>
-          </div>
+          <ToolHeaderActions slug={slug as ToolSlug} />
         </div>
 
         <div className="rounded-lg border p-6">
