@@ -35,6 +35,7 @@ export function ToolHeaderActions({ slug }: ToolHeaderActionsProps) {
       size="icon"
       onClick={() => toggleFavorite(slug)}
       aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
+      aria-pressed={favorite}
       className="hover:bg-yellow-500/10"
     >
       <Star
@@ -43,6 +44,7 @@ export function ToolHeaderActions({ slug }: ToolHeaderActionsProps) {
             ? "fill-yellow-500 text-yellow-500"
             : "text-muted-foreground hover:text-yellow-500"
         }`}
+        aria-hidden="true"
       />
     </Button>
   );

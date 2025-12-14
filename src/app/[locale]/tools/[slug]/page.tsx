@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { tools, type ToolSlug } from "@/entities/tool";
-import { BreadcrumbJsonLd, FaqJsonLd } from "@/shared/ui";
+import { BreadcrumbJsonLd, FaqJsonLd, ProductJsonLd } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
 import { ToolRenderer } from "./tool-renderer";
 import { ToolSeoSection } from "./tool-seo-section";
@@ -103,9 +103,17 @@ export default async function ToolPage({ params }: Props) {
     // FAQ not available for this tool
   }
 
+  const productUrl = `${SITE_CONFIG.url}/${locale}/tools/${slug}`;
+
   return (
     <>
       <BreadcrumbJsonLd items={breadcrumbItems} />
+      <ProductJsonLd
+        name={title}
+        description={description}
+        url={productUrl}
+        category={tool.category}
+      />
       {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
 
       <div className="space-y-6">

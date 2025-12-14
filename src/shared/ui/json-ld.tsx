@@ -118,3 +118,140 @@ export function FaqJsonLd({ faqs }: FaqJsonLdProps) {
     />
   );
 }
+
+// HowTo Schema for guide pages
+interface HowToStep {
+  name: string;
+  text: string;
+  url?: string;
+}
+
+interface HowToJsonLdProps {
+  name: string;
+  description: string;
+  steps: HowToStep[];
+  totalTime?: string; // ISO 8601 duration format (e.g., "PT5M" for 5 minutes)
+  image?: string;
+}
+
+export function HowToJsonLd({
+  name,
+  description,
+  steps,
+  totalTime,
+  image,
+}: HowToJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name,
+    description,
+    ...(totalTime && { totalTime }),
+    ...(image && { image }),
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.url && { url: step.url }),
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// Product Schema for tool pages (free software product)
+interface ProductJsonLdProps {
+  name: string;
+  description: string;
+  url: string;
+  category?: string;
+  brand?: string;
+}
+
+export function ProductJsonLd({
+  name,
+  description,
+  url,
+  category = "Developer Tools",
+  brand = SITE_CONFIG.title,
+}: ProductJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name,
+    description,
+    url,
+    category,
+    brand: {
+      "@type": "Brand",
+      name: brand,
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// Article Schema for blog/guide content
+interface ArticleJsonLdProps {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+  image?: string;
+}
+
+export function ArticleJsonLd({
+  headline,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  author = SITE_CONFIG.author,
+  image,
+}: ArticleJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+    author: {
+      "@type": "Person",
+      name: author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+    ...(image && { image }),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

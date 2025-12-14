@@ -61,17 +61,29 @@ export function JsonFormatter() {
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-2">
         {formatButtons.map(({ mode, label }) => (
-          <Button key={mode} onClick={() => handleFormat(mode)} size="sm">
+          <Button
+            key={mode}
+            onClick={() => handleFormat(mode)}
+            size="sm"
+            aria-label={`${label} JSON`}
+          >
             {label}
           </Button>
         ))}
 
         <div className="flex items-center gap-2 ml-auto">
-          <label className="text-sm text-muted-foreground">Indent:</label>
+          <label
+            htmlFor="indent-select"
+            className="text-sm text-muted-foreground"
+          >
+            Indent:
+          </label>
           <select
+            id="indent-select"
             value={indent}
             onChange={(e) => setIndent(Number(e.target.value))}
             className="h-8 rounded-md border bg-background px-2 text-sm"
+            aria-label="Select indentation size"
           >
             <option value={2}>2 spaces</option>
             <option value={4}>4 spaces</option>
@@ -79,13 +91,23 @@ export function JsonFormatter() {
           </select>
         </div>
 
-        <Button variant="outline" size="sm" onClick={handlePaste}>
-          <ClipboardPaste className="h-4 w-4 mr-1" />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handlePaste}
+          aria-label="Paste from clipboard"
+        >
+          <ClipboardPaste className="h-4 w-4 mr-1" aria-hidden="true" />
           Paste
         </Button>
 
-        <Button variant="outline" size="sm" onClick={handleClear}>
-          <Trash2 className="h-4 w-4 mr-1" />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleClear}
+          aria-label="Clear input and output"
+        >
+          <Trash2 className="h-4 w-4 mr-1" aria-hidden="true" />
           Clear
         </Button>
 
@@ -94,8 +116,10 @@ export function JsonFormatter() {
             variant="outline"
             size="sm"
             onClick={() => setShowHistory(!showHistory)}
+            aria-expanded={showHistory}
+            aria-label="Toggle history panel"
           >
-            <History className="h-4 w-4 mr-1" />
+            <History className="h-4 w-4 mr-1" aria-hidden="true" />
             History
           </Button>
         )}
@@ -153,7 +177,11 @@ export function JsonFormatter() {
 
       {/* Error display */}
       {error && (
-        <div className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive">
+        <div
+          role="alert"
+          aria-live="polite"
+          className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive"
+        >
           {error}
         </div>
       )}
@@ -161,36 +189,54 @@ export function JsonFormatter() {
       {/* Input/Output */}
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-2">
-          <label className="text-sm font-medium">Input</label>
+          <label htmlFor="json-input" className="text-sm font-medium">
+            Input
+          </label>
           <textarea
+            id="json-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='{"key": "value"}'
             className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
             spellCheck={false}
+            aria-describedby={error ? "json-error" : undefined}
           />
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium">Output</label>
+            <label htmlFor="json-output" className="text-sm font-medium">
+              Output
+            </label>
             {output && (
-              <Button variant="ghost" size="sm" onClick={onCopy}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onCopy}
+                aria-label={
+                  copied ? "Copied to clipboard" : "Copy output to clipboard"
+                }
+              >
                 {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check
+                    className="h-4 w-4 text-green-500"
+                    aria-hidden="true"
+                  />
                 ) : (
-                  <Copy className="h-4 w-4" />
+                  <Copy className="h-4 w-4" aria-hidden="true" />
                 )}
                 <span className="ml-1">{copied ? "Copied!" : "Copy"}</span>
               </Button>
             )}
           </div>
           <textarea
+            id="json-output"
             value={output}
             readOnly
             placeholder="Formatted output will appear here"
             className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
             spellCheck={false}
+            aria-readonly="true"
           />
         </div>
       </div>

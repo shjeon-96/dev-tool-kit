@@ -42,16 +42,18 @@ export function ShareButton({ getShareUrl, className }: ShareButtonProps) {
       size="sm"
       onClick={handleShare}
       className={className}
+      aria-label={copied ? "Link copied to clipboard" : "Share this tool"}
+      aria-live="polite"
     >
       {copied ? (
         <>
-          <Check className="h-4 w-4" />
-          Copied!
+          <Check className="h-4 w-4" aria-hidden="true" />
+          <span>Copied!</span>
         </>
       ) : (
         <>
-          <Share2 className="h-4 w-4" />
-          Share
+          <Share2 className="h-4 w-4" aria-hidden="true" />
+          <span>Share</span>
         </>
       )}
     </Button>

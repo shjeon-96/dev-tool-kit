@@ -85,13 +85,13 @@ export function HashGenerator() {
         onValueChange={(value) => handleModeChange(value as InputMode)}
       >
         <div className="flex items-center justify-between">
-          <TabsList>
-            <TabsTrigger value="text">
-              <Type className="h-4 w-4 mr-2" />
+          <TabsList aria-label="Input mode selection">
+            <TabsTrigger value="text" aria-label="Text input mode">
+              <Type className="h-4 w-4 mr-2" aria-hidden="true" />
               텍스트
             </TabsTrigger>
-            <TabsTrigger value="file">
-              <FileText className="h-4 w-4 mr-2" />
+            <TabsTrigger value="file" aria-label="File input mode">
+              <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
               파일
             </TabsTrigger>
           </TabsList>
@@ -101,16 +101,23 @@ export function HashGenerator() {
                 variant="outline"
                 size="sm"
                 onClick={() => setShowHistory(!showHistory)}
+                aria-expanded={showHistory}
+                aria-label="Toggle history panel"
               >
-                <History className="h-4 w-4 mr-2" />
+                <History className="h-4 w-4 mr-2" aria-hidden="true" />
                 History
               </Button>
             )}
             {textInput && inputMode === "text" && (
               <ShareButton getShareUrl={getShareUrl} />
             )}
-            <Button variant="outline" size="sm" onClick={handleClear}>
-              <RotateCcw className="h-4 w-4 mr-2" />
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleClear}
+              aria-label="Reset all values"
+            >
+              <RotateCcw className="h-4 w-4 mr-2" aria-hidden="true" />
               초기화
             </Button>
           </div>
@@ -127,16 +134,18 @@ export function HashGenerator() {
                   size="sm"
                   onClick={clearHistory}
                   className="text-destructive hover:text-destructive"
+                  aria-label="Clear all history"
                 >
-                  <Trash2 className="h-3 w-3 mr-1" />
+                  <Trash2 className="h-3 w-3 mr-1" aria-hidden="true" />
                   Clear All
                 </Button>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowHistory(false)}
+                  aria-label="Close history panel"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-4 w-4" aria-hidden="true" />
                 </Button>
               </div>
             </div>
@@ -167,12 +176,14 @@ export function HashGenerator() {
         {/* Text Input */}
         <TabsContent value="text" className="space-y-4">
           <div className="space-y-2">
-            <Label>텍스트 입력</Label>
+            <Label htmlFor="hash-text-input">텍스트 입력</Label>
             <textarea
+              id="hash-text-input"
               className="flex min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono"
               placeholder="해시를 생성할 텍스트를 입력하세요"
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
+              aria-describedby={error ? "hash-error" : undefined}
             />
           </div>
         </TabsContent>
@@ -209,14 +220,23 @@ export function HashGenerator() {
 
       {/* Error Display */}
       {error && (
-        <div className="rounded-lg border border-destructive bg-destructive/10 p-4 text-destructive">
+        <div
+          id="hash-error"
+          role="alert"
+          aria-live="polite"
+          className="rounded-lg border border-destructive bg-destructive/10 p-4 text-destructive"
+        >
           {error}
         </div>
       )}
 
       {/* Processing Indicator */}
       {isProcessing && (
-        <div className="rounded-lg border p-4 text-center text-muted-foreground">
+        <div
+          role="status"
+          aria-live="polite"
+          className="rounded-lg border p-4 text-center text-muted-foreground"
+        >
           해시 계산 중...
         </div>
       )}
@@ -236,11 +256,16 @@ export function HashGenerator() {
                     variant="ghost"
                     size="icon-sm"
                     onClick={() => handleCopy(result.hash, index)}
+                    aria-label={
+                      copiedIndex === index
+                        ? "Copied"
+                        : `Copy ${result.algorithm} hash`
+                    }
                   >
                     {copiedIndex === index ? (
-                      <Check className="h-3 w-3" />
+                      <Check className="h-3 w-3" aria-hidden="true" />
                     ) : (
-                      <Copy className="h-3 w-3" />
+                      <Copy className="h-3 w-3" aria-hidden="true" />
                     )}
                   </Button>
                 </div>
@@ -258,17 +283,21 @@ export function HashGenerator() {
         <div className="rounded-lg border p-4 space-y-4">
           <h3 className="font-medium">해시 비교</h3>
           <div className="space-y-2">
-            <Label>비교할 해시값</Label>
+            <Label htmlFor="compare-hash-input">비교할 해시값</Label>
             <Input
+              id="compare-hash-input"
               type="text"
               placeholder="비교할 해시값을 입력하세요"
               value={compareHash}
               onChange={(e) => setCompareHash(e.target.value)}
               className="font-mono text-sm"
+              aria-label="Enter hash to compare"
             />
           </div>
           {comparisonResult !== null && (
             <div
+              role="status"
+              aria-live="polite"
               className={`flex items-center gap-2 p-3 rounded-lg ${
                 comparisonResult
                   ? "bg-green-500/10 text-green-600 dark:text-green-400"
@@ -277,12 +306,12 @@ export function HashGenerator() {
             >
               {comparisonResult ? (
                 <>
-                  <CheckCircle className="h-5 w-5" />
+                  <CheckCircle className="h-5 w-5" aria-hidden="true" />
                   <span>해시가 일치합니다</span>
                 </>
               ) : (
                 <>
-                  <XCircle className="h-5 w-5" />
+                  <XCircle className="h-5 w-5" aria-hidden="true" />
                   <span>해시가 일치하지 않습니다</span>
                 </>
               )}

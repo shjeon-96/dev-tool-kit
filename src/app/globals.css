@@ -90,13 +90,15 @@
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
+  /* Improved contrast: 0.708 → 0.75 for WCAG AA compliance */
+  --muted-foreground: oklch(0.75 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  /* Improved border visibility in dark mode */
+  --border: oklch(1 0 0 / 15%);
+  --input: oklch(1 0 0 / 20%);
+  --ring: oklch(0.6 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -192,4 +194,104 @@
 
 .dark *::-webkit-scrollbar-thumb:hover {
   background-color: oklch(0.708 0 0 / 50%);
+}
+
+/* Accessibility: Mobile Touch Target Improvements */
+@layer components {
+  /* Minimum touch target size: 44x44px (WCAG 2.1 AAA) */
+  @media (pointer: coarse) {
+    /* Buttons - ensure minimum touch target */
+    button,
+    [role="button"],
+    .btn {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Icon buttons need padding for touch */
+    button[class*="icon"],
+    [role="button"][class*="icon"] {
+      padding: 10px;
+    }
+
+    /* Links in navigation */
+    nav a,
+    [role="navigation"] a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* Form elements */
+    input[type="checkbox"],
+    input[type="radio"] {
+      min-width: 24px;
+      min-height: 24px;
+    }
+
+    /* Select and input fields */
+    input,
+    select,
+    textarea {
+      min-height: 44px;
+      font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+
+    /* Tab triggers */
+    [role="tab"] {
+      min-height: 44px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    /* Dropdown menu items */
+    [role="menuitem"],
+    [role="option"] {
+      min-height: 44px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    /* History buttons in tool panels */
+    .space-y-2 > button {
+      min-height: 48px;
+    }
+  }
+
+  /* Improved spacing for small buttons on mobile */
+  @media (max-width: 640px) {
+    .flex-wrap.gap-2 {
+      gap: 0.75rem;
+    }
+  }
+}
+
+/* Dark mode: Improved text contrast for accessibility */
+@layer base {
+  .dark {
+    /* Improve placeholder text contrast */
+    & ::placeholder {
+      color: oklch(0.6 0 0);
+    }
+
+    /* Improve disabled state contrast */
+    & :disabled {
+      opacity: 0.6;
+    }
+
+    /* Better contrast for code blocks */
+    & code {
+      background-color: oklch(0.22 0 0);
+    }
+
+    /* Better contrast for muted backgrounds */
+    & .bg-muted\/50 {
+      background-color: oklch(0.22 0 0 / 60%);
+    }
+
+    /* Improve border visibility on cards */
+    & .border {
+      border-color: oklch(1 0 0 / 18%);
+    }
+  }
 }

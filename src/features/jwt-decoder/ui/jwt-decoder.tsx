@@ -49,12 +49,22 @@ export function JwtDecoder() {
     <div className="space-y-4">
       {/* Controls */}
       <div className="flex flex-wrap items-center gap-2">
-        <Button variant="outline" size="sm" onClick={handlePaste}>
-          <ClipboardPaste className="h-4 w-4 mr-1" />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handlePaste}
+          aria-label="Paste JWT token from clipboard"
+        >
+          <ClipboardPaste className="h-4 w-4 mr-1" aria-hidden="true" />
           Paste
         </Button>
-        <Button variant="outline" size="sm" onClick={handleClear}>
-          <Trash2 className="h-4 w-4 mr-1" />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleClear}
+          aria-label="Clear input and decoded result"
+        >
+          <Trash2 className="h-4 w-4 mr-1" aria-hidden="true" />
           Clear
         </Button>
 
@@ -63,8 +73,10 @@ export function JwtDecoder() {
             variant="outline"
             size="sm"
             onClick={() => setShowHistory(!showHistory)}
+            aria-expanded={showHistory}
+            aria-label="Toggle history panel"
           >
-            <History className="h-4 w-4 mr-1" />
+            <History className="h-4 w-4 mr-1" aria-hidden="true" />
             History
           </Button>
         )}
@@ -73,8 +85,12 @@ export function JwtDecoder() {
 
         {/* Timer */}
         {timeRemaining && (
-          <div className="ml-auto flex items-center gap-2 text-sm">
-            <Clock className="h-4 w-4" />
+          <div
+            className="ml-auto flex items-center gap-2 text-sm"
+            role="status"
+            aria-live="polite"
+          >
+            <Clock className="h-4 w-4" aria-hidden="true" />
             <span className={decoded?.isExpired ? "text-destructive" : ""}>
               {decoded?.isExpired ? "Expired" : `Expires in ${timeRemaining}`}
             </span>
@@ -93,16 +109,18 @@ export function JwtDecoder() {
                 size="sm"
                 onClick={clearHistory}
                 className="text-destructive hover:text-destructive"
+                aria-label="Clear all history"
               >
-                <Trash2 className="h-3 w-3 mr-1" />
+                <Trash2 className="h-3 w-3 mr-1" aria-hidden="true" />
                 Clear All
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowHistory(false)}
+                aria-label="Close history panel"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
@@ -132,21 +150,29 @@ export function JwtDecoder() {
 
       {/* Error display */}
       {error && (
-        <div className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive flex items-center gap-2">
-          <AlertTriangle className="h-4 w-4" />
+        <div
+          role="alert"
+          aria-live="polite"
+          className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive flex items-center gap-2"
+        >
+          <AlertTriangle className="h-4 w-4" aria-hidden="true" />
           {error}
         </div>
       )}
 
       {/* Input */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">JWT Token</label>
+        <label htmlFor="jwt-input" className="text-sm font-medium">
+          JWT Token
+        </label>
         <textarea
+          id="jwt-input"
           value={input}
           onChange={(e) => handleInputChange(e.target.value)}
           placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
           className="h-32 w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
           spellCheck={false}
+          aria-describedby={error ? "jwt-error" : undefined}
         />
       </div>
 
@@ -219,8 +245,12 @@ export function JwtDecoder() {
 
       {/* Expiry Status */}
       {decoded?.isExpired && (
-        <div className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive flex items-center gap-2">
-          <AlertTriangle className="h-4 w-4" />
+        <div
+          role="alert"
+          aria-live="polite"
+          className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive flex items-center gap-2"
+        >
+          <AlertTriangle className="h-4 w-4" aria-hidden="true" />
           This token has expired
           {decoded.expiresAt && ` on ${decoded.expiresAt.toLocaleString()}`}
         </div>

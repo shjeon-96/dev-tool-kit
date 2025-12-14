@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import {
   GitBranch,
@@ -17,12 +17,41 @@ import {
   Container,
   Terminal,
 } from "lucide-react";
+import { SITE_CONFIG } from "@/shared/config";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("cheatsheets");
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "cheatsheets" });
+
+  const title = `${t("title")} | ${SITE_CONFIG.title}`;
+  const description = t("description");
+
   return {
-    title: t("title"),
-    description: t("description"),
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `/${locale}/cheatsheets`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    alternates: {
+      canonical: `/${locale}/cheatsheets`,
+      languages: {
+        en: "/en/cheatsheets",
+        ko: "/ko/cheatsheets",
+        ja: "/ja/cheatsheets",
+      },
+    },
   };
 }
 
@@ -113,7 +142,9 @@ const cheatsheets = [
   },
 ];
 
-export default async function CheatsheetsPage() {
+export default async function CheatsheetsPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations("cheatsheets");
 
   return (
@@ -129,7 +160,7 @@ export default async function CheatsheetsPage() {
           return (
             <Link
               key={sheet.slug}
-              href={`/cheatsheets/${sheet.slug}`}
+              href={`/${locale}/cheatsheets/${sheet.slug}`}
               className="group block rounded-lg border p-5 transition-all duration-200 hover:border-primary/50 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5"
             >
               <div className="flex items-start gap-4">

@@ -60,12 +60,12 @@ export function UuidGenerator() {
 
           {/* Type Selection */}
           <div className="space-y-2">
-            <Label>ID 타입</Label>
+            <Label htmlFor="id-type-select">ID 타입</Label>
             <Select
               value={options.type}
               onValueChange={(value: IdType) => updateOptions({ type: value })}
             >
-              <SelectTrigger>
+              <SelectTrigger id="id-type-select" aria-label="Select ID type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -85,17 +85,22 @@ export function UuidGenerator() {
 
           {/* Count */}
           <div className="space-y-2">
-            <Label>생성 개수</Label>
+            <Label htmlFor="id-count-input">생성 개수</Label>
             <Input
+              id="id-count-input"
               type="number"
               min={1}
               max={100}
               value={options.count}
               onChange={(e) =>
                 updateOptions({
-                  count: Math.min(100, Math.max(1, parseInt(e.target.value) || 1)),
+                  count: Math.min(
+                    100,
+                    Math.max(1, parseInt(e.target.value) || 1),
+                  ),
                 })
               }
+              aria-label="Number of IDs to generate (1-100)"
             />
           </div>
 
@@ -105,7 +110,9 @@ export function UuidGenerator() {
             <Switch
               id="uppercase"
               checked={options.uppercase}
-              onCheckedChange={(checked) => updateOptions({ uppercase: checked })}
+              onCheckedChange={(checked) =>
+                updateOptions({ uppercase: checked })
+              }
             />
           </div>
 
@@ -115,7 +122,9 @@ export function UuidGenerator() {
               <Switch
                 id="no-dashes"
                 checked={options.noDashes}
-                onCheckedChange={(checked) => updateOptions({ noDashes: checked })}
+                onCheckedChange={(checked) =>
+                  updateOptions({ noDashes: checked })
+                }
               />
             </div>
           )}
@@ -125,8 +134,12 @@ export function UuidGenerator() {
         <div className="rounded-lg border p-4 space-y-4">
           <h3 className="font-medium">생성</h3>
           <div className="space-y-3">
-            <Button onClick={handleGenerate} className="w-full">
-              <RefreshCw className="h-4 w-4 mr-2" />
+            <Button
+              onClick={handleGenerate}
+              className="w-full"
+              aria-label={`Generate ${options.count} IDs`}
+            >
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               {options.count}개 생성
             </Button>
             {generatedIds.length > 0 && (
@@ -135,11 +148,14 @@ export function UuidGenerator() {
                   variant="outline"
                   onClick={handleCopyAll}
                   className="w-full"
+                  aria-label={
+                    copiedAll ? "All IDs copied" : "Copy all IDs to clipboard"
+                  }
                 >
                   {copiedAll ? (
-                    <Check className="h-4 w-4 mr-2" />
+                    <Check className="h-4 w-4 mr-2" aria-hidden="true" />
                   ) : (
-                    <Copy className="h-4 w-4 mr-2" />
+                    <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                   )}
                   전체 복사
                 </Button>
@@ -147,8 +163,9 @@ export function UuidGenerator() {
                   variant="outline"
                   onClick={handleClear}
                   className="w-full"
+                  aria-label="Clear all generated IDs"
                 >
-                  <Trash2 className="h-4 w-4 mr-2" />
+                  <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                   초기화
                 </Button>
               </>
@@ -174,11 +191,14 @@ export function UuidGenerator() {
                   variant="ghost"
                   size="icon-sm"
                   onClick={() => handleCopy(id, index)}
+                  aria-label={
+                    copiedIndex === index ? "Copied" : "Copy ID to clipboard"
+                  }
                 >
                   {copiedIndex === index ? (
-                    <Check className="h-4 w-4" />
+                    <Check className="h-4 w-4" aria-hidden="true" />
                   ) : (
-                    <Copy className="h-4 w-4" />
+                    <Copy className="h-4 w-4" aria-hidden="true" />
                   )}
                 </Button>
               </div>

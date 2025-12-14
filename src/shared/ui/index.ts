@@ -28,7 +28,17 @@ export { Switch } from "./switch";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 export { Textarea } from "./textarea";
 export { ThemeProvider } from "./theme-provider";
-export { JsonLd, BreadcrumbJsonLd, FaqJsonLd } from "./json-ld";
+export {
+  JsonLd,
+  BreadcrumbJsonLd,
+  FaqJsonLd,
+  HowToJsonLd,
+  ProductJsonLd,
+  ArticleJsonLd,
+} from "./json-ld";
 export { AdUnit, AdSidebar, ToolResultAd } from "./ad-unit";
 export { ClarityScript } from "./clarity";
 export { ShareButton } from "./share-button";
+export { Spinner, LoadingOverlay } from "./spinner";
+export { Skeleton, SkeletonText, SkeletonCard } from "./skeleton";
+export { ErrorMessage, EmptyState } from "./error-message";
