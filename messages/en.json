@@ -104,6 +104,18 @@
     "workspace": "Workspace",
     "save": "Save"
   },
+  "share": {
+    "share": "Share",
+    "shared": "Shared",
+    "linkCreated": "Share link created!",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "open": "Open",
+    "expiryNotice": "This link expires in 30 days.",
+    "notFound": "Share Not Found",
+    "notFoundDesc": "This share link may have expired or does not exist.",
+    "goToTools": "Go to DevToolkit"
+  },
   "aiExplain": {
     "explain": "AI Explain",
     "configureAI": "Configure AI Provider",

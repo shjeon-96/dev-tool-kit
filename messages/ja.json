@@ -74,6 +74,18 @@
     "workspace": "ワークスペース",
     "save": "保存"
   },
+  "share": {
+    "share": "共有",
+    "shared": "共有済み",
+    "linkCreated": "共有リンクが作成されました！",
+    "copyLink": "リンクをコピー",
+    "copied": "コピー済み！",
+    "open": "開く",
+    "expiryNotice": "このリンクは30日後に期限切れになります。",
+    "notFound": "共有リンクが見つかりません",
+    "notFoundDesc": "この共有リンクは期限切れまたは存在しません。",
+    "goToTools": "DevToolkitへ移動"
+  },
   "aiExplain": {
     "explain": "AI説明",
     "configureAI": "AIプロバイダー設定",

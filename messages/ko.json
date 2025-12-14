@@ -104,6 +104,18 @@
     "workspace": "워크스페이스",
     "save": "저장"
   },
+  "share": {
+    "share": "공유",
+    "shared": "공유됨",
+    "linkCreated": "공유 링크가 생성되었습니다!",
+    "copyLink": "링크 복사",
+    "copied": "복사됨!",
+    "open": "열기",
+    "expiryNotice": "이 링크는 30일 후 만료됩니다.",
+    "notFound": "공유 링크를 찾을 수 없음",
+    "notFoundDesc": "이 공유 링크가 만료되었거나 존재하지 않습니다.",
+    "goToTools": "DevToolkit으로 이동"
+  },
   "aiExplain": {
     "explain": "AI 설명",
     "configureAI": "AI 제공자 설정",

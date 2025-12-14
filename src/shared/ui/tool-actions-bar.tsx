@@ -6,6 +6,7 @@ import { MoreHorizontal, X } from "lucide-react";
 import { AIExplainButton } from "@/features/ai-explain";
 import { PipelineButton, getConnectableTools } from "@/features/tool-pipeline";
 import { SaveToWorkspace } from "@/features/workspace";
+import { ShareButton } from "@/features/share";
 import { Button } from "@/shared/ui/button";
 import { cn } from "@/shared/lib/utils";
 import type { ToolSlug } from "@/entities/tool";
@@ -56,6 +57,11 @@ export function ToolActionsBar({
               toolSlug={toolSlug}
               data={JSON.stringify({ input, output }, null, 2)}
             />
+          )}
+
+          {/* Magic Share - 공유 링크 생성 */}
+          {(input || output) && (
+            <ShareButton toolSlug={toolSlug} input={input || output} />
           )}
         </div>
       </div>
@@ -173,6 +179,28 @@ export function ToolActionsBar({
                     />
                   </div>
                 </motion.div>
+
+                {/* Magic Share */}
+                {(input || output) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 20, scale: 0.8 }}
+                    transition={{ duration: 0.15, delay: 0.15 }}
+                    className="flex items-center gap-3 justify-end"
+                  >
+                    <span className="text-sm font-medium bg-popover px-3 py-1.5 rounded-md shadow-md">
+                      공유 링크
+                    </span>
+                    <div onClick={() => setIsMobileMenuOpen(false)}>
+                      <ShareButton
+                        toolSlug={toolSlug}
+                        input={input || output}
+                        className="[&>button]:h-12 [&>button]:w-12 [&>button]:rounded-full [&>button]:shadow-md"
+                      />
+                    </div>
+                  </motion.div>
+                )}
               </div>
             </>
           )}

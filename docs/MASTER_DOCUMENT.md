@@ -3,7 +3,7 @@
 > 모든 화면, 기능, 레이아웃에 대한 종합 가이드
 
 **프로젝트명**: DevToolkit (Web Toolkit)
-**버전**: 0.2.0
+**버전**: 0.3.0
 **프레임워크**: Next.js 16+ (App Router, Turbopack)
 **스타일링**: Tailwind CSS 4
 **UI**: Radix UI + Shadcn/ui 커스텀 컴포넌트
@@ -30,6 +30,7 @@
 14. [성능 최적화](#14-성능-최적화)
 15. [분석 및 모니터링](#15-분석-및-모니터링)
 16. [보안 및 데이터 관리](#16-보안-및-데이터-관리)
+17. [Magic Share (서버리스 공유)](#17-magic-share-서버리스-공유)
 
 ---
 
@@ -97,6 +98,9 @@ src/
 │   │       ├── jwt-decoder
 │   │       └── ... (31개)
 │   │
+├── /s                               # 공유 리다이렉트
+│   └── /[id]                        # 공유 데이터 로드 후 도구로 리다이렉트
+│   │
 │   ├── /cheatsheets                 # 치트시트 목록
 │   │   └── /[slug]                  # 개별 치트시트
 │   │       ├── git
@@ -109,7 +113,9 @@ src/
 │   └── /privacy                     # 개인정보처리방침
 │
 ├── /api
-│   └── /og                          # OG 이미지 동적 생성
+│   ├── /og                          # OG 이미지 동적 생성
+│   ├── /share                       # 공유 링크 생성 (POST)
+│   └── /share/[id]                  # 공유 데이터 조회 (GET)
 │
 ├── /robots.txt                      # 검색엔진 로봇
 └── /sitemap.xml                     # 사이트맵
@@ -126,6 +132,7 @@ src/
 | **가이드 목록**      | `/[locale]/guides`             | 도구별 사용 가이드                   |
 | **가이드 상세**      | `/[locale]/guides/[slug]`      | 상세 튜토리얼                        |
 | **개인정보처리방침** | `/[locale]/privacy`            | 법적 고지                            |
+| **공유 리다이렉트**  | `/s/[id]`                      | 공유 링크 처리 및 도구로 리다이렉트  |
 
 ---
 
@@ -1073,6 +1080,69 @@ interface WorkspaceItem {
 
 ---
 
+### 9.9 Magic Share (공유 링크)
+
+도구 상태를 공유 가능한 단축 URL로 생성하는 기능입니다.
+
+**위치**: `src/features/share/`
+
+```
+share/
+├── index.ts
+├── model/
+│   ├── types.ts              # ShareRequest, ShareResponse 타입
+│   ├── use-share.ts          # 공유 링크 생성 훅
+│   └── use-shared-data.ts    # 공유 데이터 수신 훅
+└── ui/
+    └── share-button.tsx      # 공유 버튼 컴포넌트
+```
+
+**핵심 기능:**
+
+| 기능              | 설명                         |
+| ----------------- | ---------------------------- |
+| **단축 URL**      | nanoid 8자리 (`/s/abc12345`) |
+| **데이터 압축**   | LZString으로 압축 후 저장    |
+| **만료 기간**     | 30일 TTL                     |
+| **Rate Limiting** | IP당 분당 10회 제한          |
+| **최대 크기**     | 1MB per share                |
+
+**공유 흐름:**
+
+```
+1. 사용자 → ShareButton 클릭
+2. 클라이언트 → POST /api/share (toolSlug, input, options)
+3. 서버 → Rate Limit 체크
+4. 서버 → LZString 압축 → Vercel KV 저장
+5. 서버 → 단축 URL 반환 (/s/[id])
+6. 사용자 → URL 복사/공유
+7. 수신자 → /s/[id] 접속
+8. 서버 → Vercel KV에서 데이터 조회
+9. 서버 → /{locale}/tools/{toolSlug}?shared={id} 리다이렉트
+10. 클라이언트 → useSharedData()로 데이터 로드
+```
+
+**ShareButton 사용:**
+
+```tsx
+<ShareButton
+  toolSlug="json-formatter"
+  input={input}
+  options={{ indent: 2 }} // 선택
+/>
+```
+
+**Tool Actions Bar 통합:**
+
+ShareButton은 ToolActionsBar에 포함되어 있어 모든 도구에서 사용 가능합니다.
+
+```tsx
+<ToolActionsBar toolSlug="json-formatter" input={input} output={output} />
+// → AI Explain, Pipeline, Workspace, Share 버튼 모두 표시
+```
+
+---
+
 ## 10. 네비게이션 플로우
 
 ```
@@ -1493,22 +1563,315 @@ interface WorkspaceItem {
 
 ---
 
+## 17. Magic Share (서버리스 공유)
+
+### 17.1 아키텍처 개요
+
+Vercel KV (Redis) 기반의 서버리스 링크 공유 시스템입니다.
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                        Magic Share Architecture                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────┐     POST /api/share     ┌───────────────┐
+│   Browser    │ ─────────────────────►  │  Next.js API  │
+│  (Client)    │                         │   Route       │
+└──────────────┘                         └───────┬───────┘
+       │                                         │
+       │                                         ▼
+       │                                 ┌───────────────┐
+       │                                 │  Rate Limit   │
+       │                                 │  Check (IP)   │
+       │                                 └───────┬───────┘
+       │                                         │
+       │                                         ▼
+       │                                 ┌───────────────┐
+       │                                 │  LZString     │
+       │                                 │  Compress     │
+       │                                 └───────┬───────┘
+       │                                         │
+       │                                         ▼
+       │                                 ┌───────────────┐
+       │                                 │  Vercel KV    │
+       │                                 │  (Redis)      │
+       │                                 │  TTL: 30 days │
+       │                                 └───────────────┘
+       │
+       │ GET /s/[id]
+       │ ─────────────────────────────────────────────────►
+       │
+       ▼
+┌──────────────┐                         ┌───────────────┐
+│  Share Page  │ ◄─────────────────────  │  KV Lookup    │
+│  /s/[id]     │                         │  + Decompress │
+└──────┬───────┘                         └───────────────┘
+       │
+       │ redirect
+       ▼
+┌──────────────────────────────────────┐
+│  /en/tools/[slug]?shared=[id]        │
+│  useSharedData() → Load shared data  │
+└──────────────────────────────────────┘
+```
+
+### 17.2 KV 데이터 구조
+
+```typescript
+// 저장 키 패턴
+share: {
+  id;
+} // 공유 데이터 (30일 TTL)
+ratelimit: {
+  ip;
+} // Rate Limit 카운터 (60초 TTL)
+
+// ShareData 인터페이스
+interface ShareData {
+  toolSlug: ToolSlug; // 도구 식별자
+  input: string; // 입력 데이터
+  options?: Record<string, unknown>; // 도구 옵션
+  createdAt: number; // 생성 타임스탬프
+  expiresAt: number; // 만료 타임스탬프
+}
+```
+
+### 17.3 API 엔드포인트
+
+**POST /api/share** - 공유 링크 생성
+
+```typescript
+// 요청
+{
+  toolSlug: "json-formatter",
+  input: "{\"hello\": \"world\"}",
+  options: { indent: 2 }
+}
+
+// 응답 (201 Created)
+{
+  success: true,
+  id: "abc12345",
+  url: "https://web-toolkit.app/s/abc12345",
+  expiresAt: 1736899200000
+}
+
+// Rate Limit 헤더
+X-RateLimit-Remaining: 9
+X-RateLimit-Reset: 1704067260000
+```
+
+**GET /api/share/[id]** - 공유 데이터 조회
+
+```typescript
+// 응답 (200 OK)
+{
+  success: true,
+  data: {
+    toolSlug: "json-formatter",
+    input: "{\"hello\": \"world\"}",
+    options: { indent: 2 },
+    createdAt: 1704067200000,
+    expiresAt: 1706659200000
+  }
+}
+
+// 만료/없음 (404 Not Found)
+{
+  success: false,
+  error: "Share not found or expired"
+}
+```
+
+### 17.4 Vercel KV 설정 가이드
+
+#### Step 1: Vercel KV 스토어 생성
+
+1. [Vercel Dashboard](https://vercel.com/dashboard) 접속
+2. 프로젝트 선택 → **Storage** 탭
+3. **Create Database** → **KV** 선택
+4. 스토어 이름 입력 (예: `devtoolkit-share`)
+5. 리전 선택 (권장: `iad1` - Washington D.C.)
+6. **Create** 클릭
+
+#### Step 2: 환경 변수 설정
+
+KV 스토어 생성 후 자동으로 환경 변수가 연결됩니다:
+
+```env
+# .env.local (자동 연결됨)
+KV_URL=redis://...
+KV_REST_API_URL=https://...
+KV_REST_API_TOKEN=...
+KV_REST_API_READ_ONLY_TOKEN=...
+```
+
+**로컬 개발용 환경 변수 가져오기:**
+
+```bash
+vercel env pull .env.local
+```
+
+또는 Vercel Dashboard → Settings → Environment Variables에서 복사
+
+#### Step 3: 패키지 설치
+
+```bash
+npm install @vercel/kv lz-string nanoid
+npm install -D @types/lz-string
+```
+
+#### Step 4: 설정 파일 확인
+
+`src/shared/lib/kv.ts`:
+
+```typescript
+import { kv } from "@vercel/kv";
+import {
+  compressToEncodedURIComponent,
+  decompressFromEncodedURIComponent,
+} from "lz-string";
+import { nanoid } from "nanoid";
+
+// 설정 상수
+export const SHARE_TTL_SECONDS = 30 * 24 * 60 * 60; // 30 days
+export const SHARE_ID_LENGTH = 8;
+export const MAX_SHARE_DATA_SIZE = 1 * 1024 * 1024; // 1MB
+export const RATE_LIMIT = {
+  maxRequests: 10,
+  windowSeconds: 60,
+};
+```
+
+#### Step 5: 배포 확인
+
+```bash
+# 빌드 확인
+npm run build
+
+# 새 라우트 확인
+# - /api/share (POST)
+# - /api/share/[id] (GET)
+# - /s/[id] (Share redirect page)
+```
+
+### 17.5 Rate Limiting 정책
+
+| 항목          | 값   | 설명                |
+| ------------- | ---- | ------------------- |
+| **제한 횟수** | 10회 | IP당 분당 요청 제한 |
+| **윈도우**    | 60초 | 제한 리셋 주기      |
+| **TTL**       | 60초 | 카운터 자동 만료    |
+| **응답 코드** | 429  | 제한 초과 시        |
+
+**Rate Limit 응답 예시:**
+
+```typescript
+// 429 Too Many Requests
+{
+  success: false,
+  error: "Too many requests. Please try again later."
+}
+
+// 헤더
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1704067260000
+```
+
+### 17.6 데이터 크기 제한
+
+```typescript
+// 크기 검증 함수
+export function canShare(input: string): {
+  canShare: boolean;
+  reason?: string;
+} {
+  const size = new Blob([input]).size;
+
+  if (size > MAX_SHARE_DATA_SIZE) {
+    return {
+      canShare: false,
+      reason: `Data too large. Maximum size is ${MAX_SHARE_DATA_SIZE / 1024 / 1024}MB`,
+    };
+  }
+
+  return { canShare: true };
+}
+```
+
+### 17.7 보안 고려사항
+
+| 항목             | 구현 상태 | 설명                   |
+| ---------------- | --------- | ---------------------- |
+| Rate Limiting    | ✅        | IP 기반 분당 10회 제한 |
+| 데이터 크기 제한 | ✅        | 최대 1MB               |
+| 도구 존재 검증   | ✅        | 유효한 toolSlug만 허용 |
+| TTL 자동 만료    | ✅        | 30일 후 자동 삭제      |
+| LZString 압축    | ✅        | 저장 공간 최적화       |
+| 민감 데이터 경고 | ⚠️        | 사용자 안내 UI 권장    |
+
+**권장 사용자 안내:**
+
+```
+⚠️ 공유 링크는 30일간 유효합니다.
+⚠️ 민감한 정보(비밀번호, API 키 등)는 공유하지 마세요.
+```
+
+---
+
 ## 통계 요약
 
-| 항목                      | 수량                                                                                                                |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| **총 도구**               | 31개                                                                                                                |
-| **치트시트**              | 14개                                                                                                                |
-| **가이드**                | 28개+                                                                                                               |
-| **UI 컴포넌트**           | 30+                                                                                                                 |
-| **지원 언어**             | 3개 (en, ko, ja)                                                                                                    |
-| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                      |
-| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                       |
-| **UX Enhancement 기능**   | 8개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace) |
+| 항목                      | 수량                                                                                                                             |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **총 도구**               | 31개                                                                                                                             |
+| **치트시트**              | 14개                                                                                                                             |
+| **가이드**                | 28개+                                                                                                                            |
+| **UI 컴포넌트**           | 30+                                                                                                                              |
+| **지원 언어**             | 3개 (en, ko, ja)                                                                                                                 |
+| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                                   |
+| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                    |
+| **UX Enhancement 기능**   | 9개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share) |
 
 ---
 
 ## 버전 히스토리
+
+### v0.3.0 (2025-12-14)
+
+**새로운 기능:**
+
+- **Magic Share**: Vercel KV 기반 서버리스 링크 공유
+  - 단축 URL 생성 (`/s/[id]`)
+  - LZString 데이터 압축
+  - 30일 TTL 자동 만료
+  - IP 기반 Rate Limiting (분당 10회)
+  - 최대 1MB 데이터 크기 제한
+
+**API 라우트:**
+
+- `POST /api/share` - 공유 링크 생성
+- `GET /api/share/[id]` - 공유 데이터 조회
+- `/s/[id]` - 공유 리다이렉트 페이지
+
+**새로운 파일:**
+
+- `src/shared/lib/kv.ts` - Vercel KV 클라이언트
+- `src/features/share/` - 공유 기능 모듈
+- `src/app/api/share/` - 공유 API 라우트
+- `src/app/s/[id]/` - 공유 리다이렉트 페이지
+
+**Tool Actions Bar 업데이트:**
+
+- ShareButton 통합
+- Desktop/Mobile 모두 지원
+
+**의존성 추가:**
+
+- `@vercel/kv` - Vercel KV 클라이언트
+- `lz-string` - 데이터 압축
+- `nanoid` - 단축 ID 생성
+
+---
 
 ### v0.2.0 (2025-12-14)
 
@@ -1554,4 +1917,4 @@ interface WorkspaceItem {
 
 ---
 
-_최종 업데이트: 2025년 12월 14일_
+_최종 업데이트: 2025년 12월 14일 (v0.3.0)_
