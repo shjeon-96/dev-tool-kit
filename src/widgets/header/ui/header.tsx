@@ -1,6 +1,7 @@
 import { MobileSidebar } from "@/widgets/sidebar";
 import { ModeToggle } from "@/features/theme-toggle";
 import { CommandMenu } from "@/widgets/command-menu";
+import { WorkspaceSelector } from "@/features/workspace";
 import { LanguageSwitcher } from "./language-switcher";
 
 export function Header() {
@@ -10,6 +11,7 @@ export function Header() {
       <div className="flex-1">
         <CommandMenu />
       </div>
+      <WorkspaceSelector />
       <LanguageSwitcher />
       <ModeToggle />
     </header>

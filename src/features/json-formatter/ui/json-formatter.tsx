@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Copy, Check, Trash2, ClipboardPaste, History, X } from "lucide-react";
-import { Button, ShareButton } from "@/shared/ui";
+import { Button, ShareButton, ToolActionsBar } from "@/shared/ui";
 import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
+import { usePipelineReceiver } from "@/features/tool-pipeline";
 
 export function JsonFormatter() {
   const {
@@ -26,6 +27,20 @@ export function JsonFormatter() {
 
   const [copied, setCopied] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
+  const { receivedData, checkForPipelineData, clearReceivedData } =
+    usePipelineReceiver();
+
+  // Pipeline에서 받은 데이터 처리
+  useEffect(() => {
+    checkForPipelineData();
+  }, [checkForPipelineData]);
+
+  useEffect(() => {
+    if (receivedData) {
+      setInput(receivedData.data);
+      clearReceivedData();
+    }
+  }, [receivedData, setInput, clearReceivedData]);
 
   const onCopy = async () => {
     const success = await handleCopy();
@@ -126,6 +141,14 @@ export function JsonFormatter() {
 
         {input && <ShareButton getShareUrl={getShareUrl} />}
       </div>
+
+      {/* AI, Pipeline, Workspace Actions */}
+      <ToolActionsBar
+        toolSlug="json-formatter"
+        input={input}
+        output={output}
+        context="json"
+      />
 
       {/* History Panel */}
       {showHistory && hasHistory && (

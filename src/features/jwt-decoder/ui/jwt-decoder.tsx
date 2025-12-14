@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Trash2,
   ClipboardPaste,
@@ -9,8 +9,9 @@ import {
   History,
   X,
 } from "lucide-react";
-import { Button, ShareButton } from "@/shared/ui";
+import { Button, ShareButton, ToolActionsBar } from "@/shared/ui";
 import { useJwtDecoder } from "../model/use-jwt-decoder";
+import { usePipelineReceiver } from "@/features/tool-pipeline";
 
 export function JwtDecoder() {
   const {
@@ -29,6 +30,20 @@ export function JwtDecoder() {
   } = useJwtDecoder();
 
   const [showHistory, setShowHistory] = useState(false);
+  const { receivedData, checkForPipelineData, clearReceivedData } =
+    usePipelineReceiver();
+
+  // Pipeline에서 받은 데이터 처리
+  useEffect(() => {
+    checkForPipelineData();
+  }, [checkForPipelineData]);
+
+  useEffect(() => {
+    if (receivedData) {
+      handleInputChange(receivedData.data);
+      clearReceivedData();
+    }
+  }, [receivedData, handleInputChange, clearReceivedData]);
 
   const formatTimestamp = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -97,6 +112,13 @@ export function JwtDecoder() {
           </div>
         )}
       </div>
+
+      {/* AI, Pipeline, Workspace Actions */}
+      <ToolActionsBar
+        toolSlug="jwt-decoder"
+        input={input}
+        output={decoded ? JSON.stringify(decoded, null, 2) : ""}
+      />
 
       {/* History Panel */}
       {showHistory && hasHistory && (

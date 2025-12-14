@@ -42,3 +42,4 @@ export { ShareButton } from "./share-button";
 export { Spinner, LoadingOverlay } from "./spinner";
 export { Skeleton, SkeletonText, SkeletonCard } from "./skeleton";
 export { ErrorMessage, EmptyState } from "./error-message";
+export { ToolActionsBar } from "./tool-actions-bar";

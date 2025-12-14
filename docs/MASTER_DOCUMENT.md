@@ -3,8 +3,8 @@
 > 모든 화면, 기능, 레이아웃에 대한 종합 가이드
 
 **프로젝트명**: DevToolkit (Web Toolkit)
-**버전**: 0.1.0
-**프레임워크**: Next.js 14+ (App Router)
+**버전**: 0.2.0
+**프레임워크**: Next.js 16+ (App Router, Turbopack)
 **스타일링**: Tailwind CSS 4
 **UI**: Radix UI + Shadcn/ui 커스텀 컴포넌트
 **다국어**: next-intl (영어, 한국어, 일본어)
@@ -22,12 +22,14 @@
 6. [공유 UI 컴포넌트](#6-공유-ui-컴포넌트)
 7. [데이터 모델](#7-데이터-모델)
 8. [UI 패턴](#8-ui-패턴)
-9. [네비게이션 플로우](#9-네비게이션-플로우)
-10. [반응형 디자인](#10-반응형-디자인)
-11. [접근성](#11-접근성)
-12. [SEO 및 메타데이터](#12-seo-및-메타데이터)
-13. [성능 최적화](#13-성능-최적화)
-14. [분석 및 모니터링](#14-분석-및-모니터링)
+9. [UX Enhancement 기능](#9-ux-enhancement-기능)
+10. [네비게이션 플로우](#10-네비게이션-플로우)
+11. [반응형 디자인](#11-반응형-디자인)
+12. [접근성](#12-접근성)
+13. [SEO 및 메타데이터](#13-seo-및-메타데이터)
+14. [성능 최적화](#14-성능-최적화)
+15. [분석 및 모니터링](#15-분석-및-모니터링)
+16. [보안 및 데이터 관리](#16-보안-및-데이터-관리)
 
 ---
 
@@ -55,6 +57,7 @@ src/
 ├── features/              # 도구 기능 컴포넌트
 │   ├── json-formatter/
 │   ├── jwt-decoder/
+│   ├── smart-paste/       # Smart Paste 기능
 │   └── ... (31개 도구)
 │
 ├── widgets/               # 레이아웃 위젯
@@ -657,7 +660,372 @@ interface Guide {
 
 ---
 
-## 9. 네비게이션 플로우
+## 9. UX Enhancement 기능
+
+### 9.1 Smart Paste (스마트 붙여넣기)
+
+클립보드 콘텐츠를 자동으로 감지하여 적절한 도구로 안내하는 기능입니다.
+
+**위치**: `src/features/smart-paste/`
+
+```
+smart-paste/
+├── index.ts                        # Export 선언
+├── model/
+│   ├── detector.ts                 # 콘텐츠 타입 감지 로직
+│   └── use-smart-paste.ts          # 커스텀 훅
+└── ui/
+    ├── smart-paste-notification.tsx # 알림 UI
+    └── smart-paste-provider.tsx     # Context Provider
+```
+
+**감지 가능한 콘텐츠 타입:**
+
+| 콘텐츠 타입 | 감지 패턴                        | 연결 도구        |
+| ----------- | -------------------------------- | ---------------- | ------------ | ---------------- | ------------- |
+| JWT         | `eyJ[A-Za-z0-9_-]+.eyJ...`       | jwt-decoder      |
+| JSON        | `^\s*[\[{][\s\S]*[\]}]\s*$`      | json-formatter   |
+| UUID        | `[0-9a-f]{8}-[0-9a-f]{4}-...`    | uuid-generator   |
+| Base64      | `^[A-Za-z0-9+/]{20,}={0,2}$`     | base64-converter |
+| URL         | `^https?:\/\/[^\s]+$`            | url-parser       |
+| SQL         | `SELECT                          | INSERT           | UPDATE       | DELETE...`       | sql-formatter |
+| Cron        | `^[\d\*\/\-,]+(\s+[\d\*\/\-,]+)` | cron-parser      |
+| Hash        | `^[a-f0-9]{32,128}$`             | hash-generator   |
+| HTML Entity | `&[a-z]+;                        | &#\d+;`          | html-entity  |
+| Regex       | `/^\/.*\/[gimsuvy]*$/`           | regex-tester     |
+| Markdown    | `^#+                             | ^\*\*            | ^\- \[ \]`   | markdown-preview |
+| CSS         | `[\w-]+\s*:\s*[\w\s#%(),.-]+;`   | css-minifier     |
+| Unix Time   | `^\d{10,13}$`                    | unix-timestamp   |
+| Color       | `^#[0-9a-f]{3,8}$                | ^rgb\(`          | color-picker |
+| Diff        | `^[\+\-<>@]{1,3}.*\n`            | diff-checker     |
+
+**사용 방식:**
+
+```tsx
+// 앱 레이아웃에서 Provider로 감싸기
+<SmartPasteProvider>
+  <div className="flex h-screen bg-background">{/* ... */}</div>
+</SmartPasteProvider>
+```
+
+**동작 흐름:**
+
+1. `Cmd+V` (또는 `Ctrl+V`) 감지
+2. 클립보드 콘텐츠 분석
+3. 콘텐츠 타입 매칭 (정규식 패턴)
+4. 신뢰도 점수 계산 (0-1)
+5. 알림 표시 (신뢰도 > 0.6)
+6. 사용자가 "이동" 클릭 시 해당 도구로 네비게이션
+
+### 9.2 Bento Grid (벤토 그리드 레이아웃)
+
+도구 목록을 다양한 크기의 카드로 표시하는 그리드 레이아웃입니다.
+
+**위치**: `src/widgets/tools-list/ui/bento-grid.tsx`
+
+**카드 크기:**
+
+| 크기     | 클래스                                  | 용도               |
+| -------- | --------------------------------------- | ------------------ |
+| `normal` | `col-span-1 row-span-1`                 | 기본 카드          |
+| `large`  | `col-span-1 md:col-span-2 row-span-1-2` | 주요 도구 (첫번째) |
+| `wide`   | `col-span-1 md:col-span-2 row-span-1`   | 가로로 넓은 카드   |
+
+**주요 도구 (Large 크기 적용):**
+
+- `json-formatter`
+- `jwt-decoder`
+- `qr-generator`
+- `color-picker`
+
+**Wide 크기 적용:**
+
+- `image-resizer`
+- `diff-checker`
+
+### 9.3 Framer Motion 마이크로 인터랙션
+
+도구 카드에 적용된 애니메이션 효과입니다.
+
+**카드 등장 애니메이션:**
+
+```typescript
+const cardVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      delay: i * 0.05, // 순차적 등장
+      duration: 0.4,
+      ease: [0.25, 0.1, 0.25, 1], // Custom easing
+    },
+  }),
+};
+```
+
+**호버 효과:**
+
+```typescript
+const hoverVariants = {
+  rest: { scale: 1 },
+  hover: {
+    scale: 1.02,
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 25,
+    },
+  },
+  tap: { scale: 0.98 },
+};
+```
+
+**아이콘 애니메이션:**
+
+```typescript
+const iconVariants = {
+  rest: { rotate: 0, scale: 1 },
+  hover: {
+    rotate: [0, -10, 10, 0],
+    scale: 1.1,
+    transition: {
+      rotate: { duration: 0.5, ease: "easeInOut" },
+      scale: { type: "spring", stiffness: 300 },
+    },
+  },
+};
+```
+
+### 9.4 Tool Actions Bar (도구 액션 바)
+
+각 도구에서 공통으로 사용하는 AI, Pipeline, Workspace 액션을 통합한 컴포넌트입니다.
+
+**위치**: `src/shared/ui/tool-actions-bar.tsx`
+
+**구성 요소:**
+
+| 버튼                  | 기능                | 설명                                                        |
+| --------------------- | ------------------- | ----------------------------------------------------------- |
+| **AI Explain**        | 입력값 분석         | BYOK 방식으로 OpenAI/Anthropic/Google AI를 통해 입력값 설명 |
+| **Pipeline**          | 도구 간 데이터 전송 | 현재 도구의 출력을 다른 도구로 전송                         |
+| **Save to Workspace** | 워크스페이스 저장   | 입력/출력 데이터를 IndexedDB 워크스페이스에 저장            |
+
+**사용 예시:**
+
+```tsx
+<ToolActionsBar
+  toolSlug="json-formatter"
+  input={input}
+  output={output}
+  context="json" // AI Explain 컨텍스트 (선택)
+/>
+```
+
+**적용된 도구:**
+
+- JSON Formatter
+- JWT Decoder
+- Hash Generator
+- Base64 Converter
+- _(점진적으로 모든 도구에 확장 예정)_
+
+---
+
+### 9.5 AI Explain (AI 설명 기능)
+
+사용자가 직접 API 키를 입력하여 AI로 입력값을 분석하는 BYOK(Bring Your Own Key) 기능입니다.
+
+**위치**: `src/features/ai-explain/`
+
+```
+ai-explain/
+├── index.ts
+├── model/
+│   └── use-ai-explain.ts     # AI 설명 로직
+├── lib/
+│   ├── providers.ts          # AI 프로바이더 설정
+│   └── prompts.ts            # 프롬프트 템플릿
+└── ui/
+    ├── ai-explain-button.tsx # 설명 요청 버튼
+    └── ai-config-dialog.tsx  # API 키 설정 다이얼로그
+```
+
+**지원 프로바이더:**
+
+| 프로바이더    | 모델                                | API 키 형식  |
+| ------------- | ----------------------------------- | ------------ |
+| **OpenAI**    | gpt-4o-mini, gpt-4o, gpt-4-turbo    | `sk-...`     |
+| **Anthropic** | claude-3-5-sonnet, claude-3-5-haiku | `sk-ant-...` |
+| **Google**    | gemini-1.5-flash, gemini-1.5-pro    | `AI...`      |
+
+**보안:**
+
+- API 키는 localStorage에만 저장 (서버 전송 없음)
+- 모든 AI 호출은 클라이언트에서 직접 실행
+
+---
+
+### 9.6 Tool Pipeline (도구 파이프라인)
+
+도구 간 데이터를 연결하여 워크플로우를 구성하는 기능입니다.
+
+**위치**: `src/features/tool-pipeline/`
+
+```
+tool-pipeline/
+├── index.ts
+├── model/
+│   ├── pipeline-config.ts    # 연결 가능한 도구 설정
+│   ├── use-pipeline.ts       # 데이터 전송 훅
+│   └── use-pipeline-receiver.ts # 데이터 수신 훅
+└── ui/
+    ├── pipeline-button.tsx   # 전송 버튼
+    └── pipeline-notification.tsx # 수신 알림
+```
+
+**연결 예시:**
+
+| 소스 도구        | →   | 타겟 도구                 |
+| ---------------- | --- | ------------------------- |
+| JSON Formatter   | →   | JWT Decoder, Base64, Hash |
+| JWT Decoder      | →   | JSON Formatter, Base64    |
+| Hash Generator   | →   | Base64 Converter          |
+| Base64 Converter | →   | JSON Formatter, Hash      |
+
+**동작 흐름:**
+
+1. 소스 도구에서 "Send to..." 버튼 클릭
+2. 연결 가능한 도구 목록 표시
+3. 타겟 도구 선택 시 sessionStorage에 데이터 저장
+4. 타겟 도구 페이지로 이동
+5. 타겟 도구에서 usePipelineReceiver로 데이터 수신
+
+---
+
+### 9.7 Workspace (워크스페이스)
+
+작업 데이터를 영구 저장하고 관리하는 IndexedDB 기반 기능입니다.
+
+**위치**: `src/features/workspace/`
+
+```
+workspace/
+├── index.ts
+├── model/
+│   ├── use-workspace.ts      # 워크스페이스 CRUD
+│   └── workspace-db.ts       # IndexedDB 래퍼
+└── ui/
+    ├── workspace-selector.tsx # 헤더 워크스페이스 선택
+    └── save-to-workspace.tsx  # 저장 버튼
+```
+
+**데이터 구조:**
+
+```typescript
+interface WorkspaceItem {
+  id: string;
+  toolSlug: ToolSlug;
+  data: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name?: string;
+}
+```
+
+**저장소:**
+
+- IndexedDB `devtoolkit-workspace` 데이터베이스
+- 오프라인에서도 데이터 유지
+
+---
+
+### 9.8 Glassmorphism & Aurora 효과
+
+다크 모드에서 사용되는 유리 효과 및 오로라 그라디언트입니다.
+
+**위치**: `src/app/globals.css`
+
+**사용 가능한 CSS 클래스:**
+
+| 클래스             | 효과                       | 용도              |
+| ------------------ | -------------------------- | ----------------- |
+| `.glass`           | 기본 유리 효과 (blur 12px) | 일반 오버레이     |
+| `.glass-card`      | 그라디언트 유리 카드       | 카드 컴포넌트     |
+| `.aurora-bg`       | 정적 오로라 배경           | 배경 섹션         |
+| `.aurora-animated` | 회전 오로라 애니메이션     | 특별 섹션         |
+| `.glow-hover`      | 호버 시 글로우 효과        | 버튼, 카드        |
+| `.gradient-text`   | 그라디언트 텍스트          | 제목, 강조 텍스트 |
+| `.noise-overlay`   | 노이즈 텍스처 오버레이     | 배경 텍스처       |
+
+**Glass Card 예시:**
+
+```css
+.glass-card {
+  background: linear-gradient(
+    135deg,
+    oklch(1 0 0 / 8%) 0%,
+    oklch(1 0 0 / 3%) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(1 0 0 / 12%);
+  box-shadow: 0 4px 24px oklch(0 0 0 / 10%);
+}
+
+.dark .glass-card {
+  background: linear-gradient(
+    135deg,
+    oklch(1 0 0 / 5%) 0%,
+    oklch(1 0 0 / 2%) 100%
+  );
+  border-color: oklch(1 0 0 / 8%);
+  box-shadow:
+    0 4px 24px oklch(0 0 0 / 30%),
+    inset 0 1px 0 oklch(1 0 0 / 5%);
+}
+```
+
+**Aurora 배경:**
+
+```css
+.aurora-bg::before {
+  background:
+    radial-gradient(
+      ellipse 80% 50% at 20% 40%,
+      oklch(0.5 0.15 270 / 15%),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 80% 60%,
+      oklch(0.5 0.12 200 / 12%),
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 50% 30% at 40% 80%,
+      oklch(0.5 0.1 320 / 10%),
+      transparent 50%
+    );
+}
+```
+
+**사용 예시:**
+
+```tsx
+// 유리 효과 카드
+<div className="glass-card rounded-2xl p-6">{/* content */}</div>
+
+// 호버 글로우 버튼
+<button className="glow-hover rounded-lg px-4 py-2">{/* content */}</button>
+
+// 오로라 배경 섹션
+<section className="aurora-bg relative">{/* content with z-10 */}</section>
+```
+
+---
+
+## 10. 네비게이션 플로우
 
 ```
                         ┌─────────────┐
@@ -701,9 +1069,9 @@ interface Guide {
 
 ---
 
-## 10. 반응형 디자인
+## 11. 반응형 디자인
 
-### 10.1 브레이크포인트
+### 11.1 브레이크포인트
 
 | 브레이크포인트    | 너비     | 레이아웃 변화                          |
 | ----------------- | -------- | -------------------------------------- |
@@ -711,7 +1079,7 @@ interface Guide {
 | **md (태블릿)**   | ≥ 768px  | 2열 그리드, 사이드바 표시              |
 | **lg (데스크톱)** | ≥ 1024px | 3열 그리드, 전체 레이아웃              |
 
-### 10.2 반응형 그리드
+### 11.2 반응형 그리드
 
 ```css
 /* 도구 목록 그리드 */
@@ -721,7 +1089,7 @@ interface Guide {
 .grid.gap-4.md\:grid-cols-2
 ```
 
-### 10.3 모바일 최적화
+### 11.3 모바일 최적화
 
 - **터치 타겟**: 최소 44x44px (WCAG 2.1 AAA)
 - **폰트 크기**: 입력 필드 16px (iOS 줌 방지)
@@ -729,9 +1097,9 @@ interface Guide {
 
 ---
 
-## 11. 접근성
+## 12. 접근성
 
-### 11.1 ARIA 속성
+### 12.1 ARIA 속성
 
 ```tsx
 // 버튼 접근성
@@ -763,14 +1131,14 @@ interface Guide {
 />
 ```
 
-### 11.2 키보드 네비게이션
+### 12.2 키보드 네비게이션
 
 - **Tab**: 포커스 이동
 - **Enter/Space**: 버튼 활성화
 - **⌘K / Ctrl+K**: 커맨드 팔레트
 - **Escape**: 모달/드로어 닫기
 
-### 11.3 색상 대비
+### 12.3 색상 대비
 
 - **다크모드**: muted-foreground 대비 개선 (0.75 oklch)
 - **테두리**: 다크모드에서 15% → 18% 불투명도
@@ -778,9 +1146,9 @@ interface Guide {
 
 ---
 
-## 12. SEO 및 메타데이터
+## 13. SEO 및 메타데이터
 
-### 12.1 메타 태그 전략
+### 13.1 메타 태그 전략
 
 ```tsx
 // 페이지별 동적 메타데이터
@@ -814,7 +1182,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 ```
 
-### 12.2 구조화된 데이터
+### 13.2 구조화된 데이터
 
 ```tsx
 // 브레드크럼
@@ -838,9 +1206,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 ---
 
-## 13. 성능 최적화
+## 14. 성능 최적화
 
-### 13.1 코드 스플리팅
+### 14.1 코드 스플리팅
 
 ```tsx
 // 동적 임포트로 도구 컴포넌트 지연 로딩
@@ -853,7 +1221,7 @@ const toolComponents: Record<ToolSlug, ComponentType> = {
 };
 ```
 
-### 13.2 캐싱 전략
+### 14.2 캐싱 전략
 
 | 저장소       | 키               | 데이터             |
 | ------------ | ---------------- | ------------------ |
@@ -862,7 +1230,7 @@ const toolComponents: Record<ToolSlug, ComponentType> = {
 | localStorage | `theme`          | 테마 설정          |
 | URL params   | `data`           | 공유 상태 (압축)   |
 
-### 13.3 이미지 최적화
+### 14.3 이미지 최적화
 
 - **아이콘**: Lucide React (SVG, Tree-shakeable)
 - **앱 아이콘**: PNG (192x192, 512x512)
@@ -870,9 +1238,9 @@ const toolComponents: Record<ToolSlug, ComponentType> = {
 
 ---
 
-## 14. 분석 및 모니터링
+## 15. 분석 및 모니터링
 
-### 14.1 분석 도구
+### 15.1 분석 도구
 
 | 서비스                 | 목적                |
 | ---------------------- | ------------------- |
@@ -881,7 +1249,7 @@ const toolComponents: Record<ToolSlug, ComponentType> = {
 | **Microsoft Clarity**  | 히트맵, 세션 녹화   |
 | **Google AdSense**     | 광고 수익화         |
 
-### 14.2 데이터 수집 정책
+### 15.2 데이터 수집 정책
 
 - **클라이언트 사이드만**: 서버로 데이터 전송 없음
 - **개인정보 보호**: 모든 도구 처리는 브라우저 내에서
@@ -889,18 +1257,185 @@ const toolComponents: Record<ToolSlug, ComponentType> = {
 
 ---
 
-## 통계 요약
+## 16. 보안 및 데이터 관리
 
-| 항목                      | 수량                                           |
-| ------------------------- | ---------------------------------------------- |
-| **총 도구**               | 31개                                           |
-| **치트시트**              | 14개                                           |
-| **가이드**                | 28개+                                          |
-| **UI 컴포넌트**           | 25+                                            |
-| **지원 언어**             | 3개 (en, ko, ja)                               |
-| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API) |
-| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                  |
+### 16.1 클라이언트 사이드 보안 원칙
+
+DevToolkit은 100% 클라이언트 사이드 처리를 원칙으로 합니다.
+
+| 원칙                   | 설명                                            |
+| ---------------------- | ----------------------------------------------- |
+| **Zero Server Upload** | 사용자 데이터는 서버로 전송되지 않음            |
+| **Local Processing**   | 모든 도구 연산은 브라우저에서 수행              |
+| **Session Isolation**  | 페이지 새로고침 시 입력 데이터 휘발             |
+| **BYOK Model**         | AI 기능은 사용자 API 키 사용 (서버 프록시 없음) |
+
+### 16.2 데이터 저장소 전략
+
+| 저장소             | 용도                      | 보존 기간     | 보안 고려사항       |
+| ------------------ | ------------------------- | ------------- | ------------------- |
+| **localStorage**   | 테마, 즐겨찾기, AI API 키 | 영구          | XSS 취약점 주의     |
+| **sessionStorage** | Pipeline 데이터 전송      | 세션          | 탭 간 격리됨        |
+| **IndexedDB**      | Workspace 데이터          | 영구          | 동일 출처 정책 적용 |
+| **URL State**      | 공유 상태 (압축)          | URL 유지 기간 | 민감 데이터 제외    |
+
+### 16.3 AI API 키 보안 (BYOK)
+
+**현재 구현:**
+
+```typescript
+// localStorage에 API 키 저장
+localStorage.setItem(
+  "ai-config",
+  JSON.stringify({
+    provider: "openai",
+    apiKey: "sk-...",
+    model: "gpt-4o-mini",
+  }),
+);
+```
+
+**보안 권고사항:**
+
+- ⚠️ localStorage는 XSS 공격에 취약
+- 향후 개선: Web Crypto API를 통한 암호화 저장 고려
+- 사용자 안내: API 키는 제한된 권한의 키 사용 권장
+
+**AI 호출 흐름:**
+
+```
+사용자 입력 → 브라우저에서 직접 AI API 호출 → 결과 표시
+(서버 경유 없음, API 키는 클라이언트에서만 사용)
+```
+
+### 16.4 Pipeline 데이터 호환성 시스템
+
+도구 간 데이터 전송 시 타입 안전성을 보장하는 MIME Type 유사 시스템입니다.
+
+**위치**: `src/features/tool-pipeline/model/types.ts`
+
+**데이터 타입 정의:**
+
+```typescript
+type PipelineDataType =
+  | "text/plain" // 일반 텍스트
+  | "text/json" // JSON 문자열
+  | "text/html" // HTML
+  | "text/css" // CSS
+  | "text/sql" // SQL
+  | "text/encoded" // Base64, URL 인코딩 등
+  | "text/hash" // 해시 값
+  | "text/uuid" // UUID
+  | "text/jwt" // JWT 토큰
+  | "text/code" // 소스 코드
+  | "image/svg" // SVG
+  | "application/qr"; // QR 코드 데이터
+```
+
+**도구별 입출력 타입 예시:**
+
+| 도구             | 입력 (accepts)                  | 출력 (outputs)           |
+| ---------------- | ------------------------------- | ------------------------ |
+| json-formatter   | text/json, text/plain           | text/json                |
+| jwt-decoder      | text/jwt, text/plain            | text/json                |
+| hash-generator   | text/plain, text/json           | text/hash                |
+| base64-converter | text/plain, text/encoded        | text/encoded, text/plain |
+| qr-generator     | text/plain, text/url, text/uuid | application/qr           |
+
+**호환성 검사 함수:**
+
+```typescript
+// 두 도구 간 데이터 전송 가능 여부 확인
+isDataTypeCompatible("json-formatter", "jwt-decoder"); // true (text/json 호환)
+isDataTypeCompatible("json-formatter", "qr-generator"); // false (타입 불일치)
+
+// 특정 도구로 데이터를 보낼 수 있는 도구 목록
+getToolsThatCanSendTo("jwt-decoder"); // ["json-formatter", "base64-converter", ...]
+
+// 특정 도구에서 데이터를 받을 수 있는 도구 목록
+getToolsThatCanReceiveFrom("json-formatter"); // ["jwt-decoder", "hash-generator", ...]
+```
+
+### 16.5 IndexedDB 스키마 (Workspace)
+
+**데이터베이스**: `devtoolkit-workspace`
+
+```typescript
+// 워크스페이스 스키마
+interface Workspace {
+  id: string; // UUID
+  name: string; // 워크스페이스 이름
+  color: string; // 색상 (hex)
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// 워크스페이스 아이템 스키마
+interface WorkspaceItem {
+  id: string; // UUID
+  workspaceId: string; // FK → Workspace.id
+  toolSlug: ToolSlug; // 도구 식별자
+  name: string; // 아이템 이름
+  data: string; // JSON 직렬화된 데이터
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+**향후 개선 권고:**
+
+- Dexie.js 도입으로 스키마 마이그레이션 관리
+- 버전 관리 및 업그레이드 로직 추가
+
+### 16.6 보안 체크리스트
+
+| 항목                  | 상태 | 비고                          |
+| --------------------- | ---- | ----------------------------- |
+| 서버 데이터 전송 없음 | ✅   | 모든 도구 클라이언트 처리     |
+| HTTPS 적용            | ✅   | Vercel 기본 제공              |
+| CSP 헤더              | ⚠️   | 향후 추가 권장                |
+| API 키 암호화         | ❌   | 향후 Web Crypto API 적용 고려 |
+| XSS 방지              | ⚠️   | DOMPurify 도입 권장           |
+| IndexedDB 접근 제어   | ✅   | 동일 출처 정책                |
 
 ---
 
-_최종 업데이트: 2025년 12월_
+## 통계 요약
+
+| 항목                      | 수량                                                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **총 도구**               | 31개                                                                                                                |
+| **치트시트**              | 14개                                                                                                                |
+| **가이드**                | 28개+                                                                                                               |
+| **UI 컴포넌트**           | 30+                                                                                                                 |
+| **지원 언어**             | 3개 (en, ko, ja)                                                                                                    |
+| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                      |
+| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                       |
+| **UX Enhancement 기능**   | 8개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace) |
+
+---
+
+## 버전 히스토리
+
+### v0.2.0 (2025-12-14)
+
+- **Tool Actions Bar**: AI Explain, Pipeline, Workspace 통합 컴포넌트
+- **AI Explain (BYOK)**: OpenAI/Anthropic/Google AI로 입력값 분석
+- **Tool Pipeline**: 도구 간 데이터 체이닝
+- **Pipeline Data Types**: MIME Type 유사 데이터 호환성 시스템
+- **Workspace**: IndexedDB 기반 작업 데이터 영구 저장
+- **Mobile FAB Menu**: 모바일에서 Tool Actions Bar FAB 스타일 메뉴
+- **Command Menu UI**: 아이콘 박스, 2줄 레이아웃, 닫기 버튼 등 UI 개선
+- **보안 문서화**: 데이터 저장소 전략, API 키 보안, 체크리스트 추가
+- **PWA Enhancement**: 오프라인 지원 강화
+
+### v0.1.0 (2025-12-13)
+
+- 31개 도구 구현 완료
+- 14개 치트시트
+- Smart Paste, Bento Grid, Glassmorphism 효과
+- 다국어 지원 (en, ko, ja)
+
+---
+
+_최종 업데이트: 2025년 12월 14일_

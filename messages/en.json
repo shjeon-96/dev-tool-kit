@@ -81,6 +81,55 @@
     "noResults": "No results found.",
     "tools": "Tools"
   },
+  "pipeline": {
+    "sendTo": "Send to",
+    "availableTools": "Available tools",
+    "dataReceived": "Data received from pipeline",
+    "here": "this tool",
+    "dismiss": "Dismiss",
+    "useData": "Use Data"
+  },
+  "workspace": {
+    "selectWorkspace": "Select Workspace",
+    "noWorkspaces": "No workspaces yet",
+    "newWorkspace": "New Workspace",
+    "workspaceName": "Workspace name",
+    "create": "Create",
+    "cancel": "Cancel",
+    "saveToWorkspace": "Save",
+    "saved": "Saved!",
+    "saving": "Saving...",
+    "itemName": "Name",
+    "enterItemName": "Enter a name for this item",
+    "workspace": "Workspace",
+    "save": "Save"
+  },
+  "aiExplain": {
+    "explain": "AI Explain",
+    "configureAI": "Configure AI Provider",
+    "provider": "Provider",
+    "model": "Model",
+    "apiKey": "API Key",
+    "getApiKey": "Get API Key",
+    "enterApiKey": "Please enter your API key",
+    "invalidApiKey": "Invalid API key format",
+    "securityNote": "Your API key is stored locally in your browser and never sent to our servers. All AI requests go directly to the provider.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "aiExplanation": "AI Explanation",
+    "close": "Close"
+  },
+  "commandMenu": {
+    "naturalLanguagePlaceholder": "Search or describe what you need...",
+    "tryNaturalLanguage": "Try: \"format my json\" or \"decode jwt token\"",
+    "quickActions": "Quick Actions",
+    "aiSuggestions": "Suggested",
+    "suggested": "suggested",
+    "formatJson": "Format this JSON",
+    "decodeJwt": "Decode this JWT token",
+    "parseUrl": "Parse this URL",
+    "detectHash": "Analyze this hash"
+  },
   "tools": {
     "json-formatter": {
       "title": "JSON Formatter",

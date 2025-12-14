@@ -51,6 +51,55 @@
     "noResults": "結果が見つかりません。",
     "tools": "ツール"
   },
+  "pipeline": {
+    "sendTo": "送信先",
+    "availableTools": "利用可能なツール",
+    "dataReceived": "パイプラインからデータを受信しました",
+    "here": "このツール",
+    "dismiss": "閉じる",
+    "useData": "データを使用"
+  },
+  "workspace": {
+    "selectWorkspace": "ワークスペースを選択",
+    "noWorkspaces": "ワークスペースがありません",
+    "newWorkspace": "新しいワークスペース",
+    "workspaceName": "ワークスペース名",
+    "create": "作成",
+    "cancel": "キャンセル",
+    "saveToWorkspace": "保存",
+    "saved": "保存しました！",
+    "saving": "保存中...",
+    "itemName": "名前",
+    "enterItemName": "アイテム名を入力してください",
+    "workspace": "ワークスペース",
+    "save": "保存"
+  },
+  "aiExplain": {
+    "explain": "AI説明",
+    "configureAI": "AIプロバイダー設定",
+    "provider": "プロバイダー",
+    "model": "モデル",
+    "apiKey": "APIキー",
+    "getApiKey": "APIキーを取得",
+    "enterApiKey": "APIキーを入力してください",
+    "invalidApiKey": "無効なAPIキー形式です",
+    "securityNote": "APIキーはブラウザにローカル保存され、サーバーには送信されません。すべてのAIリクエストはプロバイダーに直接送信されます。",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "aiExplanation": "AI説明",
+    "close": "閉じる"
+  },
+  "commandMenu": {
+    "naturalLanguagePlaceholder": "検索するか、必要なものを説明してください...",
+    "tryNaturalLanguage": "例: 「JSONをフォーマット」または「JWTトークンをデコード」",
+    "quickActions": "クイックアクション",
+    "aiSuggestions": "おすすめ",
+    "suggested": "おすすめ",
+    "formatJson": "このJSONをフォーマット",
+    "decodeJwt": "このJWTトークンをデコード",
+    "parseUrl": "このURLを解析",
+    "detectHash": "このハッシュを分析"
+  },
   "tools": {
     "json-formatter": {
       "title": "JSON Formatter",

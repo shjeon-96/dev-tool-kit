@@ -81,6 +81,55 @@
     "noResults": "결과가 없습니다.",
     "tools": "도구"
   },
+  "pipeline": {
+    "sendTo": "보내기",
+    "availableTools": "연결 가능한 도구",
+    "dataReceived": "파이프라인에서 데이터를 받았습니다",
+    "here": "이 도구",
+    "dismiss": "닫기",
+    "useData": "데이터 사용"
+  },
+  "workspace": {
+    "selectWorkspace": "워크스페이스 선택",
+    "noWorkspaces": "워크스페이스가 없습니다",
+    "newWorkspace": "새 워크스페이스",
+    "workspaceName": "워크스페이스 이름",
+    "create": "생성",
+    "cancel": "취소",
+    "saveToWorkspace": "저장",
+    "saved": "저장됨!",
+    "saving": "저장 중...",
+    "itemName": "이름",
+    "enterItemName": "항목 이름을 입력하세요",
+    "workspace": "워크스페이스",
+    "save": "저장"
+  },
+  "aiExplain": {
+    "explain": "AI 설명",
+    "configureAI": "AI 제공자 설정",
+    "provider": "제공자",
+    "model": "모델",
+    "apiKey": "API 키",
+    "getApiKey": "API 키 받기",
+    "enterApiKey": "API 키를 입력해주세요",
+    "invalidApiKey": "잘못된 API 키 형식입니다",
+    "securityNote": "API 키는 브라우저에 로컬로 저장되며 서버로 전송되지 않습니다. 모든 AI 요청은 제공자에게 직접 전송됩니다.",
+    "cancel": "취소",
+    "save": "저장",
+    "aiExplanation": "AI 설명",
+    "close": "닫기"
+  },
+  "commandMenu": {
+    "naturalLanguagePlaceholder": "검색하거나 필요한 것을 설명하세요...",
+    "tryNaturalLanguage": "예: \"json 포맷\" 또는 \"jwt 토큰 디코딩\"",
+    "quickActions": "빠른 실행",
+    "aiSuggestions": "추천",
+    "suggested": "추천",
+    "formatJson": "이 JSON 포맷하기",
+    "decodeJwt": "이 JWT 토큰 디코딩",
+    "parseUrl": "이 URL 분석",
+    "detectHash": "이 해시 분석"
+  },
   "tools": {
     "json-formatter": {
       "title": "JSON Formatter",

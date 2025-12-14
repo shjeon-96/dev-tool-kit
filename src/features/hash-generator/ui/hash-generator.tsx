@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHashGenerator, type InputMode } from "../model/use-hash-generator";
 import { FileUploader } from "@/widgets/file-uploader";
 import {
@@ -12,7 +12,9 @@ import {
   TabsTrigger,
   TabsContent,
   ShareButton,
+  ToolActionsBar,
 } from "@/shared/ui";
+import { usePipelineReceiver } from "@/features/tool-pipeline";
 import {
   Copy,
   Check,
@@ -51,6 +53,20 @@ export function HashGenerator() {
 
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [showHistory, setShowHistory] = useState(false);
+  const { receivedData, checkForPipelineData, clearReceivedData } =
+    usePipelineReceiver();
+
+  // Pipeline에서 받은 데이터 처리
+  useEffect(() => {
+    checkForPipelineData();
+  }, [checkForPipelineData]);
+
+  useEffect(() => {
+    if (receivedData) {
+      setTextInput(receivedData.data);
+      clearReceivedData();
+    }
+  }, [receivedData, setTextInput, clearReceivedData]);
 
   const formatTimestamp = (timestamp: number) => {
     const date = new Date(timestamp);
@@ -217,6 +233,13 @@ export function HashGenerator() {
           )}
         </TabsContent>
       </Tabs>
+
+      {/* AI, Pipeline, Workspace Actions */}
+      <ToolActionsBar
+        toolSlug="hash-generator"
+        input={textInput}
+        output={hashes.map((h) => `${h.algorithm}: ${h.hash}`).join("\n")}
+      />
 
       {/* Error Display */}
       {error && (

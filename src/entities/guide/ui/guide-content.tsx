@@ -13,9 +13,8 @@ import {
 import { cn } from "@/shared/lib";
 import { Button } from "@/shared/ui";
 import { tools } from "@/entities/tool";
-import type { Guide, GuideSlug } from "../model/types";
+import type { Guide } from "../model/types";
 import { TableOfContents } from "./table-of-contents";
-import { getGuideSlugs } from "../data";
 
 interface GuideContentProps {
   guide: Guide;

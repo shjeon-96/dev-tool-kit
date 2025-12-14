@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Copy,
   Check,
@@ -9,8 +9,9 @@ import {
   Upload,
   ArrowRightLeft,
 } from "lucide-react";
-import { Button } from "@/shared/ui";
+import { Button, ToolActionsBar } from "@/shared/ui";
 import { useBase64 } from "../model/use-base64";
+import { usePipelineReceiver } from "@/features/tool-pipeline";
 
 export function Base64Converter() {
   const {
@@ -30,6 +31,20 @@ export function Base64Converter() {
   const [copied, setCopied] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { receivedData, checkForPipelineData, clearReceivedData } =
+    usePipelineReceiver();
+
+  // Pipeline에서 받은 데이터 처리
+  useEffect(() => {
+    checkForPipelineData();
+  }, [checkForPipelineData]);
+
+  useEffect(() => {
+    if (receivedData) {
+      handleInputChange(receivedData.data);
+      clearReceivedData();
+    }
+  }, [receivedData, handleInputChange, clearReceivedData]);
 
   const onCopy = async () => {
     const success = await handleCopy();
@@ -122,6 +137,13 @@ export function Base64Converter() {
           className="hidden"
         />
       </div>
+
+      {/* AI, Pipeline, Workspace Actions */}
+      <ToolActionsBar
+        toolSlug="base64-converter"
+        input={input}
+        output={output}
+      />
 
       {/* Error display */}
       {error && (
