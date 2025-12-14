@@ -3,7 +3,7 @@
 > 모든 화면, 기능, 레이아웃에 대한 종합 가이드
 
 **프로젝트명**: DevToolkit (Web Toolkit)
-**버전**: 0.3.0
+**버전**: 0.5.0
 **프레임워크**: Next.js 16+ (App Router, Turbopack)
 **스타일링**: Tailwind CSS 4
 **UI**: Radix UI + Shadcn/ui 커스텀 컴포넌트
@@ -31,6 +31,8 @@
 15. [분석 및 모니터링](#15-분석-및-모니터링)
 16. [보안 및 데이터 관리](#16-보안-및-데이터-관리)
 17. [Magic Share (서버리스 공유)](#17-magic-share-서버리스-공유)
+18. [Chrome Extension](#18-chrome-extension)
+19. [WebAssembly 통합](#19-webassembly-통합)
 
 ---
 
@@ -1819,22 +1821,395 @@ export function canShare(input: string): {
 
 ---
 
+## 18. Chrome Extension
+
+### 18.1 개요
+
+DevToolkit Chrome Extension은 Plasmo Framework를 사용하여 개발된 브라우저 확장 프로그램입니다. 웹 앱의 기존 코드를 90% 이상 재사용하며, 컨텍스트 메뉴를 통해 선택한 텍스트를 빠르게 도구로 전송할 수 있습니다.
+
+### 18.2 디렉토리 구조
+
+```
+extension/
+├── package.json       # Plasmo manifest 설정
+├── popup.tsx          # 팝업 UI 컴포넌트
+├── background.ts      # Context Menu & 서비스 워커
+├── assets/           # 아이콘 리소스 (향후)
+└── contents/         # Content Scripts (향후)
+```
+
+### 18.3 주요 기능
+
+#### 18.3.1 Popup 기능
+
+| 기능            | 설명                               | 상태 |
+| --------------- | ---------------------------------- | ---- |
+| Quick Tools     | 자주 사용하는 6개 도구 바로가기    | ✅   |
+| Selection Input | 선택한 텍스트로 도구 자동 열기     | ✅   |
+| Recent Tools    | 최근 사용 도구 목록 (storage 기반) | ✅   |
+| Open Full App   | 웹 앱 전체 열기 링크               | ✅   |
+
+#### 18.3.2 Context Menu 기능
+
+| 메뉴 항목          | 연결 도구        | 파라미터      |
+| ------------------ | ---------------- | ------------- |
+| Format as JSON     | json-formatter   | input         |
+| Encode to Base64   | base64-converter | input, action |
+| Decode from Base64 | base64-converter | input, action |
+| Generate Hash      | hash-generator   | input         |
+| URL Encode         | url-encoder      | input, action |
+| URL Decode         | url-encoder      | input, action |
+| Decode JWT         | jwt-decoder      | input         |
+
+### 18.4 기술 스택
+
+```yaml
+Framework: Plasmo 0.90.5
+Storage: @plasmohq/storage
+Manifest: Chrome MV3
+Permissions:
+  - contextMenus
+  - storage
+  - activeTab
+  - clipboardWrite
+  - clipboardRead
+Host Permissions: <all_urls>
+```
+
+### 18.5 개발 명령어
+
+```bash
+# Extension 개발 서버 (Next.js와 동시 실행 가능)
+npm run dev:ext
+
+# Extension 빌드
+npm run build:ext
+
+# Extension 패키징 (Chrome Web Store 업로드용)
+npm run package:ext
+```
+
+### 18.6 URL 스키마
+
+Extension에서 웹 앱으로 전달하는 URL 패턴:
+
+```
+https://web-toolkit.app/en/tools/{tool-slug}?input={encodedText}&action={encode|decode}
+```
+
+### 18.7 Chrome Web Store 등록
+
+**스토어 URL**: [Chrome Web Store](https://chromewebstore.google.com/) (심사 중)
+
+**등록 정보:**
+
+- **이름**: DevToolkit - Developer Tools
+- **카테고리**: Developer Tools
+- **가격**: 무료
+- **언어**: English
+
+### 18.8 로드맵
+
+**Phase 1 (완료):**
+
+- ✅ Plasmo 프로젝트 설정
+- ✅ Popup UI 기본 구현
+- ✅ Context Menu 연동
+- ✅ Chrome Web Store 업로드
+
+**Phase 2 (계획):**
+
+- Side Panel UI
+- 실시간 도구 실행 (웹 앱 열지 않고)
+- 코드 공유 라이브러리 (`shared/lib/core/`)
+
+---
+
+## 19. WebAssembly 통합
+
+### 19.1 개요
+
+브라우저에서 고성능 이미지/미디어 처리를 위해 FFmpeg.wasm을 통합했습니다.
+WebAssembly 멀티스레딩은 SharedArrayBuffer를 필요로 하며, 이는 COOP/COEP 보안 헤더가 필수입니다.
+
+**핵심 전략**: Route-Specific Headers (광고 수익화 보존)
+
+- 전역 헤더 적용 시 AdSense 등 외부 스크립트가 차단됨
+- 특정 도구 페이지에만 COOP/COEP 헤더를 적용하여 광고 호환성 유지
+
+### 19.2 아키텍처
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        Route Handling                           │
+├─────────────────────────────────────────────────────────────────┤
+│  일반 도구 페이지           │   Wasm 격리 페이지                 │
+│  (/tools/json-formatter)   │   (/tools/image-resizer)          │
+│  - 표준 헤더               │   - COOP: same-origin             │
+│  - AdSense 정상 작동        │   - COEP: require-corp            │
+│  - Canvas 기반 처리         │   - SharedArrayBuffer 활성화       │
+│                            │   - FFmpeg 멀티스레딩              │
+│                            │   - AdSense 비활성화 (자동)        │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 19.3 COOP/COEP 헤더 설정
+
+**파일**: `next.config.ts`
+
+```typescript
+async headers() {
+  return [
+    // Wasm 격리 도구 페이지
+    {
+      source: "/:locale/tools/(image-resizer|hash-generator)",
+      headers: [
+        { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+        { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+      ],
+    },
+    // FFmpeg 정적 파일 (CDN 폴백용)
+    {
+      source: "/ffmpeg/:path*",
+      headers: [
+        { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+        { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+      ],
+    },
+  ];
+},
+```
+
+### 19.4 Wasm 격리 도구
+
+| 도구               | 경로                    | Wasm 용도                      |
+| ------------------ | ----------------------- | ------------------------------ |
+| **Image Resizer**  | `/tools/image-resizer`  | FFmpeg.wasm - Lanczos 리샘플링 |
+| **Hash Generator** | `/tools/hash-generator` | 예정 - 고속 해싱               |
+
+### 19.5 FFmpeg Hook
+
+**파일**: `src/shared/lib/ffmpeg/use-ffmpeg.ts`
+
+```typescript
+interface UseFFmpegReturn {
+  ffmpeg: FFmpeg | null;
+  loadState: FFmpegLoadState;
+  progress: number;
+  error: string | null;
+  load: () => Promise<boolean>;
+  isReady: boolean;
+  isLoading: boolean;
+}
+```
+
+**특징:**
+
+- **CDN 로딩**: unpkg에서 FFmpeg core 자동 로드
+- **멀티스레딩**: SharedArrayBuffer 지원 시 자동 활성화
+- **진행률 추적**: 처리 진행률 실시간 표시
+- **lazy Loading**: 컴포넌트 마운트 시 로드 시작
+
+**CDN URL:**
+
+- 싱글스레드: `https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm`
+- 멀티스레드: `https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm`
+
+### 19.6 광고 조건부 렌더링
+
+Wasm 격리 페이지에서는 COEP 헤더로 인해 외부 스크립트가 차단됩니다.
+AdUnit 컴포넌트에서 자동으로 격리 페이지를 감지하여 렌더링을 스킵합니다.
+
+**파일**: `src/shared/lib/wasm/isolated-pages.ts`
+
+```typescript
+export const WASM_ISOLATED_TOOLS = ["image-resizer", "hash-generator"] as const;
+
+export function isWasmIsolatedPage(pathname: string): boolean {
+  return WASM_ISOLATED_TOOLS.some((tool) =>
+    pathname.includes(`/tools/${tool}`),
+  );
+}
+```
+
+**파일**: `src/shared/ui/ad-unit/ad-unit.tsx`
+
+```typescript
+const isIsolated = isWasmIsolatedPage(pathname);
+if (isIsolated) {
+  return null; // Wasm 페이지에서 광고 스킵
+}
+```
+
+### 19.7 Image Resizer FFmpeg 통합
+
+**파일**: `src/features/image-resizer/model/use-image-resizer.ts`
+
+**처리 전략:**
+
+1. **FFmpeg 사용 가능**: Lanczos 알고리즘으로 고품질 리사이즈
+2. **FFmpeg 미지원**: Canvas API로 폴백 (imageSmoothingQuality: "high")
+
+**반환값:**
+
+```typescript
+{
+  ffmpegState: {
+    loaded: boolean,      // FFmpeg 로드 완료
+    loading: boolean,     // FFmpeg 로딩 중
+    error: string | null, // 에러 메시지
+    isSupported: boolean, // SharedArrayBuffer 지원 여부
+  },
+  // ... 기존 반환값
+}
+```
+
+**UI 상태 표시:**
+
+- 🔄 FFmpeg 로딩 중 (파란색 배너)
+- ⚡ FFmpeg 활성화됨 (녹색 배너)
+- ⚠️ WebAssembly 미지원 (노란색 배너, Canvas 폴백)
+
+### 19.8 지원 출력 포맷
+
+| 포맷 | MIME Type  | 품질 설정        |
+| ---- | ---------- | ---------------- |
+| PNG  | image/png  | 무손실           |
+| JPEG | image/jpeg | -q:v (1-31)      |
+| WebP | image/webp | -quality (0-100) |
+
+### 19.9 파일 구조
+
+```
+src/shared/lib/
+├── ffmpeg/
+│   ├── index.ts          # 모듈 export
+│   └── use-ffmpeg.ts     # FFmpeg Hook
+│
+└── wasm/
+    ├── index.ts          # 모듈 export
+    └── isolated-pages.ts # 격리 페이지 유틸리티
+```
+
+### 19.10 의존성
+
+```json
+{
+  "@ffmpeg/ffmpeg": "^0.12.15",
+  "@ffmpeg/util": "^0.12.1"
+}
+```
+
+### 19.11 브라우저 호환성
+
+| 브라우저      | SharedArrayBuffer | FFmpeg 멀티스레드 |
+| ------------- | ----------------- | ----------------- |
+| Chrome 92+    | ✅                | ✅                |
+| Firefox 79+   | ✅                | ✅                |
+| Safari 15.2+  | ✅                | ✅                |
+| Edge 92+      | ✅                | ✅                |
+| 구형 브라우저 | ❌                | Canvas 폴백       |
+
+### 19.12 로드맵
+
+**Phase 1 (완료):**
+
+- ✅ Route-Specific COOP/COEP 헤더
+- ✅ FFmpeg Hook 구현
+- ✅ Image Resizer FFmpeg 통합
+- ✅ Canvas 폴백 구현
+- ✅ 광고 조건부 렌더링
+
+**Phase 2 (계획):**
+
+- Hash Generator Wasm 업그레이드
+- Video Converter 도구 추가
+- Audio Converter 도구 추가
+
+**Phase 3 (계획):**
+
+- PWA 오프라인 Wasm 캐싱
+- Worker Pool 최적화
+- SIMD 최적화
+
+---
+
 ## 통계 요약
 
-| 항목                      | 수량                                                                                                                             |
-| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| **총 도구**               | 31개                                                                                                                             |
-| **치트시트**              | 14개                                                                                                                             |
-| **가이드**                | 28개+                                                                                                                            |
-| **UI 컴포넌트**           | 30+                                                                                                                              |
-| **지원 언어**             | 3개 (en, ko, ja)                                                                                                                 |
-| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                                   |
-| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                    |
-| **UX Enhancement 기능**   | 9개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share) |
+| 항목                      | 수량                                                                                                                                                             |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **총 도구**               | 31개                                                                                                                                                             |
+| **치트시트**              | 14개                                                                                                                                                             |
+| **가이드**                | 28개+                                                                                                                                                            |
+| **UI 컴포넌트**           | 30+                                                                                                                                                              |
+| **지원 언어**             | 3개 (en, ko, ja)                                                                                                                                                 |
+| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                                                                   |
+| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                                                    |
+| **UX Enhancement 기능**   | 11개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share, Chrome Extension, WebAssembly) |
+| **Chrome Extension**      | Plasmo 기반, Context Menu, Popup                                                                                                                                 |
 
 ---
 
 ## 버전 히스토리
+
+### v0.5.0 (2025-12-14)
+
+**새로운 기능:**
+
+- **WebAssembly 통합**: FFmpeg.wasm으로 고성능 이미지 처리
+  - Image Resizer: Lanczos 알고리즘 기반 고품질 리사이즈
+  - Route-Specific COOP/COEP 헤더 (AdSense 호환)
+  - Canvas 폴백 (구형 브라우저 지원)
+
+**인프라 변경:**
+
+- `next.config.ts`: Route-Specific 보안 헤더 추가
+- 광고 조건부 렌더링 (Wasm 격리 페이지)
+- SharedArrayBuffer 지원 감지
+
+**새로운 파일:**
+
+- `src/shared/lib/ffmpeg/use-ffmpeg.ts` - FFmpeg Hook
+- `src/shared/lib/ffmpeg/index.ts` - FFmpeg 모듈 export
+- `src/shared/lib/wasm/isolated-pages.ts` - Wasm 페이지 감지
+- `src/shared/lib/wasm/index.ts` - Wasm 모듈 export
+
+**의존성 추가:**
+
+- `@ffmpeg/ffmpeg` - FFmpeg WebAssembly
+- `@ffmpeg/util` - FFmpeg 유틸리티
+
+---
+
+### v0.4.0 (2025-12-14)
+
+**새로운 기능:**
+
+- **Chrome Extension**: Plasmo Framework 기반 브라우저 확장 프로그램
+  - Popup UI: 자주 사용하는 도구 바로가기
+  - Context Menu: 선택한 텍스트를 도구로 빠르게 전송
+  - Background Script: 서비스 워커 기반 이벤트 처리
+  - 최근 사용 도구 추적 (chrome.storage)
+
+**프로젝트 구조:**
+
+- `extension/` 디렉토리 추가
+- `extension/popup.tsx` - 팝업 UI
+- `extension/background.ts` - 컨텍스트 메뉴 핸들러
+- `extension/package.json` - Plasmo manifest
+
+**개발 스크립트:**
+
+- `npm run dev:ext` - Extension 개발 서버
+- `npm run build:ext` - Extension 빌드
+- `npm run package:ext` - Chrome Web Store 패키징
+
+**의존성 추가:**
+
+- `plasmo` - Chrome Extension 프레임워크
+- `@plasmohq/storage` - Extension storage 유틸리티
+
+---
 
 ### v0.3.0 (2025-12-14)
 
@@ -1917,4 +2292,4 @@ export function canShare(input: string): {
 
 ---
 
-_최종 업데이트: 2025년 12월 14일 (v0.3.0)_
+_최종 업데이트: 2025년 12월 14일 (v0.5.0)_

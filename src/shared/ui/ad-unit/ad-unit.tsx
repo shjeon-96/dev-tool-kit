@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import { isWasmIsolatedPage } from "@/shared/lib/wasm";
 
 declare global {
   interface Window {
@@ -21,11 +23,16 @@ export function AdUnit({
   responsive = true,
   className = "",
 }: AdUnitProps) {
+  const pathname = usePathname();
   const adRef = useRef<HTMLDivElement>(null);
   const isAdLoaded = useRef(false);
 
+  // Wasm 격리 페이지에서는 광고 렌더링 안 함 (COOP/COEP 헤더로 인해 외부 스크립트 차단됨)
+  const isIsolated = isWasmIsolatedPage(pathname);
+
   useEffect(() => {
-    if (isAdLoaded.current) return;
+    // 격리된 페이지에서는 광고 로드 시도하지 않음
+    if (isIsolated || isAdLoaded.current) return;
 
     try {
       if (typeof window !== "undefined" && adRef.current) {
@@ -41,7 +48,12 @@ export function AdUnit({
     } catch (error) {
       console.error("AdSense error:", error);
     }
-  }, []);
+  }, [isIsolated]);
+
+  // Wasm 격리 페이지에서는 광고 UI도 렌더링하지 않음
+  if (isIsolated) {
+    return null;
+  }
 
   return (
     <div ref={adRef} className={`ad-container ${className}`}>

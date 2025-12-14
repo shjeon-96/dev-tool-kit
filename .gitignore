@@ -46,3 +46,10 @@ public/workbox-*.js
 public/sw.js.map
 public/workbox-*.js.map
 .env*.local
+
+# Plasmo (Chrome Extension)
+.plasmo
+extension/.plasmo
+extension/build
+build/chrome-mv3-dev
+build/chrome-mv3-prod

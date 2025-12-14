@@ -1,6 +1,10 @@
 "use client";
 
-import { useImageResizer, ResizeMode, OutputFormat } from "../model/use-image-resizer";
+import {
+  useImageResizer,
+  ResizeMode,
+  OutputFormat,
+} from "../model/use-image-resizer";
 import { FileUploader } from "@/widgets/file-uploader";
 import {
   Button,
@@ -14,7 +18,14 @@ import {
   SelectValue,
   Switch,
 } from "@/shared/ui";
-import { Download, RotateCcw, ImageIcon } from "lucide-react";
+import {
+  Download,
+  RotateCcw,
+  ImageIcon,
+  Loader2,
+  Zap,
+  AlertCircle,
+} from "lucide-react";
 
 export function ImageResizer() {
   const {
@@ -24,6 +35,8 @@ export function ImageResizer() {
     isProcessing,
     error,
     options,
+    progress,
+    ffmpegState,
     handleFileSelect,
     resizeImage,
     downloadImage,
@@ -39,6 +52,40 @@ export function ImageResizer() {
 
   return (
     <div className="space-y-6">
+      {/* FFmpeg Loading Status */}
+      {ffmpegState.loading && (
+        <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-4 flex items-center gap-3">
+          <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
+          <div>
+            <p className="font-medium text-blue-500">FFmpeg 로딩 중...</p>
+            <p className="text-sm text-muted-foreground">
+              고성능 이미지 처리 엔진을 준비하고 있습니다
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* FFmpeg Ready Status */}
+      {ffmpegState.loaded && !ffmpegState.loading && (
+        <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3 flex items-center gap-2">
+          <Zap className="h-4 w-4 text-green-500" />
+          <span className="text-sm text-green-600 dark:text-green-400">
+            FFmpeg.wasm 활성화됨 - 고품질 Lanczos 리샘플링 사용
+          </span>
+        </div>
+      )}
+
+      {/* FFmpeg Not Supported Warning */}
+      {!ffmpegState.isSupported && !ffmpegState.loading && (
+        <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 flex items-center gap-2">
+          <AlertCircle className="h-4 w-4 text-yellow-500" />
+          <span className="text-sm text-yellow-600 dark:text-yellow-400">
+            브라우저가 WebAssembly를 지원하지 않습니다. Canvas 폴백 모드로
+            동작합니다.
+          </span>
+        </div>
+      )}
+
       {/* File Upload Area */}
       {!originalImage && (
         <FileUploader
@@ -66,7 +113,9 @@ export function ImageResizer() {
               <div className="space-y-2 text-sm text-muted-foreground">
                 <p>파일명: {originalImage.file.name}</p>
                 <p>크기: {formatFileSize(originalImage.file.size)}</p>
-                <p>해상도: {originalImage.width} × {originalImage.height}px</p>
+                <p>
+                  해상도: {originalImage.width} × {originalImage.height}px
+                </p>
               </div>
             </div>
 
@@ -96,7 +145,9 @@ export function ImageResizer() {
               {/* Dimensions */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>너비 {options.mode === "percent" ? "(%)" : "(px)"}</Label>
+                  <Label>
+                    너비 {options.mode === "percent" ? "(%)" : "(px)"}
+                  </Label>
                   <Input
                     type="number"
                     value={options.width}
@@ -108,7 +159,9 @@ export function ImageResizer() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>높이 {options.mode === "percent" ? "(%)" : "(px)"}</Label>
+                  <Label>
+                    높이 {options.mode === "percent" ? "(%)" : "(px)"}
+                  </Label>
                   <Input
                     type="number"
                     value={options.height}
@@ -175,11 +228,27 @@ export function ImageResizer() {
               )}
             </div>
 
+            {/* Progress Bar */}
+            {isProcessing && progress > 0 && (
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span>처리 중...</span>
+                  <span>{progress}%</span>
+                </div>
+                <div className="h-2 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="h-full bg-primary transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Action Buttons */}
             <div className="flex gap-3">
               <Button
                 onClick={resizeImage}
-                disabled={isProcessing}
+                disabled={isProcessing || ffmpegState.loading}
                 className="flex-1"
               >
                 {isProcessing ? (
@@ -187,10 +256,18 @@ export function ImageResizer() {
                     <RotateCcw className="mr-2 h-4 w-4 animate-spin" />
                     처리 중...
                   </>
+                ) : ffmpegState.loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    FFmpeg 로딩 중...
+                  </>
                 ) : (
                   <>
                     <ImageIcon className="mr-2 h-4 w-4" />
                     리사이즈
+                    {ffmpegState.loaded && (
+                      <Zap className="ml-1 h-3 w-3 text-yellow-500" />
+                    )}
                   </>
                 )}
               </Button>
@@ -226,9 +303,18 @@ export function ImageResizer() {
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm text-muted-foreground">
-                    {formatFileSize(resizedFile.size)}
-                  </p>
+                  <div className="text-sm text-muted-foreground">
+                    <p>{formatFileSize(resizedFile.size)}</p>
+                    {originalImage && (
+                      <p className="text-xs">
+                        {(
+                          (1 - resizedFile.size / originalImage.file.size) *
+                          100
+                        ).toFixed(1)}
+                        % 절감
+                      </p>
+                    )}
+                  </div>
                   <Button onClick={downloadImage} size="sm">
                     <Download className="mr-2 h-4 w-4" />
                     다운로드

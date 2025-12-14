@@ -1,0 +1,19 @@
+{
+  "name": "devtoolkit-extension",
+  "displayName": "DevToolkit - Developer Tools",
+  "version": "0.4.0",
+  "description": "Developer tools for everyday tasks - JSON formatting, Base64 encoding, hash generation, and more.",
+  "author": "DevToolkit Team",
+  "manifest": {
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "permissions": [
+      "contextMenus",
+      "storage",
+      "activeTab",
+      "clipboardWrite",
+      "clipboardRead"
+    ]
+  }
+}

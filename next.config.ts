@@ -75,7 +75,41 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Route-specific headers for WebAssembly support
+  // Only apply COOP/COEP to Wasm-enabled tools to preserve AdSense on other pages
+  async headers() {
+    return [
+      {
+        // Wasm을 사용하는 특정 도구에만 COOP/COEP 헤더 적용
+        // 이 헤더가 있어야 SharedArrayBuffer 사용 가능 (FFmpeg 멀티스레딩)
+        source: "/:locale/tools/(image-resizer|hash-generator)",
+        headers: [
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp",
+          },
+          {
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
+          },
+        ],
+      },
+      {
+        // FFmpeg Wasm 파일 서빙을 위한 CORS 헤더
+        source: "/ffmpeg/:path*",
+        headers: [
+          {
+            key: "Cross-Origin-Embedder-Policy",
+            value: "require-corp",
+          },
+          {
+            key: "Cross-Origin-Resource-Policy",
+            value: "cross-origin",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default bundleAnalyzer(withPWA(withNextIntl(nextConfig)));
