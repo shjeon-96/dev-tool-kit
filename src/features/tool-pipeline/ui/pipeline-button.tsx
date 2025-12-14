@@ -30,15 +30,18 @@ export function PipelineButton({
 
   const handleSendTo = useCallback(
     (targetTool: ToolSlug) => {
-      sessionStorage.setItem(
-        "pipeline-data",
-        JSON.stringify({
-          from: currentTool,
-          to: targetTool,
-          data: output,
-          timestamp: Date.now(),
-        }),
-      );
+      // SSR safety check for sessionStorage
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem(
+          "pipeline-data",
+          JSON.stringify({
+            from: currentTool,
+            to: targetTool,
+            data: output,
+            timestamp: Date.now(),
+          }),
+        );
+      }
       setIsOpen(false);
       router.push(`/${locale}/tools/${targetTool}`);
     },

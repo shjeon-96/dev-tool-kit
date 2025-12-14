@@ -70,10 +70,13 @@ export function useUrlState<T>(
     if (prevSearchParamsRef.current !== currentParamsString) {
       prevSearchParamsRef.current = currentParamsString;
       // Use requestAnimationFrame to avoid synchronous setState in effect
-      requestAnimationFrame(() => {
+      const rafId = requestAnimationFrame(() => {
         const newState = getStateFromUrl();
         setStateInternal(newState);
       });
+
+      // Cleanup to prevent memory leak
+      return () => cancelAnimationFrame(rafId);
     }
   }, [searchParams, getStateFromUrl]);
 
