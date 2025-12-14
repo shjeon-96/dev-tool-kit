@@ -1,5 +1,8 @@
-const DB_NAME = "web-toolkit-workspaces";
-const DB_VERSION = 1;
+import Dexie, { type EntityTable } from "dexie";
+
+// ============================================
+// Workspace Database Schema (Dexie.js)
+// ============================================
 
 export interface WorkspaceItem {
   id: string;
@@ -20,47 +23,32 @@ export interface Workspace {
   updatedAt: number;
 }
 
-let dbPromise: Promise<IDBDatabase> | null = null;
+// ============================================
+// Dexie Database Instance
+// ============================================
 
-function openDB(): Promise<IDBDatabase> {
-  if (dbPromise) return dbPromise;
+class WorkspaceDB extends Dexie {
+  workspaces!: EntityTable<Workspace, "id">;
+  items!: EntityTable<WorkspaceItem, "id">;
 
-  dbPromise = new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, DB_VERSION);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-
-    request.onupgradeneeded = (event) => {
-      const db = (event.target as IDBOpenDBRequest).result;
-
-      // Workspaces store
-      if (!db.objectStoreNames.contains("workspaces")) {
-        const workspaceStore = db.createObjectStore("workspaces", {
-          keyPath: "id",
-        });
-        workspaceStore.createIndex("name", "name", { unique: false });
-        workspaceStore.createIndex("updatedAt", "updatedAt", { unique: false });
-      }
-
-      // Items store
-      if (!db.objectStoreNames.contains("items")) {
-        const itemStore = db.createObjectStore("items", { keyPath: "id" });
-        itemStore.createIndex("workspaceId", "workspaceId", { unique: false });
-        itemStore.createIndex("toolSlug", "toolSlug", { unique: false });
-        itemStore.createIndex("updatedAt", "updatedAt", { unique: false });
-      }
-    };
-  });
-
-  return dbPromise;
+  constructor() {
+    super("web-toolkit-workspaces");
+    this.version(1).stores({
+      workspaces: "id, name, updatedAt",
+      items: "id, workspaceId, toolSlug, updatedAt",
+    });
+  }
 }
 
-// Workspace operations
+export const db = new WorkspaceDB();
+
+// ============================================
+// Workspace Operations
+// ============================================
+
 export async function createWorkspace(
   workspace: Omit<Workspace, "id" | "createdAt" | "updatedAt">,
 ): Promise<Workspace> {
-  const db = await openDB();
   const now = Date.now();
   const newWorkspace: Workspace = {
     ...workspace,
@@ -69,47 +57,23 @@ export async function createWorkspace(
     updatedAt: now,
   };
 
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("workspaces", "readwrite");
-    const store = transaction.objectStore("workspaces");
-    const request = store.add(newWorkspace);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(newWorkspace);
-  });
+  await db.workspaces.add(newWorkspace);
+  return newWorkspace;
 }
 
 export async function getWorkspaces(): Promise<Workspace[]> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("workspaces", "readonly");
-    const store = transaction.objectStore("workspaces");
-    const index = store.index("updatedAt");
-    const request = index.getAll();
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result.reverse());
-  });
+  return db.workspaces.orderBy("updatedAt").reverse().toArray();
 }
 
 export async function getWorkspace(id: string): Promise<Workspace | undefined> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("workspaces", "readonly");
-    const store = transaction.objectStore("workspaces");
-    const request = store.get(id);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-  });
+  return db.workspaces.get(id);
 }
 
 export async function updateWorkspace(
   id: string,
   updates: Partial<Workspace>,
 ): Promise<Workspace> {
-  const db = await openDB();
-  const existing = await getWorkspace(id);
+  const existing = await db.workspaces.get(id);
   if (!existing) throw new Error("Workspace not found");
 
   const updated: Workspace = {
@@ -119,40 +83,24 @@ export async function updateWorkspace(
     updatedAt: Date.now(),
   };
 
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("workspaces", "readwrite");
-    const store = transaction.objectStore("workspaces");
-    const request = store.put(updated);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(updated);
-  });
+  await db.workspaces.put(updated);
+  return updated;
 }
 
 export async function deleteWorkspace(id: string): Promise<void> {
-  const db = await openDB();
-
-  // First delete all items in the workspace
-  const items = await getItemsByWorkspace(id);
-  for (const item of items) {
-    await deleteItem(item.id);
-  }
-
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("workspaces", "readwrite");
-    const store = transaction.objectStore("workspaces");
-    const request = store.delete(id);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve();
-  });
+  // Delete all items in the workspace first
+  await db.items.where("workspaceId").equals(id).delete();
+  // Then delete the workspace
+  await db.workspaces.delete(id);
 }
 
-// Item operations
+// ============================================
+// Item Operations
+// ============================================
+
 export async function createItem(
   item: Omit<WorkspaceItem, "id" | "createdAt" | "updatedAt">,
 ): Promise<WorkspaceItem> {
-  const db = await openDB();
   const now = Date.now();
   const newItem: WorkspaceItem = {
     ...item,
@@ -161,64 +109,31 @@ export async function createItem(
     updatedAt: now,
   };
 
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readwrite");
-    const store = transaction.objectStore("items");
-    const request = store.add(newItem);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(newItem);
-  });
+  await db.items.add(newItem);
+  return newItem;
 }
 
 export async function getItem(id: string): Promise<WorkspaceItem | undefined> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readonly");
-    const store = transaction.objectStore("items");
-    const request = store.get(id);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-  });
+  return db.items.get(id);
 }
 
 export async function getItemsByWorkspace(
   workspaceId: string,
 ): Promise<WorkspaceItem[]> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readonly");
-    const store = transaction.objectStore("items");
-    const index = store.index("workspaceId");
-    const request = index.getAll(workspaceId);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-  });
+  return db.items.where("workspaceId").equals(workspaceId).toArray();
 }
 
 export async function getItemsByTool(
   toolSlug: string,
 ): Promise<WorkspaceItem[]> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readonly");
-    const store = transaction.objectStore("items");
-    const index = store.index("toolSlug");
-    const request = index.getAll(toolSlug);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-  });
+  return db.items.where("toolSlug").equals(toolSlug).toArray();
 }
 
 export async function updateItem(
   id: string,
   updates: Partial<WorkspaceItem>,
 ): Promise<WorkspaceItem> {
-  const db = await openDB();
-  const existing = await getItem(id);
+  const existing = await db.items.get(id);
   if (!existing) throw new Error("Item not found");
 
   const updated: WorkspaceItem = {
@@ -228,48 +143,32 @@ export async function updateItem(
     updatedAt: Date.now(),
   };
 
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readwrite");
-    const store = transaction.objectStore("items");
-    const request = store.put(updated);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(updated);
-  });
+  await db.items.put(updated);
+  return updated;
 }
 
 export async function deleteItem(id: string): Promise<void> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readwrite");
-    const store = transaction.objectStore("items");
-    const request = store.delete(id);
-
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve();
-  });
+  await db.items.delete(id);
 }
 
-// Utility functions
-export async function getAllItems(): Promise<WorkspaceItem[]> {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction("items", "readonly");
-    const store = transaction.objectStore("items");
-    const request = store.getAll();
+// ============================================
+// Utility Functions
+// ============================================
 
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-  });
+export async function getAllItems(): Promise<WorkspaceItem[]> {
+  return db.items.toArray();
 }
 
 export async function exportWorkspace(
   workspaceId: string,
 ): Promise<{ workspace: Workspace; items: WorkspaceItem[] }> {
-  const workspace = await getWorkspace(workspaceId);
+  const workspace = await db.workspaces.get(workspaceId);
   if (!workspace) throw new Error("Workspace not found");
 
-  const items = await getItemsByWorkspace(workspaceId);
+  const items = await db.items
+    .where("workspaceId")
+    .equals(workspaceId)
+    .toArray();
   return { workspace, items };
 }
 
@@ -293,4 +192,30 @@ export async function importWorkspace(data: {
   }
 
   return newWorkspace;
+}
+
+// ============================================
+// Database Utilities
+// ============================================
+
+/**
+ * Clear all data (for debugging/testing)
+ */
+export async function clearAllData(): Promise<void> {
+  await db.items.clear();
+  await db.workspaces.clear();
+}
+
+/**
+ * Get database statistics
+ */
+export async function getDatabaseStats(): Promise<{
+  workspaceCount: number;
+  itemCount: number;
+}> {
+  const [workspaceCount, itemCount] = await Promise.all([
+    db.workspaces.count(),
+    db.items.count(),
+  ]);
+  return { workspaceCount, itemCount };
 }

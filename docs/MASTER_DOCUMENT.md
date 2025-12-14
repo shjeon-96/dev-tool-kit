@@ -812,6 +812,54 @@ const iconVariants = {
 | **Pipeline**          | 도구 간 데이터 전송 | 현재 도구의 출력을 다른 도구로 전송                         |
 | **Save to Workspace** | 워크스페이스 저장   | 입력/출력 데이터를 IndexedDB 워크스페이스에 저장            |
 
+**반응형 디자인:**
+
+| 화면 크기   | 레이아웃                         |
+| ----------- | -------------------------------- |
+| **Desktop** | 가로 버튼 바 (`hidden sm:block`) |
+| **Mobile**  | FAB 메뉴 (`sm:hidden`)           |
+
+**Desktop 레이아웃:**
+
+```
+┌─────────────────────────────────────────────────────┐
+│  [✨ AI 분석]  [🔗 다른 도구로 전송]  [💾 저장]      │
+└─────────────────────────────────────────────────────┘
+```
+
+**Mobile FAB 레이아웃:**
+
+```
+                                    ┌─────────────────┐
+                                    │ 워크스페이스에 저장 [💾]
+                                    ├─────────────────┤
+                                    │ 다른 도구로 전송 [🔗]
+                                    ├─────────────────┤
+                                    │ AI 분석         [✨]
+                                    └─────────────────┘
+                                              [⋯] ← FAB 트리거
+```
+
+**FAB 애니메이션:**
+
+```typescript
+// 메뉴 아이템 순차 등장
+<motion.div
+  initial={{ opacity: 0, y: 20, scale: 0.8 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  exit={{ opacity: 0, y: 20, scale: 0.8 }}
+  transition={{ duration: 0.15, delay: index * 0.05 }}
+/>
+
+// FAB 아이콘 회전
+<motion.div
+  initial={{ rotate: -90, opacity: 0 }}
+  animate={{ rotate: 0, opacity: 1 }}
+  exit={{ rotate: 90, opacity: 0 }}
+  transition={{ duration: 0.15 }}
+/>
+```
+
 **사용 예시:**
 
 ```tsx
@@ -1314,7 +1362,7 @@ localStorage.setItem(
 
 **위치**: `src/features/tool-pipeline/model/types.ts`
 
-**데이터 타입 정의:**
+**데이터 타입 정의 (17개 타입):**
 
 ```typescript
 type PipelineDataType =
@@ -1323,37 +1371,82 @@ type PipelineDataType =
   | "text/html" // HTML
   | "text/css" // CSS
   | "text/sql" // SQL
+  | "text/markdown" // Markdown
+  | "text/regex" // 정규식 패턴
+  | "text/url" // URL 문자열
   | "text/encoded" // Base64, URL 인코딩 등
   | "text/hash" // 해시 값
   | "text/uuid" // UUID
   | "text/jwt" // JWT 토큰
   | "text/code" // 소스 코드
+  | "text/curl" // cURL 명령어
+  | "text/cron" // Cron 표현식
   | "image/svg" // SVG
   | "application/qr"; // QR 코드 데이터
 ```
 
-**도구별 입출력 타입 예시:**
+**도구별 입출력 타입 매핑 (TOOL_DATA_TYPES):**
 
-| 도구             | 입력 (accepts)                  | 출력 (outputs)           |
-| ---------------- | ------------------------------- | ------------------------ |
-| json-formatter   | text/json, text/plain           | text/json                |
-| jwt-decoder      | text/jwt, text/plain            | text/json                |
-| hash-generator   | text/plain, text/json           | text/hash                |
-| base64-converter | text/plain, text/encoded        | text/encoded, text/plain |
-| qr-generator     | text/plain, text/url, text/uuid | application/qr           |
+| 도구                | 입력 (accepts)                      | 출력 (outputs)           |
+| ------------------- | ----------------------------------- | ------------------------ |
+| json-formatter      | text/json, text/plain               | text/json                |
+| jwt-decoder         | text/jwt, text/plain                | text/json                |
+| hash-generator      | text/plain, text/json, text/code    | text/hash                |
+| base64-converter    | text/plain, text/encoded            | text/encoded, text/plain |
+| url-encoder         | text/plain, text/url                | text/encoded, text/plain |
+| qr-generator        | text/plain, text/url, text/uuid     | application/qr           |
+| sql-formatter       | text/sql, text/plain                | text/sql                 |
+| prettier-playground | text/code, text/json, text/css, ... | text/code                |
+| markdown-preview    | text/markdown, text/plain           | text/html                |
+| regex-tester        | text/plain, text/regex              | text/regex               |
+| url-parser          | text/url, text/plain                | text/json, text/url      |
+| curl-builder        | text/url, text/json                 | text/curl                |
+| svg-optimizer       | image/svg                           | image/svg                |
+| color-picker        | text/plain                          | text/plain, text/css     |
+| css-to-tailwind     | text/css                            | text/code                |
+| cron-parser         | text/cron, text/plain               | text/plain               |
 
 **호환성 검사 함수:**
 
 ```typescript
+// 도구 데이터 타입 인터페이스
+interface ToolDataTypes {
+  accepts: PipelineDataType[]; // 입력으로 받을 수 있는 타입들
+  outputs: PipelineDataType[]; // 출력하는 타입들
+}
+
+// 두 도구 간 호환 가능한 데이터 타입 조회
+getCompatibleTypes("json-formatter", "jwt-decoder");
+// → ["text/json"] (json-formatter 출력 중 jwt-decoder가 받을 수 있는 타입)
+
 // 두 도구 간 데이터 전송 가능 여부 확인
-isDataTypeCompatible("json-formatter", "jwt-decoder"); // true (text/json 호환)
-isDataTypeCompatible("json-formatter", "qr-generator"); // false (타입 불일치)
+isDataTypeCompatible("json-formatter", "jwt-decoder"); // true
+isDataTypeCompatible("json-formatter", "qr-generator"); // false
 
 // 특정 도구로 데이터를 보낼 수 있는 도구 목록
-getToolsThatCanSendTo("jwt-decoder"); // ["json-formatter", "base64-converter", ...]
+getToolsThatCanSendTo("jwt-decoder");
+// → ["json-formatter", "base64-converter", "url-parser", ...]
 
 // 특정 도구에서 데이터를 받을 수 있는 도구 목록
-getToolsThatCanReceiveFrom("json-formatter"); // ["jwt-decoder", "hash-generator", ...]
+getToolsThatCanReceiveFrom("json-formatter");
+// → ["jwt-decoder", "hash-generator", "prettier-playground", ...]
+```
+
+**데이터 전송 흐름:**
+
+```
+┌──────────────────┐     sessionStorage      ┌──────────────────┐
+│  Source Tool     │  ─────────────────────► │  Target Tool     │
+│  (json-formatter)│    "pipeline-data"      │  (jwt-decoder)   │
+└──────────────────┘                         └──────────────────┘
+        │                                            │
+        ▼                                            ▼
+   outputs: ["text/json"]              accepts: ["text/jwt", "text/plain"]
+        │                                            │
+        └───────────────────┬────────────────────────┘
+                            │
+                   text/json ∈ accepts? ❌
+                   → "text/plain" fallback ✅
 ```
 
 ### 16.5 IndexedDB 스키마 (Workspace)
@@ -1419,15 +1512,38 @@ interface WorkspaceItem {
 
 ### v0.2.0 (2025-12-14)
 
+**새로운 기능:**
+
 - **Tool Actions Bar**: AI Explain, Pipeline, Workspace 통합 컴포넌트
+  - Desktop: 가로 버튼 바
+  - Mobile: FAB (Floating Action Button) 메뉴 with framer-motion 애니메이션
 - **AI Explain (BYOK)**: OpenAI/Anthropic/Google AI로 입력값 분석
+  - 사용자 API 키 기반 (서버 프록시 없음)
+  - 도구별 맞춤 프롬프트 템플릿
 - **Tool Pipeline**: 도구 간 데이터 체이닝
-- **Pipeline Data Types**: MIME Type 유사 데이터 호환성 시스템
+  - MIME Type 유사 데이터 타입 시스템 (17개 타입)
+  - 타입 기반 호환성 검사 함수
+  - sessionStorage 기반 데이터 전송
 - **Workspace**: IndexedDB 기반 작업 데이터 영구 저장
-- **Mobile FAB Menu**: 모바일에서 Tool Actions Bar FAB 스타일 메뉴
-- **Command Menu UI**: 아이콘 박스, 2줄 레이아웃, 닫기 버튼 등 UI 개선
-- **보안 문서화**: 데이터 저장소 전략, API 키 보안, 체크리스트 추가
-- **PWA Enhancement**: 오프라인 지원 강화
+  - 워크스페이스 생성/삭제
+  - 색상 코딩 지원
+  - 크로스 세션 상태 관리
+
+**UI/UX 개선:**
+
+- **Command Menu UI**: 아이콘 박스, 2줄 레이아웃, 닫기 버튼
+- **Natural Language Search**: 자연어 검색 의도 파싱
+
+**보안 문서화:**
+
+- 데이터 저장소 전략 문서화
+- API 키 보안 가이드라인
+- 보안 체크리스트 추가
+
+**기술적 개선:**
+
+- ESLint purity 규칙 준수 (`useCallback` 활용)
+- `useState` 초기화 함수로 SSR 호환성 개선
 
 ### v0.1.0 (2025-12-13)
 

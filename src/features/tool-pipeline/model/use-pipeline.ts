@@ -3,9 +3,23 @@
 import { useState, useCallback } from "react";
 import type { ToolSlug } from "@/entities/tool";
 import { getConnectableTools } from "./types";
+import {
+  canStorePipelineData,
+  safeSessionStorageSet,
+  formatBytes,
+  getByteSize,
+  PIPELINE_DATA_LIMIT,
+} from "@/shared/lib/storage-utils";
 
 interface UsePipelineOptions {
   onNavigate?: (toolSlug: ToolSlug, data: string) => void;
+  onError?: (error: string) => void;
+}
+
+interface SendToPipelineResult {
+  success: boolean;
+  error?: string;
+  dataSize?: number;
 }
 
 export function usePipeline(
@@ -22,21 +36,63 @@ export function usePipeline(
     setOutput(value);
   }, []);
 
+  /**
+   * 데이터 크기 정보 조회
+   */
+  const getDataSizeInfo = useCallback(() => {
+    const size = getByteSize(output);
+    return {
+      size,
+      formatted: formatBytes(size),
+      limit: PIPELINE_DATA_LIMIT,
+      limitFormatted: formatBytes(PIPELINE_DATA_LIMIT),
+      isOverLimit: size > PIPELINE_DATA_LIMIT,
+      percentage: Math.min(100, (size / PIPELINE_DATA_LIMIT) * 100),
+    };
+  }, [output]);
+
   const sendToPipeline = useCallback(
-    (targetTool: ToolSlug) => {
-      if (output && options.onNavigate) {
-        // Store the data in sessionStorage for the target tool to pick up
-        sessionStorage.setItem(
-          "pipeline-data",
-          JSON.stringify({
-            from: currentTool,
-            to: targetTool,
-            data: output,
-            timestamp: Date.now(),
-          }),
-        );
-        options.onNavigate(targetTool, output);
+    (targetTool: ToolSlug): SendToPipelineResult => {
+      if (!output) {
+        return { success: false, error: "전송할 데이터가 없습니다." };
       }
+
+      // 용량 체크
+      const storageCheck = canStorePipelineData(output);
+      if (!storageCheck.canStore) {
+        options.onError?.(storageCheck.reason ?? "저장할 수 없습니다.");
+        return {
+          success: false,
+          error: storageCheck.reason,
+          dataSize: storageCheck.dataSize,
+        };
+      }
+
+      // 데이터 직렬화
+      const pipelineData = JSON.stringify({
+        from: currentTool,
+        to: targetTool,
+        data: output,
+        timestamp: Date.now(),
+      });
+
+      // 안전한 저장
+      const saveResult = safeSessionStorageSet("pipeline-data", pipelineData);
+      if (!saveResult.success) {
+        options.onError?.(saveResult.error ?? "저장 중 오류가 발생했습니다.");
+        return {
+          success: false,
+          error: saveResult.error,
+          dataSize: storageCheck.dataSize,
+        };
+      }
+
+      // 성공적으로 저장됨 - 네비게이션
+      options.onNavigate?.(targetTool, output);
+      return {
+        success: true,
+        dataSize: storageCheck.dataSize,
+      };
     },
     [output, currentTool, options],
   );
@@ -53,6 +109,7 @@ export function usePipeline(
     hasConnections,
     isPipelineMode,
     togglePipelineMode,
+    getDataSizeInfo,
   };
 }
 
