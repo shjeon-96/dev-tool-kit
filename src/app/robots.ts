@@ -7,6 +7,11 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: [
+        "/api/", // API routes
+        "/s/", // Short URL redirects
+        "/_next/", // Next.js internals
+      ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   };

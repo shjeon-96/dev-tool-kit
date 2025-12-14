@@ -5,7 +5,7 @@
 <h1 align="center">Web Toolkit</h1>
 
 <p align="center">
-  <strong>28+ free developer tools in your browser. No signup, no server uploads.</strong>
+  <strong>31+ free developer tools in your browser. No signup, no server uploads.</strong>
 </p>
 
 <p align="center">
@@ -42,13 +42,16 @@ Most online developer tools have a problem: **you don't know where your data goe
 
 ## Features
 
-- **28+ Developer Tools** – Everything you need in one place
+- **31+ Developer Tools** – Everything you need in one place
 - **Privacy First** – No data collection, no tracking, no server uploads
 - **PWA Support** – Install as an app, works offline
+- **WebAssembly Powered** – High-performance processing with FFmpeg.wasm and hash-wasm
+- **Magic Share** – Share tool states via short URLs (powered by Vercel KV)
+- **Chrome Extension** – Quick access from your browser toolbar
 - **Dark Mode** – Easy on the eyes
 - **Keyboard Shortcuts** – Power user friendly (⌘K to search)
 - **i18n** – English, Korean, Japanese
-- **SEO Optimized** – Guides and cheatsheets for discoverability
+- **31 Guides & 14 Cheatsheets** – Learn while you work
 
 ---
 
@@ -71,6 +74,7 @@ Most online developer tools have a problem: **you don't know where your data goe
 | **User Agent Parser**     | Parse browser/OS from UA strings          |
 | **Meta Tag Generator**    | Generate SEO meta tags                    |
 | **cURL Builder**          | Build HTTP requests visually              |
+| **CSS Minifier**          | Minify and optimize CSS code              |
 
 ### Media & Design
 
@@ -86,21 +90,23 @@ Most online developer tools have a problem: **you don't know where your data goe
 
 ### Converters
 
-| Tool                      | Description                       |
-| ------------------------- | --------------------------------- |
-| **Base64 Converter**      | Encode/decode text and files      |
-| **Unix Timestamp**        | Convert timestamps to dates       |
-| **URL Encoder**           | Encode/decode URLs                |
-| **HTML Entity Encoder**   | Encode HTML special characters    |
-| **Number Base Converter** | Convert between binary, hex, etc. |
-| **CSS to Tailwind**       | Convert CSS to Tailwind classes   |
+| Tool                      | Description                                 |
+| ------------------------- | ------------------------------------------- |
+| **Base64 Converter**      | Encode/decode text and files                |
+| **Unix Timestamp**        | Convert timestamps to dates                 |
+| **URL Encoder**           | Encode/decode URLs                          |
+| **HTML Entity Encoder**   | Encode HTML special characters              |
+| **Number Base Converter** | Convert between binary, hex, etc.           |
+| **CSS to Tailwind**       | Convert CSS to Tailwind classes             |
+| **JSON to TypeScript**    | Generate TypeScript types from JSON         |
+| **Text Case Converter**   | Convert between camelCase, snake_case, etc. |
 
 ### Security
 
-| Tool               | Description                           |
-| ------------------ | ------------------------------------- |
-| **JWT Decoder**    | Decode and inspect JWT tokens         |
-| **Hash Generator** | Generate MD5, SHA-256, SHA-512 hashes |
+| Tool               | Description                                          |
+| ------------------ | ---------------------------------------------------- |
+| **JWT Decoder**    | Decode and inspect JWT tokens                        |
+| **Hash Generator** | Generate MD5, SHA-256, SHA-512 hashes (Wasm-powered) |
 
 ---
 
@@ -143,41 +149,55 @@ npm run analyze      # Analyze bundle size
 
 ## Tech Stack
 
-- **Framework:** [Next.js 16](https://nextjs.org/) with App Router
-- **UI:** [Radix UI](https://www.radix-ui.com/) + [Tailwind CSS 4](https://tailwindcss.com/)
-- **State:** [Zustand](https://zustand-demo.pmnd.rs/)
-- **i18n:** [next-intl](https://next-intl-docs.vercel.app/)
-- **Testing:** [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/)
-- **Code Quality:** ESLint, Prettier, Husky
+| Category         | Technology                                                                                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Framework**    | [Next.js 16](https://nextjs.org/) with App Router & Turbopack                                                                                                             |
+| **UI**           | [Radix UI](https://www.radix-ui.com/) + [Tailwind CSS 4](https://tailwindcss.com/)                                                                                        |
+| **State**        | [Zustand](https://zustand-demo.pmnd.rs/)                                                                                                                                  |
+| **i18n**         | [next-intl](https://next-intl-docs.vercel.app/) (EN, KO, JA)                                                                                                              |
+| **WebAssembly**  | [FFmpeg.wasm](https://ffmpegwasm.netlify.app/), [hash-wasm](https://github.com/nicolo-ribaudo/nicolo-ribaudo.github.io/tree/main/nicolo-ribaudo/nicolo-ribaudo.github.io) |
+| **Extension**    | [Plasmo](https://www.plasmo.com/) for Chrome Extension                                                                                                                    |
+| **Backend**      | [Vercel KV](https://vercel.com/docs/storage/vercel-kv) for Magic Share                                                                                                    |
+| **Testing**      | [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/)                                                                                                     |
+| **Code Quality** | ESLint, Prettier, Husky                                                                                                                                                   |
+| **Analytics**    | Google Analytics 4, Microsoft Clarity                                                                                                                                     |
 
 ---
 
 ## Project Structure
 
+This project follows **[Feature-Sliced Design (FSD)](https://feature-sliced.design/)** architecture.
+
 ```
 src/
 ├── app/                    # Next.js App Router
-│   ├── [locale]/          # i18n routes
-│   │   ├── tools/         # Tool pages
-│   │   ├── cheatsheets/   # Cheatsheet pages
-│   │   └── guides/        # Guide pages
-│   └── api/               # API routes
-├── entities/              # Domain entities (FSD)
+│   ├── [locale]/          # i18n routes (en, ko, ja)
+│   │   ├── tools/         # Tool pages (31)
+│   │   ├── cheatsheets/   # Cheatsheet pages (14)
+│   │   └── guides/        # Guide pages (31)
+│   ├── api/               # API routes
+│   │   └── share/         # Magic Share API
+│   └── s/                 # Short URL redirect
+├── entities/              # Domain entities (FSD Layer 4)
 │   ├── tool/              # Tool registry & types
 │   ├── cheatsheet/        # Cheatsheet data
 │   └── guide/             # Guide data
-├── features/              # Feature modules (FSD)
-│   ├── json-formatter/
+├── features/              # Feature modules (FSD Layer 5)
+│   ├── json-formatter/    # Each tool as a feature
 │   ├── jwt-decoder/
-│   └── ...
-├── shared/                # Shared utilities
-│   ├── ui/                # UI components
-│   ├── lib/               # Utilities
-│   └── config/            # Configuration
-└── widgets/               # Composite components
-    ├── header/
-    ├── sidebar/
-    └── footer/
+│   ├── share/             # Magic Share feature
+│   └── ...                # 31 total features
+├── shared/                # Shared utilities (FSD Layer 2)
+│   ├── ui/                # Radix UI components
+│   ├── lib/               # Utilities, hooks
+│   └── config/            # Site configuration
+├── widgets/               # Composite components (FSD Layer 6)
+│   ├── header/
+│   ├── sidebar/
+│   ├── footer/
+│   └── file-uploader/     # Reusable file uploader
+└── extension/             # Chrome Extension (Plasmo)
+    └── popup.tsx
 ```
 
 ---
@@ -201,10 +221,13 @@ Contributions are welcome! Here's how you can help:
 
 ## Roadmap
 
-- [ ] More tools (JSON Schema Validator, Color Converter, etc.)
-- [ ] Browser extension
-- [ ] API access
-- [ ] More languages
+- [x] ~~Browser extension~~ – Chrome Extension available!
+- [x] ~~Magic Share~~ – Share tool states via short URLs
+- [x] ~~WebAssembly integration~~ – High-performance hash generation
+- [ ] More tools (JSON Schema Validator, Image Compressor, etc.)
+- [ ] Firefox/Safari extensions
+- [ ] API access for developers
+- [ ] More languages (zh, es, de)
 
 ---
 

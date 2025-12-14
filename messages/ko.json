@@ -1176,252 +1176,264 @@
       }
     },
     "image-resizer": {
-      "summary": "브라우저에서 직접 이미지 크기 조정, 압축, 변환하기",
+      "summary": "품질 최적화를 통한 이미지 크기 조정 및 변환",
       "sections": {
-        "whatIs": {
-          "title": "이미지 리사이징이란?",
-          "content": "이미지 리사이징은 시각적 품질을 유지하면서 이미지 크기를 변경하는 과정입니다:\n\n• 웹 최적화 - 더 빠른 로딩을 위한 파일 크기 감소\n• 소셜 미디어 - 플랫폼별 크기 맞추기\n• 반응형 디자인 - 다양한 기기용 여러 크기 생성\n• 저장 공간 - 중요한 디테일 손실 없이 공간 절약"
+        "what-is-image-resizer": {
+          "title": "이미지 리사이저란?",
+          "content": "이미지 리사이저를 사용하면 품질을 유지하면서 이미지 크기를 변경할 수 있습니다.\n\n지원: JPEG, PNG, WebP, GIF\n처리: 클라이언트 측 (이미지가 비공개로 유지됨)"
         },
-        "formats": {
-          "title": "이미지 포맷 설명",
-          "content": "용도에 맞는 포맷 선택:\n\n• JPEG - 사진에 최적, 압축 지원, 투명도 없음\n• PNG - 무손실 품질, 투명도 지원, 파일 크기 큼\n• WebP - 최신 포맷, 뛰어난 압축, 넓은 브라우저 지원\n• GIF - 간단한 애니메이션용, 제한된 색상\n\n웹용으로는 WebP가 품질과 파일 크기의 최적 균형을 제공합니다."
+        "supported-formats": {
+          "title": "지원 형식",
+          "content": "• JPEG: 사진에 적합\n• PNG: 그래픽/투명도에 적합\n• WebP: 최신 형식, 더 작은 파일\n• GIF: 애니메이션 이미지\n\n크기 조정하면서 형식 간 변환 가능"
         },
-        "howToUse": {
-          "title": "이미지 리사이저 사용법",
-          "content": "세 단계로 이미지 크기 조정:\n\n1. 드래그하거나 클릭해서 이미지 업로드\n2. 원하는 크기나 비율 설정\n3. 출력 포맷과 품질 선택\n4. 최적화된 이미지 다운로드\n\n모든 처리는 브라우저에서 이루어집니다 - 이미지가 서버로 업로드되지 않습니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. 이미지 업로드\n2. 새 크기 입력\n3. 종횡비 잠금/잠금 해제\n4. 출력 형식 선택\n5. 크기 조정된 이미지 다운로드"
         },
-        "tips": {
-          "title": "최적화 팁",
-          "content": "최상의 결과를 위해:\n\n• JPEG는 80-85% 품질 사용 - 차이가 거의 없음\n• 왜곡 방지를 위해 종횡비 고정\n• 웹용: 이미지당 200KB 미만 목표\n• 최신 브라우저에는 WebP 사용\n• 효과 적용 전에 크기 조정"
+        "quality-settings": {
+          "title": "품질 설정",
+          "content": "• JPEG 품질: 60-90% 최적\n• PNG: 무손실 압축\n• WebP: 우수한 압축\n\n높은 품질 = 큰 파일 크기"
+        },
+        "best-practices": {
+          "title": "모범 사례",
+          "content": "• 최고 품질 소스로 시작\n• 왜곡 방지를 위해 종횡비 유지\n• 콘텐츠 유형에 따라 형식 선택\n• 웹 사용을 위해 파일 크기 고려"
         }
       }
     },
     "unix-timestamp": {
-      "summary": "Unix 타임스탬프와 날짜 간 변환",
+      "summary": "Unix 타임스탬프와 사람이 읽을 수 있는 날짜 간 변환",
       "sections": {
-        "whatIs": {
+        "what-is-unix-timestamp": {
           "title": "Unix 타임스탬프란?",
-          "content": "Unix 타임스탬프(Epoch 시간)는 1970년 1월 1일 00:00:00 UTC부터 경과한 초 수입니다.\n\n타임스탬프를 사용하는 이유:\n• 언어 독립적 - 전 세계에서 같은 값\n• 비교 용이 - 단순한 정수 비교\n• 시간대 안전 - 항상 UTC 기반\n• 간결한 저장 - 숫자 하나"
+          "content": "Unix 타임스탬프(Epoch 시간이라고도 함)는 1970년 1월 1일 00:00:00 UTC 이후 경과한 초 수입니다.\n\n타임스탬프를 사용하는 이유:\n• 언어 독립적 - 전 세계적으로 동일한 값\n• 비교 용이 - 간단한 정수 비교\n• 시간대 안전 - 항상 UTC 기반\n• 간단한 저장 - 하나의 숫자만 필요"
         },
-        "conversion": {
-          "title": "타임스탬프 변환",
-          "content": "일반적인 변환:\n\n• 초를 날짜로: new Date(timestamp * 1000)\n• 날짜를 초로: Math.floor(date.getTime() / 1000)\n• 현재 시간: Math.floor(Date.now() / 1000)\n\n참고: JavaScript는 밀리초를 사용하므로 1000을 곱하거나 나누세요."
+        "seconds-vs-milliseconds": {
+          "title": "초 vs 밀리초",
+          "content": "Unix 타임스탬프는 두 가지 형식이 있습니다:\n\n• 초 (10자리) - 1702339200\n• 밀리초 (13자리) - 1702339200000\n\nJavaScript는 밀리초를 사용합니다:\n• Date.now()는 밀리초 반환\n• new Date(timestamp)는 밀리초 예상\n\n대부분의 다른 시스템은 초를 사용합니다."
         },
-        "howToUse": {
-          "title": "도구 사용법",
-          "content": "양방향 변환 지원:\n\n1. Unix 타임스탬프 입력 → 날짜 확인\n2. 날짜/시간 입력 → 타임스탬프 확인\n3. 여러 형식과 시간대로 결과 보기\n4. 클릭 한 번으로 복사\n\n입력하는 대로 실시간 업데이트됩니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "이 변환기는 양방향 변환을 지원합니다:\n\n1. Unix 타임스탬프를 입력하여 날짜 확인\n2. 날짜/시간을 입력하여 타임스탬프 얻기\n3. 여러 형식과 시간대로 결과 확인\n4. 한 번의 클릭으로 결과 복사"
         },
-        "commonValues": {
-          "title": "주요 타임스탬프",
-          "content": "알아두면 좋은 타임스탬프:\n\n• 0 - 1970년 1월 1일 (Unix Epoch)\n• 1000000000 - 2001년 9월 9일\n• 2147483647 - 2038년 1월 19일 (32비트 시스템의 Y2K38 문제)\n• 현재 시간: 위의 라이브 디스플레이 확인\n\n2038년 문제는 32비트 부호 있는 정수를 타임스탬프로 사용하는 시스템에 영향을 미칩니다."
+        "timezone-handling": {
+          "title": "시간대 처리",
+          "content": "Unix 타임스탬프는 항상 UTC이지만 표시는 다를 수 있습니다:\n\n• UTC 시간 - 보편적 표준\n• 현지 시간 - 사용자 시간대로 변환\n• 사용자 지정 시간대 - 원하는 시간대 지정\n\n핵심 사항:\n• 타임스탬프 값은 변하지 않음\n• 표시 형식만 변경됨\n• 항상 UTC로 타임스탬프 저장"
+        },
+        "common-use-cases": {
+          "title": "일반적인 사용 사례",
+          "content": "Unix 타임스탬프의 필수적인 용도:\n\n• 데이터베이스 레코드 - 생성/수정 타임스탬프\n• API 응답 - 표준 시간 형식\n• 이벤트 스케줄링 - 시간 비교 용이\n• 로그 파일 - 시간순 정렬\n• 세션 관리 - 만료 시간"
         }
       }
     },
     "qr-generator": {
-      "summary": "URL, 텍스트, WiFi 정보 등을 위한 QR 코드 생성",
+      "summary": "URL, 텍스트, WiFi 자격 증명 등을 위한 QR 코드 생성",
       "sections": {
-        "whatIs": {
+        "what-is-qr-code": {
           "title": "QR 코드란?",
-          "content": "QR(Quick Response) 코드는 다양한 유형의 데이터를 저장할 수 있는 2차원 바코드입니다.\n\nQR 코드에 담을 수 있는 것:\n• URL과 웹사이트 링크\n• 일반 텍스트 메시지\n• 연락처 정보 (vCard)\n• WiFi 네트워크 정보\n• 이메일 주소\n• 전화번호"
+          "content": "QR(빠른 응답) 코드는 스마트폰 카메라로 읽을 수 있는 데이터를 저장하는 2차원 바코드입니다.\n\n지원: URL, 텍스트, WiFi, 연락처, 위치 등"
         },
-        "types": {
+        "qr-types": {
           "title": "QR 코드 유형",
-          "content": "용도별 다양한 데이터 유형:\n\n• URL - 스캔하면 웹사이트 열기\n• 텍스트 - 일반 텍스트 표시\n• WiFi - 네트워크 자동 연결\n• vCard - 연락처 추가\n• 이메일 - 이메일 작성 열기\n• SMS - 문자 앱 열기\n\n의도한 용도에 맞는 유형을 선택하세요."
+          "content": "• URL: 웹사이트 링크\n• WiFi: 네트워크 자격 증명\n• vCard: 연락처 정보\n• SMS: 미리 채워진 메시지\n• 이메일: mailto 링크\n• 위치: GPS 좌표"
         },
-        "howToUse": {
-          "title": "QR 코드 생성 방법",
-          "content": "QR 코드 만들기:\n\n1. 콘텐츠 유형 선택\n2. 데이터 입력 (URL, 텍스트 등)\n3. 크기와 오류 정정 설정\n4. PNG 또는 SVG로 다운로드\n\n높은 오류 정정은 코드가 일부 손상되어도 작동합니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. QR 유형 선택\n2. 데이터 입력\n3. 외관 사용자 지정\n4. 코드 생성\n5. PNG 또는 SVG로 다운로드"
         },
-        "bestPractices": {
-          "title": "QR 코드 모범 사례",
-          "content": "효과적인 QR 코드를 위한 팁:\n\n• 인쇄 전 테스트 - 항상 먼저 스캔해보기\n• 맥락 제공 - 사용자에게 얻을 내용 알리기\n• 대비 확보 - 밝은 배경에 어두운 코드\n• 크기 중요 - 인쇄용 최소 2cm, 거리에 따라 더 크게\n• URL 단축기 사용 - 단순한 코드가 스캔하기 쉬움"
+        "customization": {
+          "title": "사용자 지정",
+          "content": "• 색상: 전경색과 배경색\n• 크기: 픽셀 해상도\n• 오류 수정: L, M, Q, H 수준\n• 로고: 중앙 이미지 오버레이"
+        },
+        "best-practices": {
+          "title": "모범 사례",
+          "content": "• 빠른 스캔을 위해 데이터를 짧게 유지\n• 인쇄된 코드에는 높은 오류 수정 사용\n• 인쇄 전 테스트\n• 충분한 대비 확보\n• 코드 주변에 여백 유지"
         }
       }
     },
     "app-icon-generator": {
-      "summary": "iOS, Android, 웹 플랫폼용 앱 아이콘 생성",
+      "summary": "iOS, Android 및 웹 플랫폼용 앱 아이콘 생성",
       "sections": {
-        "whatIs": {
-          "title": "앱 아이콘이란?",
-          "content": "앱 아이콘은 애플리케이션의 시각적 정체성입니다. 플랫폼마다 다른 크기가 필요합니다:\n\n• iOS - 20px부터 1024px까지 여러 크기\n• Android - 전경/배경이 있는 적응형 아이콘\n• 웹 - 파비콘과 PWA 아이콘\n• macOS - 선택적 패딩이 있는 512px까지"
+        "what-is-app-icon": {
+          "title": "앱 아이콘 생성기란?",
+          "content": "앱 아이콘 생성기는 단일 소스 이미지에서 iOS, Android 및 웹 애플리케이션용으로 적절한 크기의 아이콘을 생성합니다.\n\n한 번의 클릭으로 여러 플랫폼에 필요한 모든 크기를 생성합니다."
         },
-        "platforms": {
-          "title": "플랫폼 요구사항",
-          "content": "각 플랫폼의 특정 요구사항:\n\niOS: 정사각형 아이콘, 투명도 없음, 시스템이 둥근 모서리 적용\n\nAndroid: 안전 영역이 있는 적응형 아이콘, 투명도 지원\n\n웹 PWA: 192px과 512px 필수, 마스크 가능 아이콘 권장\n\n저희 도구는 필요한 모든 크기를 자동으로 생성합니다."
+        "icon-sizes": {
+          "title": "아이콘 크기",
+          "content": "iOS 필요: 20px ~ 1024px\nAndroid 필요: 36dp ~ 512dp\n웹 사용: 파비콘, apple-touch, PWA 아이콘\n\n각 플랫폼에는 앱 스토어와 기기에 대한 특정 요구 사항이 있습니다."
         },
-        "howToUse": {
-          "title": "아이콘 생성 방법",
-          "content": "모든 플랫폼용 아이콘 생성:\n\n1. 소스 이미지 업로드 (1024x1024 권장)\n2. 대상 플랫폼 선택\n3. 아이콘 미리보기\n4. ZIP으로 아이콘 팩 다운로드\n\n각 플랫폼에 맞는 이름과 폴더 구조가 포함됩니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. 정사각형 이미지 업로드 (1024x1024 권장)\n2. 대상 플랫폼 선택\n3. 모든 크기 생성\n4. ZIP 아카이브로 다운로드"
         },
-        "designTips": {
-          "title": "아이콘 디자인 팁",
-          "content": "효과적인 앱 아이콘 만들기:\n\n• 단순하게 - 작은 크기에서도 인식 가능하게\n• 대담한 색상 사용 - 홈 화면에서 돋보이게\n• 텍스트 피하기 - 작은 크기에서 읽기 어려움\n• 여러 크기에서 테스트 - 29px과 1024px 확인\n• 맥락 고려 - 밝은 배경과 어두운 배경"
+        "design-tips": {
+          "title": "디자인 팁",
+          "content": "• 간단하고 인식하기 쉬운 이미지 사용\n• 확장 가능하게 유지 - 모든 크기에서 작동\n• 텍스트 피하기 - 작을 때 읽기 어려움\n• 다른 배경에서 테스트\n• 플랫폼 가이드라인 준수"
         }
       }
     },
     "color-picker": {
       "summary": "색상 선택, 포맷 변환, 팔레트 생성",
       "sections": {
-        "whatIs": {
-          "title": "색상 포맷 이해하기",
-          "content": "색상은 여러 포맷으로 표현할 수 있습니다:\n\n• HEX - #FF5733 (웹 표준)\n• RGB - rgb(255, 87, 51) (화면 색상)\n• HSL - hsl(14, 100%, 60%) (직관적 조정)\n• RGBA/HSLA - 투명도 포함\n\n각 포맷은 용도에 따라 장점이 있습니다."
+        "what-is-color-picker": {
+          "title": "색상 선택기란?",
+          "content": "색상 선택기는 이미지에서 색상을 추출하거나 시각적으로 색상을 선택하는 도구입니다.\n\n• 모든 이미지에서 색상 추출\n• 색상 형식 간 변환\n• 색상 팔레트 생성\n• 인기 색상 컬렉션 접근"
         },
-        "colorFormats": {
-          "title": "포맷별 사용 시기",
-          "content": "적절한 포맷 선택:\n\nHEX: CSS, 디자인 도구, 간결한 표기\nRGB: 프로그래밍 색상 조작\nHSL: 쉬운 색조/채도 조정\nRGBA/HSLA: 투명도가 필요할 때\n\nHSL은 색상 변형을 생성하는 데 특히 유용합니다."
+        "color-formats": {
+          "title": "색상 형식",
+          "content": "색상은 여러 형식으로 표현할 수 있습니다:\n\n• HEX: #FF5733 또는 #F53 (축약형)\n• RGB: rgb(255, 87, 51)\n• RGBA: rgba(255, 87, 51, 0.5)\n• HSL: hsl(14, 100%, 60%)\n\n각 형식은 용도가 있습니다 - 웹은 HEX, 디자인 소프트웨어는 RGB, 조정은 HSL."
         },
-        "howToUse": {
-          "title": "색상 선택기 사용법",
-          "content": "색상을 선택하는 여러 방법:\n\n1. 시각적 색상 선택기 사용\n2. 아무 색상 포맷이나 직접 입력\n3. 업로드한 이미지에서 색상 추출\n4. 프리셋 색상 팔레트 탐색\n\n모든 포맷이 자동으로 변환됩니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. 이미지 업로드 또는 색상 선택기 사용\n2. 아무 곳이나 클릭하여 색상 추출\n3. 모든 형식으로 색상 확인\n4. 필요한 형식 복사\n5. 사용자 지정 팔레트 만들기"
         },
-        "colorPalettes": {
-          "title": "색상 팔레트 생성",
-          "content": "조화로운 팔레트 만들기:\n\n• 보색 - 색상환에서 반대\n• 유사색 - 인접한 색상\n• 삼원색 - 균등하게 세 개\n• 사원색 - 두 쌍의 네 개\n\n저희 도구는 모든 기본 색상에서 자동으로 생성합니다."
+        "color-palettes": {
+          "title": "색상 팔레트",
+          "content": "조화로운 색상 구성 만들기:\n\n• 보색 - 반대 색상\n• 유사색 - 인접 색상\n• 삼원색 - 균등하게 배치된 세 색상\n• 사각 배색 - 사각형 내 네 색상\n\n프로젝트 전체에서 일관된 디자인을 위해 팔레트를 사용하세요."
         }
       }
     },
     "url-parser": {
       "summary": "쿼리 매개변수를 포함한 URL 구성요소 분석",
       "sections": {
-        "whatIs": {
+        "what-is-url": {
           "title": "URL이란?",
-          "content": "URL(Uniform Resource Locator)은 인터넷 리소스의 주소입니다.\n\nURL 구성요소:\n• 프로토콜 - http, https, ftp\n• 호스트 - 도메인 이름 또는 IP\n• 포트 - 선택적, 기본값 다양\n• 경로 - 리소스 위치\n• 쿼리 - 키-값 매개변수\n• 해시 - 페이지 내 앵커"
+          "content": "URL(Uniform Resource Locator)은 웹 리소스의 주소입니다. 특정 구조를 따릅니다:\n\nprotocol://user:pass@host:port/path?query#hash\n\n각 구성 요소는 웹에서 리소스를 식별하고 찾는 데 특정 목적을 수행합니다."
         },
-        "components": {
-          "title": "URL 구성요소 설명",
-          "content": "URL 분해:\n\nhttps://user:pass@example.com:8080/path?query=value#hash\n\n• 프로토콜: https\n• 사용자명: user\n• 비밀번호: pass\n• 호스트명: example.com\n• 포트: 8080\n• 경로: /path\n• 검색: ?query=value\n• 해시: #hash"
+        "url-components": {
+          "title": "URL 구성 요소",
+          "content": "URL은 여러 부분으로 구성됩니다:\n\n• 프로토콜: http, https, ftp\n• 호스트: 도메인 이름 또는 IP\n• 포트: 선택 사항, 기본값은 다양\n• 경로: 리소스 위치\n• 쿼리: 키-값 매개변수\n• 해시: 프래그먼트 식별자"
         },
-        "howToUse": {
-          "title": "URL 파서 사용법",
-          "content": "모든 URL 분석:\n\n1. 입력 필드에 URL 붙여넣기\n2. 분해된 모든 구성요소 보기\n3. 개별 구성요소 편집\n4. 수정된 URL 복사\n\n쿼리 매개변수는 편집 가능한 키-값 쌍으로 표시됩니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. 분석할 URL 붙여넣기\n2. 각 구성 요소 별도로 확인\n3. 필요에 따라 개별 부분 편집\n4. 구성 요소에서 새 URL 만들기\n5. 특수 문자 인코딩/디코딩"
         },
-        "queryParams": {
-          "title": "쿼리 매개변수 작업",
-          "content": "쿼리 매개변수는 URL에 데이터를 전달합니다:\n\n?key1=value1&key2=value2\n\n일반적인 용도:\n• 검색 쿼리 (?q=search+term)\n• 페이지네이션 (?page=2&limit=10)\n• 추적 (?utm_source=google)\n• 필터 (?category=tech&sort=date)\n\n저희 도구는 이를 편집 가능한 표로 표시합니다."
+        "query-parameters": {
+          "title": "쿼리 매개변수",
+          "content": "쿼리 문자열은 키-값 쌍을 포함합니다:\n\n?key1=value1&key2=value2\n\n일반적인 용도:\n• 검색 쿼리\n• 페이지네이션\n• 필터링\n• 추적 매개변수\n\n특수 문자는 URL 인코딩되어야 합니다."
         }
       }
     },
     "uuid-generator": {
       "summary": "고유 식별자를 위한 UUID와 ULID 생성",
       "sections": {
-        "whatIs": {
+        "what-is-uuid": {
           "title": "UUID란?",
-          "content": "UUID(Universally Unique Identifier)는 모든 시스템에서 사실상 고유한 128비트 식별자입니다.\n\n형식: 550e8400-e29b-41d4-a716-446655440000\n\nUUID 용도:\n• 데이터베이스 기본 키\n• 세션 식별자\n• 분산 시스템\n• 파일 명명"
+          "content": "UUID(범용 고유 식별자)는 모든 시스템에서 실질적으로 고유함이 보장되는 128비트 식별자입니다.\n\n형식: 8-4-4-4-12 16진수 숫자\n예: 550e8400-e29b-41d4-a716-446655440000"
         },
-        "versions": {
+        "uuid-versions": {
           "title": "UUID 버전",
-          "content": "다양한 UUID 버전:\n\n• v1 - 타임스탬프 + MAC 주소\n• v4 - 랜덤 (가장 일반적)\n• v5 - 네임스페이스 + 이름 (SHA-1)\n• v7 - 타임스탬프 기반, 정렬 가능 (신규)\n\nv4가 가장 널리 사용됩니다 - 순수 랜덤하고 생성이 간단합니다."
+          "content": "• UUID v1: 시간 기반 + MAC 주소\n• UUID v4: 랜덤 (가장 일반적)\n• UUID v5: 이름 기반 (SHA-1)\n• UUID v7: 시간순 랜덤 (최신)\n\n대부분의 경우 v4가 권장됩니다."
         },
-        "uuidVsUlid": {
+        "uuid-vs-ulid": {
           "title": "UUID vs ULID",
-          "content": "ULID(Universally Unique Lexicographically Sortable Identifier):\n\n• UUID의 36자 대비 26자\n• 생성 시간순 정렬 가능\n• 특수 문자 없음\n• 대소문자 구분 없음\n\n정렬 가능한 ID나 간결한 저장이 필요할 때 ULID를 사용하세요."
+          "content": "ULID(사전순으로 정렬 가능한 범용 고유 식별자):\n\n• 생성 시간으로 정렬 가능\n• URL 안전 (특수 문자 없음)\n• 더 짧은 문자열 표현\n\n시간 정렬된 ID 또는 URL 친화적 식별자가 필요할 때 ULID를 선택하세요."
         },
-        "howToUse": {
-          "title": "ID 생성 방법",
-          "content": "고유 식별자 생성:\n\n1. UUID 버전 또는 ULID 선택\n2. 단일 또는 대량 ID 생성\n3. 클립보드에 복사\n4. 포맷 옵션 사용 (대시 포함/미포함)\n\n모든 생성은 클라이언트 측에서 이루어집니다 - ID가 기록되거나 저장되지 않습니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. ID 유형 선택 (UUID v1/v4/ULID)\n2. 생성할 수량 선택\n3. 형식 옵션 선택\n4. 생성 클릭\n5. 개별 또는 전체 ID 복사"
         }
       }
     },
     "base-converter": {
       "summary": "2진수, 10진수, 16진수 등 진법 간 숫자 변환",
       "sections": {
-        "whatIs": {
-          "title": "진법 이해하기",
-          "content": "진법(기수)은 사용되는 고유 숫자의 개수를 결정합니다:\n\n• 2진수 (기수 2) - 0, 1\n• 8진수 (기수 8) - 0-7\n• 10진수 (기수 10) - 0-9\n• 16진수 (기수 16) - 0-9, A-F\n\n같은 숫자가 각 진법에서 다르게 보이지만 같은 값을 나타냅니다."
+        "what-is-number-base": {
+          "title": "진법이란?",
+          "content": "진법(기수)은 숫자가 표현되는 방식을 결정합니다:\n\n• 2진수 (기수 2): 0, 1\n• 8진수 (기수 8): 0-7\n• 10진수 (기수 10): 0-9\n• 16진수 (기수 16): 0-9, A-F\n\n컴퓨터는 내부적으로 2진수를 사용하지만 가독성을 위해 16진수를 사용합니다."
         },
-        "commonBases": {
+        "common-bases": {
           "title": "일반적인 진법",
-          "content": "각 진법 사용 시기:\n\n2진수: 하드웨어, 비트 연산, 권한\n8진수: Unix 파일 권한 (chmod 755)\n10진수: 사람이 읽기 쉬운 숫자\n16진수: 색상 (#FF0000), 메모리 주소, 바이트 값"
+          "content": "2진수 (2): 컴퓨터에서 사용\n8진수 (8): Unix 파일 권한\n10진수 (10): 인간의 계산\n16진수 (16): 색상, 메모리 주소\n\n예: 255 = 11111111 (2진) = 377 (8진) = FF (16진)"
         },
-        "howToUse": {
-          "title": "숫자 변환 방법",
-          "content": "어떤 진법이든 변환:\n\n1. 숫자 입력\n2. 소스 진법 선택\n3. 모든 일반 진법으로 변환 보기\n4. 또는 특정 대상 진법 선택\n\n2진법부터 36진법까지 지원합니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. 어떤 진법으로든 숫자 입력\n2. 입력 진법 선택\n3. 모든 진법으로의 변환 확인\n4. 필요한 형식 복사\n\n2진수에서 36진수까지 지원합니다."
         },
-        "programming": {
-          "title": "프로그래밍에서의 진법",
-          "content": "프로그래밍 언어 접두사:\n\n• 2진수: 0b1010 (JavaScript, Python)\n• 8진수: 0o755 또는 0755\n• 16진수: 0xFF 또는 0xff\n\n변환 함수:\n• parseInt('FF', 16) → 255\n• (255).toString(2) → '11111111'"
+        "programming-usage": {
+          "title": "프로그래밍 사용법",
+          "content": "코드에서 일반적인 접두사:\n\n• 0b - 2진수 (0b1010)\n• 0o - 8진수 (0o755)\n• 0x - 16진수 (0xFF)\n\n유용한 용도:\n• 비트 연산\n• 색상 코드\n• 메모리 디버깅\n• 권한 플래그"
         }
       }
     },
     "sql-formatter": {
       "summary": "가독성 향상을 위한 SQL 쿼리 포맷팅",
       "sections": {
-        "whatIs": {
-          "title": "왜 SQL을 포맷하나요?",
-          "content": "포맷된 SQL은 읽고, 디버깅하고, 유지보수하기 쉽습니다.\n\n장점:\n• 향상된 가독성\n• 쉬운 디버깅\n• 더 나은 코드 리뷰\n• 일관된 팀 표준\n\n잘 포맷된 SQL은 복잡한 쿼리를 관리 가능하게 만듭니다."
+        "what-is-sql-formatter": {
+          "title": "SQL 포맷터란?",
+          "content": "SQL 포맷터는 지저분한 SQL 쿼리를 적절한 들여쓰기와 포맷팅으로 깔끔하고 읽기 쉬운 코드로 변환합니다.\n\n장점:\n• 가독성 향상\n• 쉬운 디버깅\n• 일관된 팀 스타일\n• 더 나은 코드 리뷰"
         },
-        "options": {
+        "formatting-options": {
           "title": "포맷팅 옵션",
-          "content": "포맷팅 커스터마이즈:\n\n• 들여쓰기 스타일과 크기\n• 키워드 대소문자 (대문자, 소문자, 유지)\n• 절 전/후 줄바꿈\n• 쉼표 위치 (앞 또는 뒤)\n\n팀의 스타일 가이드에 맞는 설정을 찾으세요."
+          "content": "출력을 사용자 지정하세요:\n\n• 들여쓰기: 공백 또는 탭\n• 키워드 대소문자: 대문자 또는 소문자\n• 줄 바꿈: 키워드 뒤\n• 정렬: 수직 열\n\n팀의 SQL 스타일 가이드에 맞추세요."
         },
-        "howToUse": {
-          "title": "SQL 포맷 방법",
-          "content": "쿼리 포맷하기:\n\n1. SQL 쿼리 붙여넣기\n2. 포맷팅 옵션 선택\n3. 포맷 클릭\n4. 정돈된 결과 복사\n\nSELECT, INSERT, UPDATE, DELETE와 복잡한 조인을 지원합니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. SQL 쿼리 붙여넣기\n2. 포맷팅 옵션 선택\n3. SQL 언어 선택\n4. 포맷 클릭\n5. 결과 복사"
         },
-        "dialects": {
-          "title": "SQL 방언",
-          "content": "데이터베이스마다 다른 문법:\n\n• MySQL - LIMIT, 백틱\n• PostgreSQL - LIMIT, 큰따옴표\n• SQL Server - TOP, 대괄호\n• Oracle - ROWNUM, LIMIT 없음\n\n저희 포매터는 방언 간 일반적인 문법을 처리합니다."
+        "sql-dialects": {
+          "title": "SQL 언어",
+          "content": "지원되는 언어:\n\n• 표준 SQL\n• PostgreSQL\n• MySQL\n• SQLite\n• SQL Server\n• Oracle\n\n각각 약간의 구문 차이가 있습니다."
         }
       }
     },
     "cron-parser": {
       "summary": "예약 작업을 위한 cron 표현식 분석 및 생성",
       "sections": {
-        "whatIs": {
+        "what-is-cron": {
           "title": "Cron이란?",
-          "content": "Cron은 Unix 계열 시스템의 시간 기반 작업 스케줄러입니다.\n\nCron 표현식 형식:\n* * * * *\n│ │ │ │ │\n│ │ │ │ └─ 요일 (0-6)\n│ │ │ └─── 월 (1-12)\n│ │ └───── 일 (1-31)\n│ └─────── 시 (0-23)\n└───────── 분 (0-59)"
+          "content": "Cron은 Unix 계열 시스템의 시간 기반 작업 스케줄러입니다.\n\n형식: * * * * *\n(분 시 일 월 요일)\n\n예: 0 9 * * 1-5 = 평일 오전 9시"
         },
-        "patterns": {
-          "title": "일반적인 Cron 패턴",
-          "content": "자주 사용되는 패턴:\n\n• 0 * * * * - 매시간\n• 0 0 * * * - 매일 자정\n• 0 0 * * 0 - 매주 일요일\n• */15 * * * * - 15분마다\n• 0 9-17 * * 1-5 - 평일 오전 9시~오후 5시"
+        "common-patterns": {
+          "title": "일반적인 패턴",
+          "content": "• 매분: * * * * *\n• 매시: 0 * * * *\n• 매일 자정: 0 0 * * *\n• 매주 일요일: 0 0 * * 0\n• 매월 1일: 0 0 1 * *\n• 5분마다: */5 * * * *"
         },
-        "howToUse": {
-          "title": "파서 사용법",
-          "content": "cron 표현식 만들기:\n\n1. cron 표현식 입력 → 일반 설명 보기\n2. 또는 빌더로 표현식 만들기\n3. 다음 예약 실행 시간 보기\n4. crontab에서 사용할 수 있도록 복사\n\n검증이 문법 오류를 잡아줍니다."
+        "how-to-use": {
+          "title": "사용 방법",
+          "content": "1. cron 표현식 입력\n2. 사람이 읽을 수 있는 설명 확인\n3. 다음 실행 시간 확인\n4. 표현식 유효성 검사\n5. 시각적으로 표현식 만들기"
         },
-        "special": {
+        "special-characters": {
           "title": "특수 문자",
-          "content": "Cron 특수 문자:\n\n• * - 모든 값\n• , - 목록 (1,3,5)\n• - - 범위 (1-5)\n• / - 간격 (*/15)\n• ? - 특정 값 없음 (일 필드)\n• L - 마지막 (월의 마지막 날)\n• W - 평일 (가장 가까운 평일)"
+          "content": "• * - 모든 값\n• , - 값 구분자\n• - - 값 범위\n• / - 단계 값\n• ? - 특정 값 없음\n• L - 마지막 날\n• W - 평일\n• # - n번째 요일"
         }
       }
     },
     "markdown-preview": {
       "summary": "실시간 렌더링으로 Markdown 작성 및 미리보기",
       "sections": {
-        "whatIs": {
-          "title": "Markdown이란?",
-          "content": "Markdown은 서식 있는 텍스트를 만들기 위한 가벼운 마크업 언어입니다.\n\n용도:\n• README 파일\n• 문서\n• 블로그 포스트\n• 댓글과 이슈\n• 노트 작성\n\n간단한 문법이 HTML로 변환됩니다."
+        "what-is-markdown": {
+          "title": "What Is Markdown",
+          "content": "Content for What Is Markdown"
         },
-        "syntax": {
-          "title": "Markdown 문법",
-          "content": "기본 문법:\n\n# 제목 1\n## 제목 2\n**굵게** *기울임*\n- 목록 항목\n1. 번호 항목\n[링크](url)\n![이미지](url)\n`코드`\n\n확장: 테이블, 작업 목록, 각주"
+        "syntax-guide": {
+          "title": "Syntax Guide",
+          "content": "Content for Syntax Guide"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "미리보기 사용법",
           "content": "실시간 미리보기로 작성:\n\n1. 편집기에 Markdown 입력\n2. 렌더링된 미리보기 즉시 보기\n3. 편집/미리보기/분할 보기 전환\n4. HTML로 내보내기 또는 Markdown 복사\n\n구문 강조가 포맷팅 오류를 잡아줍니다."
         },
-        "advanced": {
-          "title": "고급 기능",
-          "content": "기본 Markdown을 넘어서:\n\n• 구문 강조가 있는 코드 블록\n• 정렬이 있는 테이블\n• 체크박스가 있는 작업 목록\n• 각주와 참조\n• HTML 삽입\n\nGitHub Flavored Markdown (GFM) 지원."
+        "advanced-features": {
+          "title": "Advanced Features",
+          "content": "Content for Advanced Features"
         }
       }
     },
     "diff-checker": {
       "summary": "텍스트와 코드를 비교하여 차이점 찾기",
       "sections": {
-        "whatIs": {
-          "title": "Diff란?",
-          "content": "diff는 두 텍스트나 파일 간의 차이를 보여줍니다.\n\n용도:\n• 코드 리뷰\n• 버전 비교\n• 설정 변경 찾기\n• 수정 사항 디버깅\n\n추가, 삭제, 변경이 강조 표시됩니다."
+        "what-is-diff": {
+          "title": "What Is Diff",
+          "content": "Content for What Is Diff"
         },
-        "types": {
-          "title": "Diff 보기 유형",
-          "content": "diff를 보는 다양한 방법:\n\n• 나란히 - 두 버전 모두 표시\n• 인라인/통합 - 변경 표시된 단일 열\n• 단어 수준 - 문자별 비교\n• 줄 수준 - 줄별 비교\n\n비교 필요에 따라 선택하세요."
+        "diff-types": {
+          "title": "Diff Types",
+          "content": "Content for Diff Types"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "텍스트 비교 방법",
           "content": "모든 텍스트 비교:\n\n1. 왼쪽에 원본 텍스트 붙여넣기\n2. 오른쪽에 수정된 텍스트 붙여넣기\n3. 강조된 차이점 보기\n4. 보기 모드 전환\n\n코드, 설정, 문서 등 모든 텍스트에서 작동합니다."
         },
-        "useCases": {
+        "use-cases": {
           "title": "일반적인 사용 사례",
           "content": "diff를 사용할 때:\n\n• 코드 변경 커밋 전\n• 설정 파일 버전 비교\n• API 응답 변경 검토\n• 데이터 변환 확인\n• 문서 업데이트\n\n무엇이 변경되었는지 찾는 시간을 절약합니다."
         }
@@ -1430,57 +1442,57 @@
     "lorem-generator": {
       "summary": "디자인과 목업을 위한 플레이스홀더 텍스트 생성",
       "sections": {
-        "whatIs": {
-          "title": "Lorem Ipsum이란?",
-          "content": "Lorem Ipsum은 디자인과 출판에서 사용되는 플레이스홀더 텍스트입니다.\n\n사용 이유:\n• 콘텐츠가 아닌 디자인에 집중\n• 현실적인 텍스트 흐름\n• 업계 표준\n• 성급한 콘텐츠 결정 방지\n\n텍스트는 키케로의 작품(기원전 45년)에서 유래했습니다."
+        "what-is-lorem": {
+          "title": "What Is Lorem",
+          "content": "Content for What Is Lorem"
         },
-        "options": {
-          "title": "생성 옵션",
-          "content": "플레이스홀더 커스터마이즈:\n\n• 단락 - 본문 텍스트용\n• 문장 - 짧은 섹션용\n• 단어 - 특정 단어 수용\n• 목록 - 글머리 기호용\n\n디자인에 필요한 정확한 양을 설정하세요."
+        "generation-options": {
+          "title": "Generation Options",
+          "content": "Content for Generation Options"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "텍스트 생성 방법",
           "content": "플레이스홀더 텍스트 생성:\n\n1. 단위 유형 선택 (단락, 문장, 단어)\n2. 수량 설정\n3. 'Lorem ipsum'으로 시작 또는 랜덤 선택\n4. 생성된 텍스트 복사\n\n디자인 도구에 직접 붙여넣으세요."
         },
-        "design": {
-          "title": "디자인에서 사용",
-          "content": "모범 사례:\n\n• 실제 콘텐츠 길이에 맞추기\n• 다양성을 위해 다른 양 사용\n• 줄 길이와 가독성 고려\n• 일찍 실제 콘텐츠로 교체\n\n플레이스홀더 텍스트는 최종 디자인을 시각화하는 데 도움이 됩니다."
+        "design-usage": {
+          "title": "Design Usage",
+          "content": "Content for Design Usage"
         }
       }
     },
     "url-encoder": {
       "summary": "안전한 전송을 위한 URL 인코딩 및 디코딩",
       "sections": {
-        "whatIs": {
-          "title": "URL 인코딩이란?",
-          "content": "URL 인코딩은 특수 문자를 퍼센트 인코딩 형식으로 변환합니다.\n\n필요한 이유:\n• URL은 ASCII 문자만 포함 가능\n• 일부 문자는 URL에서 특별한 의미\n• 공백과 기호는 인코딩 필요\n\n예: Hello World → Hello%20World"
+        "what-is-url-encoding": {
+          "title": "What Is Url Encoding",
+          "content": "Content for What Is Url Encoding"
         },
-        "special": {
-          "title": "특수 문자",
-          "content": "인코딩이 필요한 문자:\n\n• 공백 → %20 (또는 +)\n• & → %26\n• = → %3D\n• ? → %3F\n• # → %23\n\n예약된 문자는 URL에서 특별한 의미가 있습니다."
+        "special-characters": {
+          "title": "Special Characters",
+          "content": "Content for Special Characters"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "인코딩/디코딩 방법",
           "content": "텍스트 인코딩 또는 디코딩:\n\n1. 인코딩할 텍스트 입력\n2. 또는 디코딩할 인코딩된 텍스트 입력\n3. 결과 즉시 보기\n4. 클릭 한 번으로 복사\n\n전체 URL이나 개별 구성요소를 처리합니다."
         },
-        "programming": {
-          "title": "코드에서의 URL 인코딩",
-          "content": "프로그래밍 함수:\n\nJavaScript:\n• encodeURIComponent() - 쿼리 매개변수용\n• encodeURI() - 전체 URL용\n\nPython:\n• urllib.parse.quote()\n• urllib.parse.urlencode()"
+        "programming-usage": {
+          "title": "Programming Usage",
+          "content": "Content for Programming Usage"
         }
       }
     },
     "html-entity": {
       "summary": "특수 문자를 HTML 엔티티로 변환",
       "sections": {
-        "whatIs": {
-          "title": "HTML 엔티티란?",
-          "content": "HTML 엔티티는 HTML에서 특수 문자를 표현합니다.\n\n필요한 이유:\n• <와 >는 HTML에서 특별한 의미\n• 일부 문자는 키보드에 없음\n• 적절한 렌더링 보장\n\n형식: &name; 또는 &#number;"
+        "what-is-html-entity": {
+          "title": "What Is Html Entity",
+          "content": "Content for What Is Html Entity"
         },
-        "common": {
-          "title": "일반적인 HTML 엔티티",
-          "content": "자주 사용되는 엔티티:\n\n• &lt; (<)\n• &gt; (>)\n• &amp; (&)\n• &quot; (\")\n• &nbsp; (줄바꿈 없는 공백)\n• &copy; (©)\n• &trade; (™)"
+        "common-entities": {
+          "title": "Common Entities",
+          "content": "Content for Common Entities"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "변환 방법",
           "content": "문자 변환:\n\n1. 특수 문자가 있는 텍스트 입력\n2. HTML 엔티티 등가물 보기\n3. 또는 엔티티를 입력해서 디코딩\n4. 결과 복사\n\nHTML에서 코드를 표시하는 데 필수입니다."
         },
@@ -1493,124 +1505,128 @@
     "box-shadow": {
       "summary": "시각적 편집기로 CSS box-shadow 생성",
       "sections": {
-        "whatIs": {
-          "title": "Box Shadow 이해하기",
-          "content": "CSS box-shadow는 요소에 그림자 효과를 추가합니다.\n\n문법:\nbox-shadow: offset-x offset-y blur spread color;\n\n복잡한 효과를 위해 여러 그림자를 쌓을 수 있습니다."
+        "what-is-box-shadow": {
+          "title": "What Is Box Shadow",
+          "content": "Content for What Is Box Shadow"
         },
-        "properties": {
-          "title": "그림자 속성",
-          "content": "각 속성 설명:\n\n• offset-x - 가로 위치\n• offset-y - 세로 위치\n• blur - 흐림 반경 (부드러운 가장자리)\n• spread - 그림자 크기\n• color - 그림자 색상 (투명도에 rgba 사용)\n• inset - 내부 그림자"
+        "shadow-properties": {
+          "title": "Shadow Properties",
+          "content": "Content for Shadow Properties"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "생성기 사용법",
           "content": "시각적으로 그림자 만들기:\n\n1. 각 속성의 슬라이더 조정\n2. 실시간 미리보기 보기\n3. 여러 그림자 레이어 추가\n4. CSS 코드 복사\n\n문법을 외울 필요 없습니다!"
         },
-        "tips": {
-          "title": "디자인 팁",
-          "content": "그림자 모범 사례:\n\n• 미묘한 그림자(낮은 투명도)가 더 자연스러움\n• 그림자 방향을 광원과 일치\n• 깊이감을 위해 여러 레이어 사용\n• 거친 가장자리 피하기 (흐림 추가)\n• 다크 모드 호환성 고려"
+        "design-tips": {
+          "title": "Design Tips",
+          "content": "Content for Design Tips"
         }
       }
     },
     "gradient-generator": {
       "summary": "시각적 컨트롤로 CSS 그라데이션 생성",
       "sections": {
-        "whatIs": {
-          "title": "CSS 그라데이션 이해하기",
-          "content": "그라데이션은 색상 간의 부드러운 전환입니다.\n\n유형:\n• 선형 - 선을 따라\n• 방사형 - 중심점에서\n• 원추형 - 중심점 주위로\n\n그라데이션은 더 나은 성능을 위해 이미지를 대체할 수 있습니다."
+        "what-is-gradient": {
+          "title": "What Is Gradient",
+          "content": "Content for What Is Gradient"
         },
-        "types": {
-          "title": "그라데이션 유형",
-          "content": "각각 사용 시기:\n\n선형: 배경, 버튼, 진행 표시줄\n방사형: 스포트라이트, 구체, 비네트\n원추형: 파이 차트, 색상환\n\n오버레이를 위해 투명도와 결합하세요."
+        "gradient-types": {
+          "title": "Gradient Types",
+          "content": "Content for Gradient Types"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "그라데이션 만들기",
           "content": "시각적으로 그라데이션 구축:\n\n1. 그라데이션 유형 선택\n2. 색상 정지점 추가\n3. 각도나 위치 조정\n4. CSS 코드 복사\n\n미리보기가 실시간으로 업데이트됩니다."
         },
-        "advanced": {
-          "title": "고급 기법",
-          "content": "프로 그라데이션 팁:\n\n• 복잡한 그라데이션을 위한 여러 색상 정지점\n• 오버레이를 위한 투명 색상 사용\n• background-blend-mode와 결합\n• CSS 트랜지션으로 애니메이션\n• 여러 그라데이션 쌓기"
+        "advanced-gradients": {
+          "title": "Advanced Gradients",
+          "content": "Content for Advanced Gradients"
         }
       }
     },
     "ua-parser": {
       "summary": "User-Agent 문자열을 분석하여 브라우저와 기기 식별",
       "sections": {
-        "whatIs": {
-          "title": "User-Agent란?",
-          "content": "User-Agent 문자열은 웹사이트에 브라우저와 시스템을 식별합니다.\n\n포함 내용:\n• 브라우저 이름과 버전\n• 운영 체제\n• 기기 유형\n• 렌더링 엔진\n\n호환성과 분석에 사용됩니다."
+        "what-is-user-agent": {
+          "title": "What Is User Agent",
+          "content": "Content for What Is User Agent"
         },
-        "components": {
-          "title": "UA 문자열 구성요소",
-          "content": "User-Agent 분해:\n\nMozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36\n\n• 플랫폼: Windows 10 64비트\n• 엔진: Blink (Chrome)\n• 브라우저: Chrome 120"
+        "ua-components": {
+          "title": "Ua Components",
+          "content": "Content for Ua Components"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "User-Agent 분석 방법",
           "content": "모든 UA 문자열 분석:\n\n1. User-Agent 문자열 붙여넣기\n2. 분석된 구성요소 보기\n3. 브라우저, OS, 기기 정보 확인\n4. 현재 UA 확인\n\n브라우저별 문제 디버깅에 유용합니다."
         },
-        "patterns": {
-          "title": "일반적인 감지 패턴",
-          "content": "브라우저 식별:\n\n• Chrome: 'Chrome'이 있고 'Edg'가 없음\n• Firefox: 'Firefox'\n• Safari: 'Safari'가 있고 'Chrome'이 없음\n• Edge: 'Edg'\n• 모바일: 'Mobile' 또는 'Android'\n\n참고: UA 문자열은 위조될 수 있습니다."
+        "common-patterns": {
+          "title": "Common Patterns",
+          "content": "Content for Common Patterns"
+        },
+        "Android": {
+          "title": "Android",
+          "content": "Content for Android"
         }
       }
     },
     "meta-generator": {
       "summary": "SEO와 소셜 공유를 위한 메타 태그 생성",
       "sections": {
-        "whatIs": {
-          "title": "메타 태그란?",
-          "content": "메타 태그는 웹페이지에 대한 정보를 제공합니다.\n\n목적:\n• SEO - 검색 엔진이 콘텐츠 이해\n• 소셜 공유 - 링크 표시 방식 제어\n• 브라우저 동작 - 뷰포트, 문자셋\n\nHTML의 <head>에 배치됩니다."
+        "what-is-meta-tag": {
+          "title": "What Is Meta Tag",
+          "content": "Content for What Is Meta Tag"
         },
-        "og": {
-          "title": "Open Graph 태그",
-          "content": "Open Graph는 소셜 미리보기를 제어합니다:\n\n• og:title - 링크 제목\n• og:description - 링크 설명\n• og:image - 미리보기 이미지\n• og:url - 정규 URL\n\nFacebook, LinkedIn 등에서 사용됩니다."
+        "og-tags": {
+          "title": "Og Tags",
+          "content": "Content for Og Tags"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "태그 생성 방법",
           "content": "메타 태그 만들기:\n\n1. 페이지 정보 입력\n2. 소셜 미디어 세부정보 추가\n3. 표시 방식 미리보기\n4. HTML 코드 복사\n\n기본 및 소셜 메타 태그 모두 포함됩니다."
         },
-        "twitter": {
-          "title": "Twitter 카드 태그",
-          "content": "Twitter 전용 메타 태그:\n\n• twitter:card - 카드 유형\n• twitter:title - 트윗 제목\n• twitter:description - 설명\n• twitter:image - 카드 이미지\n\n눈에 띄는 이미지를 위해 summary_large_image를 사용하세요."
+        "twitter-cards": {
+          "title": "Twitter Cards",
+          "content": "Content for Twitter Cards"
         }
       }
     },
     "curl-builder": {
       "summary": "API 테스트를 위한 cURL 명령 구축",
       "sections": {
-        "whatIs": {
-          "title": "cURL이란?",
-          "content": "cURL은 HTTP 요청을 만드는 명령줄 도구입니다.\n\n용도:\n• API 테스트\n• 요청 디버깅\n• 자동화 스크립트\n• 파일 다운로드\n\n모든 주요 운영 체제에서 사용 가능합니다."
+        "what-is-curl": {
+          "title": "What Is Curl",
+          "content": "Content for What Is Curl"
         },
-        "options": {
-          "title": "일반적인 cURL 옵션",
-          "content": "자주 사용되는 플래그:\n\n• -X - HTTP 메서드 (GET, POST 등)\n• -H - 헤더 추가\n• -d - 요청 본문 데이터\n• -o - 파일로 출력\n• -v - 상세 출력\n• -L - 리다이렉트 따라가기"
+        "common-options": {
+          "title": "Common Options",
+          "content": "Content for Common Options"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "명령 구축 방법",
           "content": "cURL 명령 만들기:\n\n1. URL 입력\n2. HTTP 메서드 선택\n3. 헤더와 본문 추가\n4. 명령 복사\n\nJSON, 폼 데이터, 인증을 지원합니다."
         },
-        "auth": {
-          "title": "인증 예제",
-          "content": "일반적인 인증 방법:\n\n• Bearer 토큰: -H 'Authorization: Bearer TOKEN'\n• Basic auth: -u username:password\n• API 키: -H 'X-API-Key: KEY'\n\n토큰을 버전 관리에 커밋하지 마세요!"
+        "authentication": {
+          "title": "Authentication",
+          "content": "Content for Authentication"
         }
       }
     },
     "svg-optimizer": {
       "summary": "불필요한 코드를 제거하여 SVG 파일 최적화",
       "sections": {
-        "whatIs": {
-          "title": "왜 SVG를 최적화하나요?",
-          "content": "SVG 파일에는 종종 불필요한 데이터가 포함됩니다:\n\n• 편집기 메타데이터\n• 중복 속성\n• 빈 그룹\n• 소수점 정밀도\n\n최적화는 파일 크기를 30-80% 줄입니다."
+        "what-is-svg-optimization": {
+          "title": "What Is Svg Optimization",
+          "content": "Content for What Is Svg Optimization"
         },
-        "techniques": {
-          "title": "최적화 기법",
-          "content": "최적화되는 것:\n\n• 주석과 메타데이터 제거\n• 경로 데이터 축소\n• 유사한 경로 병합\n• 빈 요소 제거\n• 색상 값 축약\n• 소수점 정밀도 감소"
+        "optimization-techniques": {
+          "title": "Optimization Techniques",
+          "content": "Content for Optimization Techniques"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "최적화 방법",
           "content": "SVG 최적화하기:\n\n1. SVG 코드 업로드 또는 붙여넣기\n2. 결과 미리보기\n3. 파일 크기 비교\n4. 최적화된 SVG 다운로드\n\n미리보기가 품질에 영향이 없는지 확인합니다."
         },
-        "bestPractices": {
+        "best-practices": {
           "title": "SVG 모범 사례",
           "content": "SVG 최적화 팁:\n\n• 내보내기 전에 숨겨진 레이어 제거\n• 가능하면 단순한 도형 사용\n• 임베디드 폰트 피하기\n• 아이콘에는 인라인 SVG 고려\n• 최적화 후 테스트"
         }
@@ -1619,49 +1635,49 @@
     "css-to-tailwind": {
       "summary": "CSS를 Tailwind 유틸리티 클래스로 변환",
       "sections": {
-        "whatIs": {
-          "title": "왜 Tailwind로 변환하나요?",
-          "content": "Tailwind CSS는 커스텀 CSS 대신 유틸리티 클래스를 사용합니다.\n\n장점:\n• 일관된 디자인 시스템\n• 작은 번들 크기\n• 빠른 개발\n• 쉬운 반응형 디자인\n\n기존 CSS를 변환하여 Tailwind를 채택하세요."
+        "what-is-tailwind": {
+          "title": "What Is Tailwind",
+          "content": "Content for What Is Tailwind"
         },
-        "conversions": {
-          "title": "일반적인 변환",
-          "content": "CSS에서 Tailwind 매핑:\n\n• margin: 16px → m-4\n• display: flex → flex\n• color: blue → text-blue-500\n• font-size: 18px → text-lg\n\n간격은 스케일 사용: 4 = 16px, 8 = 32px 등."
+        "common-conversions": {
+          "title": "Common Conversions",
+          "content": "Content for Common Conversions"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "변환 방법",
           "content": "CSS 변환하기:\n\n1. CSS 규칙 붙여넣기\n2. 동등한 Tailwind 클래스 보기\n3. 클래스 이름 복사\n4. HTML에 적용\n\n일반적인 CSS 속성을 처리합니다."
         },
-        "responsive": {
-          "title": "반응형 디자인",
-          "content": "Tailwind 브레이크포인트 접두사:\n\n• sm: 640px+\n• md: 768px+\n• lg: 1024px+\n• xl: 1280px+\n\n예: md:w-1/2 lg:w-1/3"
+        "responsive-design": {
+          "title": "Responsive Design",
+          "content": "Content for Responsive Design"
         }
       }
     },
     "prettier-playground": {
       "summary": "브라우저에서 Prettier로 코드 포맷팅",
       "sections": {
-        "whatIs": {
-          "title": "Prettier란?",
-          "content": "Prettier는 의견이 있는 코드 포매터입니다.\n\n장점:\n• 일관된 코드 스타일\n• 스타일 논쟁 없음\n• 자동 포맷팅\n• 많은 언어 지원\n\n같은 코드, 같은 방식으로 포맷팅, 어디서나."
+        "what-is-prettier": {
+          "title": "What Is Prettier",
+          "content": "Content for What Is Prettier"
         },
-        "languages": {
-          "title": "지원 언어",
-          "content": "Prettier가 포맷팅하는 것:\n\n• JavaScript/TypeScript\n• HTML/CSS/SCSS\n• JSON/YAML/Markdown\n• JSX/TSX\n• 그리고 더...\n\n콘텐츠에서 언어를 자동 감지합니다."
+        "supported-languages": {
+          "title": "Supported Languages",
+          "content": "Content for Supported Languages"
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "코드 포맷 방법",
           "content": "코드 포맷팅:\n\n1. 편집기에 코드 붙여넣기\n2. 언어 선택 (또는 자동 감지)\n3. 필요하면 옵션 조정\n4. 포맷된 결과 복사\n\n변경 사항을 즉시 확인할 수 있습니다."
         },
-        "config": {
-          "title": "설정 옵션",
-          "content": "일반적인 Prettier 옵션:\n\n• printWidth - 줄 길이\n• tabWidth - 탭당 공백\n• semi - 세미콜론\n• singleQuote - 따옴표 스타일\n• trailingComma - 후행 쉼표\n\n프로젝트의 .prettierrc에 맞추세요"
+        "configuration": {
+          "title": "Configuration",
+          "content": "Content for Configuration"
         }
       }
     },
     "css-minifier": {
       "summary": "CSS를 압축하고 최적화하여 더 빠른 로딩",
       "sections": {
-        "whatIs": {
+        "what-is": {
           "title": "CSS 압축이란?",
           "content": "CSS 압축은 기능을 변경하지 않고 CSS 코드에서 불필요한 문자를 제거합니다.\n\n제거 대상:\n• 공백과 줄바꿈\n• 주석\n• 후행 세미콜론\n• 불필요한 0 단위\n\n결과: 더 작은 파일 크기와 더 빠른 페이지 로드."
         },
@@ -1669,32 +1685,32 @@
           "title": "장점",
           "content": "CSS를 왜 압축해야 하나요?\n\n• 30-50% 더 작은 파일 크기\n• 더 빠른 다운로드 시간\n• 대역폭 비용 절감\n• 더 나은 Core Web Vitals\n• SEO 순위 개선\n\ngzip과 결합하면 80% 이상 감소."
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "사용 방법",
           "content": "CSS 압축하기:\n\n1. CSS 코드 붙여넣기\n2. '압축' 버튼 클릭\n3. 압축된 결과 복사\n\n모든 처리는 브라우저에서 - 서버로 데이터가 전송되지 않습니다."
         },
-        "removed": {
-          "title": "제거되는 것들",
-          "content": "압축 시 제거:\n\n✓ 주석 /* */\n✓ 추가 공백\n✓ 줄바꿈과 탭\n✓ 후행 세미콜론\n✓ 0 단위 (0px → 0)\n\n유지: 선택자 이름, 값, 기능."
+        "what-gets-removed": {
+          "title": "What Gets Removed",
+          "content": "Content for What Gets Removed"
         }
       }
     },
     "json-to-typescript": {
       "summary": "JSON 데이터에서 TypeScript 인터페이스 생성",
       "sections": {
-        "whatIs": {
+        "what-is": {
           "title": "JSON to TypeScript란?",
           "content": "이 도구는 JSON 데이터에서 TypeScript 인터페이스나 타입을 자동으로 생성합니다.\n\n장점:\n• 타입 안전한 API 응답\n• IDE에서 자동 완성\n• 컴파일 시 오류 감지\n• 더 나은 코드 문서화\n\nREST API 작업에 완벽합니다."
         },
-        "typeInference": {
+        "type-inference": {
           "title": "타입 추론",
           "content": "자동 타입 감지:\n\n• 문자열 → string\n• 숫자 → number\n• 불리언 → boolean\n• 배열 → Type[]\n• 객체 → 중첩 인터페이스\n• Null → null\n\n깊게 중첩된 구조도 처리합니다."
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "사용 방법",
           "content": "TypeScript 타입 생성:\n\n1. JSON 데이터 붙여넣기\n2. 인터페이스 이름 설정 (선택)\n3. 생성된 TypeScript 복사\n\n타입 안전한 개발을 위해 프로젝트에서 사용하세요."
         },
-        "apiResponse": {
+        "api-response": {
           "title": "API 응답 타입",
           "content": "일반적인 사용 사례:\n\n1. DevTools에서 API 응답 복사\n2. 이 도구에 붙여넣기\n3. 타입이 지정된 인터페이스 얻기\n4. fetch/axios와 함께 사용\n\nAPI 응답 형태를 더 이상 추측하지 마세요."
         }
@@ -1703,19 +1719,19 @@
     "text-case-converter": {
       "summary": "다양한 명명 규칙 간 텍스트 변환",
       "sections": {
-        "whatIs": {
+        "what-is": {
           "title": "텍스트 케이스 변환기란?",
           "content": "프로그래밍에서 사용되는 다양한 케이스 형식 간에 텍스트를 변환합니다.\n\n지원 형식:\n• UPPERCASE / lowercase\n• Title Case / Sentence case\n• camelCase / PascalCase\n• snake_case / kebab-case\n• SCREAMING_SNAKE_CASE"
         },
-        "programmingCases": {
+        "programming-cases": {
           "title": "프로그래밍 명명 규칙",
           "content": "각 케이스 사용 시기:\n\n• camelCase: JS/TS 변수, 함수\n• PascalCase: 클래스, React 컴포넌트\n• snake_case: Python, 데이터베이스\n• kebab-case: CSS 클래스, URL\n• CONSTANT_CASE: 상수, 환경 변수\n\n읽기 쉬운 코드를 위해 언어 규칙을 따르세요."
         },
-        "howToUse": {
+        "how-to-use": {
           "title": "사용 방법",
           "content": "텍스트 케이스 변환:\n\n1. 텍스트 입력 또는 붙여넣기\n2. 대상 케이스 형식 선택\n3. 변환된 결과 복사\n\n실시간 미리보기와 함께 즉시 변환됩니다."
         },
-        "useCases": {
+        "use-cases": {
           "title": "일반적인 사용 사례",
           "content": "실용적인 시나리오:\n\n• API 응답 → 프론트엔드 변수\n• 데이터베이스 컬럼 → TypeScript 필드\n• 컴포넌트 이름 → 파일 이름\n• CSS 클래스 → JS 상수\n• 일반 텍스트 → 환경 변수"
         }
