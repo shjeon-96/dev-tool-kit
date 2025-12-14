@@ -4,6 +4,43 @@
     "description": "개발자를 위한 웹 기반 올인원 도구 모음. JSON Formatter, JWT Decoder, Image Resizer 등을 설치 없이 브라우저에서 바로 사용하세요.",
     "keywords": "개발자 도구, JSON 변환, JWT 디코딩, 이미지 리사이즈, 웹툴"
   },
+  "landing": {
+    "hero": {
+      "badge": "31개 이상의 무료 개발자 도구",
+      "title": "올인원 개발자 툴킷",
+      "subtitle": "브라우저 기반의 강력한 도구로 포맷, 변환, 인코딩, 생성까지. 설치 없이, 가입 없이, 100% 개인정보 보호.",
+      "cta": "모든 도구 살펴보기",
+      "ctaSecondary": "GitHub에서 보기"
+    },
+    "features": {
+      "title": "Web Toolkit을 선택하는 이유",
+      "privacy": {
+        "title": "100% 클라이언트 처리",
+        "description": "모든 처리가 브라우저에서 이루어집니다. 데이터가 기기를 떠나지 않습니다."
+      },
+      "speed": {
+        "title": "번개처럼 빠른 속도",
+        "description": "서버 왕복이 없습니다. 모든 개발 작업의 결과를 즉시 확인하세요."
+      },
+      "free": {
+        "title": "완전 무료",
+        "description": "숨겨진 제한이나 유료 기능 없이 모든 도구를 무료로 사용하세요."
+      },
+      "offline": {
+        "title": "오프라인 지원",
+        "description": "한 번 로드되면 대부분의 도구가 인터넷 연결 없이 작동합니다."
+      }
+    },
+    "categories": {
+      "title": "카테고리별 도구",
+      "viewAll": "모두 보기"
+    },
+    "stats": {
+      "tools": "개발자 도구",
+      "categories": "카테고리",
+      "languages": "지원 언어"
+    }
+  },
   "navigation": {
     "home": "홈",
     "tools": "도구",
@@ -1618,6 +1655,69 @@
         "config": {
           "title": "설정 옵션",
           "content": "일반적인 Prettier 옵션:\n\n• printWidth - 줄 길이\n• tabWidth - 탭당 공백\n• semi - 세미콜론\n• singleQuote - 따옴표 스타일\n• trailingComma - 후행 쉼표\n\n프로젝트의 .prettierrc에 맞추세요"
+        }
+      }
+    },
+    "css-minifier": {
+      "summary": "CSS를 압축하고 최적화하여 더 빠른 로딩",
+      "sections": {
+        "whatIs": {
+          "title": "CSS 압축이란?",
+          "content": "CSS 압축은 기능을 변경하지 않고 CSS 코드에서 불필요한 문자를 제거합니다.\n\n제거 대상:\n• 공백과 줄바꿈\n• 주석\n• 후행 세미콜론\n• 불필요한 0 단위\n\n결과: 더 작은 파일 크기와 더 빠른 페이지 로드."
+        },
+        "benefits": {
+          "title": "장점",
+          "content": "CSS를 왜 압축해야 하나요?\n\n• 30-50% 더 작은 파일 크기\n• 더 빠른 다운로드 시간\n• 대역폭 비용 절감\n• 더 나은 Core Web Vitals\n• SEO 순위 개선\n\ngzip과 결합하면 80% 이상 감소."
+        },
+        "howToUse": {
+          "title": "사용 방법",
+          "content": "CSS 압축하기:\n\n1. CSS 코드 붙여넣기\n2. '압축' 버튼 클릭\n3. 압축된 결과 복사\n\n모든 처리는 브라우저에서 - 서버로 데이터가 전송되지 않습니다."
+        },
+        "removed": {
+          "title": "제거되는 것들",
+          "content": "압축 시 제거:\n\n✓ 주석 /* */\n✓ 추가 공백\n✓ 줄바꿈과 탭\n✓ 후행 세미콜론\n✓ 0 단위 (0px → 0)\n\n유지: 선택자 이름, 값, 기능."
+        }
+      }
+    },
+    "json-to-typescript": {
+      "summary": "JSON 데이터에서 TypeScript 인터페이스 생성",
+      "sections": {
+        "whatIs": {
+          "title": "JSON to TypeScript란?",
+          "content": "이 도구는 JSON 데이터에서 TypeScript 인터페이스나 타입을 자동으로 생성합니다.\n\n장점:\n• 타입 안전한 API 응답\n• IDE에서 자동 완성\n• 컴파일 시 오류 감지\n• 더 나은 코드 문서화\n\nREST API 작업에 완벽합니다."
+        },
+        "typeInference": {
+          "title": "타입 추론",
+          "content": "자동 타입 감지:\n\n• 문자열 → string\n• 숫자 → number\n• 불리언 → boolean\n• 배열 → Type[]\n• 객체 → 중첩 인터페이스\n• Null → null\n\n깊게 중첩된 구조도 처리합니다."
+        },
+        "howToUse": {
+          "title": "사용 방법",
+          "content": "TypeScript 타입 생성:\n\n1. JSON 데이터 붙여넣기\n2. 인터페이스 이름 설정 (선택)\n3. 생성된 TypeScript 복사\n\n타입 안전한 개발을 위해 프로젝트에서 사용하세요."
+        },
+        "apiResponse": {
+          "title": "API 응답 타입",
+          "content": "일반적인 사용 사례:\n\n1. DevTools에서 API 응답 복사\n2. 이 도구에 붙여넣기\n3. 타입이 지정된 인터페이스 얻기\n4. fetch/axios와 함께 사용\n\nAPI 응답 형태를 더 이상 추측하지 마세요."
+        }
+      }
+    },
+    "text-case-converter": {
+      "summary": "다양한 명명 규칙 간 텍스트 변환",
+      "sections": {
+        "whatIs": {
+          "title": "텍스트 케이스 변환기란?",
+          "content": "프로그래밍에서 사용되는 다양한 케이스 형식 간에 텍스트를 변환합니다.\n\n지원 형식:\n• UPPERCASE / lowercase\n• Title Case / Sentence case\n• camelCase / PascalCase\n• snake_case / kebab-case\n• SCREAMING_SNAKE_CASE"
+        },
+        "programmingCases": {
+          "title": "프로그래밍 명명 규칙",
+          "content": "각 케이스 사용 시기:\n\n• camelCase: JS/TS 변수, 함수\n• PascalCase: 클래스, React 컴포넌트\n• snake_case: Python, 데이터베이스\n• kebab-case: CSS 클래스, URL\n• CONSTANT_CASE: 상수, 환경 변수\n\n읽기 쉬운 코드를 위해 언어 규칙을 따르세요."
+        },
+        "howToUse": {
+          "title": "사용 방법",
+          "content": "텍스트 케이스 변환:\n\n1. 텍스트 입력 또는 붙여넣기\n2. 대상 케이스 형식 선택\n3. 변환된 결과 복사\n\n실시간 미리보기와 함께 즉시 변환됩니다."
+        },
+        "useCases": {
+          "title": "일반적인 사용 사례",
+          "content": "실용적인 시나리오:\n\n• API 응답 → 프론트엔드 변수\n• 데이터베이스 컬럼 → TypeScript 필드\n• 컴포넌트 이름 → 파일 이름\n• CSS 클래스 → JS 상수\n• 일반 텍스트 → 환경 변수"
         }
       }
     }

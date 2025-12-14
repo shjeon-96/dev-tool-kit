@@ -220,6 +220,7 @@ export function HashGenerator() {
               onFileSelect={handleFileSelect}
               accept={{ "*/*": [] }}
               maxSize={2 * 1024 * 1024 * 1024} // 2GB limit
+              warnSize={500 * 1024 * 1024} // Warn at 500MB
             />
           ) : (
             <div className="rounded-lg border p-4">

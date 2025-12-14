@@ -43,4 +43,7 @@ export type GuideSlug =
   | "curl-builder"
   | "svg-optimizer"
   | "css-to-tailwind"
-  | "prettier-playground";
+  | "prettier-playground"
+  | "css-minifier"
+  | "json-to-typescript"
+  | "text-case-converter";

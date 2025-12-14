@@ -4,6 +4,43 @@
     "description": "All-in-one web-based toolkit for developers. Use JSON Formatter, JWT Decoder, Image Resizer and more directly in your browser without installation.",
     "keywords": "developer tools, JSON formatter, JWT decoder, image resizer, web tools"
   },
+  "landing": {
+    "hero": {
+      "badge": "31+ Free Developer Tools",
+      "title": "All-in-One Developer Toolkit",
+      "subtitle": "Format, convert, encode, and generate with powerful browser-based tools. No installation, no signup, 100% private.",
+      "cta": "Explore All Tools",
+      "ctaSecondary": "View on GitHub"
+    },
+    "features": {
+      "title": "Why Web Toolkit?",
+      "privacy": {
+        "title": "100% Client-Side",
+        "description": "All processing happens in your browser. Your data never leaves your device."
+      },
+      "speed": {
+        "title": "Lightning Fast",
+        "description": "No server roundtrips. Instant results for all your development tasks."
+      },
+      "free": {
+        "title": "Completely Free",
+        "description": "All tools are free to use with no hidden limits or paywalls."
+      },
+      "offline": {
+        "title": "Works Offline",
+        "description": "Once loaded, most tools work without an internet connection."
+      }
+    },
+    "categories": {
+      "title": "Tools by Category",
+      "viewAll": "View All"
+    },
+    "stats": {
+      "tools": "Developer Tools",
+      "categories": "Categories",
+      "languages": "Languages"
+    }
+  },
   "navigation": {
     "home": "Home",
     "tools": "Tools",
@@ -1618,6 +1655,69 @@
         "config": {
           "title": "Configuration Options",
           "content": "Common Prettier options:\n\n• printWidth - Line length\n• tabWidth - Spaces per tab\n• semi - Semicolons\n• singleQuote - Quote style\n• trailingComma - Trailing commas\n\nMatch your project's .prettierrc"
+        }
+      }
+    },
+    "css-minifier": {
+      "summary": "Compress and optimize CSS for faster loading",
+      "sections": {
+        "whatIs": {
+          "title": "What is CSS Minification?",
+          "content": "CSS minification removes unnecessary characters from CSS code without changing its functionality.\n\nThis includes:\n• Whitespace and newlines\n• Comments\n• Trailing semicolons\n• Redundant zero units\n\nResult: Smaller file sizes and faster page loads."
+        },
+        "benefits": {
+          "title": "Benefits",
+          "content": "Why minify CSS?\n\n• 30-50% smaller file size\n• Faster download times\n• Reduced bandwidth costs\n• Better Core Web Vitals\n• Improved SEO ranking\n\nCombine with gzip for 80%+ reduction."
+        },
+        "howToUse": {
+          "title": "How to Use",
+          "content": "Minify your CSS:\n\n1. Paste your CSS code\n2. Click 'Minify' button\n3. Copy the compressed result\n\nAll processing happens in your browser - no data sent to servers."
+        },
+        "removed": {
+          "title": "What Gets Removed",
+          "content": "Removed during minification:\n\n✓ Comments /* */\n✓ Extra whitespace\n✓ Newlines and tabs\n✓ Trailing semicolons\n✓ Zero units (0px → 0)\n\nPreserved: Selector names, values, and functionality."
+        }
+      }
+    },
+    "json-to-typescript": {
+      "summary": "Generate TypeScript interfaces from JSON data",
+      "sections": {
+        "whatIs": {
+          "title": "What is JSON to TypeScript?",
+          "content": "This tool automatically generates TypeScript interfaces or types from JSON data.\n\nBenefits:\n• Type-safe API responses\n• Auto-completion in IDE\n• Catch errors at compile time\n• Better code documentation\n\nPerfect for working with REST APIs."
+        },
+        "typeInference": {
+          "title": "Type Inference",
+          "content": "Automatic type detection:\n\n• Strings → string\n• Numbers → number\n• Booleans → boolean\n• Arrays → Type[]\n• Objects → Nested interfaces\n• Null → null\n\nHandles deeply nested structures."
+        },
+        "howToUse": {
+          "title": "How to Use",
+          "content": "Generate TypeScript types:\n\n1. Paste JSON data\n2. Set interface name (optional)\n3. Copy generated TypeScript\n\nUse in your project for type-safe development."
+        },
+        "apiResponse": {
+          "title": "API Response Types",
+          "content": "Common use case:\n\n1. Copy API response from DevTools\n2. Paste into this tool\n3. Get typed interfaces\n4. Use with fetch/axios\n\nNever guess API response shapes again."
+        }
+      }
+    },
+    "text-case-converter": {
+      "summary": "Convert text between different naming conventions",
+      "sections": {
+        "whatIs": {
+          "title": "What is Text Case Converter?",
+          "content": "Convert text between different case formats used in programming.\n\nSupported formats:\n• UPPERCASE / lowercase\n• Title Case / Sentence case\n• camelCase / PascalCase\n• snake_case / kebab-case\n• SCREAMING_SNAKE_CASE"
+        },
+        "programmingCases": {
+          "title": "Programming Naming Conventions",
+          "content": "When to use each case:\n\n• camelCase: JS/TS variables, functions\n• PascalCase: Classes, React components\n• snake_case: Python, databases\n• kebab-case: CSS classes, URLs\n• CONSTANT_CASE: Constants, env vars\n\nFollow language conventions for readable code."
+        },
+        "howToUse": {
+          "title": "How to Use",
+          "content": "Convert text case:\n\n1. Enter or paste your text\n2. Select target case format\n3. Copy the converted result\n\nInstant conversion with live preview."
+        },
+        "useCases": {
+          "title": "Common Use Cases",
+          "content": "Practical scenarios:\n\n• API response → Frontend variables\n• Database columns → TypeScript fields\n• Component names → File names\n• CSS classes → JS constants\n• Human text → Environment variables"
         }
       }
     }

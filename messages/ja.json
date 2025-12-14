@@ -4,6 +4,43 @@
     "description": "開発者向けのウェブベースオールインワンツール集。JSON Formatter、JWT Decoder、Image Resizerなどをインストール不要でブラウザからすぐに使えます。",
     "keywords": "開発者ツール, JSON変換, JWTデコード, 画像リサイズ, ウェブツール"
   },
+  "landing": {
+    "hero": {
+      "badge": "31以上の無料開発者ツール",
+      "title": "オールインワン開発者ツールキット",
+      "subtitle": "ブラウザベースの強力なツールでフォーマット、変換、エンコード、生成まで。インストール不要、登録不要、100%プライバシー保護。",
+      "cta": "すべてのツールを見る",
+      "ctaSecondary": "GitHubで見る"
+    },
+    "features": {
+      "title": "Web Toolkitを選ぶ理由",
+      "privacy": {
+        "title": "100%クライアント処理",
+        "description": "すべての処理がブラウザ内で行われます。データはデバイスから送信されません。"
+      },
+      "speed": {
+        "title": "超高速",
+        "description": "サーバーへの往復がありません。すべての開発作業の結果を即座に確認できます。"
+      },
+      "free": {
+        "title": "完全無料",
+        "description": "隠れた制限や有料機能なしで、すべてのツールを無料でご利用いただけます。"
+      },
+      "offline": {
+        "title": "オフライン対応",
+        "description": "一度読み込まれると、ほとんどのツールがインターネット接続なしで動作します。"
+      }
+    },
+    "categories": {
+      "title": "カテゴリ別ツール",
+      "viewAll": "すべて表示"
+    },
+    "stats": {
+      "tools": "開発者ツール",
+      "categories": "カテゴリ",
+      "languages": "対応言語"
+    }
+  },
   "navigation": {
     "home": "ホーム",
     "tools": "ツール",
@@ -1560,6 +1597,69 @@
         "config": {
           "title": "設定オプション",
           "content": "主な設定項目：\n\n• printWidth: 行の最大幅（デフォルト: 80）\n• tabWidth: タブ幅（デフォルト: 2）\n• useTabs: タブを使用（デフォルト: false）\n• semi: セミコロン（デフォルト: true）\n• singleQuote: シングルクォート（デフォルト: false）\n• trailingComma: 末尾カンマ（es5, none, all）\n• bracketSpacing: オブジェクト内スペース"
+        }
+      }
+    },
+    "css-minifier": {
+      "summary": "CSSを圧縮・最適化して高速ロード",
+      "sections": {
+        "whatIs": {
+          "title": "CSS圧縮とは",
+          "content": "CSS圧縮は、機能を変更せずにCSSコードから不要な文字を削除します。\n\n削除対象：\n• 空白と改行\n• コメント\n• 末尾のセミコロン\n• 不要なゼロ単位\n\n結果：より小さいファイルサイズと高速なページロード。"
+        },
+        "benefits": {
+          "title": "メリット",
+          "content": "CSSを圧縮する理由：\n\n• 30-50%のファイルサイズ削減\n• ダウンロード時間の短縮\n• 帯域幅コストの削減\n• Core Web Vitalsの改善\n• SEOランキングの向上\n\ngzipと組み合わせて80%以上削減可能。"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "CSSの圧縮：\n\n1. CSSコードを貼り付け\n2. 「圧縮」ボタンをクリック\n3. 圧縮結果をコピー\n\nすべての処理はブラウザで - サーバーにデータは送信されません。"
+        },
+        "removed": {
+          "title": "削除される項目",
+          "content": "圧縮時に削除：\n\n✓ コメント /* */\n✓ 余分な空白\n✓ 改行とタブ\n✓ 末尾のセミコロン\n✓ ゼロ単位 (0px → 0)\n\n保持：セレクタ名、値、機能。"
+        }
+      }
+    },
+    "json-to-typescript": {
+      "summary": "JSONからTypeScriptインターフェースを生成",
+      "sections": {
+        "whatIs": {
+          "title": "JSON to TypeScriptとは",
+          "content": "このツールはJSONデータからTypeScriptインターフェースや型を自動生成します。\n\nメリット：\n• 型安全なAPIレスポンス\n• IDEでの自動補完\n• コンパイル時のエラー検出\n• より良いコードドキュメント\n\nREST API作業に最適です。"
+        },
+        "typeInference": {
+          "title": "型推論",
+          "content": "自動型検出：\n\n• 文字列 → string\n• 数値 → number\n• 真偽値 → boolean\n• 配列 → Type[]\n• オブジェクト → ネストインターフェース\n• Null → null\n\n深くネストされた構造も処理します。"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "TypeScript型の生成：\n\n1. JSONデータを貼り付け\n2. インターフェース名を設定（任意）\n3. 生成されたTypeScriptをコピー\n\n型安全な開発のためプロジェクトで使用してください。"
+        },
+        "apiResponse": {
+          "title": "APIレスポンス型",
+          "content": "一般的なユースケース：\n\n1. DevToolsからAPIレスポンスをコピー\n2. このツールに貼り付け\n3. 型付きインターフェースを取得\n4. fetch/axiosと使用\n\nAPIレスポンスの形式を推測する必要がなくなります。"
+        }
+      }
+    },
+    "text-case-converter": {
+      "summary": "様々な命名規則間でテキストを変換",
+      "sections": {
+        "whatIs": {
+          "title": "テキストケース変換とは",
+          "content": "プログラミングで使用される様々なケース形式間でテキストを変換します。\n\nサポート形式：\n• UPPERCASE / lowercase\n• Title Case / Sentence case\n• camelCase / PascalCase\n• snake_case / kebab-case\n• SCREAMING_SNAKE_CASE"
+        },
+        "programmingCases": {
+          "title": "プログラミング命名規則",
+          "content": "各ケースの使用場面：\n\n• camelCase: JS/TS変数、関数\n• PascalCase: クラス、Reactコンポーネント\n• snake_case: Python、データベース\n• kebab-case: CSSクラス、URL\n• CONSTANT_CASE: 定数、環境変数\n\n読みやすいコードのために言語規則に従いましょう。"
+        },
+        "howToUse": {
+          "title": "使用方法",
+          "content": "テキストケース変換：\n\n1. テキストを入力または貼り付け\n2. 対象ケース形式を選択\n3. 変換結果をコピー\n\nリアルタイムプレビューで即座に変換されます。"
+        },
+        "useCases": {
+          "title": "一般的なユースケース",
+          "content": "実用的なシナリオ：\n\n• APIレスポンス → フロントエンド変数\n• データベースカラム → TypeScriptフィールド\n• コンポーネント名 → ファイル名\n• CSSクラス → JS定数\n• 通常テキスト → 環境変数"
         }
       }
     }

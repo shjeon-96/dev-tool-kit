@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useDropzone, type Accept } from "react-dropzone";
-import { Upload, X, FileIcon } from "lucide-react";
+import { Upload, X, FileIcon, AlertTriangle } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { cn } from "@/shared/lib";
 
@@ -14,6 +14,7 @@ interface FileUploaderProps {
   preview?: string | null;
   onClear?: () => void;
   disabled?: boolean;
+  warnSize?: number; // Size threshold for performance warning
 }
 
 export function FileUploader({
@@ -24,14 +25,36 @@ export function FileUploader({
   preview,
   onClear,
   disabled = false,
+  warnSize,
 }: FileUploaderProps) {
+  const [sizeWarning, setSizeWarning] = useState<string | null>(null);
+
+  const formatSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    if (bytes < 1024 * 1024 * 1024)
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+  };
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
-        onFileSelect(acceptedFiles[0]);
+        const file = acceptedFiles[0];
+
+        // Check for size warning
+        if (warnSize && file.size > warnSize) {
+          setSizeWarning(
+            `Large file detected (${formatSize(file.size)}). Processing may take several minutes and use significant memory.`,
+          );
+        } else {
+          setSizeWarning(null);
+        }
+
+        onFileSelect(file);
       }
     },
-    [onFileSelect]
+    [onFileSelect, warnSize],
   );
 
   const { getRootProps, getInputProps, isDragActive, fileRejections } =
@@ -44,9 +67,7 @@ export function FileUploader({
     });
 
   const hasError = fileRejections.length > 0;
-  const errorMessage = hasError
-    ? fileRejections[0].errors[0].message
-    : null;
+  const errorMessage = hasError ? fileRejections[0].errors[0].message : null;
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -77,7 +98,7 @@ export function FileUploader({
               ? "border-primary bg-primary/5"
               : "border-muted-foreground/25 hover:border-muted-foreground/50",
             hasError && "border-destructive bg-destructive/5",
-            disabled && "opacity-50 cursor-not-allowed"
+            disabled && "opacity-50 cursor-not-allowed",
           )}
         >
           <input {...getInputProps()} />
@@ -104,6 +125,13 @@ export function FileUploader({
 
       {errorMessage && (
         <p className="text-sm text-destructive">{errorMessage}</p>
+      )}
+
+      {sizeWarning && (
+        <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-700 dark:text-yellow-400">
+          <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
+          <p className="text-sm">{sizeWarning}</p>
+        </div>
       )}
     </div>
   );

@@ -26,6 +26,9 @@ import { curlBuilderGuide } from "./curl-builder";
 import { svgOptimizerGuide } from "./svg-optimizer";
 import { cssToTailwindGuide } from "./css-to-tailwind";
 import { prettierPlaygroundGuide } from "./prettier-playground";
+import { cssMinifierGuide } from "./css-minifier";
+import { jsonToTypescriptGuide } from "./json-to-typescript";
+import { textCaseConverterGuide } from "./text-case-converter";
 import type { Guide, GuideSlug } from "../model/types";
 
 export const guides: Record<GuideSlug, Guide> = {
@@ -57,6 +60,9 @@ export const guides: Record<GuideSlug, Guide> = {
   "svg-optimizer": svgOptimizerGuide,
   "css-to-tailwind": cssToTailwindGuide,
   "prettier-playground": prettierPlaygroundGuide,
+  "css-minifier": cssMinifierGuide,
+  "json-to-typescript": jsonToTypescriptGuide,
+  "text-case-converter": textCaseConverterGuide,
 };
 
 export function getGuide(slug: string): Guide | undefined {
