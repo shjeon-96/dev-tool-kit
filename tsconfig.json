@@ -29,15 +29,14 @@
     }
   },
   "include": [
-    ".plasmo/index.d.ts",
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts",
-    "extension/**/*.ts",
-    "extension/**/*.tsx"
+    "e2e/**/*.ts",
+    "*.ts",
+    "*.mts"
   ],
-  "exclude": ["node_modules", ".plasmo", "build"]
+  "exclude": ["node_modules", ".plasmo", "build", "extension"]
 }

@@ -36,6 +36,7 @@ export function HashGenerator() {
     hashes,
     compareHash,
     isProcessing,
+    progress,
     error,
     setTextInput,
     setCompareHash,
@@ -76,6 +77,14 @@ export function HashGenerator() {
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    if (bytes < 1024 * 1024 * 1024)
+      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
   };
 
   const truncateText = (text: string, maxLength: number = 30) => {
@@ -210,7 +219,7 @@ export function HashGenerator() {
             <FileUploader
               onFileSelect={handleFileSelect}
               accept={{ "*/*": [] }}
-              maxSize={100 * 1024 * 1024}
+              maxSize={2 * 1024 * 1024 * 1024} // 2GB limit
             />
           ) : (
             <div className="rounded-lg border p-4">
@@ -218,7 +227,7 @@ export function HashGenerator() {
                 <div>
                   <p className="font-medium">{file.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    {(file.size / 1024).toFixed(2)} KB
+                    {formatFileSize(file.size)}
                   </p>
                 </div>
                 <Button
@@ -253,14 +262,25 @@ export function HashGenerator() {
         </div>
       )}
 
-      {/* Processing Indicator */}
+      {/* Processing Indicator with Progress */}
       {isProcessing && (
         <div
           role="status"
           aria-live="polite"
-          className="rounded-lg border p-4 text-center text-muted-foreground"
+          className="rounded-lg border p-4 space-y-3"
         >
-          해시 계산 중...
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">해시 계산 중...</span>
+            {progress > 0 && <span className="font-medium">{progress}%</span>}
+          </div>
+          {progress > 0 && (
+            <div className="h-2 rounded-full bg-muted overflow-hidden">
+              <div
+                className="h-full bg-primary transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          )}
         </div>
       )}
 

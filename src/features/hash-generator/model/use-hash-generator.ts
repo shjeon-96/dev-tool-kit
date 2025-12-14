@@ -3,12 +3,13 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useToolHistory, useUrlState } from "@/shared/lib";
 import {
-  computeHash,
-  computeAllHashes,
+  computeHashWasm,
+  computeAllHashesWasm,
+  computeAllFileHashesWasm,
   compareHashes,
   type HashAlgorithm,
   type HashResult,
-} from "../lib/hash";
+} from "../lib/hash-wasm";
 
 // Re-export types for external use
 export type { HashAlgorithm, HashResult };
@@ -39,6 +40,7 @@ export function useHashGenerator() {
   const [hashes, setHashes] = useState<HashResult[]>([]);
   const [compareHashInput, setCompareHashInput] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   const { history, addToHistory, clearHistory, hasHistory } =
@@ -76,9 +78,14 @@ export function useHashGenerator() {
     [inputMode, setUrlState],
   );
 
-  const generateHashes = useCallback((input: string) => {
-    const results = computeAllHashes(input);
-    setHashes(results);
+  const generateHashes = useCallback(async (input: string) => {
+    try {
+      const results = await computeAllHashesWasm(input);
+      setHashes(results);
+    } catch (err) {
+      setError("해시 생성 중 오류가 발생했습니다");
+      console.error("Hash generation error:", err);
+    }
   }, []);
 
   // Generate hashes for text input (with debounce)
@@ -87,19 +94,25 @@ export function useHashGenerator() {
 
     const timer = setTimeout(() => {
       if (textInput.trim()) {
-        generateHashes(textInput);
         setError(null);
+        void (async () => {
+          await generateHashes(textInput);
 
-        // 히스토리에 저장 (중복 방지)
-        if (textInput !== lastSavedInput.current && textInput.length > 0) {
-          const sha256Hash = computeHash(textInput, "sha256");
-          const truncatedInput =
-            textInput.length > 50
-              ? textInput.substring(0, 50) + "..."
-              : textInput;
-          addToHistory(truncatedInput, sha256Hash);
-          lastSavedInput.current = textInput;
-        }
+          // 히스토리에 저장 (중복 방지)
+          if (textInput !== lastSavedInput.current && textInput.length > 0) {
+            try {
+              const sha256Hash = await computeHashWasm(textInput, "sha256");
+              const truncatedInput =
+                textInput.length > 50
+                  ? textInput.substring(0, 50) + "..."
+                  : textInput;
+              addToHistory(truncatedInput, sha256Hash);
+              lastSavedInput.current = textInput;
+            } catch {
+              // History save error - silent fail
+            }
+          }
+        })();
       } else {
         setHashes([]);
       }
@@ -108,34 +121,32 @@ export function useHashGenerator() {
     return () => clearTimeout(timer);
   }, [textInput, inputMode, generateHashes, addToHistory]);
 
-  // Process file when selected
-  const processFile = useCallback((selectedFile: File) => {
+  // Process file when selected (chunked streaming for large files)
+  const processFile = useCallback(async (selectedFile: File) => {
     setIsProcessing(true);
+    setProgress(0);
     setError(null);
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const content = e.target?.result as string;
-
-      // Generate hashes from the raw content using pure function
-      const results = computeAllHashes(content);
+    try {
+      // Use Wasm-based chunked streaming for efficient large file processing
+      const results = await computeAllFileHashesWasm(selectedFile, (prog) => {
+        setProgress(prog);
+      });
       setHashes(results);
+    } catch (err) {
+      setError("파일 해시 생성 중 오류가 발생했습니다");
+      console.error("File hash error:", err);
+    } finally {
       setIsProcessing(false);
-    };
-    reader.onerror = () => {
-      setError("파일을 읽는데 실패했습니다");
-      setIsProcessing(false);
-    };
-    reader.readAsBinaryString(selectedFile);
+      setProgress(0);
+    }
   }, []);
 
   // Trigger file processing when file changes
   useEffect(() => {
     if (inputMode !== "file" || !file) return;
-    // Use requestAnimationFrame to avoid synchronous setState in effect
-    requestAnimationFrame(() => {
-      processFile(file);
-    });
+    // Use void to handle the async function
+    void processFile(file);
   }, [file, inputMode, processFile]);
 
   const handleFileSelect = useCallback((selectedFile: File) => {
@@ -200,6 +211,7 @@ export function useHashGenerator() {
     hashes,
     compareHash: compareHashInput,
     isProcessing,
+    progress,
     error,
     setTextInput,
     setCompareHash: setCompareHashInput,

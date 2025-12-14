@@ -1,0 +1,5 @@
+# Chrome Extension - separate build process
+extension/
+
+# Plasmo build artifacts
+.plasmo/

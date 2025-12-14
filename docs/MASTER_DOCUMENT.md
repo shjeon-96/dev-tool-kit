@@ -1982,10 +1982,10 @@ async headers() {
 
 ### 19.4 Wasm 격리 도구
 
-| 도구               | 경로                    | Wasm 용도                      |
-| ------------------ | ----------------------- | ------------------------------ |
-| **Image Resizer**  | `/tools/image-resizer`  | FFmpeg.wasm - Lanczos 리샘플링 |
-| **Hash Generator** | `/tools/hash-generator` | 예정 - 고속 해싱               |
+| 도구               | 경로                    | Wasm 용도                                  |
+| ------------------ | ----------------------- | ------------------------------------------ |
+| **Image Resizer**  | `/tools/image-resizer`  | FFmpeg.wasm - Lanczos 리샘플링             |
+| **Hash Generator** | `/tools/hash-generator` | hash-wasm - 청크 스트리밍 해싱 (1GB+ 지원) |
 
 ### 19.5 FFmpeg Hook
 
@@ -2089,6 +2089,20 @@ src/shared/lib/
 └── wasm/
     ├── index.ts          # 모듈 export
     └── isolated-pages.ts # 격리 페이지 유틸리티
+
+src/features/hash-generator/
+├── lib/
+│   ├── hash.ts           # 기존 CryptoJS 기반 (레거시)
+│   └── hash-wasm.ts      # hash-wasm 기반 (신규)
+├── model/
+│   └── use-hash-generator.ts  # hash-wasm 사용
+└── ui/
+    └── hash-generator.tsx     # 진행률 표시 UI
+
+e2e/
+├── security-headers.spec.ts   # COOP/COEP 헤더 테스트
+├── ad-isolation.spec.ts       # 광고 격리 테스트
+└── image-resizer.spec.ts      # Image Resizer 스모크 테스트
 ```
 
 ### 19.10 의존성
@@ -2096,7 +2110,8 @@ src/shared/lib/
 ```json
 {
   "@ffmpeg/ffmpeg": "^0.12.15",
-  "@ffmpeg/util": "^0.12.1"
+  "@ffmpeg/util": "^0.12.1",
+  "hash-wasm": "^4.11.0"
 }
 ```
 
@@ -2120,17 +2135,91 @@ src/shared/lib/
 - ✅ Canvas 폴백 구현
 - ✅ 광고 조건부 렌더링
 
-**Phase 2 (계획):**
+**Phase 2 (완료):**
 
-- Hash Generator Wasm 업그레이드
-- Video Converter 도구 추가
-- Audio Converter 도구 추가
+- ✅ Hash Generator Wasm 업그레이드 (hash-wasm)
+  - 청크 스트리밍으로 1GB+ 파일 지원
+  - MD5, SHA-1, SHA-256, SHA-512 동시 계산
+  - 실시간 진행률 표시
+- Video Converter 도구 추가 (예정)
+- Audio Converter 도구 추가 (예정)
 
-**Phase 3 (계획):**
+**Phase 3 (완료):**
 
-- PWA 오프라인 Wasm 캐싱
-- Worker Pool 최적화
-- SIMD 최적화
+- ✅ Playwright E2E 테스트
+  - Security Headers 테스트 (COOP/COEP)
+  - Ad Isolation 테스트
+  - Image Resizer Smoke 테스트
+- PWA 오프라인 Wasm 캐싱 (예정)
+- Worker Pool 최적화 (예정)
+- SIMD 최적화 (예정)
+
+### 19.13 Hash Generator Wasm 통합
+
+**파일**: `src/features/hash-generator/lib/hash-wasm.ts`
+
+**청크 스트리밍 처리:**
+
+```typescript
+// File.stream()과 ReadableStream을 사용하여 대용량 파일 처리
+const stream = file.stream();
+const reader = stream.getReader();
+
+while (true) {
+  const { done, value } = await reader.read();
+  if (done) break;
+  // 각 청크를 모든 해시 알고리즘에 동시 업데이트
+  hashers.forEach(({ hasher }) => hasher.update(value));
+  // 진행률 콜백
+  if (onProgress) {
+    onProgress(Math.round((processedSize / totalSize) * 100));
+  }
+}
+```
+
+**특징:**
+
+- **청크 스트리밍**: 메모리 효율적 대용량 파일 처리
+- **병렬 해싱**: 4개 알고리즘 동시 계산 (MD5, SHA-1, SHA-256, SHA-512)
+- **진행률 추적**: 실시간 처리 상태 표시
+- **파일 크기 제한**: 2GB (브라우저 메모리 안정성)
+
+**의존성:**
+
+```json
+{
+  "hash-wasm": "^4.11.0"
+}
+```
+
+### 19.14 E2E 테스트 (Playwright)
+
+**테스트 파일 구조:**
+
+```
+e2e/
+├── security-headers.spec.ts   # COOP/COEP 헤더 테스트
+├── ad-isolation.spec.ts       # 광고 격리 테스트
+└── image-resizer.spec.ts      # Image Resizer 스모크 테스트
+```
+
+**Security Headers 테스트:**
+
+- Wasm 격리 페이지에서 COOP/COEP 헤더 확인
+- SharedArrayBuffer 사용 가능 여부 검증
+- 비격리 페이지에서 헤더 미적용 확인
+
+**Ad Isolation 테스트:**
+
+- Wasm 페이지에서 광고 컨테이너 미존재 확인
+- AdSense 스크립트 미로드 확인
+- 비격리 페이지에서 광고 허용 확인
+
+**Image Resizer 테스트:**
+
+- FFmpeg 로딩 인디케이터 표시 확인
+- crossOriginIsolated 상태 검증
+- 콘솔 에러 감지
 
 ---
 
@@ -2147,6 +2236,7 @@ src/shared/lib/
 | **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                                                    |
 | **UX Enhancement 기능**   | 11개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share, Chrome Extension, WebAssembly) |
 | **Chrome Extension**      | Plasmo 기반, Context Menu, Popup                                                                                                                                 |
+| **E2E 테스트**            | 3개 (Security Headers, Ad Isolation, Image Resizer)                                                                                                              |
 
 ---
 
@@ -2154,18 +2244,35 @@ src/shared/lib/
 
 ### v0.5.0 (2025-12-14)
 
-**새로운 기능:**
+**Phase 1 - WebAssembly 통합:**
 
-- **WebAssembly 통합**: FFmpeg.wasm으로 고성능 이미지 처리
+- **FFmpeg.wasm**: 고성능 이미지 처리
   - Image Resizer: Lanczos 알고리즘 기반 고품질 리사이즈
   - Route-Specific COOP/COEP 헤더 (AdSense 호환)
   - Canvas 폴백 (구형 브라우저 지원)
 
+**Phase 2 - Hash Generator Wasm 업그레이드:**
+
+- **hash-wasm 통합**: 청크 스트리밍 해싱
+  - 1GB+ 대용량 파일 지원
+  - MD5, SHA-1, SHA-256, SHA-512 동시 계산
+  - 실시간 진행률 표시
+  - 파일 크기 제한 2GB로 확대
+
+**Phase 3 - E2E 테스트:**
+
+- **Playwright 테스트 추가**:
+  - `e2e/security-headers.spec.ts` - COOP/COEP 헤더 테스트
+  - `e2e/ad-isolation.spec.ts` - 광고 격리 테스트
+  - `e2e/image-resizer.spec.ts` - FFmpeg 스모크 테스트
+
 **인프라 변경:**
 
 - `next.config.ts`: Route-Specific 보안 헤더 추가
-- 광고 조건부 렌더링 (Wasm 격리 페이지)
-- SharedArrayBuffer 지원 감지
+- `tsconfig.json`: Extension 폴더 exclude 추가 (`src/**/*.ts` 패턴)
+- `eslint.config.mjs`: Extension 폴더 globalIgnores 추가
+- `.vercelignore`: Extension 빌드 제외
+- `vercel.json`: Vercel 배포 설정
 
 **새로운 파일:**
 
@@ -2173,11 +2280,18 @@ src/shared/lib/
 - `src/shared/lib/ffmpeg/index.ts` - FFmpeg 모듈 export
 - `src/shared/lib/wasm/isolated-pages.ts` - Wasm 페이지 감지
 - `src/shared/lib/wasm/index.ts` - Wasm 모듈 export
+- `src/features/hash-generator/lib/hash-wasm.ts` - Wasm 해싱 라이브러리
+- `e2e/security-headers.spec.ts` - 보안 헤더 E2E 테스트
+- `e2e/ad-isolation.spec.ts` - 광고 격리 E2E 테스트
+- `e2e/image-resizer.spec.ts` - 이미지 리사이저 E2E 테스트
+- `.vercelignore` - Vercel 빌드 제외 설정
+- `vercel.json` - Vercel 배포 설정
 
 **의존성 추가:**
 
 - `@ffmpeg/ffmpeg` - FFmpeg WebAssembly
 - `@ffmpeg/util` - FFmpeg 유틸리티
+- `hash-wasm` - WebAssembly 해싱 라이브러리
 
 ---
 
