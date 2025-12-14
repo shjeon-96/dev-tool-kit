@@ -8,6 +8,7 @@ import { Sidebar } from "@/widgets/sidebar";
 import { Header } from "@/widgets/header";
 import { Footer } from "@/widgets/footer";
 import { ThemeProvider, JsonLd, ClarityScript } from "@/shared/ui";
+import { SmartPasteProvider } from "@/features/smart-paste";
 import { SITE_CONFIG } from "@/shared/config";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
@@ -180,25 +181,29 @@ export default async function LocaleLayout({
             <a href="#main-content" className="skip-link">
               {locale === "ko" ? "본문으로 건너뛰기" : "Skip to main content"}
             </a>
-            <div className="flex h-screen bg-background">
-              <aside
-                className="hidden w-64 flex-col md:flex"
-                aria-label={
-                  locale === "ko" ? "사이드바 네비게이션" : "Sidebar navigation"
-                }
-              >
-                <Sidebar />
-              </aside>
-              <main
-                id="main-content"
-                className="flex-1 flex flex-col overflow-hidden"
-                role="main"
-              >
-                <Header />
-                <div className="flex-1 overflow-y-auto p-6">{children}</div>
-                <Footer />
-              </main>
-            </div>
+            <SmartPasteProvider>
+              <div className="flex h-screen bg-background">
+                <aside
+                  className="hidden w-64 flex-col md:flex"
+                  aria-label={
+                    locale === "ko"
+                      ? "사이드바 네비게이션"
+                      : "Sidebar navigation"
+                  }
+                >
+                  <Sidebar />
+                </aside>
+                <main
+                  id="main-content"
+                  className="flex-1 flex flex-col overflow-hidden"
+                  role="main"
+                >
+                  <Header />
+                  <div className="flex-1 overflow-y-auto p-6">{children}</div>
+                  <Footer />
+                </main>
+              </div>
+            </SmartPasteProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
