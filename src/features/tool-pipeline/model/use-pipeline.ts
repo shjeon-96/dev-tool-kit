@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import type { ToolSlug } from "@/entities/tool";
 import { getConnectableTools } from "./types";
 import {
@@ -150,4 +150,34 @@ export function usePipelineReceiver() {
     checkForPipelineData,
     clearReceivedData,
   };
+}
+
+/**
+ * Simplified hook for receiving pipeline data
+ * Automatically checks for data on mount and calls onReceive when data is available
+ *
+ * @example
+ * ```tsx
+ * // In a tool component:
+ * usePipelineInput((data) => setInput(data));
+ * ```
+ */
+export function usePipelineInput(onReceive: (data: string) => void) {
+  const { receivedData, checkForPipelineData, clearReceivedData } =
+    usePipelineReceiver();
+
+  // Check for pipeline data on mount
+  useEffect(() => {
+    checkForPipelineData();
+  }, [checkForPipelineData]);
+
+  // Process received data
+  useEffect(() => {
+    if (receivedData) {
+      onReceive(receivedData.data);
+      clearReceivedData();
+    }
+  }, [receivedData, onReceive, clearReceivedData]);
+
+  return { receivedData };
 }

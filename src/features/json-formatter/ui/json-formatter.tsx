@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { Copy, Check, Trash2, ClipboardPaste, History, X } from "lucide-react";
 import { Button, ShareButton, ToolActionsBar } from "@/shared/ui";
+import { useCopyToClipboard } from "@/shared/lib";
 import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
-import { usePipelineReceiver } from "@/features/tool-pipeline";
+import { usePipelineInput } from "@/features/tool-pipeline";
 
 export function JsonFormatter() {
   const {
@@ -15,7 +16,6 @@ export function JsonFormatter() {
     setInput,
     setIndent,
     handleFormat,
-    handleCopy,
     handleClear,
     handlePaste,
     history,
@@ -25,30 +25,17 @@ export function JsonFormatter() {
     getShareUrl,
   } = useJsonFormatter();
 
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useCopyToClipboard();
   const [showHistory, setShowHistory] = useState(false);
-  const { receivedData, checkForPipelineData, clearReceivedData } =
-    usePipelineReceiver();
 
-  // Pipeline에서 받은 데이터 처리
-  useEffect(() => {
-    checkForPipelineData();
-  }, [checkForPipelineData]);
+  // Pipeline에서 받은 데이터 처리 (simplified)
+  const handlePipelineData = useCallback(
+    (data: string) => setInput(data),
+    [setInput],
+  );
+  usePipelineInput(handlePipelineData);
 
-  useEffect(() => {
-    if (receivedData) {
-      setInput(receivedData.data);
-      clearReceivedData();
-    }
-  }, [receivedData, setInput, clearReceivedData]);
-
-  const onCopy = async () => {
-    const success = await handleCopy();
-    if (success) {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
+  const onCopy = () => copy(output);
 
   const formatButtons: { mode: FormatMode; label: string }[] = [
     { mode: "beautify", label: "Beautify" },

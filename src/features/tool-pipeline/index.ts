@@ -1,6 +1,10 @@
 export { PipelineButton } from "./ui/pipeline-button";
 export { PipelineNotification } from "./ui/pipeline-notification";
-export { usePipeline, usePipelineReceiver } from "./model/use-pipeline";
+export {
+  usePipeline,
+  usePipelineReceiver,
+  usePipelineInput,
+} from "./model/use-pipeline";
 export {
   // Legacy connection functions (backward compatible)
   getConnectableTools,

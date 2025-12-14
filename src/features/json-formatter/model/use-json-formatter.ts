@@ -101,16 +101,6 @@ export function useJsonFormatter() {
     [input, indent, addToHistory],
   );
 
-  const handleCopy = useCallback(async () => {
-    if (!output) return false;
-    try {
-      await navigator.clipboard.writeText(output);
-      return true;
-    } catch {
-      return false;
-    }
-  }, [output]);
-
   const handleClear = useCallback(() => {
     setInputInternal("");
     setOutput("");
@@ -145,7 +135,6 @@ export function useJsonFormatter() {
     setInput,
     setIndent,
     handleFormat,
-    handleCopy,
     handleClear,
     handlePaste,
     // 히스토리 관련

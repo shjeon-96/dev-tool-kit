@@ -1,14 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import { isWasmIsolatedPage } from "@/shared/lib/wasm";
-
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
-}
+import { useAdSense } from "@/shared/lib/hooks/use-ad-sense";
 
 interface AdUnitProps {
   slot: string;
@@ -31,47 +23,9 @@ export function AdUnit({
   responsive = true,
   className = "",
 }: AdUnitProps) {
-  const pathname = usePathname();
-  const adRef = useRef<HTMLDivElement>(null);
-  const isAdLoaded = useRef(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const { adRef, isLoading, isIsolated } = useAdSense();
 
-  // Wasm 격리 페이지에서는 광고 렌더링 안 함 (COOP/COEP 헤더로 인해 외부 스크립트 차단됨)
-  const isIsolated = pathname ? isWasmIsolatedPage(pathname) : false;
-
-  useEffect(() => {
-    // 격리된 페이지에서는 광고 로드 시도하지 않음
-    if (isIsolated || isAdLoaded.current) return;
-
-    let timeoutId: NodeJS.Timeout;
-
-    try {
-      if (typeof window !== "undefined" && adRef.current) {
-        // Check if ad is already present
-        const existingAd = adRef.current.querySelector(".adsbygoogle");
-        if (existingAd && existingAd.getAttribute("data-adsbygoogle-status")) {
-          // Use timeout to avoid synchronous setState in effect
-          timeoutId = setTimeout(() => setIsLoading(false), 0);
-          return;
-        }
-
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        isAdLoaded.current = true;
-
-        // Hide skeleton after a delay (ad might take time to load)
-        timeoutId = setTimeout(() => setIsLoading(false), 1500);
-      }
-    } catch (error) {
-      console.error("AdSense error:", error);
-      timeoutId = setTimeout(() => setIsLoading(false), 0);
-    }
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [isIsolated]);
-
-  // Wasm 격리 페이지에서는 광고 UI도 렌더링하지 않음
+  // Don't render ads on WASM isolated pages
   if (isIsolated) {
     return null;
   }
