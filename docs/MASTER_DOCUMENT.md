@@ -2357,6 +2357,20 @@ e2e/
   - robots.txt 보안 규칙 추가 (`/api/`, `/s/`, `/_next/` disallow)
   - sitemap.ts 검증 완료 (31 tools, 14 cheatsheets, 31 guides, 3 locales)
 
+**i18n 번역 키 수정:**
+
+- **Guide Section Keys 마이그레이션**:
+  - 31개 가이드의 section 키를 camelCase → kebab-case로 변환
+  - `messages/en.json`, `ko.json`, `ja.json` 모두 업데이트
+  - page.tsx에서 `section.id`로 번역 조회하는 패턴에 맞춤
+  - 빌드 시 MISSING_MESSAGE 에러 해결
+
+**Deployment Fix:**
+
+- **vercel.json 수정**:
+  - `ignoreCommand: "exit 0"` 제거 (모든 빌드 스킵하던 설정)
+  - Vercel 자동 배포 활성화
+
 **Production Ready:**
 
 - Google Analytics 4: G-BHCZK28NQQ ✅
@@ -2364,6 +2378,7 @@ e2e/
 - Vercel 배포 설정 완료 ✅
 - Chrome Extension 빌드 완료 ✅
 - WebAssembly 통합 완료 ✅
+- 빌드 검증 완료 (249 페이지) ✅
 
 ---
 
