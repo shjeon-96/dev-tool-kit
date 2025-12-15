@@ -30,6 +30,7 @@ import {
   FileCode,
   Minimize2,
   CaseSensitive,
+  FileVideo,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -226,6 +227,13 @@ export const tools: Record<ToolSlug, Tool> = {
       "텍스트를 다양한 케이스(camelCase, snake_case 등)로 변환합니다.",
     icon: CaseSensitive,
     category: "converters",
+  },
+  "video-compressor": {
+    title: "Video Compressor",
+    description:
+      "브라우저에서 비디오 파일을 압축합니다. FFmpeg.wasm 기반 100% 로컬 처리.",
+    icon: FileVideo,
+    category: "media",
   },
 };
 

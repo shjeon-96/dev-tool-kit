@@ -44,3 +44,8 @@ export { Skeleton, SkeletonText, SkeletonCard } from "./skeleton";
 export { ErrorMessage, EmptyState } from "./error-message";
 export { ErrorBoundary, ErrorBoundaryWithReset } from "./error-boundary";
 export { ToastProvider, useToast } from "./toast";
+export {
+  OfflineIndicator,
+  OfflineBadge,
+  OfflineStatusIcon,
+} from "./offline-indicator";

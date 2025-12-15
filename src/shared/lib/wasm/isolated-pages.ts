@@ -2,7 +2,11 @@
  * List of tool slugs that use WebAssembly with COOP/COEP headers.
  * These pages have SharedArrayBuffer enabled but cannot load external scripts (AdSense, etc.)
  */
-export const WASM_ISOLATED_TOOLS = ["image-resizer", "hash-generator"] as const;
+export const WASM_ISOLATED_TOOLS = [
+  "image-resizer",
+  "hash-generator",
+  "video-compressor",
+] as const;
 
 export type WasmIsolatedTool = (typeof WASM_ISOLATED_TOOLS)[number];
 

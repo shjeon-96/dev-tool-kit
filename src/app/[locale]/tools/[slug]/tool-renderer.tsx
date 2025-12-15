@@ -148,6 +148,11 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
       ),
     { ssr: false },
   ),
+  "video-compressor": dynamic(
+    () =>
+      import("@/features/video-compressor").then((mod) => mod.VideoCompressor),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

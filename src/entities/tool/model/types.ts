@@ -40,4 +40,5 @@ export type ToolSlug =
   | "prettier-playground"
   | "json-to-typescript"
   | "css-minifier"
-  | "text-case-converter";
+  | "text-case-converter"
+  | "video-compressor";

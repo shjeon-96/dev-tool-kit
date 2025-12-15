@@ -304,6 +304,10 @@
     "text-case-converter": {
       "title": "Text Case Converter",
       "description": "Convert text to various cases (camelCase, snake_case, etc.)."
+    },
+    "video-compressor": {
+      "title": "Video Compressor",
+      "description": "Compress video files in your browser. 100% local processing with FFmpeg.wasm."
     }
   },
   "seo": {
@@ -934,6 +938,27 @@
         {
           "q": "When should I use each case?",
           "a": "camelCase for JavaScript variables, snake_case for Python, kebab-case for CSS classes and URLs."
+        }
+      ]
+    },
+    "video-compressor": {
+      "whatIs": "Video Compressor uses FFmpeg.wasm to compress video files directly in your browser. All processing happens 100% locally on your device.",
+      "howToUse": "Upload a video file, select a quality preset, and click the compress button. Download the compressed file when ready.",
+      "features": [
+        "High-performance compression with FFmpeg.wasm",
+        "Multiple codecs supported (H.264, VP9)",
+        "Adjustable resolution and quality settings",
+        "100% browser-side processing (no server upload)",
+        "Web streaming optimization (Fast Start)"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to a server?",
+          "a": "No, all processing happens in your browser and your files are never sent to any server."
+        },
+        {
+          "q": "What formats are supported?",
+          "a": "MP4, WebM, MOV, AVI and other major video formats. Maximum file size is 500MB."
         }
       ]
     }

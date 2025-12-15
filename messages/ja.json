@@ -274,6 +274,10 @@
     "text-case-converter": {
       "title": "Text Case Converter",
       "description": "テキストを様々なケース（camelCase、snake_caseなど）に変換します。"
+    },
+    "video-compressor": {
+      "title": "Video Compressor",
+      "description": "ブラウザで動画ファイルを圧縮。FFmpeg.wasmによる100%ローカル処理。"
     }
   },
   "seo": {
@@ -904,6 +908,27 @@
         {
           "q": "各ケースはいつ使用すべきですか？",
           "a": "JavaScript変数にはcamelCase、Pythonにはsnake_case、CSSクラスやURLにはkebab-caseを使用してください。"
+        }
+      ]
+    },
+    "video-compressor": {
+      "whatIs": "Video Compressorは、FFmpeg.wasmを使用してブラウザで直接動画ファイルを圧縮するツールです。すべての処理は100%ローカルで行われます。",
+      "howToUse": "動画ファイルをアップロードし、品質プリセットを選択して圧縮ボタンをクリックします。圧縮されたファイルをダウンロードできます。",
+      "features": [
+        "FFmpeg.wasmによる高性能圧縮",
+        "H.264、VP9など複数のコーデックをサポート",
+        "解像度と品質の調整が可能",
+        "100%ブラウザ内処理（サーバー転送なし）",
+        "Webストリーミング最適化（Fast Start）"
+      ],
+      "faq": [
+        {
+          "q": "動画ファイルはサーバーに転送されますか？",
+          "a": "いいえ、すべての処理はブラウザ内で行われ、ファイルは一切サーバーに送信されません。"
+        },
+        {
+          "q": "どのフォーマットがサポートされていますか？",
+          "a": "MP4、WebM、MOV、AVIなど主要な動画フォーマットをサポートしており、最大500MBまで処理できます。"
         }
       ]
     }
