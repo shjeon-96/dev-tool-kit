@@ -12,7 +12,14 @@ import {
   SelectValue,
   Switch,
 } from "@/shared/ui";
-import { Copy, Check, Trash2, ClipboardPaste, Wand2, Minimize2 } from "lucide-react";
+import {
+  Copy,
+  Check,
+  Trash2,
+  ClipboardPaste,
+  Wand2,
+  Minimize2,
+} from "lucide-react";
 
 const dialects: { value: SqlDialect; label: string }[] = [
   { value: "sql", label: "Standard SQL" },
@@ -101,7 +108,9 @@ export function SqlFormatter() {
             <Switch
               id="uppercase"
               checked={options.uppercase}
-              onCheckedChange={(checked) => updateOptions({ uppercase: checked })}
+              onCheckedChange={(checked) =>
+                updateOptions({ uppercase: checked })
+              }
             />
           </div>
 
@@ -126,7 +135,7 @@ export function SqlFormatter() {
       )}
 
       {/* Editor */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         {/* Input */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">

@@ -12,8 +12,9 @@ import {
   TabsTrigger,
   TabsContent,
   ShareButton,
-  ToolActionsBar,
+  EmptyState,
 } from "@/shared/ui";
+import { ToolActionsBar } from "@/widgets/tool-actions-bar";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 import {
   Copy,
@@ -26,6 +27,7 @@ import {
   History,
   Trash2,
   X,
+  ShieldCheck,
 } from "lucide-react";
 
 export function HashGenerator() {
@@ -283,6 +285,16 @@ export function HashGenerator() {
             </div>
           )}
         </div>
+      )}
+
+      {/* Empty State */}
+      {hashes.length === 0 && !isProcessing && !error && (
+        <EmptyState
+          icon={<ShieldCheck className="h-12 w-12" />}
+          title="Generate secure hashes"
+          description="Enter text or upload a file to generate MD5, SHA-1, SHA-256, and SHA-512 hashes. You can also compare hashes to verify file integrity."
+          className="min-h-[200px]"
+        />
       )}
 
       {/* Hash Results */}

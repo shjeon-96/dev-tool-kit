@@ -61,7 +61,8 @@
   "footer": {
     "copyright": "© 2025 Web Toolkit. All rights reserved.",
     "privacy": "Privacy Policy",
-    "github": "GitHub"
+    "github": "GitHub",
+    "rights": "All rights reserved."
   },
   "pricing": {
     "title": "Simple, Transparent Pricing",

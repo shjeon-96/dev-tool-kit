@@ -9,7 +9,8 @@ import {
   Upload,
   ArrowRightLeft,
 } from "lucide-react";
-import { Button, ToolActionsBar } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { ToolActionsBar } from "@/widgets/tool-actions-bar";
 import { useBase64 } from "../model/use-base64";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 
@@ -153,7 +154,7 @@ export function Base64Converter() {
       )}
 
       {/* Input/Output */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-2">
           <label className="text-sm font-medium">
             {mode === "encode" ? "Text" : "Base64"}

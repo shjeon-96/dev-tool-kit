@@ -14,7 +14,11 @@ import {
 import { ArrowDownUp, Copy, Trash2, Check } from "lucide-react";
 import { useState } from "react";
 
-const modeOptions: { value: EncodingMode; label: string; description: string }[] = [
+const modeOptions: {
+  value: EncodingMode;
+  label: string;
+  description: string;
+}[] = [
   {
     value: "encodeURIComponent",
     label: "encodeURIComponent",
@@ -106,7 +110,7 @@ export function UrlEncoder() {
       </p>
 
       {/* Input/Output */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-2">
           <Label>{isEncoding ? "원본 텍스트" : "인코딩된 텍스트"}</Label>
           <Textarea
@@ -141,7 +145,8 @@ export function UrlEncoder() {
         <h4 className="font-medium">참고</h4>
         <div className="text-sm text-muted-foreground space-y-1">
           <p>
-            <strong>encodeURIComponent:</strong> 모든 특수문자 인코딩 (쿼리 파라미터에 사용)
+            <strong>encodeURIComponent:</strong> 모든 특수문자 인코딩 (쿼리
+            파라미터에 사용)
           </p>
           <p>
             <strong>encodeURI:</strong> URL 예약문자(: / ? # @ 등) 유지

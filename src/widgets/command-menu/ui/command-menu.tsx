@@ -128,7 +128,11 @@ export function CommandMenu() {
           onValueChange={setSearch}
           onClose={() => setOpen(false)}
         />
-        <CommandList className="max-h-[420px]">
+        <CommandList
+          className="max-h-[420px]"
+          aria-live="polite"
+          aria-atomic="false"
+        >
           <CommandEmpty>
             <div className="py-14 text-center">
               <div className="mx-auto w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4">

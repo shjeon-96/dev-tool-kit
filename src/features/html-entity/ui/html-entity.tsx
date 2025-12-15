@@ -17,7 +17,11 @@ import { useState } from "react";
 const modeOptions: { value: EntityMode; label: string; example: string }[] = [
   { value: "named", label: "Named Entity", example: "&amp; &lt; &gt;" },
   { value: "numeric", label: "Numeric (Hex)", example: "&#x26; &#x3C; &#x3E;" },
-  { value: "decimal", label: "Numeric (Decimal)", example: "&#38; &#60; &#62;" },
+  {
+    value: "decimal",
+    label: "Numeric (Decimal)",
+    example: "&#38; &#60; &#62;",
+  },
 ];
 
 const commonEntities = [
@@ -112,7 +116,7 @@ export function HtmlEntity() {
       </p>
 
       {/* Input/Output */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-2">
           <Label>{isEncoding ? "원본 HTML" : "인코딩된 텍스트"}</Label>
           <Textarea

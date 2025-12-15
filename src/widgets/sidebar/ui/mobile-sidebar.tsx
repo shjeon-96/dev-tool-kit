@@ -11,8 +11,13 @@ export function MobileSidebar() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu />
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          aria-label="Open navigation menu"
+        >
+          <Menu aria-hidden="true" />
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 bg-card w-72">

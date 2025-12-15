@@ -1,8 +1,17 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Copy, Check, Trash2, ClipboardPaste, History, X } from "lucide-react";
-import { Button, ShareButton, ToolActionsBar } from "@/shared/ui";
+import {
+  Copy,
+  Check,
+  Trash2,
+  ClipboardPaste,
+  History,
+  X,
+  FileJson,
+} from "lucide-react";
+import { Button, ShareButton, EmptyState } from "@/shared/ui";
+import { ToolActionsBar } from "@/widgets/tool-actions-bar";
 import { useCopyToClipboard } from "@/shared/lib";
 import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
 import { usePipelineInput } from "@/features/tool-pipeline";
@@ -139,37 +148,55 @@ export function JsonFormatter() {
 
       {/* History Panel */}
       {showHistory && hasHistory && (
-        <div className="rounded-md border bg-muted/30 p-4">
+        <div
+          className="rounded-md border bg-muted/30 p-4"
+          role="region"
+          aria-label="Recent history"
+        >
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-medium">Recent History</h3>
+            <h3 id="history-heading" className="text-sm font-medium">
+              Recent History
+            </h3>
             <div className="flex gap-2">
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={clearHistory}
                 className="text-destructive hover:text-destructive"
+                aria-label="Clear all history"
               >
-                <Trash2 className="h-3 w-3 mr-1" />
+                <Trash2 className="h-3 w-3 mr-1" aria-hidden="true" />
                 Clear All
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowHistory(false)}
+                aria-label="Close history panel"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
-          <div className="space-y-2 max-h-48 overflow-y-auto">
-            {history.map((item) => (
+          <div
+            className="space-y-2 max-h-48 overflow-y-auto"
+            role="listbox"
+            aria-labelledby="history-heading"
+          >
+            {history.map((item, index) => (
               <button
                 key={item.id}
+                role="option"
+                aria-selected={input === item.input}
                 onClick={() => {
                   loadFromHistory(item.input, item.output);
                   setShowHistory(false);
                 }}
-                className="w-full text-left p-2 rounded-md hover:bg-muted transition-colors text-sm"
+                className={`w-full text-left p-2 rounded-md transition-colors text-sm ${
+                  input === item.input
+                    ? "bg-muted ring-1 ring-primary/20"
+                    : "hover:bg-muted"
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs text-muted-foreground">
@@ -198,7 +225,7 @@ export function JsonFormatter() {
       )}
 
       {/* Input/Output */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-2">
         <div className="space-y-2">
           <label htmlFor="json-input" className="text-sm font-medium">
             Input
@@ -246,15 +273,24 @@ export function JsonFormatter() {
               </Button>
             )}
           </div>
-          <textarea
-            id="json-output"
-            value={output}
-            readOnly
-            placeholder="Formatted output will appear here"
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
-            spellCheck={false}
-            aria-readonly="true"
-          />
+          {!output && !input ? (
+            <EmptyState
+              icon={<FileJson className="h-12 w-12" />}
+              title="Start formatting JSON"
+              description="Paste your JSON in the input area or click the Paste button to get started. We'll automatically format and validate it."
+              className="h-[400px]"
+            />
+          ) : (
+            <textarea
+              id="json-output"
+              value={output}
+              readOnly
+              placeholder="Formatted output will appear here"
+              className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+              spellCheck={false}
+              aria-readonly="true"
+            />
+          )}
         </div>
       </div>
     </div>

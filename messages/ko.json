@@ -61,7 +61,8 @@
   "footer": {
     "copyright": "© 2025 Web Toolkit. All rights reserved.",
     "privacy": "개인정보처리방침",
-    "github": "GitHub"
+    "github": "GitHub",
+    "rights": "모든 권리 보유."
   },
   "pricing": {
     "title": "합리적인 가격, 투명한 정책",

@@ -125,14 +125,14 @@ export function ImageResizer() {
 
               {/* Mode Selection */}
               <div className="space-y-2">
-                <Label>크기 모드</Label>
+                <Label id="resize-mode-label">크기 모드</Label>
                 <Select
                   value={options.mode}
                   onValueChange={(value: ResizeMode) =>
                     updateOptions({ mode: value })
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger aria-labelledby="resize-mode-label">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -210,7 +210,7 @@ export function ImageResizer() {
               {options.format !== "image/png" && (
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <Label>품질</Label>
+                    <Label id="quality-label">품질</Label>
                     <span className="text-sm text-muted-foreground">
                       {Math.round(options.quality * 100)}%
                     </span>
@@ -223,6 +223,7 @@ export function ImageResizer() {
                     min={10}
                     max={100}
                     step={5}
+                    aria-labelledby="quality-label"
                   />
                 </div>
               )}

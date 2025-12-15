@@ -16,7 +16,9 @@ export function MarkdownPreview() {
   } = useMarkdownPreview();
 
   const [copied, setCopied] = useState(false);
-  const [viewMode, setViewMode] = useState<"split" | "preview" | "source">("split");
+  const [viewMode, setViewMode] = useState<"split" | "preview" | "source">(
+    "split",
+  );
 
   const handleCopy = async () => {
     const success = await copyToClipboard(input);
@@ -57,7 +59,11 @@ export function MarkdownPreview() {
         </div>
         <div className="flex gap-1">
           <Button variant="ghost" size="icon-sm" onClick={handleCopy}>
-            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            {copied ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
           </Button>
           <Button variant="ghost" size="icon-sm" onClick={handleClear}>
             <Trash2 className="h-4 w-4" />
@@ -71,7 +77,7 @@ export function MarkdownPreview() {
       {/* Editor Area */}
       <div
         className={`grid gap-4 ${
-          viewMode === "split" ? "md:grid-cols-2" : "grid-cols-1"
+          viewMode === "split" ? "lg:grid-cols-2" : "grid-cols-1"
         }`}
       >
         {/* Source */}

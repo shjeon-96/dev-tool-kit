@@ -8,8 +8,10 @@ import {
   AlertTriangle,
   History,
   X,
+  KeyRound,
 } from "lucide-react";
-import { Button, ShareButton, ToolActionsBar } from "@/shared/ui";
+import { Button, ShareButton, EmptyState } from "@/shared/ui";
+import { ToolActionsBar } from "@/widgets/tool-actions-bar";
 import { useJwtDecoder } from "../model/use-jwt-decoder";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 
@@ -198,9 +200,19 @@ export function JwtDecoder() {
         />
       </div>
 
+      {/* Empty State */}
+      {!decoded && !error && !input && (
+        <EmptyState
+          icon={<KeyRound className="h-12 w-12" />}
+          title="Decode your JWT token"
+          description="Paste a JWT token to decode its header and payload. We'll also show expiration status and validate the structure."
+          className="min-h-[200px]"
+        />
+      )}
+
       {/* Decoded Output */}
       {decoded && (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 lg:grid-cols-2">
           {/* Header */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-blue-600 dark:text-blue-400">
