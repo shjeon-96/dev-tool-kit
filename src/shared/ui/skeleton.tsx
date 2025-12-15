@@ -9,7 +9,14 @@ export function Skeleton({ className }: SkeletonProps) {
     <div
       role="status"
       aria-label="Loading content"
-      className={cn("animate-pulse rounded-md bg-muted", className)}
+      className={cn(
+        "rounded-md bg-muted relative overflow-hidden",
+        "before:absolute before:inset-0 before:-translate-x-full",
+        "before:animate-[shimmer_2s_infinite]",
+        "before:bg-gradient-to-r before:from-transparent before:via-foreground/5 before:to-transparent",
+        "dark:before:via-foreground/10",
+        className,
+      )}
     >
       <span className="sr-only">Loading...</span>
     </div>

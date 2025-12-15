@@ -188,6 +188,7 @@ export function JsonFormatter() {
       {/* Error display */}
       {error && (
         <div
+          id="json-error"
           role="alert"
           aria-live="polite"
           className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive"
@@ -223,19 +224,25 @@ export function JsonFormatter() {
                 variant="ghost"
                 size="sm"
                 onClick={onCopy}
+                className="transition-colors"
                 aria-label={
                   copied ? "Copied to clipboard" : "Copy output to clipboard"
                 }
               >
                 {copied ? (
                   <Check
-                    className="h-4 w-4 text-green-500"
+                    className="h-4 w-4 text-green-500 transition-transform duration-200 scale-110"
                     aria-hidden="true"
                   />
                 ) : (
-                  <Copy className="h-4 w-4" aria-hidden="true" />
+                  <Copy
+                    className="h-4 w-4 transition-transform duration-200 hover:scale-110"
+                    aria-hidden="true"
+                  />
                 )}
-                <span className="ml-1">{copied ? "Copied!" : "Copy"}</span>
+                <span className="ml-1 transition-colors">
+                  {copied ? "Copied!" : "Copy"}
+                </span>
               </Button>
             )}
           </div>
