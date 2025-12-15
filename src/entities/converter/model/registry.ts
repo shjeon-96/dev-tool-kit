@@ -1,11 +1,16 @@
 /**
  * Converter Registry - Programmatic SEO용 변환 정의 레지스트리
+ *
+ * 전략: 수동 정의(고품질 SEO) + 자동 생성(대량 롱테일) 하이브리드 방식
+ * - 수동 정의: 핵심 키워드, 상세 SEO 메타데이터
+ * - 자동 생성: 조합형 롱테일 키워드 대량 커버
  */
 
 import type { Conversion } from "./types";
+import { getAllGeneratedConversions } from "./generators";
 
-// 변환 정의 목록 (20+ 변환 페이지 생성)
-export const conversions: Conversion[] = [
+// 수동 정의 변환 (고품질 SEO 콘텐츠)
+const manualConversions: Conversion[] = [
   // ===============================
   // 데이터 직렬화 변환
   // ===============================
@@ -621,6 +626,14 @@ export const conversions: Conversion[] = [
   },
 ];
 
+// ===============================
+// 전체 변환 목록 (수동 + 자동 생성)
+// ===============================
+export const conversions: Conversion[] = [
+  ...manualConversions,
+  ...getAllGeneratedConversions(),
+];
+
 // 헬퍼 함수들
 export function getConversionBySlug(slug: string): Conversion | undefined {
   return conversions.find((c) => c.slug === slug);
@@ -650,4 +663,22 @@ export function getReverseSlug(slug: string): string | null {
     "",
   );
   return getAllConversionSlugs().includes(reverseSlug) ? reverseSlug : null;
+}
+
+// 통계 정보
+export function getConversionStats() {
+  return {
+    total: conversions.length,
+    manual: manualConversions.length,
+    generated: getAllGeneratedConversions().length,
+    byCategory: {
+      data: conversions.filter((c) => c.category === "data").length,
+      encoding: conversions.filter((c) => c.category === "encoding").length,
+      color: conversions.filter((c) => c.category === "color").length,
+      number: conversions.filter((c) => c.category === "number").length,
+      hash: conversions.filter((c) => c.category === "hash").length,
+      time: conversions.filter((c) => c.category === "time").length,
+      code: conversions.filter((c) => c.category === "code").length,
+    },
+  };
 }

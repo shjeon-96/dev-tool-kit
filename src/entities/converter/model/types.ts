@@ -37,7 +37,15 @@ export type DataFormat =
   // 코드
   | "typescript"
   | "css"
-  | "tailwind";
+  | "tailwind"
+  // 추가 데이터 포맷
+  | "properties"
+  | "ini"
+  // 추가 인코딩
+  | "html-entity"
+  | "ascii"
+  // 추가 숫자
+  | "octal-num";
 
 // 변환 방향 (양방향 가능 여부)
 export type ConversionDirection = "bidirectional" | "one-way";
