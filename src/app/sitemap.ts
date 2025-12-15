@@ -1,6 +1,7 @@
 import { getToolSlugs } from "@/entities/tool";
 import { CHEATSHEET_SLUGS, type CheatsheetSlug } from "@/entities/cheatsheet";
 import { getGuideSlugs } from "@/entities/guide";
+import { getAllConversionSlugs } from "@/entities/converter";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -131,6 +132,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/guides/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Converters listing page for each locale
+  const converters = getAllConversionSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/convert`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/convert`]),
+        ),
+      },
+    });
+  }
+
+  // Converter pages for each locale
+  for (const slug of converters) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/convert/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/convert/${slug}`]),
           ),
         },
       });

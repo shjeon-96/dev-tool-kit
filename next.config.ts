@@ -10,7 +10,41 @@ const withPWA = withPWAInit({
   disable: process.env.NODE_ENV === "development",
   register: true,
   skipWaiting: true,
+  fallbacks: {
+    document: "/offline",
+  },
   runtimeCaching: [
+    // WebAssembly 바이너리 캐싱 (FFmpeg 등)
+    {
+      urlPattern: /\.wasm$/i,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "wasm-cache",
+        expiration: {
+          maxEntries: 10,
+          maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year (Wasm은 거의 변경 안됨)
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
+        },
+      },
+    },
+    // unpkg/jsdelivr CDN 캐싱 (@ffmpeg/core, @ffmpeg/ffmpeg)
+    {
+      urlPattern: /^https:\/\/(?:unpkg|cdn\.jsdelivr)\.(?:com|net)\/.*/i,
+      handler: "CacheFirst",
+      options: {
+        cacheName: "cdn-cache",
+        expiration: {
+          maxEntries: 30,
+          maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
+        },
+      },
+    },
+    // Google Fonts
     {
       urlPattern: /^https:\/\/fonts\.(?:gstatic|googleapis)\.com\/.*/i,
       handler: "CacheFirst",
@@ -22,6 +56,7 @@ const withPWA = withPWAInit({
         },
       },
     },
+    // 정적 리소스 (JS, CSS, 폰트)
     {
       urlPattern: /\.(?:js|css|woff2?)$/i,
       handler: "StaleWhileRevalidate",
@@ -33,6 +68,7 @@ const withPWA = withPWAInit({
         },
       },
     },
+    // 이미지 캐싱
     {
       urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|ico)$/i,
       handler: "CacheFirst",
@@ -44,6 +80,7 @@ const withPWA = withPWAInit({
         },
       },
     },
+    // API 요청
     {
       urlPattern: /^https?:\/\/.*\/api\/.*/i,
       handler: "NetworkFirst",
@@ -56,6 +93,7 @@ const withPWA = withPWAInit({
         },
       },
     },
+    // Next.js 정적 파일
     {
       urlPattern: /\/_next\/static\/.*/i,
       handler: "CacheFirst",
@@ -64,6 +102,30 @@ const withPWA = withPWAInit({
         expiration: {
           maxEntries: 100,
           maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+        },
+      },
+    },
+    // 도구 페이지 캐싱 (오프라인 사용 지원)
+    {
+      urlPattern: /\/(?:en|ko|ja)\/tools\/.*/i,
+      handler: "StaleWhileRevalidate",
+      options: {
+        cacheName: "tools-pages",
+        expiration: {
+          maxEntries: 50,
+          maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+        },
+      },
+    },
+    // 변환 도구 페이지 캐싱
+    {
+      urlPattern: /\/(?:en|ko|ja)\/convert\/.*/i,
+      handler: "StaleWhileRevalidate",
+      options: {
+        cacheName: "convert-pages",
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
         },
       },
     },
