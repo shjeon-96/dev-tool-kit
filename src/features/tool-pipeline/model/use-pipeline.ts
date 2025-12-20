@@ -6,10 +6,10 @@ import { getConnectableTools } from "./types";
 import {
   canStorePipelineData,
   safeSessionStorageSet,
-  formatBytes,
   getByteSize,
   PIPELINE_DATA_LIMIT,
-} from "@/shared/lib/storage-utils";
+  formatBytes,
+} from "@/shared/lib";
 
 interface UsePipelineOptions {
   onNavigate?: (toolSlug: ToolSlug, data: string) => void;

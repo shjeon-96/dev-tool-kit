@@ -18,11 +18,23 @@ export {
   useServiceWorkerStatus,
   useOfflineReady,
 } from "./hooks/use-online-status";
+export { useFileDropzone } from "./hooks/use-file-dropzone";
+
+// Format utilities
+export {
+  formatBytes,
+  formatSize,
+  formatDate,
+  formatRelativeDate,
+  formatNumber,
+  formatPercent,
+  truncateString,
+  formatDuration,
+} from "./format-utils";
 
 // Storage utilities
 export {
   getByteSize,
-  formatBytes,
   getSessionStorageUsage,
   getSessionStorageRemaining,
   isPipelineDataTooLarge,

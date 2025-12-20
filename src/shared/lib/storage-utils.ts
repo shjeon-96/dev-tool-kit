@@ -2,6 +2,8 @@
 // Storage Utility Functions
 // ============================================
 
+import { formatBytes } from "./format-utils";
+
 /**
  * SessionStorage 용량 제한 (약 5MB)
  * 브라우저마다 다르지만 보수적으로 4.5MB로 설정
@@ -19,21 +21,6 @@ export const PIPELINE_DATA_LIMIT = 3 * 1024 * 1024; // 3MB
  */
 export function getByteSize(str: string): number {
   return new Blob([str]).size;
-}
-
-/**
- * 바이트를 사람이 읽기 쉬운 형식으로 변환
- */
-export function formatBytes(bytes: number, decimals = 2): string {
-  if (bytes === 0) return "0 Bytes";
-
-  const k = 1024;
-  const dm = decimals < 0 ? 0 : decimals;
-  const sizes = ["Bytes", "KB", "MB", "GB"];
-
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
 /**

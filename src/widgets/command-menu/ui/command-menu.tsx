@@ -228,13 +228,14 @@ export function CommandMenu() {
                   runCommand(() => router.push(`/${locale}/tools/${slug}`))
                 }
                 className={cn(
+                  "group",
                   suggestedTools.includes(slug as ToolSlug) && "opacity-50",
                 )}
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-muted">
-                  <tool.icon className="h-4 w-4" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-md bg-muted/60 group-data-[selected=true]:bg-primary/10 transition-colors">
+                  <tool.icon className="h-4 w-4 text-muted-foreground group-data-[selected=true]:text-primary transition-colors" />
                 </div>
-                <span className="font-medium">
+                <span className="font-medium text-foreground/80 group-data-[selected=true]:text-foreground">
                   {t(`${slug as ToolSlug}.title`)}
                 </span>
               </CommandItem>
