@@ -144,7 +144,8 @@ const nextConfig: NextConfig = {
       {
         // Wasm을 사용하는 특정 도구에만 COOP/COEP 헤더 적용
         // 이 헤더가 있어야 SharedArrayBuffer 사용 가능 (FFmpeg 멀티스레딩)
-        source: "/:locale/tools/(image-resizer|hash-generator)",
+        source:
+          "/:locale/tools/(image-resizer|hash-generator|video-compressor)",
         headers: [
           {
             key: "Cross-Origin-Embedder-Policy",
