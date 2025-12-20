@@ -1995,5 +1995,383 @@
       "description": "無料プランの使用量上限に達しました。続けて利用するにはProへアップグレードしてください。"
     },
     "upgradeCta": "Proにアップグレード"
+  },
+  "useCases": {
+    "title": "ユースケース",
+    "description": "開発者の問題を解決する実践的なシナリオ",
+    "howTo": "使い方",
+    "benefits": "メリット",
+    "ctaTitle": "試してみませんか？",
+    "ctaButton": "ツールを開く",
+    "api-debugging": {
+      "title": "APIレスポンスのデバッグ",
+      "description": "APIレスポンスをフォーマットして分析し、問題を素早く特定します",
+      "steps": [
+        {
+          "name": "APIレスポンスをコピー",
+          "text": "ブラウザのNetworkタブを開き、API呼び出しから生のJSONレスポンスをコピーします"
+        },
+        {
+          "name": "フォーマッターに貼り付け",
+          "text": "JSONをフォーマッターに貼り付けて、構造化されたインデント出力を確認します"
+        },
+        {
+          "name": "構造を分析",
+          "text": "ネストされたオブジェクト、配列、データ型を確認してレスポンス形式を理解します"
+        },
+        {
+          "name": "問題を特定",
+          "text": "欠落しているフィールド、予期しない値、不正なデータを見つけます"
+        }
+      ],
+      "benefits": [
+        "複雑なネストされたレスポンスの構造を即座に確認",
+        "エラーや欠落したフィールドをより早く発見",
+        "期待されるレスポンスと実際のレスポンスを比較",
+        "サーバーにデータを送信しない - 100%プライベートなデバッグ"
+      ]
+    },
+    "config-file-editing": {
+      "title": "設定ファイルの編集",
+      "description": "package.json、tsconfig.jsonなどのJSON設定ファイルを安全に編集・検証します",
+      "steps": [
+        {
+          "name": "設定ファイルを開く",
+          "text": "設定ファイル（package.json、tsconfig.jsonなど）の内容をコピーします"
+        },
+        {
+          "name": "フォーマットして確認",
+          "text": "フォーマッターに貼り付けて、きれいで読みやすい構造を確認します"
+        },
+        {
+          "name": "変更を加える",
+          "text": "ツールがリアルタイムで検証している間にフォーマットされたJSONを編集します"
+        },
+        {
+          "name": "コピーして戻す",
+          "text": "検証されたJSONを設定ファイルにコピーして戻します"
+        }
+      ],
+      "benefits": [
+        "ビルドが壊れる前に構文エラーをキャッチ",
+        "深くネストされた設定を簡単に読む",
+        "リアルタイム検証でタイプミスを防止",
+        "あらゆるJSON設定ファイル形式に対応"
+      ]
+    },
+    "token-debugging": {
+      "title": "JWTトークンのデバッグ",
+      "description": "JWTトークンをデコードして分析し、認証の問題をトラブルシューティングします",
+      "steps": [
+        {
+          "name": "トークンをコピー",
+          "text": "認証レスポンスまたはストレージからJWTトークンを取得します"
+        },
+        {
+          "name": "貼り付けてデコード",
+          "text": "トークンを貼り付けてヘッダー、ペイロード、署名をデコードします"
+        },
+        {
+          "name": "クレームを確認",
+          "text": "有効期限（exp）、発行者（iss）、その他のクレームを確認します"
+        },
+        {
+          "name": "構造を検証",
+          "text": "必要なクレームがすべて存在し、正しくフォーマットされていることを確認します"
+        }
+      ],
+      "benefits": [
+        "トークンの有効期限と有効性を即座に確認",
+        "第三者にトークンを公開せずにデコード",
+        "欠落または不正なクレームを特定",
+        "認証の問題をより早くデバッグ"
+      ]
+    },
+    "image-optimization": {
+      "title": "Web画像の最適化",
+      "description": "最適なWebパフォーマンスのために画像をリサイズして圧縮します",
+      "steps": [
+        {
+          "name": "画像をアップロード",
+          "text": "画像ファイルをドラッグ＆ドロップまたは選択します"
+        },
+        {
+          "name": "サイズを設定",
+          "text": "目標の幅と高さを選択するか、アスペクト比ロックを使用します"
+        },
+        {
+          "name": "品質を調整",
+          "text": "ファイルサイズと視覚的品質のバランスを取ります"
+        },
+        {
+          "name": "結果をダウンロード",
+          "text": "Webサイト用に最適化された画像をダウンロードします"
+        }
+      ],
+      "benefits": [
+        "ページ読み込み時間を大幅に短縮",
+        "サイズを最小化しながら視覚的品質を維持",
+        "外部サーバーへのアップロードなし - ローカルで処理",
+        "複数の画像形式をサポート"
+      ]
+    },
+    "password-hashing": {
+      "title": "パスワードとファイルのハッシュ化",
+      "description": "パスワード用の安全なハッシュを生成し、ファイルの整合性を検証します",
+      "steps": [
+        {
+          "name": "テキストを入力またはアルゴリズムを選択",
+          "text": "テキストを入力し、MD5、SHA-1、SHA-256、SHA-512から選択します"
+        },
+        {
+          "name": "ハッシュを生成",
+          "text": "生成ボタンをクリックして即座にハッシュを作成します"
+        },
+        {
+          "name": "ハッシュを比較",
+          "text": "ファイルチェックサムまたはパスワード検証に使用します"
+        },
+        {
+          "name": "結果をコピー",
+          "text": "アプリケーションまたは検証用にハッシュをコピーします"
+        }
+      ],
+      "benefits": [
+        "さまざまな用途に対応する複数のアルゴリズムをサポート",
+        "チェックサムでファイルの整合性を検証",
+        "クライアント側処理でデータを安全に保護",
+        "ワンクリックで即座にハッシュを生成"
+      ]
+    },
+    "email-validation": {
+      "title": "メール形式の検証",
+      "description": "メール検証用の正規表現パターンをテストして改善します",
+      "steps": [
+        {
+          "name": "正規表現パターンを入力",
+          "text": "メール検証用の正規表現パターンを入力します"
+        },
+        {
+          "name": "テストケースを追加",
+          "text": "テストするさまざまなメールアドレスを入力します（有効なものと無効なもの）"
+        },
+        {
+          "name": "マッチを確認",
+          "text": "どのメールがマッチし、どれが拒否されるかを確認します"
+        },
+        {
+          "name": "パターンを改善",
+          "text": "テスト結果に基づいて正規表現を調整します"
+        }
+      ],
+      "benefits": [
+        "複数の入力に対してパターンを一度にテスト",
+        "マッチグループの視覚的なハイライト",
+        "本番前にエッジケースをキャッチ",
+        "リアルタイムフィードバックで正規表現を学習"
+      ]
+    }
+  },
+  "compare": {
+    "title": "ツール比較",
+    "description": "Web Toolkitが他の人気開発者ツールとどう比較されるかをご覧ください",
+    "featureComparison": "機能比較",
+    "feature": "機能",
+    "whyChooseUs": "Web Toolkitを選ぶ理由",
+    "ctaTitle": "より良い代替ツールを試す準備はできましたか？",
+    "ctaDescription": "プライバシー重視のクライアントサイドツールの違いを体験してください。",
+    "ctaButton": "無料で試す",
+    "json-formatter-vs-jsonlint": {
+      "title": "JSON Formatter vs JSONLint",
+      "description": "フォーマットと検証のためにJSON FormatterとJSONLintを比較します",
+      "features": [
+        {
+          "key": "100%クライアントサイド処理",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "サーバーへのデータ送信なし",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "リアルタイム検証", "weToolkit": true, "competitor": true },
+        {
+          "key": "構文エラーハイライト",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "ダークモード対応", "weToolkit": true, "competitor": false },
+        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
+        { "key": "圧縮オプション", "weToolkit": true, "competitor": true },
+        { "key": "広告なし", "weToolkit": true, "competitor": false }
+      ],
+      "advantages": [
+        "完全なプライバシー - データがブラウザを離れない",
+        "読み込み後はオフラインで動作",
+        "ダークモード付きのモダンでクリーンなインターフェース",
+        "邪魔な広告やポップアップなし"
+      ]
+    },
+    "json-formatter-vs-jsonformatter-org": {
+      "title": "JSON Formatter vs JSONFormatter.org",
+      "description": "JSON FormatterとJSONFormatter.orgを比較します",
+      "features": [
+        {
+          "key": "100%クライアントサイド処理",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "サーバーへのデータ送信なし",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "リアルタイムフォーマット",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "カスタムインデント", "weToolkit": true, "competitor": true },
+        { "key": "モダンUIデザイン", "weToolkit": true, "competitor": false },
+        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
+        { "key": "無料で使用", "weToolkit": true, "competitor": true },
+        { "key": "登録不要", "weToolkit": true, "competitor": true }
+      ],
+      "advantages": [
+        "JSONデータは完全にプライベートに保たれる",
+        "サーバーアップロードなしで高速処理",
+        "クリーンで広告のない体験",
+        "総合開発者ツールキットの一部"
+      ]
+    },
+    "jwt-decoder-vs-jwt-io": {
+      "title": "JWT Decoder vs JWT.io",
+      "description": "人気のJWT.ioとJWT Decoderを比較します",
+      "features": [
+        {
+          "key": "100%クライアントサイドデコード",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "ヘッダー/ペイロード/署名表示",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "有効期限表示", "weToolkit": true, "competitor": true },
+        {
+          "key": "外部ライブラリのロードなし",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "オフラインサポート", "weToolkit": true, "competitor": false },
+        { "key": "ダークモード", "weToolkit": true, "competitor": false },
+        {
+          "key": "個別クレームのコピー",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "他のツールとの統合", "weToolkit": true, "competitor": false }
+      ],
+      "advantages": [
+        "外部依存関係なしでトークンをデコード",
+        "セキュアな環境向けにオフライン動作",
+        "他のツールキット機能とのシームレスな統合",
+        "気を散らすもののないクリーンなインターフェース"
+      ]
+    },
+    "image-resizer-vs-tinypng": {
+      "title": "Image Resizer vs TinyPNG",
+      "description": "画像最適化のためにImage ResizerとTinyPNGを比較します",
+      "features": [
+        {
+          "key": "100%クライアントサイド処理",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "サーバーへのアップロードなし",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "カスタムサイズ", "weToolkit": true, "competitor": false },
+        { "key": "品質調整", "weToolkit": true, "competitor": false },
+        { "key": "バッチ処理", "weToolkit": true, "competitor": true },
+        { "key": "制限なしで無料", "weToolkit": true, "competitor": false },
+        {
+          "key": "複数フォーマット対応",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "オフライン動作", "weToolkit": true, "competitor": false }
+      ],
+      "advantages": [
+        "アップロードなしでローカルで画像処理",
+        "ファイルサイズや数量の制限なし",
+        "サイズと品質の完全なコントロール",
+        "機密画像の完全なプライバシー"
+      ]
+    },
+    "hash-generator-vs-online-tools": {
+      "title": "Hash Generator vs オンラインツール",
+      "description": "他のオンラインハッシュツールとHash Generatorを比較します",
+      "features": [
+        {
+          "key": "100%クライアントサイド処理",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "データ送信なし", "weToolkit": true, "competitor": false },
+        {
+          "key": "複数アルゴリズム（MD5, SHA）",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "大容量ファイル対応", "weToolkit": true, "competitor": false },
+        { "key": "即座の結果", "weToolkit": true, "competitor": true },
+        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
+        {
+          "key": "クリップボードにコピー",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "登録不要", "weToolkit": true, "competitor": true }
+      ],
+      "advantages": [
+        "データをどこにも送らずにハッシュ生成",
+        "WebAssemblyで大容量ファイルを処理",
+        "機密コンテンツのための安全なハッシュ",
+        "高速で即座の結果"
+      ]
+    },
+    "regex-tester-vs-regex101": {
+      "title": "Regex Tester vs Regex101",
+      "description": "人気のRegex101とRegex Testerを比較します",
+      "features": [
+        {
+          "key": "100%クライアントサイド処理",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "リアルタイムマッチング",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "マッチハイライト", "weToolkit": true, "competitor": true },
+        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
+        { "key": "アカウント不要", "weToolkit": true, "competitor": true },
+        { "key": "ダークモード", "weToolkit": true, "competitor": true },
+        { "key": "複数テスト文字列", "weToolkit": true, "competitor": true },
+        { "key": "他のツールとの統合", "weToolkit": true, "competitor": false }
+      ],
+      "advantages": [
+        "完全なプライバシーで正規表現パターンをテスト",
+        "セキュアな環境向けにオフライン動作",
+        "総合開発者ツールキットの一部",
+        "トラッキングやデータ収集なし"
+      ]
+    }
   }
 }

@@ -8,6 +8,8 @@ import {
   GuideContent,
   type GuideSlug,
 } from "@/entities/guide";
+import { HowToJsonLd, ArticleJsonLd, BreadcrumbJsonLd } from "@/shared/ui";
+import { SITE_CONFIG } from "@/shared/config";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -84,13 +86,48 @@ export default async function GuidePage({ params }: Props) {
         }
       : null;
 
+  const toolTitle = tTools(`${slug as GuideSlug}.title`);
+  const guideTitle = `${toolTitle} Guide`;
+  const guideSummary = t(`${slug}.summary`);
+  const guideUrl = `${SITE_CONFIG.url}/${locale}/guides/${slug}`;
+
+  // Build HowTo steps from sections
+  const howToSteps = sections.map((section) => ({
+    name: section.title,
+    text: section.content,
+    url: `${guideUrl}#${section.id}`,
+  }));
+
+  // Breadcrumb items
+  const breadcrumbItems = [
+    { name: "Home", url: SITE_CONFIG.url },
+    { name: t("title"), url: `${SITE_CONFIG.url}/${locale}/guides` },
+    { name: guideTitle, url: guideUrl },
+  ];
+
   return (
-    <GuideContent
-      guide={guide}
-      sections={sections}
-      relatedToolsData={relatedToolsData}
-      prevGuide={prevGuide}
-      nextGuide={nextGuide}
-    />
+    <>
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+      <HowToJsonLd
+        name={guideTitle}
+        description={guideSummary}
+        steps={howToSteps}
+        totalTime={`PT${guide.readTime}M`}
+      />
+      <ArticleJsonLd
+        headline={guideTitle}
+        description={guideSummary}
+        url={guideUrl}
+        datePublished="2024-12-01"
+        dateModified={new Date().toISOString().split("T")[0]}
+      />
+      <GuideContent
+        guide={guide}
+        sections={sections}
+        relatedToolsData={relatedToolsData}
+        prevGuide={prevGuide}
+        nextGuide={nextGuide}
+      />
+    </>
   );
 }

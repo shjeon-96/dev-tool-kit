@@ -2,6 +2,8 @@ import { getToolSlugs } from "@/entities/tool";
 import { CHEATSHEET_SLUGS, type CheatsheetSlug } from "@/entities/cheatsheet";
 import { getGuideSlugs } from "@/entities/guide";
 import { getAllConversionSlugs } from "@/entities/converter";
+import { getUseCaseSlugs } from "@/entities/use-case";
+import { getComparisonSlugs } from "@/entities/comparison";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -195,6 +197,72 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/convert/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Use Cases listing page for each locale
+  const useCases = getUseCaseSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/use-cases`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/use-cases`]),
+        ),
+      },
+    });
+  }
+
+  // Use Case pages for each locale
+  for (const slug of useCases) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/use-cases/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/use-cases/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Compare listing page for each locale
+  const comparisons = getComparisonSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/compare`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/compare`]),
+        ),
+      },
+    });
+  }
+
+  // Compare pages for each locale
+  for (const slug of comparisons) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/compare/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/compare/${slug}`]),
           ),
         },
       });

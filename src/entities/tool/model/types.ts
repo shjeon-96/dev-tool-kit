@@ -11,6 +11,8 @@ export interface Tool {
   isPremium?: boolean;
   /** 무료 사용자 일일 사용 제한 (미설정 시 무제한) */
   freeLimit?: number;
+  /** 관련 도구 목록 (내부 링크 SEO 강화) */
+  relatedTools?: ToolSlug[];
 }
 
 export type ToolSlug =

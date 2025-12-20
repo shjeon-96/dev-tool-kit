@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { tools, type ToolSlug } from "@/entities/tool";
+import { tools, RelatedTools, type ToolSlug } from "@/entities/tool";
 import { BreadcrumbJsonLd, FaqJsonLd, ProductJsonLd } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
 import { ToolRenderer } from "./tool-renderer";
@@ -135,6 +135,8 @@ export default async function ToolPage({ params }: Props) {
         </div>
 
         <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
+
+        <RelatedTools currentSlug={slug as ToolSlug} />
       </div>
     </>
   );

@@ -2053,5 +2053,407 @@
       "description": "You've reached your free tier limit. Upgrade to Pro to continue using this tool."
     },
     "upgradeCta": "Upgrade to Pro"
+  },
+  "useCases": {
+    "title": "Use Cases",
+    "description": "Practical scenarios showing how our tools solve real developer problems",
+    "howTo": "How to Do It",
+    "benefits": "Benefits",
+    "ctaTitle": "Ready to Try?",
+    "ctaButton": "Open Tool",
+    "api-debugging": {
+      "title": "API Response Debugging",
+      "description": "Format and analyze API responses to identify issues quickly",
+      "steps": [
+        {
+          "name": "Copy API Response",
+          "text": "Open your browser's Network tab and copy the raw JSON response from the API call"
+        },
+        {
+          "name": "Paste into Formatter",
+          "text": "Paste the JSON into our formatter to see the structured, indented output"
+        },
+        {
+          "name": "Analyze Structure",
+          "text": "Review nested objects, arrays, and data types to understand the response format"
+        },
+        {
+          "name": "Identify Issues",
+          "text": "Spot missing fields, unexpected values, or malformed data in the response"
+        }
+      ],
+      "benefits": [
+        "Instantly see the structure of complex nested responses",
+        "Find errors and missing fields faster",
+        "Compare expected vs actual response format",
+        "No data sent to servers - 100% private debugging"
+      ]
+    },
+    "config-file-editing": {
+      "title": "Configuration File Editing",
+      "description": "Safely edit and validate JSON configuration files like package.json and tsconfig.json",
+      "steps": [
+        {
+          "name": "Open Config File",
+          "text": "Copy the contents of your configuration file (package.json, tsconfig.json, etc.)"
+        },
+        {
+          "name": "Format and Review",
+          "text": "Paste into the formatter to see a clean, readable structure"
+        },
+        {
+          "name": "Make Changes",
+          "text": "Edit the formatted JSON while the tool validates your changes in real-time"
+        },
+        {
+          "name": "Copy Back",
+          "text": "Copy the validated JSON back to your configuration file"
+        }
+      ],
+      "benefits": [
+        "Catch syntax errors before they break your build",
+        "Easy to read deeply nested configurations",
+        "Real-time validation prevents typos",
+        "Works with any JSON config file format"
+      ]
+    },
+    "token-debugging": {
+      "title": "JWT Token Debugging",
+      "description": "Decode and analyze JWT tokens to troubleshoot authentication issues",
+      "steps": [
+        {
+          "name": "Copy Your Token",
+          "text": "Get the JWT token from your authentication response or storage"
+        },
+        {
+          "name": "Paste to Decode",
+          "text": "Paste the token to see header, payload, and signature decoded"
+        },
+        {
+          "name": "Check Claims",
+          "text": "Review expiration time (exp), issuer (iss), and other claims"
+        },
+        {
+          "name": "Verify Structure",
+          "text": "Ensure all required claims are present and correctly formatted"
+        }
+      ],
+      "benefits": [
+        "Instantly see token expiration and validity",
+        "Decode without exposing tokens to third parties",
+        "Identify missing or malformed claims",
+        "Debug authentication issues faster"
+      ]
+    },
+    "image-optimization": {
+      "title": "Web Image Optimization",
+      "description": "Resize and compress images for optimal web performance",
+      "steps": [
+        {
+          "name": "Upload Image",
+          "text": "Drag and drop or select your image file"
+        },
+        {
+          "name": "Set Dimensions",
+          "text": "Choose target width and height or use aspect ratio lock"
+        },
+        {
+          "name": "Adjust Quality",
+          "text": "Balance between file size and visual quality"
+        },
+        {
+          "name": "Download Result",
+          "text": "Download the optimized image for your website"
+        }
+      ],
+      "benefits": [
+        "Reduce page load times significantly",
+        "Maintain visual quality while minimizing size",
+        "No upload to external servers - process locally",
+        "Support for multiple image formats"
+      ]
+    },
+    "password-hashing": {
+      "title": "Password and File Hashing",
+      "description": "Generate secure hashes for passwords and verify file integrity",
+      "steps": [
+        {
+          "name": "Enter Text or Select Algorithm",
+          "text": "Type your text and choose MD5, SHA-1, SHA-256, or SHA-512"
+        },
+        {
+          "name": "Generate Hash",
+          "text": "Click generate to create the hash instantly"
+        },
+        {
+          "name": "Compare Hashes",
+          "text": "Use for file checksums or password verification"
+        },
+        {
+          "name": "Copy Result",
+          "text": "Copy the hash for use in your application or verification"
+        }
+      ],
+      "benefits": [
+        "Multiple algorithm support for different use cases",
+        "Verify file integrity with checksums",
+        "Client-side processing keeps data secure",
+        "Instant hash generation with one click"
+      ]
+    },
+    "email-validation": {
+      "title": "Email Format Validation",
+      "description": "Test and refine regex patterns for email validation",
+      "steps": [
+        {
+          "name": "Enter Regex Pattern",
+          "text": "Input your email validation regex pattern"
+        },
+        {
+          "name": "Add Test Cases",
+          "text": "Enter various email addresses to test (valid and invalid)"
+        },
+        {
+          "name": "Review Matches",
+          "text": "See which emails match and which are rejected"
+        },
+        {
+          "name": "Refine Pattern",
+          "text": "Adjust your regex based on the test results"
+        }
+      ],
+      "benefits": [
+        "Test patterns against multiple inputs at once",
+        "Visual highlighting of match groups",
+        "Catch edge cases before production",
+        "Learn regex with real-time feedback"
+      ]
+    }
+  },
+  "compare": {
+    "title": "Tool Comparisons",
+    "description": "See how Web Toolkit compares to other popular developer tools",
+    "featureComparison": "Feature Comparison",
+    "feature": "Feature",
+    "whyChooseUs": "Why Choose Web Toolkit",
+    "ctaTitle": "Ready to Try the Better Alternative?",
+    "ctaDescription": "Experience the difference with our privacy-focused, client-side tools.",
+    "ctaButton": "Try It Free",
+    "json-formatter-vs-jsonlint": {
+      "title": "JSON Formatter vs JSONLint",
+      "description": "Compare our JSON Formatter with JSONLint for formatting and validation",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Data Sent to Server",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Real-time Validation",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Syntax Error Highlighting",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "Dark Mode Support", "weToolkit": true, "competitor": false },
+        { "key": "Works Offline", "weToolkit": true, "competitor": false },
+        { "key": "Minify Option", "weToolkit": true, "competitor": true },
+        { "key": "No Ads", "weToolkit": true, "competitor": false }
+      ],
+      "advantages": [
+        "Complete privacy - your data never leaves your browser",
+        "Works offline once loaded",
+        "Modern, clean interface with dark mode",
+        "No intrusive ads or popups"
+      ]
+    },
+    "json-formatter-vs-jsonformatter-org": {
+      "title": "JSON Formatter vs JSONFormatter.org",
+      "description": "Compare our JSON Formatter with JSONFormatter.org",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Data Sent to Server",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Real-time Formatting",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "Custom Indentation", "weToolkit": true, "competitor": true },
+        { "key": "Modern UI Design", "weToolkit": true, "competitor": false },
+        { "key": "Works Offline", "weToolkit": true, "competitor": false },
+        { "key": "Free to Use", "weToolkit": true, "competitor": true },
+        {
+          "key": "No Registration Required",
+          "weToolkit": true,
+          "competitor": true
+        }
+      ],
+      "advantages": [
+        "Your JSON data stays completely private",
+        "No server uploads means faster processing",
+        "Clean, ad-free experience",
+        "Part of a comprehensive developer toolkit"
+      ]
+    },
+    "jwt-decoder-vs-jwt-io": {
+      "title": "JWT Decoder vs JWT.io",
+      "description": "Compare our JWT Decoder with the popular JWT.io",
+      "features": [
+        {
+          "key": "100% Client-Side Decoding",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Header/Payload/Signature View",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Expiration Time Display",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No External Libraries Loaded",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "Offline Support", "weToolkit": true, "competitor": false },
+        { "key": "Dark Mode", "weToolkit": true, "competitor": false },
+        {
+          "key": "Copy Individual Claims",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Integration with Other Tools",
+          "weToolkit": true,
+          "competitor": false
+        }
+      ],
+      "advantages": [
+        "Decode tokens without any external dependencies",
+        "Works offline for secure environments",
+        "Seamless integration with other toolkit features",
+        "Clean interface without distractions"
+      ]
+    },
+    "image-resizer-vs-tinypng": {
+      "title": "Image Resizer vs TinyPNG",
+      "description": "Compare our Image Resizer with TinyPNG for image optimization",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Upload to Server",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "Custom Dimensions", "weToolkit": true, "competitor": false },
+        { "key": "Quality Control", "weToolkit": true, "competitor": false },
+        { "key": "Batch Processing", "weToolkit": true, "competitor": true },
+        {
+          "key": "Free Without Limits",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Multiple Format Support",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "Works Offline", "weToolkit": true, "competitor": false }
+      ],
+      "advantages": [
+        "Process images locally without upload",
+        "No file size or quantity limits",
+        "Full control over dimensions and quality",
+        "Complete privacy for sensitive images"
+      ]
+    },
+    "hash-generator-vs-online-tools": {
+      "title": "Hash Generator vs Online Tools",
+      "description": "Compare our Hash Generator with other online hash tools",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Data Transmission",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Multiple Algorithms (MD5, SHA)",
+          "weToolkit": true,
+          "competitor": true
+        },
+        { "key": "Large File Support", "weToolkit": true, "competitor": false },
+        { "key": "Instant Results", "weToolkit": true, "competitor": true },
+        { "key": "Works Offline", "weToolkit": true, "competitor": false },
+        { "key": "Copy to Clipboard", "weToolkit": true, "competitor": true },
+        { "key": "No Registration", "weToolkit": true, "competitor": true }
+      ],
+      "advantages": [
+        "Generate hashes without sending data anywhere",
+        "Process large files with WebAssembly",
+        "Secure hashing for sensitive content",
+        "Fast, instant results"
+      ]
+    },
+    "regex-tester-vs-regex101": {
+      "title": "Regex Tester vs Regex101",
+      "description": "Compare our Regex Tester with the popular Regex101",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        { "key": "Real-time Matching", "weToolkit": true, "competitor": true },
+        { "key": "Match Highlighting", "weToolkit": true, "competitor": true },
+        { "key": "Works Offline", "weToolkit": true, "competitor": false },
+        { "key": "No Account Required", "weToolkit": true, "competitor": true },
+        { "key": "Dark Mode", "weToolkit": true, "competitor": true },
+        {
+          "key": "Multiple Test Strings",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Integration with Other Tools",
+          "weToolkit": true,
+          "competitor": false
+        }
+      ],
+      "advantages": [
+        "Test regex patterns with complete privacy",
+        "Works offline in secure environments",
+        "Part of comprehensive developer toolkit",
+        "No tracking or data collection"
+      ]
+    }
   }
 }

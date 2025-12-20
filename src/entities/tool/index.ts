@@ -11,4 +11,4 @@ export type {
   ToolSeoContent,
   CategoryConfig,
 } from "./model";
-export { ToolSeoSection } from "./ui";
+export { ToolSeoSection, RelatedTools } from "./ui";
