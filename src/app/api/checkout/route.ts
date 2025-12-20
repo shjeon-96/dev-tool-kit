@@ -23,6 +23,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Variant ID 환경변수 확인
+    const hasVariantIds =
+      process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_PRO_MONTHLY ||
+      process.env.NEXT_PUBLIC_LEMONSQUEEZY_VARIANT_PRO_YEARLY;
+
+    if (!hasVariantIds) {
+      console.error(
+        "Checkout error: LEMONSQUEEZY_VARIANT_PRO_MONTHLY/YEARLY is not configured",
+      );
+      return NextResponse.json(
+        { error: "Payment service is not configured" },
+        { status: 503 },
+      );
+    }
+
     const supabase = await createClient();
 
     // 현재 사용자 확인
@@ -54,6 +69,15 @@ export async function POST(request: NextRequest) {
     if (!variantId) {
       return NextResponse.json(
         { error: "Variant ID is required" },
+        { status: 400 },
+      );
+    }
+
+    // variantId가 유효한지 확인 (빈 문자열이 아닌지)
+    if (typeof variantId !== "string" || variantId.trim() === "") {
+      console.error("Checkout error: Invalid variantId received:", variantId);
+      return NextResponse.json(
+        { error: "Invalid variant ID" },
         { status: 400 },
       );
     }
@@ -94,6 +118,17 @@ export async function POST(request: NextRequest) {
     if (errorMessage.includes("STORE_ID")) {
       return NextResponse.json(
         { error: "Payment service is not configured" },
+        { status: 503 },
+      );
+    }
+
+    // LemonSqueezy "Not Found" 에러 - 잘못된 variantId 또는 storeId
+    if (errorMessage.includes("Not Found")) {
+      console.error(
+        "Checkout error: Invalid variantId or storeId configuration",
+      );
+      return NextResponse.json(
+        { error: "Payment service is not configured correctly" },
         { status: 503 },
       );
     }
