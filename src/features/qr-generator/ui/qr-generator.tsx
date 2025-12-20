@@ -18,6 +18,7 @@ import {
   TabsContent,
 } from "@/shared/ui";
 import { Download, Link, Type, Wifi, User } from "lucide-react";
+import { useLeadCaptureContext } from "@/features/lead-capture";
 
 const qrTypes: { value: QRType; label: string; icon: typeof Link }[] = [
   { value: "url", label: "URL", icon: Link },
@@ -36,6 +37,12 @@ export function QrGenerator() {
     updateVCardData,
     downloadQR,
   } = useQrGenerator();
+
+  const { openModal } = useLeadCaptureContext();
+
+  const handleDownload = (format: "png" | "svg") => {
+    openModal("qr-generator", () => downloadQR(format));
+  };
 
   return (
     <div className="space-y-6">
@@ -306,16 +313,13 @@ export function QrGenerator() {
           {/* Download Buttons */}
           {qrDataUrl && (
             <div className="flex gap-3">
-              <Button
-                onClick={() => downloadQR("png")}
-                className="flex-1"
-              >
+              <Button onClick={() => handleDownload("png")} className="flex-1">
                 <Download className="mr-2 h-4 w-4" />
                 PNG 다운로드
               </Button>
               <Button
                 variant="outline"
-                onClick={() => downloadQR("svg")}
+                onClick={() => handleDownload("svg")}
                 className="flex-1"
               >
                 <Download className="mr-2 h-4 w-4" />

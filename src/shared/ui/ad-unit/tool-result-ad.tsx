@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useFeatureAccess } from "@/entities/subscription";
 
 declare global {
   interface Window {
@@ -25,8 +26,11 @@ export function ToolResultAd({
 }: ToolResultAdProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const isAdLoaded = useRef(false);
+  const { canRemoveAds, isLoading: isLoadingSubscription } = useFeatureAccess();
 
   useEffect(() => {
+    // Don't load ads for Pro users
+    if (!isLoadingSubscription && canRemoveAds) return;
     if (isAdLoaded.current) return;
 
     try {
@@ -42,7 +46,12 @@ export function ToolResultAd({
     } catch (error) {
       console.error("AdSense error:", error);
     }
-  }, []);
+  }, [isLoadingSubscription, canRemoveAds]);
+
+  // Pro users don't see ads
+  if (!isLoadingSubscription && canRemoveAds) {
+    return null;
+  }
 
   return (
     <div

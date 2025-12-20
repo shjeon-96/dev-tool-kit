@@ -1,6 +1,7 @@
 "use client";
 
 import { useAdSense } from "@/shared/lib/hooks/use-ad-sense";
+import { useFeatureAccess } from "@/entities/subscription";
 
 interface AdSidebarProps {
   slot: string;
@@ -12,9 +13,15 @@ const SIDEBAR_MIN_HEIGHT = 600;
 
 export function AdSidebar({ slot, className = "" }: AdSidebarProps) {
   const { adRef, isLoading, isIsolated } = useAdSense();
+  const { canRemoveAds, isLoading: isLoadingSubscription } = useFeatureAccess();
 
   // Don't render ads on WASM isolated pages
   if (isIsolated) {
+    return null;
+  }
+
+  // Pro users don't see ads
+  if (!isLoadingSubscription && canRemoveAds) {
     return null;
   }
 

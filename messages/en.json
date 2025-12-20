@@ -225,6 +225,39 @@
     "aiExplanation": "AI Explanation",
     "close": "Close"
   },
+  "leadCapture": {
+    "title": "Get Free Resources!",
+    "subtitle": "Enter your email to receive helpful developer resources and download your file.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "invalidEmail": "Please enter a valid email address",
+    "submitButton": "Send me resources",
+    "skipButton": "Skip and download",
+    "submitting": "Sending...",
+    "privacyNote": "We respect your privacy. Unsubscribe anytime."
+  },
+  "leadMagnets": {
+    "developerToolkit": {
+      "title": "Developer Productivity Checklist",
+      "description": "Get our curated checklist of essential developer tools and best practices."
+    },
+    "apiDebugging": {
+      "title": "API Debugging Guide",
+      "description": "Master API debugging with our comprehensive troubleshooting guide."
+    },
+    "imageOptimization": {
+      "title": "Image Optimization Guide",
+      "description": "Learn how to optimize images for web performance and SEO."
+    },
+    "securityChecklist": {
+      "title": "Developer Security Checklist",
+      "description": "Essential security best practices every developer should know."
+    },
+    "frontendResources": {
+      "title": "Frontend Developer Resources",
+      "description": "Curated collection of frontend tools, libraries, and best practices."
+    }
+  },
   "commandMenu": {
     "naturalLanguagePlaceholder": "Search or describe what you need...",
     "tryNaturalLanguage": "Try: \"format my json\" or \"decode jwt token\"",
@@ -2454,6 +2487,22 @@
         "Part of comprehensive developer toolkit",
         "No tracking or data collection"
       ]
+    }
+  },
+  "subscription": {
+    "offlineUpgrade": {
+      "title": "Working Offline?",
+      "description": "You've been using our tools offline. Upgrade to Pro for unlimited offline access and sync your work across devices.",
+      "proBenefits": "Pro Benefits",
+      "pricing": "Starting at $9/month",
+      "upgradeButton": "Upgrade to Pro",
+      "dismissButton": "Maybe Later"
+    },
+    "proFeatures": {
+      "unlimitedOffline": "Unlimited offline access",
+      "noAds": "No advertisements",
+      "bulkActions": "Bulk processing for all tools",
+      "prioritySupport": "Priority customer support"
     }
   }
 }

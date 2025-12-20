@@ -4,6 +4,7 @@ import { useAppIconGenerator } from "../model/use-app-icon-generator";
 import { getActualSize } from "../lib/icon-sizes";
 import { Button, Label, Switch, FileUploader } from "@/shared/ui";
 import { Download, RotateCcw, Smartphone, Monitor, Globe } from "lucide-react";
+import { useLeadCaptureContext } from "@/features/lead-capture";
 
 const platformIcons: Record<string, typeof Smartphone> = {
   ios: Smartphone,
@@ -24,6 +25,12 @@ export function AppIconGenerator() {
     generateIcons,
     handleClear,
   } = useAppIconGenerator();
+
+  const { openModal } = useLeadCaptureContext();
+
+  const handleGenerateIcons = () => {
+    openModal("app-icon-generator", generateIcons);
+  };
 
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return `${bytes} B`;
@@ -110,7 +117,7 @@ export function AppIconGenerator() {
             {/* Action Buttons */}
             <div className="flex gap-3">
               <Button
-                onClick={generateIcons}
+                onClick={handleGenerateIcons}
                 disabled={isGenerating || selectedPlatforms.length === 0}
                 className="flex-1"
               >

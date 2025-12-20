@@ -26,6 +26,7 @@ import {
   Zap,
   AlertCircle,
 } from "lucide-react";
+import { useLeadCaptureContext } from "@/features/lead-capture";
 
 export function ImageResizer() {
   const {
@@ -43,6 +44,12 @@ export function ImageResizer() {
     handleClear,
     updateOptions,
   } = useImageResizer();
+
+  const { openModal } = useLeadCaptureContext();
+
+  const handleDownload = () => {
+    openModal("image-resizer", downloadImage);
+  };
 
   const formatFileSize = (bytes: number) => {
     if (bytes < 1024) return `${bytes} B`;
@@ -316,7 +323,7 @@ export function ImageResizer() {
                       </p>
                     )}
                   </div>
-                  <Button onClick={downloadImage} size="sm">
+                  <Button onClick={handleDownload} size="sm">
                     <Download className="mr-2 h-4 w-4" />
                     다운로드
                   </Button>

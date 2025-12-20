@@ -2373,5 +2373,56 @@
         "トラッキングやデータ収集なし"
       ]
     }
+  },
+  "leadCapture": {
+    "title": "無料リソースを受け取る！",
+    "subtitle": "メールアドレスを入力して、役立つ開発者向けリソースを受け取りましょう。",
+    "emailLabel": "メールアドレス",
+    "emailPlaceholder": "developer@example.com",
+    "submitButton": "リソースを送信",
+    "skipButton": "スキップしてダウンロード",
+    "submitting": "送信中...",
+    "successTitle": "ありがとうございます！",
+    "successMessage": "間もなくリソースがメールに届きます。",
+    "errorMessage": "問題が発生しました。もう一度お試しください。",
+    "privacyNote": "メールアドレスは安全に保管され、スパムを送ることはありません。"
+  },
+  "leadMagnets": {
+    "developerToolkit": {
+      "title": "開発者ツールキットチェックリスト",
+      "description": "必須開発者ツールと使用例をまとめた包括的なPDFガイドを受け取りましょう。"
+    },
+    "jsonMasterGuide": {
+      "title": "JSONマスターガイド",
+      "description": "JSONの検証、変換、デバッグのベストプラクティスを学びましょう。"
+    },
+    "securityChecklist": {
+      "title": "ウェブセキュリティチェックリスト",
+      "description": "ハッシュ、エンコーディング、トークン管理のセキュリティベストプラクティス。"
+    },
+    "imageOptimizationGuide": {
+      "title": "画像最適化ガイド",
+      "description": "パフォーマンス向けの画像最適化と変換テクニック。"
+    },
+    "codeQualityKit": {
+      "title": "コード品質ツールキット",
+      "description": "フォーマッタ、リンター、美化ツールでコード品質を改善する方法。"
+    }
+  },
+  "subscription": {
+    "offlineUpgrade": {
+      "title": "オフラインで作業中ですか？",
+      "description": "オフラインでツールをご利用いただいています。Proにアップグレードして、無制限のオフラインアクセスとデバイス間の同期をご利用ください。",
+      "proBenefits": "Proの特典",
+      "pricing": "月額$9から",
+      "upgradeButton": "Proにアップグレード",
+      "dismissButton": "後で"
+    },
+    "proFeatures": {
+      "unlimitedOffline": "無制限のオフラインアクセス",
+      "noAds": "広告なし",
+      "bulkActions": "すべてのツールで一括処理",
+      "prioritySupport": "優先カスタマーサポート"
+    }
   }
 }

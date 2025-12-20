@@ -17,6 +17,8 @@ export {
   useOnlineStatus,
   useServiceWorkerStatus,
   useOfflineReady,
+  useNetworkStatusChange,
+  useOfflineUpgradePrompt,
 } from "./hooks/use-online-status";
 export { useFileDropzone } from "./hooks/use-file-dropzone";
 

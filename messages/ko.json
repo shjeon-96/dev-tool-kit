@@ -225,6 +225,39 @@
     "aiExplanation": "AI 설명",
     "close": "닫기"
   },
+  "leadCapture": {
+    "title": "무료 리소스 받기!",
+    "subtitle": "이메일을 입력하시면 개발자를 위한 유용한 리소스를 보내드립니다.",
+    "emailLabel": "이메일 주소",
+    "emailPlaceholder": "you@example.com",
+    "invalidEmail": "올바른 이메일 주소를 입력해주세요",
+    "submitButton": "리소스 받기",
+    "skipButton": "건너뛰고 다운로드",
+    "submitting": "전송 중...",
+    "privacyNote": "개인정보를 존중합니다. 언제든지 구독 취소 가능합니다."
+  },
+  "leadMagnets": {
+    "developerToolkit": {
+      "title": "개발자 생산성 체크리스트",
+      "description": "필수 개발 도구와 모범 사례를 정리한 체크리스트를 받아보세요."
+    },
+    "apiDebugging": {
+      "title": "API 디버깅 가이드",
+      "description": "종합적인 트러블슈팅 가이드로 API 디버깅을 마스터하세요."
+    },
+    "imageOptimization": {
+      "title": "이미지 최적화 가이드",
+      "description": "웹 성능과 SEO를 위한 이미지 최적화 방법을 배워보세요."
+    },
+    "securityChecklist": {
+      "title": "개발자 보안 체크리스트",
+      "description": "모든 개발자가 알아야 할 필수 보안 모범 사례입니다."
+    },
+    "frontendResources": {
+      "title": "프론트엔드 개발자 리소스",
+      "description": "프론트엔드 도구, 라이브러리, 모범 사례를 엄선한 컬렉션입니다."
+    }
+  },
   "commandMenu": {
     "naturalLanguagePlaceholder": "검색하거나 필요한 것을 설명하세요...",
     "tryNaturalLanguage": "예: \"json 포맷\" 또는 \"jwt 토큰 디코딩\"",
@@ -2406,6 +2439,22 @@
         "종합 개발자 툴킷의 일부",
         "추적이나 데이터 수집 없음"
       ]
+    }
+  },
+  "subscription": {
+    "offlineUpgrade": {
+      "title": "오프라인으로 작업 중이신가요?",
+      "description": "오프라인에서 도구를 사용하고 계시네요. Pro로 업그레이드하여 무제한 오프라인 접근과 기기 간 동기화를 이용하세요.",
+      "proBenefits": "Pro 혜택",
+      "pricing": "월 $9부터",
+      "upgradeButton": "Pro로 업그레이드",
+      "dismissButton": "나중에"
+    },
+    "proFeatures": {
+      "unlimitedOffline": "무제한 오프라인 접근",
+      "noAds": "광고 없음",
+      "bulkActions": "모든 도구의 대량 처리",
+      "prioritySupport": "우선 고객 지원"
     }
   }
 }

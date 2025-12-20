@@ -1,6 +1,7 @@
 "use client";
 
 import { useAdSense } from "@/shared/lib/hooks/use-ad-sense";
+import { useFeatureAccess } from "@/entities/subscription";
 
 interface AdUnitProps {
   slot: string;
@@ -24,9 +25,15 @@ export function AdUnit({
   className = "",
 }: AdUnitProps) {
   const { adRef, isLoading, isIsolated } = useAdSense();
+  const { canRemoveAds, isLoading: isLoadingSubscription } = useFeatureAccess();
 
   // Don't render ads on WASM isolated pages
   if (isIsolated) {
+    return null;
+  }
+
+  // Pro users don't see ads (wait for subscription check to complete)
+  if (!isLoadingSubscription && canRemoveAds) {
     return null;
   }
 
