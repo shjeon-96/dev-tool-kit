@@ -49,3 +49,5 @@ export {
   OfflineBadge,
   OfflineStatusIcon,
 } from "./offline-indicator";
+export { QuotaWarning, QuotaBadge } from "./quota-warning";
+export { FileUploader } from "./file-uploader";

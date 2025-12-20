@@ -6,10 +6,8 @@ import {
   type VideoFormat,
   type AudioCodec,
 } from "../model/use-video-compressor";
-import { FileUploader } from "@/widgets/file-uploader";
 import {
   Button,
-  Input,
   Label,
   Slider,
   Select,
@@ -18,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
+  FileUploader,
 } from "@/shared/ui";
 import {
   Download,

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useFFmpeg, fetchFile } from "@/shared/lib/ffmpeg";
+import { useQuota } from "@/shared/lib/quota";
 
 export type OutputFormat = "image/png" | "image/jpeg" | "image/webp";
 export type ResizeMode = "pixel" | "percent";
@@ -30,6 +31,8 @@ const FORMAT_TO_EXT: Record<OutputFormat, string> = {
 };
 
 export function useImageResizer() {
+  const { trackUsage } = useQuota("image-resizer");
+
   const [originalImage, setOriginalImage] = useState<ImageInfo | null>(null);
   const [resizedImage, setResizedImage] = useState<string | null>(null);
   const [resizedFile, setResizedFile] = useState<File | null>(null);
@@ -247,13 +250,21 @@ export function useImageResizer() {
       await ffmpeg.deleteFile(outputName);
 
       setProgress(100);
+      trackUsage();
     } catch (e) {
       console.error("FFmpeg resize error:", e);
       setError(e instanceof Error ? e.message : "이미지 리사이즈 실패");
     } finally {
       setIsProcessing(false);
     }
-  }, [originalImage, ffmpeg, ffmpegReady, options, calculateDimensions]);
+  }, [
+    originalImage,
+    ffmpeg,
+    ffmpegReady,
+    options,
+    calculateDimensions,
+    trackUsage,
+  ]);
 
   // Canvas 기반 폴백 리사이즈 (FFmpeg 로드 실패 시)
   const resizeWithCanvas = useCallback(async () => {
@@ -321,12 +332,13 @@ export function useImageResizer() {
       setResizedFile(newFile);
 
       setProgress(100);
+      trackUsage();
     } catch (e) {
       setError(e instanceof Error ? e.message : "이미지 리사이즈 실패");
     } finally {
       setIsProcessing(false);
     }
-  }, [originalImage, options, calculateDimensions]);
+  }, [originalImage, options, calculateDimensions, trackUsage]);
 
   // 메인 리사이즈 함수 - FFmpeg 사용 가능하면 FFmpeg, 아니면 Canvas
   const resizeImage = useCallback(async () => {

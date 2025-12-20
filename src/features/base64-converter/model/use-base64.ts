@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { useQuota } from "@/shared/lib/quota";
 
 export type ConversionMode = "encode" | "decode";
 
 export function useBase64() {
+  const { trackUsage } = useQuota("base64-converter");
+
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [mode, setMode] = useState<ConversionMode>("encode");
@@ -15,7 +18,7 @@ export function useBase64() {
       // Handle Unicode characters properly
       const bytes = new TextEncoder().encode(text);
       const binString = Array.from(bytes, (byte) =>
-        String.fromCodePoint(byte)
+        String.fromCodePoint(byte),
       ).join("");
       return btoa(binString);
     } catch {
@@ -44,24 +47,28 @@ export function useBase64() {
       const result = mode === "encode" ? encode(input) : decode(input);
       setOutput(result);
       setError(null);
+      trackUsage();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Conversion failed");
       setOutput("");
     }
-  }, [input, mode, encode, decode]);
+  }, [input, mode, encode, decode, trackUsage]);
 
   const handleInputChange = useCallback((value: string) => {
     setInput(value);
     setError(null);
   }, []);
 
-  const handleModeChange = useCallback((newMode: ConversionMode) => {
-    setMode(newMode);
-    // Swap input and output when changing mode
-    setInput(output);
-    setOutput(input);
-    setError(null);
-  }, [input, output]);
+  const handleModeChange = useCallback(
+    (newMode: ConversionMode) => {
+      setMode(newMode);
+      // Swap input and output when changing mode
+      setInput(output);
+      setOutput(input);
+      setError(null);
+    },
+    [input, output],
+  );
 
   const handleCopy = useCallback(async () => {
     if (!output) return false;

@@ -2,6 +2,7 @@ import { MobileSidebar } from "@/widgets/sidebar";
 import { ModeToggle } from "@/features/theme-toggle";
 import { CommandMenu } from "@/widgets/command-menu";
 import { WorkspaceSelector } from "@/features/workspace";
+import { UserMenu } from "@/entities/user";
 import { LanguageSwitcher } from "./language-switcher";
 
 export function Header() {
@@ -14,6 +15,7 @@ export function Header() {
       <WorkspaceSelector />
       <LanguageSwitcher />
       <ModeToggle />
+      <UserMenu />
     </header>
   );
 }

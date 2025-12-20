@@ -35,6 +35,7 @@
 17. [Magic Share (서버리스 공유)](#17-magic-share-서버리스-공유)
 18. [Chrome Extension](#18-chrome-extension)
 19. [WebAssembly 통합](#19-webassembly-통합)
+20. [전략적 확장 로드맵](#20-전략적-확장-로드맵-strategic-expansion-roadmap)
 
 ---
 
@@ -2311,6 +2312,266 @@ e2e/
 - FFmpeg 로딩 인디케이터 표시 확인
 - crossOriginIsolated 상태 검증
 - 콘솔 에러 감지
+
+---
+
+## 20. 전략적 확장 로드맵 (Strategic Expansion Roadmap)
+
+### 20.1 확장 비전
+
+DevToolkit(Web Toolkit)은 개발자 도구를 넘어 **범용 생산성 플랫폼**으로 진화합니다.
+
+**핵심 전략**: "Thick Client, Thin Server" - 클라이언트 사이드 컴퓨팅의 극대화
+
+| 원칙                | 설명                          |
+| ------------------- | ----------------------------- |
+| **100% 프라이버시** | 데이터가 서버로 전송되지 않음 |
+| **제로 서버 비용**  | 사용자 브라우저가 연산 수행   |
+| **오프라인 우선**   | PWA로 인터넷 없이 작동        |
+| **무제한 처리**     | API 호출 제한 없음            |
+
+### 20.2 경쟁사 분석
+
+| 경쟁사       | 특징                       | 학습 포인트                       |
+| ------------ | -------------------------- | --------------------------------- |
+| **TinyWow**  | 250+ 도구, 프라이버시 강조 | 다양한 도구 폭, 프라이버시 메시징 |
+| **Smallpdf** | B2B 피봇, 전자서명 통합    | 문서 워크플로우 생태계            |
+| **10015.io** | 개발자 → 일반 사용자 확장  | 카테고리 확장 전략                |
+
+### 20.3 확장 전략 1: 지능형 문서 처리
+
+**목표**: PDF, 이미지, 문서 처리를 100% 클라이언트 사이드로
+
+#### 주요 도구
+
+| 도구                   | 기술 스택                     | 설명                          |
+| ---------------------- | ----------------------------- | ----------------------------- |
+| **PDF Toolkit**        | PDF.js + jsPDF                | 병합, 분할, 압축, 페이지 추출 |
+| **OCR Scanner**        | Tesseract.js / PaddleOCR WASM | 이미지에서 텍스트 추출        |
+| **E-Signature**        | Fabric.js + Web Crypto        | 로컬 전자서명 (서버 없음)     |
+| **Document Converter** | LibreOffice WASM              | DOCX↔PDF↔TXT 변환             |
+
+#### 기술 구현
+
+```typescript
+// OCR 처리 예시
+import Tesseract from "tesseract.js";
+
+const result = await Tesseract.recognize(
+  imageFile,
+  "kor+eng", // 한국어 + 영어
+  {
+    logger: (m) => setProgress(m.progress * 100),
+  },
+);
+```
+
+### 20.4 확장 전략 2: 크리에이티브 & 미디어 자동화
+
+**목표**: 디자이너, 마케터를 위한 고급 미디어 처리
+
+#### 주요 도구
+
+| 도구                   | 기술 스택             | 설명                            |
+| ---------------------- | --------------------- | ------------------------------- |
+| **Background Remover** | WebGPU + ONNX Runtime | AI 배경 제거                    |
+| **Video Compressor**   | FFmpeg.wasm           | 브라우저 내 비디오 압축 ✅ 완료 |
+| **Audio Transcriber**  | Whisper WASM          | 음성→텍스트 변환                |
+| **OG Image Generator** | Satori + Resvg        | 동적 소셜 이미지 생성           |
+| **Mockup Generator**   | Three.js              | 3D 목업 합성                    |
+
+#### WebGPU 기반 AI 처리
+
+```typescript
+// WebGPU 배경 제거 예시
+import * as ort from "onnxruntime-web/webgpu";
+
+const session = await ort.InferenceSession.create("/models/u2net.onnx", {
+  executionProviders: ["webgpu"],
+});
+```
+
+### 20.5 확장 전략 3: 마케팅 & SEO 인텔리전스
+
+**목표**: 마케터를 위한 데이터 분석 및 콘텐츠 생성
+
+#### 주요 도구
+
+| 도구                        | 기술 스택        | 설명                          |
+| --------------------------- | ---------------- | ----------------------------- |
+| **Schema Markup Generator** | 시각적 빌더      | JSON-LD 구조화 데이터 생성    |
+| **Headline Analyzer**       | Transformers.js  | AI 기반 헤드라인 점수화       |
+| **Keyword Density Checker** | NLP 분석         | 콘텐츠 최적화 분석            |
+| **AI Summarizer**           | 로컬 LLM (Phi-3) | 클라이언트 사이드 텍스트 요약 |
+
+#### 로컬 LLM 통합
+
+```typescript
+// Transformers.js 기반 로컬 LLM
+import { pipeline } from "@huggingface/transformers";
+
+const summarizer = await pipeline(
+  "summarization",
+  "Xenova/distilbart-cnn-12-6",
+);
+const summary = await summarizer(longText, {
+  max_length: 130,
+  min_length: 30,
+});
+```
+
+### 20.6 Programmatic SEO 확장
+
+**목표**: 도구 조합으로 수천 개의 롱테일 키워드 페이지 생성
+
+#### 변환 조합 페이지
+
+```
+/convert/json-to-yaml
+/convert/yaml-to-json
+/convert/csv-to-json
+/convert/json-to-csv
+... (54개 조합 ✅ 완료)
+```
+
+#### 비교 페이지 (신규)
+
+```
+/compare/md5-vs-sha256
+/compare/base64-vs-hex
+/compare/jpeg-vs-webp
+```
+
+#### 단위 변환 페이지 (신규)
+
+```
+/convert/px-to-rem
+/convert/celsius-to-fahrenheit
+/convert/bytes-to-kb
+```
+
+### 20.7 기술 아키텍처
+
+#### 클라이언트 사이드 스택
+
+| 레이어   | 기술             | 용도                         |
+| -------- | ---------------- | ---------------------------- |
+| **UI**   | React 19 + Radix | 컴포넌트 시스템              |
+| **연산** | WebAssembly      | FFmpeg, Tesseract, hash-wasm |
+| **AI**   | WebGPU + ONNX    | 이미지/텍스트 AI 처리        |
+| **LLM**  | Transformers.js  | 로컬 언어 모델               |
+| **저장** | IndexedDB + OPFS | 대용량 파일 캐시             |
+
+#### Wasm 라이브러리 통합
+
+| 라이브러리     | 용도               | 번들 크기       |
+| -------------- | ------------------ | --------------- |
+| FFmpeg.wasm    | 비디오/오디오 처리 | ~31MB (CDN)     |
+| Tesseract.js   | OCR                | ~15MB (언어별)  |
+| hash-wasm      | 해싱               | ~50KB ✅ 통합됨 |
+| pdf-lib        | PDF 조작           | ~300KB          |
+| PaddleOCR WASM | 고급 OCR           | ~12MB           |
+
+### 20.8 수익화 전략
+
+#### 3-Pillar 모델
+
+| Pillar          | 수익원        | 예상 비중 |
+| --------------- | ------------- | --------- |
+| **Primary**     | Freemium 구독 | 60-70%    |
+| **Secondary A** | 비침해적 광고 | 20-25%    |
+| **Secondary B** | 제휴 마케팅   | 10-15%    |
+
+#### Freemium 티어
+
+| 티어           | 가격   | 기능                                   |
+| -------------- | ------ | -------------------------------------- |
+| **Free**       | $0     | 모든 도구 기본 접근, 일일 100회 제한   |
+| **Pro**        | $9/월  | 무제한, 광고 제거, 대량 작업, API 접근 |
+| **Enterprise** | 커스텀 | 무제한, SLA, 팀 기능, 감사 로그        |
+
+#### Premium 트리거 기능
+
+| 기능                | Free  | Pro     |
+| ------------------- | ----- | ------- |
+| Bulk JSON Format    | 1파일 | 100파일 |
+| Batch Hash Generate | 5개   | 500개   |
+| QR Code Bulk        | 1개   | 50개    |
+| API Access          | ❌    | ✅      |
+| 작업 기록           | 7일   | 무제한  |
+
+### 20.9 구현 로드맵
+
+#### Phase 1: 기반 구축 (1-3개월)
+
+| 항목               | 우선순위 | 상태    |
+| ------------------ | -------- | ------- |
+| Supabase Auth 통합 | 1        | ⏳ 계획 |
+| Stripe 결제 시스템 | 2        | ⏳ 계획 |
+| Quota 시스템       | 3        | ⏳ 계획 |
+| 가격 페이지        | 4        | ⏳ 계획 |
+
+#### Phase 2: 도구 확장 (4-6개월)
+
+| 항목                        | 우선순위 | 상태    |
+| --------------------------- | -------- | ------- |
+| PDF Toolkit                 | 1        | ⏳ 계획 |
+| Background Remover (WebGPU) | 2        | ⏳ 계획 |
+| OCR Scanner                 | 3        | ⏳ 계획 |
+| Schema Markup Generator     | 4        | ⏳ 계획 |
+| Video Compressor            | 완료     | ✅      |
+
+#### Phase 3: AI 통합 (7-12개월)
+
+| 항목              | 우선순위 | 상태    |
+| ----------------- | -------- | ------- |
+| Whisper 음성 변환 | 1        | ⏳ 계획 |
+| 로컬 LLM 요약     | 2        | ⏳ 계획 |
+| AI 이미지 분석    | 3        | ⏳ 계획 |
+| 팀 워크스페이스   | 4        | ⏳ 계획 |
+
+### 20.10 성공 지표 (KPIs)
+
+| 지표            | Phase 1 | Phase 2 | Phase 3 |
+| --------------- | ------- | ------- | ------- |
+| **MRR**         | $500    | $2,000  | $10,000 |
+| **유료 전환율** | 1%      | 2.5%    | 5%      |
+| **Pro 구독자**  | 50      | 200     | 500     |
+| **도구 수**     | 35      | 45      | 60+     |
+| **월간 방문자** | 10K     | 50K     | 200K    |
+
+### 20.11 리스크 관리
+
+| 리스크      | 영향도 | 대응 전략                 |
+| ----------- | ------ | ------------------------- |
+| 낮은 전환율 | 높음   | A/B 테스트, 가격 최적화   |
+| 기술 복잡도 | 중간   | MVP 우선, 점진적 구현     |
+| 경쟁 심화   | 중간   | 니치 기능 집중, DX 차별화 |
+| Wasm 호환성 | 낮음   | Canvas/JS 폴백 구현       |
+
+### 20.12 기술 우선순위 매트릭스
+
+```
+높은 임팩트 / 낮은 노력
+├── Schema Markup Generator (HTML 기반)
+├── Headline Analyzer (Transformers.js)
+└── 단위 변환기 (순수 JS)
+
+높은 임팩트 / 높은 노력
+├── PDF Toolkit (pdf-lib + 최적화)
+├── Background Remover (WebGPU)
+└── OCR Scanner (Tesseract.js)
+
+낮은 임팩트 / 낮은 노력
+├── 비교 페이지 생성 (SEO)
+├── 키보드 단축키 확장
+└── 테마 커스터마이징
+
+낮은 임팩트 / 높은 노력
+├── 협업 기능 (WebRTC)
+├── 데스크톱 앱 (Tauri)
+└── 모바일 앱 (React Native)
+```
 
 ---
 

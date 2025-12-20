@@ -334,6 +334,10 @@
     "video-compressor": {
       "title": "Video Compressor",
       "description": "ブラウザで動画ファイルを圧縮。FFmpeg.wasmによる100%ローカル処理。"
+    },
+    "bulk-actions": {
+      "title": "一括処理",
+      "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成を一括処理。"
     }
   },
   "seo": {
@@ -1761,5 +1765,235 @@
         }
       }
     }
+  },
+  "auth": {
+    "signin": {
+      "title": "おかえりなさい",
+      "subtitle": "アカウントにログインして続行してください",
+      "submit": "ログイン",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signupLink": "新規登録"
+    },
+    "signup": {
+      "title": "アカウント作成",
+      "subtitle": "Pro機能を利用するには登録してください",
+      "submit": "アカウント作成",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "signinLink": "ログイン"
+    },
+    "fields": {
+      "email": "メールアドレス",
+      "emailPlaceholder": "you@example.com",
+      "password": "パスワード",
+      "passwordPlaceholder": "••••••••",
+      "name": "お名前",
+      "namePlaceholder": "お名前を入力してください"
+    },
+    "oauth": {
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "orContinueWith": "または以下で続ける",
+    "errors": {
+      "unknown": "予期せぬエラーが発生しました。もう一度お試しください。",
+      "invalidCredentials": "メールアドレスまたはパスワードが正しくありません。",
+      "emailTaken": "このメールアドレスは既に使用されています。"
+    }
+  },
+  "userMenu": {
+    "signIn": "ログイン",
+    "dashboard": "ダッシュボード",
+    "billing": "請求管理",
+    "settings": "設定",
+    "signOut": "ログアウト"
+  },
+  "pricing": {
+    "meta": {
+      "title": "料金プラン - Web Toolkit",
+      "description": "開発ニーズに最適なプランをお選びください。無料プランあり、パワーユーザー向けのプレミアム機能も。"
+    },
+    "hero": {
+      "title": "シンプルで透明な料金プラン",
+      "description": "無料で始めて、必要に応じてアップグレード。隠れた費用なし、いつでもキャンセル可能。"
+    },
+    "billing": {
+      "monthly": "月額",
+      "yearly": "年額",
+      "savePercent": "{percent}%お得",
+      "perMonth": "月",
+      "billedYearly": "年間${amount}で請求"
+    },
+    "tier": {
+      "popular": "人気No.1",
+      "free": {
+        "name": "無料",
+        "description": "個人開発者向けの基本ツール",
+        "features": {
+          "0": "29の開発者ツール",
+          "1": "1日100回のAPIコール",
+          "2": "基本エクスポート（単一ファイル）",
+          "3": "7日間の履歴保存",
+          "4": "コミュニティサポート"
+        }
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "パワーユーザー向けの無制限アクセス",
+        "features": {
+          "0": "全29+開発者ツール",
+          "1": "月間10,000回のAPIコール",
+          "2": "一括操作（100アイテム）",
+          "3": "無制限の履歴保存",
+          "4": "優先サポート",
+          "5": "広告なし",
+          "6": "APIアクセス"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "チーム向けのカスタムソリューション",
+        "features": {
+          "0": "Proの全機能を含む",
+          "1": "無制限のAPIコール",
+          "2": "チームワークスペース（最大10名）",
+          "3": "SSO統合",
+          "4": "カスタムブランディング",
+          "5": "専任サポート",
+          "6": "SLA保証",
+          "7": "監査ログ"
+        }
+      }
+    },
+    "cta": {
+      "getStarted": "無料で始める",
+      "subscribe": "購読する",
+      "contactSales": "営業に問い合わせ"
+    },
+    "comparison": {
+      "title": "プラン比較",
+      "feature": "機能",
+      "features": {
+        "tools": "開発者ツール",
+        "apiCalls": "APIコール",
+        "bulkActions": "一括操作",
+        "history": "履歴保存",
+        "ads": "広告",
+        "apiAccess": "APIアクセス",
+        "prioritySupport": "優先サポート"
+      }
+    },
+    "faq": {
+      "title": "よくある質問",
+      "q1": "いつでもプランを変更できますか？",
+      "a1": "はい！いつでもアップグレード、ダウングレード、またはキャンセルが可能です。変更は即座に反映されます。",
+      "q2": "データは安全ですか？",
+      "a2": "もちろんです。すべてのツールはブラウザ内でデータを処理します。機密情報の保存や送信は一切行いません。",
+      "q3": "どのような支払い方法が使えますか？",
+      "a3": "主要なクレジットカード、PayPal、および安全な決済プロバイダーを通じた各種現地決済方法に対応しています。",
+      "q4": "返金は可能ですか？",
+      "a4": "はい、30日間の返金保証があります。ご満足いただけない場合は、全額返金のためお問い合わせください。"
+    },
+    "trust": {
+      "security": "🔒 Lemon Squeezyによる安全な決済",
+      "guarantee": "💯 30日間の返金保証・いつでもキャンセル可能"
+    },
+    "upgrade": {
+      "title": "Proにアップグレード",
+      "featureTitle": "{feature}をアンロック",
+      "description": "すべてのプレミアム機能に無制限にアクセスして、開発ワークフローを強化しましょう。",
+      "cta": "今すぐアップグレード",
+      "later": "後で",
+      "guarantee": "30日間の返金保証"
+    }
+  },
+  "dashboard": {
+    "meta": {
+      "title": "ダッシュボード - Web Toolkit",
+      "description": "Web Toolkitのアカウント、サブスクリプション、設定を管理します。"
+    },
+    "title": "ダッシュボード",
+    "subtitle": "アカウントとサブスクリプションの管理",
+    "checkout": {
+      "successTitle": "お支払い完了！",
+      "successMessage": "サブスクリプションが有効になりました。アップグレードありがとうございます！"
+    },
+    "subscription": {
+      "title": "サブスクリプション",
+      "currentPlan": "現在のプラン",
+      "status": "ステータス",
+      "statusActive": "アクティブ",
+      "statusInactive": "非アクティブ",
+      "cancelsAt": "期間終了時にキャンセル予定",
+      "renewsOn": "更新予定日",
+      "endsOn": "終了日",
+      "upgrade": "Proにアップグレード",
+      "manageBilling": "請求管理"
+    },
+    "profile": {
+      "anonymous": "匿名ユーザー"
+    },
+    "nav": {
+      "settings": "アカウント設定"
+    },
+    "quickLinks": {
+      "title": "クイックリンク",
+      "billing": "請求",
+      "billingDesc": "支払いと請求書の管理",
+      "usage": "使用量",
+      "usageDesc": "使用統計を確認",
+      "apiKeys": "APIキー",
+      "apiKeysDesc": "APIアクセスの管理",
+      "tools": "ツール",
+      "toolsDesc": "すべてのツールを見る"
+    }
+  },
+  "billing": {
+    "meta": {
+      "title": "請求 - Web Toolkit",
+      "description": "請求、支払い方法、請求書を管理します。"
+    },
+    "title": "請求",
+    "subtitle": "サブスクリプションと支払い方法の管理",
+    "currentPlan": {
+      "title": "現在のプラン",
+      "description": "現在{tier}プランをご利用中です"
+    },
+    "nextBilling": {
+      "title": "次回請求",
+      "date": "次回請求日: {date}",
+      "amount": "金額: ${amount}"
+    },
+    "paymentMethod": {
+      "title": "支払い方法",
+      "description": "支払い方法の管理",
+      "update": "支払い方法を変更"
+    },
+    "actions": {
+      "changePlan": "プラン変更",
+      "cancelSubscription": "サブスクリプションをキャンセル",
+      "resumeSubscription": "サブスクリプションを再開",
+      "viewInvoices": "請求書を見る"
+    },
+    "cancel": {
+      "title": "サブスクリプションのキャンセル",
+      "description": "現在の請求期間が終了するまでサブスクリプションは有効です。",
+      "confirm": "はい、キャンセルします",
+      "keep": "サブスクリプションを維持"
+    },
+    "customerPortal": "カスタマーポータルで管理"
+  },
+  "quota": {
+    "daily": "日次使用量",
+    "monthly": "月次使用量",
+    "warning": {
+      "title": "使用量制限に近づいています",
+      "description": "無料プランの使用量が残りわずかです。無制限利用にはProへアップグレードしてください。"
+    },
+    "exceeded": {
+      "title": "使用量制限に達しました",
+      "description": "無料プランの使用量上限に達しました。続けて利用するにはProへアップグレードしてください。"
+    },
+    "upgradeCta": "Proにアップグレード"
   }
 }

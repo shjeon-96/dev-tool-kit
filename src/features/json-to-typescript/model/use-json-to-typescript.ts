@@ -2,9 +2,11 @@
 
 import { useState, useCallback } from "react";
 import { useToolHistory } from "@/shared/lib";
+import { useQuota } from "@/shared/lib/quota";
 import { jsonToTypescript, type ConvertOptions } from "../lib/converter";
 
 export function useJsonToTypescript() {
+  const { trackUsage } = useQuota("json-to-typescript");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -31,11 +33,12 @@ export function useJsonToTypescript() {
       setOutput(result.output);
       setError(null);
       addToHistory(input, result.output);
+      trackUsage();
     } else {
       setError(result.error || "Conversion failed");
       setOutput("");
     }
-  }, [input, options, addToHistory]);
+  }, [input, options, addToHistory, trackUsage]);
 
   const handleCopy = useCallback(async () => {
     if (!output) return false;

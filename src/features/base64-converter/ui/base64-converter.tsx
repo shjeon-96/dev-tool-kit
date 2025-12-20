@@ -10,7 +10,7 @@ import {
   ArrowRightLeft,
 } from "lucide-react";
 import { Button } from "@/shared/ui";
-import { ToolActionsBar } from "@/widgets/tool-actions-bar";
+import { ToolActionsBar } from "@/features/tool-actions";
 import { useBase64 } from "../model/use-base64";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 

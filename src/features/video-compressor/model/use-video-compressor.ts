@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { useFFmpeg } from "@/shared/lib/ffmpeg/use-ffmpeg";
+import { useQuota } from "@/shared/lib/quota";
 import {
   compressVideo,
   getDefaultOptions,
@@ -39,6 +40,8 @@ interface CompressedResult {
 }
 
 export function useVideoCompressor() {
+  const { trackUsage } = useQuota("video-compressor");
+
   const {
     ffmpeg,
     loadState,
@@ -147,6 +150,7 @@ export function useVideoCompressor() {
         blob,
         preview,
       });
+      trackUsage();
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "압축 중 오류가 발생했습니다.";
@@ -157,7 +161,7 @@ export function useVideoCompressor() {
       setProgress(0);
       setStage("");
     }
-  }, [originalVideo, ffmpeg, options]);
+  }, [originalVideo, ffmpeg, options, trackUsage]);
 
   // 다운로드
   const download = useCallback(() => {

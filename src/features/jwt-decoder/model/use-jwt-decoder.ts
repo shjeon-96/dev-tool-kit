@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useToolHistory, useUrlState } from "@/shared/lib";
+import { useQuota } from "@/shared/lib/quota";
 
 export interface DecodedToken {
   header: Record<string, unknown>;
@@ -17,6 +18,8 @@ interface JwtDecoderState {
 }
 
 export function useJwtDecoder() {
+  const { trackUsage } = useQuota("jwt-decoder");
+
   // URL State for sharing
   const {
     state: urlState,
@@ -79,6 +82,7 @@ export function useJwtDecoder() {
           issuedAt,
         });
         setError(null);
+        trackUsage();
 
         // 히스토리에 저장 (JWT 앞부분만 저장하여 보안 유지)
         if (saveToHistory) {
@@ -91,7 +95,7 @@ export function useJwtDecoder() {
         setError(e instanceof Error ? e.message : "Invalid JWT token");
       }
     },
-    [addToHistory],
+    [addToHistory, trackUsage],
   );
 
   const handleInputChange = useCallback(

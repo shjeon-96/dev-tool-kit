@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import { v1 as uuidv1, v4 as uuidv4 } from "uuid";
 import { ulid } from "ulid";
+import { useQuota } from "@/shared/lib/quota";
 
 export type IdType = "uuid-v1" | "uuid-v4" | "ulid";
 
@@ -14,6 +15,7 @@ export interface GeneratorOptions {
 }
 
 export function useUuidGenerator() {
+  const { trackUsage } = useQuota("uuid-generator");
   const [options, setOptions] = useState<GeneratorOptions>({
     type: "uuid-v4",
     count: 1,
@@ -46,7 +48,7 @@ export function useUuidGenerator() {
       }
       return result;
     },
-    [options.noDashes, options.uppercase]
+    [options.noDashes, options.uppercase],
   );
 
   const handleGenerate = useCallback(() => {
@@ -56,7 +58,8 @@ export function useUuidGenerator() {
       ids.push(formatId(id));
     }
     setGeneratedIds(ids);
-  }, [options.count, options.type, generateId, formatId]);
+    trackUsage();
+  }, [options.count, options.type, generateId, formatId, trackUsage]);
 
   const updateOptions = useCallback((updates: Partial<GeneratorOptions>) => {
     setOptions((prev) => ({ ...prev, ...updates }));

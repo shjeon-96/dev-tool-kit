@@ -364,6 +364,10 @@
     "video-compressor": {
       "title": "Video Compressor",
       "description": "Compress video files in your browser. 100% local processing with FFmpeg.wasm."
+    },
+    "bulk-actions": {
+      "title": "Bulk Actions",
+      "description": "Process multiple files at once. Batch JSON formatting, hash generation, and QR code creation."
     }
   },
   "seo": {
@@ -1114,6 +1118,188 @@
       "signinLink": "Sign in"
     }
   },
+  "userMenu": {
+    "signIn": "Sign In",
+    "dashboard": "Dashboard",
+    "billing": "Billing",
+    "settings": "Settings",
+    "signOut": "Sign Out"
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing - Web Toolkit",
+      "description": "Choose the perfect plan for your development needs. Free tier available with premium features for power users."
+    },
+    "hero": {
+      "title": "Simple, transparent pricing",
+      "description": "Start free and upgrade when you need more. No hidden fees, cancel anytime."
+    },
+    "billing": {
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "savePercent": "Save {percent}%",
+      "perMonth": "month",
+      "billedYearly": "Billed ${amount} yearly"
+    },
+    "tier": {
+      "popular": "Most Popular",
+      "free": {
+        "name": "Free",
+        "description": "Essential tools for individual developers",
+        "features": {
+          "0": "29 developer tools",
+          "1": "100 API calls per day",
+          "2": "Basic export (single file)",
+          "3": "7-day history",
+          "4": "Community support"
+        }
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Unlimited access for power users",
+        "features": {
+          "0": "All 29+ developer tools",
+          "1": "10,000 API calls per month",
+          "2": "Bulk actions (100 items)",
+          "3": "Unlimited history",
+          "4": "Priority support",
+          "5": "No ads",
+          "6": "API access"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Custom solutions for teams",
+        "features": {
+          "0": "Everything in Pro",
+          "1": "Unlimited API calls",
+          "2": "Team workspace (up to 10)",
+          "3": "SSO integration",
+          "4": "Custom branding",
+          "5": "Dedicated support",
+          "6": "SLA guarantee",
+          "7": "Audit logs"
+        }
+      }
+    },
+    "cta": {
+      "getStarted": "Get Started Free",
+      "subscribe": "Subscribe Now",
+      "contactSales": "Contact Sales"
+    },
+    "comparison": {
+      "title": "Compare Plans",
+      "feature": "Feature",
+      "features": {
+        "tools": "Developer Tools",
+        "apiCalls": "API Calls",
+        "bulkActions": "Bulk Actions",
+        "history": "History Retention",
+        "ads": "Ads",
+        "apiAccess": "API Access",
+        "prioritySupport": "Priority Support"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Can I switch plans anytime?",
+      "a1": "Yes! You can upgrade, downgrade, or cancel your subscription at any time. Changes take effect immediately.",
+      "q2": "Is my data safe?",
+      "a2": "Absolutely. All tools process data in your browser. We never store or transmit your sensitive information.",
+      "q3": "What payment methods do you accept?",
+      "a3": "We accept all major credit cards, PayPal, and various local payment methods through our secure payment provider.",
+      "q4": "Do you offer refunds?",
+      "a4": "Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund."
+    },
+    "trust": {
+      "security": "🔒 Secure payment powered by Lemon Squeezy",
+      "guarantee": "💯 30-day money-back guarantee • Cancel anytime"
+    },
+    "upgrade": {
+      "title": "Upgrade to Pro",
+      "featureTitle": "Unlock {feature}",
+      "description": "Get unlimited access to all premium features and supercharge your development workflow.",
+      "cta": "Upgrade Now",
+      "later": "Maybe Later",
+      "guarantee": "30-day money-back guarantee"
+    }
+  },
+  "dashboard": {
+    "meta": {
+      "title": "Dashboard - Web Toolkit",
+      "description": "Manage your Web Toolkit account, subscription, and settings."
+    },
+    "title": "Dashboard",
+    "subtitle": "Manage your account and subscription",
+    "checkout": {
+      "successTitle": "Payment successful!",
+      "successMessage": "Your subscription has been activated. Thank you for upgrading!"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "currentPlan": "Your current plan",
+      "status": "Status",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "cancelsAt": "Cancels at period end",
+      "renewsOn": "Renews on",
+      "endsOn": "Ends on",
+      "upgrade": "Upgrade to Pro",
+      "manageBilling": "Manage Billing"
+    },
+    "profile": {
+      "anonymous": "Anonymous User"
+    },
+    "nav": {
+      "settings": "Account Settings"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "billing": "Billing",
+      "billingDesc": "Manage payment & invoices",
+      "usage": "Usage",
+      "usageDesc": "View your usage stats",
+      "apiKeys": "API Keys",
+      "apiKeysDesc": "Manage API access",
+      "tools": "Tools",
+      "toolsDesc": "Browse all tools"
+    }
+  },
+  "billing": {
+    "meta": {
+      "title": "Billing - Web Toolkit",
+      "description": "Manage your billing, payment methods, and invoices."
+    },
+    "title": "Billing",
+    "subtitle": "Manage your subscription and payment methods",
+    "currentPlan": {
+      "title": "Current Plan",
+      "description": "You are currently on the {tier} plan"
+    },
+    "nextBilling": {
+      "title": "Next Billing",
+      "date": "Your next billing date is {date}",
+      "amount": "Amount: ${amount}"
+    },
+    "paymentMethod": {
+      "title": "Payment Method",
+      "description": "Manage your payment methods",
+      "update": "Update Payment Method"
+    },
+    "actions": {
+      "changePlan": "Change Plan",
+      "cancelSubscription": "Cancel Subscription",
+      "resumeSubscription": "Resume Subscription",
+      "viewInvoices": "View Invoices"
+    },
+    "cancel": {
+      "title": "Cancel Subscription",
+      "description": "Your subscription will remain active until the end of the current billing period.",
+      "confirm": "Yes, Cancel Subscription",
+      "keep": "Keep Subscription"
+    },
+    "customerPortal": "Manage in Customer Portal"
+  },
   "guides": {
     "title": "Developer Guides",
     "description": "Step-by-step guides to help you master our developer tools",
@@ -1819,5 +2005,53 @@
         }
       }
     }
+  },
+  "auth": {
+    "signin": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue",
+      "submit": "Sign In",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create Account",
+      "subtitle": "Sign up to unlock Pro features",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "signinLink": "Sign in"
+    },
+    "fields": {
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "name": "Name",
+      "namePlaceholder": "Your name"
+    },
+    "oauth": {
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "orContinueWith": "or continue with",
+    "errors": {
+      "unknown": "An unexpected error occurred. Please try again.",
+      "invalidCredentials": "Invalid email or password.",
+      "emailTaken": "An account with this email already exists."
+    }
+  },
+  "quota": {
+    "daily": "Daily usage",
+    "monthly": "Monthly usage",
+    "warning": {
+      "title": "Approaching usage limit",
+      "description": "You're running low on your free tier usage. Upgrade to Pro for unlimited access."
+    },
+    "exceeded": {
+      "title": "Usage limit reached",
+      "description": "You've reached your free tier limit. Upgrade to Pro to continue using this tool."
+    },
+    "upgradeCta": "Upgrade to Pro"
   }
 }

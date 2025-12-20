@@ -7,6 +7,10 @@ export interface Tool {
   description: string;
   icon: LucideIcon;
   category: ToolCategory;
+  /** Pro 전용 기능 여부 */
+  isPremium?: boolean;
+  /** 무료 사용자 일일 사용 제한 (미설정 시 무제한) */
+  freeLimit?: number;
 }
 
 export type ToolSlug =

@@ -196,6 +196,7 @@ export const tools: Record<ToolSlug, Tool> = {
     description: "SVG 파일을 최적화하여 파일 크기를 줄입니다.",
     icon: FileImage,
     category: "media",
+    isPremium: true,
   },
   "css-to-tailwind": {
     title: "CSS to Tailwind",
@@ -214,6 +215,7 @@ export const tools: Record<ToolSlug, Tool> = {
     description: "JSON 데이터를 TypeScript 인터페이스/타입으로 변환합니다.",
     icon: FileCode,
     category: "converters",
+    isPremium: true,
   },
   "css-minifier": {
     title: "CSS Minifier",
@@ -234,9 +236,20 @@ export const tools: Record<ToolSlug, Tool> = {
       "브라우저에서 비디오 파일을 압축합니다. FFmpeg.wasm 기반 100% 로컬 처리.",
     icon: FileVideo,
     category: "media",
+    isPremium: true,
   },
 };
 
 export function getToolSlugs(): ToolSlug[] {
   return Object.keys(tools) as ToolSlug[];
+}
+
+export function getPremiumToolSlugs(): ToolSlug[] {
+  return (Object.entries(tools) as [ToolSlug, Tool][])
+    .filter(([, tool]) => tool.isPremium)
+    .map(([slug]) => slug);
+}
+
+export function isToolPremium(slug: ToolSlug): boolean {
+  return tools[slug]?.isPremium === true;
 }

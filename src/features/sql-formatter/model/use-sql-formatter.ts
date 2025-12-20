@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { format } from "sql-formatter";
+import { useQuota } from "@/shared/lib/quota";
 
 export type SqlDialect = "sql" | "mysql" | "postgresql" | "sqlite" | "mariadb";
 
@@ -13,6 +14,8 @@ export interface FormatOptions {
 }
 
 export function useSqlFormatter() {
+  const { trackUsage } = useQuota("sql-formatter");
+
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -39,11 +42,12 @@ export function useSqlFormatter() {
       });
       setOutput(formatted);
       setError(null);
+      trackUsage();
     } catch (e) {
       setError(e instanceof Error ? e.message : "SQL 포맷팅에 실패했습니다");
       setOutput("");
     }
-  }, [input, options]);
+  }, [input, options, trackUsage]);
 
   const handleMinify = useCallback(() => {
     if (!input.trim()) {

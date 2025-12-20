@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useQuota } from "@/shared/lib/quota";
 
 export type Language =
   | "javascript"
@@ -62,6 +63,8 @@ interface PrettierModule {
 }
 
 export function usePrettierPlayground() {
+  const { trackUsage } = useQuota("prettier-playground");
+
   const [inputCode, setInputCode] = useState("");
   const [outputCode, setOutputCode] = useState("");
   const [language, setLanguage] = useState<Language>("javascript");
@@ -155,6 +158,7 @@ export function usePrettierPlayground() {
         ...options,
       });
       setOutputCode(result);
+      trackUsage();
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "포맷팅 중 오류가 발생했습니다",
@@ -163,7 +167,7 @@ export function usePrettierPlayground() {
     } finally {
       setIsFormatting(false);
     }
-  }, [inputCode, language, options]);
+  }, [inputCode, language, options, trackUsage]);
 
   // Auto-format on input/option change with debounce
   useEffect(() => {

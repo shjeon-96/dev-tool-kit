@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { useColorPicker, type ColorInfo } from "../model/use-color-picker";
-import { FileUploader } from "@/widgets/file-uploader";
-import { Button } from "@/shared/ui";
+import { Button, FileUploader } from "@/shared/ui";
 import { Palette, Copy, Plus, X, Pipette } from "lucide-react";
 
 function ColorCard({
@@ -17,10 +16,7 @@ function ColorCard({
 }) {
   return (
     <div className="rounded-lg border overflow-hidden">
-      <div
-        className="h-16 w-full"
-        style={{ backgroundColor: color.hex }}
-      />
+      <div className="h-16 w-full" style={{ backgroundColor: color.hex }} />
       <div className="p-3 space-y-2">
         <div className="flex items-center justify-between">
           <span className="font-mono text-sm">{color.hex}</span>

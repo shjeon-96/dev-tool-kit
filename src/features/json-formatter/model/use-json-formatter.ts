@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useToolHistory, useUrlState } from "@/shared/lib";
+import { useQuota } from "@/shared/lib/quota";
 import {
   formatJson,
   minifyJson,
@@ -17,6 +18,8 @@ interface JsonFormatterState {
 }
 
 export function useJsonFormatter() {
+  const { trackUsage } = useQuota("json-formatter");
+
   // URL State for sharing
   const {
     state: urlState,
@@ -93,12 +96,14 @@ export function useJsonFormatter() {
         setError(null);
         // 히스토리에 저장
         addToHistory(input, result.output);
+        // 사용량 추적
+        trackUsage();
       } else {
         setError(result.error || "오류가 발생했습니다");
         setOutput("");
       }
     },
-    [input, indent, addToHistory],
+    [input, indent, addToHistory, trackUsage],
   );
 
   const handleClear = useCallback(() => {

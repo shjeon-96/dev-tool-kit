@@ -2,8 +2,7 @@
 
 import { useAppIconGenerator } from "../model/use-app-icon-generator";
 import { getActualSize } from "../lib/icon-sizes";
-import { FileUploader } from "@/widgets/file-uploader";
-import { Button, Label, Switch } from "@/shared/ui";
+import { Button, Label, Switch, FileUploader } from "@/shared/ui";
 import { Download, RotateCcw, Smartphone, Monitor, Globe } from "lucide-react";
 
 const platformIcons: Record<string, typeof Smartphone> = {
@@ -73,7 +72,9 @@ export function AppIconGenerator() {
               <div className="space-y-1 text-sm text-muted-foreground">
                 <p>파일명: {sourceImage.file.name}</p>
                 <p>크기: {formatFileSize(sourceImage.file.size)}</p>
-                <p>해상도: {sourceImage.width} × {sourceImage.height}px</p>
+                <p>
+                  해상도: {sourceImage.width} × {sourceImage.height}px
+                </p>
               </div>
             </div>
 

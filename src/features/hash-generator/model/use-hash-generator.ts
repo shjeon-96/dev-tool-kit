@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useToolHistory, useUrlState } from "@/shared/lib";
+import { useQuota } from "@/shared/lib/quota";
 import {
   computeHashWasm,
   computeAllHashesWasm,
@@ -22,6 +23,8 @@ interface HashGeneratorState {
 }
 
 export function useHashGenerator() {
+  const { trackUsage } = useQuota("hash-generator");
+
   // URL State for sharing
   const {
     state: urlState,
@@ -78,15 +81,19 @@ export function useHashGenerator() {
     [inputMode, setUrlState],
   );
 
-  const generateHashes = useCallback(async (input: string) => {
-    try {
-      const results = await computeAllHashesWasm(input);
-      setHashes(results);
-    } catch (err) {
-      setError("해시 생성 중 오류가 발생했습니다");
-      console.error("Hash generation error:", err);
-    }
-  }, []);
+  const generateHashes = useCallback(
+    async (input: string) => {
+      try {
+        const results = await computeAllHashesWasm(input);
+        setHashes(results);
+        trackUsage();
+      } catch (err) {
+        setError("해시 생성 중 오류가 발생했습니다");
+        console.error("Hash generation error:", err);
+      }
+    },
+    [trackUsage],
+  );
 
   // Generate hashes for text input (with debounce)
   useEffect(() => {
@@ -122,25 +129,29 @@ export function useHashGenerator() {
   }, [textInput, inputMode, generateHashes, addToHistory]);
 
   // Process file when selected (chunked streaming for large files)
-  const processFile = useCallback(async (selectedFile: File) => {
-    setIsProcessing(true);
-    setProgress(0);
-    setError(null);
-
-    try {
-      // Use Wasm-based chunked streaming for efficient large file processing
-      const results = await computeAllFileHashesWasm(selectedFile, (prog) => {
-        setProgress(prog);
-      });
-      setHashes(results);
-    } catch (err) {
-      setError("파일 해시 생성 중 오류가 발생했습니다");
-      console.error("File hash error:", err);
-    } finally {
-      setIsProcessing(false);
+  const processFile = useCallback(
+    async (selectedFile: File) => {
+      setIsProcessing(true);
       setProgress(0);
-    }
-  }, []);
+      setError(null);
+
+      try {
+        // Use Wasm-based chunked streaming for efficient large file processing
+        const results = await computeAllFileHashesWasm(selectedFile, (prog) => {
+          setProgress(prog);
+        });
+        setHashes(results);
+        trackUsage();
+      } catch (err) {
+        setError("파일 해시 생성 중 오류가 발생했습니다");
+        console.error("File hash error:", err);
+      } finally {
+        setIsProcessing(false);
+        setProgress(0);
+      }
+    },
+    [trackUsage],
+  );
 
   // Trigger file processing when file changes
   useEffect(() => {

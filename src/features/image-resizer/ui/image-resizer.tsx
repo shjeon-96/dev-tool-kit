@@ -5,7 +5,6 @@ import {
   ResizeMode,
   OutputFormat,
 } from "../model/use-image-resizer";
-import { FileUploader } from "@/widgets/file-uploader";
 import {
   Button,
   Input,
@@ -17,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
+  FileUploader,
 } from "@/shared/ui";
 import {
   Download,

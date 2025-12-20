@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { optimize, type Config } from "svgo/browser";
+import { useQuota } from "@/shared/lib/quota";
 
 export interface OptimizeOptions {
   removeDoctype: boolean;
@@ -50,15 +51,20 @@ const defaultOptions: OptimizeOptions = {
 };
 
 export function useSvgOptimizer() {
+  const { trackUsage } = useQuota("svg-optimizer");
+
   const [inputSvg, setInputSvg] = useState("");
   const [outputSvg, setOutputSvg] = useState("");
   const [options, setOptions] = useState<OptimizeOptions>(defaultOptions);
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const updateOption = useCallback((key: keyof OptimizeOptions, value: boolean) => {
-    setOptions((prev) => ({ ...prev, [key]: value }));
-  }, []);
+  const updateOption = useCallback(
+    (key: keyof OptimizeOptions, value: boolean) => {
+      setOptions((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const resetOptions = useCallback(() => {
     setOptions(defaultOptions);
@@ -89,9 +95,12 @@ export function useSvgOptimizer() {
       if (options.removeEmptyContainers) plugins.push("removeEmptyContainers");
       if (options.cleanupNumericValues) plugins.push("cleanupNumericValues");
       if (options.convertColors) plugins.push("convertColors");
-      if (options.removeUnknownsAndDefaults) plugins.push("removeUnknownsAndDefaults");
-      if (options.removeNonInheritableGroupAttrs) plugins.push("removeNonInheritableGroupAttrs");
-      if (options.removeUselessStrokeAndFill) plugins.push("removeUselessStrokeAndFill");
+      if (options.removeUnknownsAndDefaults)
+        plugins.push("removeUnknownsAndDefaults");
+      if (options.removeNonInheritableGroupAttrs)
+        plugins.push("removeNonInheritableGroupAttrs");
+      if (options.removeUselessStrokeAndFill)
+        plugins.push("removeUselessStrokeAndFill");
       if (options.cleanupIds) plugins.push("cleanupIds");
       if (options.mergePaths) plugins.push("mergePaths");
       if (options.convertShapeToPath) plugins.push("convertShapeToPath");
@@ -105,13 +114,18 @@ export function useSvgOptimizer() {
       const result = optimize(inputSvg, config);
 
       setOutputSvg(result.data);
+      trackUsage();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "SVG 최적화 중 오류가 발생했습니다");
+      setError(
+        err instanceof Error
+          ? err.message
+          : "SVG 최적화 중 오류가 발생했습니다",
+      );
       setOutputSvg("");
     } finally {
       setIsProcessing(false);
     }
-  }, [inputSvg, options]);
+  }, [inputSvg, options, trackUsage]);
 
   const stats = useMemo(() => {
     const inputSize = new Blob([inputSvg]).size;

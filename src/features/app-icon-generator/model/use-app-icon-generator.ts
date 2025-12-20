@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { iconPlatforms, getActualSize } from "../lib/icon-sizes";
+import { useQuota } from "@/shared/lib/quota";
 
 export interface SourceImage {
   file: File;
@@ -13,6 +14,8 @@ export interface SourceImage {
 }
 
 export function useAppIconGenerator() {
+  const { trackUsage } = useQuota("app-icon-generator");
+
   const [sourceImage, setSourceImage] = useState<SourceImage | null>(null);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([
     "ios",
@@ -147,13 +150,14 @@ export function useAppIconGenerator() {
 
       const zipBlob = await zip.generateAsync({ type: "blob" });
       saveAs(zipBlob, "app-icons.zip");
+      trackUsage();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to generate icons");
     } finally {
       setIsGenerating(false);
       setProgress(0);
     }
-  }, [sourceImage, selectedPlatforms, resizeToSize]);
+  }, [sourceImage, selectedPlatforms, resizeToSize, trackUsage]);
 
   const handleClear = useCallback(() => {
     if (sourceImage?.preview) {

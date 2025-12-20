@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
+import { useQuota } from "@/shared/lib/quota";
 
 export interface ColorInfo {
   hex: string;
@@ -27,7 +28,7 @@ function rgbToHex(r: number, g: number, b: number): string {
 function rgbToHsl(
   r: number,
   g: number,
-  b: number
+  b: number,
 ): { h: number; s: number; l: number } {
   r /= 255;
   g /= 255;
@@ -64,6 +65,8 @@ function rgbToHsl(
 }
 
 export function useColorPicker() {
+  const { trackUsage } = useQuota("color-picker");
+
   const [imageSource, setImageSource] = useState<ImageSource | null>(null);
   const [palette, setPalette] = useState<ExtractedColor[]>([]);
   const [selectedColor, setSelectedColor] = useState<ColorInfo | null>(null);
@@ -108,72 +111,76 @@ export function useColorPicker() {
         setError(e instanceof Error ? e.message : "Failed to load image");
       }
     },
-    [loadImage]
+    [loadImage],
   );
 
-  const extractPalette = useCallback(async (colorCount: number = 8) => {
-    if (!imageSource) return;
+  const extractPalette = useCallback(
+    async (colorCount: number = 8) => {
+      if (!imageSource) return;
 
-    setIsExtracting(true);
-    setError(null);
+      setIsExtracting(true);
+      setError(null);
 
-    try {
-      const img = new Image();
-      img.crossOrigin = "anonymous";
+      try {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
 
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = reject;
-        img.src = imageSource.preview;
-      });
+        await new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = reject;
+          img.src = imageSource.preview;
+        });
 
-      const canvas = document.createElement("canvas");
-      const sampleSize = 100;
-      canvas.width = sampleSize;
-      canvas.height = sampleSize;
-      const ctx = canvas.getContext("2d");
+        const canvas = document.createElement("canvas");
+        const sampleSize = 100;
+        canvas.width = sampleSize;
+        canvas.height = sampleSize;
+        const ctx = canvas.getContext("2d");
 
-      if (!ctx) throw new Error("Failed to get canvas context");
+        if (!ctx) throw new Error("Failed to get canvas context");
 
-      ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
-      const imageData = ctx.getImageData(0, 0, sampleSize, sampleSize);
-      const data = imageData.data;
+        ctx.drawImage(img, 0, 0, sampleSize, sampleSize);
+        const imageData = ctx.getImageData(0, 0, sampleSize, sampleSize);
+        const data = imageData.data;
 
-      const colorMap = new Map<string, number>();
-      const totalPixels = sampleSize * sampleSize;
+        const colorMap = new Map<string, number>();
+        const totalPixels = sampleSize * sampleSize;
 
-      for (let i = 0; i < data.length; i += 4) {
-        const r = Math.round(data[i] / 16) * 16;
-        const g = Math.round(data[i + 1] / 16) * 16;
-        const b = Math.round(data[i + 2] / 16) * 16;
-        const key = `${r},${g},${b}`;
-        colorMap.set(key, (colorMap.get(key) || 0) + 1);
-      }
-
-      const sortedColors = Array.from(colorMap.entries())
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, colorCount);
-
-      const extractedPalette: ExtractedColor[] = sortedColors.map(
-        ([key, count]) => {
-          const [r, g, b] = key.split(",").map(Number);
-          return {
-            hex: rgbToHex(r, g, b),
-            rgb: { r, g, b },
-            hsl: rgbToHsl(r, g, b),
-            count,
-            percentage: Math.round((count / totalPixels) * 100),
-          };
+        for (let i = 0; i < data.length; i += 4) {
+          const r = Math.round(data[i] / 16) * 16;
+          const g = Math.round(data[i + 1] / 16) * 16;
+          const b = Math.round(data[i + 2] / 16) * 16;
+          const key = `${r},${g},${b}`;
+          colorMap.set(key, (colorMap.get(key) || 0) + 1);
         }
-      );
 
-      setPalette(extractedPalette);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to extract colors");
-    } finally {
-      setIsExtracting(false);
-    }
-  }, [imageSource]);
+        const sortedColors = Array.from(colorMap.entries())
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, colorCount);
+
+        const extractedPalette: ExtractedColor[] = sortedColors.map(
+          ([key, count]) => {
+            const [r, g, b] = key.split(",").map(Number);
+            return {
+              hex: rgbToHex(r, g, b),
+              rgb: { r, g, b },
+              hsl: rgbToHsl(r, g, b),
+              count,
+              percentage: Math.round((count / totalPixels) * 100),
+            };
+          },
+        );
+
+        setPalette(extractedPalette);
+        trackUsage();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Failed to extract colors");
+      } finally {
+        setIsExtracting(false);
+      }
+    },
+    [imageSource, trackUsage],
+  );
 
   const pickColorFromImage = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -202,11 +209,14 @@ export function useColorPicker() {
 
       setSelectedColor(color);
     },
-    []
+    [],
   );
 
   const addToPickedColors = useCallback(() => {
-    if (selectedColor && !pickedColors.some((c) => c.hex === selectedColor.hex)) {
+    if (
+      selectedColor &&
+      !pickedColors.some((c) => c.hex === selectedColor.hex)
+    ) {
       setPickedColors((prev) => [...prev, selectedColor]);
     }
   }, [selectedColor, pickedColors]);

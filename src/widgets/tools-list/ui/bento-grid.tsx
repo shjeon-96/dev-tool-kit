@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import { Crown } from "lucide-react";
 import { tools, type ToolSlug } from "@/entities/tool";
 import { cn } from "@/shared/lib/utils";
 
@@ -111,6 +112,16 @@ export function BentoCard({ slug, size = "normal", index }: BentoCardProps) {
 
           {/* Glassmorphism overlay */}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/5 to-transparent dark:from-white/[0.02]" />
+
+          {/* Premium Badge */}
+          {tool.isPremium && (
+            <div className="absolute top-3 right-3 z-20">
+              <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-2 py-0.5 text-[10px] font-semibold text-white shadow-sm">
+                <Crown className="h-3 w-3" />
+                <span>PRO</span>
+              </div>
+            </div>
+          )}
 
           {/* Content */}
           <div className={cn("relative z-10", isLarge && "flex-1")}>

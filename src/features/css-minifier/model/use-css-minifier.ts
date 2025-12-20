@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useToolHistory } from "@/shared/lib";
+import { useQuota } from "@/shared/lib/quota";
 import {
   minifyCss,
   beautifyCss,
@@ -12,6 +13,7 @@ import {
 export type CssMode = "minify" | "beautify";
 
 export function useCssMinifier() {
+  const { trackUsage } = useQuota("css-minifier");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -50,13 +52,14 @@ export function useCssMinifier() {
         setError(null);
         setStats(result.stats || null);
         addToHistory(input, result.output);
+        trackUsage();
       } else {
         setError(result.error || "Processing failed");
         setOutput("");
         setStats(null);
       }
     },
-    [input, options, addToHistory],
+    [input, options, addToHistory, trackUsage],
   );
 
   const handleCopy = useCallback(async () => {

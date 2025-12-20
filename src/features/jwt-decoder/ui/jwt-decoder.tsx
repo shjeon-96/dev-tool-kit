@@ -11,7 +11,7 @@ import {
   KeyRound,
 } from "lucide-react";
 import { Button, ShareButton, EmptyState } from "@/shared/ui";
-import { ToolActionsBar } from "@/widgets/tool-actions-bar";
+import { ToolActionsBar } from "@/features/tool-actions";
 import { useJwtDecoder } from "../model/use-jwt-decoder";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 

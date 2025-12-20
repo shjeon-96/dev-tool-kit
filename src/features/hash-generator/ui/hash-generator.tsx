@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useHashGenerator, type InputMode } from "../model/use-hash-generator";
-import { FileUploader } from "@/widgets/file-uploader";
 import {
   Button,
   Input,
@@ -13,8 +12,9 @@ import {
   TabsContent,
   ShareButton,
   EmptyState,
+  FileUploader,
 } from "@/shared/ui";
-import { ToolActionsBar } from "@/widgets/tool-actions-bar";
+import { ToolActionsBar } from "@/features/tool-actions";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 import {
   Copy,

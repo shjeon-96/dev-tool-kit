@@ -11,7 +11,7 @@ import {
   FileJson,
 } from "lucide-react";
 import { Button, ShareButton, EmptyState } from "@/shared/ui";
-import { ToolActionsBar } from "@/widgets/tool-actions-bar";
+import { ToolActionsBar } from "@/features/tool-actions";
 import { useCopyToClipboard } from "@/shared/lib";
 import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
 import { usePipelineInput } from "@/features/tool-pipeline";
@@ -183,7 +183,7 @@ export function JsonFormatter() {
             role="listbox"
             aria-labelledby="history-heading"
           >
-            {history.map((item, index) => (
+            {history.map((item) => (
               <button
                 key={item.id}
                 role="option"

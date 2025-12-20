@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import type QRCodeType from "qrcode";
+import { useQuota } from "@/shared/lib/quota";
 
 export type QRType = "url" | "text" | "wifi" | "vcard";
 
@@ -32,6 +33,7 @@ export interface QROptions {
 }
 
 export function useQrGenerator() {
+  const { trackUsage } = useQuota("qr-generator");
   const qrCodeRef = useRef<typeof QRCodeType | null>(null);
 
   const [options, setOptions] = useState<QROptions>({
@@ -112,11 +114,12 @@ END:VCARD`;
         errorCorrectionLevel: options.errorCorrectionLevel,
       });
       setQrDataUrl(dataUrl);
+      trackUsage();
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to generate QR code");
       setQrDataUrl(null);
     }
-  }, [options, getQRContent]);
+  }, [options, getQRContent, trackUsage]);
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {

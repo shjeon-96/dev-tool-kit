@@ -2,9 +2,11 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useToolHistory } from "@/shared/lib";
+import { useQuota } from "@/shared/lib/quota";
 import { convertCase, caseOptions, type CaseType } from "../lib/converter";
 
 export function useTextCaseConverter() {
+  const { trackUsage } = useQuota("text-case-converter");
   const [input, setInput] = useState("");
   const [outputs, setOutputs] = useState<Record<CaseType, string>>(
     {} as Record<CaseType, string>,
@@ -50,9 +52,10 @@ export function useTextCaseConverter() {
       if (!hasError) {
         setOutputs(newOutputs);
         setError(null);
+        trackUsage();
       }
     });
-  }, [input]);
+  }, [input, trackUsage]);
 
   const handleCopy = useCallback(
     async (caseType?: CaseType) => {
