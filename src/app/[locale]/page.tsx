@@ -174,6 +174,18 @@ export default async function LandingPage({ params }: Props) {
         </div>
       </section>
 
+      {/* Why Web Toolkit Section */}
+      <section className="space-y-6 py-8 px-6 rounded-2xl bg-gradient-to-br from-muted/50 to-muted/30 border">
+        <h2 className="text-2xl md:text-3xl font-bold text-center">
+          {t("why.title")}
+        </h2>
+        <div className="max-w-4xl mx-auto space-y-4 text-muted-foreground">
+          <p className="text-lg leading-relaxed">{t("why.paragraph1")}</p>
+          <p className="leading-relaxed">{t("why.paragraph2")}</p>
+          <p className="leading-relaxed">{t("why.paragraph3")}</p>
+        </div>
+      </section>
+
       {/* Tools by Category Section */}
       <section className="space-y-8">
         <div className="flex items-center justify-between">
@@ -210,6 +222,126 @@ export default async function LandingPage({ params }: Props) {
             </Link>
           </Button>
         </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="space-y-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-center">
+          {t("useCases.title")}
+        </h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="p-6 rounded-lg border bg-card">
+            <h3 className="font-semibold text-lg mb-3">
+              {t("useCases.frontend.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {t("useCases.frontend.description")}
+            </p>
+          </div>
+          <div className="p-6 rounded-lg border bg-card">
+            <h3 className="font-semibold text-lg mb-3">
+              {t("useCases.backend.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {t("useCases.backend.description")}
+            </p>
+          </div>
+          <div className="p-6 rounded-lg border bg-card">
+            <h3 className="font-semibold text-lg mb-3">
+              {t("useCases.devops.title")}
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {t("useCases.devops.description")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="space-y-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-center">
+          {t("howItWorks.title")}
+        </h2>
+        <div className="max-w-3xl mx-auto">
+          <div className="space-y-6">
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                1
+              </div>
+              <div>
+                <h3 className="font-semibold mb-1">
+                  {t("howItWorks.step1.title")}
+                </h3>
+                <p className="text-muted-foreground">
+                  {t("howItWorks.step1.description")}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                2
+              </div>
+              <div>
+                <h3 className="font-semibold mb-1">
+                  {t("howItWorks.step2.title")}
+                </h3>
+                <p className="text-muted-foreground">
+                  {t("howItWorks.step2.description")}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+                3
+              </div>
+              <div>
+                <h3 className="font-semibold mb-1">
+                  {t("howItWorks.step3.title")}
+                </h3>
+                <p className="text-muted-foreground">
+                  {t("howItWorks.step3.description")}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section for SEO */}
+      <section className="space-y-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-center">
+          {t("faq.title")}
+        </h2>
+        <div className="max-w-3xl mx-auto space-y-4">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <details
+              key={i}
+              className="group rounded-lg border bg-card overflow-hidden"
+            >
+              <summary className="flex items-center justify-between px-6 py-4 cursor-pointer font-medium hover:bg-muted/50 transition-colors">
+                {t(`faq.q${i}`)}
+                <ArrowRight className="h-4 w-4 rotate-90 group-open:rotate-[270deg] transition-transform" />
+              </summary>
+              <div className="px-6 pb-4 text-muted-foreground">
+                {t(`faq.a${i}`)}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="text-center space-y-6 py-12 px-6 rounded-2xl bg-primary/5 border border-primary/20">
+        <h2 className="text-2xl md:text-3xl font-bold">{t("cta.title")}</h2>
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          {t("cta.description")}
+        </p>
+        <Button asChild size="lg" className="gap-2">
+          <Link href={`/${locale}/tools`}>
+            {t("cta.button")}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </Button>
       </section>
     </div>
   );

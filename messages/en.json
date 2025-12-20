@@ -39,6 +39,60 @@
       "tools": "Developer Tools",
       "categories": "Categories",
       "languages": "Languages"
+    },
+    "why": {
+      "title": "Why Developers Choose Web Toolkit",
+      "paragraph1": "Web Toolkit was built by developers, for developers. We understand the daily frustrations of switching between multiple websites, installing desktop applications, or worrying about data privacy when using online tools. That's why we created a comprehensive suite of over 30 developer tools that work entirely in your browser.",
+      "paragraph2": "Unlike traditional online tools that send your data to remote servers, every tool in Web Toolkit processes data locally using modern web technologies like WebAssembly. This means your sensitive JSON data, JWT tokens, API keys, and other confidential information never leaves your device. Whether you're formatting production API responses or debugging authentication tokens, your data remains completely private.",
+      "paragraph3": "Our tools are designed with modern development workflows in mind. From formatting JSON responses during API debugging to generating hash values for file verification, converting images for web optimization, or parsing complex regular expressions, Web Toolkit provides everything you need in one place. All tools work offline once loaded, making them perfect for developers who work in restricted network environments or simply want faster performance."
+    },
+    "useCases": {
+      "title": "Built for Every Developer",
+      "frontend": {
+        "title": "Frontend Developers",
+        "description": "Optimize images, generate CSS gradients, convert colors between formats, create responsive icons, and format JSON data from APIs. Perfect for building modern web applications with tools that integrate seamlessly into your workflow."
+      },
+      "backend": {
+        "title": "Backend Developers",
+        "description": "Debug JWT tokens, generate secure hashes, encode/decode Base64 data, parse URLs, and format SQL queries. Essential tools for API development, authentication systems, and data processing tasks."
+      },
+      "devops": {
+        "title": "DevOps Engineers",
+        "description": "Parse cron expressions, generate UUIDs, convert Unix timestamps, and build curl commands. Streamline your infrastructure workflows with tools designed for automation and system administration."
+      }
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Choose Your Tool",
+        "description": "Browse our collection of 30+ developer tools organized by category. Use the search function or keyboard shortcut (⌘K) to quickly find what you need."
+      },
+      "step2": {
+        "title": "Process Your Data",
+        "description": "Paste your input, upload your files, or configure your settings. All processing happens instantly in your browser with real-time feedback and validation."
+      },
+      "step3": {
+        "title": "Copy and Continue",
+        "description": "Get your results instantly. One-click copy to clipboard, download processed files, or share your work. No account needed, no data stored."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is Web Toolkit really free?",
+      "a1": "Yes, Web Toolkit is completely free to use. All 30+ tools are available without any signup, subscription, or hidden fees. We believe essential developer tools should be accessible to everyone.",
+      "q2": "Is my data safe when using these tools?",
+      "a2": "Absolutely. All data processing happens locally in your browser using JavaScript and WebAssembly. Your data is never sent to our servers or any third party. We don't track, store, or have access to any data you process through our tools.",
+      "q3": "Do the tools work offline?",
+      "a3": "Yes! Once the page is loaded, most tools work completely offline. This is possible because all processing is done client-side. Your browser caches the necessary code, so you can use the tools even without an internet connection.",
+      "q4": "Why should I use Web Toolkit instead of other online tools?",
+      "a4": "Web Toolkit offers three key advantages: complete privacy (client-side processing), comprehensive coverage (30+ tools in one place), and modern user experience (dark mode, keyboard shortcuts, real-time validation). Plus, it's 100% free with no limits.",
+      "q5": "Can I use these tools for commercial projects?",
+      "a5": "Yes, you can use Web Toolkit for any project, including commercial ones. There are no restrictions on how you use the output from our tools. We're here to help developers be more productive."
+    },
+    "cta": {
+      "title": "Ready to Boost Your Productivity?",
+      "description": "Join thousands of developers who use Web Toolkit daily. No signup required, just open and start using the tools you need.",
+      "button": "Start Using Free Tools"
     }
   },
   "navigation": {
