@@ -31,9 +31,9 @@ export interface TierConfig {
 
 // 통화 설정
 export const CURRENCY = {
-  code: "KRW",
-  symbol: "₩",
-  locale: "ko-KR",
+  code: "USD",
+  symbol: "$",
+  locale: "en-US",
 };
 
 // 가격 포맷 헬퍼
@@ -41,8 +41,8 @@ export function formatPrice(amount: number): string {
   return new Intl.NumberFormat(CURRENCY.locale, {
     style: "currency",
     currency: CURRENCY.code,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(amount);
 }
 
@@ -80,8 +80,8 @@ export const TIERS: Record<TierType, TierConfig> = {
     id: "pro",
     name: "Pro",
     description: "Unlimited access for power users",
-    monthlyPrice: 990,
-    yearlyPrice: 9900,
+    monthlyPrice: 1,
+    yearlyPrice: 10,
     yearlyDiscount: 17,
     variantIdMonthly: VARIANT_IDS.PRO_MONTHLY,
     variantIdYearly: VARIANT_IDS.PRO_YEARLY,
