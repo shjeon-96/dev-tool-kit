@@ -60,7 +60,9 @@
   },
   "footer": {
     "copyright": "© 2025 Web Toolkit. All rights reserved.",
+    "about": "About",
     "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
     "github": "GitHub",
     "rights": "All rights reserved."
   },

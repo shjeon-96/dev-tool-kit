@@ -18,10 +18,22 @@ export function Footer() {
           aria-label={locale === "ko" ? "푸터 링크" : "Footer links"}
         >
           <Link
+            href={`/${locale}/about`}
+            className="hover:underline hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+          >
+            {t("about")}
+          </Link>
+          <Link
             href={`/${locale}/privacy`}
             className="hover:underline hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
           >
             {t("privacy")}
+          </Link>
+          <Link
+            href={`/${locale}/terms`}
+            className="hover:underline hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+          >
+            {t("terms")}
           </Link>
           <Link
             href="https://github.com/shjeon-96"

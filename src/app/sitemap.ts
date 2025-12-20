@@ -41,6 +41,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
+  // About page for each locale
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/about`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/about`]),
+        ),
+      },
+    });
+  }
+
   // Privacy page for each locale
   for (const locale of locales) {
     entries.push({
@@ -51,6 +66,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: Object.fromEntries(
           locales.map((l) => [l, `${baseUrl}/${l}/privacy`]),
+        ),
+      },
+    });
+  }
+
+  // Terms page for each locale
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/terms`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/terms`]),
         ),
       },
     });

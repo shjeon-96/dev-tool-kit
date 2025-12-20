@@ -60,7 +60,9 @@
   },
   "footer": {
     "copyright": "© 2025 Web Toolkit. All rights reserved.",
+    "about": "紹介",
     "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
     "github": "GitHub",
     "rights": "全著作権所有。"
   },
