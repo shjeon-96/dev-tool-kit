@@ -48,3 +48,5 @@ export {
 // Database (Dexie.js)
 export { db } from "./db";
 export type { Workspace, WorkspaceItem, AIConfig } from "./db";
+
+// API utilities - import directly from "@/shared/lib/api" in server components only

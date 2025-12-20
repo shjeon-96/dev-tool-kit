@@ -286,6 +286,35 @@ export type Database = {
           updated_at?: string;
         };
       };
+      api_usage: {
+        Row: {
+          id: string;
+          api_key_id: string;
+          endpoint: string;
+          method: string;
+          status_code: number;
+          response_time_ms: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          api_key_id: string;
+          endpoint: string;
+          method: string;
+          status_code: number;
+          response_time_ms: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          api_key_id?: string;
+          endpoint?: string;
+          method?: string;
+          status_code?: number;
+          response_time_ms?: number;
+          created_at?: string;
+        };
+      };
     };
     Views: {
       user_profiles: {
