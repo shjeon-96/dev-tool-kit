@@ -88,6 +88,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
+  // API Documentation page for each locale
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/docs/api`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/docs/api`]),
+        ),
+      },
+    });
+  }
+
   // Tool pages for each locale
   for (const slug of tools) {
     for (const locale of locales) {

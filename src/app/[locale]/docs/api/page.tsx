@@ -268,6 +268,95 @@ export default async function ApiDocsPage({ params }: PageProps) {
             },
           ]}
         />
+
+        {/* Base64 Convert */}
+        <EndpointSection
+          method="POST"
+          path="/base64/convert"
+          title={content.base64Title}
+          description={content.base64Desc}
+          requestBody={`{
+  "input": "Hello, World!",
+  "mode": "encode",
+  "urlSafe": false
+}`}
+          responseBody={`{
+  "success": true,
+  "data": {
+    "result": "SGVsbG8sIFdvcmxkIQ==",
+    "mode": "encode",
+    "urlSafe": false,
+    "inputLength": 13,
+    "outputLength": 20
+  }
+}`}
+          params={[
+            {
+              name: "input",
+              type: "string",
+              required: true,
+              desc: content.base64ParamInput,
+            },
+            {
+              name: "mode",
+              type: "string",
+              required: false,
+              desc: content.base64ParamMode,
+            },
+            {
+              name: "urlSafe",
+              type: "boolean",
+              required: false,
+              desc: content.base64ParamUrlSafe,
+            },
+          ]}
+        />
+
+        {/* UUID Generate */}
+        <EndpointSection
+          method="POST"
+          path="/uuid/generate"
+          title={content.uuidTitle}
+          description={content.uuidDesc}
+          requestBody={`{
+  "version": "v4",
+  "count": 5,
+  "format": "standard"
+}`}
+          responseBody={`{
+  "success": true,
+  "data": {
+    "uuids": [
+      "550e8400-e29b-41d4-a716-446655440000",
+      "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+      ...
+    ],
+    "version": "v4",
+    "format": "standard",
+    "count": 5
+  }
+}`}
+          params={[
+            {
+              name: "version",
+              type: "string",
+              required: false,
+              desc: content.uuidParamVersion,
+            },
+            {
+              name: "count",
+              type: "number",
+              required: false,
+              desc: content.uuidParamCount,
+            },
+            {
+              name: "format",
+              type: "string",
+              required: false,
+              desc: content.uuidParamFormat,
+            },
+          ]}
+        />
       </section>
 
       {/* Error Codes */}
@@ -548,6 +637,22 @@ function getContent(locale: string) {
         'Error correction level (default: M). Options: "L", "M", "Q", "H"',
       qrParamColor:
         "Colors object with dark (foreground) and light (background) hex colors",
+      base64Title: "Base64 Converter",
+      base64Desc:
+        "Encode or decode text using Base64 encoding. Supports standard and URL-safe Base64.",
+      base64ParamInput: "Text to encode or Base64 string to decode",
+      base64ParamMode:
+        'Conversion mode (default: encode). Options: "encode", "decode"',
+      base64ParamUrlSafe:
+        "Use URL-safe Base64 (default: false). Replaces +/ with -_ and removes padding",
+      uuidTitle: "UUID Generator",
+      uuidDesc:
+        "Generate UUIDs (Universally Unique Identifiers) with various formats.",
+      uuidParamVersion:
+        'UUID version (default: v4). Options: "v4" (random), "nil" (all zeros)',
+      uuidParamCount: "Number of UUIDs to generate (default: 1, max: 100)",
+      uuidParamFormat:
+        'Output format (default: standard). Options: "standard", "uppercase", "no-dashes", "braces"',
       errorsTitle: "Error Codes",
       errorCode: "Code",
       errorDesc: "Description",
@@ -595,6 +700,20 @@ function getContent(locale: string) {
       qrParamMargin: "여백 크기 (기본값: 4, 범위: 0-10)",
       qrParamEcl: '오류 정정 수준 (기본값: M). 옵션: "L", "M", "Q", "H"',
       qrParamColor: "dark (전경색)와 light (배경색) 16진수 색상이 포함된 객체",
+      base64Title: "Base64 변환기",
+      base64Desc:
+        "Base64 인코딩을 사용하여 텍스트를 인코딩하거나 디코딩합니다. 표준 및 URL-safe Base64를 지원합니다.",
+      base64ParamInput: "인코딩할 텍스트 또는 디코딩할 Base64 문자열",
+      base64ParamMode: '변환 모드 (기본값: encode). 옵션: "encode", "decode"',
+      base64ParamUrlSafe:
+        "URL-safe Base64 사용 (기본값: false). +/를 -_로 대체하고 패딩을 제거합니다",
+      uuidTitle: "UUID 생성기",
+      uuidDesc: "다양한 형식의 UUID (범용 고유 식별자)를 생성합니다.",
+      uuidParamVersion:
+        'UUID 버전 (기본값: v4). 옵션: "v4" (랜덤), "nil" (모두 0)',
+      uuidParamCount: "생성할 UUID 개수 (기본값: 1, 최대: 100)",
+      uuidParamFormat:
+        '출력 형식 (기본값: standard). 옵션: "standard", "uppercase", "no-dashes", "braces"',
       errorsTitle: "오류 코드",
       errorCode: "코드",
       errorDesc: "설명",
@@ -645,6 +764,21 @@ function getContent(locale: string) {
         'エラー訂正レベル（デフォルト: M）。オプション: "L", "M", "Q", "H"',
       qrParamColor:
         "dark（前景色）とlight（背景色）の16進数カラーを含むオブジェクト",
+      base64Title: "Base64コンバーター",
+      base64Desc:
+        "Base64エンコーディングを使用してテキストをエンコードまたはデコードします。標準およびURLセーフBase64をサポートしています。",
+      base64ParamInput: "エンコードするテキストまたはデコードするBase64文字列",
+      base64ParamMode:
+        '変換モード（デフォルト: encode）。オプション: "encode", "decode"',
+      base64ParamUrlSafe:
+        "URLセーフBase64を使用（デフォルト: false）。+/を-_に置き換え、パディングを削除します",
+      uuidTitle: "UUIDジェネレーター",
+      uuidDesc: "さまざまな形式のUUID（汎用一意識別子）を生成します。",
+      uuidParamVersion:
+        'UUIDバージョン（デフォルト: v4）。オプション: "v4"（ランダム）、"nil"（すべて0）',
+      uuidParamCount: "生成するUUIDの数（デフォルト: 1、最大: 100）",
+      uuidParamFormat:
+        '出力形式（デフォルト: standard）。オプション: "standard", "uppercase", "no-dashes", "braces"',
       errorsTitle: "エラーコード",
       errorCode: "コード",
       errorDesc: "説明",
