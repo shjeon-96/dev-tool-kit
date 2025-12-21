@@ -137,6 +137,9 @@ const bundleAnalyzer = withBundleAnalyzer({
 });
 
 const nextConfig: NextConfig = {
+  // React Compiler (자동 메모이제이션)
+  reactCompiler: true,
+
   // Route-specific headers for WebAssembly support
   // Only apply COOP/COEP to Wasm-enabled tools to preserve AdSense on other pages
   async headers() {
