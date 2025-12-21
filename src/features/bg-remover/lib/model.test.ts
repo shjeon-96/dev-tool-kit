@@ -26,7 +26,7 @@ describe("Model Utils", () => {
       const config = getModelConfig("isnet");
       expect(config.name).toBe("isnet");
       expect(config.inputSize).toBe(1024);
-      expect(config.fileSize).toBe("44MB");
+      expect(config.fileSize).toBe("179MB");
     });
 
     it("should have valid HuggingFace URLs for all models", () => {

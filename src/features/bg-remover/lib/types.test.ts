@@ -64,7 +64,14 @@ describe("BgRemover Types", () => {
 
     it("should have file size info for all models", () => {
       Object.values(AVAILABLE_MODELS).forEach((model) => {
-        expect(model.fileSize).toMatch(/^\d+MB$/);
+        expect(model.fileSize).toMatch(/^\d+(\.\d+)?MB$/);
+      });
+    });
+
+    it("should use BritishWerewolf HuggingFace repositories", () => {
+      Object.values(AVAILABLE_MODELS).forEach((model) => {
+        expect(model.url).toContain("BritishWerewolf");
+        expect(model.url).toContain("model.onnx");
       });
     });
   });

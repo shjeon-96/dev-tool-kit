@@ -84,13 +84,14 @@ export const DEFAULT_PROCESSING_OPTIONS: ProcessingOptions = {
 
 /**
  * Available models
- * Using smaller U2NetP model for faster client-side processing
+ * Using public HuggingFace repositories with Apache 2.0 license
+ * @see https://huggingface.co/BritishWerewolf
  */
 export const AVAILABLE_MODELS: Record<ModelType, ModelConfig> = {
   u2net: {
     name: "u2net",
     displayName: "U2-Net (High Quality)",
-    url: "https://huggingface.co/nicjac/briaai-rmbg/resolve/main/u2net.onnx",
+    url: "https://huggingface.co/BritishWerewolf/U-2-Net/resolve/main/onnx/model.onnx",
     inputSize: 320,
     description: "Higher accuracy, larger model (~176MB)",
     fileSize: "176MB",
@@ -98,17 +99,17 @@ export const AVAILABLE_MODELS: Record<ModelType, ModelConfig> = {
   u2netp: {
     name: "u2netp",
     displayName: "U2-Net-P (Fast)",
-    url: "https://huggingface.co/nicjac/briaai-rmbg/resolve/main/u2netp.onnx",
+    url: "https://huggingface.co/BritishWerewolf/U-2-Netp/resolve/main/onnx/model.onnx",
     inputSize: 320,
     description: "Faster processing, smaller model (~4MB)",
     fileSize: "4MB",
   },
   isnet: {
     name: "isnet",
-    displayName: "IS-Net (Balanced)",
-    url: "https://huggingface.co/nicjac/briaai-rmbg/resolve/main/isnet.onnx",
+    displayName: "IS-Net (Detailed)",
+    url: "https://huggingface.co/BritishWerewolf/IS-Net/resolve/main/onnx/model.onnx",
     inputSize: 1024,
-    description: "Balanced quality and speed (~44MB)",
-    fileSize: "44MB",
+    description: "Detailed edge detection (~179MB)",
+    fileSize: "179MB",
   },
 };
