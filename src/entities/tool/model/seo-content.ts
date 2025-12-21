@@ -2176,4 +2176,70 @@ export const toolSeoContent: Record<ToolSlug, ToolSeoContent> = {
       "명함이나 영수증 정보 추출",
     ],
   },
+  "schema-generator": {
+    whatIs:
+      "Schema Markup Generator는 웹사이트의 검색 엔진 최적화(SEO)를 위한 JSON-LD 형식의 구조화 데이터를 생성하는 도구입니다. Google, Bing 등 검색 엔진이 웹페이지의 콘텐츠를 더 잘 이해할 수 있도록 도와주며, 검색 결과에서 리치 스니펫(별점, 가격, FAQ 등)으로 표시될 수 있게 합니다.",
+    howToUse:
+      "스키마 타입을 선택하고(Article, Product, FAQ 등) 폼에 정보를 입력하면 실시간으로 JSON-LD 코드가 생성됩니다. 생성된 코드를 복사하여 웹페이지의 <head> 섹션에 추가하세요. 'Include script tag' 옵션을 켜면 <script> 태그가 포함된 완전한 코드를 얻을 수 있습니다.",
+    features: [
+      "10가지 스키마 타입 지원 (Article, Product, FAQ, HowTo, Organization, LocalBusiness, Person, Event, Recipe, Breadcrumb)",
+      "실시간 JSON-LD 코드 생성",
+      "Google Rich Results 호환 포맷",
+      "스크립트 태그 포함/제외 옵션",
+      "폼 데이터 리셋 기능",
+      "100% 클라이언트 사이드 처리",
+    ],
+    faq: [
+      {
+        q: "JSON-LD란 무엇인가요?",
+        a: "JSON-LD(JavaScript Object Notation for Linked Data)는 구조화 데이터를 표현하는 방법 중 하나입니다. Google이 권장하는 형식이며, 웹페이지 콘텐츠를 검색 엔진이 쉽게 이해할 수 있도록 합니다.",
+      },
+      {
+        q: "구조화 데이터가 SEO에 어떻게 도움이 되나요?",
+        a: "구조화 데이터를 추가하면 검색 엔진이 페이지 내용을 더 정확히 이해하고, 검색 결과에서 리치 스니펫(별점, 가격, 이미지 등)으로 표시될 가능성이 높아져 클릭률이 향상됩니다.",
+      },
+      {
+        q: "생성된 코드를 어디에 추가하나요?",
+        a: '생성된 JSON-LD 코드를 <script type="application/ld+json"> 태그 안에 넣고, 웹페이지의 <head> 섹션에 추가합니다. 본문(<body>)에 추가해도 작동하지만 <head>가 권장됩니다.',
+      },
+      {
+        q: "여러 스키마를 한 페이지에 사용할 수 있나요?",
+        a: "네, 한 페이지에 여러 종류의 구조화 데이터를 추가할 수 있습니다. 예를 들어 블로그 글에 Article 스키마와 Breadcrumb 스키마를 함께 사용할 수 있습니다.",
+      },
+    ],
+    whyNeeded:
+      "검색 엔진은 웹페이지의 HTML만으로는 콘텐츠의 의미를 완전히 이해하기 어렵습니다. 구조화 데이터를 추가하면 '이것은 제품이고, 가격은 얼마이며, 평점은 몇 점이다'와 같은 명확한 정보를 검색 엔진에 전달할 수 있습니다. 이를 통해 검색 결과에서 더 눈에 띄는 리치 스니펫이 표시되어 더 많은 클릭을 유도할 수 있습니다.",
+    troubleshooting: [
+      {
+        problem: "Google에서 구조화 데이터를 인식하지 못합니다",
+        solution:
+          "Google의 Rich Results Test(https://search.google.com/test/rich-results)로 코드를 검증하세요. 필수 필드가 누락되었거나 형식이 잘못되었을 수 있습니다.",
+      },
+      {
+        problem: "리치 스니펫이 검색 결과에 표시되지 않습니다",
+        solution:
+          "구조화 데이터를 추가해도 Google이 반드시 리치 스니펫을 표시하는 것은 아닙니다. 알고리즘에 따라 표시 여부가 결정되며, 페이지의 품질과 관련성도 영향을 미칩니다.",
+      },
+      {
+        problem: "날짜 형식이 잘못되었습니다",
+        solution:
+          "날짜는 ISO 8601 형식(YYYY-MM-DD 또는 YYYY-MM-DDTHH:MM:SS)으로 입력해야 합니다. 도구에서 제공하는 날짜 선택기를 사용하면 올바른 형식이 자동으로 적용됩니다.",
+      },
+    ],
+    advantages: [
+      "10가지 주요 스키마 타입 지원",
+      "직관적인 폼 인터페이스",
+      "실시간 코드 생성 및 미리보기",
+      "Google 권장 JSON-LD 형식",
+      "무료 무제한 사용",
+    ],
+    useCases: [
+      "블로그 글에 Article 스키마 추가",
+      "제품 페이지에 Product 스키마로 가격/재고 표시",
+      "FAQ 페이지에 질문/답변 구조화",
+      "레시피 사이트에 Recipe 스키마로 조리법 마크업",
+      "이벤트 페이지에 날짜/장소 정보 구조화",
+      "로컬 비즈니스 정보 검색 최적화",
+    ],
+  },
 };

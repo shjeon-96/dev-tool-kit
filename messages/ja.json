@@ -343,6 +343,10 @@
       "title": "OCRスキャナー",
       "description": "画像からテキストを抽出。韓国語、英語、日本語対応。100%クライアントサイド処理。"
     },
+    "schema-generator": {
+      "title": "スキーママークアップ生成",
+      "description": "SEO向けJSON-LD構造化データを生成。Article、Product、FAQなど対応。"
+    },
     "bulk-actions": {
       "title": "一括処理",
       "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成を一括処理。"

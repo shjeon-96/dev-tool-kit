@@ -164,6 +164,11 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/ocr-scanner").then((mod) => mod.OcrScanner),
     { ssr: false },
   ),
+  "schema-generator": dynamic(
+    () =>
+      import("@/features/schema-generator").then((mod) => mod.SchemaGenerator),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

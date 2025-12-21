@@ -406,6 +406,10 @@
       "title": "OCR 스캐너",
       "description": "이미지에서 텍스트를 추출합니다. 한국어, 영어, 일본어 지원. 100% 클라이언트 사이드 처리."
     },
+    "schema-generator": {
+      "title": "스키마 마크업 생성기",
+      "description": "SEO를 위한 JSON-LD 구조화 데이터를 생성합니다. Article, Product, FAQ 등 지원."
+    },
     "bulk-actions": {
       "title": "대량 작업",
       "description": "여러 파일을 한 번에 처리합니다. JSON 포맷팅, 해시 생성, QR 코드 생성을 일괄 처리."

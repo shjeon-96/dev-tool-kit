@@ -49,4 +49,5 @@ export type ToolSlug =
   | "text-case-converter"
   | "video-compressor"
   | "pdf-toolkit"
-  | "ocr-scanner";
+  | "ocr-scanner"
+  | "schema-generator";

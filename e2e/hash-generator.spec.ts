@@ -31,10 +31,10 @@ test.describe("Hash Generator", () => {
     await page.waitForTimeout(600);
 
     // Check all algorithm labels are visible
-    await expect(page.locator("text=MD5", { exact: false })).toBeVisible();
-    await expect(page.locator("text=SHA1", { exact: false })).toBeVisible();
-    await expect(page.locator("text=SHA256", { exact: false })).toBeVisible();
-    await expect(page.locator("text=SHA512", { exact: false })).toBeVisible();
+    await expect(page.getByText("MD5")).toBeVisible();
+    await expect(page.getByText("SHA1")).toBeVisible();
+    await expect(page.getByText("SHA256")).toBeVisible();
+    await expect(page.getByText("SHA512")).toBeVisible();
   });
 
   test("should copy hash to clipboard", async ({ page, context }) => {
@@ -45,11 +45,9 @@ test.describe("Hash Generator", () => {
     await page.waitForTimeout(600);
 
     // Click first copy button
-    const copyButtons = page
-      .getByRole("button")
-      .filter({
-        has: page.locator('svg[class*="copy" i], svg[class*="Copy" i]'),
-      });
+    const copyButtons = page.getByRole("button").filter({
+      has: page.locator('svg[class*="copy" i], svg[class*="Copy" i]'),
+    });
     await copyButtons.first().click();
 
     // Should show copied indicator

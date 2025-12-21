@@ -33,6 +33,7 @@ import {
   FileVideo,
   Files,
   ScanText,
+  Braces,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -291,6 +292,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: ScanText,
     category: "media",
     relatedTools: ["pdf-toolkit", "image-resizer", "text-case-converter"],
+  },
+  "schema-generator": {
+    title: "Schema Markup Generator",
+    description:
+      "JSON-LD 구조화 데이터를 생성합니다. Article, Product, FAQ 등 다양한 스키마 지원.",
+    icon: Braces,
+    category: "text",
+    relatedTools: ["meta-generator", "json-formatter", "html-entity"],
   },
 };
 
