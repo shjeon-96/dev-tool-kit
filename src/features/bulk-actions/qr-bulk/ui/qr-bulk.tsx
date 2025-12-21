@@ -12,8 +12,17 @@ import {
   Crown,
   FileText,
   XCircle,
+  FolderOpen,
 } from "lucide-react";
-import { useQrBulk, type QRBulkItem } from "../model/use-qr-bulk";
+import {
+  useQrBulk,
+  type QRBulkItem,
+  type ExportMode,
+} from "../model/use-qr-bulk";
+import {
+  BrowserPromptBanner,
+  ExportModeSelector,
+} from "@/shared/lib/fs-access";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -51,6 +60,9 @@ export function QrBulk() {
     stats,
     limits,
     isPro,
+    exportMode,
+    fsAccess,
+    setExportMode,
     addItem,
     addMultipleItems,
     removeItem,
@@ -58,7 +70,7 @@ export function QrBulk() {
     updateOptions,
     processAll,
     downloadItem,
-    downloadAll,
+    exportAll,
     copyToClipboard,
   } = useQrBulk();
 
@@ -297,9 +309,33 @@ https://another-url.com"
               </Button>
 
               {stats.success > 0 && (
-                <Button variant="outline" onClick={downloadAll}>
-                  <Download className="h-4 w-4 mr-2" />
-                  Download ZIP
+                <Button
+                  variant="outline"
+                  onClick={async () => {
+                    const result = await exportAll();
+                    if (result && !result.success && result.error) {
+                      showToast(result.error, "error");
+                    } else if (result?.success) {
+                      showToast(
+                        exportMode === "folder"
+                          ? "Files saved to folder"
+                          : "ZIP downloaded",
+                        "success",
+                      );
+                    }
+                  }}
+                  disabled={fsAccess.isExporting}
+                >
+                  {fsAccess.isExporting ? (
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  ) : exportMode === "folder" && fsAccess.isSupported ? (
+                    <FolderOpen className="h-4 w-4 mr-2" />
+                  ) : (
+                    <Download className="h-4 w-4 mr-2" />
+                  )}
+                  {exportMode === "folder" && fsAccess.isSupported
+                    ? "Save to Folder"
+                    : "Download ZIP"}
                 </Button>
               )}
 
@@ -311,6 +347,22 @@ https://another-url.com"
                 <Trash2 className="h-4 w-4 mr-2" />
                 Clear
               </Button>
+            </div>
+          )}
+
+          {/* Browser Compatibility Banner */}
+          {stats.success > 0 && !fsAccess.isSupported && (
+            <BrowserPromptBanner className="mb-4" />
+          )}
+
+          {/* Export Mode Selector */}
+          {stats.success > 0 && (
+            <div className="mb-4">
+              <ExportModeSelector
+                mode={exportMode}
+                onModeChange={setExportMode}
+                disabled={fsAccess.isExporting || isProcessing}
+              />
             </div>
           )}
 

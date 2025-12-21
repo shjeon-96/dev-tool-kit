@@ -11,8 +11,13 @@ import {
   Upload,
   Crown,
   Loader2,
+  FolderOpen,
 } from "lucide-react";
-import { useHashBulk } from "../model/use-hash-bulk";
+import { useHashBulk, type ExportMode } from "../model/use-hash-bulk";
+import {
+  BrowserPromptBanner,
+  ExportModeSelector,
+} from "@/shared/lib/fs-access";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -50,6 +55,9 @@ export function HashBulk() {
     stats,
     limits,
     isPro,
+    exportMode,
+    fsAccess,
+    setExportMode,
     addFiles,
     removeItem,
     clearAll,
@@ -149,9 +157,33 @@ export function HashBulk() {
                   </Button>
 
                   {stats.success > 0 && (
-                    <Button variant="outline" onClick={exportResults}>
-                      <Download className="h-4 w-4 mr-2" />
-                      Export CSV
+                    <Button
+                      variant="outline"
+                      onClick={async () => {
+                        const result = await exportResults();
+                        if (result && !result.success && result.error) {
+                          showToast(result.error, "error");
+                        } else if (result?.success) {
+                          showToast(
+                            exportMode === "folder"
+                              ? "Files saved to folder"
+                              : "ZIP downloaded",
+                            "success",
+                          );
+                        }
+                      }}
+                      disabled={fsAccess.isExporting}
+                    >
+                      {fsAccess.isExporting ? (
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      ) : exportMode === "folder" && fsAccess.isSupported ? (
+                        <FolderOpen className="h-4 w-4 mr-2" />
+                      ) : (
+                        <Download className="h-4 w-4 mr-2" />
+                      )}
+                      {exportMode === "folder" && fsAccess.isSupported
+                        ? "Save to Folder"
+                        : "Download ZIP"}
                     </Button>
                   )}
 
@@ -167,6 +199,22 @@ export function HashBulk() {
               )}
             </div>
           </div>
+
+          {/* Browser Compatibility Banner */}
+          {stats.success > 0 && !fsAccess.isSupported && (
+            <BrowserPromptBanner className="mb-4" />
+          )}
+
+          {/* Export Mode Selector */}
+          {stats.success > 0 && (
+            <div className="mb-4">
+              <ExportModeSelector
+                mode={exportMode}
+                onModeChange={setExportMode}
+                disabled={fsAccess.isExporting || isProcessing}
+              />
+            </div>
+          )}
 
           {/* Drop Zone */}
           {items.length === 0 && (

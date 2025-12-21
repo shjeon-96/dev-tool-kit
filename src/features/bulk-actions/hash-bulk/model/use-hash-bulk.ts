@@ -9,6 +9,9 @@ import {
   type HashResult,
 } from "@/features/hash-generator/lib/hash-wasm";
 import { getBulkLimits, isLimitExceeded } from "../../model/bulk-limits";
+import { useFSAccess, type WriteFileData } from "@/shared/lib/fs-access";
+
+export type ExportMode = "folder" | "zip";
 
 export interface HashBulkItem {
   id: string;
@@ -25,12 +28,18 @@ export function useHashBulk() {
   const { trackUsage } = useQuota("hash-generator");
   const limits = getBulkLimits(tier);
 
+  // File System Access
+  const fsAccess = useFSAccess();
+
   const [items, setItems] = useState<HashBulkItem[]>([]);
   const [selectedAlgorithm, setSelectedAlgorithm] = useState<
     HashAlgorithm | "all"
   >("all");
   const [isProcessing, setIsProcessing] = useState(false);
   const [overallProgress, setOverallProgress] = useState(0);
+  const [exportMode, setExportMode] = useState<ExportMode>(
+    fsAccess.isSupported ? "folder" : "zip",
+  );
 
   // 파일 추가
   const addFiles = useCallback(
@@ -200,10 +209,10 @@ export function useHashBulk() {
     setIsProcessing(false);
   }, [items, trackUsage]);
 
-  // 결과 내보내기 (CSV)
-  const exportResults = useCallback(() => {
+  // CSV 콘텐츠 생성
+  const generateCsvContent = useCallback(() => {
     const successItems = items.filter((item) => item.status === "success");
-    if (successItems.length === 0) return;
+    if (successItems.length === 0) return null;
 
     const headers = ["Filename", "Size", "MD5", "SHA1", "SHA256", "SHA512"];
     const rows = successItems.map((item) => {
@@ -219,15 +228,70 @@ export function useHashBulk() {
       ];
     });
 
-    const csv = [headers, ...rows].map((row) => row.join(",")).join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "hashes.csv";
-    link.click();
-    URL.revokeObjectURL(url);
+    return [headers, ...rows].map((row) => row.join(",")).join("\n");
   }, [items]);
+
+  // 내보내기용 파일 데이터 생성
+  const getExportFiles = useCallback((): WriteFileData[] => {
+    const csv = generateCsvContent();
+    if (!csv) return [];
+
+    return [
+      {
+        name: "hashes.csv",
+        data: csv,
+        type: "text/csv",
+      },
+    ];
+  }, [generateCsvContent]);
+
+  // 폴더에 저장 (Chrome/Edge)
+  const exportToFolder = useCallback(async () => {
+    const files = getExportFiles();
+    if (files.length === 0)
+      return { success: false, error: "No results to export" };
+
+    try {
+      const picked = await fsAccess.pickDirectory({ mode: "readwrite" });
+      if (!picked)
+        return { success: false, error: "Folder selection cancelled" };
+
+      const success = await fsAccess.writeAllFiles(files);
+      return { success, error: success ? undefined : "Failed to write files" };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Export failed",
+      };
+    }
+  }, [getExportFiles, fsAccess]);
+
+  // ZIP으로 다운로드
+  const exportAsZip = useCallback(async () => {
+    const files = getExportFiles();
+    if (files.length === 0)
+      return { success: false, error: "No results to export" };
+
+    try {
+      await fsAccess.downloadAsZip(files, {
+        filename: "hash_results.zip",
+      });
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "ZIP creation failed",
+      };
+    }
+  }, [getExportFiles, fsAccess]);
+
+  // 결과 내보내기 (모드에 따라)
+  const exportResults = useCallback(async () => {
+    if (exportMode === "folder" && fsAccess.isSupported) {
+      return exportToFolder();
+    }
+    return exportAsZip();
+  }, [exportMode, fsAccess.isSupported, exportToFolder, exportAsZip]);
 
   // 클립보드 복사
   const copyHash = useCallback(async (hash: string) => {
@@ -258,6 +322,15 @@ export function useHashBulk() {
     overallProgress,
     stats,
     limits: limits.hashGenerator,
+    exportMode,
+
+    // File System Access
+    fsAccess: {
+      isSupported: fsAccess.isSupported,
+      supportLevel: fsAccess.supportLevel,
+      isExporting: fsAccess.isLoading,
+      exportProgress: fsAccess.progress,
+    },
 
     // 기능 접근
     isPro,
@@ -266,11 +339,14 @@ export function useHashBulk() {
 
     // 액션
     setSelectedAlgorithm,
+    setExportMode,
     addFiles,
     removeItem,
     clearAll,
     processAll,
     exportResults,
+    exportToFolder,
+    exportAsZip,
     copyHash,
   };
 }

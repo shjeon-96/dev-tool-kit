@@ -9,6 +9,7 @@ import {
   type FormatResult,
 } from "@/features/json-formatter/lib/formatter";
 import { getBulkLimits, isLimitExceeded } from "../../model/bulk-limits";
+import { useFSAccess, type WriteFileData } from "@/shared/lib/fs-access";
 
 export interface JsonBulkItem {
   id: string;
@@ -20,17 +21,24 @@ export interface JsonBulkItem {
 }
 
 export type BulkOperation = "format" | "minify" | "validate";
+export type ExportMode = "folder" | "zip";
 
 export function useJsonBulk() {
   const { tier, isPro, canAccessBulkActions } = useFeatureAccess();
   const { trackUsage } = useQuota("json-formatter");
   const limits = getBulkLimits(tier);
 
+  // File System Access
+  const fsAccess = useFSAccess();
+
   const [items, setItems] = useState<JsonBulkItem[]>([]);
   const [operation, setOperation] = useState<BulkOperation>("format");
   const [indent, setIndent] = useState(2);
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [exportMode, setExportMode] = useState<ExportMode>(
+    fsAccess.isSupported ? "folder" : "zip",
+  );
 
   // 파일 추가
   const addFiles = useCallback(
@@ -208,28 +216,63 @@ export function useJsonBulk() {
     URL.revokeObjectURL(url);
   }, []);
 
-  // 전체 결과 다운로드 (ZIP)
-  const downloadAll = useCallback(async () => {
+  // 결과 파일 데이터 생성
+  const getExportFiles = useCallback((): WriteFileData[] => {
     const successItems = items.filter((item) => item.status === "success");
-    if (successItems.length === 0) return;
-
-    // JSZip 동적 로드
-    const JSZip = (await import("jszip")).default;
-    const zip = new JSZip();
-
-    for (const item of successItems) {
-      const filename = item.name.replace(/\.json$/, "") + "_formatted.json";
-      zip.file(filename, item.output);
-    }
-
-    const content = await zip.generateAsync({ type: "blob" });
-    const url = URL.createObjectURL(content);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "json_bulk_formatted.zip";
-    link.click();
-    URL.revokeObjectURL(url);
+    return successItems.map((item) => ({
+      name: item.name.replace(/\.json$/, "") + "_formatted.json",
+      data: item.output,
+      type: "application/json",
+    }));
   }, [items]);
+
+  // 폴더에 저장 (Chrome/Edge)
+  const downloadToFolder = useCallback(async () => {
+    const files = getExportFiles();
+    if (files.length === 0)
+      return { success: false, error: "No files to export" };
+
+    try {
+      const picked = await fsAccess.pickDirectory({ mode: "readwrite" });
+      if (!picked)
+        return { success: false, error: "Folder selection cancelled" };
+
+      const success = await fsAccess.writeAllFiles(files);
+      return { success, error: success ? undefined : "Failed to write files" };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Export failed",
+      };
+    }
+  }, [getExportFiles, fsAccess]);
+
+  // ZIP으로 다운로드
+  const downloadAsZip = useCallback(async () => {
+    const files = getExportFiles();
+    if (files.length === 0)
+      return { success: false, error: "No files to export" };
+
+    try {
+      await fsAccess.downloadAsZip(files, {
+        filename: "json_bulk_formatted.zip",
+      });
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "ZIP creation failed",
+      };
+    }
+  }, [getExportFiles, fsAccess]);
+
+  // 전체 결과 다운로드 (모드에 따라)
+  const downloadAll = useCallback(async () => {
+    if (exportMode === "folder" && fsAccess.isSupported) {
+      return downloadToFolder();
+    }
+    return downloadAsZip();
+  }, [exportMode, fsAccess.isSupported, downloadToFolder, downloadAsZip]);
 
   // 결과 복사
   const copyItem = useCallback(async (item: JsonBulkItem) => {
@@ -262,6 +305,15 @@ export function useJsonBulk() {
     progress,
     stats,
     limits: limits.jsonFormatter,
+    exportMode,
+
+    // File System Access
+    fsAccess: {
+      isSupported: fsAccess.isSupported,
+      supportLevel: fsAccess.supportLevel,
+      isExporting: fsAccess.isLoading,
+      exportProgress: fsAccess.progress,
+    },
 
     // 기능 접근
     isPro,
@@ -271,6 +323,7 @@ export function useJsonBulk() {
     // 액션
     setOperation,
     setIndent,
+    setExportMode,
     addFiles,
     addText,
     removeItem,
@@ -278,6 +331,8 @@ export function useJsonBulk() {
     processAll,
     downloadItem,
     downloadAll,
+    downloadToFolder,
+    downloadAsZip,
     copyItem,
   };
 }

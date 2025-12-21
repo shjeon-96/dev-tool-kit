@@ -4,6 +4,9 @@ import { useState, useCallback, useRef } from "react";
 import type QRCodeType from "qrcode";
 import { useFeatureAccess } from "@/entities/subscription";
 import { BULK_LIMITS } from "../../model/bulk-limits";
+import { useFSAccess, type WriteFileData } from "@/shared/lib/fs-access";
+
+export type ExportMode = "folder" | "zip";
 
 export interface QRBulkItem {
   id: string;
@@ -26,6 +29,9 @@ export function useQrBulk() {
   const { tier, isPro, canAccessBulkActions } = useFeatureAccess();
   const limits = BULK_LIMITS[tier].qrGenerator;
 
+  // File System Access
+  const fsAccess = useFSAccess();
+
   const [items, setItems] = useState<QRBulkItem[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -36,6 +42,9 @@ export function useQrBulk() {
     errorCorrectionLevel: "M",
     format: "png",
   });
+  const [exportMode, setExportMode] = useState<ExportMode>(
+    fsAccess.isSupported ? "folder" : "zip",
+  );
 
   const qrCodeRef = useRef<typeof QRCodeType | null>(null);
 
@@ -291,6 +300,112 @@ export function useQrBulk() {
     URL.revokeObjectURL(url);
   }, [items, options]);
 
+  // 내보내기용 파일 데이터 생성
+  const getExportFiles = useCallback(async (): Promise<WriteFileData[]> => {
+    const successItems = items.filter(
+      (i) => i.status === "success" && i.dataUrl,
+    );
+    if (successItems.length === 0) return [];
+
+    const files: WriteFileData[] = [];
+
+    if (options.format === "png") {
+      for (const item of successItems) {
+        if (item.dataUrl) {
+          // Convert base64 to Blob
+          const base64Data = item.dataUrl.split(",")[1];
+          const binaryString = atob(base64Data);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          const blob = new Blob([bytes], { type: "image/png" });
+
+          files.push({
+            name: `${item.label.replace(/[^a-zA-Z0-9]/g, "_")}.png`,
+            data: blob,
+            type: "image/png",
+          });
+        }
+      }
+    } else {
+      // SVG format
+      if (!qrCodeRef.current) {
+        const QRCodeModule = await import("qrcode");
+        qrCodeRef.current = QRCodeModule.default;
+      }
+
+      for (const item of successItems) {
+        const svg = await qrCodeRef.current.toString(item.content, {
+          type: "svg",
+          width: options.size,
+          margin: 2,
+          color: {
+            dark: options.foregroundColor,
+            light: options.backgroundColor,
+          },
+          errorCorrectionLevel: options.errorCorrectionLevel,
+        });
+
+        files.push({
+          name: `${item.label.replace(/[^a-zA-Z0-9]/g, "_")}.svg`,
+          data: svg,
+          type: "image/svg+xml",
+        });
+      }
+    }
+
+    return files;
+  }, [items, options]);
+
+  // 폴더에 저장 (Chrome/Edge)
+  const exportToFolder = useCallback(async () => {
+    const files = await getExportFiles();
+    if (files.length === 0)
+      return { success: false, error: "No files to export" };
+
+    try {
+      const picked = await fsAccess.pickDirectory({ mode: "readwrite" });
+      if (!picked)
+        return { success: false, error: "Folder selection cancelled" };
+
+      const success = await fsAccess.writeAllFiles(files);
+      return { success, error: success ? undefined : "Failed to write files" };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Export failed",
+      };
+    }
+  }, [getExportFiles, fsAccess]);
+
+  // ZIP으로 다운로드
+  const exportAsZip = useCallback(async () => {
+    const files = await getExportFiles();
+    if (files.length === 0)
+      return { success: false, error: "No files to export" };
+
+    try {
+      await fsAccess.downloadAsZip(files, {
+        filename: `qr-codes-${Date.now()}.zip`,
+      });
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "ZIP creation failed",
+      };
+    }
+  }, [getExportFiles, fsAccess]);
+
+  // 결과 내보내기 (모드에 따라)
+  const exportAll = useCallback(async () => {
+    if (exportMode === "folder" && fsAccess.isSupported) {
+      return exportToFolder();
+    }
+    return exportAsZip();
+  }, [exportMode, fsAccess.isSupported, exportToFolder, exportAsZip]);
+
   const copyToClipboard = useCallback(
     async (dataUrl: string): Promise<boolean> => {
       try {
@@ -308,13 +423,28 @@ export function useQrBulk() {
   );
 
   return {
+    // 상태
     items,
     options,
     isProcessing,
     progress,
     stats,
     limits,
+    exportMode,
+
+    // File System Access
+    fsAccess: {
+      isSupported: fsAccess.isSupported,
+      supportLevel: fsAccess.supportLevel,
+      isExporting: fsAccess.isLoading,
+      exportProgress: fsAccess.progress,
+    },
+
+    // 기능 접근
     isPro,
+
+    // 액션
+    setExportMode,
     addItem,
     addMultipleItems,
     removeItem,
@@ -323,6 +453,9 @@ export function useQrBulk() {
     processAll,
     downloadItem,
     downloadAll,
+    exportAll,
+    exportToFolder,
+    exportAsZip,
     copyToClipboard,
   };
 }
