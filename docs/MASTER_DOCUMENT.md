@@ -3,7 +3,7 @@
 > 모든 화면, 기능, 레이아웃에 대한 종합 가이드
 
 **프로젝트명**: DevToolkit (Web Toolkit)
-**버전**: 0.4.0
+**버전**: 1.1.0
 **프레임워크**: Next.js 16+ (App Router, Turbopack)
 **스타일링**: Tailwind CSS 4
 **UI**: Radix UI + Shadcn/ui 커스텀 컴포넌트
@@ -21,7 +21,7 @@
 1. [애플리케이션 구조](#1-애플리케이션-구조)
 2. [라우트 맵](#2-라우트-맵)
 3. [레이아웃 시스템](#3-레이아웃-시스템)
-4. [도구 카탈로그](#4-도구-카탈로그-32개)
+4. [도구 카탈로그](#4-도구-카탈로그-36개)
 5. [위젯 컴포넌트](#5-위젯-컴포넌트)
 6. [공유 UI 컴포넌트](#6-공유-ui-컴포넌트)
 7. [데이터 모델](#7-데이터-모델)
@@ -43,6 +43,7 @@
 23. [API v1](#23-api-v1)
 24. [Dashboard](#24-dashboard)
 25. [전략적 확장 로드맵](#25-전략적-확장-로드맵-strategic-expansion-roadmap)
+26. [File System Access API](#26-file-system-access-api)
 
 ---
 
@@ -377,11 +378,11 @@ src/
 
 ---
 
-## 4. 도구 카탈로그 (32개)
+## 4. 도구 카탈로그 (36개)
 
 ### 4.1 카테고리별 분류
 
-#### 📝 텍스트 & 코드 (14개)
+#### 📝 텍스트 & 코드 (16개)
 
 | 도구                | Slug                  | 설명                                 |
 | ------------------- | --------------------- | ------------------------------------ |
@@ -399,8 +400,10 @@ src/
 | cURL Builder        | `curl-builder`        | HTTP 요청 빌더 (cURL 출력)           |
 | Prettier Playground | `prettier-playground` | 다중 언어 코드 포맷팅                |
 | CSS Minifier        | `css-minifier`        | CSS 코드 압축 및 최적화              |
+| Schema Generator    | `schema-generator`    | SEO용 JSON-LD 스키마 마크업 생성 🆕  |
+| Headline Analyzer   | `headline-analyzer`   | 헤드라인 효과성 분석 (감정, SEO) 🆕  |
 
-#### 🎨 미디어 & 디자인 (8개)
+#### 🎨 미디어 & 디자인 (10개)
 
 | 도구               | Slug                 | 설명                                     | Premium |
 | ------------------ | -------------------- | ---------------------------------------- | ------- |
@@ -412,6 +415,8 @@ src/
 | Gradient Generator | `gradient-generator` | CSS 그라디언트 비주얼 에디터             |         |
 | SVG Optimizer      | `svg-optimizer`      | SVG 파일 최적화 및 크기 감소             | ⭐      |
 | Video Compressor   | `video-compressor`   | FFmpeg.wasm 기반 비디오 압축 (100% 로컬) | ⭐      |
+| PDF Toolkit        | `pdf-toolkit`        | PDF 병합, 분할, 압축 (pdf-lib) 🆕        |         |
+| OCR Scanner        | `ocr-scanner`        | Tesseract.js 기반 이미지 텍스트 추출 🆕  |         |
 
 #### 🔄 변환 도구 (8개)
 
@@ -2888,13 +2893,18 @@ const summary = await summarizer(longText, {
 
 #### Phase 2: 도구 확장 (4-6개월)
 
-| 항목                        | 우선순위 | 상태    |
-| --------------------------- | -------- | ------- |
-| PDF Toolkit                 | 1        | ⏳ 계획 |
-| Background Remover (WebGPU) | 2        | ⏳ 계획 |
-| OCR Scanner                 | 3        | ⏳ 계획 |
-| Schema Markup Generator     | 4        | ⏳ 계획 |
-| Video Compressor            | 완료     | ✅      |
+| 항목                         | 우선순위 | 상태    |
+| ---------------------------- | -------- | ------- |
+| File System Access API       | 1        | ✅ 완료 |
+| PDF Toolkit                  | 2        | ✅ 완료 |
+| OCR Scanner                  | 3        | ✅ 완료 |
+| Schema Markup Generator      | 4        | ✅ 완료 |
+| Headline Analyzer            | 5        | ✅ 완료 |
+| Video Compressor             | -        | ✅ 완료 |
+| Background Remover (WebGPU)  | 6        | ⏳ 계획 |
+| OG Image Generator           | 7        | ⏳ 계획 |
+| PDF Redact (민감정보 마스킹) | 8        | ⏳ 계획 |
+| Bulk Image Resize            | 9        | ⏳ 계획 |
 
 #### Phase 3: AI 통합 (7-12개월)
 
@@ -2950,24 +2960,144 @@ const summary = await summarizer(longText, {
 
 ---
 
+## 26. File System Access API
+
+### 26.1 개요
+
+File System Access API는 대용량 파일 처리를 위한 브라우저 네이티브 스트리밍 솔루션입니다. Chrome/Edge에서는 폴더 직접 접근을, Safari/Firefox에서는 ZIP 다운로드 폴백을 제공합니다.
+
+### 26.2 브라우저 지원
+
+| 브라우저    | 지원 방식              | 기능                   |
+| ----------- | ---------------------- | ---------------------- |
+| Chrome/Edge | File System Access API | 폴더 읽기/쓰기 (10GB+) |
+| Safari      | ZIP 다운로드 폴백      | JSZip 기반 압축        |
+| Firefox     | ZIP 다운로드 폴백      | JSZip 기반 압축        |
+
+### 26.3 모듈 구조
+
+```
+src/shared/lib/fs-access/
+├── types.ts              # TypeScript 타입 정의
+├── detect.ts             # SSR-safe 브라우저 API 감지 (useSyncExternalStore)
+├── stream-read.ts        # 청크 단위 스트리밍 파일 읽기
+├── stream-write.ts       # 서브디렉토리 지원 스트리밍 쓰기
+├── use-fs-access.ts      # 통합 React Hook
+├── fallback/
+│   └── zip-fallback.ts   # Safari/Firefox ZIP 다운로드
+└── ui/
+    └── browser-prompt.tsx # 브라우저 호환성 안내 UI
+```
+
+### 26.4 핵심 기능
+
+#### 폴더 선택 및 스트리밍 읽기
+
+```typescript
+import { useFsAccess } from "@/shared/lib/fs-access";
+
+const { pickDirectory, readFilesFromDirectory, isSupported } = useFsAccess();
+
+// 폴더 선택
+const handle = await pickDirectory();
+
+// 스트리밍 읽기
+const files = await readFilesFromDirectory(handle, {
+  onProgress: (progress) => console.log(`${progress}% 완료`),
+});
+```
+
+#### 스트리밍 쓰기
+
+```typescript
+import { writeFilesToDirectory } from "@/shared/lib/fs-access";
+
+await writeFilesToDirectory(directoryHandle, files, {
+  preserveStructure: true,
+  onProgress: (current, total) => console.log(`${current}/${total}`),
+});
+```
+
+### 26.5 Bulk Actions 통합
+
+File System Access API는 다음 Bulk Actions와 통합되어 있습니다:
+
+| Bulk Action | 기능                | FS Access 활용           |
+| ----------- | ------------------- | ------------------------ |
+| JSON Bulk   | 다중 JSON 포맷팅    | 폴더 저장 / ZIP 다운로드 |
+| Hash Bulk   | 다중 파일 해시 계산 | 결과 폴더 저장           |
+| QR Bulk     | 다중 QR 코드 생성   | 이미지 폴더 저장         |
+
+### 26.6 브라우저 호환성 UI
+
+```tsx
+import { BrowserPrompt } from "@/shared/lib/fs-access/ui";
+
+<BrowserPrompt featureName="폴더 저장" onFallback={() => downloadAsZip()} />;
+```
+
+---
+
 ## 통계 요약
 
-| 항목                      | 수량                                                                                                                                                             |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **총 도구**               | 31개                                                                                                                                                             |
-| **치트시트**              | 14개                                                                                                                                                             |
-| **가이드**                | 31개                                                                                                                                                             |
-| **UI 컴포넌트**           | 30+                                                                                                                                                              |
-| **지원 언어**             | 3개 (en, ko, ja)                                                                                                                                                 |
-| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                                                                   |
-| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                                                    |
-| **UX Enhancement 기능**   | 11개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share, Chrome Extension, WebAssembly) |
-| **Chrome Extension**      | Plasmo 기반, Context Menu, Popup                                                                                                                                 |
-| **E2E 테스트**            | 3개 (Security Headers, Ad Isolation, Image Resizer)                                                                                                              |
+| 항목                      | 수량                                                                                                                                                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **총 도구**               | 36개                                                                                                                                                                                 |
+| **치트시트**              | 14개                                                                                                                                                                                 |
+| **가이드**                | 31개                                                                                                                                                                                 |
+| **UI 컴포넌트**           | 30+                                                                                                                                                                                  |
+| **지원 언어**             | 3개 (en, ko, ja)                                                                                                                                                                     |
+| **라우트 카테고리**       | 5개 (Tools, Cheatsheets, Guides, Privacy, API)                                                                                                                                       |
+| **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                                                                        |
+| **UX Enhancement 기능**   | 12개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share, Chrome Extension, WebAssembly, File System Access) |
+| **Chrome Extension**      | Plasmo 기반, Context Menu, Popup                                                                                                                                                     |
+| **E2E 테스트**            | 4개 (Security Headers, Ad Isolation, Image Resizer, Headline Analyzer)                                                                                                               |
 
 ---
 
 ## 버전 히스토리
+
+### v1.1.0 (2025-12-21) 🚀 Phase 2 Major Update
+
+**신규 도구 (4개):**
+
+| 도구              | 기능                                           | 테스트                  |
+| ----------------- | ---------------------------------------------- | ----------------------- |
+| PDF Toolkit       | PDF 병합, 분할, 압축 (pdf-lib)                 | ✅ 24개 단위            |
+| OCR Scanner       | Tesseract.js 기반 이미지 텍스트 추출           | ✅ 11개 단위            |
+| Schema Generator  | SEO용 JSON-LD 스키마 마크업 생성 (10가지 타입) | ✅ 16개 단위            |
+| Headline Analyzer | 헤드라인 효과성 분석 (감정, SEO, 단어 밸런스)  | ✅ 31개 단위 + 11개 E2E |
+
+**File System Access API:**
+
+- Chrome/Edge: 폴더 직접 읽기/쓰기 (10GB+ 대용량 지원)
+- Safari/Firefox: JSZip 기반 ZIP 다운로드 폴백
+- 스트리밍 처리로 메모리 효율 최적화
+- Bulk Actions (JSON/Hash/QR) 통합
+
+**새로운 공유 모듈:**
+
+```
+src/shared/lib/fs-access/
+├── detect.ts          # SSR-safe 브라우저 API 감지
+├── stream-read.ts     # 청크 단위 스트리밍 읽기
+├── stream-write.ts    # 서브디렉토리 지원 스트리밍 쓰기
+├── use-fs-access.ts   # 통합 Hook
+└── ui/browser-prompt.tsx  # 브라우저 호환성 UI
+```
+
+**기술 스택 추가:**
+
+- `pdf-lib`: 클라이언트사이드 PDF 처리
+- `tesseract.js`: OCR 엔진 (한/영/일 지원)
+- `jszip`: ZIP 파일 생성/다운로드
+
+**문서화:**
+
+- IMPLEMENTATION_PLAN_v2.1.md 생성 (진행 상황 업데이트)
+- MASTER_DOCUMENT.md 도구 카탈로그 36개로 업데이트
+
+---
 
 ### v1.0.0 (2025-12-14) 🎉 Production Release
 
