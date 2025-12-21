@@ -8,15 +8,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Web Toolkit** - 개발자를 위한 웹 기반 올인원 도구 모음 (100% 클라이언트 사이드 처리)
 
-| 항목             | 값                      |
-| ---------------- | ----------------------- |
-| **URL**          | https://web-toolkit.app |
-| **Version**      | 0.4.0                   |
-| **Tools**        | 31개                    |
-| **Guides**       | 31개                    |
-| **Cheatsheets**  | 14개                    |
-| **Languages**    | en, ko, ja              |
-| **Static Pages** | 249개                   |
+| 항목            | 값                      |
+| --------------- | ----------------------- |
+| **URL**         | https://web-toolkit.app |
+| **Version**     | 0.4.0                   |
+| **Tools**       | 32개                    |
+| **Guides**      | 31개                    |
+| **Cheatsheets** | 14개                    |
+| **Languages**   | en, ko, ja              |
 
 ---
 
@@ -38,15 +37,25 @@ npm run build
 
 ### Key Commands
 
-| Command                 | Description           |
-| ----------------------- | --------------------- |
-| `npm run dev`           | 개발 서버 (Turbopack) |
-| `npm run build`         | 프로덕션 빌드         |
-| `npm run lint`          | ESLint 검사           |
-| `npm run test`          | Vitest 단위 테스트    |
-| `npm run test:e2e`      | Playwright E2E 테스트 |
-| `npm run test:coverage` | 테스트 커버리지       |
-| `npm run analyze`       | 번들 분석             |
+| Command                  | Description                                        |
+| ------------------------ | -------------------------------------------------- |
+| `npm run dev`            | 개발 서버 (Turbopack)                              |
+| `npm run build`          | 프로덕션 빌드                                      |
+| `npm run lint`           | ESLint 검사                                        |
+| `npm run test`           | Vitest 단위 테스트 (watch 모드)                    |
+| `npm run test -- [name]` | 특정 파일 테스트 (예: `npm run test -- formatter`) |
+| `npm run test:coverage`  | 테스트 커버리지                                    |
+| `npm run test:e2e`       | Playwright E2E 테스트                              |
+| `npm run test:e2e:ui`    | Playwright UI 모드                                 |
+| `npm run analyze`        | 번들 분석 (`ANALYZE=true`)                         |
+
+### Chrome Extension Commands
+
+```bash
+npm run dev:ext       # Extension 개발 서버
+npm run build:ext     # Extension 빌드
+npm run package:ext   # Extension 패키징
+```
 
 ---
 
@@ -64,26 +73,34 @@ src/
 │   ├── tools/[slug]/             # 도구 페이지
 │   ├── guides/[slug]/            # 가이드 페이지
 │   ├── cheatsheets/[slug]/       # 치트시트 페이지
-│   └── api/share/                # Magic Share API
+│   ├── dashboard/                # 사용자 대시보드
+│   └── api/                      # API routes (share, checkout, usage 등)
 │
-├── features/                     # 31개 도구 구현
-│   └── json-formatter/
-│       ├── model/use-json-formatter.ts  # 상태/로직 Hook
-│       ├── lib/formatter.ts             # 순수 함수 (테스트 대상)
-│       └── ui/json-formatter.tsx        # UI 컴포넌트
+├── features/                     # 도구 + 기능 모듈
+│   ├── json-formatter/           # 도구 예시
+│   │   ├── model/use-json-formatter.ts  # 상태/로직 Hook
+│   │   ├── lib/formatter.ts             # 순수 함수 (테스트 대상)
+│   │   └── ui/json-formatter.tsx        # UI 컴포넌트
+│   ├── auth/                     # 인증 (Supabase)
+│   ├── billing/                  # 결제 (LemonSqueezy)
+│   └── pricing/                  # 요금제 관리
 │
 ├── entities/                     # 비즈니스 엔티티
 │   ├── tool/model/
 │   │   ├── types.ts              # ToolSlug 타입
 │   │   ├── registry.ts           # 도구 레지스트리
 │   │   └── seo-content.ts        # SEO 콘텐츠
-│   ├── guide/data/               # 31개 가이드 데이터
-│   └── cheatsheet/data/          # 14개 치트시트 데이터
+│   ├── subscription/             # 구독 상태 관리
+│   ├── guide/data/               # 가이드 데이터
+│   └── cheatsheet/data/          # 치트시트 데이터
 │
-└── shared/
-    ├── ui/                       # 공통 UI 컴포넌트
-    ├── lib/hooks/                # 공통 Hooks
-    └── config/site.ts            # SITE_CONFIG
+├── shared/
+│   ├── ui/                       # 공통 UI 컴포넌트 (Radix UI)
+│   ├── lib/hooks/                # 공통 Hooks
+│   ├── lib/quota/                # 사용량 제한 시스템
+│   └── config/site.ts            # SITE_CONFIG
+│
+└── extension/                    # Chrome Extension (Plasmo)
 ```
 
 ---
@@ -106,6 +123,8 @@ export type ToolSlug = "existing-tool" | "new-tool";
   description: "설명...",
   icon: IconComponent,
   category: "text" | "media" | "converters" | "security",
+  isPremium: false,        // Pro 전용 여부
+  freeLimit: undefined,    // 무료 사용자 일일 제한 (미설정시 무제한)
 },
 ```
 
@@ -116,15 +135,17 @@ new-tool/
 ├── model/use-new-tool.ts   # Hook (상태 관리)
 ├── lib/logic.ts            # 순수 함수 (테스트 가능)
 ├── ui/new-tool.tsx         # UI 컴포넌트
-└── index.ts                # 배럴 export
+└── index.ts                # 배럴 export (named export 필수)
 ```
 
 4. **tool-renderer.tsx** - Dynamic import 추가
 
 ```typescript
 // src/app/[locale]/tools/[slug]/tool-renderer.tsx
-const NewTool = dynamic(() => import("@/features/new-tool"));
-case "new-tool": return <NewTool />;
+"new-tool": dynamic(
+  () => import("@/features/new-tool").then((mod) => mod.NewTool),
+  { ssr: false },
+),
 ```
 
 5. **messages/\*.json** - 번역 추가 (3개 언어)
@@ -161,7 +182,7 @@ const t = await getTranslations("tools");
 | useToolHistory     | shared/lib/hooks/use-tool-history.ts         | 로컬스토리지 기반 히스토리 |
 | useUrlState        | shared/lib/hooks/use-url-state.ts            | URL 쿼리 파라미터 상태     |
 | useCopyToClipboard | shared/lib/hooks/use-copy-to-clipboard.ts    | 클립보드 복사 + 피드백     |
-| useAdSense         | shared/lib/hooks/use-ad-sense.ts             | AdSense 로딩 상태 관리     |
+| useQuota           | shared/lib/quota/use-quota.ts                | 사용량 제한 체크           |
 | usePipelineInput   | features/tool-pipeline/model/use-pipeline.ts | 도구 간 데이터 전달        |
 
 ---
@@ -170,8 +191,9 @@ const t = await getTranslations("tools");
 
 ```bash
 # 단위 테스트
-npm run test                  # 전체 실행
+npm run test                  # watch 모드
 npm run test -- formatter     # 파일명 필터
+npm run test -- --run         # 단일 실행 (watch 없이)
 
 # E2E 테스트
 npm run test:e2e              # 전체 실행
@@ -182,6 +204,7 @@ npm run test:e2e:ui           # UI 모드
 
 - 단위 테스트: `src/features/*/lib/*.test.ts`
 - E2E 테스트: `e2e/*.spec.ts`
+- 커버리지 대상: `src/features/**/lib/**`, `src/shared/lib/**`
 
 ---
 
@@ -216,18 +239,32 @@ export default function Page({ params }: { params: { slug: string } }) {
 | `src/entities/tool/model/registry.ts`             | 도구 레지스트리     |
 | `src/entities/tool/model/seo-content.ts`          | SEO 콘텐츠          |
 | `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 Dynamic Import |
+| `src/entities/subscription/`                      | 구독/Premium 게이트 |
+| `src/shared/lib/quota/`                           | 사용량 제한 시스템  |
 | `src/shared/config/site.ts`                       | SITE_CONFIG         |
 | `src/i18n/routing.ts`                             | 지원 언어 목록      |
 | `messages/*.json`                                 | i18n 번역 파일      |
 
 ---
 
-## Analytics & Monetization
+## Premium & Quota System
 
-- **Google Analytics**: G-BHCZK28NQQ
-- **Google Tag Manager**: GTM-NKT5P48C
-- **AdSense**: ca-pub-4981986991458105
-- **ads.txt**: `public/ads.txt`
+도구별 사용량 제한 시스템:
+
+```typescript
+// entities/tool/model/types.ts
+interface Tool {
+  isPremium?: boolean; // true면 Pro 전용
+  freeLimit?: number; // 무료 사용자 일일 제한
+}
+
+// 사용량 체크
+const { stats, isLoading } = useQuota(slug);
+// stats.dailyUsage, stats.dailyLimit, stats.isExceeded
+```
+
+- `PremiumToolGate`: Pro 전용 도구 접근 제어
+- `QuotaWarning`: 사용량 80% 이상시 경고 표시
 
 ---
 
@@ -236,9 +273,22 @@ export default function Page({ params }: { params: { slug: string } }) {
 ```bash
 # .env.local
 NEXT_PUBLIC_APP_URL=https://web-toolkit.app
-NEXT_PUBLIC_CLARITY_ID=your_clarity_id  # Optional
-KV_REST_API_URL=...                      # Magic Share (Vercel KV)
+
+# Supabase (인증)
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+
+# LemonSqueezy (결제)
+LEMONSQUEEZY_API_KEY=...
+LEMONSQUEEZY_STORE_ID=...
+LEMONSQUEEZY_WEBHOOK_SECRET=...
+
+# Vercel KV (Magic Share)
+KV_REST_API_URL=...
 KV_REST_API_TOKEN=...
+
+# Optional
+NEXT_PUBLIC_CLARITY_ID=...
 ```
 
 ---
