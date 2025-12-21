@@ -176,6 +176,10 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
       ),
     { ssr: false },
   ),
+  "bg-remover": dynamic(
+    () => import("@/features/bg-remover").then((mod) => mod.BgRemover),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

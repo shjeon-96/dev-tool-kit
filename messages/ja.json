@@ -351,6 +351,44 @@
       "title": "ヘッドライン分析",
       "description": "ヘッドラインの効果を分析。感情スコア、読了時間、SEO最適化提案を提供。"
     },
+    "bg-remover": {
+      "title": "背景除去",
+      "description": "AIで画像の背景を自動除去。WebGPU加速、100%クライアントサイド処理。",
+      "modelSelection": {
+        "title": "モデル選択",
+        "loaded": "{model}モデルが{provider}プロバイダーでロードされました"
+      },
+      "upload": {
+        "title": "画像アップロード",
+        "dropzone": "ここに画像をドロップまたはクリックして選択",
+        "supportedFormats": "PNG、JPG、WEBP対応",
+        "selectFile": "ファイル選択",
+        "changeImage": "画像を変更"
+      },
+      "options": {
+        "title": "オプション",
+        "threshold": "しきい値",
+        "thresholdDescription": "低いほど画像を多く保持、高いほど背景を多く除去",
+        "featherRadius": "フェザー半径",
+        "featherDescription": "切り抜きエッジを滑らかに処理",
+        "outputFormat": "出力形式"
+      },
+      "processing": "処理中...",
+      "removeBackground": "背景を除去",
+      "result": {
+        "title": "結果",
+        "original": "オリジナル",
+        "processed": "背景除去済み",
+        "processingTime": "処理時間: {time}秒",
+        "dimensions": "{width} × {height}",
+        "downloadResult": "結果をダウンロード",
+        "downloadMask": "マスクをダウンロード"
+      },
+      "errors": {
+        "invalidFileType": "画像ファイルを選択してください",
+        "processingFailed": "画像の処理に失敗しました"
+      }
+    },
     "bulk-actions": {
       "title": "一括処理",
       "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成を一括処理。"

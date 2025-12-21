@@ -35,6 +35,7 @@ import {
   ScanText,
   Braces,
   Heading,
+  Eraser,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -309,6 +310,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Heading,
     category: "text",
     relatedTools: ["meta-generator", "schema-generator", "lorem-generator"],
+  },
+  "bg-remover": {
+    title: "Background Remover",
+    description:
+      "AI로 이미지 배경을 자동 제거합니다. WebGPU 가속, 100% 클라이언트 사이드 처리.",
+    icon: Eraser,
+    category: "media",
+    relatedTools: ["image-resizer", "ocr-scanner", "svg-optimizer"],
   },
 };
 

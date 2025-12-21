@@ -414,6 +414,44 @@
       "title": "Headline Analyzer",
       "description": "Analyze headline effectiveness with emotion scoring, reading time, and SEO optimization suggestions."
     },
+    "bg-remover": {
+      "title": "Background Remover",
+      "description": "Remove image backgrounds automatically using AI. WebGPU accelerated, 100% client-side processing.",
+      "modelSelection": {
+        "title": "Model Selection",
+        "loaded": "{model} loaded with {provider} provider"
+      },
+      "upload": {
+        "title": "Upload Image",
+        "dropzone": "Drop an image here or click to select",
+        "supportedFormats": "Supports PNG, JPG, WEBP",
+        "selectFile": "Select File",
+        "changeImage": "Change Image"
+      },
+      "options": {
+        "title": "Options",
+        "threshold": "Threshold",
+        "thresholdDescription": "Lower values keep more of the image, higher values remove more background",
+        "featherRadius": "Feather Radius",
+        "featherDescription": "Smooth the edges of the cutout",
+        "outputFormat": "Output Format"
+      },
+      "processing": "Processing...",
+      "removeBackground": "Remove Background",
+      "result": {
+        "title": "Result",
+        "original": "Original",
+        "processed": "Background Removed",
+        "processingTime": "Processing time: {time}s",
+        "dimensions": "{width} × {height}",
+        "downloadResult": "Download Result",
+        "downloadMask": "Download Mask"
+      },
+      "errors": {
+        "invalidFileType": "Please select an image file",
+        "processingFailed": "Failed to process image"
+      }
+    },
     "bulk-actions": {
       "title": "Bulk Actions",
       "description": "Process multiple files at once. Batch JSON formatting, hash generation, and QR code creation."

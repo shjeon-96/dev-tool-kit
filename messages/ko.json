@@ -414,6 +414,44 @@
       "title": "헤드라인 분석기",
       "description": "헤드라인 효과성을 분석합니다. 감정 점수, 읽기 시간, SEO 최적화 제안을 제공합니다."
     },
+    "bg-remover": {
+      "title": "배경 제거",
+      "description": "AI로 이미지 배경을 자동 제거합니다. WebGPU 가속, 100% 클라이언트 사이드 처리.",
+      "modelSelection": {
+        "title": "모델 선택",
+        "loaded": "{model} 모델이 {provider} 프로바이더로 로드됨"
+      },
+      "upload": {
+        "title": "이미지 업로드",
+        "dropzone": "이미지를 여기에 드롭하거나 클릭하여 선택",
+        "supportedFormats": "PNG, JPG, WEBP 지원",
+        "selectFile": "파일 선택",
+        "changeImage": "이미지 변경"
+      },
+      "options": {
+        "title": "옵션",
+        "threshold": "임계값",
+        "thresholdDescription": "낮을수록 이미지를 더 많이 유지하고, 높을수록 배경을 더 많이 제거",
+        "featherRadius": "페더 반경",
+        "featherDescription": "컷아웃 가장자리를 부드럽게 처리",
+        "outputFormat": "출력 형식"
+      },
+      "processing": "처리 중...",
+      "removeBackground": "배경 제거",
+      "result": {
+        "title": "결과",
+        "original": "원본",
+        "processed": "배경 제거됨",
+        "processingTime": "처리 시간: {time}초",
+        "dimensions": "{width} × {height}",
+        "downloadResult": "결과 다운로드",
+        "downloadMask": "마스크 다운로드"
+      },
+      "errors": {
+        "invalidFileType": "이미지 파일을 선택해주세요",
+        "processingFailed": "이미지 처리에 실패했습니다"
+      }
+    },
     "bulk-actions": {
       "title": "대량 작업",
       "description": "여러 파일을 한 번에 처리합니다. JSON 포맷팅, 해시 생성, QR 코드 생성을 일괄 처리."

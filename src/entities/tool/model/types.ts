@@ -51,4 +51,5 @@ export type ToolSlug =
   | "pdf-toolkit"
   | "ocr-scanner"
   | "schema-generator"
-  | "headline-analyzer";
+  | "headline-analyzer"
+  | "bg-remover";
