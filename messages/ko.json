@@ -410,6 +410,10 @@
       "title": "스키마 마크업 생성기",
       "description": "SEO를 위한 JSON-LD 구조화 데이터를 생성합니다. Article, Product, FAQ 등 지원."
     },
+    "headline-analyzer": {
+      "title": "헤드라인 분석기",
+      "description": "헤드라인 효과성을 분석합니다. 감정 점수, 읽기 시간, SEO 최적화 제안을 제공합니다."
+    },
     "bulk-actions": {
       "title": "대량 작업",
       "description": "여러 파일을 한 번에 처리합니다. JSON 포맷팅, 해시 생성, QR 코드 생성을 일괄 처리."

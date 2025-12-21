@@ -34,6 +34,7 @@ import {
   Files,
   ScanText,
   Braces,
+  Heading,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -300,6 +301,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Braces,
     category: "text",
     relatedTools: ["meta-generator", "json-formatter", "html-entity"],
+  },
+  "headline-analyzer": {
+    title: "Headline Analyzer",
+    description:
+      "헤드라인의 효과성을 분석합니다. 감정 점수, 읽기 시간, SEO 최적화 제안을 제공합니다.",
+    icon: Heading,
+    category: "text",
+    relatedTools: ["meta-generator", "schema-generator", "lorem-generator"],
   },
 };
 

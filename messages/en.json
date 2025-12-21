@@ -410,6 +410,10 @@
       "title": "Schema Markup Generator",
       "description": "Generate JSON-LD structured data for SEO. Supports Article, Product, FAQ, and more."
     },
+    "headline-analyzer": {
+      "title": "Headline Analyzer",
+      "description": "Analyze headline effectiveness with emotion scoring, reading time, and SEO optimization suggestions."
+    },
     "bulk-actions": {
       "title": "Bulk Actions",
       "description": "Process multiple files at once. Batch JSON formatting, hash generation, and QR code creation."

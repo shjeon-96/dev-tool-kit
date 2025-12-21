@@ -50,4 +50,5 @@ export type ToolSlug =
   | "video-compressor"
   | "pdf-toolkit"
   | "ocr-scanner"
-  | "schema-generator";
+  | "schema-generator"
+  | "headline-analyzer";

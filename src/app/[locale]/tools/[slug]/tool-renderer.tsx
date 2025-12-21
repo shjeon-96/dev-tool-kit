@@ -169,6 +169,13 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
       import("@/features/schema-generator").then((mod) => mod.SchemaGenerator),
     { ssr: false },
   ),
+  "headline-analyzer": dynamic(
+    () =>
+      import("@/features/headline-analyzer").then(
+        (mod) => mod.HeadlineAnalyzer,
+      ),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {
