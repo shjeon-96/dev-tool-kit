@@ -1333,6 +1333,30 @@
     },
     "customerPortal": "Manage in Customer Portal"
   },
+  "usage": {
+    "meta": {
+      "title": "Usage Analytics - Web Toolkit",
+      "description": "Track your tool usage, API calls, and quota consumption."
+    },
+    "title": "Usage Analytics",
+    "subtitle": "Track your tool usage and quota consumption",
+    "backToDashboard": "Back to Dashboard",
+    "dailyUsage": "Daily Usage",
+    "monthlyUsage": "Monthly Usage",
+    "used": "Used",
+    "unlimited": "Unlimited usage with Pro plan",
+    "usageByTool": "Usage by Tool",
+    "operations": "operations",
+    "noUsageData": "No usage data yet",
+    "startUsing": "Start using tools to see your statistics",
+    "limitReached": "Usage Limit Reached",
+    "nearLimit": "Approaching Usage Limit",
+    "upgradeMessage": "Upgrade to Pro for unlimited access to all tools.",
+    "upgrade": "Upgrade",
+    "unlockMore": "Unlock Unlimited Access",
+    "proFeatures": "Get unlimited usage, API access, and priority support with Pro.",
+    "viewPlans": "View Plans"
+  },
   "guides": {
     "title": "Developer Guides",
     "description": "Step-by-step guides to help you master our developer tools",

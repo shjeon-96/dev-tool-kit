@@ -1983,6 +1983,30 @@
     },
     "customerPortal": "カスタマーポータルで管理"
   },
+  "usage": {
+    "meta": {
+      "title": "使用量分析 - Web Toolkit",
+      "description": "ツールの使用量、API呼び出し、クォータ消費を追跡します。"
+    },
+    "title": "使用量分析",
+    "subtitle": "ツールの使用量とクォータ消費を追跡します",
+    "backToDashboard": "ダッシュボードに戻る",
+    "dailyUsage": "日次使用量",
+    "monthlyUsage": "月次使用量",
+    "used": "使用済み",
+    "unlimited": "Proプランで無制限利用",
+    "usageByTool": "ツール別使用量",
+    "operations": "操作",
+    "noUsageData": "まだ使用データがありません",
+    "startUsing": "ツールを使用すると統計が表示されます",
+    "limitReached": "使用量制限に達しました",
+    "nearLimit": "使用量制限に近づいています",
+    "upgradeMessage": "Proにアップグレードしてすべてのツールに無制限でアクセスできます。",
+    "upgrade": "アップグレード",
+    "unlockMore": "無制限アクセスをアンロック",
+    "proFeatures": "Proで無制限利用、APIアクセス、優先サポートを取得できます。",
+    "viewPlans": "プランを見る"
+  },
   "quota": {
     "daily": "日次使用量",
     "monthly": "月次使用量",

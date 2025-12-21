@@ -1,34 +1,73 @@
+import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { BarChart3, Construction } from "lucide-react";
+import { createClient } from "@/shared/lib/supabase/server";
+import { UsageContent } from "@/features/usage";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("dashboard");
+interface UsagePageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "usage" });
+
   return {
-    title: t("quickLinks.usage"),
+    title: t("meta.title"),
+    description: t("meta.description"),
   };
 }
 
-export default async function UsagePage() {
-  const t = await getTranslations("dashboard");
+export default async function UsagePage({ params }: UsagePageProps) {
+  const { locale } = await params;
+
+  const supabase = await createClient();
+
+  // 인증 확인
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    redirect(`/${locale}/auth/signin?redirect=/dashboard/usage`);
+  }
+
+  // 사용자 정보 조회
+  const { data: userData } = await supabase
+    .from("users")
+    .select("*")
+    .eq("id", user.id)
+    .single();
+
+  // 구독 정보 조회
+  const { data: subscriptionData } = await supabase
+    .from("subscriptions")
+    .select("*")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  // 이번 달 사용량 조회
+  const monthStart = new Date();
+  monthStart.setDate(1);
+  monthStart.setHours(0, 0, 0, 0);
+
+  const { data: usageRecords } = await supabase
+    .from("usage_records")
+    .select("tool_slug, quantity, recorded_at")
+    .eq("user_id", user.id)
+    .gte("recorded_at", monthStart.toISOString())
+    .order("recorded_at", { ascending: false });
 
   return (
-    <div className="container max-w-4xl py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold flex items-center gap-3">
-          <BarChart3 className="h-8 w-8" />
-          {t("quickLinks.usage")}
-        </h1>
-      </div>
-
-      <div className="flex flex-col items-center justify-center rounded-lg border bg-card p-12 text-center">
-        <Construction className="h-16 w-16 text-muted-foreground mb-4" />
-        <h2 className="text-xl font-semibold mb-2">Coming Soon</h2>
-        <p className="text-muted-foreground max-w-md">
-          Usage analytics is under development. You&apos;ll be able to track
-          your API calls, tool usage, and quota consumption.
-        </p>
-      </div>
-    </div>
+    <UsageContent
+      user={userData}
+      subscription={subscriptionData}
+      usageRecords={usageRecords || []}
+    />
   );
 }

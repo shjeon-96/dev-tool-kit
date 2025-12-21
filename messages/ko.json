@@ -1333,6 +1333,30 @@
     },
     "customerPortal": "고객 포털에서 관리"
   },
+  "usage": {
+    "meta": {
+      "title": "사용량 분석 - Web Toolkit",
+      "description": "도구 사용량, API 호출 및 할당량 소비를 추적합니다."
+    },
+    "title": "사용량 분석",
+    "subtitle": "도구 사용량과 할당량 소비를 추적합니다",
+    "backToDashboard": "대시보드로 돌아가기",
+    "dailyUsage": "일일 사용량",
+    "monthlyUsage": "월간 사용량",
+    "used": "사용됨",
+    "unlimited": "Pro 플랜에서 무제한 사용",
+    "usageByTool": "도구별 사용량",
+    "operations": "작업",
+    "noUsageData": "아직 사용 데이터가 없습니다",
+    "startUsing": "도구를 사용하면 통계가 표시됩니다",
+    "limitReached": "사용 한도 도달",
+    "nearLimit": "사용 한도에 가까워지고 있습니다",
+    "upgradeMessage": "Pro로 업그레이드하여 모든 도구에 무제한 접근하세요.",
+    "upgrade": "업그레이드",
+    "unlockMore": "무제한 액세스 잠금 해제",
+    "proFeatures": "Pro에서 무제한 사용, API 액세스 및 우선 지원을 받으세요.",
+    "viewPlans": "요금제 보기"
+  },
   "guides": {
     "title": "개발자 가이드",
     "description": "개발 도구를 완벽하게 활용하기 위한 단계별 가이드",
