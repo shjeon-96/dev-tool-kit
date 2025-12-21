@@ -339,6 +339,10 @@
       "title": "PDF Toolkit",
       "description": "PDFの結合、分割、圧縮をブラウザで処理。100%クライアントサイド処理。"
     },
+    "ocr-scanner": {
+      "title": "OCRスキャナー",
+      "description": "画像からテキストを抽出。韓国語、英語、日本語対応。100%クライアントサイド処理。"
+    },
     "bulk-actions": {
       "title": "一括処理",
       "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成を一括処理。"

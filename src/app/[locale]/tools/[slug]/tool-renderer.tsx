@@ -160,6 +160,10 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/pdf-toolkit").then((mod) => mod.PdfToolkit),
     { ssr: false },
   ),
+  "ocr-scanner": dynamic(
+    () => import("@/features/ocr-scanner").then((mod) => mod.OcrScanner),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

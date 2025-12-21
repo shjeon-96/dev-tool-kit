@@ -402,6 +402,10 @@
       "title": "PDF Toolkit",
       "description": "Merge, split, and compress PDF files in your browser. 100% client-side processing."
     },
+    "ocr-scanner": {
+      "title": "OCR Scanner",
+      "description": "Extract text from images. Supports Korean, English, and Japanese. 100% client-side processing."
+    },
     "bulk-actions": {
       "title": "Bulk Actions",
       "description": "Process multiple files at once. Batch JSON formatting, hash generation, and QR code creation."

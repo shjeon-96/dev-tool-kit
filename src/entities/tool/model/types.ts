@@ -48,4 +48,5 @@ export type ToolSlug =
   | "css-minifier"
   | "text-case-converter"
   | "video-compressor"
-  | "pdf-toolkit";
+  | "pdf-toolkit"
+  | "ocr-scanner";

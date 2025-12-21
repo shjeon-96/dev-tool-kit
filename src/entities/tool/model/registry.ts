@@ -32,6 +32,7 @@ import {
   CaseSensitive,
   FileVideo,
   Files,
+  ScanText,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -282,6 +283,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Files,
     category: "media",
     relatedTools: ["image-resizer", "svg-optimizer", "video-compressor"],
+  },
+  "ocr-scanner": {
+    title: "OCR Scanner",
+    description:
+      "이미지에서 텍스트를 추출합니다. 한/영/일 다국어 지원, 100% 클라이언트 사이드 처리.",
+    icon: ScanText,
+    category: "media",
+    relatedTools: ["pdf-toolkit", "image-resizer", "text-case-converter"],
   },
 };
 
