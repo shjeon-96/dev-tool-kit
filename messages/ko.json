@@ -452,6 +452,42 @@
         "processingFailed": "이미지 처리에 실패했습니다"
       }
     },
+    "og-generator": {
+      "title": "OG 이미지 생성기",
+      "description": "소셜 미디어 공유용 Open Graph 이미지를 생성합니다. 다양한 템플릿과 커스터마이징 옵션 제공.",
+      "preview": {
+        "title": "미리보기"
+      },
+      "tabs": {
+        "content": "콘텐츠",
+        "template": "템플릿",
+        "style": "스타일",
+        "settings": "설정"
+      },
+      "content": {
+        "title": "제목",
+        "titlePlaceholder": "제목을 입력하세요",
+        "subtitle": "부제목",
+        "subtitlePlaceholder": "부제목 입력 (선택사항)",
+        "author": "작성자",
+        "authorPlaceholder": "작성자 이름",
+        "siteName": "사이트 이름",
+        "siteNamePlaceholder": "사이트 이름"
+      },
+      "style": {
+        "gradientPresets": "그라데이션 프리셋",
+        "backgroundColor": "배경색",
+        "textColor": "텍스트 색상",
+        "titleSize": "제목 크기",
+        "fontFamily": "글꼴"
+      },
+      "settings": {
+        "size": "이미지 크기",
+        "reset": "기본값으로 초기화"
+      },
+      "rendering": "렌더링 중...",
+      "download": "PNG 다운로드"
+    },
     "bulk-actions": {
       "title": "대량 작업",
       "description": "여러 파일을 한 번에 처리합니다. JSON 포맷팅, 해시 생성, QR 코드 생성을 일괄 처리."

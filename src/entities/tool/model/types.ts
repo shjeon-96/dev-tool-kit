@@ -52,4 +52,5 @@ export type ToolSlug =
   | "ocr-scanner"
   | "schema-generator"
   | "headline-analyzer"
-  | "bg-remover";
+  | "bg-remover"
+  | "og-generator";

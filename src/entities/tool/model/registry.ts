@@ -36,6 +36,7 @@ import {
   Braces,
   Heading,
   Eraser,
+  Share2,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -318,6 +319,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Eraser,
     category: "media",
     relatedTools: ["image-resizer", "ocr-scanner", "svg-optimizer"],
+  },
+  "og-generator": {
+    title: "OG Image Generator",
+    description:
+      "소셜 미디어용 OG 이미지를 생성합니다. 다양한 템플릿과 커스터마이징 옵션 제공.",
+    icon: Share2,
+    category: "media",
+    relatedTools: ["meta-generator", "image-resizer", "qr-generator"],
   },
 };
 

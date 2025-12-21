@@ -452,6 +452,42 @@
         "processingFailed": "Failed to process image"
       }
     },
+    "og-generator": {
+      "title": "OG Image Generator",
+      "description": "Create beautiful Open Graph images for social media sharing. Multiple templates and customization options.",
+      "preview": {
+        "title": "Preview"
+      },
+      "tabs": {
+        "content": "Content",
+        "template": "Template",
+        "style": "Style",
+        "settings": "Settings"
+      },
+      "content": {
+        "title": "Title",
+        "titlePlaceholder": "Enter your title",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Enter a subtitle (optional)",
+        "author": "Author",
+        "authorPlaceholder": "Author name",
+        "siteName": "Site Name",
+        "siteNamePlaceholder": "Your site name"
+      },
+      "style": {
+        "gradientPresets": "Gradient Presets",
+        "backgroundColor": "Background Color",
+        "textColor": "Text Color",
+        "titleSize": "Title Size",
+        "fontFamily": "Font Family"
+      },
+      "settings": {
+        "size": "Image Size",
+        "reset": "Reset to Defaults"
+      },
+      "rendering": "Rendering...",
+      "download": "Download PNG"
+    },
     "bulk-actions": {
       "title": "Bulk Actions",
       "description": "Process multiple files at once. Batch JSON formatting, hash generation, and QR code creation."

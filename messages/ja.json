@@ -389,6 +389,88 @@
         "processingFailed": "画像の処理に失敗しました"
       }
     },
+    "og-generator": {
+      "title": "OGイメージ生成",
+      "description": "ソーシャルメディア用OGイメージを生成。多様なテンプレートとカスタマイズオプション提供。",
+      "preview": {
+        "title": "プレビュー",
+        "noPreview": "プレビュー未生成",
+        "rendering": "レンダリング中...",
+        "renderTime": "レンダリング時間: {time}ms",
+        "dimensions": "{width} × {height}"
+      },
+      "tabs": {
+        "content": "コンテンツ",
+        "template": "テンプレート",
+        "style": "スタイル",
+        "settings": "設定"
+      },
+      "content": {
+        "title": "タイトル",
+        "titlePlaceholder": "OGイメージタイトルを入力",
+        "description": "説明",
+        "descriptionPlaceholder": "簡単な説明を入力（オプション）",
+        "author": "作成者",
+        "authorPlaceholder": "作成者名を入力（オプション）",
+        "siteName": "サイト名",
+        "siteNamePlaceholder": "サイト名を入力（オプション）"
+      },
+      "template": {
+        "title": "テンプレート選択",
+        "basic": "基本",
+        "basicDescription": "クリーンでシンプルなデザイン",
+        "gradient": "グラデーション",
+        "gradientDescription": "鮮やかなグラデーション背景",
+        "blog": "ブログ",
+        "blogDescription": "タイトルと作成者中心",
+        "product": "製品",
+        "productDescription": "製品やサービス紹介用",
+        "social": "ソーシャル",
+        "socialDescription": "SNS共有に最適化",
+        "minimal": "ミニマル",
+        "minimalDescription": "最小限の要素、最大限のインパクト"
+      },
+      "style": {
+        "gradientPresets": "グラデーションプリセット",
+        "customColors": "カスタムカラー",
+        "backgroundColor": "背景色",
+        "textColor": "テキストカラー",
+        "accentColor": "アクセントカラー"
+      },
+      "settings": {
+        "size": "サイズ",
+        "font": "フォント",
+        "quality": "画質",
+        "format": "形式"
+      },
+      "sizes": {
+        "og": "OG標準 (1200×630)",
+        "twitter": "Twitterカード (1200×600)",
+        "facebook": "Facebook (1200×628)",
+        "linkedin": "LinkedIn (1200×627)",
+        "square": "スクエア (1200×1200)"
+      },
+      "fonts": {
+        "inter": "Inter",
+        "roboto": "Roboto",
+        "poppins": "Poppins",
+        "notoSans": "Noto Sans",
+        "notoSerif": "Noto Serif",
+        "nanumGothic": "源ノ角ゴシック"
+      },
+      "actions": {
+        "download": "ダウンロード",
+        "downloadPNG": "PNGダウンロード",
+        "downloadJPG": "JPGダウンロード",
+        "copy": "クリップボードにコピー",
+        "reset": "リセット"
+      },
+      "errors": {
+        "renderFailed": "イメージのレンダリングに失敗しました",
+        "downloadFailed": "ダウンロードに失敗しました",
+        "copyFailed": "クリップボードへのコピーに失敗しました"
+      }
+    },
     "bulk-actions": {
       "title": "一括処理",
       "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成を一括処理。"

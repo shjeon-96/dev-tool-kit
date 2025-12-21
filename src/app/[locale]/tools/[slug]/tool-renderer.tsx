@@ -180,6 +180,10 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/bg-remover").then((mod) => mod.BgRemover),
     { ssr: false },
   ),
+  "og-generator": dynamic(
+    () => import("@/features/og-generator").then((mod) => mod.OGGenerator),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {
