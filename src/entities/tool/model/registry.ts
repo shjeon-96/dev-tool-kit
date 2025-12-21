@@ -31,6 +31,7 @@ import {
   Minimize2,
   CaseSensitive,
   FileVideo,
+  Files,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -273,6 +274,14 @@ export const tools: Record<ToolSlug, Tool> = {
     category: "media",
     isPremium: true,
     relatedTools: ["image-resizer", "svg-optimizer", "app-icon-generator"],
+  },
+  "pdf-toolkit": {
+    title: "PDF Toolkit",
+    description:
+      "PDF 병합, 분할, 압축을 브라우저에서 처리합니다. 100% 클라이언트 사이드 처리.",
+    icon: Files,
+    category: "media",
+    relatedTools: ["image-resizer", "svg-optimizer", "video-compressor"],
   },
 };
 

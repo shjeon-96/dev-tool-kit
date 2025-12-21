@@ -398,6 +398,10 @@
       "title": "Video Compressor",
       "description": "브라우저에서 비디오 파일을 압축합니다. FFmpeg.wasm 기반 100% 로컬 처리."
     },
+    "pdf-toolkit": {
+      "title": "PDF Toolkit",
+      "description": "PDF 병합, 분할, 압축을 브라우저에서 처리합니다. 100% 클라이언트 사이드 처리."
+    },
     "bulk-actions": {
       "title": "대량 작업",
       "description": "여러 파일을 한 번에 처리합니다. JSON 포맷팅, 해시 생성, QR 코드 생성을 일괄 처리."

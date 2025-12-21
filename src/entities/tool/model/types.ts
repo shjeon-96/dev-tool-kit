@@ -47,4 +47,5 @@ export type ToolSlug =
   | "json-to-typescript"
   | "css-minifier"
   | "text-case-converter"
-  | "video-compressor";
+  | "video-compressor"
+  | "pdf-toolkit";

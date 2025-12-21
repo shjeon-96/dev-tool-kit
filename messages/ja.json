@@ -335,6 +335,10 @@
       "title": "Video Compressor",
       "description": "ブラウザで動画ファイルを圧縮。FFmpeg.wasmによる100%ローカル処理。"
     },
+    "pdf-toolkit": {
+      "title": "PDF Toolkit",
+      "description": "PDFの結合、分割、圧縮をブラウザで処理。100%クライアントサイド処理。"
+    },
     "bulk-actions": {
       "title": "一括処理",
       "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成を一括処理。"

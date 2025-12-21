@@ -156,6 +156,10 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
       import("@/features/video-compressor").then((mod) => mod.VideoCompressor),
     { ssr: false },
   ),
+  "pdf-toolkit": dynamic(
+    () => import("@/features/pdf-toolkit").then((mod) => mod.PdfToolkit),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {
