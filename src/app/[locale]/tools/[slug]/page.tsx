@@ -34,7 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = t(`${slug as ToolSlug}.title`);
   const description = t(`${slug as ToolSlug}.description`);
-  const ogImageUrl = `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
+
+  // 도구별 특화 동적 OG 이미지 URL 사용
+  const ogImageUrl = `/api/og/${slug}?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
 
   return {
     title,
@@ -63,6 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: `/en/tools/${slug}`,
         ko: `/ko/tools/${slug}`,
+        ja: `/ja/tools/${slug}`,
       },
     },
   };
