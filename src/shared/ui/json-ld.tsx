@@ -7,12 +7,13 @@ export function JsonLd() {
     name: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
     url: SITE_CONFIG.url,
+    image: `${SITE_CONFIG.url}/api/og`,
     applicationCategory: "DeveloperApplication",
     operatingSystem: "Web",
     offers: {
       "@type": "Offer",
       price: "0",
-      priceCurrency: "KRW",
+      priceCurrency: "USD",
     },
     author: {
       "@type": "Person",
@@ -213,6 +214,7 @@ interface SoftwareApplicationJsonLdProps {
   name: string;
   description: string;
   url: string;
+  image?: string;
   applicationCategory?: string;
   operatingSystem?: string;
   screenshot?: string;
@@ -227,18 +229,25 @@ export function SoftwareApplicationJsonLd({
   name,
   description,
   url,
+  image,
   applicationCategory = "DeveloperApplication",
   operatingSystem = "Web",
   screenshot,
   featureList,
   aggregateRating,
 }: SoftwareApplicationJsonLdProps) {
+  // Use provided image or generate OG image URL
+  const imageUrl =
+    image ||
+    `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(name)}&description=${encodeURIComponent(description)}`;
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name,
     description,
     url,
+    image: imageUrl,
     applicationCategory,
     operatingSystem,
     offers: {
