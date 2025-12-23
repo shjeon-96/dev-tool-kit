@@ -1213,6 +1213,131 @@
           "a": "AVIF is supported in Chrome 85+, Firefox 93+, and Safari 16+. The tool automatically detects and shows available formats for your browser."
         }
       ]
+    },
+    "pdf-toolkit": {
+      "whatIs": "PDF Toolkit is an all-in-one PDF processing tool that lets you merge, split, compress, and redact sensitive information from PDF files. All operations happen 100% in your browser.",
+      "howToUse": "Upload PDF files to get started. Choose your operation: merge multiple PDFs into one, split pages by range, compress file size, or redact sensitive data like credit card numbers and SSN.",
+      "features": [
+        "Merge multiple PDFs into a single document",
+        "Split PDFs by page range or extract individual pages",
+        "Compress PDFs by removing metadata",
+        "Redact sensitive information (credit cards, SSN, phone, email)",
+        "100% client-side processing - files never leave your device"
+      ],
+      "faq": [
+        {
+          "q": "Is my PDF data secure?",
+          "a": "Yes. All processing happens in your browser using pdf-lib and pdfjs-dist. Your files are never uploaded to any server."
+        },
+        {
+          "q": "What sensitive data can be redacted?",
+          "a": "The tool can detect and redact credit card numbers, Social Security Numbers (SSN), phone numbers, email addresses, and custom keywords you specify."
+        }
+      ]
+    },
+    "ocr-scanner": {
+      "whatIs": "OCR Scanner extracts text from images using Tesseract.js. Supports multiple languages including English, Korean, and Japanese for accurate text recognition.",
+      "howToUse": "Upload an image containing text. Select the language(s) of the text. Click scan to extract text, then copy or download the results.",
+      "features": [
+        "Multi-language support (English, Korean, Japanese)",
+        "Real-time progress tracking during OCR",
+        "Confidence score display for extracted text",
+        "Copy to clipboard or download as text file",
+        "100% client-side processing with Tesseract.js"
+      ],
+      "faq": [
+        {
+          "q": "Which languages are supported?",
+          "a": "Currently supports English, Korean, Japanese, and mixed language detection. More languages can be added based on demand."
+        },
+        {
+          "q": "How accurate is the text extraction?",
+          "a": "Accuracy depends on image quality. Clear, high-resolution images with good contrast yield the best results. The tool shows a confidence score for each extraction."
+        }
+      ]
+    },
+    "schema-generator": {
+      "whatIs": "Schema Markup Generator creates JSON-LD structured data for SEO. Support for 10 schema types including Article, Product, FAQ, HowTo, and more.",
+      "howToUse": "Select a schema type from the dropdown. Fill in the required fields for your content. Copy the generated JSON-LD code and add it to your webpage's head section.",
+      "features": [
+        "10 schema types: Article, Product, FAQ, HowTo, Organization, LocalBusiness, Person, Event, Recipe, BreadcrumbList",
+        "Real-time JSON-LD code generation",
+        "Optional script tag wrapper for easy integration",
+        "Form reset functionality for quick editing"
+      ],
+      "faq": [
+        {
+          "q": "What is schema markup?",
+          "a": "Schema markup is structured data that helps search engines understand your content better, potentially leading to rich snippets in search results."
+        },
+        {
+          "q": "Where do I add the generated code?",
+          "a": "Add the JSON-LD script to your webpage's <head> section or just before the closing </body> tag."
+        }
+      ]
+    },
+    "headline-analyzer": {
+      "whatIs": "Headline Analyzer evaluates your headlines for SEO and emotional impact. Get scores based on word balance, sentiment, and SEO factors to create compelling titles.",
+      "howToUse": "Enter your headline in the input field. View the analysis including overall score, word balance, sentiment, headline type, and improvement suggestions.",
+      "features": [
+        "0-100 scoring with A+ to F grading",
+        "Word balance analysis (common, uncommon, emotional, power words)",
+        "Sentiment detection (positive, negative, neutral)",
+        "SEO factor analysis (numbers, brackets, optimal length)",
+        "Headline type detection and suggestions"
+      ],
+      "faq": [
+        {
+          "q": "What makes a good headline score?",
+          "a": "Headlines scoring 70+ are considered good. Aim for a balance of common and uncommon words, include emotional or power words, and keep length between 6-12 words."
+        },
+        {
+          "q": "How are word categories determined?",
+          "a": "The tool uses curated word lists for common, uncommon, emotional, and power words based on copywriting and marketing research."
+        }
+      ]
+    },
+    "bg-remover": {
+      "whatIs": "Background Remover uses AI to automatically remove image backgrounds. Powered by WebGPU and ONNX Runtime for fast, local processing without uploads.",
+      "howToUse": "Upload an image with a clear subject. Select a model (U2-Net for quality, IS-Net for details). Adjust threshold and feather settings if needed, then download the result.",
+      "features": [
+        "3 AI models: U2-Net (high quality), U2-Net-P (fast), IS-Net (detailed edges)",
+        "WebGPU acceleration for modern browsers",
+        "Adjustable threshold and feather radius",
+        "PNG/WebP output with transparency",
+        "100% local processing - no server uploads"
+      ],
+      "faq": [
+        {
+          "q": "Does my browser support WebGPU?",
+          "a": "WebGPU is supported in Chrome 113+, Edge 113+, and Safari 17+. For older browsers, the tool falls back to WASM/CPU processing."
+        },
+        {
+          "q": "Which model should I choose?",
+          "a": "U2-Net offers the best quality for most images. U2-Net-P is faster but less accurate. IS-Net is best for images with fine details like hair."
+        }
+      ]
+    },
+    "og-generator": {
+      "whatIs": "OG Image Generator creates Open Graph images for social media sharing. Design professional preview images with customizable templates, gradients, and fonts.",
+      "howToUse": "Enter your title and description. Choose a template and customize colors, gradient, and font. Preview your design in real-time and download as PNG or JPG.",
+      "features": [
+        "6 professional templates (Basic, Gradient, Blog, Product, Social, Minimal)",
+        "8 gradient presets with customizable colors",
+        "6 font families including Korean and Japanese support",
+        "5 size presets (OG, Twitter, Facebook, LinkedIn, Square)",
+        "Real-time preview with Satori rendering"
+      ],
+      "faq": [
+        {
+          "q": "What is an OG image?",
+          "a": "OG (Open Graph) images appear when your page is shared on social media platforms like Facebook, Twitter, and LinkedIn. They make your links more visually appealing."
+        },
+        {
+          "q": "What size should my OG image be?",
+          "a": "The standard OG image size is 1200×630 pixels. Different platforms may crop differently, so keep important content centered."
+        }
+      ]
     }
   },
   "cheatsheets": {

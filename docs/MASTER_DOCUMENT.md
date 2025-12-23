@@ -3,7 +3,7 @@
 > 모든 화면, 기능, 레이아웃에 대한 종합 가이드
 
 **프로젝트명**: DevToolkit (Web Toolkit)
-**버전**: 1.1.0
+**버전**: 1.2.0
 **프레임워크**: Next.js 16+ (App Router, Turbopack)
 **스타일링**: Tailwind CSS 4
 **UI**: Radix UI + Shadcn/ui 커스텀 컴포넌트
@@ -21,7 +21,7 @@
 1. [애플리케이션 구조](#1-애플리케이션-구조)
 2. [라우트 맵](#2-라우트-맵)
 3. [레이아웃 시스템](#3-레이아웃-시스템)
-4. [도구 카탈로그](#4-도구-카탈로그-36개)
+4. [도구 카탈로그](#4-도구-카탈로그-40개)
 5. [위젯 컴포넌트](#5-위젯-컴포넌트)
 6. [공유 UI 컴포넌트](#6-공유-ui-컴포넌트)
 7. [데이터 모델](#7-데이터-모델)
@@ -378,7 +378,7 @@ src/
 
 ---
 
-## 4. 도구 카탈로그 (36개)
+## 4. 도구 카탈로그 (40개)
 
 ### 4.1 카테고리별 분류
 
@@ -403,20 +403,23 @@ src/
 | Schema Generator    | `schema-generator`    | SEO용 JSON-LD 스키마 마크업 생성 🆕  |
 | Headline Analyzer   | `headline-analyzer`   | 헤드라인 효과성 분석 (감정, SEO) 🆕  |
 
-#### 🎨 미디어 & 디자인 (10개)
+#### 🎨 미디어 & 디자인 (13개)
 
-| 도구               | Slug                 | 설명                                     | Premium |
-| ------------------ | -------------------- | ---------------------------------------- | ------- |
-| Image Resizer      | `image-resizer`      | 이미지 리사이즈, 포맷 변환, 품질 조절    |         |
-| App Icon Generator | `app-icon-generator` | iOS, Android, Favicon 에셋 생성          |         |
-| QR Generator       | `qr-generator`       | QR 코드 생성 (URL, WiFi, 연락처, 텍스트) |         |
-| Color Picker       | `color-picker`       | 이미지에서 색상 추출, 팔레트 생성        |         |
-| Box Shadow         | `box-shadow`         | CSS box-shadow 비주얼 에디터             |         |
-| Gradient Generator | `gradient-generator` | CSS 그라디언트 비주얼 에디터             |         |
-| SVG Optimizer      | `svg-optimizer`      | SVG 파일 최적화 및 크기 감소             | ⭐      |
-| Video Compressor   | `video-compressor`   | FFmpeg.wasm 기반 비디오 압축 (100% 로컬) | ⭐      |
-| PDF Toolkit        | `pdf-toolkit`        | PDF 병합, 분할, 압축 (pdf-lib) 🆕        |         |
-| OCR Scanner        | `ocr-scanner`        | Tesseract.js 기반 이미지 텍스트 추출 🆕  |         |
+| 도구               | Slug                 | 설명                                            | Premium |
+| ------------------ | -------------------- | ----------------------------------------------- | ------- |
+| Image Resizer      | `image-resizer`      | 이미지 리사이즈, 포맷 변환, 품질 조절           |         |
+| App Icon Generator | `app-icon-generator` | iOS, Android, Favicon 에셋 생성                 |         |
+| QR Generator       | `qr-generator`       | QR 코드 생성 (URL, WiFi, 연락처, 텍스트)        |         |
+| Color Picker       | `color-picker`       | 이미지에서 색상 추출, 팔레트 생성               |         |
+| Box Shadow         | `box-shadow`         | CSS box-shadow 비주얼 에디터                    |         |
+| Gradient Generator | `gradient-generator` | CSS 그라디언트 비주얼 에디터                    |         |
+| SVG Optimizer      | `svg-optimizer`      | SVG 파일 최적화 및 크기 감소                    | ⭐      |
+| Video Compressor   | `video-compressor`   | FFmpeg.wasm 기반 비디오 압축 (100% 로컬)        | ⭐      |
+| PDF Toolkit        | `pdf-toolkit`        | PDF 병합, 분할, 압축, 민감정보 마스킹 (pdf-lib) |         |
+| OCR Scanner        | `ocr-scanner`        | Tesseract.js 기반 이미지 텍스트 추출            |         |
+| BG Remover         | `bg-remover`         | WebGPU/ONNX 기반 AI 배경 제거 🆕                |         |
+| OG Generator       | `og-generator`       | Satori 기반 OG 이미지 생성기 🆕                 |         |
+| Image Converter    | `image-converter`    | 이미지 포맷 변환 (PNG, JPG, WebP, GIF, BMP) 🆕  |         |
 
 #### 🔄 변환 도구 (8개)
 
@@ -2891,7 +2894,7 @@ const summary = await summarizer(longText, {
 | Dashboard                | 5        | ✅ 완료 |
 | API v1                   | 6        | ✅ 완료 |
 
-#### Phase 2: 도구 확장 (4-6개월)
+#### Phase 2: 도구 확장 (4-6개월) ✅ 완료
 
 | 항목                         | 우선순위 | 상태    |
 | ---------------------------- | -------- | ------- |
@@ -2901,10 +2904,11 @@ const summary = await summarizer(longText, {
 | Schema Markup Generator      | 4        | ✅ 완료 |
 | Headline Analyzer            | 5        | ✅ 완료 |
 | Video Compressor             | -        | ✅ 완료 |
-| Background Remover (WebGPU)  | 6        | ⏳ 계획 |
-| OG Image Generator           | 7        | ⏳ 계획 |
-| PDF Redact (민감정보 마스킹) | 8        | ⏳ 계획 |
-| Bulk Image Resize            | 9        | ⏳ 계획 |
+| Background Remover (WebGPU)  | 6        | ✅ 완료 |
+| OG Image Generator           | 7        | ✅ 완료 |
+| PDF Redact (민감정보 마스킹) | 8        | ✅ 완료 |
+| Bulk Image Resize            | 9        | ✅ 완료 |
+| Image Converter              | 10       | ✅ 완료 |
 
 #### Phase 3: AI 통합 (7-12개월)
 
@@ -3042,7 +3046,7 @@ import { BrowserPrompt } from "@/shared/lib/fs-access/ui";
 
 | 항목                      | 수량                                                                                                                                                                                 |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **총 도구**               | 36개                                                                                                                                                                                 |
+| **총 도구**               | 40개                                                                                                                                                                                 |
 | **치트시트**              | 14개                                                                                                                                                                                 |
 | **가이드**                | 31개                                                                                                                                                                                 |
 | **UI 컴포넌트**           | 30+                                                                                                                                                                                  |
@@ -3051,11 +3055,52 @@ import { BrowserPrompt } from "@/shared/lib/fs-access/ui";
 | **반응형 브레이크포인트** | 3개 (mobile, tablet, desktop)                                                                                                                                                        |
 | **UX Enhancement 기능**   | 12개 (Smart Paste, Bento Grid, Framer Motion, Glassmorphism, Tool Actions Bar, AI Explain, Tool Pipeline, Workspace, Magic Share, Chrome Extension, WebAssembly, File System Access) |
 | **Chrome Extension**      | Plasmo 기반, Context Menu, Popup                                                                                                                                                     |
-| **E2E 테스트**            | 4개 (Security Headers, Ad Isolation, Image Resizer, Headline Analyzer)                                                                                                               |
+| **E2E 테스트**            | 9개 (Security Headers, Ad Isolation, Image Resizer, Headline Analyzer, JSON Formatter, Image Converter, Base64 Converter, UUID Generator, PDF Toolkit)                               |
 
 ---
 
 ## 버전 히스토리
+
+### v1.2.0 (2025-12-23) 🚀 Phase 2 완료
+
+**신규 도구 (4개):**
+
+| 도구            | 기능                                              | 테스트       |
+| --------------- | ------------------------------------------------- | ------------ |
+| BG Remover      | WebGPU/ONNX 기반 AI 배경 제거 (U2-Net, IS-Net)    | ✅ 28개 단위 |
+| OG Generator    | Satori 기반 OG 이미지 생성 (6개 템플릿, 다국어)   | ✅ 32개 단위 |
+| Image Converter | 이미지 포맷 변환 (PNG, JPG, WebP, GIF, BMP, AVIF) | ✅ E2E 포함  |
+| PDF Redact      | PDF 민감정보 마스킹 (신용카드, SSN, 전화, 이메일) | ✅ E2E 포함  |
+
+**Bulk Actions 확장:**
+
+- Bulk Image Resize: 대량 이미지 리사이즈 기능 추가
+- File System Access API 통합으로 폴더 직접 저장 지원
+
+**E2E 테스트 강화:**
+
+| 테스트 파일              | 테스트 수  |
+| ------------------------ | ---------- |
+| image-converter.spec.ts  | 6개        |
+| base64-converter.spec.ts | 4개        |
+| uuid-generator.spec.ts   | 5개        |
+| pdf-toolkit.spec.ts      | 7개        |
+| json-formatter.spec.ts   | 5개 (수정) |
+
+**기술 스택 추가:**
+
+- `onnxruntime-web`: WebGPU/WASM 기반 ML 추론
+- `satori`: React 컴포넌트 → SVG/PNG 변환
+- `@resvg/resvg-wasm`: 고품질 SVG 래스터라이징
+- `pdfjs-dist`: PDF 텍스트 위치 추출
+
+**성능 개선:**
+
+- React Compiler 활성화로 자동 메모이제이션
+- AdSense 격리로 CSS containment 적용
+- 스크롤 레이아웃 최적화
+
+---
 
 ### v1.1.0 (2025-12-21) 🚀 Phase 2 Major Update
 
