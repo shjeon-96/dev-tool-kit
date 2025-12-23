@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHash } from "crypto";
 import { createServiceClient } from "../supabase/server";
-import { API_RATE_LIMITS } from "@/features/api-access/model/types";
+import {
+  checkRateLimits,
+  incrementRateLimit,
+  getRateLimitHeaders,
+  type RateLimitResult,
+  type RateLimitHeaders,
+} from "./rate-limiter";
 
 export interface ApiAuthResult {
   success: boolean;
@@ -9,6 +15,7 @@ export interface ApiAuthResult {
   apiKeyId?: string;
   error?: string;
   statusCode?: number;
+  rateLimit?: RateLimitResult;
 }
 
 /**
@@ -97,20 +104,20 @@ export async function authenticateApiKey(
     };
   }
 
-  // Rate limit 체크
-  const rateLimitResult = await checkRateLimit(
-    supabase,
-    apiKeyData.id,
-    API_RATE_LIMITS.pro,
-  );
+  // Rate limit 체크 (in-memory cache)
+  const rateLimitResult = checkRateLimits(apiKeyData.id, "pro");
 
   if (!rateLimitResult.allowed) {
     return {
       success: false,
       error: rateLimitResult.error,
       statusCode: 429,
+      rateLimit: rateLimitResult,
     };
   }
+
+  // Increment rate limit counter
+  incrementRateLimit(apiKeyData.id);
 
   // 마지막 사용 시간 업데이트
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -125,6 +132,7 @@ export async function authenticateApiKey(
     success: true,
     userId: apiKeyData.user_id,
     apiKeyId: apiKeyData.id,
+    rateLimit: rateLimitResult,
   };
 }
 
@@ -135,64 +143,6 @@ function hashApiKey(key: string): string {
   // 클라이언트에서 해싱된 키를 저장했으므로 동일한 방식으로 해싱
   // 실제로는 bcrypt 등 더 안전한 방식 권장
   return createHash("sha256").update(key).digest("hex");
-}
-
-/**
- * Rate Limit 체크
- */
-async function checkRateLimit(
-  supabase: ReturnType<typeof createServiceClient>,
-  apiKeyId: string,
-  limits: (typeof API_RATE_LIMITS)["pro"],
-): Promise<{ allowed: boolean; error?: string }> {
-  const now = new Date();
-  const oneMinuteAgo = new Date(now.getTime() - 60 * 1000);
-  const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-  const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-
-  // 분당 요청 수
-  const { count: minuteCount } = await supabase
-    .from("api_usage")
-    .select("*", { count: "exact", head: true })
-    .eq("api_key_id", apiKeyId)
-    .gte("created_at", oneMinuteAgo.toISOString());
-
-  if ((minuteCount ?? 0) >= limits.requestsPerMinute) {
-    return {
-      allowed: false,
-      error: `Rate limit exceeded: ${limits.requestsPerMinute} requests per minute`,
-    };
-  }
-
-  // 일간 요청 수
-  const { count: dayCount } = await supabase
-    .from("api_usage")
-    .select("*", { count: "exact", head: true })
-    .eq("api_key_id", apiKeyId)
-    .gte("created_at", oneDayAgo.toISOString());
-
-  if ((dayCount ?? 0) >= limits.requestsPerDay) {
-    return {
-      allowed: false,
-      error: `Rate limit exceeded: ${limits.requestsPerDay} requests per day`,
-    };
-  }
-
-  // 월간 요청 수
-  const { count: monthCount } = await supabase
-    .from("api_usage")
-    .select("*", { count: "exact", head: true })
-    .eq("api_key_id", apiKeyId)
-    .gte("created_at", oneMonthAgo.toISOString());
-
-  if ((monthCount ?? 0) >= limits.requestsPerMonth) {
-    return {
-      allowed: false,
-      error: `Rate limit exceeded: ${limits.requestsPerMonth} requests per month`,
-    };
-  }
-
-  return { allowed: true };
 }
 
 /**
@@ -224,13 +174,29 @@ export async function logApiUsage(
 export function apiResponse<T>(
   data: T,
   status: number = 200,
+  rateLimit?: RateLimitResult,
 ): NextResponse<{ success: true; data: T }> {
-  return NextResponse.json({ success: true, data }, { status });
+  const headers: HeadersInit = {};
+
+  if (rateLimit) {
+    const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+    Object.assign(headers, rateLimitHeaders);
+  }
+
+  return NextResponse.json({ success: true, data }, { status, headers });
 }
 
 export function apiError(
   error: string,
   status: number = 400,
+  rateLimit?: RateLimitResult,
 ): NextResponse<{ success: false; error: string }> {
-  return NextResponse.json({ success: false, error }, { status });
+  const headers: HeadersInit = {};
+
+  if (rateLimit) {
+    const rateLimitHeaders = getRateLimitHeaders(rateLimit);
+    Object.assign(headers, rateLimitHeaders);
+  }
+
+  return NextResponse.json({ success: false, error }, { status, headers });
 }

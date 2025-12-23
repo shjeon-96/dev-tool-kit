@@ -54,4 +54,5 @@ export type ToolSlug =
   | "headline-analyzer"
   | "bg-remover"
   | "og-generator"
-  | "image-converter";
+  | "image-converter"
+  | "sitemap-generator";

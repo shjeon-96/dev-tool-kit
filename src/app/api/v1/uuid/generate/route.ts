@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
   // 인증
   const auth = await authenticateApiKey(request);
   if (!auth.success) {
-    return apiError(auth.error!, auth.statusCode!);
+    return apiError(auth.error!, auth.statusCode!, auth.rateLimit);
   }
 
   try {
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError('Version must be "v4" or "nil"');
+      return apiError('Version must be "v4" or "nil"', 400, auth.rateLimit);
     }
 
     if (typeof count !== "number" || count < 1 || count > 100) {
@@ -75,7 +75,11 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Count must be a number between 1 and 100");
+      return apiError(
+        "Count must be a number between 1 and 100",
+        400,
+        auth.rateLimit,
+      );
     }
 
     if (!["standard", "uppercase", "no-dashes", "braces"].includes(format)) {
@@ -88,6 +92,8 @@ export async function POST(request: NextRequest) {
       );
       return apiError(
         'Format must be "standard", "uppercase", "no-dashes", or "braces"',
+        400,
+        auth.rateLimit,
       );
     }
 
@@ -136,7 +142,7 @@ export async function POST(request: NextRequest) {
       Date.now() - startTime,
     );
 
-    return apiResponse(responseData);
+    return apiResponse(responseData, 200, auth.rateLimit);
   } catch (error) {
     await logApiUsage(
       auth.apiKeyId!,
@@ -148,6 +154,7 @@ export async function POST(request: NextRequest) {
     return apiError(
       `Server error: ${error instanceof Error ? error.message : "Unknown error"}`,
       500,
+      auth.rateLimit,
     );
   }
 }
@@ -163,7 +170,7 @@ export async function GET(request: NextRequest) {
   // 인증
   const auth = await authenticateApiKey(request);
   if (!auth.success) {
-    return apiError(auth.error!, auth.statusCode!);
+    return apiError(auth.error!, auth.statusCode!, auth.rateLimit);
   }
 
   const uuid = randomUUID();
@@ -176,8 +183,12 @@ export async function GET(request: NextRequest) {
     Date.now() - startTime,
   );
 
-  return apiResponse({
-    uuid,
-    version: "v4",
-  });
+  return apiResponse(
+    {
+      uuid,
+      version: "v4",
+    },
+    200,
+    auth.rateLimit,
+  );
 }

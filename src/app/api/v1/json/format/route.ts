@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
   // 인증
   const auth = await authenticateApiKey(request);
   if (!auth.success) {
-    return apiError(auth.error!, auth.statusCode!);
+    return apiError(auth.error!, auth.statusCode!, auth.rateLimit);
   }
 
   try {
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Missing required field: json");
+      return apiError("Missing required field: json", 400, auth.rateLimit);
     }
 
     // JSON 파싱 및 포맷팅
@@ -72,6 +72,8 @@ export async function POST(request: NextRequest) {
         );
         return apiError(
           `Invalid JSON: ${e instanceof Error ? e.message : "Parse error"}`,
+          400,
+          auth.rateLimit,
         );
       }
     } else {
@@ -101,7 +103,7 @@ export async function POST(request: NextRequest) {
       Date.now() - startTime,
     );
 
-    return apiResponse(responseData);
+    return apiResponse(responseData, 200, auth.rateLimit);
   } catch (error) {
     await logApiUsage(
       auth.apiKeyId!,
@@ -113,6 +115,7 @@ export async function POST(request: NextRequest) {
     return apiError(
       `Server error: ${error instanceof Error ? error.message : "Unknown error"}`,
       500,
+      auth.rateLimit,
     );
   }
 }

@@ -38,6 +38,7 @@ import {
   Eraser,
   Share2,
   ArrowRightLeft,
+  Map,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -336,6 +337,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: ArrowRightLeft,
     category: "converters",
     relatedTools: ["image-resizer", "bg-remover", "app-icon-generator"],
+  },
+  "sitemap-generator": {
+    title: "Sitemap Generator",
+    description:
+      "XML Sitemap을 생성합니다. URL 목록을 입력하면 검색엔진 최적화용 sitemap.xml을 자동 생성합니다.",
+    icon: Map,
+    category: "text",
+    relatedTools: ["schema-generator", "headline-analyzer", "meta-generator"],
   },
 };
 

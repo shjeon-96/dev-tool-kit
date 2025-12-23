@@ -189,6 +189,13 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
       import("@/features/image-converter").then((mod) => mod.ImageConverter),
     { ssr: false },
   ),
+  "sitemap-generator": dynamic(
+    () =>
+      import("@/features/sitemap-generator").then(
+        (mod) => mod.SitemapGenerator,
+      ),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

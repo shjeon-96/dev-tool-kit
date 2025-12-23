@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
   // 인증
   const auth = await authenticateApiKey(request);
   if (!auth.success) {
-    return apiError(auth.error!, auth.statusCode!);
+    return apiError(auth.error!, auth.statusCode!, auth.rateLimit);
   }
 
   try {
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Missing required field: input");
+      return apiError("Missing required field: input", 400, auth.rateLimit);
     }
 
     if (typeof input !== "string") {
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Input must be a string");
+      return apiError("Input must be a string", 400, auth.rateLimit);
     }
 
     const normalizedAlgorithm = algorithm.toLowerCase() as HashAlgorithm;
@@ -105,6 +105,8 @@ export async function POST(request: NextRequest) {
       );
       return apiError(
         `Unsupported algorithm. Supported: ${SUPPORTED_ALGORITHMS.join(", ")}`,
+        400,
+        auth.rateLimit,
       );
     }
 
@@ -116,7 +118,11 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError('Encoding must be "hex" or "base64"');
+      return apiError(
+        'Encoding must be "hex" or "base64"',
+        400,
+        auth.rateLimit,
+      );
     }
 
     // 해시 생성
@@ -139,7 +145,7 @@ export async function POST(request: NextRequest) {
       Date.now() - startTime,
     );
 
-    return apiResponse(responseData);
+    return apiResponse(responseData, 200, auth.rateLimit);
   } catch (error) {
     await logApiUsage(
       auth.apiKeyId!,
@@ -151,6 +157,7 @@ export async function POST(request: NextRequest) {
     return apiError(
       `Server error: ${error instanceof Error ? error.message : "Unknown error"}`,
       500,
+      auth.rateLimit,
     );
   }
 }
@@ -166,7 +173,7 @@ export async function GET(request: NextRequest) {
   // 인증
   const auth = await authenticateApiKey(request);
   if (!auth.success) {
-    return apiError(auth.error!, auth.statusCode!);
+    return apiError(auth.error!, auth.statusCode!, auth.rateLimit);
   }
 
   await logApiUsage(
@@ -177,8 +184,12 @@ export async function GET(request: NextRequest) {
     Date.now() - startTime,
   );
 
-  return apiResponse({
-    supportedAlgorithms: SUPPORTED_ALGORITHMS,
-    supportedEncodings: ["hex", "base64"],
-  });
+  return apiResponse(
+    {
+      supportedAlgorithms: SUPPORTED_ALGORITHMS,
+      supportedEncodings: ["hex", "base64"],
+    },
+    200,
+    auth.rateLimit,
+  );
 }

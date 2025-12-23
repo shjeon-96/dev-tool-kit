@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
   // 인증
   const auth = await authenticateApiKey(request);
   if (!auth.success) {
-    return apiError(auth.error!, auth.statusCode!);
+    return apiError(auth.error!, auth.statusCode!, auth.rateLimit);
   }
 
   try {
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Missing required field: data");
+      return apiError("Missing required field: data", 400, auth.rateLimit);
     }
 
     if (typeof data !== "string") {
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Data must be a string");
+      return apiError("Data must be a string", 400, auth.rateLimit);
     }
 
     // 데이터 길이 제한 (QR 코드 제한)
@@ -99,7 +99,11 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError("Data too long. Maximum 4296 characters for QR code");
+      return apiError(
+        "Data too long. Maximum 4296 characters for QR code",
+        400,
+        auth.rateLimit,
+      );
     }
 
     if (!["png", "svg", "dataurl"].includes(format)) {
@@ -110,7 +114,11 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError('Format must be "png", "svg", or "dataurl"');
+      return apiError(
+        'Format must be "png", "svg", or "dataurl"',
+        400,
+        auth.rateLimit,
+      );
     }
 
     if (!["L", "M", "Q", "H"].includes(errorCorrectionLevel)) {
@@ -121,7 +129,11 @@ export async function POST(request: NextRequest) {
         400,
         Date.now() - startTime,
       );
-      return apiError('Error correction level must be "L", "M", "Q", or "H"');
+      return apiError(
+        'Error correction level must be "L", "M", "Q", or "H"',
+        400,
+        auth.rateLimit,
+      );
     }
 
     const qrOptions = {
@@ -171,7 +183,7 @@ export async function POST(request: NextRequest) {
       Date.now() - startTime,
     );
 
-    return apiResponse(responseData);
+    return apiResponse(responseData, 200, auth.rateLimit);
   } catch (error) {
     await logApiUsage(
       auth.apiKeyId!,
@@ -183,6 +195,7 @@ export async function POST(request: NextRequest) {
     return apiError(
       `Server error: ${error instanceof Error ? error.message : "Unknown error"}`,
       500,
+      auth.rateLimit,
     );
   }
 }
