@@ -802,13 +802,565 @@ const faviconTargets: ResizeTarget[] = [
   },
 ];
 
+// 추가 파일 사이즈 타겟 (인기 있는 정부/채용 관련 크기)
+const additionalFileSizeTargets: ResizeTarget[] = [
+  {
+    slug: "resize-image-to-30kb",
+    type: "file-size",
+    targetSizeKB: 30,
+    title: {
+      en: "Resize Image to 30KB - Free Online Image Compressor",
+      ko: "이미지 30KB로 리사이즈 - 무료 온라인 이미지 압축",
+      ja: "画像を30KBにリサイズ - 無料オンライン画像圧縮",
+    },
+    description: {
+      en: "Resize and compress your images to exactly 30KB. Common requirement for job applications and government forms. 100% free.",
+      ko: "이미지를 정확히 30KB로 리사이즈하고 압축하세요. 취업 지원서 및 정부 양식에서 흔히 요구되는 크기입니다. 100% 무료.",
+      ja: "画像を正確に30KBにリサイズ・圧縮。求職申請や政府フォームで一般的な要件。100%無料。",
+    },
+    keywords: {
+      en: [
+        "resize image to 30kb",
+        "30kb image compressor",
+        "job application photo 30kb",
+      ],
+      ko: ["이미지 30kb 리사이즈", "30kb 이미지 압축", "취업사진 30kb"],
+      ja: ["画像 30kb リサイズ", "30kb 画像圧縮", "就職写真 30kb"],
+    },
+    useCases: {
+      en: [
+        "Job application photos",
+        "Government ID uploads",
+        "Online registration forms",
+      ],
+      ko: ["취업 지원 사진", "정부 신분증 업로드", "온라인 등록 양식"],
+      ja: ["求職申請写真", "政府ID アップロード", "オンライン登録フォーム"],
+    },
+  },
+  {
+    slug: "resize-image-to-40kb",
+    type: "file-size",
+    targetSizeKB: 40,
+    title: {
+      en: "Resize Image to 40KB - Free Online Image Compressor",
+      ko: "이미지 40KB로 리사이즈 - 무료 온라인 이미지 압축",
+      ja: "画像を40KBにリサイズ - 無料オンライン画像圧縮",
+    },
+    description: {
+      en: "Resize and compress your images to exactly 40KB. Perfect for visa applications and admission forms. 100% free, no signup.",
+      ko: "이미지를 정확히 40KB로 리사이즈하고 압축하세요. 비자 신청 및 입학 양식에 완벽합니다. 100% 무료, 회원가입 불필요.",
+      ja: "画像を正確に40KBにリサイズ・圧縮。ビザ申請や入学フォームに最適。100%無料、登録不要。",
+    },
+    keywords: {
+      en: ["resize image to 40kb", "40kb photo", "visa photo 40kb"],
+      ko: ["이미지 40kb 리사이즈", "40kb 사진", "비자사진 40kb"],
+      ja: ["画像 40kb リサイズ", "40kb 写真", "ビザ写真 40kb"],
+    },
+    useCases: {
+      en: [
+        "Visa application photos",
+        "University admission forms",
+        "Scholarship applications",
+      ],
+      ko: ["비자 신청 사진", "대학 입학 양식", "장학금 신청"],
+      ja: ["ビザ申請写真", "大学入学フォーム", "奨学金申請"],
+    },
+  },
+  {
+    slug: "resize-image-to-150kb",
+    type: "file-size",
+    targetSizeKB: 150,
+    title: {
+      en: "Resize Image to 150KB - Free Online Image Compressor",
+      ko: "이미지 150KB로 리사이즈 - 무료 온라인 이미지 압축",
+      ja: "画像を150KBにリサイズ - 無料オンライン画像圧縮",
+    },
+    description: {
+      en: "Resize and compress your images to exactly 150KB. Ideal for resume photos and online profiles. 100% free.",
+      ko: "이미지를 정확히 150KB로 리사이즈하고 압축하세요. 이력서 사진 및 온라인 프로필에 이상적입니다. 100% 무료.",
+      ja: "画像を正確に150KBにリサイズ・圧縮。履歴書写真やオンラインプロフィールに最適。100%無料。",
+    },
+    keywords: {
+      en: ["resize image to 150kb", "150kb photo", "resume photo size"],
+      ko: ["이미지 150kb 리사이즈", "150kb 사진", "이력서 사진 크기"],
+      ja: ["画像 150kb リサイズ", "150kb 写真", "履歴書写真サイズ"],
+    },
+    useCases: {
+      en: ["Resume/CV photos", "Online profiles", "Professional headshots"],
+      ko: ["이력서 사진", "온라인 프로필", "전문 프로필 사진"],
+      ja: ["履歴書写真", "オンラインプロフィール", "プロフェッショナル写真"],
+    },
+  },
+  {
+    slug: "resize-image-to-300kb",
+    type: "file-size",
+    targetSizeKB: 300,
+    title: {
+      en: "Resize Image to 300KB - Free Online Image Compressor",
+      ko: "이미지 300KB로 리사이즈 - 무료 온라인 이미지 압축",
+      ja: "画像を300KBにリサイズ - 無料オンライン画像圧縮",
+    },
+    description: {
+      en: "Resize and compress your images to exactly 300KB. Perfect for high-quality profile photos and document attachments. 100% free.",
+      ko: "이미지를 정확히 300KB로 리사이즈하고 압축하세요. 고품질 프로필 사진 및 문서 첨부에 완벽합니다. 100% 무료.",
+      ja: "画像を正確に300KBにリサイズ・圧縮。高品質プロフィール写真や文書添付に最適。100%無料。",
+    },
+    keywords: {
+      en: ["resize image to 300kb", "300kb photo", "document attachment size"],
+      ko: ["이미지 300kb 리사이즈", "300kb 사진", "문서 첨부 크기"],
+      ja: ["画像 300kb リサイズ", "300kb 写真", "文書添付サイズ"],
+    },
+    useCases: {
+      en: ["High-quality profiles", "Document attachments", "Insurance forms"],
+      ko: ["고품질 프로필", "문서 첨부", "보험 양식"],
+      ja: ["高品質プロフィール", "文書添付", "保険フォーム"],
+    },
+  },
+];
+
+// LinkedIn 타겟
+const linkedinTargets: ResizeTarget[] = [
+  {
+    slug: "resize-image-for-linkedin-profile",
+    type: "platform",
+    targetWidth: 400,
+    targetHeight: 400,
+    platform: "LinkedIn",
+    title: {
+      en: "Resize Image for LinkedIn Profile (400x400) - Free Tool",
+      ko: "링크드인 프로필용 이미지 리사이즈 (400x400) - 무료 도구",
+      ja: "LinkedInプロフィール用画像リサイズ (400x400) - 無料ツール",
+    },
+    description: {
+      en: "Resize your profile photo to the perfect LinkedIn size (400x400). Make a professional first impression on recruiters.",
+      ko: "완벽한 링크드인 크기(400x400)로 프로필 사진을 리사이즈하세요. 채용 담당자에게 전문적인 첫인상을 남기세요.",
+      ja: "完璧なLinkedInサイズ(400x400)にプロフィール写真をリサイズ。採用担当者にプロフェッショナルな第一印象を。",
+    },
+    keywords: {
+      en: [
+        "linkedin profile size",
+        "linkedin photo size",
+        "400x400 linkedin",
+        "professional headshot",
+      ],
+      ko: ["링크드인 프로필 크기", "링크드인 사진 크기", "전문 프로필 사진"],
+      ja: [
+        "LinkedInプロフィールサイズ",
+        "LinkedIn写真サイズ",
+        "プロフェッショナル写真",
+      ],
+    },
+  },
+  {
+    slug: "resize-image-for-linkedin-cover",
+    type: "platform",
+    targetWidth: 1584,
+    targetHeight: 396,
+    platform: "LinkedIn",
+    title: {
+      en: "Resize Image for LinkedIn Cover (1584x396) - Free Tool",
+      ko: "링크드인 커버용 이미지 리사이즈 (1584x396) - 무료 도구",
+      ja: "LinkedInカバー用画像リサイズ (1584x396) - 無料ツール",
+    },
+    description: {
+      en: "Resize your banner to the perfect LinkedIn cover size (1584x396). Create an impressive header for your professional profile.",
+      ko: "완벽한 링크드인 커버 크기(1584x396)로 배너를 리사이즈하세요. 전문 프로필을 위한 인상적인 헤더를 만드세요.",
+      ja: "完璧なLinkedInカバーサイズ(1584x396)にバナーをリサイズ。プロフェッショナルプロフィール用の印象的なヘッダーを作成。",
+    },
+    keywords: {
+      en: [
+        "linkedin cover size",
+        "linkedin banner size",
+        "1584x396 linkedin",
+        "linkedin header",
+      ],
+      ko: ["링크드인 커버 크기", "링크드인 배너 크기", "링크드인 헤더"],
+      ja: ["LinkedInカバーサイズ", "LinkedInバナーサイズ", "LinkedInヘッダー"],
+    },
+  },
+  {
+    slug: "resize-image-for-linkedin-post",
+    type: "platform",
+    targetWidth: 1200,
+    targetHeight: 627,
+    platform: "LinkedIn",
+    title: {
+      en: "Resize Image for LinkedIn Post (1200x627) - Free Tool",
+      ko: "링크드인 포스트용 이미지 리사이즈 (1200x627) - 무료 도구",
+      ja: "LinkedInポスト用画像リサイズ (1200x627) - 無料ツール",
+    },
+    description: {
+      en: "Resize your images to the optimal LinkedIn post size (1200x627). Maximize engagement with perfectly sized professional content.",
+      ko: "최적의 링크드인 포스트 크기(1200x627)로 이미지를 리사이즈하세요. 완벽한 크기의 전문 콘텐츠로 참여를 극대화하세요.",
+      ja: "最適なLinkedInポストサイズ(1200x627)に画像をリサイズ。完璧なサイズのプロフェッショナルコンテンツでエンゲージメントを最大化。",
+    },
+    keywords: {
+      en: [
+        "linkedin post size",
+        "linkedin image size",
+        "1200x627 linkedin",
+        "linkedin content",
+      ],
+      ko: ["링크드인 포스트 크기", "링크드인 이미지 크기", "링크드인 콘텐츠"],
+      ja: ["LinkedInポストサイズ", "LinkedIn画像サイズ", "LinkedInコンテンツ"],
+    },
+  },
+];
+
+// TikTok 타겟
+const tiktokTargets: ResizeTarget[] = [
+  {
+    slug: "resize-image-for-tiktok-profile",
+    type: "platform",
+    targetWidth: 200,
+    targetHeight: 200,
+    platform: "TikTok",
+    title: {
+      en: "Resize Image for TikTok Profile (200x200) - Free Tool",
+      ko: "틱톡 프로필용 이미지 리사이즈 (200x200) - 무료 도구",
+      ja: "TikTokプロフィール用画像リサイズ (200x200) - 無料ツール",
+    },
+    description: {
+      en: "Resize your profile picture to the perfect TikTok size (200x200). Stand out on the world's fastest-growing social platform.",
+      ko: "완벽한 틱톡 크기(200x200)로 프로필 사진을 리사이즈하세요. 세계에서 가장 빠르게 성장하는 소셜 플랫폼에서 돋보이세요.",
+      ja: "完璧なTikTokサイズ(200x200)にプロフィール写真をリサイズ。世界最速成長のソーシャルプラットフォームで目立とう。",
+    },
+    keywords: {
+      en: [
+        "tiktok profile size",
+        "tiktok avatar size",
+        "200x200 tiktok",
+        "tiktok picture",
+      ],
+      ko: ["틱톡 프로필 크기", "틱톡 아바타 크기", "틱톡 사진"],
+      ja: ["TikTokプロフィールサイズ", "TikTokアバターサイズ", "TikTok写真"],
+    },
+  },
+  {
+    slug: "resize-image-for-tiktok-video-cover",
+    type: "platform",
+    targetWidth: 1080,
+    targetHeight: 1920,
+    platform: "TikTok",
+    title: {
+      en: "Resize Image for TikTok Video Cover (1080x1920) - Free Tool",
+      ko: "틱톡 영상 커버용 이미지 리사이즈 (1080x1920) - 무료 도구",
+      ja: "TikTok動画カバー用画像リサイズ (1080x1920) - 無料ツール",
+    },
+    description: {
+      en: "Resize your thumbnail to the perfect TikTok video cover size (1080x1920). Create eye-catching covers that drive views.",
+      ko: "완벽한 틱톡 영상 커버 크기(1080x1920)로 썸네일을 리사이즈하세요. 조회수를 높이는 눈에 띄는 커버를 만드세요.",
+      ja: "完璧なTikTok動画カバーサイズ(1080x1920)にサムネイルをリサイズ。視聴数を増やす目を引くカバーを作成。",
+    },
+    keywords: {
+      en: [
+        "tiktok cover size",
+        "tiktok thumbnail size",
+        "1080x1920 tiktok",
+        "tiktok video cover",
+      ],
+      ko: ["틱톡 커버 크기", "틱톡 썸네일 크기", "틱톡 영상 커버"],
+      ja: ["TikTokカバーサイズ", "TikTokサムネイルサイズ", "TikTok動画カバー"],
+    },
+  },
+];
+
+// WhatsApp 타겟
+const whatsappTargets: ResizeTarget[] = [
+  {
+    slug: "resize-image-for-whatsapp-profile",
+    type: "platform",
+    targetWidth: 500,
+    targetHeight: 500,
+    platform: "WhatsApp",
+    title: {
+      en: "Resize Image for WhatsApp Profile (500x500) - Free Tool",
+      ko: "왓츠앱 프로필용 이미지 리사이즈 (500x500) - 무료 도구",
+      ja: "WhatsAppプロフィール用画像リサイズ (500x500) - 無料ツール",
+    },
+    description: {
+      en: "Resize your profile picture to the optimal WhatsApp size (500x500). Look great in all your chat conversations.",
+      ko: "최적의 왓츠앱 크기(500x500)로 프로필 사진을 리사이즈하세요. 모든 채팅 대화에서 멋지게 보이세요.",
+      ja: "最適なWhatsAppサイズ(500x500)にプロフィール写真をリサイズ。すべてのチャット会話で素敵に見えよう。",
+    },
+    keywords: {
+      en: [
+        "whatsapp profile size",
+        "whatsapp dp size",
+        "500x500 whatsapp",
+        "whatsapp picture",
+      ],
+      ko: ["왓츠앱 프로필 크기", "왓츠앱 DP 크기", "왓츠앱 사진"],
+      ja: ["WhatsAppプロフィールサイズ", "WhatsApp DPサイズ", "WhatsApp写真"],
+    },
+  },
+  {
+    slug: "resize-image-for-whatsapp-status",
+    type: "platform",
+    targetWidth: 1080,
+    targetHeight: 1920,
+    platform: "WhatsApp",
+    title: {
+      en: "Resize Image for WhatsApp Status (1080x1920) - Free Tool",
+      ko: "왓츠앱 상태용 이미지 리사이즈 (1080x1920) - 무료 도구",
+      ja: "WhatsAppステータス用画像リサイズ (1080x1920) - 無料ツール",
+    },
+    description: {
+      en: "Resize your images to the perfect WhatsApp Status size (1080x1920). Share stunning vertical stories with your contacts.",
+      ko: "완벽한 왓츠앱 상태 크기(1080x1920)로 이미지를 리사이즈하세요. 연락처와 멋진 세로 스토리를 공유하세요.",
+      ja: "完璧なWhatsAppステータスサイズ(1080x1920)に画像をリサイズ。連絡先と素晴らしい縦型ストーリーを共有。",
+    },
+    keywords: {
+      en: [
+        "whatsapp status size",
+        "whatsapp story size",
+        "1080x1920 whatsapp",
+        "whatsapp status image",
+      ],
+      ko: ["왓츠앱 상태 크기", "왓츠앱 스토리 크기", "왓츠앱 상태 이미지"],
+      ja: [
+        "WhatsAppステータスサイズ",
+        "WhatsAppストーリーサイズ",
+        "WhatsAppステータス画像",
+      ],
+    },
+  },
+];
+
+// 여권/신분증 사진 타겟
+const passportTargets: ResizeTarget[] = [
+  {
+    slug: "resize-image-for-us-passport",
+    type: "platform",
+    targetWidth: 600,
+    targetHeight: 600,
+    platform: "Passport",
+    title: {
+      en: "Resize Image for US Passport Photo (2x2 inch / 600x600) - Free Tool",
+      ko: "미국 여권 사진용 이미지 리사이즈 (2x2인치 / 600x600) - 무료 도구",
+      ja: "米国パスポート写真用画像リサイズ (2x2インチ / 600x600) - 無料ツール",
+    },
+    description: {
+      en: "Resize your photo to US passport specifications (2x2 inches / 600x600 pixels). Meet official requirements instantly.",
+      ko: "미국 여권 사양(2x2인치 / 600x600픽셀)으로 사진을 리사이즈하세요. 공식 요구사항을 즉시 충족하세요.",
+      ja: "米国パスポート仕様(2x2インチ / 600x600ピクセル)に写真をリサイズ。公式要件を即座に満たす。",
+    },
+    keywords: {
+      en: [
+        "us passport photo size",
+        "2x2 passport photo",
+        "600x600 passport",
+        "american passport photo",
+      ],
+      ko: ["미국 여권 사진 크기", "2x2 여권 사진", "미국 여권 사진"],
+      ja: [
+        "米国パスポート写真サイズ",
+        "2x2パスポート写真",
+        "アメリカパスポート写真",
+      ],
+    },
+  },
+  {
+    slug: "resize-image-for-eu-passport",
+    type: "platform",
+    targetWidth: 413,
+    targetHeight: 531,
+    platform: "Passport",
+    title: {
+      en: "Resize Image for EU Passport Photo (35x45mm) - Free Tool",
+      ko: "EU 여권 사진용 이미지 리사이즈 (35x45mm) - 무료 도구",
+      ja: "EUパスポート写真用画像リサイズ (35x45mm) - 無料ツール",
+    },
+    description: {
+      en: "Resize your photo to EU passport specifications (35x45mm). Compatible with Schengen visa and European ID cards.",
+      ko: "EU 여권 사양(35x45mm)으로 사진을 리사이즈하세요. 쉥겐 비자 및 유럽 신분증과 호환됩니다.",
+      ja: "EUパスポート仕様(35x45mm)に写真をリサイズ。シェンゲンビザや欧州IDカードと互換性あり。",
+    },
+    keywords: {
+      en: [
+        "eu passport photo size",
+        "35x45mm passport photo",
+        "schengen visa photo",
+        "european passport",
+      ],
+      ko: ["EU 여권 사진 크기", "35x45mm 여권 사진", "쉥겐 비자 사진"],
+      ja: [
+        "EUパスポート写真サイズ",
+        "35x45mmパスポート写真",
+        "シェンゲンビザ写真",
+      ],
+    },
+  },
+  {
+    slug: "resize-image-for-india-passport",
+    type: "platform",
+    targetWidth: 350,
+    targetHeight: 350,
+    platform: "Passport",
+    title: {
+      en: "Resize Image for India Passport Photo (350x350) - Free Tool",
+      ko: "인도 여권 사진용 이미지 리사이즈 (350x350) - 무료 도구",
+      ja: "インドパスポート写真用画像リサイズ (350x350) - 無料ツール",
+    },
+    description: {
+      en: "Resize your photo to India passport specifications (350x350 pixels). Perfect for Indian passport and visa applications.",
+      ko: "인도 여권 사양(350x350픽셀)으로 사진을 리사이즈하세요. 인도 여권 및 비자 신청에 완벽합니다.",
+      ja: "インドパスポート仕様(350x350ピクセル)に写真をリサイズ。インドパスポートやビザ申請に最適。",
+    },
+    keywords: {
+      en: [
+        "india passport photo size",
+        "350x350 passport",
+        "indian visa photo",
+        "oci photo size",
+      ],
+      ko: ["인도 여권 사진 크기", "350x350 여권", "인도 비자 사진"],
+      ja: ["インドパスポート写真サイズ", "350x350パスポート", "インドビザ写真"],
+    },
+  },
+];
+
+// E-commerce 타겟
+const ecommerceTargets: ResizeTarget[] = [
+  {
+    slug: "resize-image-for-amazon-product",
+    type: "platform",
+    targetWidth: 1000,
+    targetHeight: 1000,
+    platform: "Amazon",
+    title: {
+      en: "Resize Image for Amazon Product (1000x1000) - Free Tool",
+      ko: "아마존 상품용 이미지 리사이즈 (1000x1000) - 무료 도구",
+      ja: "Amazon商品用画像リサイズ (1000x1000) - 無料ツール",
+    },
+    description: {
+      en: "Resize your product images to Amazon's recommended size (1000x1000). Enable zoom functionality and boost sales.",
+      ko: "아마존 권장 크기(1000x1000)로 상품 이미지를 리사이즈하세요. 확대 기능을 활성화하고 판매를 늘리세요.",
+      ja: "Amazonの推奨サイズ(1000x1000)に商品画像をリサイズ。ズーム機能を有効にして売上アップ。",
+    },
+    keywords: {
+      en: [
+        "amazon product image size",
+        "amazon listing photo",
+        "1000x1000 amazon",
+        "amazon seller image",
+      ],
+      ko: [
+        "아마존 상품 이미지 크기",
+        "아마존 리스팅 사진",
+        "아마존 셀러 이미지",
+      ],
+      ja: [
+        "Amazon商品画像サイズ",
+        "Amazonリスティング写真",
+        "Amazonセラー画像",
+      ],
+    },
+  },
+  {
+    slug: "resize-image-for-etsy-listing",
+    type: "platform",
+    targetWidth: 2000,
+    targetHeight: 2000,
+    platform: "Etsy",
+    title: {
+      en: "Resize Image for Etsy Listing (2000x2000) - Free Tool",
+      ko: "Etsy 리스팅용 이미지 리사이즈 (2000x2000) - 무료 도구",
+      ja: "Etsyリスティング用画像リサイズ (2000x2000) - 無料ツール",
+    },
+    description: {
+      en: "Resize your product images to Etsy's optimal size (2000x2000). Showcase your handmade items in stunning detail.",
+      ko: "Etsy 최적 크기(2000x2000)로 상품 이미지를 리사이즈하세요. 핸드메이드 아이템을 놀라운 디테일로 보여주세요.",
+      ja: "Etsyの最適サイズ(2000x2000)に商品画像をリサイズ。ハンドメイドアイテムを見事なディテールで紹介。",
+    },
+    keywords: {
+      en: [
+        "etsy listing image size",
+        "etsy product photo",
+        "2000x2000 etsy",
+        "etsy seller image",
+      ],
+      ko: ["Etsy 리스팅 이미지 크기", "Etsy 상품 사진", "Etsy 셀러 이미지"],
+      ja: ["Etsyリスティング画像サイズ", "Etsy商品写真", "Etsyセラー画像"],
+    },
+  },
+  {
+    slug: "resize-image-for-shopify-product",
+    type: "platform",
+    targetWidth: 2048,
+    targetHeight: 2048,
+    platform: "Shopify",
+    title: {
+      en: "Resize Image for Shopify Product (2048x2048) - Free Tool",
+      ko: "Shopify 상품용 이미지 리사이즈 (2048x2048) - 무료 도구",
+      ja: "Shopify商品用画像リサイズ (2048x2048) - 無料ツール",
+    },
+    description: {
+      en: "Resize your product images to Shopify's maximum size (2048x2048). Perfect for high-resolution zoom and retina displays.",
+      ko: "Shopify 최대 크기(2048x2048)로 상품 이미지를 리사이즈하세요. 고해상도 줌 및 레티나 디스플레이에 완벽합니다.",
+      ja: "Shopifyの最大サイズ(2048x2048)に商品画像をリサイズ。高解像度ズームやRetinaディスプレイに最適。",
+    },
+    keywords: {
+      en: [
+        "shopify product image size",
+        "shopify listing photo",
+        "2048x2048 shopify",
+        "shopify image dimensions",
+      ],
+      ko: [
+        "Shopify 상품 이미지 크기",
+        "Shopify 리스팅 사진",
+        "Shopify 이미지 크기",
+      ],
+      ja: [
+        "Shopify商品画像サイズ",
+        "Shopifyリスティング写真",
+        "Shopify画像サイズ",
+      ],
+    },
+  },
+  {
+    slug: "resize-image-for-ebay-listing",
+    type: "platform",
+    targetWidth: 1600,
+    targetHeight: 1600,
+    platform: "eBay",
+    title: {
+      en: "Resize Image for eBay Listing (1600x1600) - Free Tool",
+      ko: "eBay 리스팅용 이미지 리사이즈 (1600x1600) - 무료 도구",
+      ja: "eBayリスティング用画像リサイズ (1600x1600) - 無料ツール",
+    },
+    description: {
+      en: "Resize your product images to eBay's optimal size (1600x1600). Enable SuperSize photos and attract more buyers.",
+      ko: "eBay 최적 크기(1600x1600)로 상품 이미지를 리사이즈하세요. SuperSize 사진을 활성화하고 더 많은 구매자를 유치하세요.",
+      ja: "eBayの最適サイズ(1600x1600)に商品画像をリサイズ。SuperSize写真を有効にしてより多くの購入者を引きつける。",
+    },
+    keywords: {
+      en: [
+        "ebay listing image size",
+        "ebay product photo",
+        "1600x1600 ebay",
+        "ebay supersize image",
+      ],
+      ko: ["eBay 리스팅 이미지 크기", "eBay 상품 사진", "eBay 이미지 크기"],
+      ja: ["eBayリスティング画像サイズ", "eBay商品写真", "eBay画像サイズ"],
+    },
+  },
+];
+
 // 모든 타겟 합치기
 export const allResizeTargets: ResizeTarget[] = [
   ...fileSizeTargets,
+  ...additionalFileSizeTargets,
   ...squareDimensionTargets,
   ...widescreenDimensionTargets,
   ...instagramTargets,
   ...socialMediaTargets,
+  ...linkedinTargets,
+  ...tiktokTargets,
+  ...whatsappTargets,
+  ...passportTargets,
+  ...ecommerceTargets,
   ...faviconTargets,
 ];
 

@@ -624,6 +624,437 @@ const manualConversions: Conversion[] = [
     },
     relatedTool: "css-to-tailwind",
   },
+
+  // ===============================
+  // XML 변환 (Programmatic SEO)
+  // ===============================
+  {
+    from: "json",
+    to: "xml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "json-to-xml",
+    title: {
+      en: "JSON to XML Converter",
+      ko: "JSON을 XML로 변환",
+      ja: "JSONからXMLへ変換",
+    },
+    description: {
+      en: "Convert JSON to XML format instantly. Free online converter with proper formatting and validation.",
+      ko: "JSON을 XML 형식으로 즉시 변환합니다. 적절한 포맷팅과 유효성 검사가 가능한 무료 온라인 변환기.",
+      ja: "JSONをXML形式に即座に変換します。適切なフォーマットと検証が可能な無料オンラインコンバーター。",
+    },
+    keywords: {
+      en: [
+        "json to xml",
+        "json xml converter",
+        "convert json to xml",
+        "xml generator",
+      ],
+      ko: ["json xml 변환", "json을 xml로", "json xml 변환기"],
+      ja: ["json xml 変換", "json から xml", "xml コンバーター"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "xml",
+    to: "json",
+    category: "data",
+    direction: "bidirectional",
+    slug: "xml-to-json",
+    title: {
+      en: "XML to JSON Converter",
+      ko: "XML을 JSON으로 변환",
+      ja: "XMLからJSONへ変換",
+    },
+    description: {
+      en: "Convert XML to JSON format instantly. Preserve structure and attributes. Perfect for API modernization.",
+      ko: "XML을 JSON 형식으로 즉시 변환합니다. 구조와 속성을 보존합니다. API 현대화에 적합합니다.",
+      ja: "XMLをJSON形式に即座に変換します。構造と属性を保持します。APIモダナイゼーションに最適です。",
+    },
+    keywords: {
+      en: [
+        "xml to json",
+        "xml json converter",
+        "convert xml to json",
+        "xml parser",
+      ],
+      ko: ["xml json 변환", "xml을 json으로", "xml 파서"],
+      ja: ["xml json 変換", "xml から json", "xml パーサー"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "yaml",
+    to: "xml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "yaml-to-xml",
+    title: {
+      en: "YAML to XML Converter",
+      ko: "YAML을 XML로 변환",
+      ja: "YAMLからXMLへ変換",
+    },
+    description: {
+      en: "Convert YAML to XML format instantly. Bridge modern and legacy systems with proper XML structure.",
+      ko: "YAML을 XML 형식으로 즉시 변환합니다. 적절한 XML 구조로 현대 시스템과 레거시 시스템을 연결합니다.",
+      ja: "YAMLをXML形式に即座に変換します。適切なXML構造でモダンシステムとレガシーシステムを橋渡しします。",
+    },
+    keywords: {
+      en: [
+        "yaml to xml",
+        "yaml xml converter",
+        "convert yaml to xml",
+        "yml to xml",
+      ],
+      ko: ["yaml xml 변환", "yaml을 xml로", "yml xml 변환"],
+      ja: ["yaml xml 変換", "yaml から xml", "yml xml 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "xml",
+    to: "yaml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "xml-to-yaml",
+    title: {
+      en: "XML to YAML Converter",
+      ko: "XML을 YAML로 변환",
+      ja: "XMLからYAMLへ変換",
+    },
+    description: {
+      en: "Convert XML to YAML format instantly. Simplify complex XML configurations into readable YAML.",
+      ko: "XML을 YAML 형식으로 즉시 변환합니다. 복잡한 XML 설정을 읽기 쉬운 YAML로 단순화합니다.",
+      ja: "XMLをYAML形式に即座に変換します。複雑なXML設定を読みやすいYAMLに簡素化します。",
+    },
+    keywords: {
+      en: [
+        "xml to yaml",
+        "xml yaml converter",
+        "convert xml to yaml",
+        "xml to yml",
+      ],
+      ko: ["xml yaml 변환", "xml을 yaml로", "xml yml 변환"],
+      ja: ["xml yaml 変換", "xml から yaml", "xml yml 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "xml",
+    to: "csv",
+    category: "data",
+    direction: "bidirectional",
+    slug: "xml-to-csv",
+    title: {
+      en: "XML to CSV Converter",
+      ko: "XML을 CSV로 변환",
+      ja: "XMLからCSVへ変換",
+    },
+    description: {
+      en: "Convert XML data to CSV format for Excel and spreadsheet analysis. Flatten XML structure automatically.",
+      ko: "Excel 및 스프레드시트 분석을 위해 XML 데이터를 CSV 형식으로 변환합니다.",
+      ja: "ExcelやスプレッドシートでのデータをCSV形式に変換します。XML構造を自動的にフラット化します。",
+    },
+    keywords: {
+      en: [
+        "xml to csv",
+        "xml csv converter",
+        "convert xml to csv",
+        "xml to excel",
+      ],
+      ko: ["xml csv 변환", "xml을 csv로", "xml 엑셀 변환"],
+      ja: ["xml csv 変換", "xml から csv", "xml エクセル 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "csv",
+    to: "xml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "csv-to-xml",
+    title: {
+      en: "CSV to XML Converter",
+      ko: "CSV를 XML로 변환",
+      ja: "CSVからXMLへ変換",
+    },
+    description: {
+      en: "Convert CSV spreadsheet data to XML format. Customize root element and row names for data interchange.",
+      ko: "CSV 스프레드시트 데이터를 XML 형식으로 변환합니다. 루트 요소 및 행 이름을 사용자 정의할 수 있습니다.",
+      ja: "CSVスプレッドシートデータをXML形式に変換します。データ交換用にルート要素と行名をカスタマイズできます。",
+    },
+    keywords: {
+      en: [
+        "csv to xml",
+        "csv xml converter",
+        "convert csv to xml",
+        "excel to xml",
+      ],
+      ko: ["csv xml 변환", "csv를 xml로", "엑셀 xml 변환"],
+      ja: ["csv xml 変換", "csv から xml", "エクセル xml 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+
+  // ===============================
+  // TOML 변환 (Programmatic SEO)
+  // ===============================
+  {
+    from: "json",
+    to: "toml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "json-to-toml",
+    title: {
+      en: "JSON to TOML Converter",
+      ko: "JSON을 TOML로 변환",
+      ja: "JSONからTOMLへ変換",
+    },
+    description: {
+      en: "Convert JSON to TOML format instantly. Perfect for Rust Cargo.toml, Python pyproject.toml configuration.",
+      ko: "JSON을 TOML 형식으로 즉시 변환합니다. Rust Cargo.toml, Python pyproject.toml 설정에 완벽합니다.",
+      ja: "JSONをTOML形式に即座に変換します。Rust Cargo.toml、Python pyproject.toml設定に最適です。",
+    },
+    keywords: {
+      en: [
+        "json to toml",
+        "json toml converter",
+        "cargo.toml",
+        "pyproject.toml",
+      ],
+      ko: ["json toml 변환", "json을 toml로", "cargo.toml 생성"],
+      ja: ["json toml 変換", "json から toml", "cargo.toml 生成"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "toml",
+    to: "json",
+    category: "data",
+    direction: "bidirectional",
+    slug: "toml-to-json",
+    title: {
+      en: "TOML to JSON Converter",
+      ko: "TOML을 JSON으로 변환",
+      ja: "TOMLからJSONへ変換",
+    },
+    description: {
+      en: "Convert TOML configuration to JSON format instantly. Validate Cargo.toml, pyproject.toml files.",
+      ko: "TOML 설정을 JSON 형식으로 즉시 변환합니다. Cargo.toml, pyproject.toml 파일을 검증합니다.",
+      ja: "TOML設定をJSON形式に即座に変換します。Cargo.toml、pyproject.tomlファイルを検証します。",
+    },
+    keywords: {
+      en: [
+        "toml to json",
+        "toml json converter",
+        "toml parser",
+        "cargo.toml parser",
+      ],
+      ko: ["toml json 변환", "toml을 json으로", "toml 파서"],
+      ja: ["toml json 変換", "toml から json", "toml パーサー"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "yaml",
+    to: "toml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "yaml-to-toml",
+    title: {
+      en: "YAML to TOML Converter",
+      ko: "YAML을 TOML로 변환",
+      ja: "YAMLからTOMLへ変換",
+    },
+    description: {
+      en: "Convert YAML to TOML format instantly. Migrate configuration files to TOML for Rust and Python.",
+      ko: "YAML을 TOML 형식으로 즉시 변환합니다. Rust, Python용 설정 파일을 TOML로 마이그레이션합니다.",
+      ja: "YAMLをTOML形式に即座に変換します。RustやPython用に設定ファイルをTOMLに移行します。",
+    },
+    keywords: {
+      en: [
+        "yaml to toml",
+        "yaml toml converter",
+        "yml to toml",
+        "config migration",
+      ],
+      ko: ["yaml toml 변환", "yaml을 toml로", "yml toml 변환"],
+      ja: ["yaml toml 変換", "yaml から toml", "yml toml 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "toml",
+    to: "yaml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "toml-to-yaml",
+    title: {
+      en: "TOML to YAML Converter",
+      ko: "TOML을 YAML로 변환",
+      ja: "TOMLからYAMLへ変換",
+    },
+    description: {
+      en: "Convert TOML to YAML format instantly. Migrate between configuration formats for different toolchains.",
+      ko: "TOML을 YAML 형식으로 즉시 변환합니다. 다양한 도구 체인에 맞게 설정 형식을 마이그레이션합니다.",
+      ja: "TOMLをYAML形式に即座に変換します。異なるツールチェーン用に設定形式間を移行します。",
+    },
+    keywords: {
+      en: [
+        "toml to yaml",
+        "toml yaml converter",
+        "toml to yml",
+        "config conversion",
+      ],
+      ko: ["toml yaml 변환", "toml을 yaml로", "toml yml 변환"],
+      ja: ["toml yaml 変換", "toml から yaml", "toml yml 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "xml",
+    to: "toml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "xml-to-toml",
+    title: {
+      en: "XML to TOML Converter",
+      ko: "XML을 TOML로 변환",
+      ja: "XMLからTOMLへ変換",
+    },
+    description: {
+      en: "Convert XML configuration to TOML format. Modernize legacy XML configs to TOML.",
+      ko: "XML 설정을 TOML 형식으로 변환합니다. 레거시 XML 설정을 TOML로 현대화합니다.",
+      ja: "XML設定をTOML形式に変換します。レガシーXML設定をTOMLにモダナイズします。",
+    },
+    keywords: {
+      en: ["xml to toml", "xml toml converter", "config modernization"],
+      ko: ["xml toml 변환", "xml을 toml로", "설정 현대화"],
+      ja: ["xml toml 変換", "xml から toml", "設定モダナイズ"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "toml",
+    to: "xml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "toml-to-xml",
+    title: {
+      en: "TOML to XML Converter",
+      ko: "TOML을 XML로 변환",
+      ja: "TOMLからXMLへ変換",
+    },
+    description: {
+      en: "Convert TOML to XML format. Bridge modern TOML configs with legacy XML systems.",
+      ko: "TOML을 XML 형식으로 변환합니다. 현대 TOML 설정을 레거시 XML 시스템과 연결합니다.",
+      ja: "TOMLをXML形式に変換します。モダンなTOML設定をレガシーXMLシステムと橋渡しします。",
+    },
+    keywords: {
+      en: ["toml to xml", "toml xml converter", "legacy integration"],
+      ko: ["toml xml 변환", "toml을 xml로", "레거시 통합"],
+      ja: ["toml xml 変換", "toml から xml", "レガシー統合"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "csv",
+    to: "toml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "csv-to-toml",
+    title: {
+      en: "CSV to TOML Converter",
+      ko: "CSV를 TOML로 변환",
+      ja: "CSVからTOMLへ変換",
+    },
+    description: {
+      en: "Convert CSV data to TOML format. Transform spreadsheet data into TOML configuration.",
+      ko: "CSV 데이터를 TOML 형식으로 변환합니다. 스프레드시트 데이터를 TOML 설정으로 변환합니다.",
+      ja: "CSVデータをTOML形式に変換します。スプレッドシートデータをTOML設定に変換します。",
+    },
+    keywords: {
+      en: ["csv to toml", "csv toml converter", "spreadsheet to toml"],
+      ko: ["csv toml 변환", "csv를 toml로", "스프레드시트 toml"],
+      ja: ["csv toml 変換", "csv から toml", "スプレッドシート toml"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "toml",
+    to: "csv",
+    category: "data",
+    direction: "bidirectional",
+    slug: "toml-to-csv",
+    title: {
+      en: "TOML to CSV Converter",
+      ko: "TOML을 CSV로 변환",
+      ja: "TOMLからCSVへ変換",
+    },
+    description: {
+      en: "Convert TOML data to CSV format. Export TOML configuration to spreadsheet-compatible format.",
+      ko: "TOML 데이터를 CSV 형식으로 변환합니다. TOML 설정을 스프레드시트 호환 형식으로 내보냅니다.",
+      ja: "TOMLデータをCSV形式に変換します。TOML設定をスプレッドシート互換形式にエクスポートします。",
+    },
+    keywords: {
+      en: ["toml to csv", "toml csv converter", "toml to excel"],
+      ko: ["toml csv 변환", "toml을 csv로", "toml 엑셀 변환"],
+      ja: ["toml csv 変換", "toml から csv", "toml エクセル 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "csv",
+    to: "yaml",
+    category: "data",
+    direction: "bidirectional",
+    slug: "csv-to-yaml",
+    title: {
+      en: "CSV to YAML Converter",
+      ko: "CSV를 YAML로 변환",
+      ja: "CSVからYAMLへ変換",
+    },
+    description: {
+      en: "Convert CSV data to YAML format. Perfect for configuration files and DevOps automation.",
+      ko: "CSV 데이터를 YAML 형식으로 변환합니다. 설정 파일 및 DevOps 자동화에 완벽합니다.",
+      ja: "CSVデータをYAML形式に変換します。設定ファイルやDevOps自動化に最適です。",
+    },
+    keywords: {
+      en: [
+        "csv to yaml",
+        "csv yaml converter",
+        "spreadsheet to yaml",
+        "csv to yml",
+      ],
+      ko: ["csv yaml 변환", "csv를 yaml로", "csv yml 변환"],
+      ja: ["csv yaml 変換", "csv から yaml", "csv yml 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
+  {
+    from: "yaml",
+    to: "csv",
+    category: "data",
+    direction: "bidirectional",
+    slug: "yaml-to-csv",
+    title: {
+      en: "YAML to CSV Converter",
+      ko: "YAML을 CSV로 변환",
+      ja: "YAMLからCSVへ変換",
+    },
+    description: {
+      en: "Convert YAML array data to CSV format. Export YAML to Excel-compatible spreadsheet format.",
+      ko: "YAML 배열 데이터를 CSV 형식으로 변환합니다. YAML을 Excel 호환 스프레드시트로 내보냅니다.",
+      ja: "YAML配列データをCSV形式に変換します。YAMLをExcel互換のスプレッドシート形式にエクスポートします。",
+    },
+    keywords: {
+      en: ["yaml to csv", "yaml csv converter", "yml to csv", "yaml to excel"],
+      ko: ["yaml csv 변환", "yaml을 csv로", "yml csv 변환"],
+      ja: ["yaml csv 変換", "yaml から csv", "yml csv 変換"],
+    },
+    relatedTool: "json-formatter",
+  },
 ];
 
 // ===============================
