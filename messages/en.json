@@ -545,6 +545,91 @@
     "bulk-actions": {
       "title": "Bulk Actions",
       "description": "Process multiple files at once. Batch JSON formatting, hash generation, QR code creation, and image resizing."
+    },
+    "sitemap-generator": {
+      "title": "Sitemap Generator",
+      "description": "Generate XML sitemaps for search engine optimization. Input URL list and automatically create sitemap.xml.",
+      "urlInput": "URL List",
+      "urlPlaceholder": "Enter URLs (one per line or comma-separated)\nhttps://example.com/\nhttps://example.com/about\nhttps://example.com/contact",
+      "urlHint": "Enter URLs separated by newlines or commas. Duplicates will be removed automatically.",
+      "loadSample": "Load Sample",
+      "options": "Options",
+      "includeLastmod": "Include Last Modified Date",
+      "prettyPrint": "Pretty Print XML",
+      "defaultChangefreq": "Default Change Frequency",
+      "defaultPriority": "Default Priority",
+      "generate": "Generate Sitemap",
+      "output": "Generated Sitemap",
+      "outputPlaceholder": "Generated sitemap.xml will appear here...",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "download": "Download",
+      "fileSize": "File Size",
+      "stats": "Statistics",
+      "totalUrls": "Total URLs",
+      "domains": "Domains",
+      "multipleDomains": "Warning: Multiple domains detected. Sitemaps should contain URLs from a single domain."
+    },
+    "meta-tag-analyzer": {
+      "title": "Meta Tag Analyzer",
+      "description": "Analyze webpage meta tags and get SEO improvement suggestions. Includes Open Graph and Twitter Card validation.",
+      "htmlInput": "HTML Input",
+      "placeholder": "Paste your HTML code here...",
+      "analyze": "Analyze",
+      "analyzing": "Analyzing...",
+      "loadSample": "Load Sample",
+      "clear": "Clear",
+      "seoScore": "SEO Score",
+      "issues": "Issues",
+      "wordCount": "Word Count",
+      "issuesFound": "Issues Found",
+      "noIssues": "No issues found! Your meta tags look good.",
+      "basicMeta": "Basic Meta Tags",
+      "headings": "Headings"
+    },
+    "robots-generator": {
+      "title": "Robots.txt Generator",
+      "description": "Generate robots.txt files for search engine crawlers. Add rules and sitemap links easily.",
+      "editor": "Editor",
+      "import": "Import",
+      "customUserAgent": "Custom User-Agent",
+      "rules": "Rules",
+      "selectPath": "Select path...",
+      "addUserAgent": "Add User-Agent",
+      "globalSettings": "Global Settings",
+      "sitemapUrl": "Sitemap URL",
+      "crawlDelay": "Crawl Delay (seconds)",
+      "loadSample": "Load Sample",
+      "reset": "Reset",
+      "importTitle": "Import robots.txt",
+      "importPlaceholder": "Paste your existing robots.txt content here...",
+      "importButton": "Import",
+      "output": "Generated robots.txt",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "download": "Download",
+      "emptyOutput": "Add rules to generate robots.txt"
+    },
+    "serp-preview": {
+      "title": "SERP Preview",
+      "description": "Preview how your page appears in Google search results. Get optimization tips for title, description, and URL.",
+      "input": "Page Information",
+      "url": "URL",
+      "title": "Title",
+      "titlePlaceholder": "Enter your page title...",
+      "descriptionPlaceholder": "Enter your meta description...",
+      "loadSample": "Load Sample",
+      "clear": "Clear",
+      "preview": "Search Result Preview",
+      "sampleTitle": "Your Page Title Will Appear Here",
+      "sampleDescription": "Your meta description will appear here. Make it compelling to encourage clicks from search results.",
+      "titlePixelWidth": "Title width",
+      "descPixelWidth": "Description width",
+      "tips": "Optimization Tips",
+      "tip1": "Keep titles between 30-60 characters for optimal display",
+      "tip2": "Write descriptions between 120-160 characters",
+      "tip3": "Include your primary keyword in both title and description",
+      "tip4": "Use action words and create urgency in your title"
     }
   },
   "seo": {
@@ -1342,6 +1427,83 @@
         {
           "q": "What size should my OG image be?",
           "a": "The standard OG image size is 1200×630 pixels. Different platforms may crop differently, so keep important content centered."
+        }
+      ]
+    },
+    "sitemap-generator": {
+      "whatIs": "Sitemap Generator creates XML sitemaps for search engines. A sitemap helps search engines discover and index your website's pages more efficiently.",
+      "howToUse": "Enter your website URLs (one per line or comma-separated). Configure options like change frequency and priority. Click Generate to create your sitemap.xml file.",
+      "features": [
+        "URL validation and normalization",
+        "Duplicate URL detection and removal",
+        "Configurable change frequency (daily, weekly, monthly, etc.)",
+        "Priority settings for each URL",
+        "Pretty print option for readable XML",
+        "Automatic lastmod date generation",
+        "Domain validation warnings"
+      ],
+      "faq": [
+        {
+          "q": "What is a sitemap?",
+          "a": "A sitemap is an XML file that lists all important pages on your website. It helps search engines like Google discover and crawl your content more efficiently."
+        },
+        {
+          "q": "How often should I update my sitemap?",
+          "a": "Update your sitemap whenever you add, remove, or significantly change pages. For dynamic sites, consider automated sitemap generation."
+        },
+        {
+          "q": "Where should I put my sitemap?",
+          "a": "Place your sitemap.xml in your website's root directory (e.g., https://example.com/sitemap.xml) and reference it in your robots.txt file."
+        }
+      ]
+    },
+    "meta-tag-analyzer": {
+      "whatIs": "Meta Tag Analyzer examines your webpage's meta tags and provides SEO improvement suggestions. Check Open Graph, Twitter Card, and standard meta tags.",
+      "howToUse": "Enter a URL to analyze or paste your HTML code. The tool will extract and evaluate all meta tags, showing what's present, missing, and what can be improved.",
+      "features": [
+        "Title and description length validation",
+        "Open Graph tag analysis",
+        "Twitter Card validation",
+        "Canonical URL checking",
+        "SEO score and recommendations"
+      ],
+      "faq": [
+        {
+          "q": "What are meta tags?",
+          "a": "Meta tags are HTML elements that provide information about your webpage to search engines and social media platforms."
+        }
+      ]
+    },
+    "robots-generator": {
+      "whatIs": "Robots.txt Generator creates robots.txt files that tell search engine crawlers which pages to access and which to avoid on your website.",
+      "howToUse": "Add rules for different user agents (crawlers). Specify allowed and disallowed paths. Add your sitemap URL. Download the generated robots.txt file.",
+      "features": [
+        "Multiple user agent support",
+        "Allow and disallow rules",
+        "Sitemap URL integration",
+        "Common presets for major search engines"
+      ],
+      "faq": [
+        {
+          "q": "What is robots.txt?",
+          "a": "Robots.txt is a text file that tells web crawlers which pages they can or cannot access on your site."
+        }
+      ]
+    },
+    "serp-preview": {
+      "whatIs": "SERP Preview shows how your webpage will appear in Google search results. Optimize your title, description, and URL for better click-through rates.",
+      "howToUse": "Enter your page title, meta description, and URL. See a real-time preview of how it appears in desktop and mobile search results. Get optimization tips.",
+      "features": [
+        "Desktop and mobile preview",
+        "Character count with limits",
+        "Pixel width validation",
+        "SEO optimization suggestions",
+        "Rich snippet preview support"
+      ],
+      "faq": [
+        {
+          "q": "What is SERP?",
+          "a": "SERP stands for Search Engine Results Page - the page you see after searching on Google or other search engines."
         }
       ]
     }

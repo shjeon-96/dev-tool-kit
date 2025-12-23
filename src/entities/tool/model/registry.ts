@@ -39,6 +39,9 @@ import {
   Share2,
   ArrowRightLeft,
   Map,
+  Search,
+  Bot,
+  Eye,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -344,7 +347,39 @@ export const tools: Record<ToolSlug, Tool> = {
       "XML Sitemap을 생성합니다. URL 목록을 입력하면 검색엔진 최적화용 sitemap.xml을 자동 생성합니다.",
     icon: Map,
     category: "text",
-    relatedTools: ["schema-generator", "headline-analyzer", "meta-generator"],
+    relatedTools: ["robots-generator", "meta-tag-analyzer", "schema-generator"],
+  },
+  "meta-tag-analyzer": {
+    title: "Meta Tag Analyzer",
+    description:
+      "웹페이지의 메타 태그를 분석합니다. SEO 점수, Open Graph, Twitter Card 검사 및 개선 제안을 제공합니다.",
+    icon: Search,
+    category: "text",
+    relatedTools: ["serp-preview", "sitemap-generator", "schema-generator"],
+  },
+  "robots-generator": {
+    title: "Robots.txt Generator",
+    description:
+      "검색엔진 크롤러용 robots.txt 파일을 생성합니다. User-agent, Allow/Disallow 규칙을 쉽게 설정합니다.",
+    icon: Bot,
+    category: "text",
+    relatedTools: [
+      "sitemap-generator",
+      "meta-tag-analyzer",
+      "schema-generator",
+    ],
+  },
+  "serp-preview": {
+    title: "SERP Preview",
+    description:
+      "Google 검색 결과에서 페이지가 어떻게 표시되는지 미리 봅니다. 제목, 설명 길이 최적화를 지원합니다.",
+    icon: Eye,
+    category: "text",
+    relatedTools: [
+      "meta-tag-analyzer",
+      "headline-analyzer",
+      "schema-generator",
+    ],
   },
 };
 

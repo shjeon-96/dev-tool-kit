@@ -196,6 +196,20 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
       ),
     { ssr: false },
   ),
+  "meta-tag-analyzer": dynamic(
+    () =>
+      import("@/features/meta-tag-analyzer").then((mod) => mod.MetaTagAnalyzer),
+    { ssr: false },
+  ),
+  "robots-generator": dynamic(
+    () =>
+      import("@/features/robots-generator").then((mod) => mod.RobotsGenerator),
+    { ssr: false },
+  ),
+  "serp-preview": dynamic(
+    () => import("@/features/serp-preview").then((mod) => mod.SerpPreview),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

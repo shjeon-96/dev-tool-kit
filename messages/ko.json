@@ -545,6 +545,91 @@
     "bulk-actions": {
       "title": "대량 작업",
       "description": "여러 파일을 한 번에 처리합니다. JSON 포맷팅, 해시 생성, QR 코드 생성, 이미지 리사이즈를 일괄 처리."
+    },
+    "sitemap-generator": {
+      "title": "Sitemap 생성기",
+      "description": "검색엔진 최적화를 위한 XML Sitemap을 생성합니다. URL 목록을 입력하면 sitemap.xml을 자동 생성합니다.",
+      "urlInput": "URL 목록",
+      "urlPlaceholder": "URL을 입력하세요 (줄바꿈 또는 쉼표로 구분)\nhttps://example.com/\nhttps://example.com/about\nhttps://example.com/contact",
+      "urlHint": "URL을 줄바꿈 또는 쉼표로 구분하여 입력하세요. 중복된 URL은 자동으로 제거됩니다.",
+      "loadSample": "샘플 불러오기",
+      "options": "옵션",
+      "includeLastmod": "최종 수정일 포함",
+      "prettyPrint": "XML 정렬하기",
+      "defaultChangefreq": "기본 변경 빈도",
+      "defaultPriority": "기본 우선순위",
+      "generate": "Sitemap 생성",
+      "output": "생성된 Sitemap",
+      "outputPlaceholder": "생성된 sitemap.xml이 여기에 표시됩니다...",
+      "copy": "복사",
+      "copied": "복사됨!",
+      "download": "다운로드",
+      "fileSize": "파일 크기",
+      "stats": "통계",
+      "totalUrls": "총 URL 수",
+      "domains": "도메인 수",
+      "multipleDomains": "경고: 여러 도메인이 감지되었습니다. Sitemap은 단일 도메인의 URL만 포함해야 합니다."
+    },
+    "meta-tag-analyzer": {
+      "title": "메타 태그 분석기",
+      "description": "웹페이지의 메타 태그를 분석하고 SEO 개선 제안을 제공합니다. Open Graph, Twitter Card 검사 포함.",
+      "htmlInput": "HTML 입력",
+      "placeholder": "HTML 코드를 여기에 붙여넣으세요...",
+      "analyze": "분석하기",
+      "analyzing": "분석 중...",
+      "loadSample": "샘플 불러오기",
+      "clear": "지우기",
+      "seoScore": "SEO 점수",
+      "issues": "문제",
+      "wordCount": "단어 수",
+      "issuesFound": "발견된 문제",
+      "noIssues": "문제가 발견되지 않았습니다! 메타 태그가 잘 설정되어 있습니다.",
+      "basicMeta": "기본 메타 태그",
+      "headings": "제목 태그"
+    },
+    "robots-generator": {
+      "title": "Robots.txt 생성기",
+      "description": "검색엔진 크롤러용 robots.txt 파일을 생성합니다. 규칙 추가, 사이트맵 링크 설정 지원.",
+      "editor": "편집기",
+      "import": "가져오기",
+      "customUserAgent": "사용자 정의 User-Agent",
+      "rules": "규칙",
+      "selectPath": "경로 선택...",
+      "addUserAgent": "User-Agent 추가",
+      "globalSettings": "전역 설정",
+      "sitemapUrl": "Sitemap URL",
+      "crawlDelay": "크롤 지연 (초)",
+      "loadSample": "샘플 불러오기",
+      "reset": "초기화",
+      "importTitle": "robots.txt 가져오기",
+      "importPlaceholder": "기존 robots.txt 내용을 여기에 붙여넣으세요...",
+      "importButton": "가져오기",
+      "output": "생성된 robots.txt",
+      "copy": "복사",
+      "copied": "복사됨!",
+      "download": "다운로드",
+      "emptyOutput": "규칙을 추가하여 robots.txt를 생성하세요"
+    },
+    "serp-preview": {
+      "title": "SERP 미리보기",
+      "description": "Google 검색 결과에 표시될 미리보기를 확인합니다. 제목, 설명, URL 최적화 가이드 제공.",
+      "input": "페이지 정보",
+      "url": "URL",
+      "title": "제목",
+      "titlePlaceholder": "페이지 제목을 입력하세요...",
+      "descriptionPlaceholder": "메타 설명을 입력하세요...",
+      "loadSample": "샘플 불러오기",
+      "clear": "지우기",
+      "preview": "검색 결과 미리보기",
+      "sampleTitle": "페이지 제목이 여기에 표시됩니다",
+      "sampleDescription": "메타 설명이 여기에 표시됩니다. 검색 결과에서 클릭을 유도하는 매력적인 설명을 작성하세요.",
+      "titlePixelWidth": "제목 너비",
+      "descPixelWidth": "설명 너비",
+      "tips": "최적화 팁",
+      "tip1": "제목은 30-60자 사이로 작성하세요",
+      "tip2": "설명은 120-160자 사이로 작성하세요",
+      "tip3": "제목과 설명 모두에 주요 키워드를 포함하세요",
+      "tip4": "행동 유도 문구를 사용하고 긴급성을 표현하세요"
     }
   },
   "seo": {
@@ -1433,6 +1518,83 @@
         {
           "q": "OG 이미지 크기는 어떻게 해야 하나요?",
           "a": "표준 OG 이미지 크기는 1200×630 픽셀입니다. 플랫폼마다 다르게 자를 수 있으므로 중요한 콘텐츠는 중앙에 배치하세요."
+        }
+      ]
+    },
+    "sitemap-generator": {
+      "whatIs": "Sitemap Generator는 검색 엔진용 XML 사이트맵을 생성합니다. 사이트맵은 검색 엔진이 웹사이트의 페이지를 더 효율적으로 발견하고 색인화하는 데 도움을 줍니다.",
+      "howToUse": "웹사이트 URL을 입력하세요(줄바꿈 또는 쉼표로 구분). 변경 빈도와 우선순위 등 옵션을 설정하고 생성 버튼을 클릭하여 sitemap.xml 파일을 만듭니다.",
+      "features": [
+        "URL 유효성 검사 및 정규화",
+        "중복 URL 감지 및 제거",
+        "변경 빈도 설정 (daily, weekly, monthly 등)",
+        "각 URL의 우선순위 설정",
+        "보기 좋은 XML 출력 옵션",
+        "최종 수정일 자동 생성",
+        "도메인 유효성 경고"
+      ],
+      "faq": [
+        {
+          "q": "사이트맵이란 무엇인가요?",
+          "a": "사이트맵은 웹사이트의 중요한 페이지를 나열하는 XML 파일입니다. Google과 같은 검색 엔진이 콘텐츠를 더 효율적으로 발견하고 크롤링하는 데 도움을 줍니다."
+        },
+        {
+          "q": "사이트맵을 얼마나 자주 업데이트해야 하나요?",
+          "a": "페이지를 추가, 삭제 또는 크게 변경할 때마다 사이트맵을 업데이트하세요. 동적 사이트의 경우 자동 사이트맵 생성을 고려하세요."
+        },
+        {
+          "q": "사이트맵을 어디에 두어야 하나요?",
+          "a": "sitemap.xml을 웹사이트의 루트 디렉토리에 배치하고(예: https://example.com/sitemap.xml) robots.txt 파일에서 참조하세요."
+        }
+      ]
+    },
+    "meta-tag-analyzer": {
+      "whatIs": "Meta Tag Analyzer는 웹페이지의 메타 태그를 검사하고 SEO 개선 제안을 제공합니다. Open Graph, Twitter Card 및 표준 메타 태그를 확인합니다.",
+      "howToUse": "분석할 URL을 입력하거나 HTML 코드를 붙여넣으세요. 도구가 모든 메타 태그를 추출하고 평가하여 무엇이 있는지, 무엇이 없는지, 무엇을 개선할 수 있는지 보여줍니다.",
+      "features": [
+        "제목 및 설명 길이 검증",
+        "Open Graph 태그 분석",
+        "Twitter Card 검증",
+        "Canonical URL 확인",
+        "SEO 점수 및 권장사항"
+      ],
+      "faq": [
+        {
+          "q": "메타 태그란 무엇인가요?",
+          "a": "메타 태그는 검색 엔진과 소셜 미디어 플랫폼에 웹페이지 정보를 제공하는 HTML 요소입니다."
+        }
+      ]
+    },
+    "robots-generator": {
+      "whatIs": "Robots.txt Generator는 검색 엔진 크롤러가 웹사이트에서 접근할 수 있는 페이지와 피해야 할 페이지를 알려주는 robots.txt 파일을 생성합니다.",
+      "howToUse": "다양한 사용자 에이전트(크롤러)에 대한 규칙을 추가하세요. 허용 및 불허 경로를 지정하고 사이트맵 URL을 추가한 후 생성된 robots.txt 파일을 다운로드합니다.",
+      "features": [
+        "여러 사용자 에이전트 지원",
+        "허용 및 불허 규칙",
+        "사이트맵 URL 통합",
+        "주요 검색 엔진용 일반 프리셋"
+      ],
+      "faq": [
+        {
+          "q": "robots.txt란 무엇인가요?",
+          "a": "robots.txt는 웹 크롤러가 사이트에서 접근할 수 있는 페이지와 없는 페이지를 알려주는 텍스트 파일입니다."
+        }
+      ]
+    },
+    "serp-preview": {
+      "whatIs": "SERP Preview는 웹페이지가 Google 검색 결과에 어떻게 표시되는지 보여줍니다. 더 나은 클릭률을 위해 제목, 설명, URL을 최적화하세요.",
+      "howToUse": "페이지 제목, 메타 설명, URL을 입력하세요. 데스크톱 및 모바일 검색 결과에서 어떻게 보이는지 실시간 미리보기를 확인하고 최적화 팁을 받으세요.",
+      "features": [
+        "데스크톱 및 모바일 미리보기",
+        "제한이 있는 글자 수 표시",
+        "픽셀 너비 검증",
+        "SEO 최적화 제안",
+        "리치 스니펫 미리보기 지원"
+      ],
+      "faq": [
+        {
+          "q": "SERP란 무엇인가요?",
+          "a": "SERP는 Search Engine Results Page의 약자로, Google 또는 다른 검색 엔진에서 검색 후 보이는 페이지를 말합니다."
         }
       ]
     }

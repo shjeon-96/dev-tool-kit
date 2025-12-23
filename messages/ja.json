@@ -528,6 +528,91 @@
     "bulk-actions": {
       "title": "一括処理",
       "description": "複数のファイルを一度に処理。JSONフォーマット、ハッシュ生成、QRコード作成、画像リサイズを一括処理。"
+    },
+    "sitemap-generator": {
+      "title": "Sitemap ジェネレーター",
+      "description": "検索エンジン最適化のためのXML Sitemapを生成します。URLリストを入力するとsitemap.xmlを自動生成します。",
+      "urlInput": "URLリスト",
+      "urlPlaceholder": "URLを入力してください（改行またはカンマ区切り）\nhttps://example.com/\nhttps://example.com/about\nhttps://example.com/contact",
+      "urlHint": "URLを改行またはカンマで区切って入力してください。重複したURLは自動的に削除されます。",
+      "loadSample": "サンプルを読み込む",
+      "options": "オプション",
+      "includeLastmod": "最終更新日を含める",
+      "prettyPrint": "XMLを整形する",
+      "defaultChangefreq": "デフォルトの更新頻度",
+      "defaultPriority": "デフォルトの優先度",
+      "generate": "Sitemapを生成",
+      "output": "生成されたSitemap",
+      "outputPlaceholder": "生成されたsitemap.xmlがここに表示されます...",
+      "copy": "コピー",
+      "copied": "コピーしました！",
+      "download": "ダウンロード",
+      "fileSize": "ファイルサイズ",
+      "stats": "統計",
+      "totalUrls": "URL総数",
+      "domains": "ドメイン数",
+      "multipleDomains": "警告: 複数のドメインが検出されました。Sitemapには単一ドメインのURLのみを含める必要があります。"
+    },
+    "meta-tag-analyzer": {
+      "title": "メタタグアナライザー",
+      "description": "ウェブページのメタタグを分析し、SEO改善提案を提供します。Open Graph、Twitter Card検証を含む。",
+      "htmlInput": "HTML入力",
+      "placeholder": "HTMLコードをここに貼り付けてください...",
+      "analyze": "分析する",
+      "analyzing": "分析中...",
+      "loadSample": "サンプルを読み込む",
+      "clear": "クリア",
+      "seoScore": "SEOスコア",
+      "issues": "問題",
+      "wordCount": "単語数",
+      "issuesFound": "見つかった問題",
+      "noIssues": "問題は見つかりませんでした！メタタグは適切に設定されています。",
+      "basicMeta": "基本メタタグ",
+      "headings": "見出しタグ"
+    },
+    "robots-generator": {
+      "title": "Robots.txt ジェネレーター",
+      "description": "検索エンジンクローラー用のrobots.txtファイルを生成します。ルール追加、サイトマップリンク設定をサポート。",
+      "editor": "エディター",
+      "import": "インポート",
+      "customUserAgent": "カスタムUser-Agent",
+      "rules": "ルール",
+      "selectPath": "パスを選択...",
+      "addUserAgent": "User-Agentを追加",
+      "globalSettings": "全体設定",
+      "sitemapUrl": "サイトマップURL",
+      "crawlDelay": "クロール遅延（秒）",
+      "loadSample": "サンプルを読み込む",
+      "reset": "リセット",
+      "importTitle": "robots.txtをインポート",
+      "importPlaceholder": "既存のrobots.txt内容をここに貼り付けてください...",
+      "importButton": "インポート",
+      "output": "生成されたrobots.txt",
+      "copy": "コピー",
+      "copied": "コピーしました！",
+      "download": "ダウンロード",
+      "emptyOutput": "ルールを追加してrobots.txtを生成してください"
+    },
+    "serp-preview": {
+      "title": "SERP プレビュー",
+      "description": "Google検索結果での表示をプレビューします。タイトル、説明、URL最適化ガイドを提供。",
+      "input": "ページ情報",
+      "url": "URL",
+      "title": "タイトル",
+      "titlePlaceholder": "ページタイトルを入力してください...",
+      "descriptionPlaceholder": "メタ説明を入力してください...",
+      "loadSample": "サンプルを読み込む",
+      "clear": "クリア",
+      "preview": "検索結果プレビュー",
+      "sampleTitle": "ページタイトルがここに表示されます",
+      "sampleDescription": "メタ説明がここに表示されます。検索結果からのクリックを促す魅力的な説明を作成してください。",
+      "titlePixelWidth": "タイトル幅",
+      "descPixelWidth": "説明幅",
+      "tips": "最適化のヒント",
+      "tip1": "タイトルは30〜60文字の間で作成してください",
+      "tip2": "説明は120〜160文字の間で作成してください",
+      "tip3": "タイトルと説明の両方に主要なキーワードを含めてください",
+      "tip4": "アクションワードを使用し、緊急性を表現してください"
     }
   },
   "seo": {
@@ -1416,6 +1501,83 @@
         {
           "q": "OG画像のサイズはどうすればいいですか？",
           "a": "標準的なOG画像サイズは1200×630ピクセルです。プラットフォームによって異なる切り取りが行われる可能性があるため、重要なコンテンツは中央に配置してください。"
+        }
+      ]
+    },
+    "sitemap-generator": {
+      "whatIs": "Sitemap Generatorは、検索エンジン用のXMLサイトマップを生成します。サイトマップは、検索エンジンがウェブサイトのページをより効率的に発見してインデックス化するのに役立ちます。",
+      "howToUse": "ウェブサイトのURLを入力してください（改行またはカンマ区切り）。変更頻度や優先度などのオプションを設定し、生成ボタンをクリックしてsitemap.xmlファイルを作成します。",
+      "features": [
+        "URL検証と正規化",
+        "重複URL検出と削除",
+        "変更頻度設定（daily、weekly、monthlyなど）",
+        "各URLの優先度設定",
+        "整形されたXML出力オプション",
+        "最終更新日の自動生成",
+        "ドメイン検証警告"
+      ],
+      "faq": [
+        {
+          "q": "サイトマップとは何ですか？",
+          "a": "サイトマップは、ウェブサイトの重要なページをリストするXMLファイルです。Googleなどの検索エンジンがコンテンツをより効率的に発見してクロールするのに役立ちます。"
+        },
+        {
+          "q": "サイトマップをどのくらいの頻度で更新すべきですか？",
+          "a": "ページを追加、削除、または大幅に変更するたびにサイトマップを更新してください。動的サイトでは、自動サイトマップ生成を検討してください。"
+        },
+        {
+          "q": "サイトマップをどこに配置すべきですか？",
+          "a": "sitemap.xmlをウェブサイトのルートディレクトリに配置し（例：https://example.com/sitemap.xml）、robots.txtファイルで参照してください。"
+        }
+      ]
+    },
+    "meta-tag-analyzer": {
+      "whatIs": "Meta Tag Analyzerは、ウェブページのメタタグを検査し、SEO改善提案を提供します。Open Graph、Twitter Card、標準メタタグを確認します。",
+      "howToUse": "分析するURLを入力するか、HTMLコードを貼り付けてください。ツールがすべてのメタタグを抽出して評価し、何があるか、何が欠けているか、何を改善できるかを表示します。",
+      "features": [
+        "タイトルと説明の長さ検証",
+        "Open Graphタグ分析",
+        "Twitter Card検証",
+        "Canonical URL確認",
+        "SEOスコアと推奨事項"
+      ],
+      "faq": [
+        {
+          "q": "メタタグとは何ですか？",
+          "a": "メタタグは、検索エンジンとソーシャルメディアプラットフォームにウェブページ情報を提供するHTML要素です。"
+        }
+      ]
+    },
+    "robots-generator": {
+      "whatIs": "Robots.txt Generatorは、検索エンジンクローラーがウェブサイトでアクセスできるページとアクセスを避けるべきページを指示するrobots.txtファイルを生成します。",
+      "howToUse": "さまざまなユーザーエージェント（クローラー）に対するルールを追加してください。許可パスと禁止パスを指定し、サイトマップURLを追加して、生成されたrobots.txtファイルをダウンロードします。",
+      "features": [
+        "複数のユーザーエージェント対応",
+        "許可と禁止ルール",
+        "サイトマップURL統合",
+        "主要検索エンジン向け一般プリセット"
+      ],
+      "faq": [
+        {
+          "q": "robots.txtとは何ですか？",
+          "a": "robots.txtは、ウェブクローラーがサイトでアクセスできるページとできないページを指示するテキストファイルです。"
+        }
+      ]
+    },
+    "serp-preview": {
+      "whatIs": "SERP Previewは、ウェブページがGoogle検索結果にどのように表示されるかを示します。より良いクリック率のためにタイトル、説明、URLを最適化してください。",
+      "howToUse": "ページタイトル、メタ説明、URLを入力してください。デスクトップとモバイルの検索結果でどのように表示されるかをリアルタイムでプレビューし、最適化のヒントを得てください。",
+      "features": [
+        "デスクトップとモバイルプレビュー",
+        "制限付き文字数表示",
+        "ピクセル幅検証",
+        "SEO最適化提案",
+        "リッチスニペットプレビュー対応"
+      ],
+      "faq": [
+        {
+          "q": "SERPとは何ですか？",
+          "a": "SERPはSearch Engine Results Pageの略で、GoogleやMicrosoft EdgeなどのSearch Engineで検索後に表示されるページのことです。"
         }
       ]
     }

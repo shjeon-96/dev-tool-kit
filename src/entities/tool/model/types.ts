@@ -55,4 +55,7 @@ export type ToolSlug =
   | "bg-remover"
   | "og-generator"
   | "image-converter"
-  | "sitemap-generator";
+  | "sitemap-generator"
+  | "meta-tag-analyzer"
+  | "robots-generator"
+  | "serp-preview";
