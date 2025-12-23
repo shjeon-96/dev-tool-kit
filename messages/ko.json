@@ -175,6 +175,12 @@
     "noResults": "결과가 없습니다.",
     "tools": "도구"
   },
+  "adblock": {
+    "title": "Web Toolkit이 마음에 드시나요?",
+    "message": "광고 차단기를 사용 중이시네요. 광고 수익은 이 도구를 무료로 유지하는 데 도움이 됩니다. 광고 차단을 해제해 주시면 감사하겠습니다.",
+    "later": "나중에",
+    "whitelist": "화이트리스트 추가 방법"
+  },
   "pipeline": {
     "sendTo": "보내기",
     "availableTools": "연결 가능한 도구",

@@ -208,6 +208,70 @@ export function ProductJsonLd({
   );
 }
 
+// SoftwareApplication Schema for tool pages (Google recommended for developer tools)
+interface SoftwareApplicationJsonLdProps {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory?: string;
+  operatingSystem?: string;
+  screenshot?: string;
+  featureList?: string[];
+  aggregateRating?: {
+    ratingValue: number;
+    ratingCount: number;
+  };
+}
+
+export function SoftwareApplicationJsonLd({
+  name,
+  description,
+  url,
+  applicationCategory = "DeveloperApplication",
+  operatingSystem = "Web",
+  screenshot,
+  featureList,
+  aggregateRating,
+}: SoftwareApplicationJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    description,
+    url,
+    applicationCategory,
+    operatingSystem,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    ...(screenshot && { screenshot }),
+    ...(featureList && { featureList }),
+    ...(aggregateRating && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: aggregateRating.ratingValue,
+        ratingCount: aggregateRating.ratingCount,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
+    author: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
 // Article Schema for blog/guide content
 interface ArticleJsonLdProps {
   headline: string;

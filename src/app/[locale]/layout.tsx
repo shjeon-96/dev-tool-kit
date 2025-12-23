@@ -12,6 +12,7 @@ import {
   JsonLd,
   ClarityScript,
   ToastProvider,
+  AdBlockNotice,
 } from "@/shared/ui";
 import { SmartPasteProvider } from "@/features/smart-paste";
 import { LeadCaptureProvider } from "@/features/lead-capture";
@@ -192,6 +193,7 @@ export default async function LocaleLayout({
               <LeadCaptureProvider>
                 <ToastProvider>
                   <OfflineUpgradePrompt />
+                  <AdBlockNotice />
                   <div className="fixed inset-0 flex bg-background">
                     <aside
                       className="hidden w-64 flex-col md:flex"

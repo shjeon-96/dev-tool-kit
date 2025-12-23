@@ -35,6 +35,7 @@ export {
   HowToJsonLd,
   ProductJsonLd,
   ArticleJsonLd,
+  SoftwareApplicationJsonLd,
 } from "./json-ld";
 export { AdUnit, AdSidebar, ToolResultAd } from "./ad-unit";
 export { ClarityScript } from "./clarity";
@@ -51,3 +52,4 @@ export {
 } from "./offline-indicator";
 export { QuotaWarning, QuotaBadge } from "./quota-warning";
 export { FileUploader } from "./file-uploader";
+export { AdBlockNotice } from "./adblock-notice";

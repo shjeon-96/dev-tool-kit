@@ -175,6 +175,12 @@
     "noResults": "No results found.",
     "tools": "Tools"
   },
+  "adblock": {
+    "title": "Enjoying Web Toolkit?",
+    "message": "We noticed you're using an ad blocker. Our ads help keep this tool free for everyone. Consider supporting us by disabling your ad blocker.",
+    "later": "Maybe Later",
+    "whitelist": "How to Whitelist"
+  },
   "pipeline": {
     "sendTo": "Send to",
     "availableTools": "Available tools",

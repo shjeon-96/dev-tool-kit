@@ -5,7 +5,7 @@ import { tools, RelatedTools, type ToolSlug } from "@/entities/tool";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,
-  ProductJsonLd,
+  SoftwareApplicationJsonLd,
   AdUnit,
 } from "@/shared/ui";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
@@ -108,16 +108,16 @@ export default async function ToolPage({ params }: Props) {
     // FAQ not available for this tool
   }
 
-  const productUrl = `${SITE_CONFIG.url}/${locale}/tools/${slug}`;
+  const toolUrl = `${SITE_CONFIG.url}/${locale}/tools/${slug}`;
 
   return (
     <>
       <BreadcrumbJsonLd items={breadcrumbItems} />
-      <ProductJsonLd
+      <SoftwareApplicationJsonLd
         name={title}
         description={description}
-        url={productUrl}
-        category={tool.category}
+        url={toolUrl}
+        applicationCategory="DeveloperApplication"
       />
       {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
 
