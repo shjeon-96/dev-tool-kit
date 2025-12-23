@@ -37,6 +37,7 @@ import {
   Heading,
   Eraser,
   Share2,
+  ArrowRightLeft,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -327,6 +328,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Share2,
     category: "media",
     relatedTools: ["meta-generator", "image-resizer", "qr-generator"],
+  },
+  "image-converter": {
+    title: "Image Converter",
+    description:
+      "이미지를 다양한 포맷(JPEG, PNG, WebP, AVIF, GIF)으로 변환합니다. 품질 조절 및 일괄 변환 지원.",
+    icon: ArrowRightLeft,
+    category: "converters",
+    relatedTools: ["image-resizer", "bg-remover", "app-icon-generator"],
   },
 };
 

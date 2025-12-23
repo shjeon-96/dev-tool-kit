@@ -184,6 +184,11 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/og-generator").then((mod) => mod.OGGenerator),
     { ssr: false },
   ),
+  "image-converter": dynamic(
+    () =>
+      import("@/features/image-converter").then((mod) => mod.ImageConverter),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

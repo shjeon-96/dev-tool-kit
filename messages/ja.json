@@ -337,7 +337,32 @@
     },
     "pdf-toolkit": {
       "title": "PDF Toolkit",
-      "description": "PDFの結合、分割、圧縮をブラウザで処理。100%クライアントサイド処理。"
+      "description": "PDFの結合、分割、圧縮、機密情報マスキングをブラウザで処理。100%クライアントサイド処理。",
+      "redact": {
+        "uploadPrompt": "PDFファイルをアップロードして機密情報のマスキングを開始",
+        "patterns": "検出するパターンを選択",
+        "creditCard": "クレジットカード番号",
+        "creditCardDesc": "Visa, MasterCard, Amexなど",
+        "ssn": "マイナンバー / SSN",
+        "ssnDesc": "マイナンバー、米国SSN",
+        "phone": "電話番号",
+        "phoneDesc": "様々な電話番号形式",
+        "email": "メールアドレス",
+        "emailDesc": "メールアドレス",
+        "customKeywords": "カスタムキーワード",
+        "keywordPlaceholder": "マスキングするキーワードを入力...",
+        "color": "マスキング色",
+        "colorBlack": "黒",
+        "colorGray": "グレー",
+        "colorWhite": "白",
+        "scan": "PDFをスキャン",
+        "apply": "マスキング適用",
+        "processing": "処理中...",
+        "foundMatches": "{count}件の機密情報を発見",
+        "noSensitiveData": "機密情報は見つかりませんでした",
+        "noMatches": "このPDFに一致するパターンはありません",
+        "warning": "マスキング結果を必ず確認してください。保存後は元のテキストを復元できません。"
+      }
     },
     "ocr-scanner": {
       "title": "OCRスキャナー",
@@ -469,6 +494,29 @@
         "renderFailed": "イメージのレンダリングに失敗しました",
         "downloadFailed": "ダウンロードに失敗しました",
         "copyFailed": "クリップボードへのコピーに失敗しました"
+      }
+    },
+    "image-converter": {
+      "title": "画像変換",
+      "description": "JPEG、PNG、WebP、AVIF、GIF形式間の画像変換。品質調整と複数画像の一括変換をサポート。",
+      "outputFormat": "出力形式",
+      "quality": "品質",
+      "qualityLow": "低品質、小さいファイルサイズ",
+      "qualityMedium": "バランスの取れた品質とファイルサイズ",
+      "qualityHigh": "高品質、大きいファイルサイズ",
+      "transparencyWarning": "この形式は透明度をサポートしていません。透明部分は白で塗りつぶされます。",
+      "dropzone": {
+        "title": "ここに画像をドロップ",
+        "description": "またはクリックして参照。JPEG、PNG、WebP、AVIF、GIF対応"
+      },
+      "images": "画像",
+      "clearAll": "すべてクリア",
+      "converting": "変換中",
+      "convertAll": "すべて変換",
+      "downloadAll": "すべてダウンロード",
+      "emptyState": {
+        "title": "画像がありません",
+        "description": "変換する画像をアップロードしてください"
       }
     },
     "bulk-actions": {
@@ -1221,6 +1269,22 @@
         {
           "q": "推奨画像サイズは何ですか？",
           "a": "標準OGイメージサイズは1200×630pxです。Twitterは1200×600pxを推奨します。"
+        }
+      ]
+    },
+    "image-converter": {
+      "whatIs": "Image Converterは、画像を様々な形式（JPEG、PNG、WebP、AVIF、GIF）に変換するツールです。100%クライアントサイド処理でプライバシーが保護されます。",
+      "howToUse": "画像をアップロードし、変換形式を選択して品質を調整します。変換ボタンをクリックすると新しい形式でダウンロードできます。",
+      "features": [
+        "JPEG、PNG、WebP、AVIF、GIF形式対応",
+        "品質調整でファイルサイズ最適化",
+        "複数画像の一括変換",
+        "100%クライアントサイド処理"
+      ],
+      "faq": [
+        {
+          "q": "どの形式を選択すべきですか？",
+          "a": "Web用途にはWebPが良好な品質と小さいファイルサイズを提供します。透明度が必要な場合はPNG、互換性が重要な場合はJPEGを選択してください。"
         }
       ]
     }

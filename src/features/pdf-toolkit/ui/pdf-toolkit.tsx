@@ -1,10 +1,11 @@
 "use client";
 
-import { Files, Merge, Split, Minimize2 } from "lucide-react";
+import { Files, Merge, Split, Minimize2, Shield } from "lucide-react";
 import { usePdfToolkit } from "../model/use-pdf-toolkit";
 import { PdfMerge } from "./pdf-merge";
 import { PdfSplit } from "./pdf-split";
 import { PdfCompress } from "./pdf-compress";
+import { PdfRedact } from "./pdf-redact";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import type { PDFTab } from "../lib/types";
@@ -26,7 +27,7 @@ export function PdfToolkit() {
             value={toolkit.activeTab}
             onValueChange={(v) => toolkit.setActiveTab(v as PDFTab)}
           >
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="merge" className="flex items-center gap-2">
                 <Merge className="h-4 w-4" />
                 Merge
@@ -38,6 +39,10 @@ export function PdfToolkit() {
               <TabsTrigger value="compress" className="flex items-center gap-2">
                 <Minimize2 className="h-4 w-4" />
                 Compress
+              </TabsTrigger>
+              <TabsTrigger value="redact" className="flex items-center gap-2">
+                <Shield className="h-4 w-4" />
+                Redact
               </TabsTrigger>
             </TabsList>
 
@@ -51,6 +56,15 @@ export function PdfToolkit() {
 
             <TabsContent value="compress" className="mt-6">
               <PdfCompress toolkit={toolkit} />
+            </TabsContent>
+
+            <TabsContent value="redact" className="mt-6">
+              <PdfRedact
+                files={toolkit.files}
+                isProcessing={toolkit.isProcessing}
+                progress={toolkit.progress}
+                downloadBlob={toolkit.downloadBlob}
+              />
             </TabsContent>
           </Tabs>
         </CardContent>

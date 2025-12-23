@@ -400,7 +400,32 @@
     },
     "pdf-toolkit": {
       "title": "PDF Toolkit",
-      "description": "Merge, split, and compress PDF files in your browser. 100% client-side processing."
+      "description": "Merge, split, compress, and redact PDF files in your browser. 100% client-side processing.",
+      "redact": {
+        "uploadPrompt": "Upload a PDF file to start redacting sensitive information",
+        "patterns": "Select patterns to detect",
+        "creditCard": "Credit Card Numbers",
+        "creditCardDesc": "Visa, MasterCard, Amex, etc.",
+        "ssn": "SSN / ID Numbers",
+        "ssnDesc": "Social Security Number, Korean RRN",
+        "phone": "Phone Numbers",
+        "phoneDesc": "Various phone formats",
+        "email": "Email Addresses",
+        "emailDesc": "Email addresses",
+        "customKeywords": "Custom Keywords",
+        "keywordPlaceholder": "Enter keyword to redact...",
+        "color": "Redaction Color",
+        "colorBlack": "Black",
+        "colorGray": "Gray",
+        "colorWhite": "White",
+        "scan": "Scan PDF",
+        "apply": "Apply Redaction",
+        "processing": "Processing...",
+        "foundMatches": "{count} sensitive items found",
+        "noSensitiveData": "No sensitive data found",
+        "noMatches": "No matching patterns found in this PDF",
+        "warning": "Always verify redaction results. Original text cannot be recovered after saving."
+      }
     },
     "ocr-scanner": {
       "title": "OCR Scanner",
@@ -487,6 +512,29 @@
       },
       "rendering": "Rendering...",
       "download": "Download PNG"
+    },
+    "image-converter": {
+      "title": "Image Converter",
+      "description": "Convert images between JPEG, PNG, WebP, AVIF, and GIF formats. Adjust quality and process multiple images at once.",
+      "outputFormat": "Output Format",
+      "quality": "Quality",
+      "qualityLow": "Lower quality, smaller file size",
+      "qualityMedium": "Balanced quality and file size",
+      "qualityHigh": "Higher quality, larger file size",
+      "transparencyWarning": "This format does not support transparency. Transparent areas will be filled with white.",
+      "dropzone": {
+        "title": "Drop images here",
+        "description": "or click to browse. Supports JPEG, PNG, WebP, AVIF, GIF"
+      },
+      "images": "Images",
+      "clearAll": "Clear All",
+      "converting": "Converting",
+      "convertAll": "Convert All",
+      "downloadAll": "Download All",
+      "emptyState": {
+        "title": "No images yet",
+        "description": "Upload images to start converting"
+      }
     },
     "bulk-actions": {
       "title": "Bulk Actions",
@@ -1142,6 +1190,27 @@
         {
           "q": "What formats are supported?",
           "a": "MP4, WebM, MOV, AVI and other major video formats. Maximum file size is 500MB."
+        }
+      ]
+    },
+    "image-converter": {
+      "whatIs": "Image Converter transforms images between various formats including JPEG, PNG, WebP, AVIF, and GIF. All processing happens 100% in your browser with no server uploads.",
+      "howToUse": "Upload images by drag-and-drop or clicking the upload area. Select your desired output format and adjust quality settings. Convert and download individual images or all at once.",
+      "features": [
+        "Support for JPEG, PNG, WebP, AVIF, and GIF formats",
+        "Adjustable quality settings for optimal file size",
+        "Batch conversion for multiple images",
+        "Real-time format support detection",
+        "100% client-side processing for privacy"
+      ],
+      "faq": [
+        {
+          "q": "Which format should I use?",
+          "a": "WebP offers the best balance of quality and file size for web. AVIF provides even better compression but has limited browser support. JPEG is ideal for photos, PNG for graphics with transparency."
+        },
+        {
+          "q": "Is AVIF supported in my browser?",
+          "a": "AVIF is supported in Chrome 85+, Firefox 93+, and Safari 16+. The tool automatically detects and shows available formats for your browser."
         }
       ]
     }

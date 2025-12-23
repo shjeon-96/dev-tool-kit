@@ -11,7 +11,8 @@ import {
   BookOpen,
 } from "lucide-react";
 import { cn } from "@/shared/lib";
-import { Button } from "@/shared/ui";
+import { Button, AdUnit } from "@/shared/ui";
+import { AD_SLOTS } from "@/shared/config";
 import { tools } from "@/entities/tool";
 import type { Guide } from "../model/types";
 import { TableOfContents } from "./table-of-contents";
@@ -158,6 +159,13 @@ export function GuideContent({
             </Link>
           </Button>
         </div>
+
+        {/* 광고: 가이드 하단 */}
+        <AdUnit
+          slot={AD_SLOTS.GUIDE_BOTTOM}
+          format="horizontal"
+          className="my-8"
+        />
 
         {/* Related Tools */}
         {guide.relatedTools.length > 0 && (

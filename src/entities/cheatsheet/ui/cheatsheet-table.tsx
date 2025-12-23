@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Search, Copy, Check, SearchX } from "lucide-react";
-import { Input, Button } from "@/shared/ui";
+import { Input, Button, AdUnit } from "@/shared/ui";
+import { AD_SLOTS } from "@/shared/config";
 import type { CheatsheetItem } from "../model/types";
 
 interface CheatsheetTableProps {
@@ -146,6 +147,13 @@ export function CheatsheetTable({
           </div>
         </div>
       ))}
+
+      {/* 광고: 치트시트 하단 */}
+      <AdUnit
+        slot={AD_SLOTS.GUIDE_BOTTOM}
+        format="horizontal"
+        className="mt-8"
+      />
     </div>
   );
 }

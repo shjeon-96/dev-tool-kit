@@ -400,7 +400,32 @@
     },
     "pdf-toolkit": {
       "title": "PDF Toolkit",
-      "description": "PDF 병합, 분할, 압축을 브라우저에서 처리합니다. 100% 클라이언트 사이드 처리."
+      "description": "PDF 병합, 분할, 압축, 민감정보 마스킹을 브라우저에서 처리합니다. 100% 클라이언트 사이드 처리.",
+      "redact": {
+        "uploadPrompt": "PDF 파일을 업로드하여 민감정보 마스킹을 시작하세요",
+        "patterns": "감지할 패턴 선택",
+        "creditCard": "신용카드 번호",
+        "creditCardDesc": "Visa, MasterCard, Amex 등",
+        "ssn": "주민등록번호 / SSN",
+        "ssnDesc": "주민등록번호, 미국 SSN",
+        "phone": "전화번호",
+        "phoneDesc": "다양한 전화번호 형식",
+        "email": "이메일 주소",
+        "emailDesc": "이메일 주소",
+        "customKeywords": "사용자 정의 키워드",
+        "keywordPlaceholder": "마스킹할 키워드 입력...",
+        "color": "마스킹 색상",
+        "colorBlack": "검정",
+        "colorGray": "회색",
+        "colorWhite": "흰색",
+        "scan": "PDF 스캔",
+        "apply": "마스킹 적용",
+        "processing": "처리 중...",
+        "foundMatches": "{count}개의 민감정보 발견",
+        "noSensitiveData": "민감정보가 발견되지 않았습니다",
+        "noMatches": "이 PDF에서 일치하는 패턴이 없습니다",
+        "warning": "항상 마스킹 결과를 확인하세요. 저장 후에는 원본 텍스트를 복구할 수 없습니다."
+      }
     },
     "ocr-scanner": {
       "title": "OCR 스캐너",
@@ -487,6 +512,29 @@
       },
       "rendering": "렌더링 중...",
       "download": "PNG 다운로드"
+    },
+    "image-converter": {
+      "title": "이미지 변환기",
+      "description": "JPEG, PNG, WebP, AVIF, GIF 포맷 간 이미지 변환. 품질 조절 및 여러 이미지 일괄 변환 지원.",
+      "outputFormat": "출력 포맷",
+      "quality": "품질",
+      "qualityLow": "낮은 품질, 작은 파일 크기",
+      "qualityMedium": "균형잡힌 품질과 파일 크기",
+      "qualityHigh": "높은 품질, 큰 파일 크기",
+      "transparencyWarning": "이 포맷은 투명도를 지원하지 않습니다. 투명 영역은 흰색으로 채워집니다.",
+      "dropzone": {
+        "title": "이미지를 여기에 드롭하세요",
+        "description": "또는 클릭하여 파일 선택. JPEG, PNG, WebP, AVIF, GIF 지원"
+      },
+      "images": "이미지",
+      "clearAll": "전체 삭제",
+      "converting": "변환 중",
+      "convertAll": "전체 변환",
+      "downloadAll": "전체 다운로드",
+      "emptyState": {
+        "title": "이미지가 없습니다",
+        "description": "변환할 이미지를 업로드하세요"
+      }
     },
     "bulk-actions": {
       "title": "대량 작업",
@@ -1238,6 +1286,22 @@
         {
           "q": "권장 이미지 크기는 무엇인가요?",
           "a": "표준 OG 이미지 크기는 1200×630px입니다. Twitter는 1200×600px을 권장합니다."
+        }
+      ]
+    },
+    "image-converter": {
+      "whatIs": "Image Converter는 이미지를 다양한 포맷(JPEG, PNG, WebP, AVIF, GIF)으로 변환하는 도구입니다. 100% 클라이언트 사이드 처리로 개인정보가 보호됩니다.",
+      "howToUse": "이미지를 업로드하고 변환할 포맷을 선택한 후 품질을 조절합니다. 변환 버튼을 클릭하면 새 포맷으로 다운로드할 수 있습니다.",
+      "features": [
+        "JPEG, PNG, WebP, AVIF, GIF 포맷 지원",
+        "품질 조절로 파일 크기 최적화",
+        "여러 이미지 일괄 변환",
+        "100% 클라이언트 사이드 처리"
+      ],
+      "faq": [
+        {
+          "q": "어떤 포맷을 선택해야 하나요?",
+          "a": "웹용으로는 WebP가 좋은 품질과 작은 파일 크기를 제공합니다. 투명도가 필요하면 PNG, 호환성이 중요하면 JPEG를 선택하세요."
         }
       ]
     }

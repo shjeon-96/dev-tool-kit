@@ -4,7 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { JsonBulk } from "@/features/bulk-actions/json-bulk";
 import { HashBulk } from "@/features/bulk-actions/hash-bulk";
 import { QrBulk } from "@/features/bulk-actions/qr-bulk";
-import { FileJson, Hash, QrCode, Layers } from "lucide-react";
+import { ImageBulk } from "@/features/bulk-actions/image-bulk";
+import { FileJson, Hash, QrCode, Image, Layers } from "lucide-react";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("tools.bulk-actions");
@@ -30,7 +31,7 @@ export default async function BulkActionsPage() {
       </div>
 
       <Tabs defaultValue="json" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:inline-grid">
+        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
           <TabsTrigger value="json" className="flex items-center gap-2">
             <FileJson className="h-4 w-4" />
             <span className="hidden sm:inline">JSON Formatter</span>
@@ -46,6 +47,11 @@ export default async function BulkActionsPage() {
             <span className="hidden sm:inline">QR Generator</span>
             <span className="sm:hidden">QR</span>
           </TabsTrigger>
+          <TabsTrigger value="image" className="flex items-center gap-2">
+            <Image className="h-4 w-4" />
+            <span className="hidden sm:inline">Image Resize</span>
+            <span className="sm:hidden">Image</span>
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="json">
@@ -58,6 +64,10 @@ export default async function BulkActionsPage() {
 
         <TabsContent value="qr">
           <QrBulk />
+        </TabsContent>
+
+        <TabsContent value="image">
+          <ImageBulk />
         </TabsContent>
       </Tabs>
     </div>

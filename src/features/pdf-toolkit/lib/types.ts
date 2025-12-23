@@ -10,7 +10,7 @@ export interface PDFFile {
   size: number;
 }
 
-export type PDFTab = "merge" | "split" | "compress";
+export type PDFTab = "merge" | "split" | "compress" | "redact";
 
 export interface MergeOptions {
   outputName?: string;
@@ -38,4 +38,41 @@ export interface PDFProcessResult {
   error?: string;
   /** 분할 시 파일명 목록 */
   filenames?: string[];
+}
+
+/**
+ * Redaction Types
+ */
+export type RedactPattern = "creditCard" | "ssn" | "phone" | "email" | "custom";
+
+export interface RedactPatternConfig {
+  id: RedactPattern;
+  label: string;
+  description: string;
+  regex: RegExp;
+  enabled: boolean;
+}
+
+export interface RedactOptions {
+  patterns: RedactPattern[];
+  customKeywords: string[];
+  redactColor: "black" | "white" | "gray";
+}
+
+export interface RedactMatch {
+  pageIndex: number;
+  text: string;
+  pattern: RedactPattern;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export interface RedactResult {
+  success: boolean;
+  matchCount: number;
+  pagesAffected: number;
+  data?: Uint8Array;
+  error?: string;
 }

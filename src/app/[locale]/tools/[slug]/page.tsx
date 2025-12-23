@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { tools, RelatedTools, type ToolSlug } from "@/entities/tool";
-import { BreadcrumbJsonLd, FaqJsonLd, ProductJsonLd } from "@/shared/ui";
-import { SITE_CONFIG } from "@/shared/config";
+import {
+  BreadcrumbJsonLd,
+  FaqJsonLd,
+  ProductJsonLd,
+  AdUnit,
+} from "@/shared/ui";
+import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
 import { ToolRenderer } from "./tool-renderer";
 import { ToolSeoSection } from "./tool-seo-section";
 import { ToolHeaderActions } from "./tool-header-actions";
@@ -134,7 +139,21 @@ export default async function ToolPage({ params }: Props) {
           <ToolRenderer slug={slug as ToolSlug} />
         </div>
 
+        {/* 광고: 도구 결과 하단 (골든존) */}
+        <AdUnit
+          slot={AD_SLOTS.TOOL_RESULT}
+          format="horizontal"
+          className="my-6"
+        />
+
         <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
+
+        {/* 광고: 콘텐츠 하단 */}
+        <AdUnit
+          slot={AD_SLOTS.CONTENT_BOTTOM}
+          format="rectangle"
+          className="my-6"
+        />
 
         <RelatedTools currentSlug={slug as ToolSlug} />
       </div>

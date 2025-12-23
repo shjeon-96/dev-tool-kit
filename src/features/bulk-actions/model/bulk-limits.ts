@@ -18,6 +18,10 @@ export interface BulkLimits {
   qrGenerator: {
     maxItems: number;
   };
+  imageResizer: {
+    maxItems: number;
+    maxFileSizeMB: number;
+  };
 }
 
 export const BULK_LIMITS: Record<TierType, BulkLimits> = {
@@ -33,6 +37,10 @@ export const BULK_LIMITS: Record<TierType, BulkLimits> = {
     qrGenerator: {
       maxItems: 1,
     },
+    imageResizer: {
+      maxItems: 3,
+      maxFileSizeMB: 5,
+    },
   },
   pro: {
     jsonFormatter: {
@@ -45,6 +53,10 @@ export const BULK_LIMITS: Record<TierType, BulkLimits> = {
     },
     qrGenerator: {
       maxItems: 50,
+    },
+    imageResizer: {
+      maxItems: 100,
+      maxFileSizeMB: 50,
     },
   },
 };
