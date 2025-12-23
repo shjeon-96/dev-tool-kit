@@ -1,6 +1,16 @@
 import { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { Code, Key, Zap, Shield, Clock, Terminal } from "lucide-react";
+import {
+  Code,
+  Key,
+  Zap,
+  Shield,
+  Clock,
+  Terminal,
+  FileJson,
+  ExternalLink,
+} from "lucide-react";
+import Link from "next/link";
 import { SITE_CONFIG } from "@/shared/config";
 
 interface PageProps {
@@ -64,6 +74,25 @@ export default async function ApiDocsPage({ params }: PageProps) {
           <h1 className="text-3xl font-bold">{content.title}</h1>
         </div>
         <p className="text-muted-foreground text-lg">{content.description}</p>
+
+        {/* Quick Actions */}
+        <div className="flex flex-wrap gap-3 mt-6">
+          <Link
+            href={`/${locale}/docs/api/swagger`}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
+          >
+            <ExternalLink className="h-4 w-4" />
+            {content.tryItOut}
+          </Link>
+          <a
+            href="/openapi.yaml"
+            download
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border bg-background hover:bg-muted transition-colors text-sm font-medium"
+          >
+            <FileJson className="h-4 w-4" />
+            {content.downloadSpec}
+          </a>
+        </div>
 
         {/* Quick Info */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
@@ -602,6 +631,8 @@ function getContent(locale: string) {
       title: "API Documentation",
       description:
         "Access Web Toolkit features programmatically with our REST API. Available for Pro subscribers.",
+      tryItOut: "Try it out (Swagger UI)",
+      downloadSpec: "Download OpenAPI Spec",
       authMethod: "Authentication",
       rateLimit: "Rate Limit",
       access: "Access",
@@ -667,6 +698,8 @@ function getContent(locale: string) {
       title: "API 문서",
       description:
         "REST API를 통해 Web Toolkit 기능을 프로그래밍 방식으로 사용하세요. Pro 구독자 전용입니다.",
+      tryItOut: "테스트하기 (Swagger UI)",
+      downloadSpec: "OpenAPI 스펙 다운로드",
       authMethod: "인증",
       rateLimit: "요청 제한",
       access: "접근 권한",
@@ -728,6 +761,8 @@ function getContent(locale: string) {
       title: "APIドキュメント",
       description:
         "REST APIを通じてWeb Toolkit機能をプログラムで使用できます。Proサブスクライバー専用です。",
+      tryItOut: "試してみる (Swagger UI)",
+      downloadSpec: "OpenAPIスペックをダウンロード",
       authMethod: "認証",
       rateLimit: "レート制限",
       access: "アクセス",

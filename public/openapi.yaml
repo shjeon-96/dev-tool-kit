@@ -1,0 +1,662 @@
+openapi: 3.0.3
+info:
+  title: Web Toolkit API
+  description: |
+    REST API for Web Toolkit developer tools. Access JSON formatting, hash generation,
+    QR code creation, Base64 encoding, and UUID generation programmatically.
+
+    ## Authentication
+    All API requests require a Bearer token. Include your API key in the Authorization header:
+    ```
+    Authorization: Bearer wtk_your_api_key
+    ```
+
+    ## Rate Limits
+    - **Per Minute**: 60 requests
+    - **Per Day**: 10,000 requests
+    - **Per Month**: 100,000 requests
+
+    Rate limit headers are included in all responses:
+    - `X-RateLimit-Limit`: Maximum requests allowed
+    - `X-RateLimit-Remaining`: Requests remaining in current window
+    - `X-RateLimit-Reset`: Unix timestamp when limit resets
+    - `Retry-After`: Seconds to wait (only when rate limited)
+
+    ## Access
+    API access requires a Pro subscription.
+  version: 1.0.0
+  contact:
+    name: Web Toolkit Support
+    url: https://web-toolkit.app
+  license:
+    name: Proprietary
+    url: https://web-toolkit.app/terms
+
+servers:
+  - url: https://web-toolkit.app/api/v1
+    description: Production server
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: JSON
+    description: JSON formatting and validation
+  - name: Hash
+    description: Cryptographic hash generation
+  - name: QR Code
+    description: QR code generation
+  - name: Base64
+    description: Base64 encoding and decoding
+  - name: UUID
+    description: UUID and ULID generation
+
+paths:
+  /json/format:
+    post:
+      tags:
+        - JSON
+      summary: Format JSON
+      description: Format or minify JSON data with customizable indentation.
+      operationId: formatJson
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonFormatRequest'
+            examples:
+              format:
+                summary: Format JSON
+                value:
+                  json: '{"name":"test","value":123}'
+                  indent: 2
+                  minify: false
+              minify:
+                summary: Minify JSON
+                value:
+                  json: |
+                    {
+                      "name": "test",
+                      "value": 123
+                    }
+                  minify: true
+      responses:
+        '200':
+          description: Successfully formatted JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonFormatResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /hash/generate:
+    post:
+      tags:
+        - Hash
+      summary: Generate Hash
+      description: |
+        Generate cryptographic hashes using various algorithms.
+        Supports MD5, SHA1, SHA256, SHA384, SHA512, SHA3-256, SHA3-512.
+      operationId: generateHash
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HashGenerateRequest'
+            examples:
+              sha256:
+                summary: SHA-256 hash
+                value:
+                  input: "hello world"
+                  algorithm: sha256
+                  encoding: hex
+              md5:
+                summary: MD5 hash
+                value:
+                  input: "test string"
+                  algorithm: md5
+      responses:
+        '200':
+          description: Successfully generated hash
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HashGenerateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /qr/generate:
+    post:
+      tags:
+        - QR Code
+      summary: Generate QR Code
+      description: Generate QR codes with customizable size, colors, and format.
+      operationId: generateQr
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QrGenerateRequest'
+            examples:
+              basic:
+                summary: Basic QR code
+                value:
+                  data: "https://example.com"
+              custom:
+                summary: Custom styled QR code
+                value:
+                  data: "https://example.com"
+                  format: png
+                  size: 512
+                  margin: 2
+                  errorCorrectionLevel: H
+                  color:
+                    dark: "#1a1a2e"
+                    light: "#ffffff"
+      responses:
+        '200':
+          description: Successfully generated QR code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QrGenerateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /base64/convert:
+    post:
+      tags:
+        - Base64
+      summary: Convert Base64
+      description: |
+        Encode or decode text using Base64 encoding.
+        Supports standard and URL-safe Base64.
+      operationId: convertBase64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Base64ConvertRequest'
+            examples:
+              encode:
+                summary: Encode text
+                value:
+                  input: "Hello, World!"
+                  mode: encode
+              decode:
+                summary: Decode Base64
+                value:
+                  input: "SGVsbG8sIFdvcmxkIQ=="
+                  mode: decode
+              urlSafe:
+                summary: URL-safe encoding
+                value:
+                  input: "Hello+World/Test"
+                  mode: encode
+                  urlSafe: true
+      responses:
+        '200':
+          description: Successfully converted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Base64ConvertResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /uuid/generate:
+    post:
+      tags:
+        - UUID
+      summary: Generate UUID
+      description: Generate UUIDs (Universally Unique Identifiers) with various formats.
+      operationId: generateUuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UuidGenerateRequest'
+            examples:
+              single:
+                summary: Single UUID v4
+                value:
+                  version: v4
+                  count: 1
+              batch:
+                summary: Batch UUID generation
+                value:
+                  version: v4
+                  count: 10
+                  format: uppercase
+      responses:
+        '200':
+          description: Successfully generated UUIDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UuidGenerateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API Key
+      description: |
+        API key obtained from the Dashboard > API Keys section.
+        Format: `wtk_xxxxxxxxxxxxxxxx`
+
+  schemas:
+    # JSON Format
+    JsonFormatRequest:
+      type: object
+      required:
+        - json
+      properties:
+        json:
+          oneOf:
+            - type: string
+            - type: object
+          description: JSON string or object to format
+          example: '{"name":"test"}'
+        indent:
+          type: integer
+          minimum: 0
+          maximum: 8
+          default: 2
+          description: Indentation size (spaces)
+        minify:
+          type: boolean
+          default: false
+          description: Minify output (remove whitespace)
+
+    JsonFormatResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            formatted:
+              type: string
+              description: Formatted JSON string
+            valid:
+              type: boolean
+              description: Whether input was valid JSON
+            size:
+              type: object
+              properties:
+                original:
+                  type: integer
+                  description: Original size in bytes
+                formatted:
+                  type: integer
+                  description: Formatted size in bytes
+
+    # Hash Generate
+    HashGenerateRequest:
+      type: object
+      required:
+        - input
+      properties:
+        input:
+          type: string
+          description: Text to hash
+          example: "hello world"
+        algorithm:
+          type: string
+          enum: [md5, sha1, sha256, sha384, sha512, sha3-256, sha3-512]
+          default: sha256
+          description: Hash algorithm
+        encoding:
+          type: string
+          enum: [hex, base64]
+          default: hex
+          description: Output encoding
+
+    HashGenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            hash:
+              type: string
+              description: Generated hash value
+              example: "b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9"
+            algorithm:
+              type: string
+              example: sha256
+            encoding:
+              type: string
+              example: hex
+            inputLength:
+              type: integer
+              description: Length of input text
+              example: 11
+
+    # QR Generate
+    QrGenerateRequest:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: string
+          maxLength: 4296
+          description: Data to encode in QR code
+          example: "https://example.com"
+        format:
+          type: string
+          enum: [png, svg, dataurl]
+          default: dataurl
+          description: Output format
+        size:
+          type: integer
+          minimum: 64
+          maximum: 1024
+          default: 256
+          description: QR code size in pixels
+        margin:
+          type: integer
+          minimum: 0
+          maximum: 10
+          default: 4
+          description: Quiet zone margin (modules)
+        errorCorrectionLevel:
+          type: string
+          enum: [L, M, Q, H]
+          default: M
+          description: |
+            Error correction level:
+            - L: ~7% recovery
+            - M: ~15% recovery
+            - Q: ~25% recovery
+            - H: ~30% recovery
+        color:
+          type: object
+          properties:
+            dark:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              default: "#000000"
+              description: Foreground color (hex)
+            light:
+              type: string
+              pattern: '^#[0-9A-Fa-f]{6}$'
+              default: "#ffffff"
+              description: Background color (hex)
+
+    QrGenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            qrCode:
+              type: string
+              description: QR code data (Base64 data URL or SVG string)
+            format:
+              type: string
+              example: dataurl
+            size:
+              type: integer
+              example: 256
+            dataLength:
+              type: integer
+              description: Length of encoded data
+              example: 19
+
+    # Base64 Convert
+    Base64ConvertRequest:
+      type: object
+      required:
+        - input
+      properties:
+        input:
+          type: string
+          description: Text to encode or Base64 string to decode
+          example: "Hello, World!"
+        mode:
+          type: string
+          enum: [encode, decode]
+          default: encode
+          description: Conversion mode
+        urlSafe:
+          type: boolean
+          default: false
+          description: Use URL-safe Base64 (replaces +/ with -_ and removes padding)
+
+    Base64ConvertResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            result:
+              type: string
+              description: Encoded or decoded result
+              example: "SGVsbG8sIFdvcmxkIQ=="
+            mode:
+              type: string
+              example: encode
+            urlSafe:
+              type: boolean
+              example: false
+            inputLength:
+              type: integer
+              example: 13
+            outputLength:
+              type: integer
+              example: 20
+
+    # UUID Generate
+    UuidGenerateRequest:
+      type: object
+      properties:
+        version:
+          type: string
+          enum: [v4, nil]
+          default: v4
+          description: |
+            UUID version:
+            - v4: Random UUID
+            - nil: Nil UUID (all zeros)
+        count:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 1
+          description: Number of UUIDs to generate
+        format:
+          type: string
+          enum: [standard, uppercase, no-dashes, braces]
+          default: standard
+          description: |
+            Output format:
+            - standard: 550e8400-e29b-41d4-a716-446655440000
+            - uppercase: 550E8400-E29B-41D4-A716-446655440000
+            - no-dashes: 550e8400e29b41d4a716446655440000
+            - braces: {550e8400-e29b-41d4-a716-446655440000}
+
+    UuidGenerateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            uuids:
+              type: array
+              items:
+                type: string
+              example:
+                - "550e8400-e29b-41d4-a716-446655440000"
+                - "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+            version:
+              type: string
+              example: v4
+            format:
+              type: string
+              example: standard
+            count:
+              type: integer
+              example: 2
+
+    # Error Response
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          description: Error message
+
+  responses:
+    BadRequest:
+      description: Invalid request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "Missing required field: input"
+      headers:
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+
+    Unauthorized:
+      description: Invalid or missing API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "Invalid API key"
+
+    Forbidden:
+      description: API access requires Pro subscription
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "API access requires Pro subscription"
+
+    RateLimited:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "Rate limit exceeded: 60 requests per minute"
+      headers:
+        X-RateLimit-Limit:
+          $ref: '#/components/headers/X-RateLimit-Limit'
+        X-RateLimit-Remaining:
+          $ref: '#/components/headers/X-RateLimit-Remaining'
+        X-RateLimit-Reset:
+          $ref: '#/components/headers/X-RateLimit-Reset'
+        Retry-After:
+          schema:
+            type: integer
+          description: Seconds to wait before retrying
+
+    ServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "Server error: An unexpected error occurred"
+
+  headers:
+    X-RateLimit-Limit:
+      schema:
+        type: integer
+      description: Maximum requests allowed in the current window
+      example: 60
+    X-RateLimit-Remaining:
+      schema:
+        type: integer
+      description: Requests remaining in the current window
+      example: 59
+    X-RateLimit-Reset:
+      schema:
+        type: integer
+      description: Unix timestamp when the rate limit resets
+      example: 1703347200
