@@ -140,6 +140,9 @@ const nextConfig: NextConfig = {
   // React Compiler (자동 메모이제이션)
   reactCompiler: true,
 
+  // Remotion renderer requires server external packages
+  serverExternalPackages: ["@remotion/renderer"],
+
   // Experimental optimizations
   experimental: {
     // Tree-shake barrel imports for better bundle size

@@ -16,7 +16,9 @@
     "test:e2e:ui": "playwright test --ui",
     "dev:ext": "cd extension && npx plasmo dev",
     "build:ext": "cd extension && npx plasmo build",
-    "package:ext": "cd extension && npx plasmo package"
+    "package:ext": "cd extension && npx plasmo package",
+    "remotion:studio": "npx remotion studio src/remotion/index.tsx",
+    "remotion:render": "npx tsx scripts/render-videos.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -45,6 +47,9 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "^1.1.13",
+    "@remotion/bundler": "^4.0.394",
+    "@remotion/player": "^4.0.394",
+    "@remotion/renderer": "^4.0.394",
     "@resvg/resvg-wasm": "^2.6.2",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.78.0",
@@ -84,6 +89,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-dropzone": "^14.3.8",
+    "remotion": "^4.0.394",
     "satori": "^0.18.3",
     "sql-formatter": "^15.6.10",
     "svgo": "^4.0.0",
@@ -96,7 +102,6 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^16.0.7",
-    "@plasmohq/storage": "^1.13.0",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.9.1",
