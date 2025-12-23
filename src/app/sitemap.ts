@@ -9,6 +9,9 @@ import { getAllEncodeDecodeTypeSlugs } from "@/entities/encode-decode-type";
 import { getAllResizeTargetSlugs } from "@/entities/image-resize-target";
 import { getAllFormatTypeSlugs } from "@/entities/format-type";
 import { getAllGenerateTypeSlugs } from "@/entities/generate-type";
+import { getAllMinifyTypeSlugs } from "@/entities/minify-type";
+import { getAllValidateTypeSlugs } from "@/entities/validate-type";
+import { getAllDiffTypeSlugs } from "@/entities/diff-type";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -390,6 +393,60 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/generate/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Minify type pages (pSEO)
+  const minifyTypes = getAllMinifyTypeSlugs();
+  for (const slug of minifyTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/minify/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/minify/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Validate type pages (pSEO)
+  const validateTypes = getAllValidateTypeSlugs();
+  for (const slug of validateTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/validate/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/validate/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Diff type pages (pSEO)
+  const diffTypes = getAllDiffTypeSlugs();
+  for (const slug of diffTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/diff/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/diff/${slug}`]),
           ),
         },
       });
