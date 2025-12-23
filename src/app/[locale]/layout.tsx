@@ -160,7 +160,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <noscript>
           <iframe
@@ -192,7 +192,7 @@ export default async function LocaleLayout({
               <LeadCaptureProvider>
                 <ToastProvider>
                   <OfflineUpgradePrompt />
-                  <div className="flex h-screen bg-background">
+                  <div className="fixed inset-0 flex bg-background">
                     <aside
                       className="hidden w-64 flex-col md:flex"
                       aria-label={
@@ -205,11 +205,11 @@ export default async function LocaleLayout({
                     </aside>
                     <main
                       id="main-content"
-                      className="flex-1 flex flex-col overflow-hidden"
+                      className="flex-1 flex flex-col min-w-0"
                       role="main"
                     >
                       <Header />
-                      <div className="flex-1 overflow-y-auto p-6">
+                      <div className="main-scroll-area flex-1 overflow-y-auto p-6">
                         {children}
                       </div>
                       <Footer />

@@ -138,8 +138,15 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  /* Fixed viewport layout */
+  html,
   body {
     @apply bg-background text-foreground;
+    height: 100%;
+    margin: 0;
+    /* Allow body to scroll if needed, but main scroll is in .main-scroll-area */
+    overflow: hidden;
   }
 }
 
@@ -460,6 +467,26 @@
 
   .dark .noise-overlay::after {
     opacity: 0.03;
+  }
+}
+
+/* AdSense Style Isolation - Prevent ads from breaking scroll */
+@layer components {
+  /* Prevent AdSense from modifying overflow on parent elements */
+  .ad-container {
+    contain: layout style;
+    overflow: visible !important;
+  }
+
+  .adsbygoogle {
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* Ensure main scroll container maintains overflow - protect from AdSense */
+  .main-scroll-area {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
 }
 

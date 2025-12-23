@@ -538,7 +538,7 @@
     },
     "bulk-actions": {
       "title": "Bulk Actions",
-      "description": "Process multiple files at once. Batch JSON formatting, hash generation, and QR code creation."
+      "description": "Process multiple files at once. Batch JSON formatting, hash generation, QR code creation, and image resizing."
     }
   },
   "seo": {
