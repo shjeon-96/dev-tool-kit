@@ -18,6 +18,9 @@ const FORMAT_HEIGHTS = {
   rectangle: 250,
 } as const;
 
+// 개발 환경에서는 광고 비활성화
+const isDev = process.env.NODE_ENV === "development";
+
 export function AdUnit({
   slot,
   format = "auto",
@@ -26,6 +29,11 @@ export function AdUnit({
 }: AdUnitProps) {
   const { adRef, isLoading, isIsolated } = useAdSense();
   const { canRemoveAds, isLoading: isLoadingSubscription } = useFeatureAccess();
+
+  // 개발 환경에서는 광고 숨김
+  if (isDev) {
+    return null;
+  }
 
   // Don't render ads on WASM isolated pages
   if (isIsolated) {
