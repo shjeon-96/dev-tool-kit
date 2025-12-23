@@ -4,6 +4,11 @@ import { getGuideSlugs } from "@/entities/guide";
 import { getAllConversionSlugs } from "@/entities/converter";
 import { getUseCaseSlugs } from "@/entities/use-case";
 import { getComparisonSlugs } from "@/entities/comparison";
+import { getAllHashTypeSlugs } from "@/entities/hash-type";
+import { getAllEncodeDecodeTypeSlugs } from "@/entities/encode-decode-type";
+import { getAllResizeTargetSlugs } from "@/entities/image-resize-target";
+import { getAllFormatTypeSlugs } from "@/entities/format-type";
+import { getAllGenerateTypeSlugs } from "@/entities/generate-type";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -278,6 +283,113 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/compare/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Hash type pages (pSEO)
+  const hashTypes = getAllHashTypeSlugs();
+  for (const slug of hashTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/hash/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/hash/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Encode type pages (pSEO)
+  const encodeDecodeTypes = getAllEncodeDecodeTypeSlugs();
+  for (const slug of encodeDecodeTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/encode/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/encode/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Decode type pages (pSEO)
+  for (const slug of encodeDecodeTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/decode/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/decode/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Image resize target pages (pSEO)
+  const resizeTargets = getAllResizeTargetSlugs();
+  for (const slug of resizeTargets) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/resize-to/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/resize-to/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Format type pages (pSEO)
+  const formatTypes = getAllFormatTypeSlugs();
+  for (const slug of formatTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/format/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/format/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Generate type pages (pSEO)
+  const generateTypes = getAllGenerateTypeSlugs();
+  for (const slug of generateTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/generate/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/generate/${slug}`]),
           ),
         },
       });
