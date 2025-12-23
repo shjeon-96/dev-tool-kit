@@ -140,6 +140,17 @@ const nextConfig: NextConfig = {
   // React Compiler (자동 메모이제이션)
   reactCompiler: true,
 
+  // Experimental optimizations
+  experimental: {
+    // Tree-shake barrel imports for better bundle size
+    optimizePackageImports: [
+      "lucide-react",
+      "@radix-ui/react-icons",
+      "date-fns",
+      "lodash-es",
+    ],
+  },
+
   // Route-specific headers for WebAssembly support
   // Only apply COOP/COEP to Wasm-enabled tools to preserve AdSense on other pages
   async headers() {

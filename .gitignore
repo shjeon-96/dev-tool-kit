@@ -53,3 +53,6 @@ extension/.plasmo
 extension/build
 build/chrome-mv3-dev
 build/chrome-mv3-prod
+
+# Data Pipeline (Local Cache)
+/data/trends
