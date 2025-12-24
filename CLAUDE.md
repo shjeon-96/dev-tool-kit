@@ -16,7 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | **pSEO Pages**  | 500+개                  |
 | **Guides**      | 31개                    |
 | **Cheatsheets** | 14개                    |
-| **Languages**   | en, ko, ja              |
+| **Languages**   | en, ko, ja, es, pt, de  |
 
 ---
 
@@ -49,14 +49,6 @@ npm run build
 | `npm run test:e2e`       | Playwright E2E 테스트                              |
 | `npm run test:e2e:ui`    | Playwright UI 모드                                 |
 | `npm run analyze`        | 번들 분석 (`ANALYZE=true`)                         |
-
-### Chrome Extension Commands
-
-```bash
-npm run dev:ext       # Extension 개발 서버
-npm run build:ext     # Extension 빌드
-npm run package:ext   # Extension 패키징
-```
 
 ---
 
@@ -116,8 +108,6 @@ src/
 │   ├── lib/api/                  # API 유틸리티 (rate-limiter, auth)
 │   ├── lib/fs-access/            # File System Access API
 │   └── config/site.ts            # SITE_CONFIG
-│
-└── extension/                    # Chrome Extension (Plasmo)
 ```
 
 ---
@@ -165,7 +155,7 @@ new-tool/
 ),
 ```
 
-5. **messages/\*.json** - 번역 추가 (3개 언어: en, ko, ja)
+5. **messages/\*.json** - 번역 추가 (6개 언어: en, ko, ja, es, pt, de)
    - `tools.[slug].title`, `tools.[slug].description`
    - `seo.[slug].title`, `seo.[slug].description`, `seo.[slug].keywords`
 
@@ -198,8 +188,8 @@ const t = await getTranslations("tools");
 
 ### Supported Languages
 
-- `en` (default), `ko`, `ja`
-- Files: `messages/en.json`, `messages/ko.json`, `messages/ja.json`
+- `en` (default), `ko`, `ja`, `es`, `pt`, `de`
+- Files: `messages/{locale}.json`
 
 ---
 
