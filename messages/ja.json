@@ -643,6 +643,49 @@
       "description": "開発者がAIを使用してコードを書く機会が増えるにつれ、新しいタイプのエラーが発生しています。これらのガイドは、AIモデルが犯す一般的なミスを素早く修正できるよう特別に設計されています。"
     }
   },
+  "aiTools": {
+    "badge": "AIコード検証ツール",
+    "titlePrefix": "AIコード",
+    "subtitle": "{tool}でAI生成エラーを修正",
+    "trustBadges": {
+      "privacy": {
+        "title": "100%プライベート",
+        "description": "コードはデバイスから出ません"
+      },
+      "offline": {
+        "title": "オフライン対応",
+        "description": "インターネット接続不要"
+      },
+      "instant": {
+        "title": "即座に結果",
+        "description": "リアルタイム検証"
+      }
+    },
+    "commonErrors": {
+      "title": "修正可能な一般的なAI生成エラー"
+    },
+    "useCases": {
+      "title": "こんな場合に最適"
+    },
+    "relatedTools": "その他のAIコードツール",
+    "cta": {
+      "description": "より高度な機能が必要ですか？{tool}の完全版をお試しください。",
+      "button": "フルツールを開く"
+    },
+    "index": {
+      "title": "AIコードツール",
+      "subtitle": "AI生成コード修正用の{count}個のツール",
+      "description": "ChatGPT、Claude、GitHub Copilotなどのコードを検証・修正。すべてのツールは100%ローカルで実行 - コードはデバイスから出ません。",
+      "supportedAI": "すべての主要AIアシスタントに対応",
+      "allTools": "すべてのAIコードツール",
+      "errorsFixed": "種類のエラーを修正",
+      "stats": {
+        "tools": "AIコードツール",
+        "errorTypes": "修正されるエラータイプ",
+        "offline": "オフライン＆プライベート"
+      }
+    }
+  },
   "seo": {
     "breadcrumb": {
       "home": "ホーム",

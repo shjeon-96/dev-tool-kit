@@ -660,6 +660,49 @@
       "description": "As developers increasingly use AI to write code, new patterns of errors emerge. These guides are specifically designed to help you quickly fix common mistakes that AI models make."
     }
   },
+  "aiTools": {
+    "badge": "AI Code Validator",
+    "titlePrefix": "AI Code",
+    "subtitle": "Fix AI-generated errors in {tool}",
+    "trustBadges": {
+      "privacy": {
+        "title": "100% Private",
+        "description": "Code never leaves your device"
+      },
+      "offline": {
+        "title": "Works Offline",
+        "description": "No internet required"
+      },
+      "instant": {
+        "title": "Instant Results",
+        "description": "Real-time validation"
+      }
+    },
+    "commonErrors": {
+      "title": "Common AI-Generated Errors We Fix"
+    },
+    "useCases": {
+      "title": "Perfect For"
+    },
+    "relatedTools": "More AI Code Tools",
+    "cta": {
+      "description": "Need more advanced features? Try the full version of {tool}.",
+      "button": "Open Full Tool"
+    },
+    "index": {
+      "title": "AI Code Tools",
+      "subtitle": "{count} tools to fix AI-generated code",
+      "description": "Validate and fix code from ChatGPT, Claude, GitHub Copilot, and other AI assistants. All tools run 100% locally - your code never leaves your device.",
+      "supportedAI": "Works with all major AI assistants",
+      "allTools": "All AI Code Tools",
+      "errorsFixed": "error types fixed",
+      "stats": {
+        "tools": "AI Code Tools",
+        "errorTypes": "Error Types Fixed",
+        "offline": "Offline & Private"
+      }
+    }
+  },
   "seo": {
     "breadcrumb": {
       "home": "Home",
