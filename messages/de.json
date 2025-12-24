@@ -1,0 +1,755 @@
+{
+  "site": {
+    "title": "Web Toolkit",
+    "description": "All-in-One Web-Toolkit für Entwickler. Nutzen Sie JSON Formatter, JWT Decoder, Bildgrößenänderer und mehr direkt in Ihrem Browser ohne Installation.",
+    "keywords": "Entwicklertools, JSON Formatter, JWT Decoder, Bildgrößenänderer, Web-Tools"
+  },
+  "landing": {
+    "hero": {
+      "badge": "31+ Kostenlose Entwicklertools",
+      "title": "All-in-One Entwickler-Toolkit",
+      "subtitle": "Formatieren, konvertieren, kodieren und generieren mit leistungsstarken browserbasierte Tools. Keine Installation, keine Anmeldung, 100% privat.",
+      "cta": "Tools entdecken",
+      "ctaSecondary": "Auf GitHub ansehen"
+    },
+    "features": {
+      "title": "Warum Web Toolkit?",
+      "privacy": {
+        "title": "100% Client-seitig",
+        "description": "Alle Verarbeitung erfolgt in Ihrem Browser. Ihre Daten verlassen niemals Ihr Gerät."
+      },
+      "speed": {
+        "title": "Blitzschnell",
+        "description": "Keine Server-Roundtrips. Sofortige Ergebnisse für alle Ihre Entwicklungsaufgaben."
+      },
+      "free": {
+        "title": "Komplett kostenlos",
+        "description": "Alle Tools sind kostenlos ohne versteckte Limits oder Paywalls."
+      },
+      "offline": {
+        "title": "Funktioniert offline",
+        "description": "Einmal geladen, funktionieren die meisten Tools ohne Internetverbindung."
+      }
+    },
+    "categories": {
+      "title": "Tools nach Kategorie",
+      "viewAll": "Alle anzeigen"
+    },
+    "stats": {
+      "tools": "Entwicklertools",
+      "categories": "Kategorien",
+      "languages": "Sprachen"
+    },
+    "why": {
+      "title": "Warum Entwickler Web Toolkit wählen",
+      "paragraph1": "Web Toolkit wurde von Entwicklern für Entwickler erstellt. Wir verstehen die tägliche Frustration beim Wechseln zwischen mehreren Websites, Installieren von Desktop-Anwendungen oder Sorgen um Datenschutz bei Online-Tools.",
+      "paragraph2": "Im Gegensatz zu traditionellen Online-Tools, die Ihre Daten an Remote-Server senden, verarbeitet jedes Tool in Web Toolkit Daten lokal mit modernen Web-Technologien wie WebAssembly. Ihre sensiblen Daten verlassen niemals Ihr Gerät.",
+      "paragraph3": "Unsere Tools sind für moderne Entwicklungsworkflows konzipiert. Vom Formatieren von JSON-Antworten über das Generieren von Hash-Werten, Konvertieren von Bildern bis zur Code-Optimierung - Web Toolkit bietet alles, was Sie brauchen, an einem Ort."
+    },
+    "useCases": {
+      "title": "Für jeden Entwickler gebaut",
+      "frontend": {
+        "title": "Frontend-Entwickler",
+        "description": "Optimieren Sie Bilder, generieren Sie CSS-Gradienten, konvertieren Sie Farben zwischen Formaten, erstellen Sie responsive Icons und formatieren Sie JSON-Daten von APIs."
+      },
+      "backend": {
+        "title": "Backend-Entwickler",
+        "description": "Debuggen Sie JWT-Tokens, generieren Sie sichere Hashes, kodieren/dekodieren Sie Base64-Daten, analysieren Sie URLs und formatieren Sie SQL-Abfragen."
+      },
+      "devops": {
+        "title": "DevOps-Ingenieure",
+        "description": "Analysieren Sie Cron-Ausdrücke, generieren Sie UUIDs, konvertieren Sie Unix-Zeitstempel und erstellen Sie cURL-Befehle."
+      }
+    },
+    "howItWorks": {
+      "title": "So funktioniert's",
+      "step1": {
+        "title": "Wählen Sie Ihr Tool",
+        "description": "Durchsuchen Sie unsere Sammlung von über 30 Entwicklertools nach Kategorie. Nutzen Sie die Suche oder Tastenkürzel (⌘K)."
+      },
+      "step2": {
+        "title": "Verarbeiten Sie Ihre Daten",
+        "description": "Fügen Sie Ihre Eingabe ein, laden Sie Ihre Dateien hoch oder konfigurieren Sie Ihre Einstellungen. Alle Verarbeitung erfolgt sofort in Ihrem Browser."
+      },
+      "step3": {
+        "title": "Kopieren und fortfahren",
+        "description": "Erhalten Sie Ihre Ergebnisse sofort. Ein-Klick-Kopieren in die Zwischenablage, verarbeitete Dateien herunterladen oder Ihre Arbeit teilen."
+      }
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": "Ist Web Toolkit wirklich kostenlos?",
+      "a1": "Ja, Web Toolkit ist komplett kostenlos. Alle Tools sind ohne Anmeldung, Abonnement oder versteckte Gebühren verfügbar.",
+      "q2": "Sind meine Daten sicher bei der Nutzung dieser Tools?",
+      "a2": "Absolut. Alle Datenverarbeitung erfolgt lokal in Ihrem Browser. Ihre Daten werden niemals an unsere Server gesendet.",
+      "q3": "Funktionieren die Tools offline?",
+      "a3": "Ja! Einmal geladen, funktionieren die meisten Tools komplett offline.",
+      "q4": "Warum sollte ich Web Toolkit anstelle anderer Tools nutzen?",
+      "a4": "Web Toolkit bietet drei Hauptvorteile: vollständige Privatsphäre, umfassende Abdeckung (über 30 Tools) und moderne Benutzererfahrung.",
+      "q5": "Kann ich diese Tools für kommerzielle Projekte nutzen?",
+      "a5": "Ja, Sie können Web Toolkit für jedes Projekt nutzen, einschließlich kommerzieller. Es gibt keine Einschränkungen."
+    },
+    "cta": {
+      "title": "Bereit, Ihre Produktivität zu steigern?",
+      "description": "Schließen Sie sich Tausenden von Entwicklern an, die Web Toolkit täglich nutzen. Keine Anmeldung erforderlich, einfach öffnen und loslegen.",
+      "button": "Kostenlos starten"
+    }
+  },
+  "navigation": {
+    "home": "Startseite",
+    "tools": "Tools",
+    "skipToContent": "Zum Hauptinhalt springen"
+  },
+  "sidebar": {
+    "allTools": "Alle Tools",
+    "favorites": "Favoriten",
+    "recentlyUsed": "Kürzlich verwendet",
+    "clearRecent": "Löschen",
+    "categories": {
+      "text": "Text",
+      "media": "Medien",
+      "converters": "Konverter",
+      "security": "Sicherheit"
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Web Toolkit. Alle Rechte vorbehalten.",
+    "about": "Über uns",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "github": "GitHub",
+    "rights": "Alle Rechte vorbehalten."
+  },
+  "common": {
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "clear": "Löschen",
+    "download": "Herunterladen",
+    "upload": "Hochladen",
+    "generate": "Generieren",
+    "format": "Formatieren",
+    "minify": "Minifizieren",
+    "encode": "Kodieren",
+    "decode": "Dekodieren",
+    "convert": "Konvertieren",
+    "reset": "Zurücksetzen",
+    "input": "Eingabe",
+    "output": "Ausgabe",
+    "result": "Ergebnis",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "loading": "Laden...",
+    "noData": "Keine Daten",
+    "searchTools": "Tools suchen...",
+    "searchPlaceholder": "Toolnamen eingeben...",
+    "noResults": "Keine Ergebnisse gefunden.",
+    "tools": "Tools",
+    "relatedTools": "Verwandte Tools",
+    "nextSteps": "Nächste Schritte",
+    "recentlyUsed": "Kürzlich verwendet",
+    "similarTools": "Ähnliche Tools"
+  },
+  "adblock": {
+    "title": "Gefällt Ihnen Web Toolkit?",
+    "message": "Wir respektieren Ihre Wahl! Hier sind einige Möglichkeiten, uns zu unterstützen:",
+    "later": "Vielleicht später",
+    "whitelist": "So geht's",
+    "options": "Unterstützungsoptionen",
+    "proPlan": "Pro-Plan - Werbefrei",
+    "proDescription": "5,99€/Monat für werbefreies Erlebnis + Premium-Funktionen",
+    "viewPro": "Pläne anzeigen",
+    "support": "Einen Kaffee ausgeben",
+    "supportDescription": "Einmalige Unterstützung hält uns am Laufen",
+    "buyMeCoffee": "Unterstützen",
+    "whitelistTitle": "Zur Whitelist hinzufügen",
+    "whitelistDescription": "Nur nicht-aufdringliche Werbung, versprochen"
+  },
+  "pipeline": {
+    "sendTo": "Senden an",
+    "availableTools": "Verfügbare Tools",
+    "dataReceived": "Daten aus Pipeline empfangen",
+    "here": "dieses Tool",
+    "dismiss": "Verwerfen",
+    "useData": "Daten verwenden"
+  },
+  "workspace": {
+    "selectWorkspace": "Arbeitsbereich auswählen",
+    "noWorkspaces": "Noch keine Arbeitsbereiche",
+    "newWorkspace": "Neuer Arbeitsbereich",
+    "workspaceName": "Name des Arbeitsbereichs",
+    "create": "Erstellen",
+    "cancel": "Abbrechen",
+    "saveToWorkspace": "Speichern",
+    "saved": "Gespeichert!",
+    "saving": "Speichern...",
+    "itemName": "Name",
+    "enterItemName": "Name für dieses Element eingeben",
+    "workspace": "Arbeitsbereich",
+    "save": "Speichern"
+  },
+  "share": {
+    "share": "Teilen",
+    "shared": "Geteilt",
+    "linkCreated": "Freigabelink erstellt!",
+    "copyLink": "Link kopieren",
+    "copied": "Kopiert!",
+    "open": "Öffnen",
+    "expiryNotice": "Dieser Link läuft in 30 Tagen ab.",
+    "notFound": "Freigabe nicht gefunden",
+    "notFoundDesc": "Dieser Link ist möglicherweise abgelaufen oder existiert nicht.",
+    "goToTools": "Zu DevToolkit"
+  },
+  "commandMenu": {
+    "naturalLanguagePlaceholder": "Suchen oder beschreiben Sie, was Sie brauchen...",
+    "tryNaturalLanguage": "Versuchen Sie: \"mein json formatieren\" oder \"jwt token dekodieren\"",
+    "quickActions": "Schnellaktionen",
+    "aiSuggestions": "Vorgeschlagen",
+    "suggested": "vorgeschlagen",
+    "formatJson": "Dieses JSON formatieren",
+    "decodeJwt": "Diesen JWT-Token dekodieren",
+    "parseUrl": "Diese URL analysieren",
+    "detectHash": "Diesen Hash analysieren"
+  },
+  "tools": {
+    "json-formatter": {
+      "title": "JSON Formatter",
+      "description": "JSON-Daten formatieren, minifizieren und validieren."
+    },
+    "jwt-decoder": {
+      "title": "JWT Decoder",
+      "description": "JWT-Tokens dekodieren, um Header, Payload und Ablaufzeit anzuzeigen."
+    },
+    "image-resizer": {
+      "title": "Bildgrößenänderer",
+      "description": "Bilder größenändern, Formate konvertieren und Qualität im Browser anpassen."
+    },
+    "unix-timestamp": {
+      "title": "Unix Zeitstempel",
+      "description": "Zwischen Unix-Zeitstempeln und lesbaren Daten konvertieren."
+    },
+    "base64-converter": {
+      "title": "Base64 Konverter",
+      "description": "Text oder Dateien zu/von Base64 kodieren und dekodieren."
+    },
+    "app-icon-generator": {
+      "title": "App Icon Generator",
+      "description": "App-Icons für iOS, Android und Favicon in allen erforderlichen Größen generieren."
+    },
+    "qr-generator": {
+      "title": "QR-Code Generator",
+      "description": "QR-Codes für URLs, WiFi, Kontakte und mehr generieren."
+    },
+    "color-picker": {
+      "title": "Farbwähler",
+      "description": "Farben aus Bildern extrahieren und Farbpaletten generieren."
+    },
+    "url-parser": {
+      "title": "URL Parser",
+      "description": "URLs in Komponenten analysieren und Abfrageparameter bearbeiten."
+    },
+    "uuid-generator": {
+      "title": "UUID/ULID Generator",
+      "description": "UUID v1, v4 und ULID mit verschiedenen Formatoptionen generieren."
+    },
+    "base-converter": {
+      "title": "Zahlenbasis-Konverter",
+      "description": "Zwischen binär, oktal, dezimal und hexadezimal konvertieren."
+    },
+    "hash-generator": {
+      "title": "Hash Generator",
+      "description": "MD5, SHA-1, SHA-256, SHA-512 Hashes generieren und vergleichen."
+    },
+    "sql-formatter": {
+      "title": "SQL Formatter",
+      "description": "SQL-Abfragen mit Unterstützung für mehrere Dialekte formatieren."
+    },
+    "cron-parser": {
+      "title": "Cron Parser",
+      "description": "Cron-Ausdrücke analysieren und nächste Ausführungszeiten vorhersagen."
+    },
+    "markdown-preview": {
+      "title": "Markdown Vorschau",
+      "description": "Markdown live mit Syntaxhervorhebung vorschauen."
+    },
+    "diff-checker": {
+      "title": "Diff Checker",
+      "description": "Zwei Texte vergleichen und Unterschiede visualisieren."
+    },
+    "lorem-generator": {
+      "title": "Lorem Ipsum Generator",
+      "description": "Platzhaltertext nach Wörtern, Sätzen oder Absätzen generieren."
+    },
+    "url-encoder": {
+      "title": "URL Encoder/Decoder",
+      "description": "URLs für sichere Übertragung kodieren oder dekodieren."
+    },
+    "html-entity": {
+      "title": "HTML Entity Encoder",
+      "description": "HTML-Sonderzeichen zu Entities kodieren und dekodieren."
+    },
+    "box-shadow": {
+      "title": "Box Shadow Generator",
+      "description": "CSS Box-Shadow visuell bearbeiten und Code generieren."
+    },
+    "gradient-generator": {
+      "title": "Gradient Generator",
+      "description": "CSS-Gradienten visuell erstellen und Code generieren."
+    },
+    "ua-parser": {
+      "title": "User Agent Parser",
+      "description": "User Agent Strings analysieren, um Browser, OS und Gerät zu identifizieren."
+    },
+    "regex-tester": {
+      "title": "Regex Tester",
+      "description": "Reguläre Ausdrücke testen und Treffer in Echtzeit sehen."
+    },
+    "meta-generator": {
+      "title": "Meta Tag Generator",
+      "description": "SEO-Meta-Tags, Open Graph und Twitter Cards generieren."
+    },
+    "curl-builder": {
+      "title": "cURL Builder",
+      "description": "HTTP-Anfragen erstellen und cURL-Befehle generieren."
+    },
+    "svg-optimizer": {
+      "title": "SVG Optimizer",
+      "description": "SVG-Dateien optimieren, um die Dateigröße zu reduzieren."
+    },
+    "css-to-tailwind": {
+      "title": "CSS zu Tailwind",
+      "description": "CSS-Eigenschaften in Tailwind CSS-Klassen konvertieren."
+    },
+    "prettier-playground": {
+      "title": "Prettier Playground",
+      "description": "Code in verschiedenen Sprachen mit Prettier formatieren."
+    },
+    "json-to-typescript": {
+      "title": "JSON zu TypeScript",
+      "description": "JSON-Daten in TypeScript-Interfaces oder -Typen konvertieren."
+    },
+    "css-minifier": {
+      "title": "CSS Minifier",
+      "description": "CSS-Code komprimieren und optimieren."
+    },
+    "text-case-converter": {
+      "title": "Textkasus-Konverter",
+      "description": "Text in verschiedene Formate konvertieren (camelCase, snake_case, etc.)."
+    },
+    "video-compressor": {
+      "title": "Video Kompressor",
+      "description": "Videodateien in Ihrem Browser komprimieren. 100% lokale Verarbeitung mit FFmpeg.wasm."
+    },
+    "pdf-toolkit": {
+      "title": "PDF Toolkit",
+      "description": "PDF-Dateien in Ihrem Browser zusammenführen, aufteilen, komprimieren und schwärzen. 100% Client-seitige Verarbeitung."
+    },
+    "ocr-scanner": {
+      "title": "OCR Scanner",
+      "description": "Text aus Bildern extrahieren. Unterstützt Koreanisch, Englisch und Japanisch. 100% Client-seitige Verarbeitung."
+    },
+    "schema-generator": {
+      "title": "Schema Markup Generator",
+      "description": "JSON-LD strukturierte Daten für SEO generieren. Unterstützt Article, Product, FAQ und mehr."
+    },
+    "headline-analyzer": {
+      "title": "Headline Analyzer",
+      "description": "Überschriften-Effektivität mit Emotions-Bewertung, Lesezeit und SEO-Optimierungsvorschlägen analysieren."
+    },
+    "bg-remover": {
+      "title": "Hintergrundentferner",
+      "description": "Bildhintergründe automatisch mit KI entfernen. WebGPU-beschleunigt, 100% Client-seitige Verarbeitung."
+    },
+    "og-generator": {
+      "title": "OG Bild Generator",
+      "description": "Schöne Open Graph-Bilder für Social Media erstellen. Mehrere Vorlagen und Anpassungsoptionen."
+    },
+    "image-converter": {
+      "title": "Bildkonverter",
+      "description": "Bilder zwischen JPEG, PNG, WebP, AVIF und GIF konvertieren. Qualität anpassen und mehrere Bilder verarbeiten."
+    },
+    "bulk-actions": {
+      "title": "Massenaktionen",
+      "description": "Mehrere Dateien gleichzeitig verarbeiten. Batch-JSON-Formatierung, Hash-Generierung, QR-Code-Erstellung und Bildgrößenänderung."
+    },
+    "sitemap-generator": {
+      "title": "Sitemap Generator",
+      "description": "XML-Sitemaps für Suchmaschinenoptimierung generieren."
+    },
+    "meta-tag-analyzer": {
+      "title": "Meta Tag Analyzer",
+      "description": "Webseiten-Meta-Tags analysieren und SEO-Verbesserungsvorschläge erhalten."
+    },
+    "robots-generator": {
+      "title": "robots.txt Generator",
+      "description": "robots.txt-Dateien für Suchmaschinen-Crawler generieren."
+    },
+    "serp-preview": {
+      "title": "SERP Vorschau",
+      "description": "Vorschau, wie Ihre Seite in Google-Suchergebnissen erscheint."
+    }
+  },
+  "cheatsheets": {
+    "title": "Entwickler-Spickzettel",
+    "description": "Schnellreferenz-Anleitungen für Entwickler",
+    "git": {
+      "title": "Git Befehle Spickzettel",
+      "description": "Vollständige Git-Befehlsreferenz - init, clone, commit, push, pull, branch, merge und mehr."
+    },
+    "http-status": {
+      "title": "HTTP-Statuscodes",
+      "description": "Vollständige Liste der HTTP-Statuscodes mit Beschreibungen - 1xx, 2xx, 3xx, 4xx, 5xx."
+    },
+    "regex": {
+      "title": "Regex Syntax",
+      "description": "Muster und Syntaxreferenz für reguläre Ausdrücke."
+    },
+    "mime-types": {
+      "title": "MIME-Typen Referenz",
+      "description": "Häufige MIME-Typen für Webentwicklung."
+    },
+    "javascript": {
+      "title": "JavaScript Spickzettel",
+      "description": "Vollständige JavaScript-Referenz - Variablen, Arrays, Objekte, Funktionen, async/await."
+    },
+    "css": {
+      "title": "CSS Spickzettel",
+      "description": "CSS-Schnellreferenz - Selektoren, Flexbox, Grid, Positionierung, Typografie."
+    },
+    "typescript": {
+      "title": "TypeScript Spickzettel",
+      "description": "TypeScript-Referenz - Typen, Interfaces, Generics, Utility Types."
+    },
+    "react": {
+      "title": "React Spickzettel",
+      "description": "React-Referenz - Komponenten, Hooks, Context, Patterns."
+    },
+    "vue": {
+      "title": "Vue.js Spickzettel",
+      "description": "Vue 3 Referenz - Composition API, Reaktivität, Direktiven, Lifecycle Hooks."
+    },
+    "nextjs": {
+      "title": "Next.js Spickzettel",
+      "description": "Next.js App Router Referenz - Server Components, Routing, Metadaten."
+    },
+    "tailwind": {
+      "title": "Tailwind CSS Spickzettel",
+      "description": "Tailwind CSS-Referenz - Utility-Klassen, Flexbox, Grid, responsives Design."
+    },
+    "nodejs": {
+      "title": "Node.js Spickzettel",
+      "description": "Node.js-Referenz - fs, path, http, process, events, integrierte Module."
+    },
+    "docker": {
+      "title": "Docker Spickzettel",
+      "description": "Docker-Referenz - Container, Images, Dockerfile, docker-compose."
+    },
+    "bash": {
+      "title": "Bash/Shell Spickzettel",
+      "description": "Bash-Referenz - Befehle, Dateioperationen, Pipes, Scripting."
+    }
+  },
+  "auth": {
+    "signin": {
+      "title": "Anmelden",
+      "description": "Melden Sie sich an, um auf Premium-Funktionen zuzugreifen",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "loading": "Anmeldung läuft...",
+      "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "google": "Mit Google fortfahren",
+      "github": "Mit GitHub fortfahren",
+      "or": "Oder mit E-Mail fortfahren",
+      "noAccount": "Noch kein Konto?",
+      "signupLink": "Registrieren"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "description": "Erstellen Sie ein Konto, um auf Premium-Funktionen zuzugreifen",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "submit": "Konto erstellen",
+      "loading": "Konto wird erstellt...",
+      "error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+      "passwordMismatch": "Passwörter stimmen nicht überein",
+      "passwordTooShort": "Passwort muss mindestens 6 Zeichen haben",
+      "success": "Überprüfen Sie Ihre E-Mail für den Bestätigungslink!",
+      "goToSignin": "Zur Anmeldung",
+      "google": "Mit Google fortfahren",
+      "github": "Mit GitHub fortfahren",
+      "or": "Oder mit E-Mail fortfahren",
+      "hasAccount": "Bereits ein Konto?",
+      "signinLink": "Anmelden"
+    }
+  },
+  "userMenu": {
+    "signIn": "Anmelden",
+    "dashboard": "Dashboard",
+    "billing": "Abrechnung",
+    "settings": "Einstellungen",
+    "signOut": "Abmelden"
+  },
+  "pricing": {
+    "title": "Einfache, transparente Preise",
+    "description": "Wählen Sie den Plan, der zu Ihren Bedürfnissen passt. Alle Pläne beinhalten unsere Kerntools.",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "savePercent": "(17% sparen)",
+    "month": "Monat",
+    "billedYearly": "jährlich abgerechnet",
+    "free": "Kostenlos",
+    "custom": "Individuell",
+    "mostPopular": "Beliebteste",
+    "currentPlan": "Aktueller Plan",
+    "getStarted": "Loslegen",
+    "subscribe": "Abonnieren",
+    "contactSales": "Vertrieb kontaktieren",
+    "processing": "Wird verarbeitet...",
+    "successMessage": "Vielen Dank für Ihr Abonnement! Ihre Pro-Funktionen sind jetzt aktiv.",
+    "canceledMessage": "Zahlung wurde abgebrochen. Versuchen Sie es gerne erneut, wenn Sie bereit sind.",
+    "faqTitle": "Häufig gestellte Fragen",
+    "faq": {
+      "q1": "Kann ich mein Abonnement jederzeit kündigen?",
+      "a1": "Ja, Sie können Ihr Abonnement jederzeit kündigen. Sie haben weiterhin Zugang zu Pro-Funktionen bis zum Ende des Abrechnungszeitraums.",
+      "q2": "Welche Zahlungsmethoden akzeptieren Sie?",
+      "a2": "Wir akzeptieren alle gängigen Kreditkarten (Visa, MasterCard, American Express) über unseren sicheren Zahlungsanbieter.",
+      "q3": "Gibt es eine kostenlose Testversion?",
+      "a3": "Wir bieten keine kostenlose Testversion an, aber unsere kostenlose Stufe gibt Ihnen Zugang zu allen Tools mit einigen Nutzungslimits.",
+      "q4": "Was passiert, wenn ich meine Nutzungslimits überschreite?",
+      "a4": "Bei der kostenlosen Stufe werden Sie aufgefordert, ein Upgrade durchzuführen. Pro-Nutzer haben deutlich höhere Limits."
+    },
+    "meta": {
+      "title": "Preise - Web Toolkit",
+      "description": "Wählen Sie den perfekten Plan für Ihre Entwicklungsbedürfnisse."
+    },
+    "hero": {
+      "badge": "🎁 Neujahrsaktion - 20% Rabatt",
+      "title": "Einfache, transparente Preise",
+      "description": "Starten Sie kostenlos und upgraden Sie, wenn Sie mehr brauchen. Keine versteckten Gebühren, jederzeit kündbar."
+    },
+    "billing": {
+      "monthly": "Monatlich",
+      "yearly": "Jährlich",
+      "savePercent": "{percent}% sparen",
+      "perMonth": "Monat",
+      "billedYearly": "${amount} jährlich abgerechnet"
+    },
+    "tier": {
+      "popular": "Beliebteste",
+      "free": {
+        "name": "Kostenlos",
+        "description": "Wesentliche Tools für einzelne Entwickler",
+        "features": {
+          "0": "29 Entwicklertools",
+          "1": "100 API-Aufrufe pro Tag",
+          "2": "Basis-Export (einzelne Datei)",
+          "3": "7 Tage Verlauf",
+          "4": "Community-Support"
+        }
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Unbegrenzter Zugang für Power-User",
+        "features": {
+          "0": "Alle 29+ Entwicklertools",
+          "1": "10.000 API-Aufrufe pro Monat",
+          "2": "Massenaktionen (100 Elemente)",
+          "3": "Unbegrenzter Verlauf",
+          "4": "Prioritäts-Support",
+          "5": "Keine Werbung",
+          "6": "API-Zugang"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Individuelle Lösungen für Teams",
+        "features": {
+          "0": "Alles in Pro",
+          "1": "Unbegrenzte API-Aufrufe",
+          "2": "Team-Arbeitsbereich (bis zu 10)",
+          "3": "SSO-Integration",
+          "4": "Eigenes Branding",
+          "5": "Dedizierter Support",
+          "6": "SLA-Garantie",
+          "7": "Audit-Protokolle"
+        }
+      }
+    },
+    "cta": {
+      "getStarted": "Kostenlos starten",
+      "subscribe": "Jetzt abonnieren",
+      "contactSales": "Vertrieb kontaktieren",
+      "final": {
+        "title": "Bereit loszulegen?",
+        "description": "Starten Sie kostenlos und upgraden Sie, wenn Ihr Team mehr braucht."
+      }
+    },
+    "comparison": {
+      "title": "Pläne vergleichen",
+      "feature": "Funktion",
+      "features": {
+        "tools": "Entwicklertools",
+        "apiCalls": "API-Aufrufe",
+        "bulkActions": "Massenaktionen",
+        "history": "Verlauf-Aufbewahrung",
+        "ads": "Werbung",
+        "apiAccess": "API-Zugang",
+        "prioritySupport": "Prioritäts-Support"
+      }
+    },
+    "trust": {
+      "badges": {
+        "secure": "Sichere Zahlung",
+        "cancel": "Jederzeit kündbar",
+        "instant": "Sofortiger Zugang",
+        "payment": "Sichere Zahlung"
+      },
+      "security": "🔒 Sichere Zahlung über Lemon Squeezy",
+      "guarantee": "💯 30 Tage Geld-zurück-Garantie • Jederzeit kündbar",
+      "privacy": "Ihre Daten bleiben in Ihrem Browser. Wir speichern oder greifen niemals auf Ihre sensiblen Informationen zu."
+    },
+    "social": {
+      "trusted": "Vertraut von Entwicklern bei"
+    },
+    "upgrade": {
+      "title": "Auf Pro upgraden",
+      "featureTitle": "{feature} freischalten",
+      "description": "Erhalten Sie unbegrenzten Zugang zu allen Premium-Funktionen und beschleunigen Sie Ihren Entwicklungsworkflow.",
+      "cta": "Jetzt upgraden",
+      "later": "Vielleicht später",
+      "guarantee": "30 Tage Geld-zurück-Garantie"
+    }
+  },
+  "dashboard": {
+    "meta": {
+      "title": "Dashboard - Web Toolkit",
+      "description": "Verwalten Sie Ihr Web Toolkit-Konto, Abonnement und Einstellungen."
+    },
+    "title": "Dashboard",
+    "subtitle": "Verwalten Sie Ihr Konto und Abonnement",
+    "checkout": {
+      "successTitle": "Zahlung erfolgreich!",
+      "successMessage": "Ihr Abonnement wurde aktiviert. Vielen Dank für das Upgrade!"
+    },
+    "subscription": {
+      "title": "Abonnement",
+      "currentPlan": "Ihr aktueller Plan",
+      "status": "Status",
+      "statusActive": "Aktiv",
+      "statusInactive": "Inaktiv",
+      "cancelsAt": "Endet am Periodenende",
+      "renewsOn": "Erneuert am",
+      "endsOn": "Endet am",
+      "upgrade": "Auf Pro upgraden",
+      "manageBilling": "Abrechnung verwalten"
+    },
+    "profile": {
+      "anonymous": "Anonymer Benutzer"
+    },
+    "nav": {
+      "settings": "Kontoeinstellungen"
+    },
+    "quickLinks": {
+      "title": "Schnelllinks",
+      "billing": "Abrechnung",
+      "billingDesc": "Zahlungen & Rechnungen verwalten",
+      "usage": "Nutzung",
+      "usageDesc": "Ihre Nutzungsstatistiken anzeigen",
+      "apiKeys": "API-Schlüssel",
+      "apiKeysDesc": "API-Zugang verwalten",
+      "tools": "Tools",
+      "toolsDesc": "Alle Tools durchsuchen"
+    }
+  },
+  "billing": {
+    "meta": {
+      "title": "Abrechnung - Web Toolkit",
+      "description": "Verwalten Sie Ihre Abrechnung, Zahlungsmethoden und Rechnungen."
+    },
+    "title": "Abrechnung",
+    "subtitle": "Verwalten Sie Ihr Abonnement und Zahlungsmethoden",
+    "currentPlan": {
+      "title": "Aktueller Plan",
+      "description": "Sie befinden sich derzeit im {tier}-Plan"
+    },
+    "nextBilling": {
+      "title": "Nächste Abrechnung",
+      "date": "Ihr nächstes Abrechnungsdatum ist {date}",
+      "amount": "Betrag: ${amount}"
+    },
+    "paymentMethod": {
+      "title": "Zahlungsmethode",
+      "description": "Verwalten Sie Ihre Zahlungsmethoden",
+      "update": "Zahlungsmethode aktualisieren"
+    },
+    "actions": {
+      "changePlan": "Plan ändern",
+      "cancelSubscription": "Abonnement kündigen",
+      "resumeSubscription": "Abonnement fortsetzen",
+      "viewInvoices": "Rechnungen anzeigen"
+    },
+    "cancel": {
+      "title": "Abonnement kündigen",
+      "description": "Ihr Abonnement bleibt bis zum Ende des aktuellen Abrechnungszeitraums aktiv.",
+      "confirm": "Ja, Abonnement kündigen",
+      "keep": "Abonnement behalten"
+    },
+    "customerPortal": "Im Kundenportal verwalten"
+  },
+  "usage": {
+    "meta": {
+      "title": "Nutzungsanalyse - Web Toolkit",
+      "description": "Verfolgen Sie Ihre Tool-Nutzung, API-Aufrufe und Kontingentverbrauch."
+    },
+    "title": "Nutzungsanalyse",
+    "subtitle": "Verfolgen Sie Ihre Tool-Nutzung und Kontingentverbrauch",
+    "backToDashboard": "Zurück zum Dashboard",
+    "dailyUsage": "Tägliche Nutzung",
+    "monthlyUsage": "Monatliche Nutzung",
+    "used": "Verwendet",
+    "unlimited": "Unbegrenzte Nutzung mit Pro-Plan",
+    "usageByTool": "Nutzung nach Tool",
+    "operations": "Operationen",
+    "noUsageData": "Noch keine Nutzungsdaten",
+    "startUsing": "Beginnen Sie mit der Nutzung von Tools, um Ihre Statistiken zu sehen",
+    "limitReached": "Nutzungslimit erreicht",
+    "nearLimit": "Nutzungslimit fast erreicht",
+    "upgradeMessage": "Upgraden Sie auf Pro für unbegrenzten Zugang zu allen Tools.",
+    "upgrade": "Upgraden",
+    "unlockMore": "Unbegrenzten Zugang freischalten",
+    "proFeatures": "Erhalten Sie unbegrenzte Nutzung, API-Zugang und Prioritäts-Support mit Pro.",
+    "viewPlans": "Pläne anzeigen"
+  },
+  "guides": {
+    "title": "Entwickler-Anleitungen",
+    "description": "Schritt-für-Schritt-Anleitungen zur Beherrschung unserer Tools",
+    "viewGuide": "Anleitung anzeigen",
+    "backToGuides": "Zurück zu Anleitungen",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "relatedTools": "Verwandte Tools",
+    "difficulty": "Schwierigkeit",
+    "readTime": "Lesezeit",
+    "minutes": "Min.",
+    "tryItYourself": "Probieren Sie es selbst",
+    "previousGuide": "Vorherige",
+    "nextGuide": "Nächste",
+    "difficultyLevels": {
+      "beginner": "Anfänger",
+      "intermediate": "Fortgeschritten",
+      "advanced": "Experte"
+    }
+  },
+  "seo": {
+    "breadcrumb": {
+      "home": "Startseite",
+      "tools": "Tools"
+    },
+    "sections": {
+      "whatIs": "Was ist dieses Tool?",
+      "howToUse": "Wie zu verwenden",
+      "features": "Funktionen",
+      "faq": "Häufig gestellte Fragen"
+    }
+  }
+}

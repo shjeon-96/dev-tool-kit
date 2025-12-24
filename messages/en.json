@@ -1629,6 +1629,7 @@
       "description": "Choose the perfect plan for your development needs. Free tier available with premium features for power users."
     },
     "hero": {
+      "badge": "🎁 New Year Sale - 20% Off",
       "title": "Simple, transparent pricing",
       "description": "Start free and upgrade when you need more. No hidden fees, cancel anytime."
     },
@@ -1683,7 +1684,11 @@
     "cta": {
       "getStarted": "Get Started Free",
       "subscribe": "Subscribe Now",
-      "contactSales": "Contact Sales"
+      "contactSales": "Contact Sales",
+      "final": {
+        "title": "Ready to get started?",
+        "description": "Start free and upgrade when your team needs more."
+      }
     },
     "comparison": {
       "title": "Compare Plans",
@@ -1710,8 +1715,18 @@
       "a4": "Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund."
     },
     "trust": {
+      "badges": {
+        "secure": "Secure Checkout",
+        "cancel": "Cancel Anytime",
+        "instant": "Instant Access",
+        "payment": "Safe Payment"
+      },
       "security": "🔒 Secure payment powered by Lemon Squeezy",
-      "guarantee": "💯 30-day money-back guarantee • Cancel anytime"
+      "guarantee": "💯 30-day money-back guarantee • Cancel anytime",
+      "privacy": "Your data stays in your browser. We never store or access your sensitive information."
+    },
+    "social": {
+      "trusted": "Trusted by developers at"
     },
     "upgrade": {
       "title": "Upgrade to Pro",
