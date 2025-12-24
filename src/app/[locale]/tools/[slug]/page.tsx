@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { tools, RelatedTools, type ToolSlug } from "@/entities/tool";
+import { Suspense } from "react";
+import { tools, type ToolSlug } from "@/entities/tool";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,
   SoftwareApplicationJsonLd,
   AdUnit,
+  SmartInternalLinks,
+  ToolVisitRecorder,
 } from "@/shared/ui";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
 import { ToolRenderer } from "./tool-renderer";
 import { ToolSeoSection } from "./tool-seo-section";
 import { ToolHeaderActions } from "./tool-header-actions";
+import { EmbedWrapper } from "./embed-wrapper";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -113,53 +117,62 @@ export default async function ToolPage({ params }: Props) {
 
   const toolUrl = `${SITE_CONFIG.url}/${locale}/tools/${slug}`;
 
+  // 도구 렌더러 (embed 모드에서 단독 사용)
+  const toolRenderer = <ToolRenderer slug={slug as ToolSlug} />;
+
   return (
-    <>
-      <BreadcrumbJsonLd items={breadcrumbItems} />
-      <SoftwareApplicationJsonLd
-        name={title}
-        description={description}
-        url={toolUrl}
-        applicationCategory="DeveloperApplication"
-      />
-      {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
+    <Suspense
+      fallback={<div className="rounded-lg border p-6">{toolRenderer}</div>}
+    >
+      <EmbedWrapper toolContent={toolRenderer}>
+        {/* 일반 모드: 전체 페이지 콘텐츠 */}
+        <>
+          <BreadcrumbJsonLd items={breadcrumbItems} />
+          <SoftwareApplicationJsonLd
+            name={title}
+            description={description}
+            url={toolUrl}
+            applicationCategory="DeveloperApplication"
+          />
+          {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
 
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
-              <tool.icon className="h-6 w-6" />
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+                  <tool.icon className="h-6 w-6" />
+                </div>
+                <div>
+                  <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
+                  <p className="text-muted-foreground">{description}</p>
+                </div>
+              </div>
+              <ToolHeaderActions slug={slug as ToolSlug} />
             </div>
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-              <p className="text-muted-foreground">{description}</p>
-            </div>
+
+            <div className="rounded-lg border p-6">{toolRenderer}</div>
+
+            {/* 광고: 도구 결과 하단 (골든존) */}
+            <AdUnit
+              slot={AD_SLOTS.TOOL_RESULT}
+              format="horizontal"
+              className="my-6"
+            />
+
+            <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
+
+            {/* 광고: 콘텐츠 하단 */}
+            <AdUnit
+              slot={AD_SLOTS.CONTENT_BOTTOM}
+              format="rectangle"
+              className="my-6"
+            />
+
+            <SmartInternalLinks currentTool={slug as ToolSlug} />
+            <ToolVisitRecorder slug={slug as ToolSlug} />
           </div>
-          <ToolHeaderActions slug={slug as ToolSlug} />
-        </div>
-
-        <div className="rounded-lg border p-6">
-          <ToolRenderer slug={slug as ToolSlug} />
-        </div>
-
-        {/* 광고: 도구 결과 하단 (골든존) */}
-        <AdUnit
-          slot={AD_SLOTS.TOOL_RESULT}
-          format="horizontal"
-          className="my-6"
-        />
-
-        <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
-
-        {/* 광고: 콘텐츠 하단 */}
-        <AdUnit
-          slot={AD_SLOTS.CONTENT_BOTTOM}
-          format="rectangle"
-          className="my-6"
-        />
-
-        <RelatedTools currentSlug={slug as ToolSlug} />
-      </div>
-    </>
+        </>
+      </EmbedWrapper>
+    </Suspense>
   );
 }
