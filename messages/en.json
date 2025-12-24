@@ -645,6 +645,21 @@
       "tip4": "Use action words and create urgency in your title"
     }
   },
+  "errorFix": {
+    "title": "Fix AI-Generated Code Errors",
+    "subtitle": "Quick solutions for {count} common AI code errors",
+    "description": "When AI generates code, it sometimes introduces subtle errors. This guide helps you quickly identify and fix the most common issues in AI-generated code.",
+    "cause": "Root Cause",
+    "solutions": "How to Fix",
+    "whyAiGeneratesThis": "Why AI Generates This Error",
+    "validateWithTools": "Validate with Our Tools",
+    "faq": "Frequently Asked Questions",
+    "relatedErrors": "Related Errors",
+    "aiCodeBanner": {
+      "title": "Built for the Age of AI-Generated Code",
+      "description": "As developers increasingly use AI to write code, new patterns of errors emerge. These guides are specifically designed to help you quickly fix common mistakes that AI models make."
+    }
+  },
   "seo": {
     "breadcrumb": {
       "home": "Home",
