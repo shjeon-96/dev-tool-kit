@@ -517,10 +517,14 @@ Week 11-12: Chrome Web Store 등록 + 마케팅 자료 준비
 
 - [ ] 향후 개발 예정
 
-### Remaining Technical Debt
+### Remaining Technical Debt ✅ 완료
 
-- [ ] SSG 빌드 시간 최적화 (500+ 페이지)
-- [ ] 광고 CLS 영향 측정 및 최적화
+- [x] SSG 빌드 시간 최적화 (1,411 페이지 / 29초 = 페이지당 0.02초)
+- [x] 광고 CLS 영향 최적화
+  - 고정 높이 플레이스홀더 (`FORMAT_HEIGHTS`)
+  - 스켈레톤 UI 로딩 상태
+  - CSS Containment (`contain: layout style`)
+  - 스크롤 영역 격리 (`.main-scroll-area`)
 
 ---
 
