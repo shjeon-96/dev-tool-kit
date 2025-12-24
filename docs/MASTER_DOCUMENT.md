@@ -174,6 +174,20 @@ src/
 │   ├── /guides                      # 가이드 목록
 │   │   └── /[slug]                  # 개별 가이드 (31개)
 │   │
+│   ├── /fix                         # AI 오류 해결 허브
+│   │   └── /[error-type]            # 개별 오류 해결 페이지 (10개)
+│   │       ├── json-unexpected-token
+│   │       ├── json-trailing-comma
+│   │       ├── js-undefined-is-not-a-function
+│   │       └── ... (10개)
+│   │
+│   ├── /ai                          # AI 코드 도구 허브
+│   │   └── /[tool]                  # AI 컨텍스트 도구 페이지 (16개)
+│   │       ├── json-formatter
+│   │       ├── sql-formatter
+│   │       ├── regex-tester
+│   │       └── ... (16개)
+│   │
 │   ├── /privacy                     # 개인정보처리방침
 │   ├── /terms                       # 이용약관
 │   └── /about                       # 소개
