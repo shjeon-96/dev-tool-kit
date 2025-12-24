@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { tools, type ToolSlug } from "@/entities/tool";
+import { tools, type ToolSlug, RelatedToolsSSR } from "@/entities/tool";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,
@@ -168,6 +168,10 @@ export default async function ToolPage({ params }: Props) {
               className="my-6"
             />
 
+            {/* SSR 관련 도구 링크 - 크롤러 친화적 */}
+            <RelatedToolsSSR currentTool={slug as ToolSlug} locale={locale} />
+
+            {/* 클라이언트 사이드 스마트 링크 - 사용자 경험 향상 */}
             <SmartInternalLinks currentTool={slug as ToolSlug} />
             <ToolVisitRecorder slug={slug as ToolSlug} />
           </div>
