@@ -3181,6 +3181,28 @@
       "informational": "정보"
     }
   },
+  "glossary": {
+    "index": {
+      "title": "개발자 용어집",
+      "description": "프로그래밍 및 개발자 용어의 종합 용어집입니다. JSON, JWT, Base64, REST API 등을 명확한 정의와 예제로 배워보세요.",
+      "terms": "용어",
+      "readMore": "자세히 보기"
+    },
+    "detail": {
+      "definition": "정의",
+      "examples": "예제",
+      "useCases": "주요 사용 사례",
+      "relatedTools": "관련 도구",
+      "relatedTerms": "관련 용어",
+      "faq": "자주 묻는 질문",
+      "backToGlossary": "용어집으로 돌아가기"
+    },
+    "cta": {
+      "title": "개발자 도구 사용해보기",
+      "description": "43개 이상의 무료 개발자 도구로 지식을 실천에 옮기세요.",
+      "button": "도구 탐색하기"
+    }
+  },
   "alternativeTo": {
     "index": {
       "title": "Web Toolkit 대안 및 비교",

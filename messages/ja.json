@@ -3195,6 +3195,28 @@
       "informational": "情報"
     }
   },
+  "glossary": {
+    "index": {
+      "title": "開発者用語集",
+      "description": "プログラミングと開発者用語の包括的な用語集です。JSON、JWT、Base64、REST APIなどを明確な定義と例で学びましょう。",
+      "terms": "用語",
+      "readMore": "詳しく見る"
+    },
+    "detail": {
+      "definition": "定義",
+      "examples": "例",
+      "useCases": "主な使用例",
+      "relatedTools": "関連ツール",
+      "relatedTerms": "関連用語",
+      "faq": "よくある質問",
+      "backToGlossary": "用語集に戻る"
+    },
+    "cta": {
+      "title": "開発者ツールを試す",
+      "description": "43以上の無料開発者ツールで知識を実践しましょう。",
+      "button": "ツールを探索"
+    }
+  },
   "alternativeTo": {
     "index": {
       "title": "Web Toolkit 代替ツール・比較",

@@ -1302,6 +1302,28 @@
       ]
     }
   },
+  "glossary": {
+    "index": {
+      "title": "Entwickler-Glossar",
+      "description": "Umfassendes Glossar zu Programmier- und Entwicklerbegriffen. Lernen Sie JSON, JWT, Base64, REST API und mehr mit klaren Definitionen und Beispielen.",
+      "terms": "Begriffe",
+      "readMore": "Mehr lesen"
+    },
+    "detail": {
+      "definition": "Definition",
+      "examples": "Beispiele",
+      "useCases": "Häufige Anwendungsfälle",
+      "relatedTools": "Verwandte Tools",
+      "relatedTerms": "Verwandte Begriffe",
+      "faq": "Häufig gestellte Fragen",
+      "backToGlossary": "Zurück zum Glossar"
+    },
+    "cta": {
+      "title": "Probieren Sie unsere Tools aus",
+      "description": "Setzen Sie Ihr Wissen mit über 43 kostenlosen Entwickler-Tools in die Praxis um.",
+      "button": "Tools erkunden"
+    }
+  },
   "alternativeTo": {
     "index": {
       "title": "Web Toolkit Alternativen & Vergleiche",

@@ -1172,6 +1172,28 @@
       ]
     }
   },
+  "glossary": {
+    "index": {
+      "title": "Glossário de Desenvolvedores",
+      "description": "Glossário abrangente de termos de programação e desenvolvimento. Aprenda sobre JSON, JWT, Base64, REST API e mais com definições claras e exemplos.",
+      "terms": "Termos",
+      "readMore": "Ler mais"
+    },
+    "detail": {
+      "definition": "Definição",
+      "examples": "Exemplos",
+      "useCases": "Casos de Uso Comuns",
+      "relatedTools": "Ferramentas Relacionadas",
+      "relatedTerms": "Termos Relacionados",
+      "faq": "Perguntas Frequentes",
+      "backToGlossary": "Voltar ao Glossário"
+    },
+    "cta": {
+      "title": "Experimente Nossas Ferramentas",
+      "description": "Coloque seu conhecimento em prática com mais de 43 ferramentas gratuitas.",
+      "button": "Explorar Ferramentas"
+    }
+  },
   "alternativeTo": {
     "index": {
       "title": "Alternativas e Comparações do Web Toolkit",

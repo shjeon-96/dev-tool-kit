@@ -3138,6 +3138,28 @@
       "informational": "Info"
     }
   },
+  "glossary": {
+    "index": {
+      "title": "Developer Glossary",
+      "description": "Comprehensive glossary of programming and developer terms. Learn about JSON, JWT, Base64, REST APIs, and more with clear definitions and examples.",
+      "terms": "Terms",
+      "readMore": "Read more"
+    },
+    "detail": {
+      "definition": "Definition",
+      "examples": "Examples",
+      "useCases": "Common Use Cases",
+      "relatedTools": "Related Tools",
+      "relatedTerms": "Related Terms",
+      "faq": "Frequently Asked Questions",
+      "backToGlossary": "Back to Glossary"
+    },
+    "cta": {
+      "title": "Try Our Developer Tools",
+      "description": "Put your knowledge into practice with 43+ free developer tools.",
+      "button": "Explore Tools"
+    }
+  },
   "alternativeTo": {
     "index": {
       "title": "Web Toolkit Alternatives & Comparisons",
