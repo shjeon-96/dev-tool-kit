@@ -1,9 +1,9 @@
-name: GSC Weekly Index Report
+name: GSC Daily Index Report
 
 on:
   schedule:
-    # 매주 월요일 오전 9시 (KST) = 일요일 자정 (UTC)
-    - cron: '0 0 * * 1'
+    # 매일 오전 9시 (KST) = 자정 (UTC)
+    - cron: '0 0 * * *'
   workflow_dispatch: # 수동 실행 가능
 
 jobs:
@@ -49,8 +49,8 @@ jobs:
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: `📊 GSC 색인 리포트 - ${date}`,
-              body: `## 주간 Google Search Console 색인 상태 리포트\n\n\`\`\`\n${report}\n\`\`\`\n\n---\n🤖 자동 생성됨`,
+              title: `📊 GSC 일일 색인 리포트 - ${date}`,
+              body: `## 일일 Google Search Console 색인 상태 리포트\n\n\`\`\`\n${report}\n\`\`\`\n\n---\n🤖 자동 생성됨`,
               labels: ['report', 'seo']
             });
 
