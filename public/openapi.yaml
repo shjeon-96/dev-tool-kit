@@ -50,6 +50,14 @@ tags:
     description: Base64 encoding and decoding
   - name: UUID
     description: UUID and ULID generation
+  - name: Regex
+    description: Regular expression testing and validation
+  - name: Cron
+    description: Cron expression parsing and validation
+  - name: URL
+    description: URL encoding and decoding
+  - name: JWT
+    description: JWT token decoding and inspection
 
 paths:
   /json/format:
@@ -279,6 +287,167 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /regex/test:
+    post:
+      tags:
+        - Regex
+      summary: Test Regular Expression
+      description: |
+        Test a regular expression pattern against text.
+        Returns all matches with their positions and captured groups.
+      operationId: testRegex
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegexTestRequest'
+            examples:
+              basic:
+                summary: Basic pattern match
+                value:
+                  pattern: "\\d+"
+                  text: "There are 123 apples and 456 oranges"
+                  flags: "g"
+              groups:
+                summary: Capture groups
+                value:
+                  pattern: "(\\w+)@(\\w+\\.\\w+)"
+                  text: "Contact: test@example.com"
+                  flags: "g"
+      responses:
+        '200':
+          description: Successfully tested regex
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegexTestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /cron/validate:
+    post:
+      tags:
+        - Cron
+      summary: Validate Cron Expression
+      description: |
+        Validate and parse a cron expression.
+        Supports 5-field (minute hour day month weekday) and
+        6-field (second minute hour day month weekday) formats.
+      operationId: validateCron
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CronValidateRequest'
+            examples:
+              daily:
+                summary: Daily at midnight
+                value:
+                  expression: "0 0 * * *"
+              complex:
+                summary: Every 5 minutes on weekdays
+                value:
+                  expression: "*/5 9-17 * * 1-5"
+      responses:
+        '200':
+          description: Successfully validated cron expression
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CronValidateResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /url/encode:
+    post:
+      tags:
+        - URL
+      summary: URL Encode/Decode
+      description: Encode or decode URL components using percent-encoding.
+      operationId: encodeUrl
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UrlEncodeRequest'
+            examples:
+              encode:
+                summary: Encode URL
+                value:
+                  input: "Hello World & Goodbye!"
+                  mode: encode
+              decode:
+                summary: Decode URL
+                value:
+                  input: "Hello%20World%20%26%20Goodbye%21"
+                  mode: decode
+      responses:
+        '200':
+          description: Successfully encoded/decoded URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UrlEncodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimited'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /jwt/decode:
+    post:
+      tags:
+        - JWT
+      summary: Decode JWT Token
+      description: |
+        Decode a JWT token and return its header, payload, and signature.
+        Note: This only decodes the token, it does not verify the signature.
+      operationId: decodeJwt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtDecodeRequest'
+            examples:
+              basic:
+                summary: Decode JWT
+                value:
+                  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+      responses:
+        '200':
+          description: Successfully decoded JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtDecodeResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
         '429':
           $ref: '#/components/responses/RateLimited'
         '500':
@@ -563,6 +732,188 @@ components:
             count:
               type: integer
               example: 2
+
+    # Regex Test
+    RegexTestRequest:
+      type: object
+      required:
+        - pattern
+        - text
+      properties:
+        pattern:
+          type: string
+          description: Regular expression pattern
+          example: "\\d+"
+        text:
+          type: string
+          description: Text to test against
+          example: "There are 123 apples"
+        flags:
+          type: string
+          description: Regex flags (g, i, m, s, u, y)
+          default: "g"
+          example: "gi"
+
+    RegexTestResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            valid:
+              type: boolean
+              description: Whether the pattern is valid
+            matches:
+              type: array
+              items:
+                type: object
+                properties:
+                  match:
+                    type: string
+                  index:
+                    type: integer
+                  groups:
+                    type: object
+                    additionalProperties:
+                      type: string
+            count:
+              type: integer
+              description: Number of matches
+              example: 2
+
+    # Cron Validate
+    CronValidateRequest:
+      type: object
+      required:
+        - expression
+      properties:
+        expression:
+          type: string
+          description: Cron expression (5 or 6 fields)
+          example: "0 0 * * *"
+
+    CronValidateResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            valid:
+              type: boolean
+              description: Whether the expression is valid
+            fields:
+              type: object
+              properties:
+                minute:
+                  type: string
+                hour:
+                  type: string
+                dayOfMonth:
+                  type: string
+                month:
+                  type: string
+                dayOfWeek:
+                  type: string
+            description:
+              type: string
+              description: Human-readable description
+              example: "Every day at midnight"
+            error:
+              type: string
+              description: Error message if invalid
+
+    # URL Encode
+    UrlEncodeRequest:
+      type: object
+      required:
+        - input
+      properties:
+        input:
+          type: string
+          description: Text to encode or decode
+          example: "Hello World!"
+        mode:
+          type: string
+          enum: [encode, decode]
+          default: encode
+          description: Conversion mode
+        component:
+          type: boolean
+          default: true
+          description: Use encodeURIComponent (true) or encodeURI (false)
+
+    UrlEncodeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            result:
+              type: string
+              description: Encoded or decoded result
+              example: "Hello%20World%21"
+            mode:
+              type: string
+              example: encode
+            inputLength:
+              type: integer
+              example: 12
+            outputLength:
+              type: integer
+              example: 18
+
+    # JWT Decode
+    JwtDecodeRequest:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+          description: JWT token to decode
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    JwtDecodeResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            header:
+              type: object
+              description: JWT header
+              example:
+                alg: HS256
+                typ: JWT
+            payload:
+              type: object
+              description: JWT payload (claims)
+              example:
+                sub: "1234567890"
+                name: "John Doe"
+                iat: 1516239022
+            signature:
+              type: string
+              description: Base64-encoded signature
+            isExpired:
+              type: boolean
+              description: Whether the token is expired (if exp claim exists)
+            expiresAt:
+              type: string
+              format: date-time
+              description: Expiration timestamp (if exp claim exists)
 
     # Error Response
     ErrorResponse:
