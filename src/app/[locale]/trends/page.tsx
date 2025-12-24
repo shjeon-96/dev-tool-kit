@@ -8,7 +8,7 @@ import {
   listTrendReports,
   getLatestTrendReport,
   getWeekDateRange,
-} from "@/lib/data-pipeline";
+} from "@/shared/lib/data-pipeline";
 
 // 1시간마다 재검증 (새 트렌드 데이터 반영)
 export const revalidate = 3600;

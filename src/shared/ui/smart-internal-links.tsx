@@ -8,7 +8,7 @@ import { tools } from "@/entities/tool/model/registry";
 import {
   getWeightedRecommendations,
   type LinkWeight,
-} from "@/lib/internal-linking";
+} from "@/shared/lib/internal-linking";
 import { useVisitedTools } from "@/shared/lib/hooks/use-visited-tools";
 import { Badge } from "./badge";
 import { Card, CardContent, CardHeader, CardTitle } from "./card";

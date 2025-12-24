@@ -21,7 +21,7 @@ import {
   requestIndexing,
   requestBatchIndexing,
   getIndexingStatus,
-} from "../src/lib/gsc/indexing-api";
+} from "../src/shared/lib/gsc/indexing-api";
 
 // Load .env.local
 config({ path: ".env.local" });

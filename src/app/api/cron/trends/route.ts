@@ -20,7 +20,7 @@ import {
   getWeekString,
   reportExists,
   cleanupOldReports,
-} from "@/lib/data-pipeline";
+} from "@/shared/lib/data-pipeline";
 
 // Cron 인증 시크릿 (환경 변수)
 const CRON_SECRET = process.env.CRON_SECRET;

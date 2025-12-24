@@ -22,7 +22,9 @@ declare module "next-pwa" {
     };
   }
 
-  function withPWAInit(config: PWAConfig): (nextConfig: NextConfig) => NextConfig;
+  function withPWAInit(
+    config: PWAConfig,
+  ): (nextConfig: NextConfig) => NextConfig;
 
   export default withPWAInit;
 }
