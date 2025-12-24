@@ -750,6 +750,426 @@
       "howToUse": "Cómo Usar",
       "features": "Características",
       "faq": "Preguntas Frecuentes"
+    },
+    "json-formatter": {
+      "whatIs": "JSON Formatter es una herramienta en línea que organiza e indenta automáticamente datos JSON para mejor legibilidad. Transforma JSON comprimido en una salida limpia y formateada con un solo clic.",
+      "howToUse": "Pega tus datos JSON en el área de entrada izquierda. El resultado formateado aparece automáticamente a la derecha. Elige el tamaño de indentación (2, 4 o tab) y usa el botón minificar para salida compacta.",
+      "features": [
+        "Procesamiento 100% del lado del cliente - tus datos nunca salen de tu navegador",
+        "Validación de sintaxis en tiempo real con resaltado de errores",
+        "Soporte para modo oscuro para visualización cómoda",
+        "Copiar al portapapeles con un clic"
+      ],
+      "faq": [
+        {
+          "q": "¿Se almacenan mis datos JSON en sus servidores?",
+          "a": "No. Todo el procesamiento ocurre en tu navegador. Tus datos nunca se transmiten ni almacenan en ningún lugar."
+        },
+        {
+          "q": "¿Puedo formatear archivos JSON grandes?",
+          "a": "Sí, archivos de hasta varios MB funcionan sin problemas, limitados solo por la memoria de tu navegador."
+        }
+      ]
+    },
+    "jwt-decoder": {
+      "whatIs": "JWT Decoder es una herramienta segura que decodifica JSON Web Tokens para revelar sus componentes de header, payload y firma. Verifica la expiración del token y las claims instantáneamente.",
+      "howToUse": "Pega tu token JWT en el campo de entrada. El header y payload decodificados aparecerán inmediatamente. Verifica el estado de expiración y la estructura del token de un vistazo.",
+      "features": [
+        "Decodificación instantánea sin comunicación con el servidor",
+        "Indicador visual del estado de expiración",
+        "Soporte para todos los algoritmos JWT (HS256, RS256, etc.)",
+        "Salida JSON formateada para fácil lectura"
+      ],
+      "faq": [
+        {
+          "q": "¿Es seguro decodificar mi JWT aquí?",
+          "a": "Sí. Toda la decodificación ocurre en tu navegador. Tu token nunca sale de tu dispositivo."
+        },
+        {
+          "q": "¿Puedo verificar firmas JWT?",
+          "a": "Esta herramienta decodifica tokens para inspección. Para verificación de firmas, necesitas el secreto o clave pública."
+        }
+      ]
+    },
+    "image-resizer": {
+      "whatIs": "Image Resizer es una herramienta basada en navegador que redimensiona imágenes, convierte formatos y ajusta la calidad sin subir a ningún servidor. Rápido, privado y funciona sin conexión.",
+      "howToUse": "Sube una imagen o arrástrala y suéltala. Establece las dimensiones deseadas o porcentaje de escala. Elige el formato de salida (PNG, JPEG, WebP) y nivel de calidad, luego descarga el resultado.",
+      "features": [
+        "Procesa imágenes completamente en tu navegador - no requiere subida",
+        "Soporte para formatos PNG, JPEG, WebP y GIF",
+        "Mantiene la relación de aspecto o usa dimensiones personalizadas",
+        "Redimensiona múltiples imágenes a la vez"
+      ],
+      "faq": [
+        {
+          "q": "¿Se suben mis imágenes a un servidor?",
+          "a": "No. Todo el procesamiento ocurre localmente en tu navegador. Tus imágenes permanecen en tu dispositivo."
+        },
+        {
+          "q": "¿Cuál es el tamaño máximo de archivo que puedo procesar?",
+          "a": "No hay límite estricto, pero archivos muy grandes pueden ser más lentos dependiendo de la memoria de tu dispositivo."
+        }
+      ]
+    },
+    "hash-generator": {
+      "whatIs": "Hash Generator crea hashes criptográficos usando algoritmos MD5, SHA-1, SHA-256 y SHA-512. Perfecto para verificación de integridad de archivos y necesidades de hashing de contraseñas.",
+      "howToUse": "Ingresa texto o sube un archivo para hashear. Selecciona el/los algoritmo(s) que necesitas. Copia los valores hash generados o compara con hashes esperados.",
+      "features": [
+        "Múltiples algoritmos hash en una herramienta",
+        "Hashing de archivos para verificación de integridad",
+        "Comparación de hash para validación",
+        "Procesamiento del lado del cliente para seguridad"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué algoritmo hash debería usar?",
+          "a": "SHA-256 es recomendado para la mayoría de usos. MD5 y SHA-1 son más rápidos pero menos seguros."
+        },
+        {
+          "q": "¿Puedo hashear archivos grandes?",
+          "a": "Sí, los archivos se procesan en fragmentos para manejar tamaños grandes eficientemente."
+        }
+      ]
+    },
+    "uuid-generator": {
+      "whatIs": "UUID/ULID Generator crea identificadores únicos en varios formatos. Genera UUID v1 (basado en tiempo), UUID v4 (aleatorio) o ULID (ordenable) instantáneamente.",
+      "howToUse": "Selecciona el tipo de ID que necesitas. Haz clic en generar para crear nuevos IDs. Copia al portapapeles o genera múltiples IDs a la vez para necesidades masivas.",
+      "features": [
+        "Soporte para UUID v1, v4 y ULID",
+        "Generación masiva para múltiples IDs",
+        "Varias opciones de formato (estándar, compacto, mayúsculas)",
+        "Copia instantánea al portapapeles"
+      ],
+      "faq": [
+        {
+          "q": "¿Cuál es la diferencia entre UUID y ULID?",
+          "a": "Los UUIDs son identificadores únicos estándar. Los ULIDs son ordenables por tiempo de creación y más amigables para URLs."
+        },
+        {
+          "q": "¿Los IDs generados son verdaderamente únicos?",
+          "a": "Sí. UUID v4 usa generación aleatoria criptográficamente segura con probabilidad de colisión cercana a cero."
+        }
+      ]
+    },
+    "qr-generator": {
+      "whatIs": "QR Code Generator crea códigos QR escaneables para URLs, credenciales WiFi, tarjetas de contacto y texto plano. Personaliza colores y tamaño según tus necesidades.",
+      "howToUse": "Selecciona el tipo de código QR, ingresa tus datos y ve la vista previa instantáneamente. Personaliza colores de primer plano y fondo, luego descarga en formato PNG o SVG.",
+      "features": [
+        "Múltiples tipos de QR: URL, WiFi, vCard, texto",
+        "Opciones de colores y tamaño personalizados",
+        "Formatos de descarga PNG y SVG",
+        "Niveles de corrección de errores para confiabilidad"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué tamaño debería tener mi código QR?",
+          "a": "Para impresión, usa al menos 2cm x 2cm. Para visualización digital, 200x200 píxeles suele ser suficiente."
+        },
+        {
+          "q": "¿Puedo agregar un logo a mi código QR?",
+          "a": "La corrección de errores permite obstrucción parcial, pero recomendamos mantener el centro despejado para escaneo confiable."
+        }
+      ]
+    },
+    "base64-converter": {
+      "whatIs": "Base64 Converter codifica y decodifica texto y archivos a/desde formato Base64. Esencial para incrustar datos en HTML, CSS o transmitir datos binarios como texto.",
+      "howToUse": "Ingresa texto o sube un archivo. Haz clic en codificar para convertir a Base64, o pega texto Base64 y decodifica para revelar el contenido original.",
+      "features": [
+        "Codificación/decodificación de texto y archivos",
+        "Generación de Data URL para imágenes",
+        "Manejo eficiente de archivos grandes",
+        "Copiar o descargar resultados"
+      ],
+      "faq": [
+        {
+          "q": "¿Para qué se usa Base64?",
+          "a": "Base64 convierte datos binarios a texto ASCII, útil para incrustar imágenes en HTML/CSS o transmitir datos en JSON."
+        },
+        {
+          "q": "¿Base64 encripta mis datos?",
+          "a": "No. Base64 es un esquema de codificación, no encriptación. Los datos pueden ser fácilmente decodificados por cualquiera."
+        }
+      ]
+    },
+    "url-encoder": {
+      "whatIs": "URL Encoder/Decoder codifica y decodifica URLs para transmisión segura. Convierte caracteres especiales a formato compatible con URL y viceversa.",
+      "howToUse": "Pega tu URL o texto en el campo de entrada. Usa el botón codificar para convertir caracteres especiales, o decodificar para revelar la URL original.",
+      "features": [
+        "Codificación/decodificación de URL completa",
+        "Manejo de caracteres Unicode",
+        "Codificación de componentes individuales",
+        "Copia con un clic al portapapeles"
+      ],
+      "faq": [
+        {
+          "q": "¿Cuándo necesito codificar URLs?",
+          "a": "Codifica URLs cuando contengan caracteres especiales, espacios o caracteres no ASCII que podrían causar problemas en navegadores."
+        },
+        {
+          "q": "¿Es lo mismo que encriptación?",
+          "a": "No. La codificación URL es solo para compatibilidad de transmisión, no para seguridad. Los datos pueden decodificarse fácilmente."
+        }
+      ]
+    },
+    "diff-checker": {
+      "whatIs": "Diff Checker compara dos textos y resalta las diferencias. Esencial para revisiones de código, comparaciones de documentos y seguimiento de cambios.",
+      "howToUse": "Pega el texto original a la izquierda y el texto modificado a la derecha. Ve adiciones, eliminaciones y cambios resaltados. Alterna entre vista en línea y lado a lado.",
+      "features": [
+        "Vistas de diferencias lado a lado y en línea",
+        "Comparación línea por línea y a nivel de carácter",
+        "Resaltado de sintaxis para código",
+        "Opción para ignorar espacios en blanco"
+      ],
+      "faq": [
+        {
+          "q": "¿Puedo comparar archivos de código?",
+          "a": "Sí. El comparador de diferencias funciona muy bien con código e incluye resaltado de sintaxis para lenguajes comunes."
+        },
+        {
+          "q": "¿Hay un límite de tamaño para la comparación?",
+          "a": "Los textos grandes funcionan bien, pero archivos muy grandes pueden ser más lentos dependiendo de tu dispositivo."
+        }
+      ]
+    },
+    "regex-tester": {
+      "whatIs": "Regex Tester valida expresiones regulares y muestra coincidencias en tiempo real. Prueba y depura tus patrones con retroalimentación visual instantánea.",
+      "howToUse": "Ingresa tu patrón regex y cadena de prueba. Ve las coincidencias resaltadas instantáneamente. Usa banderas como global (g), insensible a mayúsculas (i) y multilínea (m).",
+      "features": [
+        "Resaltado de coincidencias en tiempo real",
+        "Visualización de grupos de captura",
+        "Biblioteca de patrones regex comunes",
+        "Alternancia de banderas (g, i, m, s)"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué variante de regex se usa?",
+          "a": "Se usa la sintaxis regex de JavaScript, que es compatible con la mayoría de lenguajes modernos."
+        },
+        {
+          "q": "¿Puedo ver los grupos de captura?",
+          "a": "Sí. Los grupos de captura nombrados y numerados se muestran con sus valores coincidentes."
+        }
+      ]
+    },
+    "color-picker": {
+      "whatIs": "Color Picker extrae colores de imágenes y convierte entre formatos de color. Crea paletas de colores armoniosas para tus proyectos de diseño.",
+      "howToUse": "Sube una imagen para extraer colores o ingresa un valor de color directamente. Convierte entre formatos HEX, RGB, HSL y copia valores para usar en tus proyectos.",
+      "features": [
+        "Extrae colores de cualquier imagen",
+        "Convierte entre HEX, RGB, HSL, HSV",
+        "Genera paletas de colores complementarios",
+        "Guarda colores favoritos para después"
+      ],
+      "faq": [
+        {
+          "q": "¿Puedo extraer múltiples colores de una imagen?",
+          "a": "Sí. Haz clic en cualquier parte de la imagen para seleccionar colores y ver la paleta extraída."
+        },
+        {
+          "q": "¿Qué formatos de color son compatibles?",
+          "a": "Los formatos HEX, RGB, HSL y HSV son totalmente compatibles con conversión instantánea."
+        }
+      ]
+    },
+    "sql-formatter": {
+      "whatIs": "SQL Formatter embellece y formatea consultas SQL para mejorar la legibilidad. Soporte para múltiples dialectos SQL incluyendo MySQL, PostgreSQL y SQLite.",
+      "howToUse": "Pega tu consulta SQL en el área de entrada. Selecciona tu dialecto SQL para formateo preciso. Copia el resultado formateado o descárgalo como archivo.",
+      "features": [
+        "Soporte para múltiples dialectos SQL",
+        "Indentación y estilo personalizables",
+        "Resaltado de sintaxis para legibilidad",
+        "Preservar o eliminar comentarios"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué dialectos SQL son compatibles?",
+          "a": "MySQL, PostgreSQL, SQLite, SQL Server y SQL estándar son totalmente compatibles."
+        },
+        {
+          "q": "¿El formateo cambiará el comportamiento de mi consulta?",
+          "a": "No. El formateo solo afecta espacios en blanco e indentación, no la lógica de la consulta."
+        }
+      ]
+    },
+    "cron-parser": {
+      "whatIs": "Cron Parser interpreta expresiones cron y muestra próximos tiempos de ejecución. Entiende y valida tus configuraciones de tareas programadas fácilmente.",
+      "howToUse": "Ingresa una expresión cron para ver su descripción legible. Ve los próximos tiempos de ejecución y verifica que tu programación sea correcta.",
+      "features": [
+        "Descripciones cron legibles",
+        "Vista previa de los próximos 10 tiempos de ejecución",
+        "Biblioteca de ejemplos cron comunes",
+        "Validación con mensajes de error"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué formato acepta el analizador cron?",
+          "a": "Formato cron estándar de 5 campos (minuto, hora, día, mes, día de la semana) y 6 campos con segundos."
+        },
+        {
+          "q": "¿Puedo generar expresiones cron desde un horario?",
+          "a": "Sí, usa el constructor visual de horarios para crear expresiones sin memorizar la sintaxis."
+        }
+      ]
+    },
+    "markdown-preview": {
+      "whatIs": "Markdown Preview renderiza texto Markdown en tiempo real con soporte completo de GFM (GitHub Flavored Markdown). Perfecto para archivos README, documentación y notas.",
+      "howToUse": "Escribe o pega Markdown en el editor. Ve la vista previa renderizada instantáneamente a la derecha. Exporta a HTML o copia el contenido renderizado.",
+      "features": [
+        "Vista previa en vivo en tiempo real",
+        "Soporte para GitHub Flavored Markdown",
+        "Resaltado de sintaxis para bloques de código",
+        "Exportar a HTML"
+      ],
+      "faq": [
+        {
+          "q": "¿Se soporta GitHub Flavored Markdown?",
+          "a": "Sí. Tablas, listas de tareas, tachado y todas las características de GFM son totalmente compatibles."
+        },
+        {
+          "q": "¿Puedo exportar el HTML renderizado?",
+          "a": "Sí. Usa el botón de exportar para descargar el contenido renderizado como archivo HTML."
+        }
+      ]
+    },
+    "unix-timestamp": {
+      "whatIs": "Unix Timestamp Converter transforma entre timestamps Unix y fechas legibles. Esencial para depurar logs y trabajar con APIs.",
+      "howToUse": "Ingresa un timestamp Unix para ver la fecha, o selecciona una fecha para obtener el timestamp. Soporte para precisión de segundos y milisegundos.",
+      "features": [
+        "Conversión bidireccional",
+        "Soporte para múltiples zonas horarias",
+        "Precisión de segundos y milisegundos",
+        "Visualización del timestamp actual"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué es un timestamp Unix?",
+          "a": "Es el número de segundos transcurridos desde el 1 de enero de 1970 (Época Unix), ampliamente usado en informática."
+        },
+        {
+          "q": "¿Maneja diferentes zonas horarias?",
+          "a": "Sí. Selecciona tu zona horaria o usa UTC para conversiones consistentes."
+        }
+      ]
+    },
+    "meta-generator": {
+      "whatIs": "Meta Tag Generator crea meta tags optimizados para SEO, tags Open Graph y Twitter Cards. Mejora la visibilidad de búsqueda de tu sitio web y el compartir en redes sociales.",
+      "howToUse": "Completa el título de tu página, descripción y otros detalles. Previsualiza cómo aparecerá tu página en resultados de búsqueda y compartidos sociales. Copia los tags HTML generados.",
+      "features": [
+        "Generación de meta tags SEO",
+        "Tags Open Graph para compartir en redes",
+        "Soporte para Twitter Cards",
+        "Vista previa de búsqueda de Google"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué meta tags debería tener cada página?",
+          "a": "Como mínimo: title, description, viewport y charset. Agrega Open Graph para compartir en redes sociales."
+        },
+        {
+          "q": "¿Qué longitud debería tener mi meta description?",
+          "a": "Mantenla entre 150-160 caracteres para visualización óptima en resultados de búsqueda."
+        }
+      ]
+    },
+    "pdf-toolkit": {
+      "whatIs": "PDF Toolkit combina, divide, comprime y redacta archivos PDF directamente en tu navegador. Procesamiento 100% del lado del cliente para máxima privacidad.",
+      "howToUse": "Sube tus archivos PDF, selecciona la operación deseada (combinar, dividir, comprimir o redactar) y descarga el resultado. Todo el procesamiento ocurre localmente.",
+      "features": [
+        "Combinar múltiples PDFs en uno",
+        "Dividir PDFs por páginas o rangos",
+        "Comprimir PDFs para reducir tamaño",
+        "Redactar información sensible"
+      ],
+      "faq": [
+        {
+          "q": "¿Se suben mis PDFs a un servidor?",
+          "a": "No. Todo el procesamiento ocurre en tu navegador. Tus archivos nunca salen de tu dispositivo."
+        },
+        {
+          "q": "¿Cuántos PDFs puedo combinar?",
+          "a": "Puedes combinar múltiples PDFs, limitado solo por la memoria de tu navegador."
+        }
+      ]
+    },
+    "ocr-scanner": {
+      "whatIs": "OCR Scanner extrae texto de imágenes usando reconocimiento óptico de caracteres. Soporta múltiples idiomas incluyendo inglés, español, coreano y japonés.",
+      "howToUse": "Sube una imagen que contenga texto. Selecciona el idioma del texto. El texto extraído aparecerá automáticamente, listo para copiar o descargar.",
+      "features": [
+        "Soporte multiidioma",
+        "Procesamiento 100% del lado del cliente",
+        "Extracción de texto de alta precisión",
+        "Copiar o descargar texto extraído"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué idiomas son compatibles?",
+          "a": "Inglés, español, coreano, japonés y muchos más idiomas son compatibles."
+        },
+        {
+          "q": "¿Se almacenan mis imágenes?",
+          "a": "No. Todo el procesamiento OCR ocurre localmente en tu navegador."
+        }
+      ]
+    },
+    "schema-generator": {
+      "whatIs": "Schema Markup Generator crea datos estructurados JSON-LD para SEO. Soporta tipos Article, Product, FAQ, HowTo, Organization y más.",
+      "howToUse": "Selecciona el tipo de schema, completa los campos requeridos y copia el código JSON-LD generado para agregarlo a tu sitio web.",
+      "features": [
+        "Múltiples tipos de schema soportados",
+        "Generación de código JSON-LD válido",
+        "Vista previa de datos estructurados",
+        "Validación de campos requeridos"
+      ],
+      "faq": [
+        {
+          "q": "¿Por qué necesito schema markup?",
+          "a": "Schema markup ayuda a los motores de búsqueda a entender tu contenido y puede mejorar la aparición en resultados de búsqueda con fragmentos enriquecidos."
+        },
+        {
+          "q": "¿Dónde debo agregar el código JSON-LD?",
+          "a": "Agrégalo en una etiqueta <script type='application/ld+json'> en el <head> o <body> de tu página HTML."
+        }
+      ]
+    },
+    "bg-remover": {
+      "whatIs": "Background Remover elimina fondos de imágenes automáticamente usando IA. Acelerado por WebGPU para procesamiento rápido, 100% del lado del cliente.",
+      "howToUse": "Sube tu imagen, espera el procesamiento de IA, y descarga la imagen con fondo transparente. Ajusta el umbral y suavizado de bordes según sea necesario.",
+      "features": [
+        "Eliminación de fondo impulsada por IA",
+        "Aceleración WebGPU cuando esté disponible",
+        "Ajuste de umbral y suavizado de bordes",
+        "Descarga en PNG con transparencia"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué tan precisa es la eliminación de fondo?",
+          "a": "La IA proporciona resultados de alta calidad para la mayoría de imágenes. Bordes complejos pueden requerir ajuste manual."
+        },
+        {
+          "q": "¿Funciona sin conexión?",
+          "a": "Sí, una vez cargado el modelo, funciona completamente sin conexión."
+        }
+      ]
+    },
+    "og-generator": {
+      "whatIs": "OG Image Generator crea hermosas imágenes Open Graph para compartir en redes sociales. Múltiples plantillas y opciones de personalización disponibles.",
+      "howToUse": "Ingresa tu título y descripción, selecciona una plantilla, personaliza colores y fuentes, y descarga la imagen OG lista para usar.",
+      "features": [
+        "Múltiples plantillas profesionales",
+        "Personalización de colores y fuentes",
+        "Tamaños predefinidos para redes sociales",
+        "Descarga en PNG o JPG"
+      ],
+      "faq": [
+        {
+          "q": "¿Cuál es el tamaño recomendado para imágenes OG?",
+          "a": "El tamaño estándar es 1200x630 píxeles para óptima visualización en la mayoría de plataformas."
+        },
+        {
+          "q": "¿Puedo usar mis propias fuentes?",
+          "a": "Actualmente ofrecemos una selección de fuentes populares incluyendo fuentes para idiomas asiáticos."
+        }
+      ]
     }
   }
 }

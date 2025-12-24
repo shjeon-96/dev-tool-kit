@@ -750,6 +750,556 @@
       "howToUse": "Wie zu verwenden",
       "features": "Funktionen",
       "faq": "Häufig gestellte Fragen"
+    },
+    "json-formatter": {
+      "whatIs": "JSON Formatter ist ein Online-Tool, das JSON-Daten automatisch mit korrekter Einrückung, Syntax-Hervorhebung und Fehlervalidierung organisiert. Es wandelt minifiziertes oder schlecht formatiertes JSON in gut strukturierten, lesbaren Code um, der leichter zu analysieren und zu debuggen ist.",
+      "howToUse": "Fügen Sie Ihre JSON-Daten in den linken Eingabebereich ein. Das Tool validiert und formatiert automatisch mit Echtzeit-Syntax-Hervorhebung. Verwenden Sie die Schaltflächen, um Ergebnisse zu kopieren, zu minifizieren oder die Datengröße zu analysieren.",
+      "features": [
+        "100% clientseitige Verarbeitung - Ihre Daten verlassen nie Ihren Browser",
+        "Echtzeit-Syntaxvalidierung mit Fehlerhervorhebung",
+        "Automatische Einrückung und Farbcodierung für bessere Lesbarkeit",
+        "Minifizierungsoption zum Reduzieren der Dateigröße",
+        "Unterstützung für große JSON-Dateien (bis 10MB)"
+      ],
+      "faq": [
+        {
+          "q": "Werden meine JSON-Daten auf Ihren Servern gespeichert?",
+          "a": "Nein, alle Verarbeitung erfolgt lokal in Ihrem Browser. Ihre Daten werden nie übertragen oder gespeichert."
+        },
+        {
+          "q": "Welche maximale Größe kann dieses Tool verarbeiten?",
+          "a": "Bis zu 10MB, abhängig von Ihrem Browser. Für größere Dateien ziehen Sie die Verwendung von Befehlszeilentools in Betracht."
+        },
+        {
+          "q": "Kann ich Kommentare in JSON formatieren?",
+          "a": "Standard-JSON unterstützt keine Kommentare. Das Tool validiert nach JSON-Spezifikation, kann aber JSONC-Kommentare zum Lesen parsen."
+        }
+      ]
+    },
+    "jwt-decoder": {
+      "whatIs": "JWT Decoder ist ein kostenloses Online-Tool, das JSON Web Tokens (JWT) dekodiert und inspiziert. Es enthüllt die Nutzlast-, Header- und Signaturdaten ohne serverseitige Verarbeitung und ermöglicht eine sichere Token-Analyse in Ihrem Browser.",
+      "howToUse": "Fügen Sie Ihren JWT-Token in das Eingabefeld ein. Das Tool dekodiert automatisch und zeigt Header, Nutzlast und Signaturabschnitte getrennt an. Claims wie Ablauf, Aussteller und benutzerdefinierte Daten werden in lesbarem Format angezeigt.",
+      "features": [
+        "Sofortige Dekodierung ohne Serverkommunikation",
+        "Getrennte Ansicht für Header, Nutzlast und Signatur",
+        "Automatische Konvertierung von exp/iat-Zeitstempeln in lesbares Format",
+        "Unterstützung für alle gängigen JWT-Algorithmen (HS256, RS256, etc.)",
+        "Ein-Klick-Kopieren von dekodierten Abschnitten"
+      ],
+      "faq": [
+        {
+          "q": "Ist es sicher, Produktions-JWTs zu dekodieren?",
+          "a": "Ja, dieses Tool verarbeitet alles lokal. Ihr Token verlässt nie Ihren Browser. Vermeiden Sie jedoch das Teilen von dekodierten Tokens öffentlich."
+        },
+        {
+          "q": "Können Sie JWT-Signaturen verifizieren?",
+          "a": "Das Tool zeigt Signaturinformationen an, verifiziert aber keine Signaturen, da das den geheimen/öffentlichen Schlüssel erfordern würde."
+        },
+        {
+          "q": "Warum ist mein Token abgelaufen?",
+          "a": "Prüfen Sie den 'exp' Claim in der Nutzlast - er zeigt den Ablaufzeitstempel an. Vergleichen Sie ihn mit der aktuellen Zeit."
+        }
+      ]
+    },
+    "image-resizer": {
+      "whatIs": "Image Resizer ist ein browserbasiertes Tool, das Bilder skaliert, ohne sie auf Server hochzuladen. Es unterstützt mehrere Formate und bietet präzise Dimensionssteuerung bei Beibehaltung des Seitenverhältnisses für perfekte Ergebnisse.",
+      "howToUse": "Ziehen Sie ein Bild oder klicken Sie zum Hochladen. Geben Sie neue Dimensionen ein (Seitenverhältnis ist standardmäßig gesperrt). Wählen Sie das Ausgabeformat (PNG, JPEG, WebP) und klicken Sie auf Größe ändern. Das verarbeitete Bild kann direkt heruntergeladen werden.",
+      "features": [
+        "Unterstützt PNG, JPEG, WebP, GIF und BMP-Formate",
+        "Seitenverhältnis-Sperre für proportionale Skalierung",
+        "Stapelverarbeitung mehrerer Bilder",
+        "Qualitätsanpassung für JPEG/WebP-Ausgabe",
+        "Vorschau vor dem Download"
+      ],
+      "faq": [
+        {
+          "q": "Verliere ich Bildqualität beim Ändern der Größe?",
+          "a": "Das Herunterskalieren behält die Qualität bei. Das Hochskalieren kann Unschärfe verursachen. Verwenden Sie Bildformatierer für optimale Ergebnisse."
+        },
+        {
+          "q": "Welche maximale Bildgröße kann verarbeitet werden?",
+          "a": "Abhängig vom Browser-Speicher, typischerweise bis zu 50MB oder 10.000x10.000 Pixel."
+        },
+        {
+          "q": "Kann ich transparente Hintergründe beibehalten?",
+          "a": "Ja, verwenden Sie PNG- oder WebP-Ausgabe für Transparenzerhaltung. JPEG unterstützt keine Transparenz."
+        }
+      ]
+    },
+    "hash-generator": {
+      "whatIs": "Hash Generator erstellt kryptografische Hashwerte aus Text oder Dateien mit verschiedenen Algorithmen. Es ist unverzichtbar zum Verifizieren der Datenintegrität, zum Generieren von Prüfsummen und für Sicherheitszwecke.",
+      "howToUse": "Geben Sie Text ein oder laden Sie eine Datei hoch. Wählen Sie Hash-Algorithmen (MD5, SHA-1, SHA-256, etc.). Klicken Sie auf Generieren, um Hashwerte sofort zu berechnen. Vergleichen Sie Hashes, um die Datenintegrität zu verifizieren.",
+      "features": [
+        "Mehrere Algorithmen: MD5, SHA-1, SHA-256, SHA-512",
+        "Datei-Hashing mit Streaming für große Dateien",
+        "Hash-Vergleichstool für Integritätsprüfungen",
+        "Hexadezimale und Base64-Ausgabeformate",
+        "Batch-Hashing mehrerer Eingaben"
+      ],
+      "faq": [
+        {
+          "q": "Welchen Hash-Algorithmus sollte ich verwenden?",
+          "a": "SHA-256 wird für die meisten Anwendungsfälle empfohlen. MD5 und SHA-1 sind veraltet für Sicherheit, aber nützlich für Prüfsummen."
+        },
+        {
+          "q": "Kann ich einen Hash zurück in den Originaltext konvertieren?",
+          "a": "Nein, Hashes sind Einwegfunktionen. Sie können einen Hash nicht umkehren, um die Originaldaten zu erhalten."
+        },
+        {
+          "q": "Warum unterscheiden sich meine Datei-Hashes?",
+          "a": "Selbst ein Byte Unterschied erzeugt einen völlig anderen Hash. Stellen Sie identische Dateien und Kodierungen sicher."
+        }
+      ]
+    },
+    "uuid-generator": {
+      "whatIs": "UUID Generator erstellt universell eindeutige Bezeichner (UUIDs) in verschiedenen Formaten. UUIDs sind für Datenbankschlüssel, Sitzungskennungen und verteilte Systeme unverzichtbar, in denen eindeutige IDs ohne zentrale Koordination benötigt werden.",
+      "howToUse": "Wählen Sie die UUID-Version (v1, v4 oder v7). Klicken Sie auf Generieren, um neue UUIDs zu erstellen. Kopieren Sie einzelne UUIDs oder generieren Sie mehrere auf einmal. Passen Sie das Ausgabeformat an (Standard, Großbuchstaben, ohne Bindestriche).",
+      "features": [
+        "UUID v1, v4 und v7-Unterstützung",
+        "Bulk-Generierung (bis zu 1000 UUIDs)",
+        "Multiple Ausgabeformate (Standard, Großbuchstaben, ohne Bindestriche)",
+        "UUID-Validierung und Versionserkennungstool",
+        "Ein-Klick-Kopieren in die Zwischenablage"
+      ],
+      "faq": [
+        {
+          "q": "Was ist der Unterschied zwischen UUID-Versionen?",
+          "a": "V1 verwendet Zeitstempel+MAC-Adresse, V4 ist vollständig zufällig, V7 ist zeitstempelbasiert und sortierbar. V4 wird häufig für allgemeine Zwecke verwendet."
+        },
+        {
+          "q": "Sind UUIDs garantiert eindeutig?",
+          "a": "Praktisch ja. Die Wahrscheinlichkeit einer UUID v4-Kollision ist astronomisch gering (2^122 mögliche Werte)."
+        },
+        {
+          "q": "Soll ich UUIDs als Primärschlüssel in Datenbanken verwenden?",
+          "a": "Ja, aber erwägen Sie UUID v7 für bessere Indizierungsleistung aufgrund seiner zeitbasierten Sortierbarkeit."
+        }
+      ]
+    },
+    "qr-generator": {
+      "whatIs": "QR Generator erstellt QR-Codes aus Text, URLs, Kontaktinformationen und mehr. Diese scannbaren Codes können Anpassungen wie Logos, Farben und Größen für Branding enthalten.",
+      "howToUse": "Geben Sie Ihren Inhalt (URL, Text, vCard, etc.) ein. Passen Sie Farben, Größe und Fehlerkorrektur an. Fügen Sie optional ein Logo hinzu. Laden Sie den QR-Code als PNG, SVG oder PDF für Druck und digitale Nutzung herunter.",
+      "features": [
+        "URL, Text, WLAN, vCard und mehr Inhaltstypen",
+        "Anpassbare Farben und Hintergrund",
+        "Logo/Bild-Einbettung in QR-Mitte",
+        "Einstellbare Fehlerkorrekturstufen",
+        "Hochauflösender Download (PNG, SVG, PDF)"
+      ],
+      "faq": [
+        {
+          "q": "Welches Fehlerkorrekturlevel sollte ich wählen?",
+          "a": "Level M (15%) ist Standard. Verwenden Sie H (30%) wenn Sie ein Logo hinzufügen oder der QR-Code teilweise verdeckt werden kann."
+        },
+        {
+          "q": "Wie viele Daten kann ein QR-Code speichern?",
+          "a": "Maximal ~3KB Text, aber weniger ist besser für einfaches Scannen. URLs unter 100 Zeichen funktionieren am zuverlässigsten."
+        },
+        {
+          "q": "Werden meine QR-Codes nachverfolgt?",
+          "a": "Nein, QR-Codes, die hier generiert werden, sind statisch und enthalten keine Nachverfolgung. Die URL, zu der sie verlinken, kann jedoch eigene Analytics haben."
+        }
+      ]
+    },
+    "base64-converter": {
+      "whatIs": "Base64 Converter kodiert und dekodiert Daten im Base64-Format. Diese Kodierung ist für die Einbettung von Binärdaten in Text wie E-Mails, Daten-URIs und API-Nutzlasten, die nur ASCII verarbeiten können, unverzichtbar.",
+      "howToUse": "Fügen Sie Daten zum Kodieren/Dekodieren ein. Wählen Sie den Modus (Kodieren oder Dekodieren). Für Dateien verwenden Sie den Datei-Upload. Das Tool verarbeitet automatisch Text und Binärdateien mit korrekter Zeichenkodierung.",
+      "features": [
+        "Text- und Datei-Kodierung/Dekodierung",
+        "URL-sichere Base64-Variante",
+        "Automatische Zeichensatz-Erkennung",
+        "Daten-URI-Generierung für Web-Einbettung",
+        "Unterstützung für große Dateien mit Streaming"
+      ],
+      "faq": [
+        {
+          "q": "Erhöht Base64-Kodierung die Dateigröße?",
+          "a": "Ja, Base64 erhöht die Größe um etwa 33% aufgrund der Binär-zu-Text-Konvertierung (3 Bytes werden zu 4 Zeichen)."
+        },
+        {
+          "q": "Was ist der Unterschied zwischen Standard- und URL-sicherem Base64?",
+          "a": "URL-sicheres Base64 ersetzt + durch - und / durch _, um URL-Kodierungsprobleme in URLs und Dateinamen zu vermeiden."
+        },
+        {
+          "q": "Kann ich Bilder mit Base64 einbetten?",
+          "a": "Ja, konvertieren Sie Bilder in Base64-Daten-URIs für Inline-HTML/CSS-Einbettung. Am besten für kleine Icons (<10KB)."
+        }
+      ]
+    },
+    "url-encoder": {
+      "whatIs": "URL Encoder/Decoder konvertiert Sonderzeichen in und aus dem URL-Prozentcodierungsformat. Dies ist für den sicheren Umgang mit Querystrings, Sonderzeichen und nicht-ASCII-Text in URLs erforderlich.",
+      "howToUse": "Fügen Sie Text oder URL zum Kodieren/Dekodieren ein. Wählen Sie den Modus (Kodieren oder Dekodieren). Das Tool verarbeitet Sonderzeichen, Leerzeichen und Nicht-ASCII-Zeichen korrekt nach RFC 3986.",
+      "features": [
+        "RFC 3986-konforme URL-Kodierung",
+        "Komponenten- vs. vollständige URL-Kodierung",
+        "Automatische Erkennung des Modus",
+        "Batch-Verarbeitung mehrerer URLs",
+        "Sonderzeichen-Referenz"
+      ],
+      "faq": [
+        {
+          "q": "Was ist der Unterschied zwischen encodeURI und encodeURIComponent?",
+          "a": "encodeURI behält URL-Strukturzeichen (:, /, ?) bei. encodeURIComponent kodiert alles außer Buchstaben, Ziffern und - _ . ~"
+        },
+        {
+          "q": "Warum werden Leerzeichen zu + oder %20?",
+          "a": "+ ist Formularkodierung (application/x-www-form-urlencoded), %20 ist URL-Pfadkodierung. Die meisten APIs akzeptieren beides."
+        },
+        {
+          "q": "Soll ich mehrfach dekodieren?",
+          "a": "Nur wenn die URL mehrfach kodiert wurde. Über-Dekodierung kann den Text beschädigen. Dekodieren Sie einmal und prüfen Sie das Ergebnis."
+        }
+      ]
+    },
+    "diff-checker": {
+      "whatIs": "Diff Checker vergleicht zwei Texte und hebt Unterschiede Zeile für Zeile oder Zeichen für Zeichen hervor. Es ist unverzichtbar für Codeüberprüfungen, Dokumentenvergleiche und das Verfolgen von Änderungen zwischen Versionen.",
+      "howToUse": "Fügen Sie zwei Texte in die linken und rechten Panels ein. Das Tool hebt automatisch Hinzufügungen, Löschungen und Änderungen hervor. Wechseln Sie zwischen zeilenbasierter und zeichenbasierter Diff-Ansicht für unterschiedliche Detailgrade.",
+      "features": [
+        "Zeilen- und Inline-Diff-Ansichten",
+        "Syntax-Hervorhebung für Code",
+        "Leerzeichenänderungen ignorieren Option",
+        "Diff als Unified-Diff-Format exportieren",
+        "Große Datei-Unterstützung mit virtualisiertem Rendering"
+      ],
+      "faq": [
+        {
+          "q": "Kann ich Dateien statt Text vergleichen?",
+          "a": "Ja, Sie können Dateien hochladen oder Text für den Vergleich einfügen. Binärdateien werden nur als ungleich angezeigt."
+        },
+        {
+          "q": "Was bedeuten die Farben?",
+          "a": "Grün zeigt Hinzufügungen, Rot zeigt Löschungen, Gelb zeigt Änderungen (in Inline-Ansicht). Grau zeigt unveränderte Zeilen."
+        },
+        {
+          "q": "Wie behandle ich nur Leerzeichenänderungen?",
+          "a": "Aktivieren Sie die Option 'Leerzeichen ignorieren', um nur inhaltliche Unterschiede zu fokussieren."
+        }
+      ]
+    },
+    "regex-tester": {
+      "whatIs": "Regex Tester ist ein interaktives Tool für reguläre Ausdrücke, das Muster anhand von Testtext validiert. Es hebt Treffer hervor, erklärt Muster und hilft beim effektiven Erstellen und Debuggen von Regex.",
+      "howToUse": "Geben Sie Ihr Regex-Muster oben ein. Fügen Sie Testtext unten hinzu. Treffer werden in Echtzeit hervorgehoben. Verwenden Sie Flags (g, i, m) zum Ändern des Verhaltens. Erfassungsgruppen werden separat angezeigt.",
+      "features": [
+        "Echtzeit-Musterabgleich mit Hervorhebung",
+        "Mustererklärungs- und Debugging-Modus",
+        "Erfassungsgruppen-Visualisierung",
+        "Gängige Musterbibliothek (E-Mail, URL, etc.)",
+        "Regex-Ersetzungstester"
+      ],
+      "faq": [
+        {
+          "q": "Welche Regex-Engine verwendet dieses Tool?",
+          "a": "JavaScript-Regex (ECMAScript). Syntax kann von PCRE, Python oder anderen Engines leicht abweichen."
+        },
+        {
+          "q": "Wie teste ich mehrzeilige Muster?",
+          "a": "Verwenden Sie das m-Flag für den mehrzeiligen Modus. ^ und $ werden am Zeilenanfang/-ende statt nur am String-Anfang/-Ende übereinstimmen."
+        },
+        {
+          "q": "Warum stimmt mein Muster zu viel überein?",
+          "a": "Regex ist standardmäßig gierig. Verwenden Sie *? oder +? für nicht-gieriges Matching oder spezifischere Zeichenklassen."
+        }
+      ]
+    },
+    "color-picker": {
+      "whatIs": "Color Picker ist ein Farbauswahl- und Konvertierungstool für Designer und Entwickler. Es konvertiert zwischen Farbformaten (HEX, RGB, HSL, HSB), generiert Farbpaletten und bietet Barrierefreiheitsprüfungen.",
+      "howToUse": "Verwenden Sie den Farbwähler oder geben Sie Farbwerte ein. Konvertieren Sie zwischen HEX, RGB, HSL und anderen Formaten. Generieren Sie Farbschemata und prüfen Sie Kontrastquoten für WCAG-Konformität.",
+      "features": [
+        "HEX, RGB, HSL, HSB, CMYK Konvertierung",
+        "Farbpaletten-Generator (komplementär, analog, etc.)",
+        "WCAG-Kontrastverhältnisprüfer",
+        "Bildgesteuerte Farbauswahl (Pipette)",
+        "CSS-Variablen-Export"
+      ],
+      "faq": [
+        {
+          "q": "Was ist ein gutes Kontrastverhältnis für Barrierefreiheit?",
+          "a": "WCAG AA erfordert 4.5:1 für normalen Text, 3:1 für großen Text. AAA erfordert 7:1 für normalen Text."
+        },
+        {
+          "q": "Wie extrahiere ich Farben aus einem Bild?",
+          "a": "Laden Sie ein Bild hoch und klicken Sie auf eine beliebige Stelle, um Farbwerte auszuwählen. Oder verwenden Sie den Farbpaletten-Generator."
+        },
+        {
+          "q": "Was ist der Unterschied zwischen HSL und HSB?",
+          "a": "HSL (Farbton, Sättigung, Helligkeit) vs HSB (Farbton, Sättigung, Brightness). HSB ist intuitiver für Designer, HSL ist häufiger in CSS."
+        }
+      ]
+    },
+    "sql-formatter": {
+      "whatIs": "SQL Formatter verschönert und standardisiert SQL-Abfragen über verschiedene Datenbankdialekte hinweg. Er verbessert die Lesbarkeit für Codeüberprüfungen, Dokumentation und Debugging komplexer Abfragen.",
+      "howToUse": "Fügen Sie Ihre SQL-Abfrage ein. Wählen Sie den SQL-Dialekt (MySQL, PostgreSQL, etc.). Passen Sie die Formatierungsoptionen an (Einrückung, Groß-/Kleinschreibung). Klicken Sie auf Format, um strukturiertes, lesbares SQL zu erhalten.",
+      "features": [
+        "Mehrere SQL-Dialekte (MySQL, PostgreSQL, SQL Server, Oracle)",
+        "Anpassbarer Einrückungsstil",
+        "Schlüsselwort-Großschreibungsoptionen",
+        "Inline-Kommentarerhaltung",
+        "Minifizierungsmodus zur Größenreduzierung"
+      ],
+      "faq": [
+        {
+          "q": "Werden meine Abfragen mit der Datenbank validiert?",
+          "a": "Nein, das Tool formatiert nur die Syntax. Es verbindet sich nicht mit Datenbanken und führt keine Abfragen aus."
+        },
+        {
+          "q": "Warum brauche ich verschiedene SQL-Dialekte?",
+          "a": "Jede Datenbank hat unterschiedliche Syntax für Funktionen, Datentypen und Features. Der richtige Dialekt gewährleistet korrekte Formatierung."
+        },
+        {
+          "q": "Kann ich meine eigenen Formatierungsregeln erstellen?",
+          "a": "Verwenden Sie die erweiterten Einstellungen, um Einrückung, Zeilenumbrüche und Schlüsselwortstil für benutzerdefiniertes Formatieren anzupassen."
+        }
+      ]
+    },
+    "cron-parser": {
+      "whatIs": "Cron Parser analysiert und erklärt Cron-Ausdrücke in menschenlesbarer Form. Es hilft beim Erstellen und Validieren von Zeitplänen für automatisierte Aufgaben, Jobs und Systemwartung.",
+      "howToUse": "Geben Sie Ihren Cron-Ausdruck ein. Das Tool zeigt die nächsten Ausführungszeiten und eine menschenlesbare Erklärung. Verwenden Sie den Ausdrucksersteller für die visuelle Zeitplanerstellung.",
+      "features": [
+        "Unterstützung für 5-Feld und 6-Feld (mit Sekunden) Cron",
+        "Menschenlesbare Zeitplanerklärung",
+        "Nächste N Ausführungszeiten-Vorschau",
+        "Unterstützung für gängige Voreinstellungen (@hourly, @daily, etc.)",
+        "Zeitzonenbewusste Berechnung"
+      ],
+      "faq": [
+        {
+          "q": "Was ist der Unterschied zwischen */5 und 0/5?",
+          "a": "Beide bedeuten 'alle 5 Einheiten', aber 0/5 startet explizit bei 0 (0, 5, 10...), während */5 je nach Feld variieren kann."
+        },
+        {
+          "q": "Wie gehe ich mit Zeitzonen in Cron um?",
+          "a": "Cron läuft typischerweise in der Serverzeit. Verwenden Sie den Zeitzonen-Selektor hier, um zu sehen, wann Jobs in Ihrer lokalen Zeit laufen."
+        },
+        {
+          "q": "Warum lief mein Cron-Job nicht wie erwartet?",
+          "a": "Überprüfen Sie Ihre Serverzeit, Cron-Daemon-Status und Job-Berechtigungen. Verwenden Sie dieses Tool, um den Ausdruck zu verifizieren."
+        }
+      ]
+    },
+    "markdown-preview": {
+      "whatIs": "Markdown Preview rendert Markdown-Text in formatiertes HTML in Echtzeit. Es unterstützt GitHub Flavored Markdown, Codeblöcke, Tabellen und mehr für die Dokumentationserstellung.",
+      "howToUse": "Schreiben oder fügen Sie Markdown in den Editor ein. Die Vorschau wird in Echtzeit aktualisiert. Verwenden Sie die Symbolleiste für die Formatierung oder schreiben Sie Markdown direkt. Exportieren Sie als HTML oder PDF bei Bedarf.",
+      "features": [
+        "GitHub Flavored Markdown-Unterstützung",
+        "Syntax-Hervorhebung für Codeblöcke",
+        "Tabellen-, Aufgabenlisten- und Emoji-Unterstützung",
+        "HTML/PDF-Export",
+        "Geteilte Editor-/Vorschau-Ansicht"
+      ],
+      "faq": [
+        {
+          "q": "Welcher Markdown-Dialekt wird unterstützt?",
+          "a": "GitHub Flavored Markdown (GFM), das Tabellen, durchgestrichenen Text, Aufgabenlisten und fenced Code-Blöcke enthält."
+        },
+        {
+          "q": "Kann ich rohes HTML in Markdown verwenden?",
+          "a": "Ja, Inline-HTML wird gerendert. Seien Sie vorsichtig mit Skripten, da sie aus Sicherheitsgründen bereinigt werden."
+        },
+        {
+          "q": "Wie füge ich Bilder in die Vorschau ein?",
+          "a": "Verwenden Sie die Markdown-Syntax: ![alt](url) oder ziehen Sie Bilder per Drag & Drop (sie werden Base64-kodiert)."
+        }
+      ]
+    },
+    "unix-timestamp": {
+      "whatIs": "Unix Timestamp Converter konvertiert zwischen Unix-Zeitstempeln und menschenlesbaren Datumsformaten. Er ist unverzichtbar für die Arbeit mit APIs, Protokollen und Datenbanken, die epochenbasierte Zeitwerte verwenden.",
+      "howToUse": "Geben Sie einen Unix-Zeitstempel ein, um ihn in ein Datum zu konvertieren, oder wählen Sie ein Datum, um dessen Zeitstempel zu erhalten. Wechseln Sie zwischen Sekunden und Millisekunden. Aktuelle Zeit wird automatisch angezeigt.",
+      "features": [
+        "Sekunden- und Millisekunden-Zeitstempel",
+        "Zeitzonenkonvertierung",
+        "Relatives Zeit-Parsing ('vor 2 Stunden')",
+        "Batch-Konvertierung mehrerer Zeitstempel",
+        "Aktuelle Zeit-Live-Anzeige"
+      ],
+      "faq": [
+        {
+          "q": "Was ist das Jahr-2038-Problem?",
+          "a": "32-Bit Unix-Zeitstempel laufen am 19. Januar 2038 über. Moderne Systeme verwenden 64-Bit-Zeitstempel. Dieses Tool verarbeitet beide."
+        },
+        {
+          "q": "Warum unterscheiden sich meine Zeitstempel?",
+          "a": "Prüfen Sie, ob Sie Sekunden vs. Millisekunden vergleichen (JS verwendet ms, die meisten Backend-Systeme verwenden Sekunden)."
+        },
+        {
+          "q": "Wie konvertiere ich zukünftige Daten?",
+          "a": "Verwenden Sie den Datumswähler, um ein beliebiges zukünftiges Datum auszuwählen, oder geben Sie es im ISO 8601-Format ein (YYYY-MM-DDTHH:MM:SS)."
+        }
+      ]
+    },
+    "meta-generator": {
+      "whatIs": "Meta Tag Generator erstellt HTML-Meta-Tags für SEO, Social Sharing und Browser-Verhalten. Er generiert Open Graph, Twitter Cards und andere essenzielle Meta-Tags für die Webentwicklung.",
+      "howToUse": "Füllen Sie Ihre Seiteninformationen aus (Titel, Beschreibung, Bild). Vorschau, wie Ihre Seite in Suchmaschinen und sozialen Medien erscheint. Kopieren Sie die generierten Meta-Tags in Ihr HTML.",
+      "features": [
+        "SEO Meta-Tag-Generierung (Titel, Beschreibung, Keywords)",
+        "Open Graph-Tags für Facebook/LinkedIn",
+        "Twitter Card-Tags",
+        "Favicon und App-Icon-Referenzen",
+        "Strukturierte Daten (JSON-LD) für Rich Snippets"
+      ],
+      "faq": [
+        {
+          "q": "Wie lang sollte meine Meta-Beschreibung sein?",
+          "a": "Google zeigt typischerweise 150-160 Zeichen an. Halten Sie wichtige Informationen früh. Mobile kann früher abschneiden."
+        },
+        {
+          "q": "Brauche ich sowohl Open Graph als auch Twitter-Tags?",
+          "a": "Twitter fällt auf OG-Tags zurück, aber Twitter-spezifische Tags erlauben Anpassung. Es ist bewährte Praxis, beides einzuschließen."
+        },
+        {
+          "q": "Was ist die beste Bildgröße für Social Sharing?",
+          "a": "1200x630px für Open Graph (Facebook/LinkedIn), 1200x600px für Twitter. Immer eine og:image URL einschließen."
+        }
+      ]
+    },
+    "pdf-toolkit": {
+      "whatIs": "PDF Toolkit ist eine All-in-One-Lösung für PDF-Operationen direkt in Ihrem Browser. Es ermöglicht das Zusammenführen, Teilen, Komprimieren und Schwärzen von PDF-Dokumenten ohne Server-Upload und gewährleistet vollständige Privatsphäre.",
+      "howToUse": "Laden Sie Ihre PDF-Dateien hoch. Wählen Sie eine Operation: Zusammenführen kombiniert mehrere PDFs, Teilen extrahiert Seiten, Komprimieren reduziert die Dateigröße, Schwärzen entfernt sensible Inhalte. Laden Sie das Ergebnis herunter, wenn Sie fertig sind.",
+      "features": [
+        "PDF-Zusammenführung mit Seitenreihenfolge-Steuerung",
+        "Seiten-Extraktion nach Bereich oder einzeln",
+        "Dateikomprimierung mit anpassbarer Qualität",
+        "Schwärzungstool für sensible Inhalte",
+        "100% clientseitige Verarbeitung für Datenschutz"
+      ],
+      "faq": [
+        {
+          "q": "Werden meine PDFs auf einen Server hochgeladen?",
+          "a": "Nein, alle Verarbeitung erfolgt lokal in Ihrem Browser. Ihre Dokumente verlassen nie Ihr Gerät."
+        },
+        {
+          "q": "Wie stark kann ich PDF-Dateien komprimieren?",
+          "a": "Die Komprimierung variiert je nach Inhalt. Bilder-lastige PDFs sehen größere Reduktionen (50-70%), während text-lastige PDFs möglicherweise 10-20% sehen."
+        },
+        {
+          "q": "Ist die Schwärzung dauerhaft?",
+          "a": "Ja, geschwärzte Inhalte werden aus dem PDF entfernt, nicht nur visuell abgedeckt. Der Originaltext ist nicht wiederherstellbar."
+        }
+      ]
+    },
+    "ocr-scanner": {
+      "whatIs": "OCR Scanner extrahiert Text aus Bildern mit Optical Character Recognition. Er unterstützt mehrere Sprachen und erkennt Text in gescannten Dokumenten, Fotos und Screenshots.",
+      "howToUse": "Laden Sie ein Bild mit Text hoch. Wählen Sie die Textsprache(n). Klicken Sie auf Scannen, um den Texterkennungsprozess zu starten. Der extrahierte Text kann kopiert oder zur weiteren Bearbeitung heruntergeladen werden.",
+      "features": [
+        "Mehrsprachige Texterkennung (100+ Sprachen)",
+        "Unterstützung für PNG, JPEG, WebP, PDF-Bilder",
+        "Handschrifterkennung (Beta)",
+        "Tabellenstruktur-Erkennung",
+        "Konfidenzwertanzeige"
+      ],
+      "faq": [
+        {
+          "q": "Wie genau ist die OCR?",
+          "a": "Die Genauigkeit hängt von der Bildqualität ab. Klarer, hochauflösender Text erreicht 95%+ Genauigkeit. Handschrift und schlechte Qualität reduzieren die Genauigkeit."
+        },
+        {
+          "q": "Können Sie gescannte PDF-Dokumente verarbeiten?",
+          "a": "Ja, laden Sie PDF-Seiten als Bilder hoch. Für mehrseitige PDFs verarbeiten Sie jede Seite einzeln."
+        },
+        {
+          "q": "Warum wurde etwas Text nicht erkannt?",
+          "a": "Prüfen Sie Bildqualität, Kontrast und Schriftgröße. Text unter 10pt oder mit ungewöhnlichen Schriften kann schlechter erkannt werden."
+        }
+      ]
+    },
+    "schema-generator": {
+      "whatIs": "Schema Generator erstellt strukturierte Daten (JSON-LD) für die Suchmaschinenoptimierung. Er hilft Ihrer Website, in den Suchergebnissen mit Rich Snippets wie FAQ, Bewertungen und Produktinformationen zu erscheinen.",
+      "howToUse": "Wählen Sie einen Schema-Typ (Artikel, Produkt, FAQ, etc.). Füllen Sie die erforderlichen Felder aus. Vorschau des generierten JSON-LD. Kopieren Sie es in den <head>-Bereich Ihrer HTML-Seite.",
+      "features": [
+        "Mehrere Schema-Typen (Artikel, Produkt, FAQ, HowTo, etc.)",
+        "Echtzeit-Validierung gegen Schema.org",
+        "Rich Snippet-Vorschau",
+        "Bulk-Generierung für mehrere Einträge",
+        "Google Rich Results-Tester-Integration"
+      ],
+      "faq": [
+        {
+          "q": "Welches Schema sollte ich für meine Website verwenden?",
+          "a": "Hängt vom Inhalt ab. Artikel für Blogs, Produkt für E-Commerce, LocalBusiness für physische Standorte, FAQ für Q&A-Inhalte."
+        },
+        {
+          "q": "Wie lange dauert es, bis Schema in der Suche erscheint?",
+          "a": "Google crawlt und indiziert Schema typischerweise innerhalb von Tagen bis Wochen. Verwenden Sie die Search Console, um die Indizierung anzufordern."
+        },
+        {
+          "q": "Kann ich mehrere Schemas auf einer Seite haben?",
+          "a": "Ja, Sie können mehrere JSON-LD-Blöcke haben. Üblich sind Artikel + FAQ oder Produkt + Bewertung auf derselben Seite."
+        }
+      ]
+    },
+    "headline-analyzer": {
+      "whatIs": "Headline Analyzer bewertet Ihre Überschriften auf Klickpotenzial und Engagement. Er analysiert emotionale Wörter, Wortbalance und Länge, um die Erstellung überzeugender Titel für Artikel, E-Mails und Werbung zu unterstützen.",
+      "howToUse": "Geben Sie Ihre Überschrift ein. Erhalten Sie sofortige Bewertungen für emotionale Wirkung, Wortbalance und Länge. Sehen Sie Verbesserungsvorschläge und vergleichen Sie mit hochperformanten Überschriften.",
+      "features": [
+        "Überschriften-Punktebewertung (0-100)",
+        "Emotionale Wort-Analyse",
+        "Zeichen- und Wortanzahl-Optimierung",
+        "Sentiment-Erkennung",
+        "A/B-Testvorschläge"
+      ],
+      "faq": [
+        {
+          "q": "Was ist ein guter Überschriften-Score?",
+          "a": "70+ gilt als gut. 80+ ist ausgezeichnet. Fokussieren Sie auf emotionale Wörter und optimale Länge (6-8 Wörter, 50-60 Zeichen)."
+        },
+        {
+          "q": "Wie wichtig sind emotionale Wörter?",
+          "a": "Sehr wichtig für CTR. Überschriften mit emotionalen Triggern erhalten bis zu 2x mehr Klicks in Studien."
+        },
+        {
+          "q": "Soll ich Zahlen in Überschriften verwenden?",
+          "a": "Ja, Zahlen erhöhen die CTR. Listicles (10 Wege...) und spezifische Daten schneiden oft besser ab als vage Überschriften."
+        }
+      ]
+    },
+    "bg-remover": {
+      "whatIs": "BG Remover verwendet KI, um automatisch Hintergründe aus Bildern zu entfernen. Er ist perfekt für Produktfotos, Porträts und die Erstellung transparenter PNGs für Design und E-Commerce.",
+      "howToUse": "Laden Sie ein Bild hoch. Die KI erkennt und entfernt den Hintergrund automatisch. Verfeinern Sie bei Bedarf die Kanten. Laden Sie das Ergebnis als transparentes PNG oder mit einem neuen Hintergrund herunter.",
+      "features": [
+        "KI-gestützte Hintergrunderkennung",
+        "Haare und feine Kanten-Verfeinerung",
+        "Hintergrund-Ersetzungsoptionen",
+        "Batch-Verarbeitung mehrerer Bilder",
+        "Hochauflösende Ausgabe"
+      ],
+      "faq": [
+        {
+          "q": "Wie genau ist die KI-Hintergrundentfernung?",
+          "a": "Die Genauigkeit ist hoch für klare Motive. Komplexe Szenen, ähnliche Farben oder feine Details benötigen möglicherweise manuelle Verfeinerung."
+        },
+        {
+          "q": "Werden meine Bilder auf einen Server hochgeladen?",
+          "a": "Nein, die Verarbeitung erfolgt vollständig in Ihrem Browser mit WebGL/WebGPU. Ihre Bilder verlassen nie Ihr Gerät."
+        },
+        {
+          "q": "Welche Auflösung wird unterstützt?",
+          "a": "Bis zu 4K-Bilder werden unterstützt. Größere Bilder werden für die Verarbeitung herunterskaliert, dann hochskaliert."
+        }
+      ]
+    },
+    "og-generator": {
+      "whatIs": "OG Image Generator erstellt Open Graph-Bilder für Social-Media-Vorschauen. Er hilft, konsistente, markenkonforme Vorschaubilder zu erstellen, wenn Ihre Links auf Twitter, Facebook und LinkedIn geteilt werden.",
+      "howToUse": "Wählen Sie eine Vorlage oder beginnen Sie bei Null. Fügen Sie Titel, Beschreibung und Branding hinzu. Passen Sie Farben, Schriftarten und Layout an. Exportieren Sie als PNG im optimalen 1200x630px-Format.",
+      "features": [
+        "Mehrere professionelle Vorlagen",
+        "Anpassbare Farben, Schriftarten und Layouts",
+        "Logo und Markenintegration",
+        "Optimale Größenausgabe (1200x630px)",
+        "Bulk-Generierung für mehrere Seiten"
+      ],
+      "faq": [
+        {
+          "q": "Was ist die beste OG-Bildgröße?",
+          "a": "1200x630px ist der Standard für Facebook/LinkedIn. Twitter bevorzugt 1200x600px, wird aber 1200x630 gut zuschneiden."
+        },
+        {
+          "q": "Wie sorge ich dafür, dass mein Bild überall erscheint?",
+          "a": "Fügen Sie og:image Meta-Tags hinzu. Verwenden Sie absolute URLs. Testen Sie mit den Debuggern von Facebook/Twitter/LinkedIn."
+        },
+        {
+          "q": "Kann ich diese für verschiedene Seiten automatisieren?",
+          "a": "Ja, verwenden Sie die API oder Vorlagen, um OG-Bilder dynamisch basierend auf Seiteninhalten zu generieren."
+        }
+      ]
     }
   }
 }
