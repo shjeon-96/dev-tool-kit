@@ -53,3 +53,13 @@ export {
 export { QuotaWarning, QuotaBadge } from "./quota-warning";
 export { FileUploader } from "./file-uploader";
 export { AdBlockNotice } from "./adblock-notice";
+export { SmartInternalLinks, ToolVisitRecorder } from "./smart-internal-links";
+export {
+  Card,
+  CardHeader,
+  CardFooter,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "./card";
+export { Badge, badgeVariants } from "./badge";

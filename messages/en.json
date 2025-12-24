@@ -173,13 +173,26 @@
     "searchTools": "Search tools...",
     "searchPlaceholder": "Type a tool name...",
     "noResults": "No results found.",
-    "tools": "Tools"
+    "tools": "Tools",
+    "relatedTools": "Related Tools",
+    "nextSteps": "Next Steps",
+    "recentlyUsed": "Recently Used",
+    "similarTools": "Similar Tools"
   },
   "adblock": {
     "title": "Enjoying Web Toolkit?",
-    "message": "We noticed you're using an ad blocker. Our ads help keep this tool free for everyone. Consider supporting us by disabling your ad blocker.",
+    "message": "We respect your choice! Here are some ways to support us:",
     "later": "Maybe Later",
-    "whitelist": "How to Whitelist"
+    "whitelist": "Learn How",
+    "options": "Support Options",
+    "proPlan": "Go Pro - No Ads",
+    "proDescription": "$5.99/mo for ad-free experience + premium features",
+    "viewPro": "View Plans",
+    "support": "Buy Us a Coffee",
+    "supportDescription": "One-time support keeps us going",
+    "buyMeCoffee": "Support",
+    "whitelistTitle": "Whitelist Us",
+    "whitelistDescription": "Non-intrusive ads only, we promise"
   },
   "pipeline": {
     "sendTo": "Send to",

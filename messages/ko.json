@@ -173,13 +173,26 @@
     "searchTools": "도구 검색...",
     "searchPlaceholder": "도구 이름을 입력하세요...",
     "noResults": "결과가 없습니다.",
-    "tools": "도구"
+    "tools": "도구",
+    "relatedTools": "관련 도구",
+    "nextSteps": "다음 단계",
+    "recentlyUsed": "최근 사용",
+    "similarTools": "유사한 도구"
   },
   "adblock": {
     "title": "Web Toolkit이 마음에 드시나요?",
-    "message": "광고 차단기를 사용 중이시네요. 광고 수익은 이 도구를 무료로 유지하는 데 도움이 됩니다. 광고 차단을 해제해 주시면 감사하겠습니다.",
+    "message": "여러분의 선택을 존중합니다! 저희를 응원하는 방법입니다:",
     "later": "나중에",
-    "whitelist": "화이트리스트 추가 방법"
+    "whitelist": "방법 보기",
+    "options": "지원 옵션",
+    "proPlan": "Pro 구독 - 광고 없음",
+    "proDescription": "월 $5.99로 광고 없는 경험 + 프리미엄 기능",
+    "viewPro": "요금제 보기",
+    "support": "커피 한 잔 후원",
+    "supportDescription": "일회성 후원으로 저희를 응원해주세요",
+    "buyMeCoffee": "후원하기",
+    "whitelistTitle": "화이트리스트 등록",
+    "whitelistDescription": "방해되지 않는 광고만 표시합니다"
   },
   "pipeline": {
     "sendTo": "보내기",

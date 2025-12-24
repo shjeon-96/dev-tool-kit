@@ -11,8 +11,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 항목            | 값                      |
 | --------------- | ----------------------- |
 | **URL**         | https://web-toolkit.app |
-| **Version**     | 0.4.0                   |
-| **Tools**       | 32개                    |
+| **Version**     | 1.2.0                   |
+| **Tools**       | 40+개                   |
+| **pSEO Pages**  | 500+개                  |
 | **Guides**      | 31개                    |
 | **Cheatsheets** | 14개                    |
 | **Languages**   | en, ko, ja              |
@@ -70,17 +71,29 @@ npm run package:ext   # Extension 패키징
 ```
 src/
 ├── app/[locale]/                 # Next.js App Router (i18n)
-│   ├── tools/[slug]/             # 도구 페이지
-│   ├── guides/[slug]/            # 가이드 페이지
-│   ├── cheatsheets/[slug]/       # 치트시트 페이지
+│   ├── tools/[slug]/             # 도구 페이지 (40+)
+│   ├── tools/bulk-actions/       # 대량 작업 페이지
+│   ├── convert/[slug]/           # pSEO: 포맷 변환 (54개)
+│   ├── resize-to/[slug]/         # pSEO: 이미지 리사이즈 (200+)
+│   ├── minify/[slug]/            # pSEO: 코드 압축
+│   ├── validate/[slug]/          # pSEO: 유효성 검사
+│   ├── diff/[slug]/              # pSEO: 차이 비교
+│   ├── hash/[slug]/              # pSEO: 해시 생성
+│   ├── guides/[slug]/            # 가이드 페이지 (31개)
+│   ├── cheatsheets/[slug]/       # 치트시트 페이지 (14개)
 │   ├── dashboard/                # 사용자 대시보드
-│   └── api/                      # API routes (share, checkout, usage 등)
+│   ├── docs/api/                 # API 문서 (Swagger UI)
+│   └── api/                      # API routes
 │
-├── features/                     # 도구 + 기능 모듈
+├── features/                     # 도구 + 기능 모듈 (60+)
 │   ├── json-formatter/           # 도구 예시
 │   │   ├── model/use-json-formatter.ts  # 상태/로직 Hook
 │   │   ├── lib/formatter.ts             # 순수 함수 (테스트 대상)
 │   │   └── ui/json-formatter.tsx        # UI 컴포넌트
+│   ├── bulk-actions/             # 대량 처리 기능
+│   │   ├── hash-bulk/            # 대량 해시
+│   │   ├── json-bulk/            # 대량 JSON
+│   │   └── qr-bulk/              # 대량 QR
 │   ├── auth/                     # 인증 (Supabase)
 │   ├── billing/                  # 결제 (LemonSqueezy)
 │   └── pricing/                  # 요금제 관리
@@ -90,6 +103,8 @@ src/
 │   │   ├── types.ts              # ToolSlug 타입
 │   │   ├── registry.ts           # 도구 레지스트리
 │   │   └── seo-content.ts        # SEO 콘텐츠
+│   ├── converter/model/          # pSEO: 변환기 레지스트리
+│   ├── image-resize-target/model/ # pSEO: 리사이즈 타겟
 │   ├── subscription/             # 구독 상태 관리
 │   ├── guide/data/               # 가이드 데이터
 │   └── cheatsheet/data/          # 치트시트 데이터
@@ -98,6 +113,8 @@ src/
 │   ├── ui/                       # 공통 UI 컴포넌트 (Radix UI)
 │   ├── lib/hooks/                # 공통 Hooks
 │   ├── lib/quota/                # 사용량 제한 시스템
+│   ├── lib/api/                  # API 유틸리티 (rate-limiter, auth)
+│   ├── lib/fs-access/            # File System Access API
 │   └── config/site.ts            # SITE_CONFIG
 │
 └── extension/                    # Chrome Extension (Plasmo)
@@ -148,9 +165,20 @@ new-tool/
 ),
 ```
 
-5. **messages/\*.json** - 번역 추가 (3개 언어)
+5. **messages/\*.json** - 번역 추가 (3개 언어: en, ko, ja)
+   - `tools.[slug].title`, `tools.[slug].description`
+   - `seo.[slug].title`, `seo.[slug].description`, `seo.[slug].keywords`
 
 6. **seo-content.ts** - SEO 콘텐츠 추가
+
+```typescript
+// src/entities/tool/model/seo-content.ts
+"new-tool": {
+  keywords: ["keyword1", "keyword2"],
+  features: ["feature1", "feature2"],
+  useCases: ["use case 1", "use case 2"],
+},
+```
 
 ---
 
@@ -208,6 +236,23 @@ npm run test:e2e:ui           # UI 모드
 
 ---
 
+## Programmatic SEO (pSEO) Pages
+
+자동 생성되는 대량 SEO 페이지:
+
+| Route Pattern       | Example                 | Registry Location                                    |
+| ------------------- | ----------------------- | ---------------------------------------------------- |
+| `/convert/[slug]`   | `/convert/json-to-yaml` | `src/entities/converter/model/registry.ts`           |
+| `/resize-to/[slug]` | `/resize-to/1920x1080`  | `src/entities/image-resize-target/model/registry.ts` |
+| `/minify/[slug]`    | `/minify/json`          | `src/entities/minify-type/model/registry.ts`         |
+| `/validate/[slug]`  | `/validate/json`        | `src/entities/validate-type/model/registry.ts`       |
+| `/diff/[slug]`      | `/diff/json`            | `src/entities/diff-type/model/registry.ts`           |
+| `/hash/[slug]`      | `/hash/md5`             | `src/entities/hash-type/model/registry.ts`           |
+
+각 pSEO 페이지는 기존 도구를 재활용하며, SEO 최적화된 콘텐츠를 제공합니다.
+
+---
+
 ## Next.js 16 Caveats
 
 ### Async Params (중요!)
@@ -233,17 +278,19 @@ export default function Page({ params }: { params: { slug: string } }) {
 
 ## Key Files Reference
 
-| File                                              | Purpose             |
-| ------------------------------------------------- | ------------------- |
-| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의  |
-| `src/entities/tool/model/registry.ts`             | 도구 레지스트리     |
-| `src/entities/tool/model/seo-content.ts`          | SEO 콘텐츠          |
-| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 Dynamic Import |
-| `src/entities/subscription/`                      | 구독/Premium 게이트 |
-| `src/shared/lib/quota/`                           | 사용량 제한 시스템  |
-| `src/shared/config/site.ts`                       | SITE_CONFIG         |
-| `src/i18n/routing.ts`                             | 지원 언어 목록      |
-| `messages/*.json`                                 | i18n 번역 파일      |
+| File                                              | Purpose                |
+| ------------------------------------------------- | ---------------------- |
+| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의     |
+| `src/entities/tool/model/registry.ts`             | 도구 레지스트리        |
+| `src/entities/tool/model/seo-content.ts`          | SEO 콘텐츠             |
+| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 Dynamic Import    |
+| `src/entities/subscription/`                      | 구독/Premium 게이트    |
+| `src/shared/lib/quota/`                           | 사용량 제한 시스템     |
+| `src/shared/config/site.ts`                       | SITE_CONFIG            |
+| `src/i18n/routing.ts`                             | 지원 언어 목록         |
+| `messages/*.json`                                 | i18n 번역 파일         |
+| `src/app/sitemap.ts`                              | 동적 사이트맵 생성     |
+| `src/entities/*/model/registry.ts`                | pSEO 페이지 레지스트리 |
 
 ---
 
@@ -304,3 +351,21 @@ NEXT_PUBLIC_CLARITY_ID=...
 // ❌ 잘못된 예
 { id: "whatIsJson", title: "..." }  // camelCase 금지
 ```
+
+---
+
+## API v1 (Public REST API)
+
+공개 API 엔드포인트 (`/api/v1/`):
+
+| Endpoint                 | Method | Description             |
+| ------------------------ | ------ | ----------------------- |
+| `/api/v1/hash/generate`  | POST   | 해시 생성 (MD5, SHA 등) |
+| `/api/v1/json/format`    | POST   | JSON 포맷팅/압축        |
+| `/api/v1/qr/generate`    | POST   | QR 코드 생성            |
+| `/api/v1/uuid/generate`  | GET    | UUID 생성               |
+| `/api/v1/base64/convert` | POST   | Base64 인코딩/디코딩    |
+
+- Rate Limit: 익명 100회/일, Pro 10,000회/일
+- 인증: `X-API-Key` 헤더 (대시보드에서 발급)
+- API 문서: `/docs/api` (Swagger UI)

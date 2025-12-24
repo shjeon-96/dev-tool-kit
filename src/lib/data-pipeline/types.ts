@@ -36,6 +36,14 @@ export interface TrendingRepo {
   language: string;
   todayStars: number;
   builtBy?: GitHubUser[];
+  // GraphQL API 추가 필드
+  topics?: string[];
+  license?: string;
+  isArchived?: boolean;
+  isFork?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  pushedAt?: string;
 }
 
 export interface GitHubUser {

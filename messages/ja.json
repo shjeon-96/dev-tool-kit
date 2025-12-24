@@ -143,13 +143,26 @@
     "searchTools": "ツールを検索...",
     "searchPlaceholder": "ツール名を入力してください...",
     "noResults": "結果が見つかりません。",
-    "tools": "ツール"
+    "tools": "ツール",
+    "relatedTools": "関連ツール",
+    "nextSteps": "次のステップ",
+    "recentlyUsed": "最近使用",
+    "similarTools": "類似ツール"
   },
   "adblock": {
     "title": "Web Toolkitを気に入っていますか？",
-    "message": "広告ブロッカーをご利用中のようです。広告収入はこのツールを無料で提供し続けるために役立っています。広告ブロッカーの解除をご検討ください。",
+    "message": "あなたの選択を尊重します！サポート方法をご紹介します：",
     "later": "後で",
-    "whitelist": "ホワイトリストに追加する方法"
+    "whitelist": "方法を見る",
+    "options": "サポートオプション",
+    "proPlan": "Proプラン - 広告なし",
+    "proDescription": "月額$5.99で広告なし体験 + プレミアム機能",
+    "viewPro": "プランを見る",
+    "support": "コーヒーをおごる",
+    "supportDescription": "ワンタイムのサポートで私たちを応援",
+    "buyMeCoffee": "サポート",
+    "whitelistTitle": "ホワイトリスト登録",
+    "whitelistDescription": "控えめな広告のみ表示します"
   },
   "pipeline": {
     "sendTo": "送信先",

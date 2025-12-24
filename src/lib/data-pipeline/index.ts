@@ -22,7 +22,7 @@ export {
   searchReddit,
 } from "./reddit-collector";
 
-// GitHub 수집기
+// GitHub 수집기 (비공식 API)
 export {
   collectGitHubTrending,
   collectMultiLanguageTrending,
@@ -31,6 +31,25 @@ export {
   getTopByTodayStars,
   filterByKeywords,
 } from "./github-collector";
+
+// GitHub GraphQL API (공식)
+export {
+  collectFromGitHubGraphQL,
+  collectMultiLanguageFromGraphQL,
+  filterDeveloperToolsByTopics,
+  checkGitHubGraphQLHealth,
+} from "./github-graphql";
+
+// Fallback 오케스트레이터
+export {
+  collectWithFallback,
+  getPipelineStatus,
+  getSourceStatuses,
+  checkAllSources,
+  type FallbackConfig,
+  type SourceStatus,
+  type PipelineStatus,
+} from "./fallback-orchestrator";
 
 // 트렌드 리포트
 export {
@@ -54,4 +73,8 @@ export {
   deleteTrendReport,
   cleanupOldReports,
   reportExists,
+  // 일반 캐시 저장소
+  saveToStorage,
+  loadFromStorage,
+  deleteFromStorage,
 } from "./storage";
