@@ -10,8 +10,12 @@
  * 4. 환경 변수 설정: GOOGLE_SERVICE_ACCOUNT (JSON 문자열)
  */
 
+import { config } from "dotenv";
 import fs from "fs/promises";
 import path from "path";
+
+// Load .env.local
+config({ path: ".env.local" });
 
 // ============================================
 // 타입 정의
@@ -136,7 +140,7 @@ async function sleep(ms: number): Promise<void> {
 
 export async function checkIndexStatus(
   urls: string[],
-  siteUrl = "https://web-toolkit.app",
+  siteUrl = "https://web-toolkit.app/",
 ): Promise<IndexStatus[]> {
   const searchconsole = await getSearchConsoleClient();
   const results: IndexStatus[] = [];
@@ -232,7 +236,7 @@ export async function generateWeeklyIndexReport(
 
   const report: IndexReport = {
     generatedAt: new Date().toISOString(),
-    siteUrl: "https://web-toolkit.app",
+    siteUrl: "https://web-toolkit.app/",
     summary,
     details: results,
     recommendations: generateRecommendations(summary),
@@ -336,7 +340,7 @@ GSC 색인 상태 모니터링 스크립트
 
     const mockReport: IndexReport = {
       generatedAt: new Date().toISOString(),
-      siteUrl: "https://web-toolkit.app",
+      siteUrl: "https://web-toolkit.app/",
       summary: {
         total: 50,
         indexed: 35,
