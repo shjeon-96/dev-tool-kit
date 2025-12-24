@@ -3180,5 +3180,55 @@
       "low": "낮음",
       "informational": "정보"
     }
+  },
+  "alternativeTo": {
+    "index": {
+      "title": "Web Toolkit 대안 및 비교",
+      "description": "개발자들이 Web Toolkit을 선택하는 이유를 확인하세요. 100% 클라이언트 사이드 처리, 오프라인 지원, AI 코드 오류 감지.",
+      "compareWith": "인기 도구와 비교하기",
+      "monthlySearches": "월간 검색량",
+      "seeComparison": "상세 비교 보기"
+    },
+    "benefits": {
+      "privacy": {
+        "title": "100% 클라이언트 사이드",
+        "description": "데이터가 서버로 전송되지 않습니다"
+      },
+      "offline": {
+        "title": "오프라인 지원",
+        "description": "PWA - 인터넷 없이 사용"
+      },
+      "ai": {
+        "title": "AI 코드 지원",
+        "description": "ChatGPT/Claude 오류 수정"
+      },
+      "platform": {
+        "title": "모든 플랫폼",
+        "description": "모든 브라우저와 기기에서 작동"
+      }
+    },
+    "detail": {
+      "privacyFirst": "프라이버시 우선",
+      "alternative": "대안",
+      "heroDescription": "{competitor}와 Web Toolkit을 비교하고 개발자들이 프라이버시 우선 클라이언트 사이드 도구를 선택하는 이유를 확인하세요.",
+      "categoriesWon": "Web Toolkit이 우세한 카테고리",
+      "toolsAvailable": "사용 가능한 개발자 도구",
+      "clientSide": "클라이언트 사이드 처리",
+      "comparisonTable": "기능 비교",
+      "feature": "기능",
+      "winner": "우위",
+      "whySwitch": "{competitor}에서 전환해야 하는 이유",
+      "tryTheseTools": "이 도구들을 사용해 보세요",
+      "faq": "자주 묻는 질문",
+      "readyToSwitch": "전환할 준비가 되셨나요?",
+      "ctaDescription": "더 나은 프라이버시와 더 많은 기능을 위해 {competitor}에서 Web Toolkit으로 전환한 수천 명의 개발자들과 함께하세요.",
+      "exploreTools": "모든 도구 탐색",
+      "visit": "방문"
+    },
+    "cta": {
+      "title": "오늘 Web Toolkit을 사용해 보세요",
+      "description": "43개 이상의 개발자 도구, 100% 무료, 100% 프라이버시. 설치가 필요 없습니다.",
+      "button": "도구 사용 시작"
+    }
   }
 }

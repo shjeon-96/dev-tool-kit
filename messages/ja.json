@@ -3194,5 +3194,55 @@
       "low": "低",
       "informational": "情報"
     }
+  },
+  "alternativeTo": {
+    "index": {
+      "title": "Web Toolkit 代替ツール・比較",
+      "description": "開発者がWeb Toolkitを選ぶ理由をご覧ください。100%クライアントサイド処理、オフライン対応、AIコードエラー検出。",
+      "compareWith": "人気ツールと比較",
+      "monthlySearches": "月間検索数",
+      "seeComparison": "詳細比較を見る"
+    },
+    "benefits": {
+      "privacy": {
+        "title": "100%クライアントサイド",
+        "description": "データはサーバーに送信されません"
+      },
+      "offline": {
+        "title": "オフライン対応",
+        "description": "PWA - インターネットなしで使用可能"
+      },
+      "ai": {
+        "title": "AIコードサポート",
+        "description": "ChatGPT/Claudeエラー修正"
+      },
+      "platform": {
+        "title": "全プラットフォーム",
+        "description": "すべてのブラウザとデバイスで動作"
+      }
+    },
+    "detail": {
+      "privacyFirst": "プライバシー優先",
+      "alternative": "代替ツール",
+      "heroDescription": "{competitor}とWeb Toolkitを比較し、開発者がプライバシー優先のクライアントサイドツールを選ぶ理由をご覧ください。",
+      "categoriesWon": "Web Toolkitが優れているカテゴリ",
+      "toolsAvailable": "利用可能な開発者ツール",
+      "clientSide": "クライアントサイド処理",
+      "comparisonTable": "機能比較",
+      "feature": "機能",
+      "winner": "優位",
+      "whySwitch": "{competitor}から切り替えるべき理由",
+      "tryTheseTools": "これらのツールをお試しください",
+      "faq": "よくある質問",
+      "readyToSwitch": "切り替える準備はできましたか？",
+      "ctaDescription": "より良いプライバシーとより多くの機能のために{competitor}からWeb Toolkitに切り替えた数千人の開発者に参加しましょう。",
+      "exploreTools": "すべてのツールを探索",
+      "visit": "訪問"
+    },
+    "cta": {
+      "title": "今日からWeb Toolkitを使ってみましょう",
+      "description": "43以上の開発者ツール、100%無料、100%プライベート。インストール不要。",
+      "button": "ツールを使い始める"
+    }
   }
 }

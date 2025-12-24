@@ -3137,5 +3137,55 @@
       "low": "Low",
       "informational": "Info"
     }
+  },
+  "alternativeTo": {
+    "index": {
+      "title": "Web Toolkit Alternatives & Comparisons",
+      "description": "See why developers choose Web Toolkit over traditional online tools. 100% client-side processing, offline support, and AI code error detection.",
+      "compareWith": "Compare with Popular Tools",
+      "monthlySearches": "monthly searches",
+      "seeComparison": "See full comparison"
+    },
+    "benefits": {
+      "privacy": {
+        "title": "100% Client-Side",
+        "description": "Your data never leaves your device"
+      },
+      "offline": {
+        "title": "Works Offline",
+        "description": "PWA - use without internet"
+      },
+      "ai": {
+        "title": "AI Code Support",
+        "description": "Fix ChatGPT/Claude errors"
+      },
+      "platform": {
+        "title": "Any Platform",
+        "description": "Works on all browsers & devices"
+      }
+    },
+    "detail": {
+      "privacyFirst": "Privacy First",
+      "alternative": "Alternative",
+      "heroDescription": "Compare Web Toolkit with {competitor} and see why developers choose our privacy-first, client-side tools.",
+      "categoriesWon": "Categories where Web Toolkit wins",
+      "toolsAvailable": "Developer tools available",
+      "clientSide": "Client-side processing",
+      "comparisonTable": "Feature Comparison",
+      "feature": "Feature",
+      "winner": "Winner",
+      "whySwitch": "Why switch from {competitor}?",
+      "tryTheseTools": "Try these tools instead",
+      "faq": "Frequently Asked Questions",
+      "readyToSwitch": "Ready to switch?",
+      "ctaDescription": "Join thousands of developers who switched from {competitor} to Web Toolkit for better privacy and more features.",
+      "exploreTools": "Explore All Tools",
+      "visit": "Visit"
+    },
+    "cta": {
+      "title": "Try Web Toolkit Today",
+      "description": "43+ developer tools, 100% free, 100% private. No installation required.",
+      "button": "Start Using Tools"
+    }
   }
 }

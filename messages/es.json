@@ -1171,5 +1171,55 @@
         }
       ]
     }
+  },
+  "alternativeTo": {
+    "index": {
+      "title": "Alternativas y Comparaciones de Web Toolkit",
+      "description": "Descubre por qué los desarrolladores eligen Web Toolkit sobre las herramientas online tradicionales. Procesamiento 100% del lado del cliente, soporte offline y detección de errores de código AI.",
+      "compareWith": "Comparar con Herramientas Populares",
+      "monthlySearches": "búsquedas mensuales",
+      "seeComparison": "Ver comparación completa"
+    },
+    "benefits": {
+      "privacy": {
+        "title": "100% Del Lado del Cliente",
+        "description": "Tus datos nunca salen de tu dispositivo"
+      },
+      "offline": {
+        "title": "Funciona Sin Conexión",
+        "description": "PWA - usa sin internet"
+      },
+      "ai": {
+        "title": "Soporte de Código AI",
+        "description": "Corrige errores de ChatGPT/Claude"
+      },
+      "platform": {
+        "title": "Cualquier Plataforma",
+        "description": "Funciona en todos los navegadores y dispositivos"
+      }
+    },
+    "detail": {
+      "privacyFirst": "Privacidad Primero",
+      "alternative": "Alternativa",
+      "heroDescription": "Compara Web Toolkit con {competitor} y descubre por qué los desarrolladores eligen nuestras herramientas del lado del cliente que priorizan la privacidad.",
+      "categoriesWon": "Categorías donde Web Toolkit gana",
+      "toolsAvailable": "Herramientas de desarrollador disponibles",
+      "clientSide": "Procesamiento del lado del cliente",
+      "comparisonTable": "Comparación de Funciones",
+      "feature": "Función",
+      "winner": "Ganador",
+      "whySwitch": "¿Por qué cambiar de {competitor}?",
+      "tryTheseTools": "Prueba estas herramientas en su lugar",
+      "faq": "Preguntas Frecuentes",
+      "readyToSwitch": "¿Listo para cambiar?",
+      "ctaDescription": "Únete a miles de desarrolladores que cambiaron de {competitor} a Web Toolkit para mejor privacidad y más funciones.",
+      "exploreTools": "Explorar Todas las Herramientas",
+      "visit": "Visitar"
+    },
+    "cta": {
+      "title": "Prueba Web Toolkit Hoy",
+      "description": "43+ herramientas de desarrollador, 100% gratis, 100% privado. Sin instalación requerida.",
+      "button": "Comenzar a Usar Herramientas"
+    }
   }
 }
