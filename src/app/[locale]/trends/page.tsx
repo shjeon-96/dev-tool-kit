@@ -10,6 +10,9 @@ import {
   getWeekDateRange,
 } from "@/lib/data-pipeline";
 
+// 1시간마다 재검증 (새 트렌드 데이터 반영)
+export const revalidate = 3600;
+
 interface PageProps {
   params: Promise<{ locale: string }>;
 }
