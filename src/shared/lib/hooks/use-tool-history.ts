@@ -31,20 +31,29 @@ export function useToolHistory(slug: string) {
     getStoredHistory(storageKey),
   );
 
+  // Memoized subscribe function for useSyncExternalStore
+  const subscribeToStorage = useCallback((callback: () => void) => {
+    window.addEventListener("storage", callback);
+    return () => window.removeEventListener("storage", callback);
+  }, []);
+
+  // Memoized getSnapshot function for useSyncExternalStore
+  const getStorageSnapshot = useCallback(() => {
+    try {
+      return localStorage.getItem(storageKey) || "[]";
+    } catch {
+      return "[]";
+    }
+  }, [storageKey]);
+
+  // Server snapshot - always returns empty array string
+  const getServerSnapshot = useCallback(() => "[]", []);
+
   // Subscribe to storage events for cross-tab sync
   useSyncExternalStore(
-    (callback) => {
-      window.addEventListener("storage", callback);
-      return () => window.removeEventListener("storage", callback);
-    },
-    () => {
-      try {
-        return localStorage.getItem(storageKey) || "[]";
-      } catch {
-        return "[]";
-      }
-    },
-    () => "[]",
+    subscribeToStorage,
+    getStorageSnapshot,
+    getServerSnapshot,
   );
 
   const addToHistory = useCallback(

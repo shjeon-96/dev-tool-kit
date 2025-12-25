@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from "react";
 import MarkdownIt from "markdown-it";
 
@@ -7,6 +9,7 @@ interface MarkdownViewerProps {
 }
 
 export function MarkdownViewer({ content }: MarkdownViewerProps) {
+  // useMemo를 사용하여 content가 변경될 때만 재계산
   const html = useMemo(() => {
     const md = new MarkdownIt({
       html: true,

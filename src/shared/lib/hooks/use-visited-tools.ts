@@ -6,24 +6,45 @@ import type { ToolSlug } from "@/entities/tool/model/types";
 const STORAGE_KEY = "visited-tools";
 const MAX_ITEMS = 50;
 
+// Cached storage value for useSyncExternalStore
+let cachedStorageValue: string[] | null = null;
+let cachedStorageRaw: string | null = null;
+
 // localStorage 구독 함수
 function subscribeToStorage(callback: () => void) {
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  const handleStorageChange = () => {
+    // Invalidate cache when storage changes
+    cachedStorageValue = null;
+    cachedStorageRaw = null;
+    callback();
+  };
+  window.addEventListener("storage", handleStorageChange);
+  return () => window.removeEventListener("storage", handleStorageChange);
 }
 
 function getStorageSnapshot(): string[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return emptyArray;
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    // Return cached value if storage hasn't changed
+    if (stored === cachedStorageRaw && cachedStorageValue !== null) {
+      return cachedStorageValue;
+    }
+    // Update cache
+    cachedStorageRaw = stored;
+    const parsed = stored ? JSON.parse(stored) : emptyArray;
+    cachedStorageValue = parsed;
+    return parsed;
   } catch {
-    return [];
+    return emptyArray;
   }
 }
 
+// Stable empty array reference for server snapshot
+const emptyArray: string[] = [];
+
 function getServerSnapshot(): string[] {
-  return [];
+  return emptyArray;
 }
 
 /**

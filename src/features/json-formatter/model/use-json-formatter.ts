@@ -38,14 +38,25 @@ export function useJsonFormatter() {
   const [indent, setIndentInternal] = useState(urlState.indent);
 
   // Sync input with URL state changes (e.g., browser back/forward)
-  // This is a valid pattern for external state synchronization
+  // Only update if values actually differ to prevent infinite loops
   useEffect(() => {
-    // Use queueMicrotask to avoid synchronous setState warning
-    queueMicrotask(() => {
-      setInputInternal(urlState.input);
-      setIndentInternal(urlState.indent);
-    });
-  }, [urlState.input, urlState.indent]);
+    // Compare values before setting to avoid unnecessary updates
+    // This prevents potential infinite loops when URL state changes
+    const inputChanged = urlState.input !== input;
+    const indentChanged = urlState.indent !== indent;
+
+    if (inputChanged || indentChanged) {
+      // Use queueMicrotask to avoid synchronous setState warning
+      queueMicrotask(() => {
+        if (inputChanged) {
+          setInputInternal(urlState.input);
+        }
+        if (indentChanged) {
+          setIndentInternal(urlState.indent);
+        }
+      });
+    }
+  }, [urlState.input, urlState.indent, input, indent]);
 
   // Update URL state when input changes (debounced)
   const setInput = useCallback(

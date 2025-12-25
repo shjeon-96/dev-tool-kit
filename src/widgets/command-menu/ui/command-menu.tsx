@@ -3,14 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  Calculator,
-  Calendar,
-  Search,
-  Settings,
-  User,
-  BookOpen,
-} from "lucide-react";
+import { Calculator, Calendar, Search, BookOpen } from "lucide-react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -19,7 +12,6 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/shared/ui/command";
 import { tools, getSortedCategories, type ToolSlug } from "@/entities/tool";
 
@@ -31,7 +23,7 @@ export function CommandMenu() {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const t = useTranslations();
+  const t = useTranslations("commandMenu");
 
   // Recent Tools Hook
   const { addRecentTool, getRecentSlugs, hasRecentTools } = useRecentTools();
@@ -76,15 +68,13 @@ export function CommandMenu() {
       </div>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput
-          placeholder={t("commandMenu.naturalLanguagePlaceholder")}
-        />
+        <CommandInput placeholder={t("placeholder")} />
         <CommandList>
-          <CommandEmpty>{t("common.noResults")}</CommandEmpty>
+          <CommandEmpty>{t("noResults")}</CommandEmpty>
 
           {/* Recent Tools Section */}
           {hasRecentTools && (
-            <CommandGroup heading={t("common.recentlyUsed")}>
+            <CommandGroup heading={t("recentlyUsed")}>
               {recentSlugs.map((slug) => {
                 const tool = tools[slug];
                 if (!tool) return null;
@@ -97,7 +87,7 @@ export function CommandMenu() {
                     <tool.icon className="mr-2 h-4 w-4" />
                     <span>{tool.title}</span>
                     <span className="ml-auto text-xs text-muted-foreground opacity-70">
-                      {t("common.recentlyUsed")}
+                      {t("recent")}
                     </span>
                   </CommandItem>
                 );
@@ -107,24 +97,24 @@ export function CommandMenu() {
 
           <CommandSeparator />
 
-          <CommandGroup heading={t("commandMenu.aiSuggestions")}>
+          <CommandGroup heading={t("suggestions")}>
             <CommandItem
               onSelect={() => runCommand(() => router.push(`/${locale}`))}
             >
               <Calendar className="mr-2 h-4 w-4" />
-              <span>{t("navigation.home")}</span>
+              <span>{t("home")}</span>
             </CommandItem>
             <CommandItem
               onSelect={() => runCommand(() => router.push(`/${locale}/tools`))}
             >
               <Calculator className="mr-2 h-4 w-4" />
-              <span>{t("sidebar.allTools")}</span>
+              <span>{t("allTools")}</span>
             </CommandItem>
             <CommandItem
               onSelect={() => runCommand(() => router.push(`/${locale}/blog`))}
             >
               <BookOpen className="mr-2 h-4 w-4" />
-              <span>{t("commandMenu.blog")}</span>
+              <span>{t("blog")}</span>
             </CommandItem>
           </CommandGroup>
 
@@ -132,7 +122,7 @@ export function CommandMenu() {
 
           {categories.map((category) => {
             const categoryTools = Object.entries(tools).filter(
-              ([_, tool]) => tool.category === category.id,
+              ([, tool]) => tool.category === category.id,
             );
 
             if (categoryTools.length === 0) return null;
@@ -140,7 +130,7 @@ export function CommandMenu() {
             return (
               <CommandGroup
                 key={category.id}
-                heading={t(`sidebar.categories.${category.labelKey}`)}
+                heading={t(`categories.${category.labelKey}`)}
               >
                 {categoryTools.map(([slug, tool]) => (
                   <CommandItem

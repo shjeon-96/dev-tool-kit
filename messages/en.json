@@ -280,6 +280,20 @@
     }
   },
   "commandMenu": {
+    "placeholder": "Search tools...",
+    "noResults": "No results found.",
+    "recentlyUsed": "Recently Used",
+    "recent": "Recent",
+    "suggestions": "Suggestions",
+    "home": "Home",
+    "allTools": "All Tools",
+    "blog": "Blog",
+    "categories": {
+      "text": "Text",
+      "media": "Media",
+      "converters": "Converters",
+      "security": "Security"
+    },
     "naturalLanguagePlaceholder": "Search or describe what you need...",
     "tryNaturalLanguage": "Try: \"format my json\" or \"decode jwt token\"",
     "quickActions": "Quick Actions",
@@ -288,8 +302,7 @@
     "formatJson": "Format this JSON",
     "decodeJwt": "Decode this JWT token",
     "parseUrl": "Parse this URL",
-    "detectHash": "Analyze this hash",
-    "blog": "Blog"
+    "detectHash": "Analyze this hash"
   },
   "tools": {
     "json-formatter": {

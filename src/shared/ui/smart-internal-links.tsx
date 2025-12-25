@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, History, Workflow, Grid3X3 } from "lucide-react";
@@ -54,7 +55,19 @@ export function SmartInternalLinks({
 }: SmartInternalLinksProps) {
   const locale = useLocale();
   const t = useTranslations("common");
-  const { visitedTools, isLoaded } = useVisitedTools();
+  const { visitedTools } = useVisitedTools();
+
+  // Hydration-safe mounted check using useSyncExternalStore
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  // 마운트 전에는 렌더링하지 않음 (Hydration 안전)
+  if (!mounted) {
+    return null;
+  }
 
   // 추천 계산
   const recommendations = getWeightedRecommendations(
@@ -72,8 +85,8 @@ export function SmartInternalLinks({
     { workflow: [], history: [], category: [] },
   );
 
-  // 로딩 중이거나 추천이 없으면 렌더링 안함
-  if (!isLoaded || recommendations.length === 0) {
+  // 추천이 없으면 렌더링 안함
+  if (recommendations.length === 0) {
     return null;
   }
 
@@ -243,15 +256,14 @@ interface ToolVisitRecorderProps {
 export function ToolVisitRecorder({ slug }: ToolVisitRecorderProps) {
   const { recordVisit } = useVisitedTools();
 
-  // 마운트 시 방문 기록
-  if (typeof window !== "undefined") {
-    // useEffect 대신 즉시 실행 (한 번만)
+  // useEffect를 사용하여 Hydration 이후에만 방문 기록
+  useEffect(() => {
     const key = `recorded-${slug}`;
     if (!sessionStorage.getItem(key)) {
       recordVisit(slug);
       sessionStorage.setItem(key, "1");
     }
-  }
+  }, [slug, recordVisit]);
 
   return null;
 }

@@ -280,6 +280,20 @@
     }
   },
   "commandMenu": {
+    "placeholder": "도구 검색...",
+    "noResults": "결과가 없습니다.",
+    "recentlyUsed": "최근 사용",
+    "recent": "최근",
+    "suggestions": "제안",
+    "home": "홈",
+    "allTools": "모든 도구",
+    "blog": "블로그",
+    "categories": {
+      "text": "텍스트",
+      "media": "미디어",
+      "converters": "변환",
+      "security": "보안"
+    },
     "naturalLanguagePlaceholder": "검색하거나 필요한 것을 설명하세요...",
     "tryNaturalLanguage": "예: \"json 포맷\" 또는 \"jwt 토큰 디코딩\"",
     "quickActions": "빠른 실행",
@@ -288,8 +302,7 @@
     "formatJson": "이 JSON 포맷하기",
     "decodeJwt": "이 JWT 토큰 디코딩",
     "parseUrl": "이 URL 분석",
-    "detectHash": "이 해시 분석",
-    "blog": "블로그"
+    "detectHash": "이 해시 분석"
   },
   "tools": {
     "json-formatter": {

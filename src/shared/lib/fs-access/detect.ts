@@ -215,21 +215,42 @@ export function detectBrowser(): {
   };
 }
 
+// Cached browser info for useSyncExternalStore
+let cachedBrowserInfo: ReturnType<typeof detectBrowser> | null = null;
+
+function subscribeBrowserInfo(): () => void {
+  // Browser info doesn't change at runtime
+  return () => {};
+}
+
+function getBrowserInfoSnapshot(): ReturnType<typeof detectBrowser> {
+  if (cachedBrowserInfo === null) {
+    cachedBrowserInfo = detectBrowser();
+  }
+  return cachedBrowserInfo;
+}
+
+const serverBrowserInfo = {
+  name: "unknown",
+  isChrome: false,
+  isEdge: false,
+  isSafari: false,
+  isFirefox: false,
+  supportsFullAPI: false,
+} as const;
+
+function getBrowserInfoServerSnapshot(): typeof serverBrowserInfo {
+  return serverBrowserInfo;
+}
+
 /**
  * 브라우저 정보 Hook
  */
 export function useBrowserInfo() {
   const browserInfo = useSyncExternalStore(
-    () => () => {},
-    () => detectBrowser(),
-    () => ({
-      name: "unknown",
-      isChrome: false,
-      isEdge: false,
-      isSafari: false,
-      isFirefox: false,
-      supportsFullAPI: false,
-    }),
+    subscribeBrowserInfo,
+    getBrowserInfoSnapshot,
+    getBrowserInfoServerSnapshot,
   );
 
   return browserInfo;

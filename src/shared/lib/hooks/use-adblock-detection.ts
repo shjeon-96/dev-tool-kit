@@ -5,23 +5,50 @@ import { useState, useEffect, useSyncExternalStore } from "react";
 const STORAGE_KEY = "adblock-notice-dismissed";
 const DISMISS_DURATION_DAYS = 7;
 
+// Cached dismissed state for useSyncExternalStore
+let cachedIsDismissed: boolean | null = null;
+let cachedDismissedAt: string | null = null;
+
 function getIsDismissed(): boolean {
   if (typeof window === "undefined") return true;
 
   const dismissedAt = localStorage.getItem(STORAGE_KEY);
-  if (!dismissedAt) return false;
+
+  // Return cached value if storage hasn't changed
+  if (dismissedAt === cachedDismissedAt && cachedIsDismissed !== null) {
+    return cachedIsDismissed;
+  }
+
+  cachedDismissedAt = dismissedAt;
+
+  if (!dismissedAt) {
+    cachedIsDismissed = false;
+    return false;
+  }
 
   const dismissedDate = new Date(dismissedAt);
   const now = new Date();
   const daysSinceDismissed =
     (now.getTime() - dismissedDate.getTime()) / (1000 * 60 * 60 * 24);
 
-  return daysSinceDismissed < DISMISS_DURATION_DAYS;
+  cachedIsDismissed = daysSinceDismissed < DISMISS_DURATION_DAYS;
+  return cachedIsDismissed;
 }
 
 function subscribe(callback: () => void) {
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  const handleStorageChange = () => {
+    // Invalidate cache
+    cachedIsDismissed = null;
+    cachedDismissedAt = null;
+    callback();
+  };
+  window.addEventListener("storage", handleStorageChange);
+  return () => window.removeEventListener("storage", handleStorageChange);
+}
+
+// Stable server snapshot function
+function getServerSnapshot(): boolean {
+  return true; // Assume dismissed on server to prevent flash
 }
 
 export function useAdBlockDetection() {
@@ -31,7 +58,7 @@ export function useAdBlockDetection() {
   const isDismissed = useSyncExternalStore(
     subscribe,
     getIsDismissed,
-    () => true, // Server snapshot - assume dismissed to prevent flash
+    getServerSnapshot,
   );
 
   const [localDismissed, setLocalDismissed] = useState(false);
