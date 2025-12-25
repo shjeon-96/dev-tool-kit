@@ -58,4 +58,5 @@ export type ToolSlug =
   | "sitemap-generator"
   | "meta-tag-analyzer"
   | "robots-generator"
-  | "serp-preview";
+  | "serp-preview"
+  | "share-as-image";

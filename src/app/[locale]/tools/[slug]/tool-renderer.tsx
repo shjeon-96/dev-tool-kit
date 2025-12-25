@@ -210,6 +210,10 @@ const toolComponents: Record<ToolSlug, React.ComponentType> = {
     () => import("@/features/serp-preview").then((mod) => mod.SerpPreview),
     { ssr: false },
   ),
+  "share-as-image": dynamic(
+    () => import("@/features/share-as-image").then((mod) => mod.ShareAsImage),
+    { ssr: false },
+  ),
 };
 
 function ToolSkeleton() {

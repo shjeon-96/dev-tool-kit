@@ -42,6 +42,7 @@ import {
   Search,
   Bot,
   Eye,
+  Camera,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -380,6 +381,14 @@ export const tools: Record<ToolSlug, Tool> = {
       "headline-analyzer",
       "schema-generator",
     ],
+  },
+  "share-as-image": {
+    title: "Share as Image",
+    description:
+      "코드를 아름다운 이미지로 변환합니다. Carbon 스타일의 코드 스니펫을 생성하여 공유할 수 있습니다.",
+    icon: Camera,
+    category: "text",
+    relatedTools: ["prettier-playground", "diff-checker", "og-generator"],
   },
 };
 

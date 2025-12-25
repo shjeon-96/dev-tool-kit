@@ -386,6 +386,48 @@
     "serp-preview": {
       "title": "Vista Previa SERP",
       "description": "Previsualiza cómo aparece tu página en resultados de búsqueda de Google."
+    },
+    "share-as-image": {
+      "title": "Compartir como Imagen",
+      "description": "Convierte tu código en hermosas imágenes. Genera fragmentos de código estilo Carbon para compartir en redes sociales, documentación y presentaciones.",
+      "input": {
+        "label": "Código",
+        "placeholder": "Pega tu código aquí..."
+      },
+      "tabs": {
+        "theme": "Tema",
+        "style": "Estilo",
+        "options": "Opciones"
+      },
+      "settings": {
+        "theme": "Tema",
+        "background": "Fondo",
+        "language": "Idioma",
+        "fontSize": "Tamaño de Fuente",
+        "lineHeight": "Altura de Línea",
+        "paddingX": "Relleno Horizontal",
+        "paddingY": "Relleno Vertical",
+        "borderRadius": "Radio de Borde",
+        "showLineNumbers": "Mostrar Números de Línea",
+        "showWindowControls": "Mostrar Controles de Ventana",
+        "windowTitle": "Título de Ventana",
+        "windowTitlePlaceholder": "ej: index.ts",
+        "watermark": "Mostrar Marca de Agua",
+        "exportScale": "Escala de Exportación"
+      },
+      "preview": {
+        "label": "Vista Previa",
+        "placeholder": "// Tu código aparecerá aquí\nconst hello = 'world';"
+      },
+      "actions": {
+        "copy": "Copiar Imagen",
+        "copied": "¡Copiado!",
+        "downloadPng": "Descargar PNG",
+        "downloadJpeg": "Descargar JPEG",
+        "downloadSvg": "Descargar SVG",
+        "exporting": "Exportando...",
+        "reset": "Restablecer Configuración"
+      }
     }
   },
   "cheatsheets": {

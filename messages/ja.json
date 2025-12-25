@@ -626,6 +626,48 @@
       "tip2": "説明は120〜160文字の間で作成してください",
       "tip3": "タイトルと説明の両方に主要なキーワードを含めてください",
       "tip4": "アクションワードを使用し、緊急性を表現してください"
+    },
+    "share-as-image": {
+      "title": "画像として共有",
+      "description": "コードを美しい画像に変換します。Carbon スタイルのコードスニペットを生成してSNS、ドキュメント、プレゼンテーションで共有できます。",
+      "input": {
+        "label": "コード",
+        "placeholder": "ここにコードを貼り付けてください..."
+      },
+      "tabs": {
+        "theme": "テーマ",
+        "style": "スタイル",
+        "options": "オプション"
+      },
+      "settings": {
+        "theme": "テーマ",
+        "background": "背景",
+        "language": "言語",
+        "fontSize": "フォントサイズ",
+        "lineHeight": "行の高さ",
+        "paddingX": "水平パディング",
+        "paddingY": "垂直パディング",
+        "borderRadius": "角丸",
+        "showLineNumbers": "行番号を表示",
+        "showWindowControls": "ウィンドウコントロールを表示",
+        "windowTitle": "ウィンドウタイトル",
+        "windowTitlePlaceholder": "例: index.ts",
+        "watermark": "透かしを表示",
+        "exportScale": "エクスポート倍率"
+      },
+      "preview": {
+        "label": "プレビュー",
+        "placeholder": "// コードがここに表示されます\nconst hello = 'world';"
+      },
+      "actions": {
+        "copy": "画像をコピー",
+        "copied": "コピーしました！",
+        "downloadPng": "PNG をダウンロード",
+        "downloadJpeg": "JPEG をダウンロード",
+        "downloadSvg": "SVG をダウンロード",
+        "exporting": "エクスポート中...",
+        "reset": "設定をリセット"
+      }
     }
   },
   "errorFix": {
@@ -1649,6 +1691,29 @@
         {
           "q": "SERPとは何ですか？",
           "a": "SERPはSearch Engine Results Pageの略で、GoogleやMicrosoft EdgeなどのSearch Engineで検索後に表示されるページのことです。"
+        }
+      ]
+    },
+    "share-as-image": {
+      "whatIs": "Share as Imageは、コードスニペットを美しく共有可能な画像に変換します。Carbonのように、コードをソーシャルメディア、ドキュメント、プレゼンテーションに適した視覚的に魅力的なグラフィックに変換します。",
+      "howToUse": "コードを貼り付け、テーマと背景を選択し、スタイルオプションをカスタマイズしてから、PNG、JPEG、またはSVGとしてダウンロードしてください。画像をクリップボードに直接コピーすることもできます。",
+      "features": [
+        "8つの人気コードテーマ（Dracula、Monokai、Night Owlなど）",
+        "グラデーションを含む9つの背景オプション",
+        "自動言語検出",
+        "カスタマイズ可能なフォントサイズ、パディング、ボーダー半径",
+        "macOSスタイルのウィンドウコントロール",
+        "PNG、JPEG、またはSVGとしてエクスポート",
+        "クリップボードに画像をコピー"
+      ],
+      "faq": [
+        {
+          "q": "Share as Imageとは何ですか？",
+          "a": "Share as Imageは、コードスニペットを美しく共有可能な画像に変換するツールです。Carbon（carbon.now.sh）に似ていますが、開発ワークフローに統合されています。"
+        },
+        {
+          "q": "どのエクスポート形式がサポートされていますか？",
+          "a": "PNG（最高品質）、JPEG（ファイルサイズが小さい）、またはSVG（スケーラブルベクター）としてエクスポートできます。ほとんどの用途にはPNGをお勧めします。"
         }
       ]
     }

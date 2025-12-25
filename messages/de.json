@@ -386,6 +386,48 @@
     "serp-preview": {
       "title": "SERP Vorschau",
       "description": "Vorschau, wie Ihre Seite in Google-Suchergebnissen erscheint."
+    },
+    "share-as-image": {
+      "title": "Als Bild teilen",
+      "description": "Verwandeln Sie Ihren Code in schöne Bilder. Erstellen Sie Carbon-ähnliche Code-Snippets zum Teilen in sozialen Medien, Dokumentationen und Präsentationen.",
+      "input": {
+        "label": "Code",
+        "placeholder": "Fügen Sie Ihren Code hier ein..."
+      },
+      "tabs": {
+        "theme": "Thema",
+        "style": "Stil",
+        "options": "Optionen"
+      },
+      "settings": {
+        "theme": "Thema",
+        "background": "Hintergrund",
+        "language": "Sprache",
+        "fontSize": "Schriftgröße",
+        "lineHeight": "Zeilenhöhe",
+        "paddingX": "Horizontaler Abstand",
+        "paddingY": "Vertikaler Abstand",
+        "borderRadius": "Randradius",
+        "showLineNumbers": "Zeilennummern anzeigen",
+        "showWindowControls": "Fenstersteuerung anzeigen",
+        "windowTitle": "Fenstertitel",
+        "windowTitlePlaceholder": "z.B.: index.ts",
+        "watermark": "Wasserzeichen anzeigen",
+        "exportScale": "Export-Skalierung"
+      },
+      "preview": {
+        "label": "Vorschau",
+        "placeholder": "// Ihr Code erscheint hier\nconst hello = 'world';"
+      },
+      "actions": {
+        "copy": "Bild kopieren",
+        "copied": "Kopiert!",
+        "downloadPng": "PNG herunterladen",
+        "downloadJpeg": "JPEG herunterladen",
+        "downloadSvg": "SVG herunterladen",
+        "exporting": "Exportiere...",
+        "reset": "Einstellungen zurücksetzen"
+      }
     }
   },
   "cheatsheets": {

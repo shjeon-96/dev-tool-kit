@@ -643,6 +643,48 @@
       "tip2": "Write descriptions between 120-160 characters",
       "tip3": "Include your primary keyword in both title and description",
       "tip4": "Use action words and create urgency in your title"
+    },
+    "share-as-image": {
+      "title": "Share as Image",
+      "description": "Create beautiful images of your code. Generate Carbon-style code snippets for social sharing, documentation, and presentations.",
+      "input": {
+        "label": "Code",
+        "placeholder": "Paste your code here..."
+      },
+      "tabs": {
+        "theme": "Theme",
+        "style": "Style",
+        "options": "Options"
+      },
+      "settings": {
+        "theme": "Theme",
+        "background": "Background",
+        "language": "Language",
+        "fontSize": "Font Size",
+        "lineHeight": "Line Height",
+        "paddingX": "Horizontal Padding",
+        "paddingY": "Vertical Padding",
+        "borderRadius": "Border Radius",
+        "showLineNumbers": "Show Line Numbers",
+        "showWindowControls": "Show Window Controls",
+        "windowTitle": "Window Title",
+        "windowTitlePlaceholder": "e.g., index.ts",
+        "watermark": "Show Watermark",
+        "exportScale": "Export Scale"
+      },
+      "preview": {
+        "label": "Preview",
+        "placeholder": "// Your code will appear here\nconst hello = 'world';"
+      },
+      "actions": {
+        "copy": "Copy Image",
+        "copied": "Copied!",
+        "downloadPng": "Download PNG",
+        "downloadJpeg": "Download JPEG",
+        "downloadSvg": "Download SVG",
+        "exporting": "Exporting...",
+        "reset": "Reset Settings"
+      }
     }
   },
   "errorFix": {
@@ -1575,6 +1617,29 @@
         {
           "q": "What is SERP?",
           "a": "SERP stands for Search Engine Results Page - the page you see after searching on Google or other search engines."
+        }
+      ]
+    },
+    "share-as-image": {
+      "whatIs": "Share as Image creates beautiful, shareable images of your code snippets. Like Carbon, it transforms your code into visually appealing graphics for social media, documentation, and presentations.",
+      "howToUse": "Paste your code, choose a theme and background, customize the styling options, then download as PNG, JPEG, or SVG. You can also copy the image directly to clipboard.",
+      "features": [
+        "8 popular code themes (Dracula, Monokai, Night Owl, etc.)",
+        "9 background options including gradients",
+        "Automatic language detection",
+        "Customizable font size, padding, and border radius",
+        "macOS-style window controls",
+        "Export as PNG, JPEG, or SVG",
+        "Copy image to clipboard"
+      ],
+      "faq": [
+        {
+          "q": "What is Share as Image?",
+          "a": "Share as Image is a tool that converts code snippets into beautiful, shareable images - similar to Carbon (carbon.now.sh) but integrated into your development workflow."
+        },
+        {
+          "q": "What export formats are supported?",
+          "a": "You can export as PNG (best quality), JPEG (smaller file size), or SVG (scalable vector). PNG is recommended for most uses."
         }
       ]
     }
