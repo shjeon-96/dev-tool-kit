@@ -14,6 +14,7 @@ import {
   ToastProvider,
   AdBlockNotice,
 } from "@/shared/ui";
+import { CommandMenu } from "@/widgets/command-menu";
 import { SmartPasteProvider } from "@/features/smart-paste";
 import { LeadCaptureProvider } from "@/features/lead-capture";
 import { OfflineUpgradePrompt } from "@/entities/subscription";
@@ -229,6 +230,7 @@ export default async function LocaleLayout({
                         {children}
                       </div>
                       <Footer />
+                      <CommandMenu />
                     </main>
                   </div>
                 </ToastProvider>

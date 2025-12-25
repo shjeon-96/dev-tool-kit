@@ -12,3 +12,4 @@ export type {
   CategoryConfig,
 } from "./model";
 export { ToolSeoSection, RelatedTools, RelatedToolsSSR } from "./ui";
+export { ToolFeatureCards } from "./ui/tool-feature-cards";

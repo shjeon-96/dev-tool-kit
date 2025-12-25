@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import { tools, type ToolSlug, RelatedToolsSSR } from "@/entities/tool";
+import {
+  tools,
+  type ToolSlug,
+  RelatedToolsSSR,
+  ToolFeatureCards,
+} from "@/entities/tool";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,
@@ -39,12 +44,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = t(`${slug as ToolSlug}.title`);
   const description = t(`${slug as ToolSlug}.description`);
 
+  // Generate keywords based on title and common variations
+  const keywords = [
+    title,
+    t(`${slug as ToolSlug}.title`).toLowerCase(),
+    "developer tools",
+    "web toolkit",
+    "online tool",
+    "free",
+    "privacy focused",
+    "offline capable",
+  ];
+
   // 도구별 특화 동적 OG 이미지 URL 사용
   const ogImageUrl = `/api/og/${slug}?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
 
   return {
     title,
     description,
+    keywords,
     openGraph: {
       title,
       description,
@@ -101,8 +119,10 @@ export default async function ToolPage({ params }: Props) {
     },
   ];
 
-  // Get FAQ from translations if available
+  // Get FAQ & Features from translations if available
   let faqItems: { q: string; a: string }[] = [];
+  let featureList: string[] = [];
+
   try {
     const rawContent = tSeo.raw(slug as string);
     if (rawContent && typeof rawContent === "object") {
@@ -110,9 +130,12 @@ export default async function ToolPage({ params }: Props) {
       if (Array.isArray(content.faq)) {
         faqItems = content.faq as { q: string; a: string }[];
       }
+      if (Array.isArray(content.features)) {
+        featureList = content.features as string[];
+      }
     }
   } catch {
-    // FAQ not available for this tool
+    // Content not available for this tool
   }
 
   const toolUrl = `${SITE_CONFIG.url}/${locale}/tools/${slug}`;
@@ -133,6 +156,7 @@ export default async function ToolPage({ params }: Props) {
             description={description}
             url={toolUrl}
             applicationCategory="DeveloperApplication"
+            featureList={featureList}
           />
           {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
 
@@ -158,6 +182,11 @@ export default async function ToolPage({ params }: Props) {
               format="horizontal"
               className="my-6"
             />
+
+            {/* Visual Feature Cards */}
+            {featureList.length > 0 && (
+              <ToolFeatureCards features={featureList} />
+            )}
 
             <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
 

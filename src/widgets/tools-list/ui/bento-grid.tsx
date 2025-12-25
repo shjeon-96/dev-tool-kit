@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
@@ -78,6 +79,39 @@ export function BentoCard({ slug, size = "normal", index }: BentoCardProps) {
   const t = useTranslations("tools");
   const tool = tools[slug];
 
+  // Spotlight effect state
+  const divRef = React.useRef<HTMLDivElement>(null);
+  const [isFocused, setIsFocused] = React.useState(false);
+  const [position, setPosition] = React.useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = React.useState(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!divRef.current) return;
+
+    const div = divRef.current;
+    const rect = div.getBoundingClientRect();
+
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    setOpacity(1);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    setOpacity(0);
+  };
+
+  const handleMouseEnter = () => {
+    setOpacity(1);
+  };
+
+  const handleMouseLeave = () => {
+    setOpacity(0);
+  };
+
   if (!tool) return null;
 
   const Icon = tool.icon;
@@ -93,6 +127,12 @@ export function BentoCard({ slug, size = "normal", index }: BentoCardProps) {
     >
       <Link href={`/${locale}/tools/${slug}`} className="block h-full">
         <motion.div
+          ref={divRef}
+          onMouseMove={handleMouseMove}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           variants={hoverVariants}
           initial="rest"
           whileHover="hover"
@@ -104,6 +144,23 @@ export function BentoCard({ slug, size = "normal", index }: BentoCardProps) {
             isLarge && "flex flex-col justify-between",
           )}
         >
+          {/* Spotlight Effect - Hidden on mobile for performance */}
+          <div
+            className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 hidden md:block"
+            style={{
+              opacity,
+              background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,182,255,.1), transparent 40%)`,
+            }}
+          />
+          {/* Spotlight Light Mode override */}
+          <div
+            className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 dark:hidden hidden md:block"
+            style={{
+              opacity,
+              background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(0,0,0,.05), transparent 40%)`,
+            }}
+          />
+
           {/* Glow effect */}
           <motion.div
             variants={glowVariants}
