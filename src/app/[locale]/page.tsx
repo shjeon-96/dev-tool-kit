@@ -200,7 +200,7 @@ export default async function LandingPage({ params }: Props) {
           </Button>
         </div>
 
-        {sortedCategories.slice(0, 2).map((category) => {
+        {sortedCategories.map((category) => {
           const toolSlugs = groupedTools.get(category.id) || [];
           if (toolSlugs.length === 0) return null;
 

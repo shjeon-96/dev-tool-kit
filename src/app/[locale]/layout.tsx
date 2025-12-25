@@ -192,11 +192,11 @@ export default async function LocaleLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        <Script
+        {/* Standard AdSense snippet to avoid data-nscript warning */}
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4981986991458105"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
         <JsonLd />
         <ClarityScript />

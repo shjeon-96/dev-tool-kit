@@ -10,7 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/api/", // API routes
         "/s/", // Short URL redirects
-        "/_next/", // Next.js internals
       ],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
