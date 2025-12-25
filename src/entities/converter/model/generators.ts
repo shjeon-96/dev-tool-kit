@@ -52,6 +52,11 @@ export const FORMAT_NAMES: Record<
   typescript: { en: "TypeScript", ko: "TypeScript", ja: "TypeScript" },
   css: { en: "CSS", ko: "CSS", ja: "CSS" },
   tailwind: { en: "Tailwind CSS", ko: "Tailwind CSS", ja: "Tailwind CSS" },
+  jpeg: { en: "JPEG", ko: "JPEG", ja: "JPEG" },
+  png: { en: "PNG", ko: "PNG", ja: "PNG" },
+  webp: { en: "WebP", ko: "WebP", ja: "WebP" },
+  avif: { en: "AVIF", ko: "AVIF", ja: "AVIF" },
+  gif: { en: "GIF", ko: "GIF", ja: "GIF" },
 };
 
 /** 관련 도구 매핑 */
@@ -80,6 +85,11 @@ export const RELATED_TOOLS: Record<string, string> = {
   typescript: "json-to-typescript",
   css: "css-to-tailwind",
   tailwind: "css-to-tailwind",
+  jpeg: "image-converter",
+  png: "image-converter",
+  webp: "image-converter",
+  avif: "image-converter",
+  gif: "image-converter",
 };
 
 // ===============================
@@ -488,6 +498,67 @@ export function generateColorConversions(): Conversion[] {
   return conversions;
 }
 
+/** 이미지 변환 자동 생성 */
+export function generateImageConversions(): Conversion[] {
+  const IMAGE_FORMATS: DataFormat[] = ["jpeg", "png", "webp", "avif", "gif"];
+  const conversions: Conversion[] = [];
+
+  IMAGE_FORMATS.forEach((from) => {
+    IMAGE_FORMATS.forEach((to) => {
+      if (from === to) return;
+
+      // Slug normalization (jpeg -> jpg)
+      const fromSlug = from === "jpeg" ? "jpg" : from;
+      const toSlug = to === "jpeg" ? "jpg" : to;
+      const slug = `${fromSlug}-to-${toSlug}`;
+
+      if (MANUAL_SLUGS.has(slug)) return;
+
+      const fromName = FORMAT_NAMES[from];
+      const toName = FORMAT_NAMES[to];
+
+      conversions.push({
+        from,
+        to,
+        category: "image",
+        direction: "one-way",
+        slug,
+        title: {
+          en: `${fromName.en} to ${toName.en} Converter`,
+          ko: `${fromName.ko}를 ${toName.ko}로 변환`,
+          ja: `${fromName.ja}から${toName.ja}へ変換`,
+        },
+        description: {
+          en: `Convert ${fromName.en} images to ${toName.en} format online. Free, fast, and secure client-side conversion.`,
+          ko: `${fromName.ko} 이미지를 ${toName.ko} 형식으로 온라인 변환합니다. 무료, 빠르고 안전한 클라이언트 사이드 변환.`,
+          ja: `${fromName.ja}画像を${toName.ja}形式にオンラインで変換します。無料、高速、安全なクライアントサイド変換。`,
+        },
+        keywords: {
+          en: [
+            `${fromSlug} to ${toSlug}`,
+            `convert ${fromSlug} to ${toSlug}`,
+            `image converter`,
+            `${fromSlug} converter`,
+          ],
+          ko: [
+            `${fromName.ko} ${toName.ko} 변환`,
+            `이미지 변환기`,
+            `${fromName.ko} 변환`,
+          ],
+          ja: [
+            `${fromName.ja} ${toName.ja} 変換`,
+            `画像コンバーター`,
+            `${fromName.ja} 変換`,
+          ],
+        },
+        relatedTool: "image-converter",
+      });
+    });
+  });
+
+  return conversions;
+}
+
 /**
  * 모든 자동 생성 변환 반환
  */
@@ -498,5 +569,6 @@ export function getAllGeneratedConversions(): Conversion[] {
     ...generateHashConversions(),
     ...generateEncodingConversions(),
     ...generateColorConversions(),
+    ...generateImageConversions(),
   ];
 }

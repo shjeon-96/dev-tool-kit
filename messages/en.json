@@ -105,6 +105,8 @@
     "favorites": "Favorites",
     "recentlyUsed": "Recently Used",
     "clearRecent": "Clear",
+    "blog": "Blog",
+    "resources": "Resources",
     "categories": {
       "text": "Text",
       "media": "Media",
@@ -286,7 +288,8 @@
     "formatJson": "Format this JSON",
     "decodeJwt": "Decode this JWT token",
     "parseUrl": "Parse this URL",
-    "detectHash": "Analyze this hash"
+    "detectHash": "Analyze this hash",
+    "blog": "Blog"
   },
   "tools": {
     "json-formatter": {
@@ -2923,10 +2926,26 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "Dark Mode Support", "weToolkit": true, "competitor": false },
-        { "key": "Works Offline", "weToolkit": true, "competitor": false },
-        { "key": "Minify Option", "weToolkit": true, "competitor": true },
-        { "key": "No Ads", "weToolkit": true, "competitor": false }
+        {
+          "key": "Dark Mode Support",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Minify Option",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No Ads",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "Complete privacy - your data never leaves your browser",
@@ -2954,10 +2973,26 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "Custom Indentation", "weToolkit": true, "competitor": true },
-        { "key": "Modern UI Design", "weToolkit": true, "competitor": false },
-        { "key": "Works Offline", "weToolkit": true, "competitor": false },
-        { "key": "Free to Use", "weToolkit": true, "competitor": true },
+        {
+          "key": "Custom Indentation",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Modern UI Design",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Free to Use",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "No Registration Required",
           "weToolkit": true,
@@ -2995,8 +3030,16 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "Offline Support", "weToolkit": true, "competitor": false },
-        { "key": "Dark Mode", "weToolkit": true, "competitor": false },
+        {
+          "key": "Offline Support",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Dark Mode",
+          "weToolkit": true,
+          "competitor": false
+        },
         {
           "key": "Copy Individual Claims",
           "weToolkit": true,
@@ -3029,9 +3072,21 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "Custom Dimensions", "weToolkit": true, "competitor": false },
-        { "key": "Quality Control", "weToolkit": true, "competitor": false },
-        { "key": "Batch Processing", "weToolkit": true, "competitor": true },
+        {
+          "key": "Custom Dimensions",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Quality Control",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Batch Processing",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "Free Without Limits",
           "weToolkit": true,
@@ -3042,7 +3097,11 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "Works Offline", "weToolkit": true, "competitor": false }
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "Process images locally without upload",
@@ -3070,11 +3129,31 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "Large File Support", "weToolkit": true, "competitor": false },
-        { "key": "Instant Results", "weToolkit": true, "competitor": true },
-        { "key": "Works Offline", "weToolkit": true, "competitor": false },
-        { "key": "Copy to Clipboard", "weToolkit": true, "competitor": true },
-        { "key": "No Registration", "weToolkit": true, "competitor": true }
+        {
+          "key": "Large File Support",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Instant Results",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Copy to Clipboard",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No Registration",
+          "weToolkit": true,
+          "competitor": true
+        }
       ],
       "advantages": [
         "Generate hashes without sending data anywhere",
@@ -3092,11 +3171,31 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "Real-time Matching", "weToolkit": true, "competitor": true },
-        { "key": "Match Highlighting", "weToolkit": true, "competitor": true },
-        { "key": "Works Offline", "weToolkit": true, "competitor": false },
-        { "key": "No Account Required", "weToolkit": true, "competitor": true },
-        { "key": "Dark Mode", "weToolkit": true, "competitor": true },
+        {
+          "key": "Real-time Matching",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Match Highlighting",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Account Required",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Dark Mode",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "Multiple Test Strings",
           "weToolkit": true,

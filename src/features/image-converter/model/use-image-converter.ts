@@ -37,11 +37,15 @@ export interface UseImageConverterReturn {
   downloadAll: () => void;
 }
 
-export function useImageConverter(): UseImageConverterReturn {
+export function useImageConverter(
+  initialOptions?: Partial<ConversionOptions>,
+): UseImageConverterReturn {
   const [images, setImages] = useState<ImageFile[]>([]);
   const [convertedImages, setConvertedImages] = useState<ConvertedImage[]>([]);
-  const [options, setOptionsState] =
-    useState<ConversionOptions>(DEFAULT_OPTIONS);
+  const [options, setOptionsState] = useState<ConversionOptions>({
+    ...DEFAULT_OPTIONS,
+    ...initialOptions,
+  });
   const [isConverting, setIsConverting] = useState(false);
   const [progress, setProgress] = useState(0);
   const [formatSupport, setFormatSupport] = useState<

@@ -27,7 +27,11 @@ import {
   calculateCompressionRatio,
 } from "../model/use-image-converter";
 
-export function ImageConverter() {
+interface ImageConverterProps {
+  defaultFormat?: ImageFormat;
+}
+
+export function ImageConverter({ defaultFormat }: ImageConverterProps) {
   const t = useTranslations("tools.image-converter");
   const {
     images,
@@ -43,7 +47,7 @@ export function ImageConverter() {
     convertAll,
     downloadResult,
     downloadAll,
-  } = useImageConverter();
+  } = useImageConverter(defaultFormat ? { format: defaultFormat } : undefined);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);

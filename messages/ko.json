@@ -105,6 +105,8 @@
     "favorites": "즐겨찾기",
     "recentlyUsed": "최근 사용",
     "clearRecent": "지우기",
+    "blog": "블로그",
+    "resources": "리소스",
     "categories": {
       "text": "텍스트",
       "media": "미디어",
@@ -286,7 +288,8 @@
     "formatJson": "이 JSON 포맷하기",
     "decodeJwt": "이 JWT 토큰 디코딩",
     "parseUrl": "이 URL 분석",
-    "detectHash": "이 해시 분석"
+    "detectHash": "이 해시 분석",
+    "blog": "블로그"
   },
   "tools": {
     "json-formatter": {
@@ -3004,16 +3007,36 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "실시간 검증", "weToolkit": true, "competitor": true },
+        {
+          "key": "실시간 검증",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "구문 오류 하이라이팅",
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "다크 모드 지원", "weToolkit": true, "competitor": false },
-        { "key": "오프라인 작동", "weToolkit": true, "competitor": false },
-        { "key": "압축 옵션", "weToolkit": true, "competitor": true },
-        { "key": "광고 없음", "weToolkit": true, "competitor": false }
+        {
+          "key": "다크 모드 지원",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "오프라인 작동",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "압축 옵션",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "광고 없음",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "완전한 프라이버시 - 데이터가 브라우저를 떠나지 않음",
@@ -3036,12 +3059,36 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "실시간 포맷팅", "weToolkit": true, "competitor": true },
-        { "key": "커스텀 들여쓰기", "weToolkit": true, "competitor": true },
-        { "key": "모던 UI 디자인", "weToolkit": true, "competitor": false },
-        { "key": "오프라인 작동", "weToolkit": true, "competitor": false },
-        { "key": "무료 사용", "weToolkit": true, "competitor": true },
-        { "key": "등록 불필요", "weToolkit": true, "competitor": true }
+        {
+          "key": "실시간 포맷팅",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "커스텀 들여쓰기",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "모던 UI 디자인",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "오프라인 작동",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "무료 사용",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "등록 불필요",
+          "weToolkit": true,
+          "competitor": true
+        }
       ],
       "advantages": [
         "JSON 데이터가 완전히 비공개로 유지",
@@ -3064,16 +3111,36 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "만료 시간 표시", "weToolkit": true, "competitor": true },
+        {
+          "key": "만료 시간 표시",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "외부 라이브러리 로드 없음",
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "오프라인 지원", "weToolkit": true, "competitor": false },
-        { "key": "다크 모드", "weToolkit": true, "competitor": false },
-        { "key": "개별 클레임 복사", "weToolkit": true, "competitor": false },
-        { "key": "다른 도구와의 통합", "weToolkit": true, "competitor": false }
+        {
+          "key": "오프라인 지원",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "다크 모드",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "개별 클레임 복사",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "다른 도구와의 통합",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "외부 의존성 없이 토큰 디코딩",
@@ -3091,13 +3158,41 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "서버 업로드 없음", "weToolkit": true, "competitor": false },
-        { "key": "커스텀 크기", "weToolkit": true, "competitor": false },
-        { "key": "품질 조절", "weToolkit": true, "competitor": false },
-        { "key": "일괄 처리", "weToolkit": true, "competitor": true },
-        { "key": "제한 없이 무료", "weToolkit": true, "competitor": false },
-        { "key": "다중 포맷 지원", "weToolkit": true, "competitor": true },
-        { "key": "오프라인 작동", "weToolkit": true, "competitor": false }
+        {
+          "key": "서버 업로드 없음",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "커스텀 크기",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "품질 조절",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "일괄 처리",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "제한 없이 무료",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "다중 포맷 지원",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "오프라인 작동",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "업로드 없이 로컬에서 이미지 처리",
@@ -3115,17 +3210,41 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "데이터 전송 없음", "weToolkit": true, "competitor": false },
+        {
+          "key": "데이터 전송 없음",
+          "weToolkit": true,
+          "competitor": false
+        },
         {
           "key": "다중 알고리즘 (MD5, SHA)",
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "대용량 파일 지원", "weToolkit": true, "competitor": false },
-        { "key": "즉각적인 결과", "weToolkit": true, "competitor": true },
-        { "key": "오프라인 작동", "weToolkit": true, "competitor": false },
-        { "key": "클립보드 복사", "weToolkit": true, "competitor": true },
-        { "key": "등록 불필요", "weToolkit": true, "competitor": true }
+        {
+          "key": "대용량 파일 지원",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "즉각적인 결과",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "오프라인 작동",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "클립보드 복사",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "등록 불필요",
+          "weToolkit": true,
+          "competitor": true
+        }
       ],
       "advantages": [
         "데이터를 어디에도 보내지 않고 해시 생성",
@@ -3143,13 +3262,41 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "실시간 매칭", "weToolkit": true, "competitor": true },
-        { "key": "매치 하이라이팅", "weToolkit": true, "competitor": true },
-        { "key": "오프라인 작동", "weToolkit": true, "competitor": false },
-        { "key": "계정 불필요", "weToolkit": true, "competitor": true },
-        { "key": "다크 모드", "weToolkit": true, "competitor": true },
-        { "key": "다중 테스트 문자열", "weToolkit": true, "competitor": true },
-        { "key": "다른 도구와의 통합", "weToolkit": true, "competitor": false }
+        {
+          "key": "실시간 매칭",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "매치 하이라이팅",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "오프라인 작동",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "계정 불필요",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "다크 모드",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "다중 테스트 문자열",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "다른 도구와의 통합",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "완전한 프라이버시로 정규식 패턴 테스트",

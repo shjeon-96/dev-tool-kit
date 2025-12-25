@@ -105,6 +105,8 @@
     "favorites": "お気に入り",
     "recentlyUsed": "最近使用",
     "clearRecent": "クリア",
+    "blog": "ブログ",
+    "resources": "リソース",
     "categories": {
       "text": "テキスト",
       "media": "メディア",
@@ -223,7 +225,8 @@
     "formatJson": "このJSONをフォーマット",
     "decodeJwt": "このJWTトークンをデコード",
     "parseUrl": "このURLを解析",
-    "detectHash": "このハッシュを分析"
+    "detectHash": "このハッシュを分析",
+    "blog": "ブログ"
   },
   "tools": {
     "json-formatter": {
@@ -2959,16 +2962,36 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "リアルタイム検証", "weToolkit": true, "competitor": true },
+        {
+          "key": "リアルタイム検証",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "構文エラーハイライト",
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "ダークモード対応", "weToolkit": true, "competitor": false },
-        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
-        { "key": "圧縮オプション", "weToolkit": true, "competitor": true },
-        { "key": "広告なし", "weToolkit": true, "competitor": false }
+        {
+          "key": "ダークモード対応",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "オフライン動作",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "圧縮オプション",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "広告なし",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "完全なプライバシー - データがブラウザを離れない",
@@ -2996,11 +3019,31 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "カスタムインデント", "weToolkit": true, "competitor": true },
-        { "key": "モダンUIデザイン", "weToolkit": true, "competitor": false },
-        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
-        { "key": "無料で使用", "weToolkit": true, "competitor": true },
-        { "key": "登録不要", "weToolkit": true, "competitor": true }
+        {
+          "key": "カスタムインデント",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "モダンUIデザイン",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "オフライン動作",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "無料で使用",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "登録不要",
+          "weToolkit": true,
+          "competitor": true
+        }
       ],
       "advantages": [
         "JSONデータは完全にプライベートに保たれる",
@@ -3023,20 +3066,36 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "有効期限表示", "weToolkit": true, "competitor": true },
+        {
+          "key": "有効期限表示",
+          "weToolkit": true,
+          "competitor": true
+        },
         {
           "key": "外部ライブラリのロードなし",
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "オフラインサポート", "weToolkit": true, "competitor": false },
-        { "key": "ダークモード", "weToolkit": true, "competitor": false },
+        {
+          "key": "オフラインサポート",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "ダークモード",
+          "weToolkit": true,
+          "competitor": false
+        },
         {
           "key": "個別クレームのコピー",
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "他のツールとの統合", "weToolkit": true, "competitor": false }
+        {
+          "key": "他のツールとの統合",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "外部依存関係なしでトークンをデコード",
@@ -3059,16 +3118,36 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "カスタムサイズ", "weToolkit": true, "competitor": false },
-        { "key": "品質調整", "weToolkit": true, "competitor": false },
-        { "key": "バッチ処理", "weToolkit": true, "competitor": true },
-        { "key": "制限なしで無料", "weToolkit": true, "competitor": false },
+        {
+          "key": "カスタムサイズ",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "品質調整",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "バッチ処理",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "制限なしで無料",
+          "weToolkit": true,
+          "competitor": false
+        },
         {
           "key": "複数フォーマット対応",
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "オフライン動作", "weToolkit": true, "competitor": false }
+        {
+          "key": "オフライン動作",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "アップロードなしでローカルで画像処理",
@@ -3086,21 +3165,41 @@
           "weToolkit": true,
           "competitor": false
         },
-        { "key": "データ送信なし", "weToolkit": true, "competitor": false },
+        {
+          "key": "データ送信なし",
+          "weToolkit": true,
+          "competitor": false
+        },
         {
           "key": "複数アルゴリズム（MD5, SHA）",
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "大容量ファイル対応", "weToolkit": true, "competitor": false },
-        { "key": "即座の結果", "weToolkit": true, "competitor": true },
-        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
+        {
+          "key": "大容量ファイル対応",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "即座の結果",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "オフライン動作",
+          "weToolkit": true,
+          "competitor": false
+        },
         {
           "key": "クリップボードにコピー",
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "登録不要", "weToolkit": true, "competitor": true }
+        {
+          "key": "登録不要",
+          "weToolkit": true,
+          "competitor": true
+        }
       ],
       "advantages": [
         "データをどこにも送らずにハッシュ生成",
@@ -3123,12 +3222,36 @@
           "weToolkit": true,
           "competitor": true
         },
-        { "key": "マッチハイライト", "weToolkit": true, "competitor": true },
-        { "key": "オフライン動作", "weToolkit": true, "competitor": false },
-        { "key": "アカウント不要", "weToolkit": true, "competitor": true },
-        { "key": "ダークモード", "weToolkit": true, "competitor": true },
-        { "key": "複数テスト文字列", "weToolkit": true, "competitor": true },
-        { "key": "他のツールとの統合", "weToolkit": true, "competitor": false }
+        {
+          "key": "マッチハイライト",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "オフライン動作",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "アカウント不要",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "ダークモード",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "複数テスト文字列",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "他のツールとの統合",
+          "weToolkit": true,
+          "competitor": false
+        }
       ],
       "advantages": [
         "完全なプライバシーで正規表現パターンをテスト",

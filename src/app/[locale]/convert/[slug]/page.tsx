@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { ConverterTool } from "@/features/converter";
+import { ImageConverter, type ImageFormat } from "@/features/image-converter";
 import {
   getAllConversionSlugs,
   getConversionBySlug,
@@ -64,6 +65,14 @@ export async function generateMetadata({
       description,
       type: "website",
       url: `${SITE_CONFIG.url}/${locale}/convert/${slug}`,
+      images: [
+        {
+          url: `${SITE_CONFIG.url}/api/og/${conversion.relatedTool || "default"}?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -159,7 +168,17 @@ export default async function ConverterPage({ params }: PageProps) {
       </div>
 
       {/* Converter Tool */}
-      <ConverterTool conversion={conversion} locale={locale} />
+      {conversion.category === "image" ? (
+        <ImageConverter
+          defaultFormat={
+            ["jpeg", "png", "webp", "gif", "avif"].includes(conversion.to)
+              ? (conversion.to as ImageFormat)
+              : undefined
+          }
+        />
+      ) : (
+        <ConverterTool conversion={conversion} locale={locale} />
+      )}
 
       {/* SEO Content */}
       <section className="mt-12 space-y-6 border-t pt-8">

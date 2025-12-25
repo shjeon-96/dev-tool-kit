@@ -45,7 +45,13 @@ export type DataFormat =
   | "html-entity"
   | "ascii"
   // 추가 숫자
-  | "octal-num";
+  | "octal-num"
+  // 이미지 포맷
+  | "jpeg"
+  | "png"
+  | "webp"
+  | "gif"
+  | "avif";
 
 // 변환 방향 (양방향 가능 여부)
 export type ConversionDirection = "bidirectional" | "one-way";
@@ -58,7 +64,8 @@ export type ConversionCategory =
   | "number"
   | "hash"
   | "time"
-  | "code";
+  | "code"
+  | "image";
 
 // 변환 정의
 export interface Conversion {

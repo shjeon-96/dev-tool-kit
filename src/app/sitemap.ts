@@ -12,6 +12,7 @@ import { getAllGenerateTypeSlugs } from "@/entities/generate-type";
 import { getAllMinifyTypeSlugs } from "@/entities/minify-type";
 import { getAllValidateTypeSlugs } from "@/entities/validate-type";
 import { getAllDiffTypeSlugs } from "@/entities/diff-type";
+import { getAllPosts } from "@/entities/post";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -447,6 +448,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/diff/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Blog listing page for each locale
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/blog`]),
+        ),
+      },
+    });
+  }
+
+  // Blog post pages for each locale
+  const posts = getAllPosts();
+  for (const post of posts) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/blog/${post.slug}`]),
           ),
         },
       });

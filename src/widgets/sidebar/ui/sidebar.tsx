@@ -11,7 +11,7 @@ import {
   getSortedCategories,
   type ToolSlug,
 } from "@/entities/tool";
-import { LayoutGrid } from "lucide-react";
+import { LayoutGrid, BookOpen } from "lucide-react";
 
 export function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
@@ -98,6 +98,34 @@ export function Sidebar({ className }: { className?: string }) {
                 </div>
               );
             })}
+
+            {/* Resources */}
+            <div>
+              <h3 className="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {tSidebar("resources")}
+              </h3>
+              <div className="space-y-1">
+                <Button
+                  variant={pathname.includes("/blog") ? "secondary" : "ghost"}
+                  className={cn(
+                    "w-full justify-start relative",
+                    pathname.includes("/blog") &&
+                      "bg-secondary font-medium before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-6 before:w-1 before:bg-primary before:rounded-r-full",
+                  )}
+                  asChild
+                >
+                  <Link href={`/${locale}/blog`}>
+                    <BookOpen
+                      className={cn(
+                        "mr-2 h-4 w-4 transition-colors",
+                        pathname.includes("/blog") && "text-primary",
+                      )}
+                    />
+                    {tSidebar("blog")}
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

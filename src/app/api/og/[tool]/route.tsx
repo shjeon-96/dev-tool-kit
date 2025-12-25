@@ -58,6 +58,11 @@ const TOOL_THEMES: Record<
     secondary: "#c084fc",
     icon: ".*",
   },
+  "image-converter": {
+    primary: "#3b82f6",
+    secondary: "#60a5fa",
+    icon: "🖼️",
+  },
   default: {
     primary: "#60a5fa",
     secondary: "#93c5fd",

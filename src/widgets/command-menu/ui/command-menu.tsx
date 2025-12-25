@@ -3,7 +3,14 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Calculator, Calendar, Search, Settings, User } from "lucide-react";
+import {
+  Calculator,
+  Calendar,
+  Search,
+  Settings,
+  User,
+  BookOpen,
+} from "lucide-react";
 import {
   CommandDialog,
   CommandEmpty,
@@ -110,6 +117,12 @@ export function CommandMenu() {
             >
               <Calculator className="mr-2 h-4 w-4" />
               <span>{t("allTools")}</span>
+            </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => router.push(`/${locale}/blog`))}
+            >
+              <BookOpen className="mr-2 h-4 w-4" />
+              <span>{t("blog")}</span>
             </CommandItem>
           </CommandGroup>
 
