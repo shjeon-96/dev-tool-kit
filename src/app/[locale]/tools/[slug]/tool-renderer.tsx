@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { tools, type ToolSlug } from "@/entities/tool";
 import { PremiumToolGate, useFeatureAccess } from "@/entities/subscription";
 import { useQuota } from "@/shared/lib/quota";
-import { QuotaWarning } from "@/shared/ui";
+import { QuotaWarning, ErrorBoundary } from "@/shared/ui";
 
 const toolComponents: Record<ToolSlug, React.ComponentType> = {
   "json-formatter": dynamic(
@@ -272,9 +272,14 @@ export function ToolRenderer({ slug }: ToolRendererProps) {
           className="mb-4"
         />
       )}
-      <Suspense fallback={<ToolSkeleton />}>
-        <ToolComponent />
-      </Suspense>
+      <ErrorBoundary
+        errorMessage={`${toolName} 실행 중 오류가 발생했습니다.`}
+        resetKey={slug}
+      >
+        <Suspense fallback={<ToolSkeleton />}>
+          <ToolComponent />
+        </Suspense>
+      </ErrorBoundary>
     </PremiumToolGate>
   );
 }

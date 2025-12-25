@@ -14,6 +14,8 @@ interface ErrorBoundaryProps {
   errorMessage?: string;
   /** Whether to show retry button */
   showRetry?: boolean;
+  /** Key to force reset the error boundary */
+  resetKey?: string | number;
 }
 
 interface ErrorBoundaryState {
@@ -53,6 +55,12 @@ export class ErrorBoundary extends Component<
 
     // Call optional error handler
     this.props.onError?.(error, errorInfo);
+  }
+
+  componentDidUpdate(prevProps: ErrorBoundaryProps): void {
+    if (this.props.resetKey !== prevProps.resetKey && this.state.hasError) {
+      this.handleReset();
+    }
   }
 
   handleReset = (): void => {
