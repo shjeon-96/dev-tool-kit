@@ -3,11 +3,11 @@
 > 모든 화면, 기능, 레이아웃에 대한 종합 가이드
 
 **프로젝트명**: DevToolkit (Web Toolkit)
-**버전**: 1.2.0
+**버전**: 1.3.0
 **프레임워크**: Next.js 16+ (App Router, Turbopack)
 **스타일링**: Tailwind CSS 4
 **UI**: Radix UI + Shadcn/ui 커스텀 컴포넌트
-**다국어**: next-intl (영어, 한국어, 일본어)
+**다국어**: next-intl (영어, 한국어, 일본어, 스페인어, 포르투갈어, 독일어)
 **인증**: Supabase Auth
 **결제**: LemonSqueezy
 **배포**: Vercel
@@ -21,7 +21,7 @@
 1. [애플리케이션 구조](#1-애플리케이션-구조)
 2. [라우트 맵](#2-라우트-맵)
 3. [레이아웃 시스템](#3-레이아웃-시스템)
-4. [도구 카탈로그](#4-도구-카탈로그-40개)
+4. [도구 카탈로그](#4-도구-카탈로그-41개)
 5. [위젯 컴포넌트](#5-위젯-컴포넌트)
 6. [공유 UI 컴포넌트](#6-공유-ui-컴포넌트)
 7. [데이터 모델](#7-데이터-모델)
@@ -188,6 +188,21 @@ src/
 │   │       ├── regex-tester
 │   │       └── ... (16개)
 │   │
+│   ├── /alternative-to              # 경쟁사 비교 pSEO
+│   │   └── /[competitor]            # 개별 경쟁사 비교 페이지 (5개)
+│   │       ├── codebeautify
+│   │       ├── freeformatter
+│   │       ├── jsonformatter-org
+│   │       ├── convertio
+│   │       └── smallpdf
+│   │
+│   ├── /glossary                    # 개발자 용어 사전 pSEO
+│   │   └── /[term]                  # 개별 용어 페이지 (27개)
+│   │       ├── json
+│   │       ├── api
+│   │       ├── jwt
+│   │       └── ... (27개)
+│   │
 │   ├── /privacy                     # 개인정보처리방침
 │   ├── /terms                       # 이용약관
 │   └── /about                       # 소개
@@ -217,30 +232,32 @@ src/
 
 ### 2.2 페이지별 설명
 
-| 페이지               | 경로                           | 설명                                   |
-| -------------------- | ------------------------------ | -------------------------------------- |
-| **랜딩 페이지**      | `/[locale]`                    | 히어로, 통계, 특징, 카테고리 미리보기  |
-| **도구 목록**        | `/[locale]/tools`              | 32개 도구를 카테고리별로 그리드 표시   |
-| **도구 상세**        | `/[locale]/tools/[slug]`       | 개별 도구 UI 및 SEO 콘텐츠             |
-| **로그인**           | `/[locale]/auth/signin`        | 소셜/이메일 로그인                     |
-| **회원가입**         | `/[locale]/auth/signup`        | 소셜/이메일 회원가입                   |
-| **대시보드**         | `/[locale]/dashboard`          | 사용자 대시보드 메인                   |
-| **사용량 현황**      | `/[locale]/dashboard/usage`    | 사용량 통계 및 제한 현황               |
-| **결제 관리**        | `/[locale]/dashboard/billing`  | 구독 관리 및 결제 내역                 |
-| **API 키 관리**      | `/[locale]/dashboard/api-keys` | API 키 생성 및 관리                    |
-| **가격 페이지**      | `/[locale]/pricing`            | 요금제 비교 및 결제                    |
-| **API 문서**         | `/[locale]/docs/api`           | Public API v1 문서                     |
-| **사용 사례**        | `/[locale]/use-cases/[slug]`   | 도구 활용 시나리오                     |
-| **비교 페이지**      | `/[locale]/compare/[slug]`     | 도구/알고리즘 비교 (예: md5-vs-sha256) |
-| **변환 페이지**      | `/[locale]/convert/[slug]`     | 데이터 변환 조합 (54개)                |
-| **치트시트 목록**    | `/[locale]/cheatsheets`        | 14개 치트시트 그리드                   |
-| **치트시트 상세**    | `/[locale]/cheatsheets/[slug]` | 검색 가능한 참조 테이블                |
-| **가이드 목록**      | `/[locale]/guides`             | 도구별 사용 가이드                     |
-| **가이드 상세**      | `/[locale]/guides/[slug]`      | 상세 튜토리얼                          |
-| **개인정보처리방침** | `/[locale]/privacy`            | 법적 고지                              |
-| **이용약관**         | `/[locale]/terms`              | 서비스 이용약관                        |
-| **소개**             | `/[locale]/about`              | 서비스 소개                            |
-| **공유 리다이렉트**  | `/s/[id]`                      | 공유 링크 처리 및 도구로 리다이렉트    |
+| 페이지               | 경로                                    | 설명                                   |
+| -------------------- | --------------------------------------- | -------------------------------------- |
+| **랜딩 페이지**      | `/[locale]`                             | 히어로, 통계, 특징, 카테고리 미리보기  |
+| **도구 목록**        | `/[locale]/tools`                       | 41개 도구를 카테고리별로 그리드 표시   |
+| **도구 상세**        | `/[locale]/tools/[slug]`                | 개별 도구 UI 및 SEO 콘텐츠             |
+| **로그인**           | `/[locale]/auth/signin`                 | 소셜/이메일 로그인                     |
+| **회원가입**         | `/[locale]/auth/signup`                 | 소셜/이메일 회원가입                   |
+| **대시보드**         | `/[locale]/dashboard`                   | 사용자 대시보드 메인                   |
+| **사용량 현황**      | `/[locale]/dashboard/usage`             | 사용량 통계 및 제한 현황               |
+| **결제 관리**        | `/[locale]/dashboard/billing`           | 구독 관리 및 결제 내역                 |
+| **API 키 관리**      | `/[locale]/dashboard/api-keys`          | API 키 생성 및 관리                    |
+| **가격 페이지**      | `/[locale]/pricing`                     | 요금제 비교 및 결제                    |
+| **API 문서**         | `/[locale]/docs/api`                    | Public API v1 문서                     |
+| **사용 사례**        | `/[locale]/use-cases/[slug]`            | 도구 활용 시나리오                     |
+| **비교 페이지**      | `/[locale]/compare/[slug]`              | 도구/알고리즘 비교 (예: md5-vs-sha256) |
+| **변환 페이지**      | `/[locale]/convert/[slug]`              | 데이터 변환 조합 (54개)                |
+| **치트시트 목록**    | `/[locale]/cheatsheets`                 | 14개 치트시트 그리드                   |
+| **치트시트 상세**    | `/[locale]/cheatsheets/[slug]`          | 검색 가능한 참조 테이블                |
+| **가이드 목록**      | `/[locale]/guides`                      | 도구별 사용 가이드                     |
+| **가이드 상세**      | `/[locale]/guides/[slug]`               | 상세 튜토리얼                          |
+| **경쟁사 비교**      | `/[locale]/alternative-to/[competitor]` | 경쟁사 대비 Web Toolkit 비교 (5개)     |
+| **용어 사전**        | `/[locale]/glossary/[term]`             | 개발자 용어 해설 페이지 (27개)         |
+| **개인정보처리방침** | `/[locale]/privacy`                     | 법적 고지                              |
+| **이용약관**         | `/[locale]/terms`                       | 서비스 이용약관                        |
+| **소개**             | `/[locale]/about`                       | 서비스 소개                            |
+| **공유 리다이렉트**  | `/s/[id]`                               | 공유 링크 처리 및 도구로 리다이렉트    |
 
 ### 2.3 랜딩 페이지 구조
 
@@ -248,7 +265,7 @@ src/
 ┌─────────────────────────────────────────────────────────┐
 │  🎯 Hero Section                                         │
 │  ┌───────────────────────────────────────────────────┐  │
-│  │ Badge: "32+ Free Developer Tools"                  │  │
+│  │ Badge: "41+ Free Developer Tools"                  │  │
 │  │ Title: All-in-One Developer Toolkit                │  │
 │  │ Subtitle: Format, convert, encode...               │  │
 │  │ [Explore All Tools] [View on GitHub]               │  │
@@ -256,7 +273,7 @@ src/
 ├─────────────────────────────────────────────────────────┤
 │  📊 Stats Section                                        │
 │  ┌──────────┐ ┌──────────┐ ┌──────────┐                 │
-│  │ 32+      │ │ 4        │ │ 3        │                 │
+│  │ 41+      │ │ 4        │ │ 6        │                 │
 │  │ Tools    │ │ Categories│ │ Languages│                 │
 │  └──────────┘ └──────────┘ └──────────┘                 │
 ├─────────────────────────────────────────────────────────┤
@@ -281,7 +298,7 @@ src/
 │  │Icon│ │QR  │ │Color│ │Box │ │Grad│ │SVG │             │
 │  └────┘ └────┘ └────┘ └────┘ └────┘ └────┘             │
 │                                                         │
-│  [View All (32 Tools) →]                                │
+│  [View All (41 Tools) →]                                │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -392,11 +409,11 @@ src/
 
 ---
 
-## 4. 도구 카탈로그 (40개)
+## 4. 도구 카탈로그 (41개)
 
 ### 4.1 카테고리별 분류
 
-#### 📝 텍스트 & 코드 (16개)
+#### 📝 텍스트 & 코드 (17개)
 
 | 도구                | Slug                  | 설명                                 |
 | ------------------- | --------------------- | ------------------------------------ |
@@ -414,8 +431,9 @@ src/
 | cURL Builder        | `curl-builder`        | HTTP 요청 빌더 (cURL 출력)           |
 | Prettier Playground | `prettier-playground` | 다중 언어 코드 포맷팅                |
 | CSS Minifier        | `css-minifier`        | CSS 코드 압축 및 최적화              |
-| Schema Generator    | `schema-generator`    | SEO용 JSON-LD 스키마 마크업 생성 🆕  |
-| Headline Analyzer   | `headline-analyzer`   | 헤드라인 효과성 분석 (감정, SEO) 🆕  |
+| Schema Generator    | `schema-generator`    | SEO용 JSON-LD 스키마 마크업 생성     |
+| Headline Analyzer   | `headline-analyzer`   | 헤드라인 효과성 분석 (감정, SEO)     |
+| Share as Image      | `share-as-image`      | Carbon 스타일 코드 스니펫 이미지 🆕  |
 
 #### 🎨 미디어 & 디자인 (13개)
 
@@ -3074,6 +3092,30 @@ import { BrowserPrompt } from "@/shared/lib/fs-access/ui";
 ---
 
 ## 버전 히스토리
+
+### v1.3.0 (2025-12-25) 🎄 SEO 강화 업데이트
+
+**신규 도구 (1개):**
+
+| 도구           | 기능                                             | 테스트       |
+| -------------- | ------------------------------------------------ | ------------ |
+| Share as Image | Carbon 스타일 코드 스니펫 이미지 생성 (8개 테마) | ✅ 기본 검증 |
+
+**신규 pSEO 페이지:**
+
+| 라우트                         | 설명                                     | 페이지 수 |
+| ------------------------------ | ---------------------------------------- | --------- |
+| `/alternative-to/[competitor]` | 경쟁사 비교 (CodeBeautify, Convertio 등) | 5개       |
+| `/glossary/[term]`             | 개발자 용어 사전 (JSON, API, JWT 등)     | 27개      |
+
+**주요 변경:**
+
+- 도구 카탈로그 41개로 확장 (40개 → 41개)
+- 6개 언어 지원 확인 (en, ko, ja, es, pt, de)
+- 경쟁 키워드 "[경쟁사] alternative" 타겟팅
+- 용어집 SEO로 Long-tail 키워드 확보
+
+---
 
 ### v1.2.0 (2025-12-23) 🚀 Phase 2 완료
 

@@ -11,8 +11,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 항목            | 값                      |
 | --------------- | ----------------------- |
 | **URL**         | https://web-toolkit.app |
-| **Version**     | 1.2.0                   |
-| **Tools**       | 40+개                   |
+| **Version**     | 1.3.0                   |
+| **Tools**       | 41+개                   |
 | **pSEO Pages**  | 500+개                  |
 | **Guides**      | 31개                    |
 | **Cheatsheets** | 14개                    |
@@ -230,14 +230,16 @@ npm run test:e2e:ui           # UI 모드
 
 자동 생성되는 대량 SEO 페이지:
 
-| Route Pattern       | Example                 | Registry Location                                    |
-| ------------------- | ----------------------- | ---------------------------------------------------- |
-| `/convert/[slug]`   | `/convert/json-to-yaml` | `src/entities/converter/model/registry.ts`           |
-| `/resize-to/[slug]` | `/resize-to/1920x1080`  | `src/entities/image-resize-target/model/registry.ts` |
-| `/minify/[slug]`    | `/minify/json`          | `src/entities/minify-type/model/registry.ts`         |
-| `/validate/[slug]`  | `/validate/json`        | `src/entities/validate-type/model/registry.ts`       |
-| `/diff/[slug]`      | `/diff/json`            | `src/entities/diff-type/model/registry.ts`           |
-| `/hash/[slug]`      | `/hash/md5`             | `src/entities/hash-type/model/registry.ts`           |
+| Route Pattern                  | Example                        | Registry Location                                    |
+| ------------------------------ | ------------------------------ | ---------------------------------------------------- |
+| `/convert/[slug]`              | `/convert/json-to-yaml`        | `src/entities/converter/model/registry.ts`           |
+| `/resize-to/[slug]`            | `/resize-to/1920x1080`         | `src/entities/image-resize-target/model/registry.ts` |
+| `/minify/[slug]`               | `/minify/json`                 | `src/entities/minify-type/model/registry.ts`         |
+| `/validate/[slug]`             | `/validate/json`               | `src/entities/validate-type/model/registry.ts`       |
+| `/diff/[slug]`                 | `/diff/json`                   | `src/entities/diff-type/model/registry.ts`           |
+| `/hash/[slug]`                 | `/hash/md5`                    | `src/entities/hash-type/model/registry.ts`           |
+| `/alternative-to/[competitor]` | `/alternative-to/codebeautify` | `src/entities/competitor/model/registry.ts`          |
+| `/glossary/[term]`             | `/glossary/json`               | `src/entities/glossary/model/registry.ts`            |
 
 각 pSEO 페이지는 기존 도구를 재활용하며, SEO 최적화된 콘텐츠를 제공합니다.
 
