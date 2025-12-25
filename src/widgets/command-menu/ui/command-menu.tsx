@@ -31,7 +31,7 @@ export function CommandMenu() {
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
   const locale = useLocale();
-  const t = useTranslations("common.commandMenu");
+  const t = useTranslations();
 
   // Recent Tools Hook
   const { addRecentTool, getRecentSlugs, hasRecentTools } = useRecentTools();
@@ -76,13 +76,15 @@ export function CommandMenu() {
       </div>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder={t("placeholder")} />
+        <CommandInput
+          placeholder={t("commandMenu.naturalLanguagePlaceholder")}
+        />
         <CommandList>
-          <CommandEmpty>{t("noResults")}</CommandEmpty>
+          <CommandEmpty>{t("common.noResults")}</CommandEmpty>
 
           {/* Recent Tools Section */}
           {hasRecentTools && (
-            <CommandGroup heading={t("recentlyUsed")}>
+            <CommandGroup heading={t("common.recentlyUsed")}>
               {recentSlugs.map((slug) => {
                 const tool = tools[slug];
                 if (!tool) return null;
@@ -95,7 +97,7 @@ export function CommandMenu() {
                     <tool.icon className="mr-2 h-4 w-4" />
                     <span>{tool.title}</span>
                     <span className="ml-auto text-xs text-muted-foreground opacity-70">
-                      {t("recent")}
+                      {t("common.recentlyUsed")}
                     </span>
                   </CommandItem>
                 );
@@ -105,24 +107,24 @@ export function CommandMenu() {
 
           <CommandSeparator />
 
-          <CommandGroup heading={t("suggestions")}>
+          <CommandGroup heading={t("commandMenu.aiSuggestions")}>
             <CommandItem
               onSelect={() => runCommand(() => router.push(`/${locale}`))}
             >
               <Calendar className="mr-2 h-4 w-4" />
-              <span>{t("home")}</span>
+              <span>{t("navigation.home")}</span>
             </CommandItem>
             <CommandItem
               onSelect={() => runCommand(() => router.push(`/${locale}/tools`))}
             >
               <Calculator className="mr-2 h-4 w-4" />
-              <span>{t("allTools")}</span>
+              <span>{t("sidebar.allTools")}</span>
             </CommandItem>
             <CommandItem
               onSelect={() => runCommand(() => router.push(`/${locale}/blog`))}
             >
               <BookOpen className="mr-2 h-4 w-4" />
-              <span>{t("blog")}</span>
+              <span>{t("commandMenu.blog")}</span>
             </CommandItem>
           </CommandGroup>
 
@@ -138,7 +140,7 @@ export function CommandMenu() {
             return (
               <CommandGroup
                 key={category.id}
-                heading={t(`categories.${category.labelKey}`)}
+                heading={t(`sidebar.categories.${category.labelKey}`)}
               >
                 {categoryTools.map(([slug, tool]) => (
                   <CommandItem
