@@ -154,6 +154,51 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  // SEO: 404 오류 수정을 위한 리다이렉트
+  async redirects() {
+    return [
+      // /login → /auth/signin
+      {
+        source: "/login",
+        destination: "/en/auth/signin",
+        permanent: true,
+      },
+      {
+        source: "/:locale/login",
+        destination: "/:locale/auth/signin",
+        permanent: true,
+      },
+      // /cheatsheets/Comp.vue → /cheatsheets/vue
+      {
+        source: "/cheatsheets/Comp.vue",
+        destination: "/en/cheatsheets/vue",
+        permanent: true,
+      },
+      {
+        source: "/:locale/cheatsheets/Comp.vue",
+        destination: "/:locale/cheatsheets/vue",
+        permanent: true,
+      },
+      // /proxy, /path → 홈으로
+      {
+        source: "/proxy",
+        destination: "/en",
+        permanent: true,
+      },
+      {
+        source: "/path",
+        destination: "/en",
+        permanent: true,
+      },
+      // 잘못된 URL 패턴 (봇 스캔) → 대시보드로
+      {
+        source: "/dashboard/:path(.path.*)",
+        destination: "/en/dashboard",
+        permanent: false,
+      },
+    ];
+  },
+
   // Route-specific headers for WebAssembly support
   // Only apply COOP/COEP to Wasm-enabled tools to preserve AdSense on other pages
   async headers() {
