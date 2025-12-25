@@ -200,6 +200,20 @@
     "goToTools": "Zu DevToolkit"
   },
   "commandMenu": {
+    "placeholder": "Werkzeuge suchen...",
+    "noResults": "Keine Ergebnisse gefunden.",
+    "recentlyUsed": "Zuletzt verwendet",
+    "recent": "Kürzlich",
+    "suggestions": "Vorschläge",
+    "home": "Startseite",
+    "allTools": "Alle Werkzeuge",
+    "blog": "Blog",
+    "categories": {
+      "text": "Text",
+      "media": "Medien",
+      "converters": "Konverter",
+      "security": "Sicherheit"
+    },
     "naturalLanguagePlaceholder": "Suchen oder beschreiben Sie, was Sie brauchen...",
     "tryNaturalLanguage": "Versuchen Sie: \"mein json formatieren\" oder \"jwt token dekodieren\"",
     "quickActions": "Schnellaktionen",
@@ -780,6 +794,693 @@
       "beginner": "Anfänger",
       "intermediate": "Fortgeschritten",
       "advanced": "Experte"
+    },
+    "json-formatter": {
+      "summary": "Learn how to format, validate, and debug JSON data effectively",
+      "sections": {
+        "what-is-json": {
+          "title": "What is JSON?",
+          "content": "JSON (JavaScript Object Notation) is a lightweight data interchange format. It's easy for humans to read and write, and easy for machines to parse and generate.\n\nJSON is built on two structures:\n• A collection of name/value pairs (like an object or dictionary)\n• An ordered list of values (like an array)\n\nJSON is language-independent but uses conventions familiar to programmers of C-family languages."
+        },
+        "common-errors": {
+          "title": "Common JSON Errors and How to Fix Them",
+          "content": "These are the most common JSON syntax errors developers encounter:\n\n1. Missing quotes around keys - JSON requires all keys to be strings in double quotes\n2. Trailing commas - Unlike JavaScript, JSON doesn't allow trailing commas\n3. Single quotes - JSON only accepts double quotes for strings\n4. Unescaped characters - Special characters like newlines and tabs must be escaped\n5. Comments - JSON doesn't support comments (use JSONC for that)"
+        },
+        "how-to-use": {
+          "title": "How to Use the JSON Formatter",
+          "content": "Using our JSON Formatter is simple:\n\n1. Paste your JSON in the input area on the left\n2. The formatted result appears automatically on the right\n3. Choose your preferred indentation (2 spaces, 4 spaces, or tab)\n4. Use the Minify button to compress JSON for production\n5. Click Copy to copy the result to your clipboard\n\nThe tool validates your JSON in real-time and highlights any syntax errors with their exact location."
+        },
+        "advanced-features": {
+          "title": "Advanced Features",
+          "content": "Beyond basic formatting, our tool offers:\n\n• Minification - Remove all whitespace to reduce file size\n• Validation - Real-time syntax checking with error messages\n• Line numbers - Easy navigation in large JSON files\n• Dark mode - Comfortable viewing in low-light environments\n• No data transmission - All processing happens in your browser"
+        },
+        "api-debugging": {
+          "title": "Real-World Example: API Debugging",
+          "content": "When debugging API responses, formatted JSON is essential:\n\n1. Copy the raw API response from your browser's Network tab\n2. Paste it into the formatter to see the structure clearly\n3. Identify nested objects, arrays, and data types\n4. Find the specific fields you need for your application\n\nThis workflow saves hours when working with complex APIs and helps you understand data structures quickly."
+        }
+      }
+    },
+    "jwt-decoder": {
+      "summary": "Understand JWT tokens, decode them safely, and debug authentication issues",
+      "sections": {
+        "what-is-jwt": {
+          "title": "What is a JWT?",
+          "content": "JWT (JSON Web Token) is an open standard for securely transmitting information between parties as a JSON object.\n\nJWTs are commonly used for:\n• Authentication - Proving user identity\n• Authorization - Granting access to resources\n• Information exchange - Securely transmitting data\n\nA JWT is a string with three parts separated by dots: header.payload.signature"
+        },
+        "jwt-structure": {
+          "title": "JWT Structure Explained",
+          "content": "Every JWT has three parts:\n\n1. Header - Contains the token type (JWT) and signing algorithm (like HS256 or RS256)\n\n2. Payload - Contains the claims (statements about the user and additional data)\n\n3. Signature - Verifies the token hasn't been tampered with\n\nBoth header and payload are Base64Url encoded JSON objects."
+        },
+        "common-claims": {
+          "title": "Common JWT Claims",
+          "content": "Standard claims you'll encounter:\n\n• iss (Issuer) - Who created the token\n• sub (Subject) - Who the token identifies (usually user ID)\n• aud (Audience) - Who the token is intended for\n• exp (Expiration) - When the token expires (Unix timestamp)\n• iat (Issued At) - When the token was created\n• nbf (Not Before) - Token not valid before this time\n• jti (JWT ID) - Unique identifier for the token\n\nCustom claims can contain any application-specific data."
+        },
+        "debugging-expired": {
+          "title": "Debugging Expired Tokens",
+          "content": "Token expiration is a common issue. Here's how to debug:\n\n1. Decode the token to view the payload\n2. Find the 'exp' claim (expiration timestamp)\n3. Convert the timestamp to a readable date\n4. Compare with the current time\n\nOur decoder shows expiration status automatically - look for the red 'Expired' or green 'Valid' badge.\n\nCommon fixes:\n• Refresh the token before it expires\n• Check server/client time synchronization\n• Verify token lifetime settings in your auth server"
+        },
+        "security-tips": {
+          "title": "JWT Security Best Practices",
+          "content": "Keep your JWTs secure:\n\n1. Never store sensitive data in the payload - It's encoded, not encrypted\n2. Use short expiration times - Refresh tokens instead of long-lived access tokens\n3. Validate tokens server-side - Never trust client-side validation alone\n4. Use HTTPS - Prevent token interception\n5. Store tokens securely - HttpOnly cookies are safer than localStorage\n6. Implement token revocation - For logout and security events\n\nRemember: JWTs are decoded, not decrypted. Anyone can read the payload!"
+        }
+      }
+    },
+    "base64-converter": {
+      "summary": "Master Base64 encoding for images, files, and data transmission",
+      "sections": {
+        "what-is-base64": {
+          "title": "What is Base64?",
+          "content": "Base64 is a binary-to-text encoding scheme that converts binary data into ASCII characters.\n\nWhy Base64 exists:\n• Safely transmit binary data over text-only channels (like email)\n• Embed binary data in text formats (like JSON or XML)\n• Include images directly in HTML/CSS without separate files\n\nBase64 uses 64 characters: A-Z, a-z, 0-9, +, and / (with = for padding)."
+        },
+        "encoding-images": {
+          "title": "Encoding Images for Web",
+          "content": "Base64-encoded images can be embedded directly in HTML or CSS:\n\nAdvantages:\n• Reduces HTTP requests\n• Works offline once loaded\n• Simple deployment (no separate image files)\n\nDisadvantages:\n• ~33% larger than binary\n• No browser caching\n• Increases HTML/CSS file size\n\nBest practice: Use Base64 for small images (icons, logos) under 10KB."
+        },
+        "common-use-cases": {
+          "title": "Common Use Cases",
+          "content": "Base64 is essential for:\n\n1. Data URLs - Embedding resources in web pages\n2. Email attachments - MIME encoding\n3. API payloads - Sending binary data in JSON\n4. Authentication - Basic auth headers (username:password)\n5. Certificates - PEM format for SSL/TLS\n\nOur tool handles text and files, generating proper data URLs automatically."
+        },
+        "data-urls": {
+          "title": "Understanding Data URLs",
+          "content": "Data URLs embed content directly in the URL:\n\nFormat: data:[mediatype][;base64],<data>\n\nComponents:\n• data: - The URL scheme\n• mediatype - MIME type (e.g., image/png, text/plain)\n• ;base64 - Indicates Base64 encoding\n• data - The actual encoded content\n\nData URLs work anywhere a regular URL works: img src, CSS url(), fetch(), and more."
+        },
+        "size-considerations": {
+          "title": "Size and Performance",
+          "content": "Important considerations:\n\n• Base64 increases size by ~33% (3 bytes become 4 characters)\n• Large Base64 strings can slow page rendering\n• Browser decode limits vary (usually safe up to several MB)\n• Consider gzip compression for text-based formats\n\nRule of thumb:\n• Under 10KB: Base64 is usually beneficial\n• 10-50KB: Evaluate case by case\n• Over 50KB: Use regular file URLs instead"
+        }
+      }
+    },
+    "regex-tester": {
+      "summary": "Learn regular expressions with practical examples for validation and parsing",
+      "sections": {
+        "what-is-regex": {
+          "title": "What is Regex?",
+          "content": "Regular expressions (regex) are patterns used to match character combinations in strings.\n\nRegex is used for:\n• Validation - Check if input matches a pattern\n• Searching - Find text matching a pattern\n• Extraction - Pull specific data from strings\n• Replacement - Transform text based on patterns\n\nWhile regex syntax looks cryptic at first, it's incredibly powerful once learned."
+        },
+        "email-validation": {
+          "title": "Email Validation Pattern",
+          "content": "Email validation is one of the most common regex use cases.\n\nA basic email pattern checks for:\n• Username part (letters, numbers, dots, hyphens)\n• @ symbol\n• Domain name\n• TLD (top-level domain)\n\nNote: Perfect email validation is actually impossible with regex alone. The best approach is a simple pattern plus sending a verification email."
+        },
+        "phone-validation": {
+          "title": "Phone Number Patterns",
+          "content": "Phone numbers vary by country and format:\n\nUS formats to consider:\n• 123-456-7890 (dashed)\n• (123) 456-7890 (parentheses)\n• +1 123 456 7890 (international)\n\nFor international support, the E.164 format (+[country][number]) is most reliable.\n\nTip: Store phone numbers in a normalized format and display them formatted for the user's locale."
+        },
+        "common-patterns": {
+          "title": "Common Regex Patterns",
+          "content": "Patterns every developer should know:\n\n• URL - Matches http/https URLs\n• IP Address - Validates IPv4 addresses\n• Date - Matches YYYY-MM-DD format\n• Hex Color - Matches #RGB or #RRGGBB\n• Password - Enforces complexity requirements\n\nOur tool includes a library of these patterns for quick reference."
+        },
+        "flags-modifiers": {
+          "title": "Regex Flags and Modifiers",
+          "content": "Flags change how the regex engine matches:\n\n• g (global) - Find all matches, not just the first\n• i (case-insensitive) - Ignore uppercase/lowercase\n• m (multiline) - ^ and $ match line beginnings/endings\n• s (dotall) - . matches newlines too\n• u (unicode) - Full Unicode support\n• y (sticky) - Match at exact position only\n\nCombine flags as needed: /pattern/gi for global case-insensitive matching."
+        }
+      }
+    },
+    "hash-generator": {
+      "summary": "Understand cryptographic hashes and when to use MD5, SHA-256, or SHA-512",
+      "sections": {
+        "what-is-hash": {
+          "title": "What is a Hash?",
+          "content": "A hash function takes input of any size and produces a fixed-size output (the hash or digest).\n\nKey properties:\n• Deterministic - Same input always produces same output\n• One-way - Cannot reverse a hash to get the original input\n• Collision-resistant - Different inputs rarely produce same hash\n• Avalanche effect - Small input changes create very different hashes\n\nHashes are fingerprints for data - unique identifiers for any content."
+        },
+        "md5-vs-sha": {
+          "title": "MD5 vs SHA: Which to Use?",
+          "content": "Choosing the right algorithm:\n\nMD5 (128-bit):\n• Fast but cryptographically broken\n• OK for checksums, NOT for security\n• Collisions can be created intentionally\n\nSHA-1 (160-bit):\n• Deprecated for security uses\n• Still seen in legacy systems\n\nSHA-256 (256-bit):\n• Current standard for most uses\n• Good balance of security and speed\n\nSHA-512 (512-bit):\n• Maximum security\n• Slightly slower, longer output"
+        },
+        "use-cases": {
+          "title": "Real-World Use Cases",
+          "content": "Hashes are everywhere in software:\n\n1. File integrity - Verify downloads haven't been corrupted\n2. Password storage - Store hashes, not plain passwords (use bcrypt/argon2!)\n3. Data deduplication - Identify duplicate files by hash\n4. Git commits - SHA-1 identifies every commit\n5. Blockchain - Chain of hashes ensures integrity\n\nImportant: For passwords, use specialized hashing (bcrypt, argon2) not raw SHA-256!"
+        },
+        "hash-verification": {
+          "title": "Verifying File Integrity",
+          "content": "Always verify important downloads:\n\n1. Download the file\n2. Get the expected hash from the official source\n3. Calculate the hash of your downloaded file\n4. Compare the two hashes\n\nIf they match exactly, the file hasn't been modified. Even one bit difference produces a completely different hash.\n\nOur tool makes this easy - paste the expected hash and we'll tell you if it matches."
+        },
+        "security-best-practices": {
+          "title": "Security Best Practices",
+          "content": "Hash security guidelines:\n\n• Never use MD5 or SHA-1 for security purposes\n• Use SHA-256 or SHA-512 for data integrity\n• For passwords, use bcrypt, scrypt, or argon2 (with salt)\n• Store hashes, never plaintext\n• Use constant-time comparison to prevent timing attacks\n• Consider HMAC when you need authentication\n\nRemember: Hashes verify integrity, not confidentiality. Use encryption if data must stay secret."
+        }
+      }
+    },
+    "image-resizer": {
+      "summary": "Resize and convert images with quality optimization",
+      "sections": {
+        "what-is-image-resizer": {
+          "title": "What is Image Resizer?",
+          "content": "Image Resizer lets you change image dimensions while maintaining quality.\n\nSupports: JPEG, PNG, WebP, GIF\nProcessing: Client-side (your images stay private)"
+        },
+        "supported-formats": {
+          "title": "Supported Formats",
+          "content": "• JPEG: Best for photos\n• PNG: Best for graphics/transparency\n• WebP: Modern format, smaller files\n• GIF: Animated images\n\nConvert between formats while resizing."
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Upload your image\n2. Enter new dimensions\n3. Lock/unlock aspect ratio\n4. Choose output format\n5. Download resized image"
+        },
+        "quality-settings": {
+          "title": "Quality Settings",
+          "content": "• JPEG quality: 60-90% optimal\n• PNG: Lossless compression\n• WebP: Superior compression\n\nHigher quality = larger file size"
+        },
+        "best-practices": {
+          "title": "Best Practices",
+          "content": "• Start with highest quality source\n• Maintain aspect ratio to prevent distortion\n• Choose format based on content type\n• Consider file size for web use"
+        }
+      }
+    },
+    "unix-timestamp": {
+      "summary": "Convert between Unix timestamps and human-readable dates",
+      "sections": {
+        "what-is-unix-timestamp": {
+          "title": "What is a Unix Timestamp?",
+          "content": "A Unix timestamp (also called Epoch time) is the number of seconds that have elapsed since January 1, 1970, at 00:00:00 UTC.\n\nWhy use timestamps?\n• Language-independent - Same value worldwide\n• Easy to compare - Simple integer comparison\n• Timezone-safe - Always UTC-based\n• Compact storage - Just one number"
+        },
+        "seconds-vs-milliseconds": {
+          "title": "Seconds vs Milliseconds",
+          "content": "Unix timestamps come in two formats:\n\n• Seconds (10 digits) - 1702339200\n• Milliseconds (13 digits) - 1702339200000\n\nJavaScript uses milliseconds:\n• Date.now() returns milliseconds\n• new Date(timestamp) expects milliseconds\n\nMost other systems use seconds. Always check which format your API expects!"
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "Our converter supports bidirectional conversion:\n\n1. Enter a Unix timestamp to see the human-readable date\n2. Enter a date/time to get the Unix timestamp\n3. View results in multiple formats and timezones\n4. Copy the result with one click\n\nThe tool updates in real-time as you type."
+        },
+        "timezone-handling": {
+          "title": "Timezone Handling",
+          "content": "Unix timestamps are always in UTC, but display can vary:\n\n• UTC time - The universal standard\n• Local time - Converted to your timezone\n• Custom timezone - Specify any timezone\n\nKey points:\n• Timestamp value never changes\n• Only the display format changes\n• Always store timestamps in UTC"
+        },
+        "common-use-cases": {
+          "title": "Common Use Cases",
+          "content": "Unix timestamps are essential for:\n\n• Database records - Created/updated timestamps\n• API responses - Standard time format\n• Event scheduling - Compare times easily\n• Log files - Sort chronologically\n• Session management - Expiration times\n\nThe Y2038 problem: 32-bit systems will overflow on January 19, 2038. Modern 64-bit systems are safe."
+        }
+      }
+    },
+    "qr-generator": {
+      "summary": "Generate QR codes for URLs, text, WiFi credentials, and more",
+      "sections": {
+        "what-is-qr-code": {
+          "title": "What is a QR Code?",
+          "content": "QR (Quick Response) codes are two-dimensional barcodes that store data readable by smartphone cameras.\n\nSupports: URLs, text, WiFi, contacts, locations, and more."
+        },
+        "qr-types": {
+          "title": "QR Code Types",
+          "content": "• URL: Website links\n• WiFi: Network credentials\n• vCard: Contact information\n• SMS: Pre-filled messages\n• Email: mailto links\n• Location: GPS coordinates"
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Select the QR type\n2. Enter your data\n3. Customize appearance\n4. Generate the code\n5. Download as PNG or SVG"
+        },
+        "customization": {
+          "title": "Customization",
+          "content": "• Colors: Foreground and background\n• Size: Resolution in pixels\n• Error correction: L, M, Q, H levels\n• Logo: Center image overlay"
+        },
+        "best-practices": {
+          "title": "Best Practices",
+          "content": "• Keep data short for faster scanning\n• Use high error correction for printed codes\n• Test before printing\n• Ensure sufficient contrast\n• Leave quiet zone around code"
+        }
+      }
+    },
+    "app-icon-generator": {
+      "summary": "Generate app icons for iOS, Android, and web platforms",
+      "sections": {
+        "what-is-app-icon": {
+          "title": "What is App Icon Generator?",
+          "content": "App Icon Generator creates properly sized icons for iOS, Android, and web applications from a single source image.\n\nGenerates all required sizes in one click for multiple platforms."
+        },
+        "icon-sizes": {
+          "title": "Icon Sizes",
+          "content": "iOS requires: 20px to 1024px\nAndroid needs: 36dp to 512dp\nWeb uses: favicon, apple-touch, PWA icons\n\nEach platform has specific requirements for app stores and devices."
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Upload a square image (1024x1024 recommended)\n2. Select target platforms\n3. Generate all sizes\n4. Download as ZIP archive"
+        },
+        "design-tips": {
+          "title": "Design Tips",
+          "content": "• Use simple, recognizable imagery\n• Keep it scalable - works at all sizes\n• Avoid text - unreadable when small\n• Test on different backgrounds\n• Follow platform guidelines"
+        }
+      }
+    },
+    "color-picker": {
+      "summary": "Pick colors, convert between formats, and generate palettes",
+      "sections": {
+        "what-is-color-picker": {
+          "title": "What is Color Picker?",
+          "content": "Color Picker is a tool that helps you extract, identify, and convert colors from images or select colors visually.\n\n• Extract colors from any image\n• Convert between color formats\n• Generate color palettes\n• Access popular color collections"
+        },
+        "color-formats": {
+          "title": "Color Formats",
+          "content": "Colors can be represented in multiple formats:\n\n• HEX: #FF5733 or #F53 (shorthand)\n• RGB: rgb(255, 87, 51)\n• RGBA: rgba(255, 87, 51, 0.5)\n• HSL: hsl(14, 100%, 60%)\n\nEach format has its use case - HEX for web, RGB for design software, HSL for adjustments."
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Upload an image or use the color picker\n2. Click anywhere to extract colors\n3. View the color in all formats\n4. Copy the format you need\n5. Build custom palettes"
+        },
+        "color-palettes": {
+          "title": "Color Palettes",
+          "content": "Create harmonious color schemes:\n\n• Complementary - Opposite colors\n• Analogous - Adjacent colors\n• Triadic - Three evenly spaced\n• Tetradic - Four colors in rectangle\n\nUse palettes for consistent design across your project."
+        }
+      }
+    },
+    "url-parser": {
+      "summary": "Parse and analyze URL components including query parameters",
+      "sections": {
+        "what-is-url": {
+          "title": "What is a URL?",
+          "content": "A URL (Uniform Resource Locator) is the address of a web resource. It follows a specific structure:\n\nprotocol://user:pass@host:port/path?query#hash\n\nEach component serves a specific purpose in identifying and locating resources on the web."
+        },
+        "url-components": {
+          "title": "URL Components",
+          "content": "URLs consist of several parts:\n\n• Protocol: http, https, ftp\n• Host: domain name or IP\n• Port: optional, defaults vary\n• Path: resource location\n• Query: key-value parameters\n• Hash: fragment identifier"
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Paste any URL to parse it\n2. View each component separately\n3. Edit individual parts as needed\n4. Build new URLs from components\n5. Encode/decode special characters"
+        },
+        "query-parameters": {
+          "title": "Query Parameters",
+          "content": "Query strings contain key-value pairs:\n\n?key1=value1&key2=value2\n\nCommon uses:\n• Search queries\n• Pagination\n• Filtering\n• Tracking parameters\n\nValues should be URL-encoded for special characters."
+        }
+      }
+    },
+    "uuid-generator": {
+      "summary": "Generate UUIDs and ULIDs for unique identifiers",
+      "sections": {
+        "what-is-uuid": {
+          "title": "What is a UUID?",
+          "content": "UUID (Universally Unique Identifier) is a 128-bit identifier that's practically guaranteed to be unique across all systems.\n\nFormat: 8-4-4-4-12 hexadecimal digits\nExample: 550e8400-e29b-41d4-a716-446655440000"
+        },
+        "uuid-versions": {
+          "title": "UUID Versions",
+          "content": "• UUID v1: Time-based + MAC address\n• UUID v4: Random (most common)\n• UUID v5: Name-based (SHA-1)\n• UUID v7: Time-ordered random (newer)\n\nv4 is recommended for most use cases."
+        },
+        "uuid-vs-ulid": {
+          "title": "UUID vs ULID",
+          "content": "ULID (Universally Unique Lexicographically Sortable Identifier):\n\n• Sortable by creation time\n• URL-safe (no special chars)\n• Shorter string representation\n\nChoose ULID when you need time-sorted IDs or URL-friendly identifiers."
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Select the ID type (UUID v1/v4/ULID)\n2. Choose quantity to generate\n3. Select format options\n4. Click generate\n5. Copy individual or all IDs"
+        }
+      }
+    },
+    "base-converter": {
+      "summary": "Convert numbers between binary, decimal, hexadecimal, and other bases",
+      "sections": {
+        "what-is-number-base": {
+          "title": "What is Number Base?",
+          "content": "Number base (radix) determines how numbers are represented:\n\n• Binary (base 2): 0, 1\n• Octal (base 8): 0-7\n• Decimal (base 10): 0-9\n• Hexadecimal (base 16): 0-9, A-F\n\nComputers use binary internally but hex for readability."
+        },
+        "common-bases": {
+          "title": "Common Number Bases",
+          "content": "Binary (2): Used in computers\nOctal (8): Unix file permissions\nDecimal (10): Human counting\nHex (16): Colors, memory addresses\n\nExample: 255 = 11111111 (bin) = 377 (oct) = FF (hex)"
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Enter a number in any base\n2. Select the input base\n3. View conversions to all bases\n4. Copy the format you need\n\nSupports bases from 2 to 36."
+        },
+        "programming-usage": {
+          "title": "Programming Usage",
+          "content": "Common prefixes in code:\n\n• 0b - Binary (0b1010)\n• 0o - Octal (0o755)\n• 0x - Hex (0xFF)\n\nUseful for:\n• Bitwise operations\n• Color codes\n• Memory debugging\n• Permission flags"
+        }
+      }
+    },
+    "sql-formatter": {
+      "summary": "Format and beautify SQL queries for better readability",
+      "sections": {
+        "what-is-sql-formatter": {
+          "title": "What is SQL Formatter?",
+          "content": "SQL Formatter transforms messy SQL queries into clean, readable code with proper indentation and formatting.\n\nBenefits:\n• Improved readability\n• Easier debugging\n• Consistent team style\n• Better code reviews"
+        },
+        "formatting-options": {
+          "title": "Formatting Options",
+          "content": "Customize your output:\n\n• Indentation: Spaces or tabs\n• Keyword case: UPPER or lower\n• Line breaks: After keywords\n• Alignment: Vertical columns\n\nMatch your team's SQL style guide."
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Paste your SQL query\n2. Select formatting options\n3. Choose SQL dialect\n4. Click format\n5. Copy the result"
+        },
+        "sql-dialects": {
+          "title": "SQL Dialects",
+          "content": "Supported dialects:\n\n• Standard SQL\n• PostgreSQL\n• MySQL\n• SQLite\n• SQL Server\n• Oracle\n\nEach has slight syntax variations."
+        }
+      }
+    },
+    "cron-parser": {
+      "summary": "Parse and generate cron expressions for scheduled tasks",
+      "sections": {
+        "what-is-cron": {
+          "title": "What is Cron?",
+          "content": "Cron is a time-based job scheduler in Unix-like systems.\n\nFormat: * * * * *\n(minute hour day-of-month month day-of-week)\n\nExample: 0 9 * * 1-5 = 9 AM on weekdays"
+        },
+        "common-patterns": {
+          "title": "Common Patterns",
+          "content": "• Every minute: * * * * *\n• Every hour: 0 * * * *\n• Daily at midnight: 0 0 * * *\n• Weekly on Sunday: 0 0 * * 0\n• Monthly first day: 0 0 1 * *\n• Every 5 minutes: */5 * * * *"
+        },
+        "how-to-use": {
+          "title": "How to Use This Tool",
+          "content": "1. Enter a cron expression\n2. See human-readable description\n3. View next execution times\n4. Validate the expression\n5. Build expressions visually"
+        },
+        "special-characters": {
+          "title": "Special Characters",
+          "content": "• * - Any value\n• , - Value separator\n• - - Range of values\n• / - Step values\n• ? - No specific value\n• L - Last day\n• W - Weekday\n• # - nth day"
+        }
+      }
+    },
+    "markdown-preview": {
+      "summary": "Write and preview Markdown with live rendering",
+      "sections": {
+        "what-is-markdown": {
+          "title": "What Is Markdown",
+          "content": "Content for What Is Markdown"
+        },
+        "syntax-guide": {
+          "title": "Syntax Guide",
+          "content": "Content for Syntax Guide"
+        },
+        "how-to-use": {
+          "title": "How to Use the Preview",
+          "content": "Write with live preview:\n\n1. Type Markdown in the editor\n2. See rendered preview instantly\n3. Toggle between edit/preview/split views\n4. Export to HTML or copy Markdown\n\nSyntax highlighting helps catch formatting errors."
+        },
+        "advanced-features": {
+          "title": "Advanced Features",
+          "content": "Content for Advanced Features"
+        }
+      }
+    },
+    "diff-checker": {
+      "summary": "Compare text and code to find differences",
+      "sections": {
+        "what-is-diff": {
+          "title": "What Is Diff",
+          "content": "Content for What Is Diff"
+        },
+        "diff-types": {
+          "title": "Diff Types",
+          "content": "Content for Diff Types"
+        },
+        "how-to-use": {
+          "title": "How to Compare Text",
+          "content": "Compare any text:\n\n1. Paste original text on the left\n2. Paste modified text on the right\n3. View highlighted differences\n4. Toggle between view modes\n\nWorks with any text: code, configs, documents."
+        },
+        "use-cases": {
+          "title": "Common Use Cases",
+          "content": "When to use diff:\n\n• Before committing code changes\n• Comparing config file versions\n• Reviewing API response changes\n• Verifying data transformations\n• Documentation updates\n\nSaves time spotting what changed."
+        }
+      }
+    },
+    "lorem-generator": {
+      "summary": "Generate placeholder text for designs and mockups",
+      "sections": {
+        "what-is-lorem": {
+          "title": "What Is Lorem",
+          "content": "Content for What Is Lorem"
+        },
+        "generation-options": {
+          "title": "Generation Options",
+          "content": "Content for Generation Options"
+        },
+        "how-to-use": {
+          "title": "How to Generate Text",
+          "content": "Generate placeholder text:\n\n1. Choose unit type (paragraphs, sentences, words)\n2. Set the quantity\n3. Select start with 'Lorem ipsum' or random\n4. Copy the generated text\n\nPaste directly into your design tools."
+        },
+        "design-usage": {
+          "title": "Design Usage",
+          "content": "Content for Design Usage"
+        }
+      }
+    },
+    "url-encoder": {
+      "summary": "Encode and decode URLs for safe transmission",
+      "sections": {
+        "what-is-url-encoding": {
+          "title": "What Is Url Encoding",
+          "content": "Content for What Is Url Encoding"
+        },
+        "special-characters": {
+          "title": "Special Characters",
+          "content": "Content for Special Characters"
+        },
+        "how-to-use": {
+          "title": "How to Encode/Decode",
+          "content": "Encode or decode text:\n\n1. Enter text to encode\n2. Or enter encoded text to decode\n3. View the result instantly\n4. Copy with one click\n\nHandles full URLs or individual components."
+        },
+        "programming-usage": {
+          "title": "Programming Usage",
+          "content": "Content for Programming Usage"
+        }
+      }
+    },
+    "html-entity": {
+      "summary": "Convert special characters to HTML entities",
+      "sections": {
+        "what-is-html-entity": {
+          "title": "What Is Html Entity",
+          "content": "Content for What Is Html Entity"
+        },
+        "common-entities": {
+          "title": "Common Entities",
+          "content": "Content for Common Entities"
+        },
+        "how-to-use": {
+          "title": "How to Convert",
+          "content": "Convert characters:\n\n1. Enter text with special characters\n2. View HTML entity equivalents\n3. Or enter entities to decode\n4. Copy the result\n\nEssential for displaying code in HTML."
+        },
+        "security": {
+          "title": "Security Importance",
+          "content": "Why entity encoding matters:\n\n• Prevents XSS attacks\n• Safely display user input\n• Required for code samples\n\nAlways encode user-generated content before displaying in HTML."
+        }
+      }
+    },
+    "box-shadow": {
+      "summary": "Generate CSS box-shadow with visual editor",
+      "sections": {
+        "what-is-box-shadow": {
+          "title": "What Is Box Shadow",
+          "content": "Content for What Is Box Shadow"
+        },
+        "shadow-properties": {
+          "title": "Shadow Properties",
+          "content": "Content for Shadow Properties"
+        },
+        "how-to-use": {
+          "title": "How to Use the Generator",
+          "content": "Create shadows visually:\n\n1. Adjust sliders for each property\n2. See live preview\n3. Add multiple shadow layers\n4. Copy the CSS code\n\nNo need to memorize syntax!"
+        },
+        "design-tips": {
+          "title": "Design Tips",
+          "content": "Content for Design Tips"
+        }
+      }
+    },
+    "gradient-generator": {
+      "summary": "Create CSS gradients with visual controls",
+      "sections": {
+        "what-is-gradient": {
+          "title": "What Is Gradient",
+          "content": "Content for What Is Gradient"
+        },
+        "gradient-types": {
+          "title": "Gradient Types",
+          "content": "Content for Gradient Types"
+        },
+        "how-to-use": {
+          "title": "How to Create Gradients",
+          "content": "Build gradients visually:\n\n1. Choose gradient type\n2. Add color stops\n3. Adjust angle or position\n4. Copy CSS code\n\nPreview updates in real-time."
+        },
+        "advanced-gradients": {
+          "title": "Advanced Gradients",
+          "content": "Content for Advanced Gradients"
+        }
+      }
+    },
+    "ua-parser": {
+      "summary": "Parse User-Agent strings to identify browsers and devices",
+      "sections": {
+        "what-is-user-agent": {
+          "title": "What Is User Agent",
+          "content": "Content for What Is User Agent"
+        },
+        "ua-components": {
+          "title": "Ua Components",
+          "content": "Content for Ua Components"
+        },
+        "how-to-use": {
+          "title": "How to Parse User-Agents",
+          "content": "Analyze any UA string:\n\n1. Paste a User-Agent string\n2. View parsed components\n3. See browser, OS, device info\n4. Check your current UA\n\nUseful for debugging browser-specific issues."
+        },
+        "common-patterns": {
+          "title": "Common Patterns",
+          "content": "Content for Common Patterns"
+        },
+        "Android": {
+          "title": "Android",
+          "content": "Content for Android"
+        }
+      }
+    },
+    "meta-generator": {
+      "summary": "Generate meta tags for SEO and social sharing",
+      "sections": {
+        "what-is-meta-tag": {
+          "title": "What Is Meta Tag",
+          "content": "Content for What Is Meta Tag"
+        },
+        "og-tags": {
+          "title": "Og Tags",
+          "content": "Content for Og Tags"
+        },
+        "how-to-use": {
+          "title": "How to Generate Tags",
+          "content": "Create meta tags:\n\n1. Enter your page information\n2. Add social media details\n3. Preview how it will appear\n4. Copy the HTML code\n\nIncludes both basic and social meta tags."
+        },
+        "twitter-cards": {
+          "title": "Twitter Cards",
+          "content": "Content for Twitter Cards"
+        }
+      }
+    },
+    "curl-builder": {
+      "summary": "Build cURL commands for API testing",
+      "sections": {
+        "what-is-curl": {
+          "title": "What Is Curl",
+          "content": "Content for What Is Curl"
+        },
+        "common-options": {
+          "title": "Common Options",
+          "content": "Content for Common Options"
+        },
+        "how-to-use": {
+          "title": "How to Build Commands",
+          "content": "Create cURL commands:\n\n1. Enter the URL\n2. Select HTTP method\n3. Add headers and body\n4. Copy the command\n\nSupports JSON, form data, and authentication."
+        },
+        "authentication": {
+          "title": "Authentication",
+          "content": "Content for Authentication"
+        }
+      }
+    },
+    "svg-optimizer": {
+      "summary": "Optimize SVG files by removing unnecessary code",
+      "sections": {
+        "what-is-svg-optimization": {
+          "title": "What Is Svg Optimization",
+          "content": "Content for What Is Svg Optimization"
+        },
+        "optimization-techniques": {
+          "title": "Optimization Techniques",
+          "content": "Content for Optimization Techniques"
+        },
+        "how-to-use": {
+          "title": "How to Optimize",
+          "content": "Optimize your SVGs:\n\n1. Upload or paste SVG code\n2. Preview the result\n3. Compare file sizes\n4. Download optimized SVG\n\nPreview ensures quality isn't affected."
+        },
+        "best-practices": {
+          "title": "SVG Best Practices",
+          "content": "Tips for SVG optimization:\n\n• Remove hidden layers before export\n• Use simple shapes when possible\n• Avoid embedded fonts\n• Consider inline SVG for icons\n• Test after optimization"
+        }
+      }
+    },
+    "css-to-tailwind": {
+      "summary": "Convert CSS to Tailwind utility classes",
+      "sections": {
+        "what-is-tailwind": {
+          "title": "What Is Tailwind",
+          "content": "Content for What Is Tailwind"
+        },
+        "common-conversions": {
+          "title": "Common Conversions",
+          "content": "Content for Common Conversions"
+        },
+        "how-to-use": {
+          "title": "How to Convert",
+          "content": "Convert your CSS:\n\n1. Paste CSS rules\n2. View equivalent Tailwind classes\n3. Copy class names\n4. Apply to your HTML\n\nHandles common CSS properties."
+        },
+        "responsive-design": {
+          "title": "Responsive Design",
+          "content": "Content for Responsive Design"
+        }
+      }
+    },
+    "prettier-playground": {
+      "summary": "Format code with Prettier in the browser",
+      "sections": {
+        "what-is-prettier": {
+          "title": "What Is Prettier",
+          "content": "Content for What Is Prettier"
+        },
+        "supported-languages": {
+          "title": "Supported Languages",
+          "content": "Content for Supported Languages"
+        },
+        "how-to-use": {
+          "title": "How to Format Code",
+          "content": "Format your code:\n\n1. Paste code in the editor\n2. Select language (or auto-detect)\n3. Adjust options if needed\n4. Copy formatted result\n\nSee changes instantly."
+        },
+        "configuration": {
+          "title": "Configuration",
+          "content": "Content for Configuration"
+        }
+      }
+    },
+    "css-minifier": {
+      "summary": "Compress and optimize CSS for faster loading",
+      "sections": {
+        "what-is": {
+          "title": "What is CSS Minification?",
+          "content": "CSS minification removes unnecessary characters from CSS code without changing its functionality.\n\nThis includes:\n• Whitespace and newlines\n• Comments\n• Trailing semicolons\n• Redundant zero units\n\nResult: Smaller file sizes and faster page loads."
+        },
+        "benefits": {
+          "title": "Benefits",
+          "content": "Why minify CSS?\n\n• 30-50% smaller file size\n• Faster download times\n• Reduced bandwidth costs\n• Better Core Web Vitals\n• Improved SEO ranking\n\nCombine with gzip for 80%+ reduction."
+        },
+        "how-to-use": {
+          "title": "How to Use",
+          "content": "Minify your CSS:\n\n1. Paste your CSS code\n2. Click 'Minify' button\n3. Copy the compressed result\n\nAll processing happens in your browser - no data sent to servers."
+        },
+        "what-gets-removed": {
+          "title": "What Gets Removed",
+          "content": "Content for What Gets Removed"
+        }
+      }
+    },
+    "json-to-typescript": {
+      "summary": "Generate TypeScript interfaces from JSON data",
+      "sections": {
+        "what-is": {
+          "title": "What is JSON to TypeScript?",
+          "content": "This tool automatically generates TypeScript interfaces or types from JSON data.\n\nBenefits:\n• Type-safe API responses\n• Auto-completion in IDE\n• Catch errors at compile time\n• Better code documentation\n\nPerfect for working with REST APIs."
+        },
+        "type-inference": {
+          "title": "Type Inference",
+          "content": "Automatic type detection:\n\n• Strings → string\n• Numbers → number\n• Booleans → boolean\n• Arrays → Type[]\n• Objects → Nested interfaces\n• Null → null\n\nHandles deeply nested structures."
+        },
+        "how-to-use": {
+          "title": "How to Use",
+          "content": "Generate TypeScript types:\n\n1. Paste JSON data\n2. Set interface name (optional)\n3. Copy generated TypeScript\n\nUse in your project for type-safe development."
+        },
+        "api-response": {
+          "title": "API Response Types",
+          "content": "Common use case:\n\n1. Copy API response from DevTools\n2. Paste into this tool\n3. Get typed interfaces\n4. Use with fetch/axios\n\nNever guess API response shapes again."
+        }
+      }
+    },
+    "text-case-converter": {
+      "summary": "Convert text between different naming conventions",
+      "sections": {
+        "what-is": {
+          "title": "What is Text Case Converter?",
+          "content": "Convert text between different case formats used in programming.\n\nSupported formats:\n• UPPERCASE / lowercase\n• Title Case / Sentence case\n• camelCase / PascalCase\n• snake_case / kebab-case\n• SCREAMING_SNAKE_CASE"
+        },
+        "programming-cases": {
+          "title": "Programming Naming Conventions",
+          "content": "When to use each case:\n\n• camelCase: JS/TS variables, functions\n• PascalCase: Classes, React components\n• snake_case: Python, databases\n• kebab-case: CSS classes, URLs\n• CONSTANT_CASE: Constants, env vars\n\nFollow language conventions for readable code."
+        },
+        "how-to-use": {
+          "title": "How to Use",
+          "content": "Convert text case:\n\n1. Enter or paste your text\n2. Select target case format\n3. Copy the converted result\n\nInstant conversion with live preview."
+        },
+        "use-cases": {
+          "title": "Common Use Cases",
+          "content": "Practical scenarios:\n\n• API response → Frontend variables\n• Database columns → TypeScript fields\n• Component names → File names\n• CSS classes → JS constants\n• Human text → Environment variables"
+        }
+      }
     }
   },
   "seo": {

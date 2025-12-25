@@ -217,6 +217,20 @@
     "close": "閉じる"
   },
   "commandMenu": {
+    "placeholder": "ツールを検索...",
+    "noResults": "結果が見つかりません。",
+    "recentlyUsed": "最近使用",
+    "recent": "最近",
+    "suggestions": "おすすめ",
+    "home": "ホーム",
+    "allTools": "すべてのツール",
+    "blog": "ブログ",
+    "categories": {
+      "text": "テキスト",
+      "media": "メディア",
+      "converters": "変換",
+      "security": "セキュリティ"
+    },
     "naturalLanguagePlaceholder": "検索するか、必要なものを説明してください...",
     "tryNaturalLanguage": "例: 「JSONをフォーマット」または「JWTトークンをデコード」",
     "quickActions": "クイックアクション",
@@ -225,8 +239,7 @@
     "formatJson": "このJSONをフォーマット",
     "decodeJwt": "このJWTトークンをデコード",
     "parseUrl": "このURLを解析",
-    "detectHash": "このハッシュを分析",
-    "blog": "ブログ"
+    "detectHash": "このハッシュを分析"
   },
   "tools": {
     "json-formatter": {
