@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useSyncExternalStore } from "react";
+import { z } from "zod";
 
 const STORAGE_KEY = "adblock-notice-dismissed";
 const DISMISS_DURATION_DAYS = 7;
@@ -8,6 +9,8 @@ const DISMISS_DURATION_DAYS = 7;
 // Cached dismissed state for useSyncExternalStore
 let cachedIsDismissed: boolean | null = null;
 let cachedDismissedAt: string | null = null;
+
+const dismissedSchema = z.string().datetime().nullable().catch(null);
 
 function getIsDismissed(): boolean {
   if (typeof window === "undefined") return true;
@@ -26,7 +29,14 @@ function getIsDismissed(): boolean {
     return false;
   }
 
-  const dismissedDate = new Date(dismissedAt);
+  // Validate with Zod
+  const validated = dismissedSchema.parse(dismissedAt);
+  if (!validated) {
+    cachedIsDismissed = false;
+    return false;
+  }
+
+  const dismissedDate = new Date(validated);
   const now = new Date();
   const daysSinceDismissed =
     (now.getTime() - dismissedDate.getTime()) / (1000 * 60 * 60 * 24);

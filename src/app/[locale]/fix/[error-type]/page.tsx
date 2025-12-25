@@ -17,7 +17,8 @@ import {
   type ErrorFixSlug,
 } from "@/entities/error-fix";
 import { tools } from "@/entities/tool";
-import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd, AdUnit } from "@/shared/ui";
+import { BreadcrumbJsonLd, FaqJsonLd, HowToJsonLd } from "@/shared/ui";
+import { AdUnit } from "@/widgets/ad-unit/ad-unit";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
 
 interface Props {

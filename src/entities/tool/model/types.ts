@@ -13,6 +13,10 @@ export interface Tool {
   freeLimit?: number;
   /** 관련 도구 목록 (내부 링크 SEO 강화) */
   relatedTools?: ToolSlug[];
+  /** 주요 특징 목록 */
+  features?: string[];
+  /** FAQ 항목 키 목록 */
+  faq?: string[];
 }
 
 export type ToolSlug =

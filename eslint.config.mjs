@@ -38,7 +38,7 @@ const eslintConfig = defineConfig([
     },
     rules: {
       "boundaries/element-types": [
-        "warn",
+        "error",
         {
           default: "disallow",
           rules: [

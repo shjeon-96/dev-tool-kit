@@ -9,7 +9,8 @@ import {
   type GuideSlug,
 } from "@/entities/guide";
 import { HowToJsonLd, ArticleJsonLd, BreadcrumbJsonLd } from "@/shared/ui";
-import { SITE_CONFIG } from "@/shared/config";
+import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
+import { AdUnit } from "@/widgets/ad-unit/ad-unit";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -127,6 +128,13 @@ export default async function GuidePage({ params }: Props) {
         relatedToolsData={relatedToolsData}
         prevGuide={prevGuide}
         nextGuide={nextGuide}
+        adSlot={
+          <AdUnit
+            slot={AD_SLOTS.GUIDE_BOTTOM}
+            format="horizontal"
+            className="my-8"
+          />
+        }
       />
     </>
   );

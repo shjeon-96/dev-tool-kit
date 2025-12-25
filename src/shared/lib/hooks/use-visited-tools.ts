@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useSyncExternalStore } from "react";
-import type { ToolSlug } from "@/entities/tool/model/types";
+import { z } from "zod";
 
 const STORAGE_KEY = "visited-tools";
 const MAX_ITEMS = 50;
@@ -22,6 +22,9 @@ function subscribeToStorage(callback: () => void) {
   return () => window.removeEventListener("storage", handleStorageChange);
 }
 
+// Zod schema for storage validation
+const visitedToolsSchema = z.array(z.string()).max(MAX_ITEMS).catch([]);
+
 function getStorageSnapshot(): string[] {
   if (typeof window === "undefined") return emptyArray;
   try {
@@ -32,10 +35,17 @@ function getStorageSnapshot(): string[] {
     }
     // Update cache
     cachedStorageRaw = stored;
-    const parsed = stored ? JSON.parse(stored) : emptyArray;
-    cachedStorageValue = parsed;
-    return parsed;
+    if (!stored) {
+      cachedStorageValue = emptyArray;
+      return emptyArray;
+    }
+    const parsed = JSON.parse(stored);
+    // Validate with Zod
+    const validated = visitedToolsSchema.parse(parsed);
+    cachedStorageValue = validated;
+    return validated;
   } catch {
+    cachedStorageValue = emptyArray;
     return emptyArray;
   }
 }
@@ -64,7 +74,7 @@ export function useVisitedTools() {
   const visitedTools = localTools.length > 0 ? localTools : storedTools;
 
   // 도구 방문 기록
-  const recordVisit = useCallback((slug: ToolSlug) => {
+  const recordVisit = useCallback((slug: string) => {
     setLocalTools((prev) => {
       // 중복 추가 (빈도 기반 추천을 위해)
       const updated = [slug, ...prev].slice(0, MAX_ITEMS);
@@ -88,7 +98,7 @@ export function useVisitedTools() {
   }, []);
 
   // 고유 방문 도구 목록
-  const uniqueVisitedTools = [...new Set(visitedTools)] as ToolSlug[];
+  const uniqueVisitedTools = [...new Set(visitedTools)] as string[];
 
   return {
     visitedTools,

@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Search, Copy, Check, SearchX } from "lucide-react";
-import { Input, Button, AdUnit } from "@/shared/ui";
-import { AD_SLOTS } from "@/shared/config";
+import { Input, Button } from "@/shared/ui";
+
 import type { CheatsheetItem } from "../model/types";
 
 interface CheatsheetTableProps {
@@ -108,7 +108,7 @@ export function CheatsheetTable({
                 <tbody className="divide-y">
                   {categoryItems.map((item, index) => (
                     <tr
-                      key={`${item.code}-${index}`}
+                      key={`${item.code} -${index} `}
                       className="hover:bg-muted/30 transition-colors even:bg-muted/10"
                     >
                       <td className="p-3">
@@ -147,13 +147,6 @@ export function CheatsheetTable({
           </div>
         </div>
       ))}
-
-      {/* 광고: 치트시트 하단 */}
-      <AdUnit
-        slot={AD_SLOTS.GUIDE_BOTTOM}
-        format="horizontal"
-        className="mt-8"
-      />
     </div>
   );
 }

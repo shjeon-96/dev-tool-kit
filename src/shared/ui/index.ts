@@ -37,7 +37,7 @@ export {
   ArticleJsonLd,
   SoftwareApplicationJsonLd,
 } from "./json-ld";
-export { AdUnit, AdSidebar, ToolResultAd } from "./ad-unit";
+// AdUnit moved to widgets/ad-unit
 export { ClarityScript } from "./clarity";
 export { ShareButton } from "./share-button";
 export { Spinner, LoadingOverlay } from "./spinner";
@@ -53,7 +53,7 @@ export {
 export { QuotaWarning, QuotaBadge } from "./quota-warning";
 export { FileUploader } from "./file-uploader";
 export { AdBlockNotice } from "./adblock-notice";
-export { SmartInternalLinks, ToolVisitRecorder } from "./smart-internal-links";
+// SmartInternalLinks moved to widgets/smart-internal-links
 export {
   Card,
   CardHeader,

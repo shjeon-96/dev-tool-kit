@@ -23,8 +23,8 @@ import {
   BreadcrumbJsonLd,
   SoftwareApplicationJsonLd,
   FaqJsonLd,
-  AdUnit,
 } from "@/shared/ui";
+import { AdUnit } from "@/widgets/ad-unit/ad-unit";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
 
 interface Props {

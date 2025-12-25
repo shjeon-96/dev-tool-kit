@@ -11,8 +11,7 @@ import {
   type LinkWeight,
 } from "@/shared/lib/internal-linking";
 import { useVisitedTools } from "@/shared/lib/hooks/use-visited-tools";
-import { Badge } from "./badge";
-import { Card, CardContent, CardHeader, CardTitle } from "./card";
+import { Badge, Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 
 // ============================================
 // 타입 정의

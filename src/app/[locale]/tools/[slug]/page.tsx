@@ -2,20 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
-import {
-  tools,
-  type ToolSlug,
-  RelatedToolsSSR,
-  ToolFeatureCards,
-} from "@/entities/tool";
+import { tools, type ToolSlug, RelatedToolsSSR } from "@/entities/tool";
+import { ToolFeatureCards } from "@/entities/tool/ui/tool-feature-cards";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,
   SoftwareApplicationJsonLd,
-  AdUnit,
+} from "@/shared/ui";
+import { AdUnit } from "@/widgets/ad-unit/ad-unit";
+import {
   SmartInternalLinks,
   ToolVisitRecorder,
-} from "@/shared/ui";
+} from "@/widgets/smart-internal-links";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
 import { ToolRenderer } from "./tool-renderer";
 import { ToolSeoSection } from "./tool-seo-section";
@@ -28,66 +26,51 @@ interface Props {
 
 export function generateStaticParams() {
   const toolSlugs = Object.keys(tools);
-  return toolSlugs.map((slug) => ({ slug }));
+  return toolSlugs.flatMap((slug) => [
+    { locale: "en", slug },
+    { locale: "ko", slug },
+    { locale: "ja", slug },
+  ]);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  const tool = tools[slug as ToolSlug];
-
-  if (!tool) {
-    return {};
-  }
-
   const t = await getTranslations({ locale, namespace: "tools" });
+  const commonT = await getTranslations({ locale, namespace: "site" });
 
-  const title = t(`${slug as ToolSlug}.title`);
-  const description = t(`${slug as ToolSlug}.description`);
+  const tool = tools[slug as ToolSlug];
+  if (!tool) return notFound();
 
-  // Generate keywords based on title and common variations
-  const keywords = [
-    title,
-    t(`${slug as ToolSlug}.title`).toLowerCase(),
-    "developer tools",
-    "web toolkit",
-    "online tool",
-    "free",
-    "privacy focused",
-    "offline capable",
-  ];
+  const toolName = t(`${slug}.title`);
+  const toolDescription = t(`${slug}.description`);
+  const siteTitle = commonT("title");
 
-  // 도구별 특화 동적 OG 이미지 URL 사용
-  const ogImageUrl = `/api/og/${slug}?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
+  const baseUrl = SITE_CONFIG.url;
+  const ogImageUrl = `${baseUrl}/api/og?title=${encodeURIComponent(
+    toolName,
+  )}&description=${encodeURIComponent(toolDescription)}`;
 
   return {
-    title,
-    description,
-    keywords,
+    title: `${toolName} - ${siteTitle}`,
+    description: toolDescription,
+    keywords: `${toolName}, ${tool.title}, developer tools, devtoolkit`,
     openGraph: {
-      title,
-      description,
-      url: `/${locale}/tools/${slug}`,
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      title: `${toolName} | ${siteTitle}`,
+      description: toolDescription,
+      images: [{ url: ogImageUrl }],
     },
     twitter: {
       card: "summary_large_image",
-      title,
-      description,
+      title: toolName,
+      description: toolDescription,
       images: [ogImageUrl],
     },
     alternates: {
-      canonical: `/${locale}/tools/${slug}`,
+      canonical: `${baseUrl}/${locale}/tools/${slug}`,
       languages: {
-        en: `/en/tools/${slug}`,
-        ko: `/ko/tools/${slug}`,
-        ja: `/ja/tools/${slug}`,
+        en: `${baseUrl}/en/tools/${slug}`,
+        ko: `${baseUrl}/ko/tools/${slug}`,
+        ja: `${baseUrl}/ja/tools/${slug}`,
       },
     },
   };
@@ -95,117 +78,106 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ToolPage({ params }: Props) {
   const { locale, slug } = await params;
-  const tool = tools[slug as ToolSlug];
-
-  if (!tool) {
-    notFound();
-  }
-
   setRequestLocale(locale);
 
-  const t = await getTranslations("tools");
-  const tSeo = await getTranslations("seo");
-  const tBreadcrumb = await getTranslations("seo.breadcrumb");
+  const tool = tools[slug as ToolSlug];
+  if (!tool) return notFound();
 
-  const title = t(`${slug as ToolSlug}.title`);
-  const description = t(`${slug as ToolSlug}.description`);
+  const t = await getTranslations({ locale, namespace: "tools" });
+  const toolName = t(`${slug}.title`);
+  const toolDescription = t(`${slug}.description`);
 
-  const breadcrumbItems = [
-    { name: tBreadcrumb("home"), url: SITE_CONFIG.url },
-    { name: tBreadcrumb("tools"), url: `${SITE_CONFIG.url}/${locale}/tools` },
-    {
-      name: title,
-      url: `${SITE_CONFIG.url}/${locale}/tools/${slug}`,
-    },
-  ];
-
-  // Get FAQ & Features from translations if available
-  let faqItems: { q: string; a: string }[] = [];
-  let featureList: string[] = [];
-
-  try {
-    const rawContent = tSeo.raw(slug as string);
-    if (rawContent && typeof rawContent === "object") {
-      const content = rawContent as Record<string, unknown>;
-      if (Array.isArray(content.faq)) {
-        faqItems = content.faq as { q: string; a: string }[];
-      }
-      if (Array.isArray(content.features)) {
-        featureList = content.features as string[];
-      }
-    }
-  } catch {
-    // Content not available for this tool
-  }
-
-  const toolUrl = `${SITE_CONFIG.url}/${locale}/tools/${slug}`;
-
-  // 도구 렌더러 (embed 모드에서 단독 사용)
   const toolRenderer = <ToolRenderer slug={slug as ToolSlug} />;
 
   return (
-    <Suspense
-      fallback={<div className="rounded-lg border p-6">{toolRenderer}</div>}
-    >
-      <EmbedWrapper toolContent={toolRenderer}>
-        {/* 일반 모드: 전체 페이지 콘텐츠 */}
-        <>
-          <BreadcrumbJsonLd items={breadcrumbItems} />
-          <SoftwareApplicationJsonLd
-            name={title}
-            description={description}
-            url={toolUrl}
-            applicationCategory="DeveloperApplication"
-            featureList={featureList}
-          />
-          {faqItems.length > 0 && <FaqJsonLd faqs={faqItems} />}
+    <EmbedWrapper toolContent={toolRenderer}>
+      {/* Client-side visit recording */}
+      <ToolVisitRecorder slug={slug as ToolSlug} />
 
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
-                  <tool.icon className="h-6 w-6" />
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
-                  <p className="text-muted-foreground">{description}</p>
-                </div>
+      {/* JSON-LD for SEO */}
+      <SoftwareApplicationJsonLd
+        name={toolName}
+        description={toolDescription}
+        url={`${SITE_CONFIG.url}/${locale}/tools/${slug}`}
+        applicationCategory="DeveloperApplication"
+        operatingSystem="Web"
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { url: SITE_CONFIG.url, name: "Home" },
+          { url: `${SITE_CONFIG.url}/${locale}/tools`, name: "Tools" },
+          {
+            url: `${SITE_CONFIG.url}/${locale}/tools/${slug}`,
+            name: toolName,
+          },
+        ]}
+      />
+
+      <div className="container py-6 lg:py-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
+          {/* Main Content */}
+          <main className="lg:col-span-9">
+            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h1 className="text-3xl font-bold tracking-tight lg:text-4xl">
+                  {toolName}
+                </h1>
+                <p className="mt-2 text-muted-foreground">{toolDescription}</p>
               </div>
               <ToolHeaderActions slug={slug as ToolSlug} />
             </div>
 
-            <div className="rounded-lg border p-6">{toolRenderer}</div>
+            {/* Tool Implementation */}
+            <div className="min-h-[400px]">{toolRenderer}</div>
 
-            {/* 광고: 도구 결과 하단 (골든존) */}
-            <AdUnit
-              slot={AD_SLOTS.TOOL_RESULT}
-              format="horizontal"
-              className="my-6"
-            />
-
-            {/* Visual Feature Cards */}
-            {featureList.length > 0 && (
-              <ToolFeatureCards features={featureList} />
-            )}
-
+            {/* SEO Content Section */}
             <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
 
-            {/* 광고: 콘텐츠 하단 */}
-            <AdUnit
-              slot={AD_SLOTS.CONTENT_BOTTOM}
-              format="rectangle"
-              className="my-6"
-            />
+            {/* Smart Internal Links */}
+            <Suspense
+              fallback={
+                <div className="h-20 animate-pulse bg-muted rounded-lg mt-8" />
+              }
+            >
+              <SmartInternalLinks currentTool={slug as ToolSlug} />
+            </Suspense>
 
-            {/* SSR 관련 도구 링크 - 크롤러 친화적 */}
-            <RelatedToolsSSR currentTool={slug as ToolSlug} locale={locale} />
+            {/* Related Tools */}
+            <div className="mt-12">
+              <h2 className="mb-6 text-2xl font-bold">Related Tools</h2>
+              <RelatedToolsSSR
+                currentTool={slug as ToolSlug}
+                locale={locale}
+                maxLinks={6}
+              />
+            </div>
 
-            {/* 클라이언트 사이드 스마트 링크 - 사용자 경험 향상 */}
-            <SmartInternalLinks currentTool={slug as ToolSlug} />
-            <ToolVisitRecorder slug={slug as ToolSlug} />
-          </div>
-        </>
-      </EmbedWrapper>
-    </Suspense>
+            {/* FAQ schema if it exists */}
+            {tool.faq && (
+              <FaqJsonLd
+                faqs={tool.faq.map((f: string) => ({
+                  q: t(`${slug}.faq.${f}.q`),
+                  a: t(`${slug}.faq.${f}.a`),
+                }))}
+              />
+            )}
+          </main>
+
+          {/* Sidebar */}
+          <aside className="hidden lg:col-span-3 lg:block">
+            <div className="sticky top-20 space-y-8">
+              <AdUnit slot={AD_SLOTS.TOOL_RESULT} format="vertical" />
+
+              <div className="rounded-lg border bg-card p-4">
+                <h3 className="mb-3 font-semibold">Features</h3>
+                <ToolFeatureCards features={tool.features || []} />
+              </div>
+
+              <AdUnit slot={AD_SLOTS.CONTENT_BOTTOM} format="rectangle" />
+            </div>
+          </aside>
+        </div>
+      </div>
+    </EmbedWrapper>
   );
 }

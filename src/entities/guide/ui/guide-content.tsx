@@ -11,8 +11,8 @@ import {
   BookOpen,
 } from "lucide-react";
 import { cn } from "@/shared/lib";
-import { Button, AdUnit } from "@/shared/ui";
-import { AD_SLOTS } from "@/shared/config";
+import { Button } from "@/shared/ui";
+
 import { tools } from "@/entities/tool";
 import type { Guide } from "../model/types";
 import { TableOfContents } from "./table-of-contents";
@@ -30,6 +30,7 @@ interface GuideContentProps {
     slug: string;
     title: string;
   }>;
+  adSlot?: React.ReactNode;
   prevGuide?: { slug: string; title: string } | null;
   nextGuide?: { slug: string; title: string } | null;
 }
@@ -52,6 +53,7 @@ export function GuideContent({
   relatedToolsData,
   prevGuide,
   nextGuide,
+  adSlot,
 }: GuideContentProps) {
   const locale = useLocale();
   const [activeSection, setActiveSection] = useState<string | undefined>();
@@ -161,11 +163,7 @@ export function GuideContent({
         </div>
 
         {/* 광고: 가이드 하단 */}
-        <AdUnit
-          slot={AD_SLOTS.GUIDE_BOTTOM}
-          format="horizontal"
-          className="my-8"
-        />
+        {adSlot && <div className="my-8">{adSlot}</div>}
 
         {/* Related Tools */}
         {guide.relatedTools.length > 0 && (
