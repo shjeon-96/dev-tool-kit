@@ -41,7 +41,7 @@ export function OfflineIndicator({
       <div
         className={cn(
           "inline-flex items-center gap-1.5 rounded-full font-medium",
-          "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+          "bg-warning/10 text-warning",
           sizeClasses[size],
           className,
         )}
@@ -58,7 +58,7 @@ export function OfflineIndicator({
       <div
         className={cn(
           "inline-flex items-center gap-1.5 rounded-full font-medium",
-          "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+          "bg-success/10 text-success",
           sizeClasses[size],
           className,
         )}
@@ -75,7 +75,7 @@ export function OfflineIndicator({
     <div
       className={cn(
         "inline-flex items-center gap-1.5 rounded-full font-medium",
-        "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400",
+        "bg-info/10 text-info",
         sizeClasses[size],
         className,
       )}
@@ -98,7 +98,7 @@ export function OfflineBadge({ className }: { className?: string }) {
     <span
       className={cn(
         "inline-flex items-center gap-1 text-xs font-medium",
-        "text-emerald-600 dark:text-emerald-400",
+        "text-success",
         className,
       )}
       title="Works offline"
@@ -119,7 +119,7 @@ export function OfflineStatusIcon({ className }: { className?: string }) {
     return (
       <span title="You are offline">
         <WifiOff
-          className={cn("h-4 w-4 text-amber-500", className)}
+          className={cn("h-4 w-4 text-warning", className)}
           aria-label="You are offline"
         />
       </span>
@@ -130,7 +130,7 @@ export function OfflineStatusIcon({ className }: { className?: string }) {
     return (
       <span title="Ready for offline use">
         <Zap
-          className={cn("h-4 w-4 text-emerald-500", className)}
+          className={cn("h-4 w-4 text-success", className)}
           aria-label="Ready for offline use"
         />
       </span>
@@ -140,7 +140,7 @@ export function OfflineStatusIcon({ className }: { className?: string }) {
   return (
     <span title="Online">
       <Wifi
-        className={cn("h-4 w-4 text-sky-500", className)}
+        className={cn("h-4 w-4 text-info", className)}
         aria-label="Online"
       />
     </span>

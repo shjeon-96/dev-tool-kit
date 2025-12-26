@@ -100,7 +100,7 @@ export function SitemapGenerator() {
               </div>
               {!domainValidation.valid &&
                 domainValidation.invalidUrls.length > 0 && (
-                  <div className="mt-2 text-xs text-yellow-600 dark:text-yellow-400">
+                  <div className="mt-2 text-xs text-warning">
                     <AlertCircle className="h-3 w-3 inline mr-1" />
                     {t("multipleDomains")}
                   </div>
@@ -200,7 +200,7 @@ export function SitemapGenerator() {
               <div className="flex gap-2">
                 <Button variant="ghost" size="sm" onClick={handleCopy}>
                   {copied ? (
-                    <Check className="h-4 w-4 mr-1 text-green-500" />
+                    <Check className="h-4 w-4 mr-1 text-success" />
                   ) : (
                     <Copy className="h-4 w-4 mr-1" />
                   )}

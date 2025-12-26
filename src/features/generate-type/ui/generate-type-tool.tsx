@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui";
-import { useCopyToClipboard } from "@/shared/lib/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/hooks";
 import { useGenerateType } from "../model/use-generate-type";
 import type { GenerateType, LocaleKey } from "@/entities/generate-type";
 
@@ -104,7 +104,7 @@ export function GenerateTypeTool({ type, locale }: GenerateTypeToolProps) {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-muted capitalize">
           {type.category}
         </span>
-        <span className="inline-flex items-center px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+        <span className="inline-flex items-center px-2 py-1 rounded-full bg-info/10 text-info">
           {labels.example[localeKey]}: {type.outputExample}
         </span>
       </div>

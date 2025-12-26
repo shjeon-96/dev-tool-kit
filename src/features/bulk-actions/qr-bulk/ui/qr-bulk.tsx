@@ -390,7 +390,7 @@ https://another-url.com"
                   className={cn(
                     "border rounded-lg p-3 space-y-2",
                     item.status === "error" &&
-                      "border-red-300 bg-red-50 dark:bg-red-950/20",
+                      "border-destructive/50 bg-destructive/10",
                   )}
                 >
                   {/* QR Preview */}
@@ -405,7 +405,7 @@ https://another-url.com"
                     ) : item.status === "processing" ? (
                       <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
                     ) : item.status === "error" ? (
-                      <XCircle className="h-8 w-8 text-red-500" />
+                      <XCircle className="h-8 w-8 text-destructive" />
                     ) : (
                       <QrCode className="h-8 w-8 text-muted-foreground" />
                     )}
@@ -425,7 +425,7 @@ https://another-url.com"
                   {/* Error */}
                   {item.error && (
                     <p
-                      className="text-xs text-red-500 truncate"
+                      className="text-xs text-destructive truncate"
                       title={item.error}
                     >
                       {item.error}

@@ -173,7 +173,7 @@ export function ImageConverter({ defaultFormat }: ImageConverterProps) {
 
           {/* Transparency Warning */}
           {!FORMAT_INFO[options.format].supportsTransparency && (
-            <div className="flex items-start gap-2 p-3 bg-yellow-50 dark:bg-yellow-950/20 text-yellow-800 dark:text-yellow-200 rounded-lg text-sm">
+            <div className="flex items-start gap-2 p-3 bg-warning/10 text-warning rounded-lg text-sm">
               <AlertCircle className="h-4 w-4 mt-0.5 shrink-0" />
               <span>{t("transparencyWarning")}</span>
             </div>
@@ -267,7 +267,7 @@ export function ImageConverter({ defaultFormat }: ImageConverterProps) {
                       />
                       {converted && (
                         <div className="absolute top-2 right-2">
-                          <Badge className="bg-green-500">
+                          <Badge className="bg-success">
                             <Check className="h-3 w-3 mr-1" />
                             Converted
                           </Badge>
@@ -304,8 +304,8 @@ export function ImageConverter({ defaultFormat }: ImageConverterProps) {
                           <span
                             className={
                               ratio && ratio > 0
-                                ? "text-green-600"
-                                : "text-orange-500"
+                                ? "text-success"
+                                : "text-warning"
                             }
                           >
                             → {formatFileSize(converted.convertedSize)}

@@ -64,14 +64,14 @@ export function DashboardContent({
     <div className="container max-w-6xl py-8">
       {/* 결제 성공 메시지 */}
       {showSuccessMessage && (
-        <div className="mb-6 rounded-lg border border-green-500 bg-green-50 p-4 dark:bg-green-900/20">
+        <div className="mb-6 rounded-lg border border-success bg-success/10 p-4">
           <div className="flex items-center gap-3">
-            <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400" />
+            <CheckCircle className="h-5 w-5 text-success" />
             <div>
-              <h3 className="font-semibold text-green-800 dark:text-green-200">
+              <h3 className="font-semibold text-success">
                 {t("checkout.successTitle")}
               </h3>
-              <p className="text-sm text-green-700 dark:text-green-300">
+              <p className="text-sm text-success/80">
                 {t("checkout.successMessage")}
               </p>
             </div>
@@ -114,7 +114,7 @@ export function DashboardContent({
               </div>
               <p className="mt-1 font-medium">
                 {isActive ? (
-                  <span className="text-green-600 dark:text-green-400">
+                  <span className="text-success">
                     {t("subscription.statusActive")}
                   </span>
                 ) : (
@@ -123,7 +123,7 @@ export function DashboardContent({
                   </span>
                 )}
                 {isCanceled && (
-                  <span className="ml-2 text-amber-600 dark:text-amber-400">
+                  <span className="ml-2 text-warning">
                     ({t("subscription.cancelsAt")})
                   </span>
                 )}

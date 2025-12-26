@@ -107,7 +107,7 @@ export default async function AIToolsIndexPage({ params }: Props) {
         {/* Trust Badges */}
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="flex items-center gap-3 rounded-lg border bg-card p-4">
-            <Shield className="h-8 w-8 text-green-500" />
+            <Shield className="h-8 w-8 text-success" />
             <div>
               <div className="font-semibold">
                 {t("trustBadges.privacy.title")}
@@ -118,7 +118,7 @@ export default async function AIToolsIndexPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-lg border bg-card p-4">
-            <Wifi className="h-8 w-8 text-blue-500" />
+            <Wifi className="h-8 w-8 text-info" />
             <div>
               <div className="font-semibold">
                 {t("trustBadges.offline.title")}
@@ -129,7 +129,7 @@ export default async function AIToolsIndexPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-lg border bg-card p-4">
-            <Zap className="h-8 w-8 text-yellow-500" />
+            <Zap className="h-8 w-8 text-warning" />
             <div>
               <div className="font-semibold">
                 {t("trustBadges.instant.title")}

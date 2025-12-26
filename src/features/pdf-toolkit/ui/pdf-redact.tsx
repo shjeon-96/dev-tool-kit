@@ -186,7 +186,7 @@ export function PdfRedact({
     <div className="space-y-6">
       {/* Selected File */}
       <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg">
-        <FileText className="h-8 w-8 text-red-500" />
+        <FileText className="h-8 w-8 text-destructive" />
         <div className="flex-1 min-w-0">
           <p className="font-medium truncate">{selectedFile.name}</p>
           <p className="text-sm text-muted-foreground">
@@ -317,14 +317,14 @@ export function PdfRedact({
           className={cn(
             "p-4 rounded-lg",
             scanResult.matches.length > 0
-              ? "bg-yellow-500/10 border border-yellow-500/20"
-              : "bg-green-500/10 border border-green-500/20",
+              ? "bg-warning/10 border border-warning/20"
+              : "bg-success/10 border border-success/20",
           )}
         >
           {scanResult.matches.length > 0 ? (
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-yellow-500" />
+                <AlertTriangle className="h-5 w-5 text-warning" />
                 <span className="font-medium">
                   {t("redact.foundMatches", {
                     count: scanResult.matches.length,
@@ -347,7 +347,7 @@ export function PdfRedact({
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <CheckCircle className="h-5 w-5 text-success" />
               <span>{t("redact.noSensitiveData")}</span>
             </div>
           )}

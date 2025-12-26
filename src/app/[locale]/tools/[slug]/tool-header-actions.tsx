@@ -41,13 +41,13 @@ export function ToolHeaderActions({ slug }: ToolHeaderActionsProps) {
         onClick={() => toggleFavorite(slug)}
         aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
         aria-pressed={favorite}
-        className="hover:bg-yellow-500/10"
+        className="hover:bg-warning/10"
       >
         <Star
           className={`h-5 w-5 transition-colors ${
             favorite
-              ? "fill-yellow-500 text-yellow-500"
-              : "text-muted-foreground hover:text-yellow-500"
+              ? "fill-warning text-warning"
+              : "text-muted-foreground hover:text-warning"
           }`}
           aria-hidden="true"
         />

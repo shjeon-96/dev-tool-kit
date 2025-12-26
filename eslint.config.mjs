@@ -6,6 +6,12 @@ import boundaries from "eslint-plugin-boundaries";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // Console 사용 경고 (프로덕션 코드 품질)
+  {
+    rules: {
+      "no-console": ["warn", { allow: ["error"] }],
+    },
+  },
   // Helper to force FSD boundaries
   {
     plugins: {
@@ -52,7 +58,8 @@ const eslintConfig = defineConfig([
             },
             {
               from: "features",
-              allow: ["features", "entities", "shared"],
+              // widgets 허용: tool-actions 같은 cross-cutting concern이 widgets에 위치
+              allow: ["features", "entities", "shared", "widgets"],
             },
             {
               from: "entities",

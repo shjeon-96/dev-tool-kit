@@ -199,7 +199,7 @@ export function JsonToTypescript() {
             {output && (
               <Button variant="ghost" size="sm" onClick={onCopy}>
                 {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -211,7 +211,7 @@ export function JsonToTypescript() {
             value={output}
             readOnly
             placeholder="TypeScript types will appear here"
-            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             spellCheck={false}
           />
         </div>

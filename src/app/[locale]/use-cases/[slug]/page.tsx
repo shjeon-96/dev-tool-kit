@@ -173,16 +173,16 @@ export default async function UseCasePage({ params }: Props) {
         {benefits.length > 0 && (
           <div className="space-y-4">
             <h2 className="text-xl font-semibold flex items-center gap-2">
-              <CheckCircle2 className="h-5 w-5 text-green-500" />
+              <CheckCircle2 className="h-5 w-5 text-success" />
               {t("benefits")}
             </h2>
             <ul className="grid gap-2 sm:grid-cols-2">
               {benefits.map((benefit, index) => (
                 <li
                   key={index}
-                  className="flex items-start gap-2 text-muted-foreground bg-green-50 dark:bg-green-950/20 rounded-lg p-3"
+                  className="flex items-start gap-2 text-muted-foreground bg-success/10 rounded-lg p-3"
                 >
-                  <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
                   <span className="text-sm">{benefit}</span>
                 </li>
               ))}

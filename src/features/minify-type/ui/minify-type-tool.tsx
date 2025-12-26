@@ -2,7 +2,7 @@
 
 import { Copy, Trash2, Minimize2, ArrowRight } from "lucide-react";
 import { Button, Textarea, Label } from "@/shared/ui";
-import { useCopyToClipboard } from "@/shared/lib/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/hooks";
 import { useMinifyType } from "../model/use-minify-type";
 import type { MinifyType, LocaleKey } from "@/entities/minify-type";
 
@@ -87,7 +87,7 @@ export function MinifyTypeTool({ type, locale }: MinifyTypeToolProps) {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-muted capitalize">
           {type.category}
         </span>
-        <span className="inline-flex items-center px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+        <span className="inline-flex items-center px-2 py-1 rounded-full bg-info/10 text-info">
           {type.fileExtension}
         </span>
       </div>
@@ -106,7 +106,7 @@ export function MinifyTypeTool({ type, locale }: MinifyTypeToolProps) {
 
       {/* Error */}
       {error && (
-        <div className="p-3 text-sm text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400 rounded-lg">
+        <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-lg">
           {error}
         </div>
       )}
@@ -143,7 +143,7 @@ export function MinifyTypeTool({ type, locale }: MinifyTypeToolProps) {
             <div className="text-muted-foreground">
               {labels.minifiedSize[localeKey] || labels.minifiedSize.en}
             </div>
-            <div className="font-mono font-medium text-green-600 dark:text-green-400">
+            <div className="font-mono font-medium text-success">
               {formatBytes(stats.minifiedSize)}
             </div>
           </div>
@@ -151,7 +151,7 @@ export function MinifyTypeTool({ type, locale }: MinifyTypeToolProps) {
             <div className="text-muted-foreground">
               {labels.savings[localeKey] || labels.savings.en}
             </div>
-            <div className="font-mono font-medium text-blue-600 dark:text-blue-400">
+            <div className="font-mono font-medium text-info">
               {stats.savingsPercent.toFixed(1)}%
             </div>
           </div>

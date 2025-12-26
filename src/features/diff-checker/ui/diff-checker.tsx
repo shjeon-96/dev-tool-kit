@@ -1,6 +1,10 @@
 "use client";
 
-import { useDiffChecker, type DiffViewMode, type EditorLanguage } from "../model/use-diff-checker";
+import {
+  useDiffChecker,
+  type DiffViewMode,
+  type EditorLanguage,
+} from "../model/use-diff-checker";
 import { DiffEditor } from "@monaco-editor/react";
 import { useTheme } from "next-themes";
 import {
@@ -12,7 +16,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui";
-import { ArrowLeftRight, RotateCcw, Trash2, Plus, Minus, FileText } from "lucide-react";
+import {
+  ArrowLeftRight,
+  RotateCcw,
+  Trash2,
+  Plus,
+  Minus,
+  FileText,
+} from "lucide-react";
 
 const languages: { value: EditorLanguage; label: string }[] = [
   { value: "plaintext", label: "Plain Text" },
@@ -111,11 +122,11 @@ export function DiffChecker() {
           <FileText className="h-4 w-4 text-muted-foreground" />
           <span className="text-muted-foreground">변경사항:</span>
         </div>
-        <div className="flex items-center gap-1 text-green-600 dark:text-green-400">
+        <div className="flex items-center gap-1 text-success">
           <Plus className="h-4 w-4" />
           <span>{diffStats.additions} 추가</span>
         </div>
-        <div className="flex items-center gap-1 text-red-600 dark:text-red-400">
+        <div className="flex items-center gap-1 text-destructive">
           <Minus className="h-4 w-4" />
           <span>{diffStats.deletions} 삭제</span>
         </div>

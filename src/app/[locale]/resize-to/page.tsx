@@ -140,8 +140,8 @@ export default async function ResizeToIndexPage({ params }: PageProps) {
         {/* File Size Section */}
         <section className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10">
-              <FileImage className="h-5 w-5 text-blue-500" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-info/10">
+              <FileImage className="h-5 w-5 text-info" />
             </div>
             <div>
               <h2 className="text-xl font-semibold">{t.fileSize}</h2>
@@ -177,8 +177,8 @@ export default async function ResizeToIndexPage({ params }: PageProps) {
         {/* Dimension Section */}
         <section className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10">
-              <Monitor className="h-5 w-5 text-green-500" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-success/10">
+              <Monitor className="h-5 w-5 text-success" />
             </div>
             <div>
               <h2 className="text-xl font-semibold">{t.dimension}</h2>
@@ -212,8 +212,8 @@ export default async function ResizeToIndexPage({ params }: PageProps) {
         {/* Platform Section */}
         <section className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/10">
-              <Smartphone className="h-5 w-5 text-purple-500" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <Smartphone className="h-5 w-5 text-primary" />
             </div>
             <div>
               <h2 className="text-xl font-semibold">{t.platform}</h2>

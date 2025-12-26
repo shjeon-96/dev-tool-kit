@@ -88,12 +88,12 @@ export function VideoCompressor() {
     <div className="space-y-6">
       {/* FFmpeg Status */}
       {!ffmpegState.loaded && !ffmpegState.loading && (
-        <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-4">
+        <div className="rounded-lg border border-info/30 bg-info/10 p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <FileVideo className="h-5 w-5 text-blue-500" />
+              <FileVideo className="h-5 w-5 text-info" />
               <div>
-                <p className="font-medium text-blue-500">FFmpeg.wasm 준비</p>
+                <p className="font-medium text-info">FFmpeg.wasm 준비</p>
                 <p className="text-sm text-muted-foreground">
                   비디오 압축을 위해 FFmpeg를 로드하세요
                 </p>
@@ -108,10 +108,10 @@ export function VideoCompressor() {
       )}
 
       {ffmpegState.loading && (
-        <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-4 flex items-center gap-3">
-          <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
+        <div className="rounded-lg border border-info/30 bg-info/10 p-4 flex items-center gap-3">
+          <Loader2 className="h-5 w-5 animate-spin text-info" />
           <div>
-            <p className="font-medium text-blue-500">FFmpeg 로딩 중...</p>
+            <p className="font-medium text-info">FFmpeg 로딩 중...</p>
             <p className="text-sm text-muted-foreground">
               고성능 비디오 처리 엔진을 준비하고 있습니다 (
               {ffmpegState.progress}%)
@@ -121,18 +121,18 @@ export function VideoCompressor() {
       )}
 
       {ffmpegState.loaded && !ffmpegState.loading && (
-        <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3 flex items-center gap-2">
-          <Zap className="h-4 w-4 text-green-500" />
-          <span className="text-sm text-green-600 dark:text-green-400">
+        <div className="rounded-lg border border-success/30 bg-success/10 p-3 flex items-center gap-2">
+          <Zap className="h-4 w-4 text-success" />
+          <span className="text-sm text-success">
             FFmpeg.wasm 활성화됨 - 브라우저에서 비디오 압축 준비 완료
           </span>
         </div>
       )}
 
       {!ffmpegState.isSupported && (
-        <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 flex items-center gap-2">
-          <AlertCircle className="h-4 w-4 text-yellow-500" />
-          <span className="text-sm text-yellow-600 dark:text-yellow-400">
+        <div className="rounded-lg border border-warning/30 bg-warning/10 p-3 flex items-center gap-2">
+          <AlertCircle className="h-4 w-4 text-warning" />
+          <span className="text-sm text-warning">
             브라우저가 SharedArrayBuffer를 지원하지 않습니다. 일부 기능이 제한될
             수 있습니다.
           </span>
@@ -406,9 +406,9 @@ export function VideoCompressor() {
 
             {/* Compressed Preview */}
             {compressedResult && (
-              <div className="rounded-lg border p-4 border-green-500/30">
+              <div className="rounded-lg border p-4 border-success/30">
                 <h3 className="font-medium mb-3 flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-green-500" />
+                  <Zap className="h-4 w-4 text-success" />
                   압축 결과
                 </h3>
                 <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-4">
@@ -423,7 +423,7 @@ export function VideoCompressor() {
                     <p className="font-medium">
                       {formatFileSize(compressedResult.size)}
                     </p>
-                    <p className="text-xs text-green-600 dark:text-green-400">
+                    <p className="text-xs text-success">
                       {compressionRatio}% 절감
                     </p>
                   </div>

@@ -51,7 +51,7 @@ export function QuotaWarning({
         "rounded-lg border p-4",
         isExceeded
           ? "border-destructive/50 bg-destructive/10"
-          : "border-yellow-500/50 bg-yellow-500/10",
+          : "border-warning/50 bg-warning/10",
         className,
       )}
     >
@@ -59,13 +59,13 @@ export function QuotaWarning({
         <div
           className={cn(
             "flex h-8 w-8 shrink-0 items-center justify-center rounded-full",
-            isExceeded ? "bg-destructive/20" : "bg-yellow-500/20",
+            isExceeded ? "bg-destructive/20" : "bg-warning/20",
           )}
         >
           {isExceeded ? (
             <AlertTriangle className="h-4 w-4 text-destructive" />
           ) : (
-            <TrendingUp className="h-4 w-4 text-yellow-600 dark:text-yellow-400" />
+            <TrendingUp className="h-4 w-4 text-warning" />
           )}
         </div>
 
@@ -73,9 +73,7 @@ export function QuotaWarning({
           <h4
             className={cn(
               "font-medium",
-              isExceeded
-                ? "text-destructive"
-                : "text-yellow-700 dark:text-yellow-300",
+              isExceeded ? "text-destructive" : "text-warning",
             )}
           >
             {isExceeded ? t("exceeded.title") : t("warning.title")}
@@ -102,7 +100,7 @@ export function QuotaWarning({
                       dailyPercent >= 100
                         ? "bg-destructive"
                         : dailyPercent >= 80
-                          ? "bg-yellow-500"
+                          ? "bg-warning"
                           : "bg-primary",
                     )}
                     style={{ width: `${dailyPercent}%` }}
@@ -126,7 +124,7 @@ export function QuotaWarning({
                       monthlyPercent >= 100
                         ? "bg-destructive"
                         : monthlyPercent >= 80
-                          ? "bg-yellow-500"
+                          ? "bg-warning"
                           : "bg-primary",
                     )}
                     style={{ width: `${monthlyPercent}%` }}
@@ -179,7 +177,7 @@ export function QuotaBadge({ usage, limit, className }: QuotaBadgeProps) {
         isExceeded
           ? "bg-destructive/10 text-destructive"
           : isWarning
-            ? "bg-yellow-500/10 text-yellow-700 dark:text-yellow-300"
+            ? "bg-warning/10 text-warning"
             : "bg-muted text-muted-foreground",
         className,
       )}

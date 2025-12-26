@@ -29,8 +29,8 @@ export function AdBlockNotice() {
       <div className="rounded-lg border bg-card p-5 shadow-xl">
         {/* 헤더 */}
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
-            <Heart className="h-5 w-5 text-blue-500" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-info/10">
+            <Heart className="h-5 w-5 text-info" />
           </div>
           <div className="flex-1 space-y-1">
             <p className="font-semibold text-foreground">{t("title")}</p>
@@ -71,7 +71,7 @@ export function AdBlockNotice() {
 
           {/* 후원 옵션 */}
           <div className="flex items-center gap-3 rounded-lg border p-3 hover:bg-muted/50 transition-colors">
-            <Coffee className="h-5 w-5 text-amber-500 shrink-0" />
+            <Coffee className="h-5 w-5 text-warning shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium">{t("support")}</p>
               <p className="text-xs text-muted-foreground">
@@ -93,7 +93,7 @@ export function AdBlockNotice() {
 
           {/* 화이트리스트 옵션 */}
           <div className="flex items-center gap-3 rounded-lg border p-3 hover:bg-muted/50 transition-colors">
-            <ShieldCheck className="h-5 w-5 text-green-500 shrink-0" />
+            <ShieldCheck className="h-5 w-5 text-success shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium">{t("whitelistTitle")}</p>
               <p className="text-xs text-muted-foreground">

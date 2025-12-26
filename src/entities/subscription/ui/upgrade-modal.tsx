@@ -70,7 +70,7 @@ export function UpgradeModal({
               </div>
               <div className="text-center">
                 <div className="text-muted-foreground">With Pro</div>
-                <div className="font-medium text-green-600">{proLimit}</div>
+                <div className="font-medium text-success">{proLimit}</div>
               </div>
             </div>
           )}
@@ -79,7 +79,7 @@ export function UpgradeModal({
         <div className="mt-4 rounded-lg border p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Star className="h-5 w-5 text-yellow-500" />
+              <Star className="h-5 w-5 text-warning" />
               <span className="font-semibold">{proTier.name}</span>
             </div>
             <div className="text-right">
@@ -93,7 +93,7 @@ export function UpgradeModal({
           <ul className="mt-4 space-y-2">
             {proTier.features.slice(0, 5).map((feature, index) => (
               <li key={index} className="flex items-center gap-2 text-sm">
-                <Check className="h-4 w-4 text-green-500 shrink-0" />
+                <Check className="h-4 w-4 text-success shrink-0" />
                 <span>{feature}</span>
               </li>
             ))}

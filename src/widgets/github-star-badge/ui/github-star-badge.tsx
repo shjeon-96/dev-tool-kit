@@ -66,7 +66,7 @@ export function GitHubStarBadge() {
       rel="noopener noreferrer"
       className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium bg-muted/60 hover:bg-muted transition-colors border border-border/50 hover:border-border"
     >
-      <Star className="h-4 w-4 text-yellow-500 fill-yellow-500" />
+      <Star className="h-4 w-4 text-warning fill-warning" />
       <span className="text-foreground/80">Star</span>
       {stars !== null && (
         <span className="text-muted-foreground text-xs">

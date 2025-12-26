@@ -36,9 +36,9 @@ interface GuideContentProps {
 }
 
 const difficultyColors = {
-  beginner: "bg-green-500/10 text-green-600 dark:text-green-400",
-  intermediate: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
-  advanced: "bg-red-500/10 text-red-600 dark:text-red-400",
+  beginner: "bg-success/10 text-success",
+  intermediate: "bg-warning/10 text-warning",
+  advanced: "bg-destructive/10 text-destructive",
 };
 
 const difficultyLabels = {

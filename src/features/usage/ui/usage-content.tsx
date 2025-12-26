@@ -85,22 +85,22 @@ export function UsageContent({
         <div
           className={`mb-6 rounded-lg border p-4 ${
             isAtLimit
-              ? "border-red-500 bg-red-50 dark:bg-red-900/20"
-              : "border-amber-500 bg-amber-50 dark:bg-amber-900/20"
+              ? "border-destructive bg-destructive/10"
+              : "border-warning bg-warning/10"
           }`}
         >
           <div className="flex items-center gap-3">
             <AlertTriangle
-              className={`h-5 w-5 ${isAtLimit ? "text-red-600 dark:text-red-400" : "text-amber-600 dark:text-amber-400"}`}
+              className={`h-5 w-5 ${isAtLimit ? "text-destructive" : "text-warning"}`}
             />
             <div className="flex-1">
               <h3
-                className={`font-semibold ${isAtLimit ? "text-red-800 dark:text-red-200" : "text-amber-800 dark:text-amber-200"}`}
+                className={`font-semibold ${isAtLimit ? "text-destructive" : "text-warning"}`}
               >
                 {isAtLimit ? t("limitReached") : t("nearLimit")}
               </h3>
               <p
-                className={`text-sm ${isAtLimit ? "text-red-700 dark:text-red-300" : "text-amber-700 dark:text-amber-300"}`}
+                className={`text-sm ${isAtLimit ? "text-destructive/80" : "text-warning/80"}`}
               >
                 {t("upgradeMessage")}
               </p>
@@ -139,9 +139,9 @@ export function UsageContent({
                   value={dailyPercent}
                   className={`h-2 ${
                     dailyPercent >= 100
-                      ? "[&>[data-slot=progress-indicator]]:bg-red-500"
+                      ? "[&>[data-slot=progress-indicator]]:bg-destructive"
                       : dailyPercent >= 80
-                        ? "[&>[data-slot=progress-indicator]]:bg-amber-500"
+                        ? "[&>[data-slot=progress-indicator]]:bg-warning"
                         : ""
                   }`}
                 />
@@ -175,9 +175,9 @@ export function UsageContent({
                   value={monthlyPercent}
                   className={`h-2 ${
                     monthlyPercent >= 100
-                      ? "[&>[data-slot=progress-indicator]]:bg-red-500"
+                      ? "[&>[data-slot=progress-indicator]]:bg-destructive"
                       : monthlyPercent >= 80
-                        ? "[&>[data-slot=progress-indicator]]:bg-amber-500"
+                        ? "[&>[data-slot=progress-indicator]]:bg-warning"
                         : ""
                   }`}
                 />

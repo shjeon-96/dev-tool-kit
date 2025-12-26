@@ -490,6 +490,27 @@
   }
 }
 
+/* Code & Tool Input Utilities */
+@layer utilities {
+  /* Monospace text for code display */
+  .code-text {
+    @apply font-mono text-sm;
+  }
+
+  /* Responsive textarea heights for tools */
+  .tool-textarea-sm {
+    @apply min-h-[200px] sm:min-h-[280px] lg:min-h-[300px];
+  }
+
+  .tool-textarea-md {
+    @apply min-h-[250px] sm:min-h-[350px] lg:min-h-[400px];
+  }
+
+  .tool-textarea-lg {
+    @apply min-h-[300px] sm:min-h-[400px] lg:min-h-[500px];
+  }
+}
+
 /* Gradient text effect */
 @layer utilities {
   .gradient-text {

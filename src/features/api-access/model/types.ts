@@ -25,21 +25,6 @@ export interface ApiUsageRecord {
   responseTimeMs: number;
 }
 
-export interface ApiRateLimits {
-  requestsPerMinute: number;
-  requestsPerDay: number;
-  requestsPerMonth: number;
-}
-
-export const API_RATE_LIMITS: Record<"free" | "pro", ApiRateLimits> = {
-  free: {
-    requestsPerMinute: 0, // No API access for free
-    requestsPerDay: 0,
-    requestsPerMonth: 0,
-  },
-  pro: {
-    requestsPerMinute: 60,
-    requestsPerDay: 10000,
-    requestsPerMonth: 100000,
-  },
-};
+// Rate limit types are in shared for FSD compliance
+// Re-export for backward compatibility
+export { API_RATE_LIMITS, type ApiRateLimits } from "@/shared/lib/api/types";

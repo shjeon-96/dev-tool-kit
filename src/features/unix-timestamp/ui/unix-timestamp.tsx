@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { Copy, Check, Trash2, Clock, RefreshCw } from "lucide-react";
-import { Button } from "@/shared/ui";
+import {
+  Button,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/ui";
 import { useTimestamp, type TimestampUnit } from "../model/use-timestamp";
 
 export function UnixTimestamp() {
@@ -22,11 +29,12 @@ export function UnixTimestamp() {
   } = useTimestamp();
 
   const [copiedField, setCopiedField] = useState<"timestamp" | "date" | null>(
-    null
+    null,
   );
 
   const handleCopy = async (field: "timestamp" | "date") => {
-    const success = field === "timestamp" ? await copyTimestamp() : await copyDate();
+    const success =
+      field === "timestamp" ? await copyTimestamp() : await copyDate();
     if (success) {
       setCopiedField(field);
       setTimeout(() => setCopiedField(null), 2000);
@@ -66,15 +74,23 @@ export function UnixTimestamp() {
         </Button>
 
         <div className="flex items-center gap-2 ml-auto">
-          <label className="text-sm text-muted-foreground">Unit:</label>
-          <select
+          <span className="text-sm text-muted-foreground">Unit:</span>
+          <Select
             value={unit}
-            onChange={(e) => setUnit(e.target.value as TimestampUnit)}
-            className="h-8 rounded-md border bg-background px-2 text-sm"
+            onValueChange={(v) => setUnit(v as TimestampUnit)}
           >
-            <option value="seconds">Seconds</option>
-            <option value="milliseconds">Milliseconds</option>
-          </select>
+            <SelectTrigger
+              size="sm"
+              className="w-[130px]"
+              aria-label="Select unit"
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="seconds">Seconds</SelectItem>
+              <SelectItem value="milliseconds">Milliseconds</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <Button variant="outline" size="sm" onClick={handleClear}>
@@ -103,7 +119,7 @@ export function UnixTimestamp() {
                 onClick={() => handleCopy("timestamp")}
               >
                 {copiedField === "timestamp" ? (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -114,7 +130,9 @@ export function UnixTimestamp() {
             type="text"
             value={timestamp}
             onChange={(e) => handleTimestampChange(e.target.value)}
-            placeholder={unit === "milliseconds" ? "1699012345678" : "1699012345"}
+            placeholder={
+              unit === "milliseconds" ? "1699012345678" : "1699012345"
+            }
             className="h-12 w-full rounded-md border bg-muted/50 px-3 font-mono text-lg focus:outline-none focus:ring-2 focus:ring-ring"
           />
           <p className="text-xs text-muted-foreground">
@@ -133,7 +151,7 @@ export function UnixTimestamp() {
                 onClick={() => handleCopy("date")}
               >
                 {copiedField === "date" ? (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -170,7 +188,8 @@ export function UnixTimestamp() {
             <span className="font-medium">1 week</span> = 604,800 seconds
           </div>
           <div>
-            <span className="font-medium">1 month (30d)</span> = 2,592,000 seconds
+            <span className="font-medium">1 month (30d)</span> = 2,592,000
+            seconds
           </div>
           <div>
             <span className="font-medium">1 year</span> = 31,536,000 seconds

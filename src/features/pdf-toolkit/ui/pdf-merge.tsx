@@ -143,7 +143,7 @@ export function PdfMerge({ toolkit }: PdfMergeProps) {
                 }`}
               >
                 <GripVertical className="h-4 w-4 text-muted-foreground" />
-                <File className="h-4 w-4 text-red-500" />
+                <File className="h-4 w-4 text-destructive" />
                 <div className="flex-1 min-w-0">
                   <p className="truncate font-medium">{file.name}</p>
                   <p className="text-xs text-muted-foreground">

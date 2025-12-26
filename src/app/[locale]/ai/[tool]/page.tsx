@@ -168,7 +168,7 @@ export default async function AIToolPage({ params }: Props) {
         {/* Trust Badges */}
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="flex items-center gap-3 rounded-lg border bg-card p-4">
-            <Shield className="h-8 w-8 text-green-500" />
+            <Shield className="h-8 w-8 text-success" />
             <div>
               <div className="font-semibold">
                 {t("trustBadges.privacy.title")}
@@ -179,7 +179,7 @@ export default async function AIToolPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-lg border bg-card p-4">
-            <Wifi className="h-8 w-8 text-blue-500" />
+            <Wifi className="h-8 w-8 text-info" />
             <div>
               <div className="font-semibold">
                 {t("trustBadges.offline.title")}
@@ -190,7 +190,7 @@ export default async function AIToolPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-3 rounded-lg border bg-card p-4">
-            <Zap className="h-8 w-8 text-yellow-500" />
+            <Zap className="h-8 w-8 text-warning" />
             <div>
               <div className="font-semibold">
                 {t("trustBadges.instant.title")}
@@ -231,7 +231,7 @@ export default async function AIToolPage({ params }: Props) {
         {/* Common Errors Section */}
         <section>
           <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-            <AlertTriangle className="h-5 w-5 text-orange-500" />
+            <AlertTriangle className="h-5 w-5 text-warning" />
             {t("commonErrors.title")}
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -240,7 +240,7 @@ export default async function AIToolPage({ params }: Props) {
                 key={index}
                 className="flex items-start gap-3 rounded-lg border p-3"
               >
-                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-100 text-xs font-bold text-red-600 dark:bg-red-900/30 dark:text-red-400">
+                <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-xs font-bold text-destructive">
                   {index + 1}
                 </div>
                 <span className="text-sm">{error}</span>
@@ -252,13 +252,13 @@ export default async function AIToolPage({ params }: Props) {
         {/* Use Cases Section */}
         <section>
           <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-            <CheckCircle className="h-5 w-5 text-green-500" />
+            <CheckCircle className="h-5 w-5 text-success" />
             {t("useCases.title")}
           </h2>
           <ul className="space-y-2">
             {aiContext.useCases.map((useCase, index) => (
               <li key={index} className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 shrink-0 text-green-500" />
+                <CheckCircle className="h-4 w-4 shrink-0 text-success" />
                 <span>{useCase}</span>
               </li>
             ))}

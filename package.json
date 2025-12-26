@@ -15,7 +15,8 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "remotion:studio": "npx remotion studio src/remotion/index.tsx",
-    "remotion:render": "npx tsx scripts/render-videos.ts"
+    "remotion:render": "npx tsx scripts/render-videos.ts",
+    "validate:tools": "npx tsx scripts/validate-tools.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

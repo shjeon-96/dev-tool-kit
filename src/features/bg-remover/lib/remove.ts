@@ -41,6 +41,10 @@ export async function loadImageToCanvas(source: File | string): Promise<{
       }
 
       ctx.drawImage(img, 0, 0);
+      // Revoke object URL if created
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
       resolve({
         canvas,
         width: img.naturalWidth,
@@ -49,11 +53,17 @@ export async function loadImageToCanvas(source: File | string): Promise<{
     };
 
     img.onerror = () => {
+      // Revoke object URL if created
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
       reject(new Error("Failed to load image"));
     };
 
+    let objectUrl: string | null = null;
     if (source instanceof File) {
-      img.src = URL.createObjectURL(source);
+      objectUrl = URL.createObjectURL(source);
+      img.src = objectUrl;
     } else {
       img.src = source;
     }

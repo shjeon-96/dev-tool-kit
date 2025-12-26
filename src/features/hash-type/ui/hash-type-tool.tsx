@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Copy, Trash2, Hash, Key, AlertTriangle, Shield } from "lucide-react";
 import { Button, Textarea, Input, Label } from "@/shared/ui";
-import { useCopyToClipboard } from "@/shared/lib/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/hooks";
 import { useHashType } from "../model/use-hash-type";
 import type { HashType, LocaleKey } from "@/entities/hash-type";
 
@@ -92,12 +92,12 @@ export function HashTypeTool({ hashType, locale }: HashTypeToolProps) {
       {/* Security Badge */}
       <div className="flex items-center gap-2">
         {hashType.isSecure ? (
-          <div className="flex items-center gap-1.5 text-green-600 dark:text-green-400 text-sm">
+          <div className="flex items-center gap-1.5 text-success text-sm">
             <Shield className="h-4 w-4" />
             <span>{labels.secure[localeKey] || labels.secure.en}</span>
           </div>
         ) : (
-          <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400 text-sm">
+          <div className="flex items-center gap-1.5 text-warning text-sm">
             <AlertTriangle className="h-4 w-4" />
             <span>
               {labels.securityWarning[localeKey] || labels.securityWarning.en}

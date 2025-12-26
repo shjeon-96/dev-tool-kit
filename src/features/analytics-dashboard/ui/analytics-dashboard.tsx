@@ -124,7 +124,7 @@ export function AnalyticsDashboard({ data }: AnalyticsDashboardProps) {
                   <p className="text-muted-foreground text-sm">
                     Estimated Revenue
                   </p>
-                  <p className="text-3xl font-bold text-green-600">
+                  <p className="text-3xl font-bold text-success">
                     ${data.revenue.adsense.estimatedRevenue.toFixed(2)}
                   </p>
                   <p className="text-muted-foreground text-xs">
@@ -143,7 +143,7 @@ export function AnalyticsDashboard({ data }: AnalyticsDashboardProps) {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-muted-foreground text-sm">MRR</p>
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-2xl font-bold text-success">
                       ${data.revenue.subscriptions.mrr.toFixed(2)}
                     </p>
                   </div>
@@ -159,13 +159,13 @@ export function AnalyticsDashboard({ data }: AnalyticsDashboardProps) {
                 <div className="grid grid-cols-3 gap-4 border-t pt-4">
                   <div>
                     <p className="text-muted-foreground text-xs">New</p>
-                    <p className="text-lg font-semibold text-green-600">
+                    <p className="text-lg font-semibold text-success">
                       +{data.revenue.subscriptions.newSubscribersThisMonth}
                     </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground text-xs">Cancelled</p>
-                    <p className="text-lg font-semibold text-red-600">
+                    <p className="text-lg font-semibold text-destructive">
                       -{data.revenue.subscriptions.cancelledThisMonth}
                     </p>
                   </div>
@@ -302,7 +302,7 @@ export function AnalyticsDashboard({ data }: AnalyticsDashboardProps) {
                         key={variant.id}
                         className={`rounded-lg border p-4 ${
                           test.winner === variant.id
-                            ? "border-green-500 bg-green-50 dark:bg-green-950"
+                            ? "border-success bg-success/10"
                             : ""
                         }`}
                       >
@@ -310,7 +310,7 @@ export function AnalyticsDashboard({ data }: AnalyticsDashboardProps) {
                           <div className="flex items-center gap-2">
                             <span className="font-medium">{variant.name}</span>
                             {test.winner === variant.id && (
-                              <Badge variant="default" className="bg-green-600">
+                              <Badge variant="default" className="bg-success">
                                 Winner
                               </Badge>
                             )}
@@ -394,10 +394,10 @@ function MetricCard({
             <span
               className={`text-xs font-medium ${
                 trend === "up"
-                  ? "text-green-600"
+                  ? "text-success"
                   : trend === "down"
-                    ? "text-red-600"
-                    : "text-gray-500"
+                    ? "text-destructive"
+                    : "text-muted-foreground"
               }`}
             >
               {trendValue}

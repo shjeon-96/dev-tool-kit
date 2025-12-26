@@ -10,7 +10,7 @@ import {
   FileCode,
 } from "lucide-react";
 import { Button, Textarea, Label } from "@/shared/ui";
-import { useCopyToClipboard } from "@/shared/lib/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/hooks";
 import { useEncodeDecode } from "../model/use-encode-decode";
 import type {
   EncodeDecodeType,
@@ -140,7 +140,7 @@ export function EncodeDecodeTool({
 
       {/* Error Display */}
       {error && (
-        <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-sm">
+        <div className="flex items-center gap-2 text-destructive text-sm">
           <AlertCircle className="h-4 w-4" />
           <span>{error}</span>
         </div>

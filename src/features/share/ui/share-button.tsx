@@ -74,14 +74,14 @@ export function ShareButton({
         disabled={!hasInput || isLoading}
         className={cn(
           "gap-2 transition-all",
-          hasInput && "border-emerald-500/50 hover:border-emerald-500",
-          isSuccess && "border-emerald-500 bg-emerald-500/10",
+          hasInput && "border-success/50 hover:border-success",
+          isSuccess && "border-success bg-success/10",
         )}
       >
         {isLoading ? (
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : isSuccess ? (
-          <Check className="h-4 w-4 text-emerald-500" />
+          <Check className="h-4 w-4 text-success" />
         ) : (
           <Share2 className="h-4 w-4" />
         )}
@@ -102,7 +102,7 @@ export function ShareButton({
               <div className="text-sm text-destructive">{error}</div>
             ) : shareUrl ? (
               <div className="space-y-3">
-                <div className="flex items-center gap-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <div className="flex items-center gap-2 text-sm font-medium text-success">
                   <Check className="h-4 w-4" />
                   <span>{t("linkCreated")}</span>
                 </div>
@@ -122,7 +122,7 @@ export function ShareButton({
                     onClick={handleCopy}
                   >
                     {copied ? (
-                      <Check className="h-3.5 w-3.5 text-emerald-500" />
+                      <Check className="h-3.5 w-3.5 text-success" />
                     ) : (
                       <Copy className="h-3.5 w-3.5" />
                     )}

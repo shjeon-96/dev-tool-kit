@@ -309,7 +309,7 @@ export function JsonBulk() {
                         <div>
                           <span className="font-medium">{item.name}</span>
                           {item.error && (
-                            <p className="text-xs text-red-500 mt-1">
+                            <p className="text-xs text-destructive mt-1">
                               {item.error}
                             </p>
                           )}

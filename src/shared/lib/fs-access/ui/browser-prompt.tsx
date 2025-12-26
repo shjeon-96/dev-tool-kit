@@ -56,16 +56,16 @@ export function BrowserPromptBanner({
   return (
     <div
       className={cn(
-        "relative flex items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm dark:border-amber-900 dark:bg-amber-950",
+        "relative flex items-center gap-3 rounded-lg border border-warning/30 bg-warning/10 p-3 text-sm",
         className,
       )}
     >
-      <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+      <AlertTriangle className="h-4 w-4 shrink-0 text-warning" />
       <div className="flex-1">
-        <p className="font-medium text-amber-800 dark:text-amber-200">
+        <p className="font-medium text-warning">
           {browser.name}에서는 일부 기능이 제한됩니다
         </p>
-        <p className="mt-0.5 text-amber-700 dark:text-amber-300">
+        <p className="mt-0.5 text-warning/80">
           Chrome 또는 Edge에서 폴더 직접 저장 기능을 사용할 수 있습니다. 현재
           브라우저에서는 ZIP 다운로드로 대체됩니다.
         </p>
@@ -76,7 +76,7 @@ export function BrowserPromptBanner({
       </Badge>
       <button
         onClick={handleDismiss}
-        className="shrink-0 rounded-md p-1 text-amber-600 hover:bg-amber-100 dark:text-amber-400 dark:hover:bg-amber-900"
+        className="shrink-0 rounded-md p-1 text-warning hover:bg-warning/20"
         aria-label="닫기"
       >
         <X className="h-4 w-4" />
@@ -127,7 +127,7 @@ export function BrowserPromptDialog({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-amber-500" />
+            <AlertTriangle className="h-5 w-5 text-warning" />
             브라우저 호환성 안내
           </AlertDialogTitle>
           <AlertDialogDescription asChild>
@@ -241,21 +241,21 @@ export function FSAccessStatus({ className }: FSAccessStatusProps) {
     <div className={cn("flex items-center gap-2 text-xs", className)}>
       {isSupported ? (
         <>
-          <span className="h-2 w-2 rounded-full bg-green-500" />
+          <span className="h-2 w-2 rounded-full bg-success" />
           <span className="text-muted-foreground">
             {browser.name}: 폴더 직접 저장 가능
           </span>
         </>
       ) : isFallback ? (
         <>
-          <span className="h-2 w-2 rounded-full bg-amber-500" />
+          <span className="h-2 w-2 rounded-full bg-warning" />
           <span className="text-muted-foreground">
             {browser.name}: ZIP 다운로드 모드
           </span>
         </>
       ) : (
         <>
-          <span className="h-2 w-2 rounded-full bg-red-500" />
+          <span className="h-2 w-2 rounded-full bg-destructive" />
           <span className="text-muted-foreground">파일 저장 미지원</span>
         </>
       )}

@@ -61,10 +61,10 @@ export function ImageResizer() {
     <div className="space-y-6">
       {/* FFmpeg Loading Status */}
       {ffmpegState.loading && (
-        <div className="rounded-lg border border-blue-500/30 bg-blue-500/10 p-4 flex items-center gap-3">
-          <Loader2 className="h-5 w-5 animate-spin text-blue-500" />
+        <div className="rounded-lg border border-info/30 bg-info/10 p-4 flex items-center gap-3">
+          <Loader2 className="h-5 w-5 animate-spin text-info" />
           <div>
-            <p className="font-medium text-blue-500">FFmpeg 로딩 중...</p>
+            <p className="font-medium text-info">FFmpeg 로딩 중...</p>
             <p className="text-sm text-muted-foreground">
               고성능 이미지 처리 엔진을 준비하고 있습니다
             </p>
@@ -74,9 +74,9 @@ export function ImageResizer() {
 
       {/* FFmpeg Ready Status */}
       {ffmpegState.loaded && !ffmpegState.loading && (
-        <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-3 flex items-center gap-2">
-          <Zap className="h-4 w-4 text-green-500" />
-          <span className="text-sm text-green-600 dark:text-green-400">
+        <div className="rounded-lg border border-success/30 bg-success/10 p-3 flex items-center gap-2">
+          <Zap className="h-4 w-4 text-success" />
+          <span className="text-sm text-success">
             FFmpeg.wasm 활성화됨 - 고품질 Lanczos 리샘플링 사용
           </span>
         </div>
@@ -84,9 +84,9 @@ export function ImageResizer() {
 
       {/* FFmpeg Not Supported Warning */}
       {!ffmpegState.isSupported && !ffmpegState.loading && (
-        <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3 flex items-center gap-2">
-          <AlertCircle className="h-4 w-4 text-yellow-500" />
-          <span className="text-sm text-yellow-600 dark:text-yellow-400">
+        <div className="rounded-lg border border-warning/30 bg-warning/10 p-3 flex items-center gap-2">
+          <AlertCircle className="h-4 w-4 text-warning" />
+          <span className="text-sm text-warning">
             브라우저가 WebAssembly를 지원하지 않습니다. Canvas 폴백 모드로
             동작합니다.
           </span>
@@ -274,7 +274,7 @@ export function ImageResizer() {
                     <ImageIcon className="mr-2 h-4 w-4" />
                     리사이즈
                     {ffmpegState.loaded && (
-                      <Zap className="ml-1 h-3 w-3 text-yellow-500" />
+                      <Zap className="ml-1 h-3 w-3 text-warning" />
                     )}
                   </>
                 )}

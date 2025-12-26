@@ -26,11 +26,11 @@ export function MetaTagAnalyzer() {
   const getIssueIcon = (level: IssueLevel) => {
     switch (level) {
       case "error":
-        return <AlertCircle className="h-4 w-4 text-red-500" />;
+        return <AlertCircle className="h-4 w-4 text-destructive" />;
       case "warning":
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
+        return <AlertTriangle className="h-4 w-4 text-warning" />;
       case "info":
-        return <Info className="h-4 w-4 text-blue-500" />;
+        return <Info className="h-4 w-4 text-info" />;
     }
   };
 
@@ -71,7 +71,7 @@ export function MetaTagAnalyzer() {
             </Button>
           </div>
           {error && (
-            <p className="text-sm text-red-500 flex items-center gap-2">
+            <p className="text-sm text-destructive flex items-center gap-2">
               <AlertCircle className="h-4 w-4" />
               {error}
             </p>
@@ -155,7 +155,7 @@ export function MetaTagAnalyzer() {
           {result.issues.length === 0 && (
             <Card>
               <CardContent className="pt-6">
-                <div className="flex items-center gap-3 text-green-500">
+                <div className="flex items-center gap-3 text-success">
                   <CheckCircle2 className="h-6 w-6" />
                   <span className="font-medium">{t("noIssues")}</span>
                 </div>

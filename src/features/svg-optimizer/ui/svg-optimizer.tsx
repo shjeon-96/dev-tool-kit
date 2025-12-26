@@ -112,7 +112,7 @@ export function SvgOptimizer() {
                     {formatBytes(stats.outputSize)}
                   </span>
                   {stats.percent > 0 && (
-                    <span className="text-sm text-green-600 font-medium">
+                    <span className="text-sm text-success font-medium">
                       -{stats.percent}%
                     </span>
                   )}
@@ -192,13 +192,13 @@ export function SvgOptimizer() {
             </div>
             <div>
               <p className="text-muted-foreground">절약</p>
-              <p className="font-mono text-green-600">
+              <p className="font-mono text-success">
                 {formatBytes(stats.saved)}
               </p>
             </div>
             <div>
               <p className="text-muted-foreground">압축률</p>
-              <p className="font-mono text-green-600">{stats.percent}%</p>
+              <p className="font-mono text-success">{stats.percent}%</p>
             </div>
           </div>
         </div>

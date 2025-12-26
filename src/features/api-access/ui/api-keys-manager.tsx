@@ -151,16 +151,16 @@ export function ApiKeysManager() {
     <div className="space-y-6">
       {/* Newly Created Key Alert */}
       {newlyCreatedKey && (
-        <Card className="border-green-500 bg-green-50 dark:bg-green-950/20">
+        <Card className="border-success bg-success/10">
           <CardContent className="pt-6">
             <div className="flex items-start gap-4">
-              <CheckCircle2 className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
+              <CheckCircle2 className="h-6 w-6 text-success flex-shrink-0 mt-0.5" />
               <div className="flex-1 space-y-3">
                 <div>
-                  <h3 className="font-semibold text-green-800 dark:text-green-200">
+                  <h3 className="font-semibold text-success">
                     API Key Created Successfully
                   </h3>
-                  <p className="text-sm text-green-700 dark:text-green-300 mt-1">
+                  <p className="text-sm text-success mt-1">
                     Copy this key now. You won&apos;t be able to see it again!
                   </p>
                 </div>
@@ -226,13 +226,13 @@ export function ApiKeysManager() {
         <CardContent className="space-y-6">
           {/* Pro Required Notice */}
           {!canAccessApi && (
-            <div className="flex items-start gap-4 p-4 bg-amber-50 dark:bg-amber-950/20 rounded-lg border border-amber-200 dark:border-amber-800">
-              <Crown className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
+            <div className="flex items-start gap-4 p-4 bg-warning/10 rounded-lg border border-warning/30">
+              <Crown className="h-5 w-5 text-warning flex-shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-medium text-amber-800 dark:text-amber-200">
+                <h3 className="font-medium text-warning">
                   Pro Subscription Required
                 </h3>
-                <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                <p className="text-sm text-warning mt-1">
                   API access is available for Pro subscribers. Upgrade to create
                   API keys and access our API endpoints programmatically.
                 </p>
@@ -370,7 +370,7 @@ export function ApiKeysManager() {
                       </TableCell>
                       <TableCell>
                         {key.isActive ? (
-                          <Badge variant="default" className="bg-green-500">
+                          <Badge variant="default" className="bg-success">
                             Active
                           </Badge>
                         ) : (
@@ -417,7 +417,7 @@ export function ApiKeysManager() {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-8 w-8 text-red-500 hover:text-red-600"
+                                className="h-8 w-8 text-destructive hover:text-destructive"
                               >
                                 <Trash2 className="h-4 w-4" />
                               </Button>
@@ -436,7 +436,7 @@ export function ApiKeysManager() {
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction
                                   onClick={() => handleDeleteKey(key.id)}
-                                  className="bg-red-500 hover:bg-red-600"
+                                  className="bg-destructive hover:bg-destructive/90"
                                 >
                                   Delete
                                 </AlertDialogAction>

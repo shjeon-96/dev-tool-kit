@@ -240,7 +240,10 @@ export function useImageResizer() {
         type: options.format,
       });
 
-      // 미리보기 URL 생성
+      // 이전 미리보기 URL 정리 후 새로 생성
+      if (resizedImage) {
+        URL.revokeObjectURL(resizedImage);
+      }
       const previewUrl = URL.createObjectURL(blob);
       setResizedImage(previewUrl);
       setResizedFile(newFile);
@@ -264,6 +267,7 @@ export function useImageResizer() {
     options,
     calculateDimensions,
     trackUsage,
+    resizedImage,
   ]);
 
   // Canvas 기반 폴백 리사이즈 (FFmpeg 로드 실패 시)
@@ -327,6 +331,10 @@ export function useImageResizer() {
         type: options.format,
       });
 
+      // 이전 미리보기 URL 정리 후 새로 생성
+      if (resizedImage) {
+        URL.revokeObjectURL(resizedImage);
+      }
       const previewUrl = URL.createObjectURL(blob);
       setResizedImage(previewUrl);
       setResizedFile(newFile);
@@ -338,7 +346,7 @@ export function useImageResizer() {
     } finally {
       setIsProcessing(false);
     }
-  }, [originalImage, options, calculateDimensions, trackUsage]);
+  }, [originalImage, options, calculateDimensions, trackUsage, resizedImage]);
 
   // 메인 리사이즈 함수 - FFmpeg 사용 가능하면 FFmpeg, 아니면 Canvas
   const resizeImage = useCallback(async () => {

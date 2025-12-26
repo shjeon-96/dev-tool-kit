@@ -271,7 +271,7 @@ export function HashBulk() {
                           <div>
                             <span className="font-medium">{item.name}</span>
                             {item.error && (
-                              <p className="text-xs text-red-500 mt-1">
+                              <p className="text-xs text-destructive mt-1">
                                 {item.error}
                               </p>
                             )}
@@ -284,7 +284,7 @@ export function HashBulk() {
                           {item.status === "processing" ? (
                             <Progress value={item.progress} className="h-2" />
                           ) : item.status === "success" ? (
-                            <span className="text-green-600 text-sm">
+                            <span className="text-success text-sm">
                               Complete
                             </span>
                           ) : (

@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 항목           | 값                      |
 | -------------- | ----------------------- |
 | **URL**        | https://web-toolkit.app |
-| **Tools**      | 40+                     |
+| **Tools**      | 44                      |
 | **pSEO Pages** | 500+                    |
 | **Languages**  | en, ko, ja, es, pt, de  |
 
@@ -35,9 +35,12 @@ npm run dev  # http://localhost:3000
 | `npm run test`            | Vitest 단위 테스트 (watch 모드) |
 | `npm run test -- [name]`  | 특정 파일 테스트                |
 | `npm run test -- --run`   | 단일 실행 (watch 없이)          |
+| `npm run test:ui`         | Vitest UI 모드                  |
+| `npm run test:coverage`   | 커버리지 리포트 생성            |
 | `npm run test:e2e`        | Playwright E2E 테스트           |
 | `npm run test:e2e:ui`     | Playwright UI 모드              |
 | `npm run analyze`         | 번들 분석 (`ANALYZE=true`)      |
+| `npm run validate:tools`  | 도구 레지스트리 유효성 검사     |
 | `npm run remotion:studio` | Remotion 스튜디오 (비디오 편집) |
 
 ---
@@ -94,14 +97,14 @@ src/
 
 ## Adding a New Tool
 
-1. **types.ts** - ToolSlug 타입 추가
+### 1. types.ts - ToolSlug 타입 추가
 
 ```typescript
 // src/entities/tool/model/types.ts
 export type ToolSlug = "existing-tool" | "new-tool";
 ```
 
-2. **registry.ts** - 도구 등록
+### 2. registry.ts - 도구 메타데이터 등록
 
 ```typescript
 // src/entities/tool/model/registry.ts
@@ -115,7 +118,7 @@ export type ToolSlug = "existing-tool" | "new-tool";
 },
 ```
 
-3. **Feature 구현** - `src/features/new-tool/`
+### 3. Feature 구현 - `src/features/new-tool/`
 
 ```
 new-tool/
@@ -125,21 +128,22 @@ new-tool/
 └── index.ts                # 배럴 export (named export 필수)
 ```
 
-4. **tool-renderer.tsx** - Dynamic import 추가
+### 4. component-map.ts - Dynamic Import 등록
 
 ```typescript
-// src/app/[locale]/tools/[slug]/tool-renderer.tsx
-"new-tool": dynamic(
-  () => import("@/features/new-tool").then((mod) => mod.NewTool),
-  { ssr: false },
-),
+// src/entities/tool/model/component-map.ts
+"new-tool": {
+  import: () => import("@/features/new-tool"),
+  component: "NewTool",  // index.ts에서 export한 컴포넌트명
+},
 ```
 
-5. **messages/\*.json** - 번역 추가 (6개 언어: en, ko, ja, es, pt, de)
-   - `tools.[slug].title`, `tools.[slug].description`
-   - `seo.[slug].title`, `seo.[slug].description`, `seo.[slug].keywords`
+### 5. messages/\*.json - 번역 추가 (6개 언어)
 
-6. **seo-content.ts** - SEO 콘텐츠 추가
+- `tools.[slug].title`, `tools.[slug].description`
+- `seo.[slug].title`, `seo.[slug].description`, `seo.[slug].keywords`
+
+### 6. seo-content.ts - SEO 콘텐츠 추가
 
 ```typescript
 // src/entities/tool/model/seo-content.ts
@@ -148,6 +152,12 @@ new-tool/
   features: ["feature1", "feature2"],
   useCases: ["use case 1", "use case 2"],
 },
+```
+
+### 7. 유효성 검사
+
+```bash
+npm run validate:tools  # 레지스트리 일관성 검사
 ```
 
 ---
@@ -252,14 +262,16 @@ npm run test:e2e:ui           # E2E UI 모드
 
 ## Key Files Reference
 
-| File                                              | Purpose              |
-| ------------------------------------------------- | -------------------- |
-| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의   |
-| `src/entities/tool/model/registry.ts`             | 도구 레지스트리      |
-| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 Dynamic Import  |
-| `src/i18n/routing.ts`                             | 지원 언어 목록 (6개) |
-| `src/shared/lib/quota/`                           | 사용량 제한 시스템   |
-| `src/app/sitemap.ts`                              | 동적 사이트맵        |
+| File                                              | Purpose                         |
+| ------------------------------------------------- | ------------------------------- |
+| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의              |
+| `src/entities/tool/model/registry.ts`             | 도구 메타데이터 레지스트리      |
+| `src/entities/tool/model/component-map.ts`        | 도구 컴포넌트 Dynamic Import 맵 |
+| `src/entities/tool/model/seo-content.ts`          | 도구별 SEO 콘텐츠               |
+| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 렌더링 컴포넌트            |
+| `src/i18n/routing.ts`                             | 지원 언어 목록 (6개)            |
+| `src/shared/lib/quota/`                           | 사용량 제한 시스템              |
+| `src/app/sitemap.ts`                              | 동적 사이트맵                   |
 
 ---
 

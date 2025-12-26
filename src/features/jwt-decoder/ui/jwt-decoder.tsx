@@ -11,7 +11,7 @@ import {
   KeyRound,
 } from "lucide-react";
 import { Button, ShareButton, EmptyState } from "@/shared/ui";
-import { ToolActionsBar } from "@/features/tool-actions";
+import { ToolActionsBar } from "@/widgets/tool-actions";
 import { useJwtDecoder } from "../model/use-jwt-decoder";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 
@@ -215,9 +215,7 @@ export function JwtDecoder() {
         <div className="grid gap-4 lg:grid-cols-2">
           {/* Header */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-blue-600 dark:text-blue-400">
-              Header
-            </label>
+            <label className="text-sm font-medium text-info">Header</label>
             <pre className="rounded-md border bg-muted/50 p-3 font-mono text-sm overflow-auto max-h-[200px]">
               {JSON.stringify(decoded.header, null, 2)}
             </pre>
@@ -225,9 +223,7 @@ export function JwtDecoder() {
 
           {/* Payload */}
           <div className="space-y-2">
-            <label className="text-sm font-medium text-purple-600 dark:text-purple-400">
-              Payload
-            </label>
+            <label className="text-sm font-medium text-primary">Payload</label>
             <pre className="rounded-md border bg-muted/50 p-3 font-mono text-sm overflow-auto max-h-[200px]">
               {JSON.stringify(decoded.payload, null, 2)}
             </pre>

@@ -222,11 +222,11 @@ export default async function ValidatePage({ params }: PageProps) {
                   className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg"
                 >
                   {index === 0 ? (
-                    <Shield className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <Shield className="h-5 w-5 text-info flex-shrink-0 mt-0.5" />
                   ) : index === 1 ? (
-                    <Zap className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                    <Zap className="h-5 w-5 text-warning flex-shrink-0 mt-0.5" />
                   ) : (
-                    <Lock className="h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <Lock className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
                   )}
                   <span className="text-sm">{rule}</span>
                 </div>

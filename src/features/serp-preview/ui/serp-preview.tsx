@@ -99,10 +99,10 @@ export function SerpPreview() {
               <div
                 className={`h-full transition-all ${
                   analysis.title.status === "optimal"
-                    ? "bg-green-500"
+                    ? "bg-success"
                     : analysis.title.status === "long"
-                      ? "bg-red-500"
-                      : "bg-yellow-500"
+                      ? "bg-destructive"
+                      : "bg-warning"
                 }`}
                 style={{
                   width: `${Math.min(100, (data.title.length / LIMITS.TITLE.MAX_CHARS) * 100)}%`,
@@ -137,10 +137,10 @@ export function SerpPreview() {
               <div
                 className={`h-full transition-all ${
                   analysis.description.status === "optimal"
-                    ? "bg-green-500"
+                    ? "bg-success"
                     : analysis.description.status === "long"
-                      ? "bg-red-500"
-                      : "bg-yellow-500"
+                      ? "bg-destructive"
+                      : "bg-warning"
                 }`}
                 style={{
                   width: `${Math.min(100, (data.description.length / LIMITS.DESCRIPTION.MAX_CHARS) * 100)}%`,
@@ -211,7 +211,7 @@ export function SerpPreview() {
               </h3>
 
               {/* Description */}
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {displayDescription || t("sampleDescription")}
               </p>
             </div>

@@ -119,7 +119,7 @@ export function BillingContent({ user, subscription }: BillingContentProps) {
                 </p>
               )}
               {isCanceled && (
-                <p className="mt-2 text-sm text-amber-600 dark:text-amber-400">
+                <p className="mt-2 text-sm text-warning">
                   {t("subscription.cancelsAt", {
                     date: periodEnd.toLocaleDateString(locale),
                   })}
@@ -155,7 +155,7 @@ export function BillingContent({ user, subscription }: BillingContentProps) {
                 ) : (
                   <Button
                     variant="outline"
-                    className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950"
+                    className="text-destructive hover:text-destructive hover:bg-destructive/10"
                     onClick={() => setShowCancelDialog(true)}
                   >
                     {t("actions.cancelSubscription")}
@@ -226,7 +226,7 @@ export function BillingContent({ user, subscription }: BillingContentProps) {
                 <ul className="mt-4 space-y-2">
                   {tierItem.features.slice(0, 5).map((feature, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm">
-                      <Check className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                      <Check className="h-4 w-4 text-success mt-0.5 shrink-0" />
                       <span className="text-muted-foreground">{feature}</span>
                     </li>
                   ))}
@@ -241,8 +241,8 @@ export function BillingContent({ user, subscription }: BillingContentProps) {
       <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
         <DialogContent>
           <DialogHeader>
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30">
-              <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" />
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
+              <AlertTriangle className="h-6 w-6 text-destructive" />
             </div>
             <DialogTitle className="text-center">
               {t("cancel.title")}

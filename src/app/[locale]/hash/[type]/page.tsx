@@ -126,11 +126,11 @@ function getSecurityLevelInfo(
   };
 
   const colors = {
-    broken: "bg-red-500/20 text-red-600 border-red-500/30",
-    weak: "bg-orange-500/20 text-orange-600 border-orange-500/30",
-    deprecated: "bg-yellow-500/20 text-yellow-600 border-yellow-500/30",
-    secure: "bg-green-500/20 text-green-600 border-green-500/30",
-    recommended: "bg-emerald-500/20 text-emerald-600 border-emerald-500/30",
+    broken: "bg-destructive/20 text-destructive border-destructive/30",
+    weak: "bg-warning/20 text-warning border-warning/30",
+    deprecated: "bg-warning/20 text-warning border-warning/30",
+    secure: "bg-success/20 text-success border-success/30",
+    recommended: "bg-success/20 text-success border-success/30",
   };
 
   return {
@@ -142,11 +142,11 @@ function getSecurityLevelInfo(
 // 취약점 심각도 색상
 function getSeverityColor(severity: string) {
   const colors: Record<string, string> = {
-    critical: "bg-red-500/20 text-red-600",
-    high: "bg-orange-500/20 text-orange-600",
-    medium: "bg-yellow-500/20 text-yellow-600",
-    low: "bg-blue-500/20 text-blue-600",
-    informational: "bg-gray-500/20 text-gray-600",
+    critical: "bg-destructive/20 text-destructive",
+    high: "bg-warning/20 text-warning",
+    medium: "bg-warning/20 text-warning",
+    low: "bg-info/20 text-info",
+    informational: "bg-muted text-muted-foreground",
   };
   return colors[severity] || colors.informational;
 }
@@ -285,9 +285,9 @@ export default async function HashTypePage({ params }: PageProps) {
                 }
               </span>
             ) : hashType.isSecure ? (
-              <Shield className="h-5 w-5 text-green-600 dark:text-green-400" />
+              <Shield className="h-5 w-5 text-success" />
             ) : (
-              <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              <AlertTriangle className="h-5 w-5 text-warning" />
             )}
           </div>
           <p className="text-muted-foreground">{description}</p>
@@ -530,7 +530,7 @@ export default async function HashTypePage({ params }: PageProps) {
             {uniqueContent.vulnerabilities.length > 0 && (
               <section className="border-t pt-6">
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5 text-orange-500" />
+                  <AlertTriangle className="h-5 w-5 text-warning" />
                   {locale === "ko"
                     ? "알려진 취약점"
                     : locale === "ja"
@@ -662,8 +662,8 @@ export default async function HashTypePage({ params }: PageProps) {
 
               {/* When to Use / Not Use */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border rounded-lg border-green-500/30 bg-green-500/5">
-                  <h3 className="font-semibold mb-2 flex items-center gap-2 text-green-600">
+                <div className="p-4 border rounded-lg border-success/30 bg-success/5">
+                  <h3 className="font-semibold mb-2 flex items-center gap-2 text-success">
                     <CheckCircle2 className="h-4 w-4" />
                     {locale === "ko"
                       ? "사용하면 좋은 경우"
@@ -675,15 +675,15 @@ export default async function HashTypePage({ params }: PageProps) {
                     {uniqueContent.comparison.whenToUse[localeKey].map(
                       (item, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="text-green-600 mt-0.5">✓</span>
+                          <span className="text-success mt-0.5">✓</span>
                           {item}
                         </li>
                       ),
                     )}
                   </ul>
                 </div>
-                <div className="p-4 border rounded-lg border-red-500/30 bg-red-500/5">
-                  <h3 className="font-semibold mb-2 flex items-center gap-2 text-red-600">
+                <div className="p-4 border rounded-lg border-destructive/30 bg-destructive/5">
+                  <h3 className="font-semibold mb-2 flex items-center gap-2 text-destructive">
                     <XCircle className="h-4 w-4" />
                     {locale === "ko"
                       ? "사용하지 말아야 할 경우"
@@ -695,7 +695,7 @@ export default async function HashTypePage({ params }: PageProps) {
                     {uniqueContent.comparison.whenNotToUse[localeKey].map(
                       (item, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="text-red-600 mt-0.5">✗</span>
+                          <span className="text-destructive mt-0.5">✗</span>
                           {item}
                         </li>
                       ),
@@ -910,7 +910,7 @@ export default async function HashTypePage({ params }: PageProps) {
                         : "Security Status"}
                   </div>
                   <div
-                    className={`font-medium ${hashType.isSecure ? "text-green-600 dark:text-green-400" : "text-amber-600 dark:text-amber-400"}`}
+                    className={`font-medium ${hashType.isSecure ? "text-success" : "text-warning"}`}
                   >
                     {hashType.isSecure
                       ? locale === "ko"
@@ -1009,9 +1009,9 @@ export default async function HashTypePage({ params }: PageProps) {
                   <Button variant="outline" size="sm">
                     {related.algorithm}
                     {related.isSecure ? (
-                      <Shield className="h-3 w-3 ml-1 text-green-600" />
+                      <Shield className="h-3 w-3 ml-1 text-success" />
                     ) : (
-                      <AlertTriangle className="h-3 w-3 ml-1 text-amber-500" />
+                      <AlertTriangle className="h-3 w-3 ml-1 text-warning" />
                     )}
                   </Button>
                 </Link>

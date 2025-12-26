@@ -382,8 +382,8 @@ export function ImageBulk() {
                                 <span
                                   className={
                                     item.resultSize < item.size
-                                      ? "text-green-600"
-                                      : "text-orange-500"
+                                      ? "text-success"
+                                      : "text-warning"
                                   }
                                 >
                                   {formatSize(item.resultSize)}
@@ -392,7 +392,7 @@ export function ImageBulk() {
                             )}
                           </div>
                           {item.error && (
-                            <p className="text-xs text-red-500 mt-1">
+                            <p className="text-xs text-destructive mt-1">
                               {item.error}
                             </p>
                           )}
@@ -414,7 +414,7 @@ export function ImageBulk() {
 
                 {/* Saved Size Summary */}
                 {hasResults && totalSaved > 0 && (
-                  <div className="text-center py-2 text-sm text-green-600 bg-green-50 dark:bg-green-950/20 rounded-lg">
+                  <div className="text-center py-2 text-sm text-success bg-success/10 rounded-lg">
                     Total saved: {formatSize(totalSaved)}
                   </div>
                 )}

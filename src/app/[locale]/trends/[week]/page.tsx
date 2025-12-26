@@ -361,7 +361,7 @@ function DiscussionCard({ post }: { post: RedditPost }) {
         <MessageSquare className="h-5 w-5 text-muted-foreground shrink-0 mt-0.5" />
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs px-2 py-0.5 bg-orange-500/10 text-orange-600 rounded">
+            <span className="text-xs px-2 py-0.5 bg-warning/10 text-warning rounded">
               r/{post.subreddit}
             </span>
             <span className="text-xs text-muted-foreground">

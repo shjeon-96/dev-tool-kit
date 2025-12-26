@@ -10,7 +10,7 @@ import {
   ArrowRightLeft,
 } from "lucide-react";
 import { Button } from "@/shared/ui";
-import { ToolActionsBar } from "@/features/tool-actions";
+import { ToolActionsBar } from "@/widgets/tool-actions";
 import { useBase64 } from "../model/use-base64";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 
@@ -180,7 +180,7 @@ export function Base64Converter() {
             {output && (
               <Button variant="ghost" size="sm" onClick={onCopy}>
                 {copied ? (
-                  <Check className="h-4 w-4 text-green-500" />
+                  <Check className="h-4 w-4 text-success" />
                 ) : (
                   <Copy className="h-4 w-4" />
                 )}
@@ -192,7 +192,7 @@ export function Base64Converter() {
             value={output}
             readOnly
             placeholder="Result will appear here"
-            className="h-[200px] sm:h-[280px] lg:h-[300px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+            className="h-[200px] sm:h-[280px] lg:h-[300px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             spellCheck={false}
           />
         </div>

@@ -128,7 +128,7 @@ export function FileUploader({
       )}
 
       {sizeWarning && (
-        <div className="flex items-start gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/30 text-yellow-700 dark:text-yellow-400">
+        <div className="flex items-start gap-2 p-3 rounded-lg bg-warning/10 border border-warning/30 text-warning">
           <AlertTriangle className="h-4 w-4 mt-0.5 flex-shrink-0" />
           <p className="text-sm">{sizeWarning}</p>
         </div>

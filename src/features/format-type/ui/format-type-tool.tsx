@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui";
-import { useCopyToClipboard } from "@/shared/lib/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/hooks";
 import { useFormatType } from "../model/use-format-type";
 import type { FormatType, LocaleKey } from "@/entities/format-type";
 
@@ -163,7 +163,7 @@ export function FormatTypeTool({ type, locale }: FormatTypeToolProps) {
           {type.mimeType}
         </span>
         {type.supportsComments && (
-          <span className="inline-flex items-center px-2 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200">
+          <span className="inline-flex items-center px-2 py-1 rounded-full bg-success/10 text-success">
             {locale === "ko"
               ? "주석 지원"
               : locale === "ja"
@@ -188,7 +188,7 @@ export function FormatTypeTool({ type, locale }: FormatTypeToolProps) {
 
       {/* Error Display */}
       {error && (
-        <div className="flex items-center gap-2 text-red-600 dark:text-red-400 text-sm">
+        <div className="flex items-center gap-2 text-destructive text-sm">
           <AlertCircle className="h-4 w-4" />
           <span>{error}</span>
         </div>

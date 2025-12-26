@@ -111,7 +111,7 @@ export function PdfCompress({ toolkit }: PdfCompressProps) {
       {/* Selected File */}
       {selectedFile && (
         <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg">
-          <File className="h-5 w-5 text-red-500" />
+          <File className="h-5 w-5 text-destructive" />
           <div className="flex-1 min-w-0">
             <p className="truncate font-medium">{selectedFile.name}</p>
             <p className="text-sm text-muted-foreground">
@@ -146,7 +146,7 @@ export function PdfCompress({ toolkit }: PdfCompressProps) {
       {/* Compression Result */}
       {compressionResult && (
         <Alert>
-          <CheckCircle className="h-4 w-4 text-green-500" />
+          <CheckCircle className="h-4 w-4 text-success" />
           <AlertDescription>
             <div className="space-y-1">
               <p>
@@ -155,7 +155,7 @@ export function PdfCompress({ toolkit }: PdfCompressProps) {
                 <strong>{formatSize(compressionResult.compressedSize)}</strong>
               </p>
               {compressionResult.savedPercent > 0 && (
-                <p className="text-green-600">
+                <p className="text-success">
                   Saved {formatSize(compressionResult.savedBytes)} (
                   {compressionResult.savedPercent.toFixed(1)}%)
                 </p>

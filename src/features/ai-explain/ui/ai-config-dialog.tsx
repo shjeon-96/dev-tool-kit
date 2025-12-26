@@ -4,8 +4,15 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Key, Settings, X, Eye, EyeOff, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/shared/ui";
-import { Input } from "@/shared/ui";
+import {
+  Button,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { AI_PROVIDERS, type AIProvider } from "../lib/providers";
 
@@ -136,17 +143,21 @@ export function AIConfigDialog({
                 {/* Model Selection */}
                 <div>
                   <label className="text-sm font-medium">{t("model")}</label>
-                  <select
-                    value={model}
-                    onChange={(e) => setModel(e.target.value)}
-                    className="w-full mt-2 h-10 px-3 rounded-md border bg-background text-sm"
-                  >
-                    {providerConfig.models.map((m) => (
-                      <option key={m} value={m}>
-                        {m}
-                      </option>
-                    ))}
-                  </select>
+                  <Select value={model} onValueChange={setModel}>
+                    <SelectTrigger
+                      className="w-full mt-2"
+                      aria-label="Select model"
+                    >
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {providerConfig.models.map((m) => (
+                        <SelectItem key={m} value={m}>
+                          {m}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 {/* API Key */}

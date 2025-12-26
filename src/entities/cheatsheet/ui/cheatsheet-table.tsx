@@ -133,7 +133,7 @@ export function CheatsheetTable({
                           className="opacity-50 hover:opacity-100 transition-opacity"
                         >
                           {copiedCode === item.code ? (
-                            <Check className="h-3 w-3 text-green-500" />
+                            <Check className="h-3 w-3 text-success" />
                           ) : (
                             <Copy className="h-3 w-3" />
                           )}

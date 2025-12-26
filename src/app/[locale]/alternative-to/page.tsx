@@ -87,7 +87,7 @@ export default async function AlternativeToIndexPage({ params }: Props) {
         {/* Why Choose Web Toolkit */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
-            <Shield className="mt-0.5 h-6 w-6 shrink-0 text-green-500" />
+            <Shield className="mt-0.5 h-6 w-6 shrink-0 text-success" />
             <div>
               <div className="font-semibold">{t("benefits.privacy.title")}</div>
               <div className="text-sm text-muted-foreground">
@@ -96,7 +96,7 @@ export default async function AlternativeToIndexPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
-            <Wifi className="mt-0.5 h-6 w-6 shrink-0 text-blue-500" />
+            <Wifi className="mt-0.5 h-6 w-6 shrink-0 text-info" />
             <div>
               <div className="font-semibold">{t("benefits.offline.title")}</div>
               <div className="text-sm text-muted-foreground">
@@ -105,7 +105,7 @@ export default async function AlternativeToIndexPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
-            <Zap className="mt-0.5 h-6 w-6 shrink-0 text-yellow-500" />
+            <Zap className="mt-0.5 h-6 w-6 shrink-0 text-warning" />
             <div>
               <div className="font-semibold">{t("benefits.ai.title")}</div>
               <div className="text-sm text-muted-foreground">
@@ -114,7 +114,7 @@ export default async function AlternativeToIndexPage({ params }: Props) {
             </div>
           </div>
           <div className="flex items-start gap-3 rounded-lg border bg-card p-4">
-            <Globe className="mt-0.5 h-6 w-6 shrink-0 text-purple-500" />
+            <Globe className="mt-0.5 h-6 w-6 shrink-0 text-primary" />
             <div>
               <div className="font-semibold">
                 {t("benefits.platform.title")}

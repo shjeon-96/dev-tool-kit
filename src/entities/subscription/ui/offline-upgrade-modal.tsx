@@ -36,8 +36,8 @@ export function OfflineUpgradeModal({
     <Dialog open={isOpen} onOpenChange={(open) => !open && onDismiss()}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900/30">
-            <WifiOff className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-warning/10">
+            <WifiOff className="h-6 w-6 text-warning" />
           </div>
           <DialogTitle className="text-center">
             {t("offlineUpgrade.title")}
@@ -58,7 +58,7 @@ export function OfflineUpgradeModal({
             <ul className="space-y-2">
               {proFeatures.map((feature, idx) => (
                 <li key={idx} className="flex items-center gap-2 text-sm">
-                  <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                  <Check className="h-4 w-4 text-success flex-shrink-0" />
                   <span>{feature}</span>
                 </li>
               ))}

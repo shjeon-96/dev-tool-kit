@@ -44,7 +44,7 @@ export default async function PricingPage() {
             key={key}
             className="flex items-center gap-2 text-sm text-muted-foreground"
           >
-            <Icon className="h-4 w-4 text-green-500" />
+            <Icon className="h-4 w-4 text-success" />
             <span>{t(`trust.badges.${key}`)}</span>
           </div>
         ))}

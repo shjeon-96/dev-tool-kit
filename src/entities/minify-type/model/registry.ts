@@ -1,6 +1,7 @@
-import type { MinifyType, MinifyTypeSlug } from "./types";
+import { createCategorizedRegistry } from "@/shared/lib/registry";
+import type { MinifyType, MinifyTypeSlug, MinifyCategory } from "./types";
 
-export const minifyTypeRegistry: Record<MinifyTypeSlug, MinifyType> = {
+const minifyTypeData: Record<MinifyTypeSlug, MinifyType> = {
   json: {
     slug: "json",
     name: "JSON",
@@ -633,37 +634,16 @@ export const minifyTypeRegistry: Record<MinifyTypeSlug, MinifyType> = {
   },
 };
 
-// Helper functions
-export function getMinifyTypeBySlug(slug: string): MinifyType | undefined {
-  return minifyTypeRegistry[slug as MinifyTypeSlug];
-}
+// Create registry with helper functions
+const registry = createCategorizedRegistry<
+  MinifyTypeSlug,
+  MinifyType,
+  MinifyCategory
+>(minifyTypeData);
 
-export function getAllMinifyTypeSlugs(): MinifyTypeSlug[] {
-  return Object.keys(minifyTypeRegistry) as MinifyTypeSlug[];
-}
-
-export function getMinifyTypesByCategory(
-  category: MinifyType["category"],
-): MinifyType[] {
-  return Object.values(minifyTypeRegistry).filter(
-    (type) => type.category === category,
-  );
-}
-
-export function getRelatedMinifyTypes(
-  currentSlug: MinifyTypeSlug,
-  limit: number = 4,
-): MinifyType[] {
-  const current = minifyTypeRegistry[currentSlug];
-  if (!current) return [];
-
-  const sameCategory = Object.values(minifyTypeRegistry).filter(
-    (type) => type.category === current.category && type.slug !== currentSlug,
-  );
-
-  const otherCategory = Object.values(minifyTypeRegistry).filter(
-    (type) => type.category !== current.category,
-  );
-
-  return [...sameCategory, ...otherCategory].slice(0, limit);
-}
+// Export registry and helper functions (backward compatible)
+export const minifyTypeRegistry = registry.items;
+export const getMinifyTypeBySlug = registry.getBySlug;
+export const getAllMinifyTypeSlugs = registry.getAllSlugs;
+export const getMinifyTypesByCategory = registry.getByCategory;
+export const getRelatedMinifyTypes = registry.getRelated;

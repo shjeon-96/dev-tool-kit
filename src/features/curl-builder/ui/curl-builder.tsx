@@ -25,16 +25,24 @@ import {
 import { Copy, Check, Plus, Trash2, RotateCcw, Upload } from "lucide-react";
 import { useState } from "react";
 
-const methods: HttpMethod[] = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"];
+const methods: HttpMethod[] = [
+  "GET",
+  "POST",
+  "PUT",
+  "PATCH",
+  "DELETE",
+  "HEAD",
+  "OPTIONS",
+];
 
 const methodColors: Record<HttpMethod, string> = {
-  GET: "text-green-600",
-  POST: "text-blue-600",
-  PUT: "text-orange-600",
-  PATCH: "text-purple-600",
-  DELETE: "text-red-600",
-  HEAD: "text-gray-600",
-  OPTIONS: "text-gray-600",
+  GET: "text-success",
+  POST: "text-info",
+  PUT: "text-warning",
+  PATCH: "text-primary",
+  DELETE: "text-destructive",
+  HEAD: "text-muted-foreground",
+  OPTIONS: "text-muted-foreground",
 };
 
 export function CurlBuilder() {
@@ -95,7 +103,11 @@ export function CurlBuilder() {
         <div className="p-4 rounded-lg border bg-card space-y-3">
           <div className="flex items-center justify-between">
             <Label>cURL 명령어 가져오기</Label>
-            <Button variant="ghost" size="sm" onClick={() => setShowImport(false)}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowImport(false)}
+            >
               닫기
             </Button>
           </div>
@@ -114,7 +126,10 @@ export function CurlBuilder() {
 
       {/* URL Bar */}
       <div className="flex gap-2">
-        <Select value={method} onValueChange={(v) => setMethod(v as HttpMethod)}>
+        <Select
+          value={method}
+          onValueChange={(v) => setMethod(v as HttpMethod)}
+        >
           <SelectTrigger className="w-32">
             <SelectValue />
           </SelectTrigger>
@@ -159,21 +174,31 @@ export function CurlBuilder() {
             <div key={param.id} className="flex items-center gap-2">
               <Switch
                 checked={param.enabled}
-                onCheckedChange={(checked) => updateQueryParam(param.id, { enabled: checked })}
+                onCheckedChange={(checked) =>
+                  updateQueryParam(param.id, { enabled: checked })
+                }
               />
               <Input
                 value={param.key}
-                onChange={(e) => updateQueryParam(param.id, { key: e.target.value })}
+                onChange={(e) =>
+                  updateQueryParam(param.id, { key: e.target.value })
+                }
                 placeholder="Key"
                 className="flex-1"
               />
               <Input
                 value={param.value}
-                onChange={(e) => updateQueryParam(param.id, { value: e.target.value })}
+                onChange={(e) =>
+                  updateQueryParam(param.id, { value: e.target.value })
+                }
                 placeholder="Value"
                 className="flex-1"
               />
-              <Button variant="ghost" size="sm" onClick={() => removeQueryParam(param.id)}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeQueryParam(param.id)}
+              >
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
@@ -190,21 +215,31 @@ export function CurlBuilder() {
             <div key={header.id} className="flex items-center gap-2">
               <Switch
                 checked={header.enabled}
-                onCheckedChange={(checked) => updateHeader(header.id, { enabled: checked })}
+                onCheckedChange={(checked) =>
+                  updateHeader(header.id, { enabled: checked })
+                }
               />
               <Input
                 value={header.key}
-                onChange={(e) => updateHeader(header.id, { key: e.target.value })}
+                onChange={(e) =>
+                  updateHeader(header.id, { key: e.target.value })
+                }
                 placeholder="Header Name"
                 className="flex-1"
               />
               <Input
                 value={header.value}
-                onChange={(e) => updateHeader(header.id, { value: e.target.value })}
+                onChange={(e) =>
+                  updateHeader(header.id, { value: e.target.value })
+                }
                 placeholder="Value"
                 className="flex-1"
               />
-              <Button variant="ghost" size="sm" onClick={() => removeHeader(header.id)}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => removeHeader(header.id)}
+              >
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
@@ -219,7 +254,10 @@ export function CurlBuilder() {
         <TabsContent value="auth" className="space-y-4">
           <div className="space-y-2">
             <Label>인증 유형</Label>
-            <Select value={authType} onValueChange={(v) => setAuthType(v as AuthType)}>
+            <Select
+              value={authType}
+              onValueChange={(v) => setAuthType(v as AuthType)}
+            >
               <SelectTrigger className="w-48">
                 <SelectValue />
               </SelectTrigger>
@@ -270,7 +308,10 @@ export function CurlBuilder() {
         <TabsContent value="body" className="space-y-4">
           <div className="space-y-2">
             <Label>Body 유형</Label>
-            <Select value={bodyType} onValueChange={(v) => setBodyType(v as BodyType)}>
+            <Select
+              value={bodyType}
+              onValueChange={(v) => setBodyType(v as BodyType)}
+            >
               <SelectTrigger className="w-48">
                 <SelectValue />
               </SelectTrigger>
@@ -286,7 +327,11 @@ export function CurlBuilder() {
           {bodyType !== "none" && (
             <div className="space-y-2">
               <Label>
-                {bodyType === "json" ? "JSON Body" : bodyType === "form" ? "Form Data" : "Raw Body"}
+                {bodyType === "json"
+                  ? "JSON Body"
+                  : bodyType === "form"
+                    ? "Form Data"
+                    : "Raw Body"}
               </Label>
               <Textarea
                 value={bodyContent}
@@ -295,8 +340,8 @@ export function CurlBuilder() {
                   bodyType === "json"
                     ? '{"key": "value"}'
                     : bodyType === "form"
-                    ? "key=value&key2=value2"
-                    : "Enter raw body..."
+                      ? "key=value&key2=value2"
+                      : "Enter raw body..."
                 }
                 className="font-mono text-sm min-h-[150px]"
               />
@@ -309,8 +354,17 @@ export function CurlBuilder() {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <Label>생성된 cURL 명령어</Label>
-          <Button variant="outline" size="sm" onClick={handleCopy} disabled={!curlCommand}>
-            {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleCopy}
+            disabled={!curlCommand}
+          >
+            {copied ? (
+              <Check className="h-4 w-4 mr-2" />
+            ) : (
+              <Copy className="h-4 w-4 mr-2" />
+            )}
             {copied ? "복사됨" : "복사"}
           </Button>
         </div>

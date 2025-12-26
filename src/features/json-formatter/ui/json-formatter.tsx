@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Copy,
   Check,
@@ -10,8 +11,17 @@ import {
   X,
   FileJson,
 } from "lucide-react";
-import { Button, ShareButton, EmptyState } from "@/shared/ui";
-import { ToolActionsBar } from "@/features/tool-actions";
+import {
+  Button,
+  ShareButton,
+  EmptyState,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/ui";
+import { ToolActionsBar } from "@/widgets/tool-actions";
 import { useCopyToClipboard } from "@/shared/lib";
 import { useJsonFormatter, type FormatMode } from "../model/use-json-formatter";
 import { usePipelineInput } from "@/features/tool-pipeline";
@@ -83,23 +93,24 @@ export function JsonFormatter() {
         ))}
 
         <div className="flex items-center gap-2 ml-auto">
-          <label
-            htmlFor="indent-select"
-            className="text-sm text-muted-foreground"
+          <span className="text-sm text-muted-foreground">Indent:</span>
+          <Select
+            value={String(indent)}
+            onValueChange={(value) => setIndent(Number(value))}
           >
-            Indent:
-          </label>
-          <select
-            id="indent-select"
-            value={indent}
-            onChange={(e) => setIndent(Number(e.target.value))}
-            className="h-8 rounded-md border bg-background px-2 text-sm"
-            aria-label="Select indentation size"
-          >
-            <option value={2}>2 spaces</option>
-            <option value={4}>4 spaces</option>
-            <option value={1}>1 tab</option>
-          </select>
+            <SelectTrigger
+              size="sm"
+              className="w-[100px]"
+              aria-label="Select indentation size"
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="2">2 spaces</SelectItem>
+              <SelectItem value="4">4 spaces</SelectItem>
+              <SelectItem value="1">1 tab</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <Button
@@ -213,16 +224,22 @@ export function JsonFormatter() {
       )}
 
       {/* Error display */}
-      {error && (
-        <div
-          id="json-error"
-          role="alert"
-          aria-live="polite"
-          className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive"
-        >
-          {error}
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {error && (
+          <motion.div
+            id="json-error"
+            role="alert"
+            aria-live="polite"
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            transition={{ duration: 0.15 }}
+            className="rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive"
+          >
+            {error}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Input/Output */}
       <div className="grid gap-4 lg:grid-cols-2">
@@ -258,7 +275,7 @@ export function JsonFormatter() {
               >
                 {copied ? (
                   <Check
-                    className="h-4 w-4 text-green-500 transition-transform duration-200 scale-110"
+                    className="h-4 w-4 text-success transition-transform duration-200 scale-110"
                     aria-hidden="true"
                   />
                 ) : (
@@ -286,7 +303,7 @@ export function JsonFormatter() {
               value={output}
               readOnly
               placeholder="Formatted output will appear here"
-              className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+              className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               spellCheck={false}
               aria-readonly="true"
             />

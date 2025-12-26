@@ -565,7 +565,7 @@ function EndpointSection({
   return (
     <div className="mb-10 p-6 rounded-lg border bg-card">
       <div className="flex items-center gap-3 mb-3">
-        <span className="px-2 py-1 text-xs font-bold rounded bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+        <span className="px-2 py-1 text-xs font-bold rounded bg-success/10 text-success">
           {method}
         </span>
         <code className="text-sm font-medium">{path}</code>
@@ -597,7 +597,7 @@ function EndpointSection({
                   <td className="p-2 text-muted-foreground">{param.type}</td>
                   <td className="p-2">
                     {param.required ? (
-                      <span className="text-green-600">Yes</span>
+                      <span className="text-success">Yes</span>
                     ) : (
                       <span className="text-muted-foreground">No</span>
                     )}

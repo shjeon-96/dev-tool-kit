@@ -4,6 +4,7 @@ export {
   getToolsByCategory,
   getSortedCategories,
 } from "./model";
+export { toolComponents, registeredToolSlugs, hasToolComponent } from "./model";
 export type {
   Tool,
   ToolSlug,

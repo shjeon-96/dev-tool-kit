@@ -50,7 +50,7 @@ export function ToolSeoSection({ slug }: ToolSeoSectionProps) {
       {content.whyNeeded && (
         <div className="space-y-3">
           <h2 className="text-xl font-semibold tracking-tight flex items-center gap-2">
-            <Lightbulb className="h-5 w-5 text-yellow-500" />왜 이 도구가
+            <Lightbulb className="h-5 w-5 text-warning" />왜 이 도구가
             필요한가요?
           </h2>
           <p className="text-muted-foreground leading-relaxed">
@@ -87,16 +87,16 @@ export function ToolSeoSection({ slug }: ToolSeoSectionProps) {
       {content.advantages && content.advantages.length > 0 && (
         <div className="space-y-3">
           <h2 className="text-xl font-semibold tracking-tight flex items-center gap-2">
-            <CheckCircle2 className="h-5 w-5 text-green-500" />
+            <CheckCircle2 className="h-5 w-5 text-success" />
             DevToolkit의 차별점
           </h2>
           <ul className="grid gap-2 sm:grid-cols-2">
             {content.advantages.map((advantage, index) => (
               <li
                 key={index}
-                className="flex items-start gap-2 text-muted-foreground bg-green-50 dark:bg-green-950/20 rounded-lg p-3"
+                className="flex items-start gap-2 text-muted-foreground bg-success/10 rounded-lg p-3"
               >
-                <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                <CheckCircle2 className="h-4 w-4 text-success mt-0.5 flex-shrink-0" />
                 <span className="text-sm">{advantage}</span>
               </li>
             ))}
@@ -108,7 +108,7 @@ export function ToolSeoSection({ slug }: ToolSeoSectionProps) {
       {content.useCases && content.useCases.length > 0 && (
         <div className="space-y-3">
           <h2 className="text-xl font-semibold tracking-tight flex items-center gap-2">
-            <Target className="h-5 w-5 text-blue-500" />
+            <Target className="h-5 w-5 text-info" />
             실제 사용 사례
           </h2>
           <ul className="grid gap-2 sm:grid-cols-2">
@@ -117,7 +117,7 @@ export function ToolSeoSection({ slug }: ToolSeoSectionProps) {
                 key={index}
                 className="flex items-start gap-2 text-muted-foreground"
               >
-                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-blue-500 flex-shrink-0" />
+                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-info flex-shrink-0" />
                 <span className="text-sm">{useCase}</span>
               </li>
             ))}
@@ -129,34 +129,30 @@ export function ToolSeoSection({ slug }: ToolSeoSectionProps) {
       {content.troubleshooting && content.troubleshooting.length > 0 && (
         <div className="space-y-3">
           <h2 className="text-xl font-semibold tracking-tight flex items-center gap-2">
-            <Wrench className="h-5 w-5 text-orange-500" />
+            <Wrench className="h-5 w-5 text-warning" />
             문제 해결 가이드
           </h2>
           <div className="space-y-2">
             {content.troubleshooting.map((item, index) => (
               <div
                 key={index}
-                className="rounded-lg border border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-950/20 overflow-hidden"
+                className="rounded-lg border border-warning/30 bg-warning/10 overflow-hidden"
               >
                 <button
                   type="button"
                   onClick={() => toggleTroubleshoot(index)}
-                  className="flex w-full items-center justify-between px-4 py-3 text-left font-medium hover:bg-orange-100/50 dark:hover:bg-orange-900/20 transition-colors"
+                  className="flex w-full items-center justify-between px-4 py-3 text-left font-medium hover:bg-warning/20 transition-colors"
                 >
-                  <span className="text-orange-800 dark:text-orange-200">
-                    {item.problem}
-                  </span>
+                  <span className="text-warning">{item.problem}</span>
                   <ChevronDown
-                    className={`h-4 w-4 text-orange-500 transition-transform ${
+                    className={`h-4 w-4 text-warning transition-transform ${
                       openTroubleshootIndex === index ? "rotate-180" : ""
                     }`}
                   />
                 </button>
                 {openTroubleshootIndex === index && (
-                  <div className="px-4 pb-3 text-muted-foreground border-t border-orange-200 dark:border-orange-900 pt-3">
-                    <span className="font-medium text-green-600 dark:text-green-400">
-                      해결:{" "}
-                    </span>
+                  <div className="px-4 pb-3 text-muted-foreground border-t border-warning/30 pt-3">
+                    <span className="font-medium text-success">해결: </span>
                     {item.solution}
                   </div>
                 )}

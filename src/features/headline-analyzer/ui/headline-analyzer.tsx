@@ -145,25 +145,25 @@ export function HeadlineAnalyzer() {
               label="Common Words"
               percentage={analysis.wordBalance.commonPercentage}
               words={analysis.wordBalance.commonWords}
-              color="bg-slate-400"
+              color="bg-muted-foreground"
             />
             <WordBalanceBar
               label="Uncommon Words"
               percentage={analysis.wordBalance.uncommonPercentage}
               words={analysis.wordBalance.uncommonWords}
-              color="bg-blue-500"
+              color="bg-info"
             />
             <WordBalanceBar
               label="Emotional Words"
               percentage={analysis.wordBalance.emotionalPercentage}
               words={analysis.wordBalance.emotionalWords}
-              color="bg-purple-500"
+              color="bg-primary"
             />
             <WordBalanceBar
               label="Power Words"
               percentage={analysis.wordBalance.powerPercentage}
               words={analysis.wordBalance.powerWords}
-              color="bg-orange-500"
+              color="bg-warning"
             />
           </CardContent>
         </Card>
@@ -201,14 +201,12 @@ export function HeadlineAnalyzer() {
                 <div className="mt-3 space-y-2">
                   {analysis.sentiment.positiveWords.length > 0 && (
                     <div className="flex flex-wrap gap-1">
-                      <span className="text-xs text-green-600 dark:text-green-400">
-                        +
-                      </span>
+                      <span className="text-xs text-success">+</span>
                       {analysis.sentiment.positiveWords.map((word) => (
                         <Badge
                           key={word}
                           variant="outline"
-                          className="text-xs bg-green-50 dark:bg-green-950"
+                          className="text-xs bg-success/10"
                         >
                           {word}
                         </Badge>
@@ -217,14 +215,12 @@ export function HeadlineAnalyzer() {
                   )}
                   {analysis.sentiment.negativeWords.length > 0 && (
                     <div className="flex flex-wrap gap-1">
-                      <span className="text-xs text-red-600 dark:text-red-400">
-                        -
-                      </span>
+                      <span className="text-xs text-destructive">-</span>
                       {analysis.sentiment.negativeWords.map((word) => (
                         <Badge
                           key={word}
                           variant="outline"
-                          className="text-xs bg-red-50 dark:bg-red-950"
+                          className="text-xs bg-destructive/10"
                         >
                           {word}
                         </Badge>
@@ -280,7 +276,7 @@ export function HeadlineAnalyzer() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Lightbulb className="h-5 w-5 text-yellow-500" />
+              <Lightbulb className="h-5 w-5 text-warning" />
               Suggestions
             </CardTitle>
           </CardHeader>
@@ -288,7 +284,7 @@ export function HeadlineAnalyzer() {
             <ul className="space-y-2">
               {analysis.suggestions.map((suggestion, index) => (
                 <li key={index} className="flex items-start gap-2">
-                  <Zap className="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                  <Zap className="h-4 w-4 text-warning mt-0.5 flex-shrink-0" />
                   <span className="text-sm">{suggestion}</span>
                 </li>
               ))}
@@ -354,7 +350,7 @@ function SeoFactor({ label, value }: SeoFactorProps) {
       <div
         className={cn(
           "w-3 h-3 rounded-full",
-          value ? "bg-green-500" : "bg-muted",
+          value ? "bg-success" : "bg-muted",
         )}
       />
       <span className="text-sm">{label}</span>

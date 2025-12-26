@@ -156,7 +156,7 @@ export function BgRemover() {
           </RadioGroup>
 
           {modelState.isLoaded && modelState.modelType && (
-            <div className="mt-4 flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
+            <div className="mt-4 flex items-center gap-2 text-sm text-success">
               <Zap className="h-4 w-4" />
               {t("modelSelection.loaded", {
                 model: availableModels[modelState.modelType].displayName,

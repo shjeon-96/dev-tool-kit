@@ -181,7 +181,7 @@ export default async function ErrorFixPage({ params }: Props) {
         {/* Cause */}
         <section>
           <h2 className="mb-3 flex items-center gap-2 text-xl font-semibold">
-            <AlertCircle className="h-5 w-5 text-orange-500" />
+            <AlertCircle className="h-5 w-5 text-warning" />
             {t("cause")}
           </h2>
           <p className="text-muted-foreground">{errorFix.cause}</p>
@@ -197,7 +197,7 @@ export default async function ErrorFixPage({ params }: Props) {
         {/* Fix Steps */}
         <section>
           <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-            <Lightbulb className="h-5 w-5 text-yellow-500" />
+            <Lightbulb className="h-5 w-5 text-warning" />
             {t("solutions")}
           </h2>
 
@@ -253,7 +253,7 @@ export default async function ErrorFixPage({ params }: Props) {
         {errorFix.relatedTools.length > 0 && (
           <section>
             <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-              <CheckCircle className="h-5 w-5 text-green-500" />
+              <CheckCircle className="h-5 w-5 text-success" />
               {t("validateWithTools")}
             </h2>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -297,7 +297,7 @@ export default async function ErrorFixPage({ params }: Props) {
         {errorFix.faq.length > 0 && (
           <section>
             <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-              <HelpCircle className="h-5 w-5 text-purple-500" />
+              <HelpCircle className="h-5 w-5 text-primary" />
               {t("faq")}
             </h2>
             <div

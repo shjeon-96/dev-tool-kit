@@ -11,7 +11,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui";
-import { Copy, Check, RefreshCw, Monitor, Smartphone, Globe } from "lucide-react";
+import {
+  Copy,
+  Check,
+  RefreshCw,
+  Monitor,
+  Smartphone,
+  Globe,
+} from "lucide-react";
 import { useState } from "react";
 
 function InfoCard({
@@ -125,7 +132,7 @@ export function UAParser() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <InfoCard
             title="브라우저"
-            icon={<Globe className="h-5 w-5 text-blue-500" />}
+            icon={<Globe className="h-5 w-5 text-info" />}
             items={[
               { label: "이름", value: parsedResult.browser.name },
               { label: "버전", value: parsedResult.browser.version },
@@ -135,7 +142,7 @@ export function UAParser() {
 
           <InfoCard
             title="엔진"
-            icon={<Monitor className="h-5 w-5 text-green-500" />}
+            icon={<Monitor className="h-5 w-5 text-success" />}
             items={[
               { label: "이름", value: parsedResult.engine.name },
               { label: "버전", value: parsedResult.engine.version },
@@ -144,7 +151,7 @@ export function UAParser() {
 
           <InfoCard
             title="운영체제"
-            icon={<Monitor className="h-5 w-5 text-purple-500" />}
+            icon={<Monitor className="h-5 w-5 text-primary" />}
             items={[
               { label: "이름", value: parsedResult.os.name },
               { label: "버전", value: parsedResult.os.version },
@@ -153,7 +160,7 @@ export function UAParser() {
 
           <InfoCard
             title="디바이스"
-            icon={<Smartphone className="h-5 w-5 text-orange-500" />}
+            icon={<Smartphone className="h-5 w-5 text-warning" />}
             items={[
               { label: "제조사", value: parsedResult.device.vendor },
               { label: "모델", value: parsedResult.device.model },
@@ -163,7 +170,7 @@ export function UAParser() {
 
           <InfoCard
             title="CPU"
-            icon={<Monitor className="h-5 w-5 text-red-500" />}
+            icon={<Monitor className="h-5 w-5 text-destructive" />}
             items={[
               { label: "아키텍처", value: parsedResult.cpu.architecture },
             ]}

@@ -136,3 +136,11 @@ export {
   TableCell,
   TableCaption,
 } from "./table";
+// SEO Components
+export {
+  BreadcrumbNav,
+  FAQSectionSEO,
+  FeaturesSection,
+  RelatedTools,
+  UseCasesSection,
+} from "./seo";

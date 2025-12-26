@@ -81,14 +81,14 @@ export function CssToTailwind() {
           {/* Unsupported */}
           {result.unsupported.length > 0 && (
             <div className="space-y-2">
-              <div className="flex items-center gap-2 text-amber-600">
+              <div className="flex items-center gap-2 text-warning">
                 <AlertCircle className="h-4 w-4" />
-                <Label className="text-amber-600">변환 불가 속성</Label>
+                <Label className="text-warning">변환 불가 속성</Label>
               </div>
-              <div className="p-4 rounded-lg border border-amber-200 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800">
+              <div className="p-4 rounded-lg border border-warning/30 bg-warning/10">
                 <ul className="text-sm font-mono space-y-1">
                   {result.unsupported.map((item, i) => (
-                    <li key={i} className="text-amber-700 dark:text-amber-400">
+                    <li key={i} className="text-warning">
                       {item}
                     </li>
                   ))}

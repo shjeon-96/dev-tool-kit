@@ -113,21 +113,17 @@ export function ValidateTypeTool({ type, locale }: ValidateTypeToolProps) {
           {/* Status */}
           <div
             className={`flex items-center gap-3 p-4 rounded-lg ${
-              result.isValid
-                ? "bg-green-50 dark:bg-green-900/20"
-                : "bg-red-50 dark:bg-red-900/20"
+              result.isValid ? "bg-success/10" : "bg-destructive/10"
             }`}
           >
             {result.isValid ? (
-              <CheckCircle2 className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <CheckCircle2 className="h-6 w-6 text-success" />
             ) : (
-              <XCircle className="h-6 w-6 text-red-600 dark:text-red-400" />
+              <XCircle className="h-6 w-6 text-destructive" />
             )}
             <span
               className={`font-medium ${
-                result.isValid
-                  ? "text-green-700 dark:text-green-300"
-                  : "text-red-700 dark:text-red-300"
+                result.isValid ? "text-success" : "text-destructive"
               }`}
             >
               {result.isValid
@@ -139,7 +135,7 @@ export function ValidateTypeTool({ type, locale }: ValidateTypeToolProps) {
           {/* Errors */}
           {result.errors.length > 0 && (
             <div className="space-y-2">
-              <h4 className="font-medium flex items-center gap-2 text-red-600 dark:text-red-400">
+              <h4 className="font-medium flex items-center gap-2 text-destructive">
                 <XCircle className="h-4 w-4" />
                 {labels.errors[localeKey] || labels.errors.en} (
                 {result.errors.length})
@@ -148,7 +144,7 @@ export function ValidateTypeTool({ type, locale }: ValidateTypeToolProps) {
                 {result.errors.map((error, index) => (
                   <li
                     key={index}
-                    className="p-2 bg-red-50 dark:bg-red-900/10 rounded text-red-700 dark:text-red-300"
+                    className="p-2 bg-destructive/10 rounded text-destructive"
                   >
                     {error}
                   </li>
@@ -160,7 +156,7 @@ export function ValidateTypeTool({ type, locale }: ValidateTypeToolProps) {
           {/* Warnings */}
           {result.warnings.length > 0 && (
             <div className="space-y-2">
-              <h4 className="font-medium flex items-center gap-2 text-yellow-600 dark:text-yellow-400">
+              <h4 className="font-medium flex items-center gap-2 text-warning">
                 <AlertTriangle className="h-4 w-4" />
                 {labels.warnings[localeKey] || labels.warnings.en} (
                 {result.warnings.length})
@@ -169,7 +165,7 @@ export function ValidateTypeTool({ type, locale }: ValidateTypeToolProps) {
                 {result.warnings.map((warning, index) => (
                   <li
                     key={index}
-                    className="p-2 bg-yellow-50 dark:bg-yellow-900/10 rounded text-yellow-700 dark:text-yellow-300"
+                    className="p-2 bg-warning/10 rounded text-warning"
                   >
                     {warning}
                   </li>

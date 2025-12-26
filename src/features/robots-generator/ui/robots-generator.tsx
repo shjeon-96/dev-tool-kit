@@ -18,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 import { Plus, Trash2, Copy, Download, Upload } from "lucide-react";
 import { useRobotsGenerator } from "../model/use-robots-generator";
 import { DEFAULT_USER_AGENTS, COMMON_PATHS } from "../lib/types";
-import { useCopyToClipboard } from "@/shared/lib/hooks/use-copy-to-clipboard";
+import { useCopyToClipboard } from "@/shared/lib/hooks";
 
 export function RobotsGenerator() {
   const t = useTranslations("tools.robots-generator");
@@ -119,10 +119,10 @@ export function RobotsGenerator() {
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="allow">
-                            <span className="text-green-600">Allow</span>
+                            <span className="text-success">Allow</span>
                           </SelectItem>
                           <SelectItem value="disallow">
-                            <span className="text-red-600">Disallow</span>
+                            <span className="text-destructive">Disallow</span>
                           </SelectItem>
                         </SelectContent>
                       </Select>

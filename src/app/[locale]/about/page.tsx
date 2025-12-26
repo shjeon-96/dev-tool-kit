@@ -127,7 +127,7 @@ export default async function AboutPage({ params }: Props) {
       {/* Mission Section */}
       <section className="bg-muted/30 rounded-xl p-8 space-y-4">
         <div className="flex items-center justify-center gap-2">
-          <Heart className="h-6 w-6 text-red-500" />
+          <Heart className="h-6 w-6 text-destructive" />
           <h2 className="text-2xl font-semibold">
             {isKorean ? "우리의 미션" : "Our Mission"}
           </h2>

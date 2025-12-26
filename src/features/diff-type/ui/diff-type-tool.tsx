@@ -79,7 +79,7 @@ export function DiffTypeTool({ type, locale }: DiffTypeToolProps) {
         <span className="inline-flex items-center px-2 py-1 rounded-full bg-muted capitalize">
           {type.category}
         </span>
-        <span className="inline-flex items-center px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+        <span className="inline-flex items-center px-2 py-1 rounded-full bg-info/10 text-info">
           {type.fileExtension}
         </span>
       </div>
@@ -130,20 +130,20 @@ export function DiffTypeTool({ type, locale }: DiffTypeToolProps) {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 p-4 bg-muted/50 rounded-lg text-sm">
             <div className="flex items-center gap-2">
-              <Plus className="h-4 w-4 text-green-600 dark:text-green-400" />
+              <Plus className="h-4 w-4 text-success" />
               <span className="text-muted-foreground">
                 {labels.added[localeKey] || labels.added.en}:
               </span>
-              <span className="font-mono font-medium text-green-600 dark:text-green-400">
+              <span className="font-mono font-medium text-success">
                 {result.stats.added}
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <Minus className="h-4 w-4 text-red-600 dark:text-red-400" />
+              <Minus className="h-4 w-4 text-destructive" />
               <span className="text-muted-foreground">
                 {labels.removed[localeKey] || labels.removed.en}:
               </span>
-              <span className="font-mono font-medium text-red-600 dark:text-red-400">
+              <span className="font-mono font-medium text-destructive">
                 {result.stats.removed}
               </span>
             </div>
@@ -170,9 +170,9 @@ export function DiffTypeTool({ type, locale }: DiffTypeToolProps) {
                         key={index}
                         className={
                           line.type === "added"
-                            ? "bg-green-50 dark:bg-green-900/20"
+                            ? "bg-success/10"
                             : line.type === "removed"
-                              ? "bg-red-50 dark:bg-red-900/20"
+                              ? "bg-destructive/10"
                               : ""
                         }
                       >
@@ -184,9 +184,9 @@ export function DiffTypeTool({ type, locale }: DiffTypeToolProps) {
                         </td>
                         <td className="w-6 px-2 py-1 text-center border-r select-none">
                           {line.type === "added" ? (
-                            <Plus className="h-3 w-3 text-green-600 dark:text-green-400 inline" />
+                            <Plus className="h-3 w-3 text-success inline" />
                           ) : line.type === "removed" ? (
-                            <Minus className="h-3 w-3 text-red-600 dark:text-red-400 inline" />
+                            <Minus className="h-3 w-3 text-destructive inline" />
                           ) : (
                             <span className="text-muted-foreground">
                               &nbsp;
@@ -196,9 +196,9 @@ export function DiffTypeTool({ type, locale }: DiffTypeToolProps) {
                         <td
                           className={`px-2 py-1 whitespace-pre ${
                             line.type === "added"
-                              ? "text-green-700 dark:text-green-300"
+                              ? "text-success"
                               : line.type === "removed"
-                                ? "text-red-700 dark:text-red-300"
+                                ? "text-destructive"
                                 : ""
                           }`}
                         >

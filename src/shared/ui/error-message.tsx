@@ -1,8 +1,16 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, RefreshCw, X } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "./button";
+
+const errorAnimation = {
+  initial: { opacity: 0, y: -4 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -4 },
+  transition: { duration: 0.15, ease: "easeOut" as const },
+};
 
 interface ErrorMessageProps {
   title?: string;
@@ -23,9 +31,10 @@ export function ErrorMessage({
 }: ErrorMessageProps) {
   if (variant === "card") {
     return (
-      <div
+      <motion.div
         role="alert"
         aria-live="polite"
+        {...errorAnimation}
         className={cn(
           "rounded-lg border border-destructive/20 bg-destructive/10 p-4",
           className,
@@ -77,14 +86,15 @@ export function ErrorMessage({
             </Button>
           )}
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div
+    <motion.div
       role="alert"
       aria-live="polite"
+      {...errorAnimation}
       className={cn(
         "flex items-center gap-2 rounded-md bg-destructive/10 border border-destructive/20 p-3 text-sm text-destructive",
         className,
@@ -103,7 +113,7 @@ export function ErrorMessage({
           <X className="h-3 w-3" aria-hidden="true" />
         </Button>
       )}
-    </div>
+    </motion.div>
   );
 }
 

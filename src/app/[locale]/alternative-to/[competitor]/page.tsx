@@ -66,18 +66,18 @@ function ComparisonCell({ point }: { point: ComparisonPoint }) {
   const getValue = (value: string | boolean, isWebToolkit: boolean) => {
     if (typeof value === "boolean") {
       return value ? (
-        <Check className="h-5 w-5 text-green-500" />
+        <Check className="h-5 w-5 text-success" />
       ) : (
-        <X className="h-5 w-5 text-red-500" />
+        <X className="h-5 w-5 text-destructive" />
       );
     }
     return (
       <span
         className={
           isWebToolkit && point.advantage === "web-toolkit"
-            ? "font-medium text-green-600 dark:text-green-400"
+            ? "font-medium text-success"
             : !isWebToolkit && point.advantage === "competitor"
-              ? "font-medium text-green-600 dark:text-green-400"
+              ? "font-medium text-success"
               : ""
         }
       >
@@ -89,18 +89,18 @@ function ComparisonCell({ point }: { point: ComparisonPoint }) {
   const getAdvantageIcon = () => {
     switch (point.advantage) {
       case "web-toolkit":
-        return <Check className="h-4 w-4 text-green-500" />;
+        return <Check className="h-4 w-4 text-success" />;
       case "competitor":
-        return <X className="h-4 w-4 text-red-500" />;
+        return <X className="h-4 w-4 text-destructive" />;
       default:
-        return <Minus className="h-4 w-4 text-gray-400" />;
+        return <Minus className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
   return (
     <tr className="border-b">
       <td className="py-3 px-4 font-medium">{point.feature}</td>
-      <td className="py-3 px-4 text-center bg-green-50/50 dark:bg-green-950/20">
+      <td className="py-3 px-4 text-center bg-success/5">
         {getValue(point.webToolkit, true)}
       </td>
       <td className="py-3 px-4 text-center">
@@ -171,7 +171,7 @@ export default async function CompetitorPage({ params }: Props) {
         {/* Hero Section */}
         <header className="space-y-4">
           <div className="flex items-center gap-2 text-sm">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-3 py-1 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-success/10 px-3 py-1 text-success">
               <Shield className="h-3.5 w-3.5" />
               {t("detail.privacyFirst")}
             </span>
@@ -187,22 +187,22 @@ export default async function CompetitorPage({ params }: Props) {
 
         {/* Quick Stats */}
         <div className="grid gap-4 sm:grid-cols-3">
-          <div className="rounded-lg border bg-green-50 p-4 dark:bg-green-950/20">
-            <div className="text-3xl font-bold text-green-600">
+          <div className="rounded-lg border bg-success/10 p-4">
+            <div className="text-3xl font-bold text-success">
               {advantageCount}/{competitor.comparisonPoints.length}
             </div>
             <div className="text-sm text-muted-foreground">
               {t("detail.categoriesWon")}
             </div>
           </div>
-          <div className="rounded-lg border bg-blue-50 p-4 dark:bg-blue-950/20">
-            <div className="text-3xl font-bold text-blue-600">43+</div>
+          <div className="rounded-lg border bg-info/10 p-4">
+            <div className="text-3xl font-bold text-info">43+</div>
             <div className="text-sm text-muted-foreground">
               {t("detail.toolsAvailable")}
             </div>
           </div>
-          <div className="rounded-lg border bg-purple-50 p-4 dark:bg-purple-950/20">
-            <div className="text-3xl font-bold text-purple-600">100%</div>
+          <div className="rounded-lg border bg-primary/10 p-4">
+            <div className="text-3xl font-bold text-primary">100%</div>
             <div className="text-sm text-muted-foreground">
               {t("detail.clientSide")}
             </div>
@@ -221,7 +221,7 @@ export default async function CompetitorPage({ params }: Props) {
                   <th className="py-3 px-4 text-left font-semibold">
                     {t("detail.feature")}
                   </th>
-                  <th className="py-3 px-4 text-center font-semibold bg-green-100/50 dark:bg-green-900/20">
+                  <th className="py-3 px-4 text-center font-semibold bg-success/10">
                     Web Toolkit
                   </th>
                   <th className="py-3 px-4 text-center font-semibold">
@@ -244,16 +244,16 @@ export default async function CompetitorPage({ params }: Props) {
         {/* Weaknesses Section */}
         <section>
           <h2 className="mb-4 flex items-center gap-2 text-xl font-semibold">
-            <AlertTriangle className="h-5 w-5 text-orange-500" />
+            <AlertTriangle className="h-5 w-5 text-warning" />
             {t("detail.whySwitch", { competitor: competitor.name })}
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {competitor.weaknesses.map((weakness, i) => (
               <div
                 key={i}
-                className="flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-900/50 dark:bg-red-950/20"
+                className="flex items-start gap-3 rounded-lg border border-destructive/30 bg-destructive/10 p-4"
               >
-                <X className="mt-0.5 h-5 w-5 shrink-0 text-red-500" />
+                <X className="mt-0.5 h-5 w-5 shrink-0 text-destructive" />
                 <span className="text-sm">{weakness}</span>
               </div>
             ))}

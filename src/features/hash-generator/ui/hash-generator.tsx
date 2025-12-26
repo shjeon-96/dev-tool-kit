@@ -14,7 +14,7 @@ import {
   EmptyState,
   FileUploader,
 } from "@/shared/ui";
-import { ToolActionsBar } from "@/features/tool-actions";
+import { ToolActionsBar } from "@/widgets/tool-actions";
 import { usePipelineReceiver } from "@/features/tool-pipeline";
 import {
   Copy,
@@ -356,8 +356,8 @@ export function HashGenerator() {
               aria-live="polite"
               className={`flex items-center gap-2 p-3 rounded-lg ${
                 comparisonResult
-                  ? "bg-green-500/10 text-green-600 dark:text-green-400"
-                  : "bg-red-500/10 text-red-600 dark:text-red-400"
+                  ? "bg-success/10 text-success"
+                  : "bg-destructive/10 text-destructive"
               }`}
             >
               {comparisonResult ? (

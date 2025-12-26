@@ -134,7 +134,7 @@ export function PdfSplit({ toolkit }: PdfSplitProps) {
       {/* Selected File */}
       {selectedFile && (
         <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg">
-          <File className="h-5 w-5 text-red-500" />
+          <File className="h-5 w-5 text-destructive" />
           <div className="flex-1 min-w-0">
             <p className="truncate font-medium">{selectedFile.name}</p>
             <p className="text-sm text-muted-foreground">

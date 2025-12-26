@@ -15,7 +15,10 @@ import {
 import { Copy, Check, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
-const flagDescriptions: Record<keyof RegexFlags, { label: string; desc: string }> = {
+const flagDescriptions: Record<
+  keyof RegexFlags,
+  { label: string; desc: string }
+> = {
   global: { label: "g", desc: "전역 검색" },
   ignoreCase: { label: "i", desc: "대소문자 무시" },
   multiline: { label: "m", desc: "여러 줄 모드" },
@@ -92,7 +95,9 @@ export function RegexTester() {
                 className="font-mono"
               />
               <span className="text-muted-foreground">/</span>
-              <span className="font-mono text-sm w-16">{flagString || "없음"}</span>
+              <span className="font-mono text-sm w-16">
+                {flagString || "없음"}
+              </span>
             </div>
             {error && (
               <div className="flex items-center gap-2 text-destructive text-sm">
@@ -106,17 +111,19 @@ export function RegexTester() {
           <div className="space-y-2">
             <Label>플래그</Label>
             <div className="flex flex-wrap gap-2">
-              {(Object.keys(flagDescriptions) as (keyof RegexFlags)[]).map((flag) => (
-                <Button
-                  key={flag}
-                  variant={flags[flag] ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => toggleFlag(flag)}
-                  title={flagDescriptions[flag].desc}
-                >
-                  {flagDescriptions[flag].label}
-                </Button>
-              ))}
+              {(Object.keys(flagDescriptions) as (keyof RegexFlags)[]).map(
+                (flag) => (
+                  <Button
+                    key={flag}
+                    variant={flags[flag] ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => toggleFlag(flag)}
+                    title={flagDescriptions[flag].desc}
+                  >
+                    {flagDescriptions[flag].label}
+                  </Button>
+                ),
+              )}
             </div>
           </div>
 
@@ -156,7 +163,9 @@ export function RegexTester() {
                 {highlightedText.map((part, i) => (
                   <span
                     key={i}
-                    className={part.isMatch ? "bg-yellow-300 dark:bg-yellow-700" : ""}
+                    className={
+                      part.isMatch ? "bg-warning/40 dark:bg-warning/30" : ""
+                    }
                   >
                     {part.text}
                   </span>

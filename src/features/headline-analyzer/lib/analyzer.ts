@@ -419,17 +419,17 @@ export function getGradeColor(grade: HeadlineGrade): string {
   switch (grade) {
     case "A+":
     case "A":
-      return "text-green-500";
+      return "text-success";
     case "B+":
     case "B":
-      return "text-blue-500";
+      return "text-info";
     case "C+":
     case "C":
-      return "text-yellow-500";
+      return "text-warning";
     case "D":
-      return "text-orange-500";
+      return "text-warning";
     case "F":
-      return "text-red-500";
+      return "text-destructive";
   }
 }
 

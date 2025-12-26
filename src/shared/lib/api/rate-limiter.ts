@@ -8,10 +8,7 @@
  * - Fallback to DB for persistence
  */
 
-import {
-  API_RATE_LIMITS,
-  type ApiRateLimits,
-} from "@/features/api-access/model/types";
+import { API_RATE_LIMITS, type ApiRateLimits } from "./types";
 
 export interface RateLimitResult {
   allowed: boolean;

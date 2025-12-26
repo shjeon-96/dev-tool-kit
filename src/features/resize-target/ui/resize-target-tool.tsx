@@ -203,7 +203,7 @@ export function ResizeTargetTool({ target, locale }: ResizeTargetToolProps) {
                   <p className="text-muted-foreground">
                     {t.dimensions}: {result.width}×{result.height}px
                   </p>
-                  <p className="text-green-600 dark:text-green-400 font-medium">
+                  <p className="text-success font-medium">
                     {((1 - result.newSize / result.originalSize) * 100).toFixed(
                       0,
                     )}
@@ -274,14 +274,12 @@ export function ResizeTargetTool({ target, locale }: ResizeTargetToolProps) {
 
           {/* Success Message */}
           {result?.success && (
-            <div className="rounded-lg border border-green-500/30 bg-green-500/10 p-4 flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500">
+            <div className="rounded-lg border border-success/30 bg-success/10 p-4 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-success">
                 <Check className="h-4 w-4 text-white" />
               </div>
               <div>
-                <p className="font-medium text-green-600 dark:text-green-400">
-                  {t.success}
-                </p>
+                <p className="font-medium text-success">{t.success}</p>
                 <p className="text-sm text-muted-foreground">
                   {locale === "ko"
                     ? `이미지가 ${getTargetDescription()}로 리사이즈되었습니다.`

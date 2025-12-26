@@ -200,11 +200,11 @@ export function truncateText(text: string, maxPixels: number): string {
 export function getStatusColor(status: "optimal" | "short" | "long"): string {
   switch (status) {
     case "optimal":
-      return "text-green-500";
+      return "text-success";
     case "short":
-      return "text-yellow-500";
+      return "text-warning";
     case "long":
-      return "text-red-500";
+      return "text-destructive";
   }
 }
 

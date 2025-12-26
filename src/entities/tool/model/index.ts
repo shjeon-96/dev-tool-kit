@@ -7,3 +7,8 @@ export {
   getSortedCategories,
   type CategoryConfig,
 } from "./tools-config";
+export {
+  toolComponents,
+  registeredToolSlugs,
+  hasToolComponent,
+} from "./component-map";

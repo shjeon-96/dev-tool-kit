@@ -161,16 +161,16 @@ export default async function ComparePage({ params }: Props) {
                       <td className="p-4">{feature.key}</td>
                       <td className="p-4 text-center">
                         {feature.weToolkit ? (
-                          <Check className="h-5 w-5 text-green-500 mx-auto" />
+                          <Check className="h-5 w-5 text-success mx-auto" />
                         ) : (
-                          <X className="h-5 w-5 text-red-500 mx-auto" />
+                          <X className="h-5 w-5 text-destructive mx-auto" />
                         )}
                       </td>
                       <td className="p-4 text-center">
                         {feature.competitor ? (
-                          <Check className="h-5 w-5 text-green-500 mx-auto" />
+                          <Check className="h-5 w-5 text-success mx-auto" />
                         ) : (
-                          <X className="h-5 w-5 text-red-500 mx-auto" />
+                          <X className="h-5 w-5 text-destructive mx-auto" />
                         )}
                       </td>
                     </tr>
@@ -194,7 +194,7 @@ export default async function ComparePage({ params }: Props) {
                   key={index}
                   className="flex items-start gap-3 rounded-lg border p-4"
                 >
-                  <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                  <Check className="h-5 w-5 text-success mt-0.5 flex-shrink-0" />
                   <span>{advantage}</span>
                 </li>
               ))}

@@ -34,7 +34,7 @@ export function PricingTiers() {
           )}
         >
           {t("billing.yearly")}
-          <span className="ml-2 text-xs text-green-600 dark:text-green-400">
+          <span className="ml-2 text-xs text-success">
             {t("billing.savePercent", { percent: 17 })}
           </span>
         </span>
@@ -202,7 +202,7 @@ function FeatureValue({
     return value ? (
       <X className="h-4 w-4 text-muted-foreground mx-auto" />
     ) : (
-      <Check className="h-4 w-4 text-green-500 mx-auto" />
+      <Check className="h-4 w-4 text-success mx-auto" />
     );
   }
 

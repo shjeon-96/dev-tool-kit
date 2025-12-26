@@ -286,7 +286,9 @@ export function MetaGenerator() {
               <FormField label="설명">
                 <Textarea
                   value={metaData.twitterDescription}
-                  onChange={(e) => updateField("twitterDescription", e.target.value)}
+                  onChange={(e) =>
+                    updateField("twitterDescription", e.target.value)
+                  }
                   placeholder="Twitter 카드 설명"
                   className="min-h-[80px]"
                 />
@@ -312,7 +314,9 @@ export function MetaGenerator() {
                 <FormField label="@작성자">
                   <Input
                     value={metaData.twitterCreator}
-                    onChange={(e) => updateField("twitterCreator", e.target.value)}
+                    onChange={(e) =>
+                      updateField("twitterCreator", e.target.value)
+                    }
                     placeholder="@authorhandle"
                   />
                 </FormField>
@@ -337,10 +341,10 @@ export function MetaGenerator() {
               Google 검색 결과
             </h4>
             <div className="space-y-1">
-              <p className="text-sm text-blue-600 dark:text-blue-400 truncate">
+              <p className="text-sm text-info truncate">
                 {previewData.google.url}
               </p>
-              <p className="text-lg text-blue-700 dark:text-blue-300 font-medium line-clamp-1">
+              <p className="text-lg text-info font-medium line-clamp-1">
                 {previewData.google.title}
               </p>
               <p className="text-sm text-muted-foreground line-clamp-2">
@@ -360,14 +364,18 @@ export function MetaGenerator() {
               </div>
             ) : (
               <div className="aspect-[1.91/1] bg-muted flex items-center justify-center">
-                <span className="text-sm text-muted-foreground">1200x630 이미지</span>
+                <span className="text-sm text-muted-foreground">
+                  1200x630 이미지
+                </span>
               </div>
             )}
             <div className="p-3 space-y-1">
               <p className="text-xs text-muted-foreground uppercase">
                 {previewData.facebook.siteName}
               </p>
-              <p className="font-medium line-clamp-1">{previewData.facebook.title}</p>
+              <p className="font-medium line-clamp-1">
+                {previewData.facebook.title}
+              </p>
               <p className="text-sm text-muted-foreground line-clamp-2">
                 {previewData.facebook.description}
               </p>
@@ -385,15 +393,21 @@ export function MetaGenerator() {
               </div>
             ) : (
               <div className="aspect-[2/1] bg-muted flex items-center justify-center">
-                <span className="text-sm text-muted-foreground">Twitter 이미지</span>
+                <span className="text-sm text-muted-foreground">
+                  Twitter 이미지
+                </span>
               </div>
             )}
             <div className="p-3 space-y-1">
-              <p className="font-medium line-clamp-1">{previewData.twitter.title}</p>
+              <p className="font-medium line-clamp-1">
+                {previewData.twitter.title}
+              </p>
               <p className="text-sm text-muted-foreground line-clamp-2">
                 {previewData.twitter.description}
               </p>
-              <p className="text-xs text-muted-foreground">{previewData.twitter.site}</p>
+              <p className="text-xs text-muted-foreground">
+                {previewData.twitter.site}
+              </p>
             </div>
           </div>
         </div>
@@ -413,7 +427,8 @@ export function MetaGenerator() {
           </Button>
         </div>
         <pre className="p-4 rounded-lg bg-muted font-mono text-sm overflow-x-auto whitespace-pre-wrap">
-          {generatedCode || "<!-- 위 필드를 입력하면 메타 태그가 생성됩니다 -->"}
+          {generatedCode ||
+            "<!-- 위 필드를 입력하면 메타 태그가 생성됩니다 -->"}
         </pre>
       </div>
     </div>

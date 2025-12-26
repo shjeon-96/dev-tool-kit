@@ -25,21 +25,21 @@ export function BulkStatusIcon({ status, className }: BulkStatusIconProps) {
     case "processing":
       return (
         <Loader2
-          className={cn("h-4 w-4 animate-spin text-blue-500", className)}
+          className={cn("h-4 w-4 animate-spin text-info", className)}
           aria-label="Processing"
         />
       );
     case "success":
       return (
         <CheckCircle2
-          className={cn("h-4 w-4 text-green-500", className)}
+          className={cn("h-4 w-4 text-success", className)}
           aria-label="Success"
         />
       );
     case "error":
       return (
         <XCircle
-          className={cn("h-4 w-4 text-red-500", className)}
+          className={cn("h-4 w-4 text-destructive", className)}
           aria-label="Error"
         />
       );
@@ -69,9 +69,9 @@ export function BulkStatsBar({ stats, className }: BulkStatsBarProps) {
     <div className={cn("flex gap-4 text-sm", className)}>
       <span>Total: {stats.total}</span>
       <span className="text-muted-foreground">|</span>
-      <span className="text-green-600">Success: {stats.success}</span>
+      <span className="text-success">Success: {stats.success}</span>
       <span className="text-muted-foreground">|</span>
-      <span className="text-red-600">Error: {stats.error}</span>
+      <span className="text-destructive">Error: {stats.error}</span>
       <span className="text-muted-foreground">|</span>
       <span className="text-muted-foreground">Remaining: {remaining}</span>
     </div>
