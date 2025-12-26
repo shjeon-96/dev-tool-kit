@@ -23,33 +23,29 @@ import {
   BrowserPromptBanner,
   ExportModeSelector,
 } from "@/shared/lib/fs-access";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/shared/ui/card";
-import { Badge } from "@/shared/ui/badge";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
-import { Textarea } from "@/shared/ui/textarea";
+} from "@/shared/ui";
+import { Badge } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
-import { useToast } from "@/shared/ui/toast";
+} from "@/shared/ui";
+import { useToast } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { UpgradeModal } from "@/entities/subscription";
-import {
-  BulkStatusIcon,
-  BulkStatsBar,
-  BulkProgressBar,
-} from "@/shared/ui/bulk-status";
+import { BulkStatusIcon, BulkStatsBar, BulkProgressBar } from "@/shared/ui";
 
 export function QrBulk() {
   const {

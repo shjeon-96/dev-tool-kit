@@ -10,10 +10,10 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/shared/ui/dialog";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
+} from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Label } from "@/shared/ui";
 import { getLeadMagnetForTool, getLeadMagnetId } from "../config/magnets";
 
 interface LeadCaptureModalProps {

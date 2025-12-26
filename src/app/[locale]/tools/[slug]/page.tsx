@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { tools, type ToolSlug, RelatedToolsSSR } from "@/entities/tool";
-import { ToolFeatureCards } from "@/entities/tool/ui/tool-feature-cards";
+import { ToolFeatureCards } from "@/entities/tool";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,

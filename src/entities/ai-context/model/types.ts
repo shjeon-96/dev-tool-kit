@@ -1,4 +1,4 @@
-import type { ToolSlug } from "@/entities/tool/model/types";
+import type { ToolSlug } from "@/entities/tool";
 
 /**
  * AI Context Entity Types

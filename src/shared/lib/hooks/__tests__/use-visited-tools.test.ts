@@ -2,7 +2,9 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 
 import { useVisitedTools } from "../use-visited-tools";
-import type { ToolSlug } from "@/entities/tool/model/types";
+
+// Test에서만 사용하는 타입 - entities 의존성 제거
+type ToolSlug = string;
 
 describe("useVisitedTools", () => {
   const STORAGE_KEY = "visited-tools";

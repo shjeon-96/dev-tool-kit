@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Save, Plus, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
+import { Button } from "@/shared/ui";
+import { Input } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import {
   useWorkspaces,

@@ -17,24 +17,24 @@ import {
 } from "lucide-react";
 import { useApiKeys } from "../model/use-api-keys";
 import type { ApiKeyCreateInput } from "../model/types";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/shared/ui/card";
-import { Badge } from "@/shared/ui/badge";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
+} from "@/shared/ui";
+import { Badge } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Label } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
+} from "@/shared/ui";
 import {
   Table,
   TableBody,
@@ -42,7 +42,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/shared/ui/table";
+} from "@/shared/ui";
 import {
   Dialog,
   DialogContent,
@@ -51,7 +51,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/shared/ui/dialog";
+} from "@/shared/ui";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -62,8 +62,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/shared/ui/alert-dialog";
-import { useToast } from "@/shared/ui/toast";
+} from "@/shared/ui";
+import { useToast } from "@/shared/ui";
 import { formatDate, formatRelativeDate } from "@/shared/lib";
 import { UpgradeModal } from "@/entities/subscription";
 

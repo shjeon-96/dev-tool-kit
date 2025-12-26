@@ -13,11 +13,11 @@ import {
 } from "lucide-react";
 import { useHeadlineAnalyzer } from "../model/use-headline-analyzer";
 import { getGradeColor, getHeadlineTypeLabel } from "../lib/analyzer";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Textarea } from "@/shared/ui/textarea";
-import { Button } from "@/shared/ui/button";
-import { Badge } from "@/shared/ui/badge";
-import { Progress } from "@/shared/ui/progress";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
+import { Progress } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
 export function HeadlineAnalyzer() {

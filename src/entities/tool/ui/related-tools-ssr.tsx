@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpen } from "lucide-react";
 import type { ToolSlug } from "../model/types";
 import { tools } from "../model/registry";
-import { guides } from "@/entities/guide/data";
+import { guides } from "@/entities/guide";
 
 interface RelatedToolsSSRProps {
   currentTool: ToolSlug;

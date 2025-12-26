@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 import { JsonBulk } from "@/features/bulk-actions/json-bulk";
 import { HashBulk } from "@/features/bulk-actions/hash-bulk";
 import { QrBulk } from "@/features/bulk-actions/qr-bulk";

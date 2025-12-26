@@ -12,26 +12,26 @@ import {
   X,
   Crown,
 } from "lucide-react";
-import { Button } from "@/shared/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Label } from "@/shared/ui/label";
-import { Input } from "@/shared/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
+import { Button } from "@/shared/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { RadioGroup, RadioGroupItem } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
-import { Slider } from "@/shared/ui/slider";
-import { Switch } from "@/shared/ui/switch";
+} from "@/shared/ui";
+import { Slider } from "@/shared/ui";
+import { Switch } from "@/shared/ui";
 import {
   BulkStatusIcon,
   BulkStatsBar,
   BulkProgressBar,
   EmptyDropzone,
-} from "@/shared/ui/bulk-status";
+} from "@/shared/ui";
 import { UpgradeModal } from "@/entities/subscription";
 import {
   useImageBulk,

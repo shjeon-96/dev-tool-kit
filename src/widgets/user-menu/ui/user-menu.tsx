@@ -4,9 +4,11 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { LogOut, Settings, User as UserIcon, CreditCard } from "lucide-react";
 import { useAuth } from "@/features/auth";
-import { Button } from "@/shared/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import {
+  Button,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -14,7 +16,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
+} from "@/shared/ui";
 
 export function UserMenu() {
   const t = useTranslations("userMenu");

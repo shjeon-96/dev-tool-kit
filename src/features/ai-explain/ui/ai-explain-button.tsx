@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Sparkles, Settings, Loader2, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { useAIExplain } from "../model/use-ai-explain";
 import { AIConfigDialog } from "./ai-config-dialog";

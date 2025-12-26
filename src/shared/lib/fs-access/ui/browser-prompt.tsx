@@ -3,8 +3,8 @@
 import * as React from "react";
 import { AlertTriangle, Chrome, Download, X } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
-import { Button } from "@/shared/ui/button";
-import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -14,7 +14,7 @@ import {
   AlertDialogFooter,
   AlertDialogCancel,
   AlertDialogAction,
-} from "@/shared/ui/alert-dialog";
+} from "@/shared/ui";
 import { useFSAccessSupport, useBrowserInfo } from "../detect";
 
 /**

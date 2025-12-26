@@ -12,10 +12,10 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/shared/ui/command";
+} from "@/shared/ui";
 import { tools, getSortedCategories, type ToolSlug } from "@/entities/tool";
 
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 
 import { useRecentTools } from "@/shared/lib/hooks/use-recent-tools";
 

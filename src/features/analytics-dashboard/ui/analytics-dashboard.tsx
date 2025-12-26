@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { Progress } from "@/shared/ui/progress";
-import { Badge } from "@/shared/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
+import { Progress } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
 import type { AnalyticsDashboardData } from "../lib/types";
 
 interface AnalyticsDashboardProps {

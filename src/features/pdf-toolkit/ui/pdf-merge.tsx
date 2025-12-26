@@ -11,11 +11,11 @@ import {
   AlertCircle,
 } from "lucide-react";
 import type { usePdfToolkit } from "../model/use-pdf-toolkit";
-import { Button } from "@/shared/ui/button";
-import { Progress } from "@/shared/ui/progress";
-import { Alert, AlertDescription } from "@/shared/ui/alert";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
+import { Button } from "@/shared/ui";
+import { Progress } from "@/shared/ui";
+import { Alert, AlertDescription } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Label } from "@/shared/ui";
 import { formatSize } from "@/shared/lib";
 
 interface PdfMergeProps {

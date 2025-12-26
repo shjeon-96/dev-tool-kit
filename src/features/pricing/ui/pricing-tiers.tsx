@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl";
 import { Check, X } from "lucide-react";
 import { TIERS, formatPrice, type TierType } from "@/shared/lib/lemonsqueezy";
 import { useAuth } from "@/features/auth";
-import { Button } from "@/shared/ui/button";
-import { Switch } from "@/shared/ui/switch";
+import { Button } from "@/shared/ui";
+import { Switch } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
 export function PricingTiers() {

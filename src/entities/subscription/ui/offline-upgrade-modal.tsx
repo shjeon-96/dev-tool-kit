@@ -8,7 +8,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/shared/ui/dialog";
+} from "@/shared/ui";
 import { Button } from "@/shared/ui";
 import { WifiOff, Zap, Check, X } from "lucide-react";
 

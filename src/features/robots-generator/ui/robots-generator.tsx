@@ -1,20 +1,20 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
-import { Textarea } from "@/shared/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import { Button } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
-import { Label } from "@/shared/ui/label";
-import { Badge } from "@/shared/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+} from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 import { Plus, Trash2, Copy, Download, Upload } from "lucide-react";
 import { useRobotsGenerator } from "../model/use-robots-generator";
 import { DEFAULT_USER_AGENTS, COMMON_PATHS } from "../lib/types";

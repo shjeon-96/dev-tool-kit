@@ -5,8 +5,8 @@
  * 단순 카테고리 기반 링크를 User Journey 기반으로 개선
  */
 
-import type { ToolSlug, ToolCategory } from "@/entities/tool/model/types";
-import { tools } from "@/entities/tool/model/registry";
+import type { ToolSlug, ToolCategory } from "@/entities/tool";
+import { tools } from "@/entities/tool";
 
 // ============================================
 // User Journey 그래프 정의

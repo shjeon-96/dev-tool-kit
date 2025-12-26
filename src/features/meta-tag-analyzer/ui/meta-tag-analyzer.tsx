@@ -1,10 +1,10 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button } from "@/shared/ui/button";
-import { Textarea } from "@/shared/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
 import { AlertCircle, AlertTriangle, Info, CheckCircle2 } from "lucide-react";
 import { useMetaTagAnalyzer } from "../model/use-meta-tag-analyzer";
 import { getGradeColor } from "../lib/analyzer";

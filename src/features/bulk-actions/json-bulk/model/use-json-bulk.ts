@@ -7,7 +7,7 @@ import {
   formatJson,
   minifyJson,
   type FormatResult,
-} from "@/features/json-formatter/lib/formatter";
+} from "@/features/json-formatter";
 import { getBulkLimits, isLimitExceeded } from "../../model/bulk-limits";
 import { useFSAccess, type WriteFileData } from "@/shared/lib/fs-access";
 

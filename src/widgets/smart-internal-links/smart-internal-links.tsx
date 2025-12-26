@@ -4,8 +4,8 @@ import { useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, History, Workflow, Grid3X3 } from "lucide-react";
-import type { ToolSlug } from "@/entities/tool/model/types";
-import { tools } from "@/entities/tool/model/registry";
+import type { ToolSlug } from "@/entities/tool";
+import { tools } from "@/entities/tool";
 import {
   getWeightedRecommendations,
   type LinkWeight,

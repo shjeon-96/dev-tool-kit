@@ -12,7 +12,7 @@ import { Button, Textarea } from "@/shared/ui";
 import { useCopyToClipboard, useDebounce } from "@/shared/lib";
 import type { Conversion } from "@/entities/converter";
 import { getConverter } from "@/entities/converter";
-import { getExamples } from "@/entities/converter/model/examples";
+import { getExamples } from "@/entities/converter";
 
 interface ConverterToolProps {
   conversion: Conversion;

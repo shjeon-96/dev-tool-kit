@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, X, Workflow } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { tools, type ToolSlug } from "@/entities/tool";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 
 interface PipelineNotificationProps {
   from: ToolSlug;

@@ -6,8 +6,8 @@ import { PdfMerge } from "./pdf-merge";
 import { PdfSplit } from "./pdf-split";
 import { PdfCompress } from "./pdf-compress";
 import { PdfRedact } from "./pdf-redact";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
 import type { PDFTab } from "../lib/types";
 
 export function PdfToolkit() {

@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/shared/lib/supabase/server";
-import { BillingContent } from "@/features/billing/ui/billing-content";
+import { BillingContent } from "@/features/billing";
 
 interface BillingPageProps {
   params: Promise<{ locale: string }>;

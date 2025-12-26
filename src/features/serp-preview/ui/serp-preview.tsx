@@ -1,13 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
-import { Textarea } from "@/shared/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Label } from "@/shared/ui/label";
-import { Badge } from "@/shared/ui/badge";
-import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { Button } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
+import { Tabs, TabsList, TabsTrigger } from "@/shared/ui";
 import { Monitor, Smartphone, Globe } from "lucide-react";
 import { useSerpPreview } from "../model/use-serp-preview";
 import {

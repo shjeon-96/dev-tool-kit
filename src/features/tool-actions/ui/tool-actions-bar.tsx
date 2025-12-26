@@ -7,10 +7,10 @@ import { AIExplainButton } from "@/features/ai-explain";
 import { PipelineButton, getConnectableTools } from "@/features/tool-pipeline";
 import { SaveToWorkspace } from "@/features/workspace";
 import { ShareButton } from "@/features/share";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import type { ToolSlug } from "@/entities/tool";
-import type { ExplainContext } from "@/features/ai-explain/lib/prompts";
+import type { ExplainContext } from "@/features/ai-explain";
 
 interface ToolActionsBarProps {
   toolSlug: ToolSlug;

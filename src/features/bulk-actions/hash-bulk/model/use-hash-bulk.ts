@@ -7,7 +7,7 @@ import {
   computeAllFileHashesWasm,
   type HashAlgorithm,
   type HashResult,
-} from "@/features/hash-generator/lib/hash-wasm";
+} from "@/features/hash-generator";
 import { getBulkLimits, isLimitExceeded } from "../../model/bulk-limits";
 import { useFSAccess, type WriteFileData } from "@/shared/lib/fs-access";
 

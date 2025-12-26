@@ -25,7 +25,7 @@ import {
   getHashTypeBySlug,
   getRelatedHashTypes,
 } from "@/entities/hash-type";
-import { getUniqueHashContent } from "@/entities/hash-type/model/unique-content";
+import { getUniqueHashContent } from "@/entities/hash-type";
 import type { LocaleKey, UniqueHashContent } from "@/entities/hash-type";
 import { SITE_CONFIG } from "@/shared/config";
 import {

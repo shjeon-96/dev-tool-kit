@@ -15,13 +15,13 @@ import {
   AlertCircle,
 } from "lucide-react";
 import { useBgRemover } from "../model/use-bg-remover";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Button } from "@/shared/ui/button";
-import { Progress } from "@/shared/ui/progress";
-import { Slider } from "@/shared/ui/slider";
-import { Label } from "@/shared/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
-import { Alert, AlertDescription } from "@/shared/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { Progress } from "@/shared/ui";
+import { Slider } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { RadioGroup, RadioGroupItem } from "@/shared/ui";
+import { Alert, AlertDescription } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import type { ModelType } from "../lib/types";
 

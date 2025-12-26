@@ -14,4 +14,4 @@ export {
   getInboundLinks,
   calculateToolImportance,
   type LinkWeight,
-} from "./journey-graph";
+} from "@/widgets/smart-internal-links/lib/journey-graph";

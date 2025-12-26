@@ -25,14 +25,14 @@ import {
   type FontFamily,
   type GradientDirection,
 } from "../lib/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
-import { Slider } from "@/shared/ui/slider";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
-import { Alert, AlertDescription } from "@/shared/ui/alert";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Button } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Slider } from "@/shared/ui";
+import { RadioGroup, RadioGroupItem } from "@/shared/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
+import { Alert, AlertDescription } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
 export function OGGenerator() {

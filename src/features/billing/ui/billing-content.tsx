@@ -27,7 +27,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/shared/ui/dialog";
+} from "@/shared/ui";
 import { PlanBadge } from "@/entities/subscription";
 import { TIERS, formatPrice } from "@/shared/lib/lemonsqueezy/tiers";
 import type { Database } from "@/shared/lib/supabase/types";

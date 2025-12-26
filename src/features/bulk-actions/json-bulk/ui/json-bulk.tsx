@@ -23,22 +23,22 @@ import {
   BrowserPromptBanner,
   ExportModeSelector,
 } from "@/shared/lib/fs-access";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/shared/ui/card";
-import { Badge } from "@/shared/ui/badge";
+} from "@/shared/ui";
+import { Badge } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
+} from "@/shared/ui";
 import {
   Table,
   TableBody,
@@ -46,15 +46,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/shared/ui/table";
-import { useToast } from "@/shared/ui/toast";
+} from "@/shared/ui";
+import { useToast } from "@/shared/ui";
 import { UpgradeModal } from "@/entities/subscription";
 import {
   BulkStatusIcon,
   BulkStatsBar,
   BulkProgressBar,
   EmptyDropzone,
-} from "@/shared/ui/bulk-status";
+} from "@/shared/ui";
 import { useFileDropzone, formatSize } from "@/shared/lib";
 
 export function JsonBulk() {

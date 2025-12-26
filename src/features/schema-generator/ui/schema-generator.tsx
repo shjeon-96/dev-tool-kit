@@ -16,18 +16,18 @@ import {
   type RecipeSchema,
   type BreadcrumbSchema,
 } from "../lib/types";
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
-import { Textarea } from "@/shared/ui/textarea";
-import { Switch } from "@/shared/ui/switch";
+import { Button } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
+import { Switch } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
+} from "@/shared/ui";
 import { useCopyToClipboard } from "@/shared/lib";
 
 function FormField({

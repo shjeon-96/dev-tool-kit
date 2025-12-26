@@ -14,18 +14,18 @@ import {
 } from "lucide-react";
 import { useOcrScanner } from "../model/use-ocr-scanner";
 import { OCR_LANGUAGES, type OCRLanguage } from "../lib/types";
-import { Button } from "@/shared/ui/button";
-import { Progress } from "@/shared/ui/progress";
-import { Alert, AlertDescription } from "@/shared/ui/alert";
-import { Label } from "@/shared/ui/label";
+import { Button } from "@/shared/ui";
+import { Progress } from "@/shared/ui";
+import { Alert, AlertDescription } from "@/shared/ui";
+import { Label } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
-import { Textarea } from "@/shared/ui/textarea";
+} from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
 import { useCopyToClipboard } from "@/shared/lib";
 
 export function OcrScanner() {

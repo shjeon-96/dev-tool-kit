@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/shared/lib/supabase/server";
-import { DashboardContent } from "@/features/dashboard/ui/dashboard-content";
+import { DashboardContent } from "@/features/dashboard";
 
 interface DashboardPageProps {
   params: Promise<{ locale: string }>;

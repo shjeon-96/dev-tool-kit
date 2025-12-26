@@ -6,7 +6,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { ArrowRight, Workflow, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { tools, type ToolSlug } from "@/entities/tool";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 
 interface PipelineButtonProps {

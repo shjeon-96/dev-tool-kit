@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Share2, Copy, Check, Loader2, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/shared/ui/button";
+import { Button } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
 import { useShare } from "../model/use-share";
 import type { ToolSlug } from "@/entities/tool";

@@ -13,20 +13,20 @@ import {
   Code2,
 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/shared/ui/button";
-import { Label } from "@/shared/ui/label";
-import { Textarea } from "@/shared/ui/textarea";
-import { Input } from "@/shared/ui/input";
-import { Slider } from "@/shared/ui/slider";
-import { Switch } from "@/shared/ui/switch";
+import { Button } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Textarea } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Slider } from "@/shared/ui";
+import { Switch } from "@/shared/ui";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/shared/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+} from "@/shared/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui";
 import { useShareAsImage } from "../model/use-share-as-image";
 import {
   themes,

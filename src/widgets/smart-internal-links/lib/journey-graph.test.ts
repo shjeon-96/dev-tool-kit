@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { ToolSlug } from "@/entities/tool/model/types";
+import type { ToolSlug } from "@/entities/tool";
 import {
   USER_JOURNEY_GRAPH,
   getRelatedByCategory,

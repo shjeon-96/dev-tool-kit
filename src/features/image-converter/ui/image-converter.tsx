@@ -12,13 +12,13 @@ import {
   AlertCircle,
   Image as ImageIcon,
 } from "lucide-react";
-import { Button } from "@/shared/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Label } from "@/shared/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
-import { Slider } from "@/shared/ui/slider";
-import { Progress } from "@/shared/ui/progress";
-import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui";
+import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { RadioGroup, RadioGroupItem } from "@/shared/ui";
+import { Slider } from "@/shared/ui";
+import { Progress } from "@/shared/ui";
+import { Badge } from "@/shared/ui";
 import {
   useImageConverter,
   type ImageFormat,

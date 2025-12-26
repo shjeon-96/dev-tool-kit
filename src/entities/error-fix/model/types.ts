@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import type { ToolSlug } from "@/entities/tool/model/types";
+import type { ToolSlug } from "@/entities/tool";
 
 /**
  * ErrorFix Entity Types

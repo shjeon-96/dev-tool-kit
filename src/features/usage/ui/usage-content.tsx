@@ -17,7 +17,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/shared/ui";
-import { Progress } from "@/shared/ui/progress";
+import { Progress } from "@/shared/ui";
 import { PlanBadge } from "@/entities/subscription";
 import { TIER_QUOTAS } from "@/shared/lib/quota/config";
 import type { Database } from "@/shared/lib/supabase/types";

@@ -18,11 +18,11 @@ import {
   X,
   Plus,
 } from "lucide-react";
-import { Button } from "@/shared/ui/button";
-import { Label } from "@/shared/ui/label";
-import { Input } from "@/shared/ui/input";
-import { Checkbox } from "@/shared/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/shared/ui/radio-group";
+import { Button } from "@/shared/ui";
+import { Label } from "@/shared/ui";
+import { Input } from "@/shared/ui";
+import { Checkbox } from "@/shared/ui";
+import { RadioGroup, RadioGroupItem } from "@/shared/ui";
 import type {
   PDFFile,
   RedactPattern,
