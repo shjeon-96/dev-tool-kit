@@ -105,11 +105,29 @@
     "favorites": "Favoritos",
     "recentlyUsed": "Usados Recentemente",
     "clearRecent": "Limpar",
+    "resources": "Recursos",
+    "blog": "Blog",
     "categories": {
       "text": "Texto",
       "media": "Mídia",
       "converters": "Conversores",
       "security": "Segurança"
+    }
+  },
+  "subscription": {
+    "offlineUpgrade": {
+      "title": "Trabalhando Offline?",
+      "description": "Você tem usado nossas ferramentas offline. Faça upgrade para Pro para acesso offline ilimitado e sincronize seu trabalho entre dispositivos.",
+      "proBenefits": "Benefícios Pro",
+      "pricing": "A partir de $9/mês",
+      "upgradeButton": "Fazer Upgrade para Pro",
+      "dismissButton": "Talvez Depois"
+    },
+    "proFeatures": {
+      "unlimitedOffline": "Acesso offline ilimitado",
+      "noAds": "Sem anúncios",
+      "bulkActions": "Processamento em lote para todas as ferramentas",
+      "prioritySupport": "Suporte prioritário ao cliente"
     }
   },
   "footer": {
@@ -355,7 +373,32 @@
     },
     "pdf-toolkit": {
       "title": "Kit PDF",
-      "description": "Combine, divida, comprima e redija arquivos PDF no seu navegador. 100% processamento do lado do cliente."
+      "description": "Combine, divida, comprima e redija arquivos PDF no seu navegador. 100% processamento do lado do cliente.",
+      "redact": {
+        "uploadPrompt": "Upload a PDF file to start redacting sensitive information",
+        "patterns": "Select patterns to detect",
+        "creditCard": "Credit Card Numbers",
+        "creditCardDesc": "Visa, MasterCard, Amex, etc.",
+        "ssn": "SSN / ID Numbers",
+        "ssnDesc": "Social Security Number, Korean RRN",
+        "phone": "Phone Numbers",
+        "phoneDesc": "Various phone formats",
+        "email": "Email Addresses",
+        "emailDesc": "Email addresses",
+        "customKeywords": "Custom Keywords",
+        "keywordPlaceholder": "Enter keyword to redact...",
+        "color": "Redaction Color",
+        "colorBlack": "Black",
+        "colorGray": "Gray",
+        "colorWhite": "White",
+        "scan": "Scan PDF",
+        "apply": "Apply Redaction",
+        "processing": "Processing...",
+        "foundMatches": "{count} sensitive items found",
+        "noSensitiveData": "No sensitive data found",
+        "noMatches": "No matching patterns found in this PDF",
+        "warning": "Always verify redaction results. Original text cannot be recovered after saving."
+      }
     },
     "ocr-scanner": {
       "title": "Scanner OCR",
@@ -371,15 +414,100 @@
     },
     "bg-remover": {
       "title": "Removedor de Fundo",
-      "description": "Remova fundos de imagens automaticamente usando IA. Acelerado por WebGPU, 100% processamento do lado do cliente."
+      "description": "Remova fundos de imagens automaticamente usando IA. Acelerado por WebGPU, 100% processamento do lado do cliente.",
+      "modelSelection": {
+        "title": "Model Selection",
+        "loaded": "{model} loaded with {provider} provider"
+      },
+      "upload": {
+        "title": "Upload Image",
+        "dropzone": "Drop an image here or click to select",
+        "supportedFormats": "Supports PNG, JPG, WEBP",
+        "selectFile": "Select File",
+        "changeImage": "Change Image"
+      },
+      "options": {
+        "title": "Options",
+        "threshold": "Threshold",
+        "thresholdDescription": "Lower values keep more of the image, higher values remove more background",
+        "featherRadius": "Feather Radius",
+        "featherDescription": "Smooth the edges of the cutout",
+        "outputFormat": "Output Format"
+      },
+      "processing": "Processing...",
+      "removeBackground": "Remove Background",
+      "result": {
+        "title": "Result",
+        "original": "Original",
+        "processed": "Background Removed",
+        "processingTime": "Processing time: {time}s",
+        "dimensions": "{width} × {height}",
+        "downloadResult": "Download Result",
+        "downloadMask": "Download Mask"
+      },
+      "errors": {
+        "invalidFileType": "Please select an image file",
+        "processingFailed": "Failed to process image"
+      }
     },
     "og-generator": {
       "title": "Gerador de Imagens OG",
-      "description": "Crie belas imagens Open Graph para compartilhamento em redes sociais. Múltiplos templates e opções de personalização."
+      "description": "Crie belas imagens Open Graph para compartilhamento em redes sociais. Múltiplos templates e opções de personalização.",
+      "preview": {
+        "title": "Preview"
+      },
+      "tabs": {
+        "content": "Content",
+        "template": "Template",
+        "style": "Style",
+        "settings": "Settings"
+      },
+      "content": {
+        "title": "Title",
+        "titlePlaceholder": "Enter your title",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Enter a subtitle (optional)",
+        "author": "Author",
+        "authorPlaceholder": "Author name",
+        "siteName": "Site Name",
+        "siteNamePlaceholder": "Your site name"
+      },
+      "style": {
+        "gradientPresets": "Gradient Presets",
+        "backgroundColor": "Background Color",
+        "textColor": "Text Color",
+        "titleSize": "Title Size",
+        "fontFamily": "Font Family"
+      },
+      "settings": {
+        "size": "Image Size",
+        "reset": "Reset to Defaults"
+      },
+      "rendering": "Rendering...",
+      "download": "Download PNG"
     },
     "image-converter": {
       "title": "Conversor de Imagens",
-      "description": "Converta imagens entre formatos JPEG, PNG, WebP, AVIF e GIF. Ajuste qualidade e processe múltiplas imagens."
+      "description": "Converta imagens entre formatos JPEG, PNG, WebP, AVIF e GIF. Ajuste qualidade e processe múltiplas imagens.",
+      "outputFormat": "Output Format",
+      "quality": "Quality",
+      "qualityLow": "Lower quality, smaller file size",
+      "qualityMedium": "Balanced quality and file size",
+      "qualityHigh": "Higher quality, larger file size",
+      "transparencyWarning": "This format does not support transparency. Transparent areas will be filled with white.",
+      "dropzone": {
+        "title": "Drop images here",
+        "description": "or click to browse. Supports JPEG, PNG, WebP, AVIF, GIF"
+      },
+      "images": "Images",
+      "clearAll": "Clear All",
+      "converting": "Converting",
+      "convertAll": "Convert All",
+      "downloadAll": "Download All",
+      "emptyState": {
+        "title": "No images yet",
+        "description": "Upload images to start converting"
+      }
     },
     "bulk-actions": {
       "title": "Ações em Lote",
@@ -387,19 +515,87 @@
     },
     "sitemap-generator": {
       "title": "Gerador de Sitemap",
-      "description": "Gere sitemaps XML para otimização de mecanismos de busca."
+      "description": "Gere sitemaps XML para otimização de mecanismos de busca.",
+      "urlInput": "URL List",
+      "urlPlaceholder": "Enter URLs (one per line or comma-separated)\nhttps://example.com/\nhttps://example.com/about\nhttps://example.com/contact",
+      "urlHint": "Enter URLs separated by newlines or commas. Duplicates will be removed automatically.",
+      "loadSample": "Load Sample",
+      "options": "Options",
+      "includeLastmod": "Include Last Modified Date",
+      "prettyPrint": "Pretty Print XML",
+      "defaultChangefreq": "Default Change Frequency",
+      "defaultPriority": "Default Priority",
+      "generate": "Generate Sitemap",
+      "output": "Generated Sitemap",
+      "outputPlaceholder": "Generated sitemap.xml will appear here...",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "download": "Download",
+      "fileSize": "File Size",
+      "stats": "Statistics",
+      "totalUrls": "Total URLs",
+      "domains": "Domains",
+      "multipleDomains": "Warning: Multiple domains detected. Sitemaps should contain URLs from a single domain."
     },
     "meta-tag-analyzer": {
       "title": "Analisador de Meta Tags",
-      "description": "Analise meta tags de páginas web e obtenha sugestões de melhoria SEO."
+      "description": "Analise meta tags de páginas web e obtenha sugestões de melhoria SEO.",
+      "htmlInput": "HTML Input",
+      "placeholder": "Paste your HTML code here...",
+      "analyze": "Analyze",
+      "analyzing": "Analyzing...",
+      "loadSample": "Load Sample",
+      "clear": "Clear",
+      "seoScore": "SEO Score",
+      "issues": "Issues",
+      "wordCount": "Word Count",
+      "issuesFound": "Issues Found",
+      "noIssues": "No issues found! Your meta tags look good.",
+      "basicMeta": "Basic Meta Tags",
+      "headings": "Headings"
     },
     "robots-generator": {
       "title": "Gerador robots.txt",
-      "description": "Gere arquivos robots.txt para rastreadores de mecanismos de busca."
+      "description": "Gere arquivos robots.txt para rastreadores de mecanismos de busca.",
+      "editor": "Editor",
+      "import": "Import",
+      "customUserAgent": "Custom User-Agent",
+      "rules": "Rules",
+      "selectPath": "Select path...",
+      "addUserAgent": "Add User-Agent",
+      "globalSettings": "Global Settings",
+      "sitemapUrl": "Sitemap URL",
+      "crawlDelay": "Crawl Delay (seconds)",
+      "loadSample": "Load Sample",
+      "reset": "Reset",
+      "importTitle": "Import robots.txt",
+      "importPlaceholder": "Paste your existing robots.txt content here...",
+      "importButton": "Import",
+      "output": "Generated robots.txt",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "download": "Download",
+      "emptyOutput": "Add rules to generate robots.txt"
     },
     "serp-preview": {
       "title": "Visualização SERP",
-      "description": "Visualize como sua página aparece nos resultados de busca do Google."
+      "description": "Visualize como sua página aparece nos resultados de busca do Google.",
+      "input": "Page Information",
+      "url": "URL",
+      "titlePlaceholder": "Enter your page title...",
+      "descriptionPlaceholder": "Enter your meta description...",
+      "loadSample": "Load Sample",
+      "clear": "Clear",
+      "preview": "Search Result Preview",
+      "sampleTitle": "Your Page Title Will Appear Here",
+      "sampleDescription": "Your meta description will appear here. Make it compelling to encourage clicks from search results.",
+      "titlePixelWidth": "Title width",
+      "descPixelWidth": "Description width",
+      "tips": "Optimization Tips",
+      "tip1": "Keep titles between 30-60 characters for optimal display",
+      "tip2": "Write descriptions between 120-160 characters",
+      "tip3": "Include your primary keyword in both title and description",
+      "tip4": "Use action words and create urgency in your title"
     },
     "share-as-image": {
       "title": "Compartilhar como Imagem",
@@ -517,7 +713,9 @@
       "github": "Continuar com GitHub",
       "or": "Ou continue com e-mail",
       "noAccount": "Não tem uma conta?",
-      "signupLink": "Cadastre-se"
+      "signupLink": "Cadastre-se",
+      "subtitle": "Sign in to your account to continue",
+      "forgotPassword": "Forgot password?"
     },
     "signup": {
       "title": "Criar Conta",
@@ -536,7 +734,26 @@
       "github": "Continuar com GitHub",
       "or": "Ou continue com e-mail",
       "hasAccount": "Já tem uma conta?",
-      "signinLink": "Entrar"
+      "signinLink": "Entrar",
+      "subtitle": "Sign up to unlock Pro features"
+    },
+    "fields": {
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "name": "Name",
+      "namePlaceholder": "Your name"
+    },
+    "oauth": {
+      "google": "Google",
+      "github": "GitHub"
+    },
+    "orContinueWith": "or continue with",
+    "errors": {
+      "unknown": "An unexpected error occurred. Please try again.",
+      "invalidCredentials": "Invalid email or password.",
+      "emailTaken": "An account with this email already exists."
     }
   },
   "userMenu": {
@@ -573,7 +790,8 @@
       "q3": "Existe um período de teste grátis?",
       "a3": "Não oferecemos período de teste, mas nosso nível Grátis dá acesso a todas as ferramentas com alguns limites de uso.",
       "q4": "O que acontece quando excedo meus limites de uso?",
-      "a4": "No nível Grátis, você será solicitado a atualizar. Usuários Pro têm limites significativamente maiores."
+      "a4": "No nível Grátis, você será solicitado a atualizar. Usuários Pro têm limites significativamente maiores.",
+      "title": "Frequently Asked Questions"
     },
     "meta": {
       "title": "Preços - Web Toolkit",
@@ -1913,6 +2131,469 @@
           "a": "Atualmente oferecemos uma seleção de fontes populares incluindo fontes para idiomas asiáticos."
         }
       ]
+    },
+    "base-converter": {
+      "whatIs": "Number Base Converter instantly converts numbers between binary, octal, decimal, and hexadecimal formats. Essential for programmers and computer science students.",
+      "howToUse": "Enter a number in any supported base (binary, octal, decimal, or hexadecimal). See instant conversions to all other bases with proper formatting.",
+      "features": [
+        "Binary, octal, decimal, hexadecimal conversion",
+        "Real-time bidirectional conversion",
+        "Support for large numbers",
+        "One-click copy for each format"
+      ],
+      "faq": [
+        {
+          "q": "What number bases are supported?",
+          "a": "Binary (base 2), octal (base 8), decimal (base 10), and hexadecimal (base 16) are fully supported."
+        },
+        {
+          "q": "Can I convert very large numbers?",
+          "a": "Yes, the converter handles numbers up to JavaScript's safe integer limits and provides accurate results."
+        }
+      ]
+    },
+    "url-parser": {
+      "whatIs": "URL Parser breaks down URLs into their components: protocol, host, path, query parameters, and fragment. Essential for debugging and understanding web addresses.",
+      "howToUse": "Paste a URL to see it parsed into components. Edit query parameters individually. Build new URLs by modifying any part.",
+      "features": [
+        "Complete URL component breakdown",
+        "Query parameter editor",
+        "URL encoding/decoding",
+        "Build URLs from components"
+      ],
+      "faq": [
+        {
+          "q": "What URL components are shown?",
+          "a": "Protocol, host, port, path, query parameters, and hash fragment are all displayed."
+        },
+        {
+          "q": "Can I edit and rebuild URLs?",
+          "a": "Yes. Modify any component and the tool will build the complete URL for you."
+        }
+      ]
+    },
+    "curl-builder": {
+      "whatIs": "cURL Builder creates cURL commands from HTTP request specifications. Perfect for API testing, debugging, and sharing request examples.",
+      "howToUse": "Select the HTTP method, enter the URL, add headers and body as needed. Copy the generated cURL command or execute it directly.",
+      "features": [
+        "All HTTP methods supported",
+        "Custom headers editor",
+        "Request body formatting",
+        "Import/export requests"
+      ],
+      "faq": [
+        {
+          "q": "Can I import existing cURL commands?",
+          "a": "Yes. Paste a cURL command to parse it into the visual builder for editing."
+        },
+        {
+          "q": "What body formats are supported?",
+          "a": "JSON, form data, raw text, and multipart file uploads are all supported."
+        }
+      ]
+    },
+    "svg-optimizer": {
+      "whatIs": "SVG Optimizer reduces SVG file sizes by removing unnecessary data, optimizing paths, and cleaning up markup while maintaining visual quality.",
+      "howToUse": "Upload or paste your SVG code. See the optimized result with size reduction percentage. Download the optimized file or copy the code.",
+      "features": [
+        "Significant file size reduction",
+        "Preserve visual quality",
+        "Remove metadata and comments",
+        "Optimize paths and shapes"
+      ],
+      "faq": [
+        {
+          "q": "How much can file sizes be reduced?",
+          "a": "Typically 30-70% reduction depending on the SVG complexity and editor that created it."
+        },
+        {
+          "q": "Will optimization affect the SVG appearance?",
+          "a": "No. Optimization removes unnecessary data while preserving the visual output."
+        }
+      ]
+    },
+    "css-to-tailwind": {
+      "whatIs": "CSS to Tailwind converts standard CSS properties to Tailwind CSS utility classes. Speed up your migration to Tailwind or learn the equivalent classes.",
+      "howToUse": "Paste your CSS code in the input area. See the equivalent Tailwind classes generated. Copy individual classes or the complete conversion.",
+      "features": [
+        "Instant CSS to Tailwind conversion",
+        "Support for common CSS properties",
+        "Learn Tailwind class equivalents",
+        "Handle nested selectors"
+      ],
+      "faq": [
+        {
+          "q": "Does it support all CSS properties?",
+          "a": "Most common properties are supported. Some complex or custom properties may not have direct Tailwind equivalents."
+        },
+        {
+          "q": "Which Tailwind version is used?",
+          "a": "Tailwind CSS v3.x classes are generated by default."
+        }
+      ]
+    },
+    "prettier-playground": {
+      "whatIs": "Prettier Playground formats code in JavaScript, TypeScript, CSS, HTML, JSON, and more using the official Prettier formatter.",
+      "howToUse": "Paste your code, select the language, and see it formatted instantly. Customize Prettier options like tab width and quotes style.",
+      "features": [
+        "Multiple language support",
+        "Customizable formatting options",
+        "Real-time formatting",
+        "Official Prettier engine"
+      ],
+      "faq": [
+        {
+          "q": "Which languages are supported?",
+          "a": "JavaScript, TypeScript, CSS, HTML, JSON, Markdown, YAML, and GraphQL are supported."
+        },
+        {
+          "q": "Can I customize formatting rules?",
+          "a": "Yes. Configure tab width, semicolons, quotes, and other Prettier options."
+        }
+      ]
+    },
+    "box-shadow": {
+      "whatIs": "Box Shadow Generator creates CSS box-shadow effects with a visual editor. Design beautiful shadows and copy the CSS code directly.",
+      "howToUse": "Adjust shadow offset, blur, spread, and color using sliders. See the live preview and copy the generated CSS code.",
+      "features": [
+        "Visual shadow editor",
+        "Multiple shadow layers",
+        "Inset shadow support",
+        "Live CSS preview"
+      ],
+      "faq": [
+        {
+          "q": "Can I add multiple shadows?",
+          "a": "Yes. Layer multiple shadows to create complex depth effects."
+        },
+        {
+          "q": "Is the CSS cross-browser compatible?",
+          "a": "Yes. The generated CSS works in all modern browsers without vendor prefixes."
+        }
+      ]
+    },
+    "gradient-generator": {
+      "whatIs": "Gradient Generator creates CSS linear and radial gradients with a visual editor. Design beautiful color transitions for your web projects.",
+      "howToUse": "Add color stops, adjust positions, and set gradient direction. See the live preview and copy CSS code for use in your stylesheets.",
+      "features": [
+        "Linear and radial gradients",
+        "Multiple color stops",
+        "Angle and direction control",
+        "CSS and Tailwind output"
+      ],
+      "faq": [
+        {
+          "q": "Can I create radial gradients?",
+          "a": "Yes. Switch between linear and radial gradient types with full customization."
+        },
+        {
+          "q": "How many colors can I use?",
+          "a": "Unlimited. Add as many color stops as needed to create complex gradients."
+        }
+      ]
+    },
+    "app-icon-generator": {
+      "whatIs": "App Icon Generator creates all required icon sizes for iOS, Android, and web favicons from a single image. Save hours of manual resizing.",
+      "howToUse": "Upload your high-resolution icon (1024x1024 recommended). Select platforms and download a ZIP with all generated sizes.",
+      "features": [
+        "iOS and Android icon sets",
+        "Favicon and web app icons",
+        "All required sizes generated",
+        "ZIP download for convenience"
+      ],
+      "faq": [
+        {
+          "q": "What image size should I upload?",
+          "a": "Use 1024x1024 pixels for best quality across all generated sizes."
+        },
+        {
+          "q": "Which platforms are supported?",
+          "a": "iOS (all iPhone/iPad sizes), Android (mdpi to xxxhdpi), and web favicons."
+        }
+      ]
+    },
+    "ua-parser": {
+      "whatIs": "User Agent Parser analyzes browser user agent strings to extract browser name, version, operating system, and device information.",
+      "howToUse": "Paste a user agent string or use your current browser's UA. See the parsed information including browser, OS, and device details.",
+      "features": [
+        "Browser detection",
+        "Operating system identification",
+        "Device type recognition",
+        "Bot detection"
+      ],
+      "faq": [
+        {
+          "q": "What information can be extracted?",
+          "a": "Browser name/version, OS name/version, device type, and whether it's a bot."
+        },
+        {
+          "q": "Is user agent parsing reliable?",
+          "a": "Generally yes, but some browsers spoof UAs. Use for analytics, not security."
+        }
+      ]
+    },
+    "lorem-generator": {
+      "whatIs": "Lorem Ipsum Generator creates placeholder text for design mockups and development. Generate words, sentences, or paragraphs as needed.",
+      "howToUse": "Select the type (words, sentences, paragraphs) and quantity. Click generate to create placeholder text and copy to clipboard.",
+      "features": [
+        "Words, sentences, paragraphs",
+        "Custom quantity",
+        "Classic Lorem Ipsum text",
+        "One-click copy"
+      ],
+      "faq": [
+        {
+          "q": "What is Lorem Ipsum?",
+          "a": "It's placeholder text used in design since the 1500s, based on Latin literature."
+        },
+        {
+          "q": "Why use Lorem Ipsum instead of real text?",
+          "a": "It helps focus on visual design without the distraction of readable content."
+        }
+      ]
+    },
+    "html-entity": {
+      "whatIs": "HTML Entity Encoder converts special characters to HTML entities and back. Prevent XSS attacks and display special characters correctly in web pages.",
+      "howToUse": "Enter text with special characters to encode, or paste HTML entities to decode. See the converted result and copy to use in your HTML.",
+      "features": [
+        "Named and numeric entities",
+        "Security-focused encoding",
+        "Handle all special characters",
+        "Bulk conversion"
+      ],
+      "faq": [
+        {
+          "q": "Why use HTML entities?",
+          "a": "To display characters like <, >, & correctly in HTML and prevent security issues."
+        },
+        {
+          "q": "What's the difference between named and numeric?",
+          "a": "Named (&amp;) is readable; numeric (&#38;) works for any Unicode character."
+        }
+      ]
+    },
+    "json-to-typescript": {
+      "whatIs": "JSON to TypeScript converts JSON data to TypeScript interfaces or type definitions. Generate type-safe code from API responses instantly.",
+      "howToUse": "Paste your JSON data and configure options like root name, interface vs type, and optional properties. Copy the generated TypeScript code.",
+      "features": [
+        "Interface and type alias output",
+        "Optional properties support",
+        "Nested object handling",
+        "Export statement option"
+      ],
+      "faq": [
+        {
+          "q": "Should I use interface or type?",
+          "a": "Interfaces are preferred for objects as they can be extended. Types are better for unions and complex types."
+        },
+        {
+          "q": "Does it handle nested JSON?",
+          "a": "Yes, nested objects are converted to separate interfaces/types automatically."
+        }
+      ]
+    },
+    "css-minifier": {
+      "whatIs": "CSS Minifier compresses CSS code by removing whitespace, comments, and optimizing syntax. Reduce file size for faster page loads.",
+      "howToUse": "Paste your CSS code and click minify. Configure options like removing comments, shortening colors, and merging selectors. Copy or download the result.",
+      "features": [
+        "Remove comments and whitespace",
+        "Shorten color values",
+        "Merge duplicate selectors",
+        "Beautify option included"
+      ],
+      "faq": [
+        {
+          "q": "How much can file size be reduced?",
+          "a": "Typically 20-60% depending on the original CSS formatting and comments."
+        },
+        {
+          "q": "Will minification break my CSS?",
+          "a": "No, minification only removes unnecessary characters while preserving functionality."
+        }
+      ]
+    },
+    "text-case-converter": {
+      "whatIs": "Text Case Converter transforms text between various naming conventions including camelCase, snake_case, kebab-case, and more.",
+      "howToUse": "Enter your text and see instant conversions to all supported cases. Click any result to copy it to your clipboard.",
+      "features": [
+        "12+ case formats supported",
+        "Real-time conversion",
+        "One-click copy",
+        "Programming naming conventions"
+      ],
+      "faq": [
+        {
+          "q": "What cases are supported?",
+          "a": "camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, and more."
+        },
+        {
+          "q": "When should I use each case?",
+          "a": "camelCase for JavaScript variables, snake_case for Python, kebab-case for CSS classes and URLs."
+        }
+      ]
+    },
+    "video-compressor": {
+      "whatIs": "Video Compressor uses FFmpeg.wasm to compress video files directly in your browser. All processing happens 100% locally on your device.",
+      "howToUse": "Upload a video file, select a quality preset, and click the compress button. Download the compressed file when ready.",
+      "features": [
+        "High-performance compression with FFmpeg.wasm",
+        "Multiple codecs supported (H.264, VP9)",
+        "Adjustable resolution and quality settings",
+        "100% browser-side processing (no server upload)",
+        "Web streaming optimization (Fast Start)"
+      ],
+      "faq": [
+        {
+          "q": "Is my video uploaded to a server?",
+          "a": "No, all processing happens in your browser and your files are never sent to any server."
+        },
+        {
+          "q": "What formats are supported?",
+          "a": "MP4, WebM, MOV, AVI and other major video formats. Maximum file size is 500MB."
+        }
+      ]
+    },
+    "image-converter": {
+      "whatIs": "Image Converter transforms images between various formats including JPEG, PNG, WebP, AVIF, and GIF. All processing happens 100% in your browser with no server uploads.",
+      "howToUse": "Upload images by drag-and-drop or clicking the upload area. Select your desired output format and adjust quality settings. Convert and download individual images or all at once.",
+      "features": [
+        "Support for JPEG, PNG, WebP, AVIF, and GIF formats",
+        "Adjustable quality settings for optimal file size",
+        "Batch conversion for multiple images",
+        "Real-time format support detection",
+        "100% client-side processing for privacy"
+      ],
+      "faq": [
+        {
+          "q": "Which format should I use?",
+          "a": "WebP offers the best balance of quality and file size for web. AVIF provides even better compression but has limited browser support. JPEG is ideal for photos, PNG for graphics with transparency."
+        },
+        {
+          "q": "Is AVIF supported in my browser?",
+          "a": "AVIF is supported in Chrome 85+, Firefox 93+, and Safari 16+. The tool automatically detects and shows available formats for your browser."
+        }
+      ]
+    },
+    "headline-analyzer": {
+      "whatIs": "Headline Analyzer evaluates your headlines for SEO and emotional impact. Get scores based on word balance, sentiment, and SEO factors to create compelling titles.",
+      "howToUse": "Enter your headline in the input field. View the analysis including overall score, word balance, sentiment, headline type, and improvement suggestions.",
+      "features": [
+        "0-100 scoring with A+ to F grading",
+        "Word balance analysis (common, uncommon, emotional, power words)",
+        "Sentiment detection (positive, negative, neutral)",
+        "SEO factor analysis (numbers, brackets, optimal length)",
+        "Headline type detection and suggestions"
+      ],
+      "faq": [
+        {
+          "q": "What makes a good headline score?",
+          "a": "Headlines scoring 70+ are considered good. Aim for a balance of common and uncommon words, include emotional or power words, and keep length between 6-12 words."
+        },
+        {
+          "q": "How are word categories determined?",
+          "a": "The tool uses curated word lists for common, uncommon, emotional, and power words based on copywriting and marketing research."
+        }
+      ]
+    },
+    "sitemap-generator": {
+      "whatIs": "Sitemap Generator creates XML sitemaps for search engines. A sitemap helps search engines discover and index your website's pages more efficiently.",
+      "howToUse": "Enter your website URLs (one per line or comma-separated). Configure options like change frequency and priority. Click Generate to create your sitemap.xml file.",
+      "features": [
+        "URL validation and normalization",
+        "Duplicate URL detection and removal",
+        "Configurable change frequency (daily, weekly, monthly, etc.)",
+        "Priority settings for each URL",
+        "Pretty print option for readable XML",
+        "Automatic lastmod date generation",
+        "Domain validation warnings"
+      ],
+      "faq": [
+        {
+          "q": "What is a sitemap?",
+          "a": "A sitemap is an XML file that lists all important pages on your website. It helps search engines like Google discover and crawl your content more efficiently."
+        },
+        {
+          "q": "How often should I update my sitemap?",
+          "a": "Update your sitemap whenever you add, remove, or significantly change pages. For dynamic sites, consider automated sitemap generation."
+        },
+        {
+          "q": "Where should I put my sitemap?",
+          "a": "Place your sitemap.xml in your website's root directory (e.g., https://example.com/sitemap.xml) and reference it in your robots.txt file."
+        }
+      ]
+    },
+    "meta-tag-analyzer": {
+      "whatIs": "Meta Tag Analyzer examines your webpage's meta tags and provides SEO improvement suggestions. Check Open Graph, Twitter Card, and standard meta tags.",
+      "howToUse": "Enter a URL to analyze or paste your HTML code. The tool will extract and evaluate all meta tags, showing what's present, missing, and what can be improved.",
+      "features": [
+        "Title and description length validation",
+        "Open Graph tag analysis",
+        "Twitter Card validation",
+        "Canonical URL checking",
+        "SEO score and recommendations"
+      ],
+      "faq": [
+        {
+          "q": "What are meta tags?",
+          "a": "Meta tags are HTML elements that provide information about your webpage to search engines and social media platforms."
+        }
+      ]
+    },
+    "robots-generator": {
+      "whatIs": "Robots.txt Generator creates robots.txt files that tell search engine crawlers which pages to access and which to avoid on your website.",
+      "howToUse": "Add rules for different user agents (crawlers). Specify allowed and disallowed paths. Add your sitemap URL. Download the generated robots.txt file.",
+      "features": [
+        "Multiple user agent support",
+        "Allow and disallow rules",
+        "Sitemap URL integration",
+        "Common presets for major search engines"
+      ],
+      "faq": [
+        {
+          "q": "What is robots.txt?",
+          "a": "Robots.txt is a text file that tells web crawlers which pages they can or cannot access on your site."
+        }
+      ]
+    },
+    "serp-preview": {
+      "whatIs": "SERP Preview shows how your webpage will appear in Google search results. Optimize your title, description, and URL for better click-through rates.",
+      "howToUse": "Enter your page title, meta description, and URL. See a real-time preview of how it appears in desktop and mobile search results. Get optimization tips.",
+      "features": [
+        "Desktop and mobile preview",
+        "Character count with limits",
+        "Pixel width validation",
+        "SEO optimization suggestions",
+        "Rich snippet preview support"
+      ],
+      "faq": [
+        {
+          "q": "What is SERP?",
+          "a": "SERP stands for Search Engine Results Page - the page you see after searching on Google or other search engines."
+        }
+      ]
+    },
+    "share-as-image": {
+      "whatIs": "Share as Image creates beautiful, shareable images of your code snippets. Like Carbon, it transforms your code into visually appealing graphics for social media, documentation, and presentations.",
+      "howToUse": "Paste your code, choose a theme and background, customize the styling options, then download as PNG, JPEG, or SVG. You can also copy the image directly to clipboard.",
+      "features": [
+        "8 popular code themes (Dracula, Monokai, Night Owl, etc.)",
+        "9 background options including gradients",
+        "Automatic language detection",
+        "Customizable font size, padding, and border radius",
+        "macOS-style window controls",
+        "Export as PNG, JPEG, or SVG",
+        "Copy image to clipboard"
+      ],
+      "faq": [
+        {
+          "q": "What is Share as Image?",
+          "a": "Share as Image is a tool that converts code snippets into beautiful, shareable images - similar to Carbon (carbon.now.sh) but integrated into your development workflow."
+        },
+        {
+          "q": "What export formats are supported?",
+          "a": "You can export as PNG (best quality), JPEG (smaller file size), or SVG (scalable vector). PNG is recommended for most uses."
+        }
+      ]
     }
   },
   "glossary": {
@@ -1985,6 +2666,694 @@
       "title": "Experimente o Web Toolkit Hoje",
       "description": "43+ ferramentas de desenvolvedor, 100% grátis, 100% privado. Sem instalação necessária.",
       "button": "Começar a Usar Ferramentas"
+    }
+  },
+  "compare": {
+    "title": "Tool Comparisons",
+    "description": "See how Web Toolkit compares to other popular developer tools",
+    "featureComparison": "Feature Comparison",
+    "feature": "Feature",
+    "whyChooseUs": "Why Choose Web Toolkit",
+    "ctaTitle": "Ready to Try the Better Alternative?",
+    "ctaDescription": "Experience the difference with our privacy-focused, client-side tools.",
+    "ctaButton": "Try It Free",
+    "json-formatter-vs-jsonlint": {
+      "title": "JSON Formatter vs JSONLint",
+      "description": "Compare our JSON Formatter with JSONLint for formatting and validation",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Data Sent to Server",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Real-time Validation",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Syntax Error Highlighting",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Dark Mode Support",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Minify Option",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No Ads",
+          "weToolkit": true,
+          "competitor": false
+        }
+      ],
+      "advantages": [
+        "Complete privacy - your data never leaves your browser",
+        "Works offline once loaded",
+        "Modern, clean interface with dark mode",
+        "No intrusive ads or popups"
+      ]
+    },
+    "json-formatter-vs-jsonformatter-org": {
+      "title": "JSON Formatter vs JSONFormatter.org",
+      "description": "Compare our JSON Formatter with JSONFormatter.org",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Data Sent to Server",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Real-time Formatting",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Custom Indentation",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Modern UI Design",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Free to Use",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No Registration Required",
+          "weToolkit": true,
+          "competitor": true
+        }
+      ],
+      "advantages": [
+        "Your JSON data stays completely private",
+        "No server uploads means faster processing",
+        "Clean, ad-free experience",
+        "Part of a comprehensive developer toolkit"
+      ]
+    },
+    "jwt-decoder-vs-jwt-io": {
+      "title": "JWT Decoder vs JWT.io",
+      "description": "Compare our JWT Decoder with the popular JWT.io",
+      "features": [
+        {
+          "key": "100% Client-Side Decoding",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Header/Payload/Signature View",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Expiration Time Display",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No External Libraries Loaded",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Offline Support",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Dark Mode",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Copy Individual Claims",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Integration with Other Tools",
+          "weToolkit": true,
+          "competitor": false
+        }
+      ],
+      "advantages": [
+        "Decode tokens without any external dependencies",
+        "Works offline for secure environments",
+        "Seamless integration with other toolkit features",
+        "Clean interface without distractions"
+      ]
+    },
+    "image-resizer-vs-tinypng": {
+      "title": "Image Resizer vs TinyPNG",
+      "description": "Compare our Image Resizer with TinyPNG for image optimization",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Upload to Server",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Custom Dimensions",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Quality Control",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Batch Processing",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Free Without Limits",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Multiple Format Support",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        }
+      ],
+      "advantages": [
+        "Process images locally without upload",
+        "No file size or quantity limits",
+        "Full control over dimensions and quality",
+        "Complete privacy for sensitive images"
+      ]
+    },
+    "hash-generator-vs-online-tools": {
+      "title": "Hash Generator vs Online Tools",
+      "description": "Compare our Hash Generator with other online hash tools",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Data Transmission",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Multiple Algorithms (MD5, SHA)",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Large File Support",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Instant Results",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Copy to Clipboard",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "No Registration",
+          "weToolkit": true,
+          "competitor": true
+        }
+      ],
+      "advantages": [
+        "Generate hashes without sending data anywhere",
+        "Process large files with WebAssembly",
+        "Secure hashing for sensitive content",
+        "Fast, instant results"
+      ]
+    },
+    "regex-tester-vs-regex101": {
+      "title": "Regex Tester vs Regex101",
+      "description": "Compare our Regex Tester with the popular Regex101",
+      "features": [
+        {
+          "key": "100% Client-Side Processing",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "Real-time Matching",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Match Highlighting",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Works Offline",
+          "weToolkit": true,
+          "competitor": false
+        },
+        {
+          "key": "No Account Required",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Dark Mode",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Multiple Test Strings",
+          "weToolkit": true,
+          "competitor": true
+        },
+        {
+          "key": "Integration with Other Tools",
+          "weToolkit": true,
+          "competitor": false
+        }
+      ],
+      "advantages": [
+        "Test regex patterns with complete privacy",
+        "Works offline in secure environments",
+        "Part of comprehensive developer toolkit",
+        "No tracking or data collection"
+      ]
+    }
+  },
+  "aiExplain": {
+    "explain": "AI Explain",
+    "configureAI": "Configure AI Provider",
+    "provider": "Provider",
+    "model": "Model",
+    "apiKey": "API Key",
+    "getApiKey": "Get API Key",
+    "enterApiKey": "Please enter your API key",
+    "invalidApiKey": "Invalid API key format",
+    "securityNote": "Your API key is stored locally in your browser and never sent to our servers. All AI requests go directly to the provider.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "aiExplanation": "AI Explanation",
+    "close": "Close"
+  },
+  "leadCapture": {
+    "title": "Get Free Resources!",
+    "subtitle": "Enter your email to receive helpful developer resources and download your file.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "invalidEmail": "Please enter a valid email address",
+    "submitButton": "Send me resources",
+    "skipButton": "Skip and download",
+    "submitting": "Sending...",
+    "privacyNote": "We respect your privacy. Unsubscribe anytime."
+  },
+  "leadMagnets": {
+    "developerToolkit": {
+      "title": "Developer Productivity Checklist",
+      "description": "Get our curated checklist of essential developer tools and best practices."
+    },
+    "apiDebugging": {
+      "title": "API Debugging Guide",
+      "description": "Master API debugging with our comprehensive troubleshooting guide."
+    },
+    "imageOptimization": {
+      "title": "Image Optimization Guide",
+      "description": "Learn how to optimize images for web performance and SEO."
+    },
+    "securityChecklist": {
+      "title": "Developer Security Checklist",
+      "description": "Essential security best practices every developer should know."
+    },
+    "frontendResources": {
+      "title": "Frontend Developer Resources",
+      "description": "Curated collection of frontend tools, libraries, and best practices."
+    }
+  },
+  "errorFix": {
+    "title": "Fix AI-Generated Code Errors",
+    "subtitle": "Quick solutions for {count} common AI code errors",
+    "description": "When AI generates code, it sometimes introduces subtle errors. This guide helps you quickly identify and fix the most common issues in AI-generated code.",
+    "cause": "Root Cause",
+    "solutions": "How to Fix",
+    "whyAiGeneratesThis": "Why AI Generates This Error",
+    "validateWithTools": "Validate with Our Tools",
+    "faq": "Frequently Asked Questions",
+    "relatedErrors": "Related Errors",
+    "aiCodeBanner": {
+      "title": "Built for the Age of AI-Generated Code",
+      "description": "As developers increasingly use AI to write code, new patterns of errors emerge. These guides are specifically designed to help you quickly fix common mistakes that AI models make."
+    }
+  },
+  "aiTools": {
+    "badge": "AI Code Validator",
+    "titlePrefix": "AI Code",
+    "subtitle": "Fix AI-generated errors in {tool}",
+    "trustBadges": {
+      "privacy": {
+        "title": "100% Private",
+        "description": "Code never leaves your device"
+      },
+      "offline": {
+        "title": "Works Offline",
+        "description": "No internet required"
+      },
+      "instant": {
+        "title": "Instant Results",
+        "description": "Real-time validation"
+      }
+    },
+    "commonErrors": {
+      "title": "Common AI-Generated Errors We Fix"
+    },
+    "useCases": {
+      "title": "Perfect For"
+    },
+    "relatedTools": "More AI Code Tools",
+    "cta": {
+      "description": "Need more advanced features? Try the full version of {tool}.",
+      "button": "Open Full Tool"
+    },
+    "index": {
+      "title": "AI Code Tools",
+      "subtitle": "{count} tools to fix AI-generated code",
+      "description": "Validate and fix code from ChatGPT, Claude, GitHub Copilot, and other AI assistants. All tools run 100% locally - your code never leaves your device.",
+      "supportedAI": "Works with all major AI assistants",
+      "allTools": "All AI Code Tools",
+      "errorsFixed": "error types fixed",
+      "stats": {
+        "tools": "AI Code Tools",
+        "errorTypes": "Error Types Fixed",
+        "offline": "Offline & Private"
+      }
+    }
+  },
+  "quota": {
+    "daily": "Daily usage",
+    "monthly": "Monthly usage",
+    "warning": {
+      "title": "Approaching usage limit",
+      "description": "You're running low on your free tier usage. Upgrade to Pro for unlimited access."
+    },
+    "exceeded": {
+      "title": "Usage limit reached",
+      "description": "You've reached your free tier limit. Upgrade to Pro to continue using this tool."
+    },
+    "upgradeCta": "Upgrade to Pro"
+  },
+  "useCases": {
+    "title": "Use Cases",
+    "description": "Practical scenarios showing how our tools solve real developer problems",
+    "howTo": "How to Do It",
+    "benefits": "Benefits",
+    "ctaTitle": "Ready to Try?",
+    "ctaButton": "Open Tool",
+    "api-debugging": {
+      "title": "API Response Debugging",
+      "description": "Format and analyze API responses to identify issues quickly",
+      "steps": [
+        {
+          "name": "Copy API Response",
+          "text": "Open your browser's Network tab and copy the raw JSON response from the API call"
+        },
+        {
+          "name": "Paste into Formatter",
+          "text": "Paste the JSON into our formatter to see the structured, indented output"
+        },
+        {
+          "name": "Analyze Structure",
+          "text": "Review nested objects, arrays, and data types to understand the response format"
+        },
+        {
+          "name": "Identify Issues",
+          "text": "Spot missing fields, unexpected values, or malformed data in the response"
+        }
+      ],
+      "benefits": [
+        "Instantly see the structure of complex nested responses",
+        "Find errors and missing fields faster",
+        "Compare expected vs actual response format",
+        "No data sent to servers - 100% private debugging"
+      ]
+    },
+    "config-file-editing": {
+      "title": "Configuration File Editing",
+      "description": "Safely edit and validate JSON configuration files like package.json and tsconfig.json",
+      "steps": [
+        {
+          "name": "Open Config File",
+          "text": "Copy the contents of your configuration file (package.json, tsconfig.json, etc.)"
+        },
+        {
+          "name": "Format and Review",
+          "text": "Paste into the formatter to see a clean, readable structure"
+        },
+        {
+          "name": "Make Changes",
+          "text": "Edit the formatted JSON while the tool validates your changes in real-time"
+        },
+        {
+          "name": "Copy Back",
+          "text": "Copy the validated JSON back to your configuration file"
+        }
+      ],
+      "benefits": [
+        "Catch syntax errors before they break your build",
+        "Easy to read deeply nested configurations",
+        "Real-time validation prevents typos",
+        "Works with any JSON config file format"
+      ]
+    },
+    "token-debugging": {
+      "title": "JWT Token Debugging",
+      "description": "Decode and analyze JWT tokens to troubleshoot authentication issues",
+      "steps": [
+        {
+          "name": "Copy Your Token",
+          "text": "Get the JWT token from your authentication response or storage"
+        },
+        {
+          "name": "Paste to Decode",
+          "text": "Paste the token to see header, payload, and signature decoded"
+        },
+        {
+          "name": "Check Claims",
+          "text": "Review expiration time (exp), issuer (iss), and other claims"
+        },
+        {
+          "name": "Verify Structure",
+          "text": "Ensure all required claims are present and correctly formatted"
+        }
+      ],
+      "benefits": [
+        "Instantly see token expiration and validity",
+        "Decode without exposing tokens to third parties",
+        "Identify missing or malformed claims",
+        "Debug authentication issues faster"
+      ]
+    },
+    "image-optimization": {
+      "title": "Web Image Optimization",
+      "description": "Resize and compress images for optimal web performance",
+      "steps": [
+        {
+          "name": "Upload Image",
+          "text": "Drag and drop or select your image file"
+        },
+        {
+          "name": "Set Dimensions",
+          "text": "Choose target width and height or use aspect ratio lock"
+        },
+        {
+          "name": "Adjust Quality",
+          "text": "Balance between file size and visual quality"
+        },
+        {
+          "name": "Download Result",
+          "text": "Download the optimized image for your website"
+        }
+      ],
+      "benefits": [
+        "Reduce page load times significantly",
+        "Maintain visual quality while minimizing size",
+        "No upload to external servers - process locally",
+        "Support for multiple image formats"
+      ]
+    },
+    "password-hashing": {
+      "title": "Password and File Hashing",
+      "description": "Generate secure hashes for passwords and verify file integrity",
+      "steps": [
+        {
+          "name": "Enter Text or Select Algorithm",
+          "text": "Type your text and choose MD5, SHA-1, SHA-256, or SHA-512"
+        },
+        {
+          "name": "Generate Hash",
+          "text": "Click generate to create the hash instantly"
+        },
+        {
+          "name": "Compare Hashes",
+          "text": "Use for file checksums or password verification"
+        },
+        {
+          "name": "Copy Result",
+          "text": "Copy the hash for use in your application or verification"
+        }
+      ],
+      "benefits": [
+        "Multiple algorithm support for different use cases",
+        "Verify file integrity with checksums",
+        "Client-side processing keeps data secure",
+        "Instant hash generation with one click"
+      ]
+    },
+    "email-validation": {
+      "title": "Email Format Validation",
+      "description": "Test and refine regex patterns for email validation",
+      "steps": [
+        {
+          "name": "Enter Regex Pattern",
+          "text": "Input your email validation regex pattern"
+        },
+        {
+          "name": "Add Test Cases",
+          "text": "Enter various email addresses to test (valid and invalid)"
+        },
+        {
+          "name": "Review Matches",
+          "text": "See which emails match and which are rejected"
+        },
+        {
+          "name": "Refine Pattern",
+          "text": "Adjust your regex based on the test results"
+        }
+      ],
+      "benefits": [
+        "Test patterns against multiple inputs at once",
+        "Visual highlighting of match groups",
+        "Catch edge cases before production",
+        "Learn regex with real-time feedback"
+      ]
+    }
+  },
+  "hashPage": {
+    "home": "Home",
+    "tools": "Tools",
+    "security": "Security",
+    "technicalSpecs": "Technical Specifications",
+    "outputLength": "Output Length",
+    "blockSize": "Block Size",
+    "rounds": "Rounds",
+    "structure": "Structure",
+    "wordSize": "Word Size",
+    "securityAnalysis": "Security Analysis",
+    "securityLevel": "Security Level",
+    "collisionResistance": "Collision Resistance",
+    "preimageResistance": "Preimage Resistance",
+    "secondPreimageResistance": "Second Preimage Resistance",
+    "quantumResistance": "Quantum Resistance",
+    "history": "History",
+    "createdBy": "Created by",
+    "organization": "Organization",
+    "standardization": "Standardization",
+    "timeline": "Timeline",
+    "knownVulnerabilities": "Known Vulnerabilities",
+    "noKnownVulnerabilities": "No known vulnerabilities",
+    "realWorldUseCases": "Real World Use Cases",
+    "industry": "Industry",
+    "company": "Company",
+    "whyThisHash": "Why this hash",
+    "codeExamples": "Code Examples",
+    "comparison": "Comparison",
+    "whenToUse": "When to Use",
+    "whenNotToUse": "When NOT to Use",
+    "performance": "Performance",
+    "speed": "Speed",
+    "cpuCycles": "CPU Cycles",
+    "memoryUsage": "Memory Usage",
+    "parallelizable": "Parallelizable",
+    "yes": "Yes",
+    "no": "No",
+    "hardwareAcceleration": "Hardware Acceleration",
+    "references": "References",
+    "viewDocument": "View Document",
+    "benefits": "Benefits",
+    "useCases": "Use Cases",
+    "features": "Features",
+    "clientSide": "100% client-side - your data never leaves your browser",
+    "instantHash": "Instant hash generation - one click to compute",
+    "fileSupport": "File hashing support - upload any file size",
+    "unlimitedUsage": "Unlimited usage - no restrictions",
+    "faq": "FAQ",
+    "faqWhatIs": "What is {algorithm} hashing?",
+    "faqWhatIsAnswer": "{algorithm} is a cryptographic hash function that produces a {length} hash value.",
+    "faqSecure": "Is {algorithm} secure for passwords?",
+    "faqSecureAnswer": "Use dedicated password hashing algorithms like bcrypt or Argon2 instead of raw hash functions.",
+    "faqSpeed": "How fast is {algorithm}?",
+    "faqSpeedAnswer": "Performance depends on input size and hardware. Modern CPUs with hardware acceleration can process hundreds of MB/s.",
+    "relatedHashTools": "Related Hash Tools",
+    "securityLevels": {
+      "broken": "Broken",
+      "weak": "Weak",
+      "deprecated": "Deprecated",
+      "secure": "Secure",
+      "recommended": "Recommended"
+    },
+    "severityLevels": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "informational": "Info"
     }
   }
 }
