@@ -19,9 +19,8 @@ import {
 import { Button } from "@/shared/ui";
 import { Progress } from "@/shared/ui";
 import { PlanBadge } from "@/entities/subscription";
-import { TIER_QUOTAS } from "@/shared/lib/quota/config";
+import { useUsage, formatToolName } from "../model/use-usage";
 import type { Database } from "@/shared/lib/supabase/types";
-import type { TierType } from "@/shared/lib/lemonsqueezy/tiers";
 
 type UserRow = Database["public"]["Tables"]["users"]["Row"];
 type SubscriptionRow = Database["public"]["Tables"]["subscriptions"]["Row"];
@@ -30,12 +29,6 @@ interface UsageRecord {
   tool_slug: string;
   quantity: number;
   recorded_at: string;
-}
-
-interface UsageSummary {
-  toolSlug: string;
-  totalUsage: number;
-  dailyUsage: number;
 }
 
 interface UsageContentProps {
@@ -52,63 +45,17 @@ export function UsageContent({
   const t = useTranslations("usage");
   const locale = useLocale();
 
-  // 티어 결정
-  const dbTier = user?.tier || "free";
-  const tier: TierType = dbTier === "enterprise" ? "pro" : (dbTier as TierType);
-  const quotaLimits = TIER_QUOTAS[tier];
-
-  // 오늘 날짜와 이번 달 시작
-  const today = new Date();
-  const todayStr = today.toISOString().split("T")[0];
-  const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-
-  // 일일/월간 사용량 계산
-  const dailyUsage = usageRecords
-    .filter((r) => r.recorded_at.startsWith(todayStr))
-    .reduce((sum, r) => sum + (r.quantity || 0), 0);
-
-  const monthlyUsage = usageRecords
-    .filter((r) => new Date(r.recorded_at) >= monthStart)
-    .reduce((sum, r) => sum + (r.quantity || 0), 0);
-
-  // 도구별 사용량 집계
-  const usageByTool = usageRecords.reduce(
-    (acc, r) => {
-      const key = r.tool_slug;
-      if (!acc[key]) {
-        acc[key] = { total: 0, daily: 0 };
-      }
-      acc[key].total += r.quantity || 0;
-      if (r.recorded_at.startsWith(todayStr)) {
-        acc[key].daily += r.quantity || 0;
-      }
-      return acc;
-    },
-    {} as Record<string, { total: number; daily: number }>,
-  );
-
-  // 상위 도구 목록 (사용량 기준)
-  const topTools: UsageSummary[] = Object.entries(usageByTool)
-    .map(([toolSlug, usage]) => ({
-      toolSlug,
-      totalUsage: usage.total,
-      dailyUsage: usage.daily,
-    }))
-    .sort((a, b) => b.totalUsage - a.totalUsage)
-    .slice(0, 10);
-
-  // 퍼센트 계산
-  const dailyPercent =
-    quotaLimits.dailyLimit === Infinity
-      ? 0
-      : Math.min((dailyUsage / quotaLimits.dailyLimit) * 100, 100);
-  const monthlyPercent =
-    quotaLimits.monthlyLimit === Infinity
-      ? 0
-      : Math.min((monthlyUsage / quotaLimits.monthlyLimit) * 100, 100);
-
-  const isNearLimit = dailyPercent >= 80 || monthlyPercent >= 80;
-  const isAtLimit = dailyPercent >= 100 || monthlyPercent >= 100;
+  const {
+    tier,
+    quotaLimits,
+    dailyUsage,
+    monthlyUsage,
+    dailyPercent,
+    monthlyPercent,
+    isNearLimit,
+    isAtLimit,
+    topTools,
+  } = useUsage({ user, usageRecords });
 
   return (
     <div className="container max-w-4xl py-8">
@@ -302,12 +249,4 @@ export function UsageContent({
       </div>
     </div>
   );
-}
-
-// 도구 slug를 표시용 이름으로 변환
-function formatToolName(slug: string): string {
-  return slug
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
 }

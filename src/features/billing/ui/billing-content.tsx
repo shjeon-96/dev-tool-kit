@@ -6,10 +6,8 @@
  * 결제 및 구독 관리 페이지
  */
 
-import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   CreditCard,
@@ -30,8 +28,8 @@ import {
 } from "@/shared/ui";
 import { PlanBadge } from "@/entities/subscription";
 import { TIERS, formatPrice } from "@/shared/lib/lemonsqueezy/tiers";
+import { useBilling } from "../model/use-billing";
 import type { Database } from "@/shared/lib/supabase/types";
-import type { TierType } from "@/shared/lib/lemonsqueezy/tiers";
 
 type UserRow = Database["public"]["Tables"]["users"]["Row"];
 type SubscriptionRow = Database["public"]["Tables"]["subscriptions"]["Row"];
@@ -44,62 +42,19 @@ interface BillingContentProps {
 export function BillingContent({ user, subscription }: BillingContentProps) {
   const t = useTranslations("billing");
   const locale = useLocale();
-  const router = useRouter();
 
-  const [showCancelDialog, setShowCancelDialog] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // 구독 상태 계산 (enterprise는 더 이상 지원하지 않으므로 pro로 매핑)
-  const dbTier = user?.tier || "free";
-  const tier: TierType = dbTier === "enterprise" ? "pro" : (dbTier as TierType);
-  const tierConfig = TIERS[tier];
-  const isActive =
-    subscription?.status === "active" || subscription?.status === "trialing";
-  const isCanceled = subscription?.cancel_at_period_end === true;
-  const periodEnd = subscription?.current_period_end
-    ? new Date(subscription.current_period_end)
-    : null;
-
-  // 구독 취소 처리
-  const handleCancelSubscription = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch("/api/subscription/cancel", {
-        method: "POST",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to cancel subscription");
-      }
-
-      setShowCancelDialog(false);
-      router.refresh();
-    } catch (error) {
-      console.error("Cancel error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // 구독 재개 처리
-  const handleResumeSubscription = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch("/api/subscription/resume", {
-        method: "POST",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to resume subscription");
-      }
-
-      router.refresh();
-    } catch (error) {
-      console.error("Resume error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    tier,
+    tierConfig,
+    isActive,
+    isCanceled,
+    periodEnd,
+    showCancelDialog,
+    setShowCancelDialog,
+    isLoading,
+    handleCancelSubscription,
+    handleResumeSubscription,
+  } = useBilling({ user, subscription });
 
   return (
     <div className="container max-w-4xl py-8">

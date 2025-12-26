@@ -1,65 +1,17 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Check, X } from "lucide-react";
-import { TIERS, formatPrice, type TierType } from "@/shared/lib/lemonsqueezy";
-import { useAuth } from "@/features/auth";
+import { formatPrice, type TierType } from "@/shared/lib/lemonsqueezy";
 import { Button } from "@/shared/ui";
 import { Switch } from "@/shared/ui";
 import { cn } from "@/shared/lib/utils";
+import { usePricing } from "../model/use-pricing";
 
 export function PricingTiers() {
   const t = useTranslations("pricing");
-  const router = useRouter();
-  const { session } = useAuth();
-  const [isYearly, setIsYearly] = useState(false);
-
-  const tiers = Object.values(TIERS);
-
-  const handleSubscribe = useCallback(
-    async (tierId: TierType) => {
-      if (tierId === "free") {
-        // 무료 플랜은 회원가입으로 이동
-        router.push("/auth/signup");
-        return;
-      }
-
-      if (!session) {
-        // 로그인하지 않은 경우 로그인 페이지로
-        router.push("/auth/signin?redirect=/pricing");
-        return;
-      }
-
-      // 체크아웃 API 호출
-      const tier = TIERS[tierId];
-      const variantId = isYearly ? tier.variantIdYearly : tier.variantIdMonthly;
-
-      if (!variantId) {
-        console.error("Variant ID not configured");
-        return;
-      }
-
-      try {
-        const response = await fetch("/api/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ variantId }),
-        });
-
-        const data = await response.json();
-
-        if (data.checkoutUrl) {
-          // 외부 Lemon Squeezy checkout URL로 리다이렉트
-          globalThis.location.assign(data.checkoutUrl);
-        }
-      } catch (error) {
-        console.error("Checkout error:", error);
-      }
-    },
-    [router, session, isYearly],
-  );
+  const { isYearly, setIsYearly, tiers, getPrice, handleSubscribe } =
+    usePricing();
 
   return (
     <div className="space-y-8">
@@ -90,7 +42,7 @@ export function PricingTiers() {
       {/* Pricing Cards */}
       <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
         {tiers.map((tier) => {
-          const price = isYearly ? tier.yearlyPrice / 12 : tier.monthlyPrice;
+          const price = getPrice(tier.id);
           const isPopular = tier.popular;
 
           return (
