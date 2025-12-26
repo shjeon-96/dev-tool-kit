@@ -16,6 +16,7 @@ import { getAllPosts } from "@/entities/post";
 import { getAllHowToSlugs } from "@/entities/how-to";
 import { getAllVsSlugs } from "@/entities/vs";
 import { getAllForSlugs } from "@/entities/for";
+import { getAllLanguageTypeSlugs } from "@/entities/language-type";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -550,6 +551,39 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/for/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Language Type listing page for each locale (pSEO)
+  const languageTypes = getAllLanguageTypeSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/language`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/language`]),
+        ),
+      },
+    });
+  }
+
+  // Language Type pages for each locale (pSEO)
+  for (const slug of languageTypes) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/language/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/language/${slug}`]),
           ),
         },
       });

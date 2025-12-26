@@ -63,4 +63,5 @@ export type ToolSlug =
   | "meta-tag-analyzer"
   | "robots-generator"
   | "serp-preview"
-  | "share-as-image";
+  | "share-as-image"
+  | "token-counter";

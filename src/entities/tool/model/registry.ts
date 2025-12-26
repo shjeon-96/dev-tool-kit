@@ -43,6 +43,7 @@ import {
   Bot,
   Eye,
   Camera,
+  Cpu,
 } from "lucide-react";
 import type { Tool, ToolSlug } from "./types";
 
@@ -389,6 +390,14 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Camera,
     category: "text",
     relatedTools: ["prettier-playground", "diff-checker", "og-generator"],
+  },
+  "token-counter": {
+    title: "Token Counter",
+    description:
+      "GPT, Claude 등 AI 모델의 토큰 수를 계산합니다. 비용 예측과 컨텍스트 윈도우 사용량을 확인합니다.",
+    icon: Cpu,
+    category: "text",
+    relatedTools: ["json-formatter", "markdown-preview", "text-case-converter"],
   },
 };
 

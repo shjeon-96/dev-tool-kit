@@ -706,6 +706,30 @@
         "exporting": "내보내는 중...",
         "reset": "설정 초기화"
       }
+    },
+    "token-counter": {
+      "title": "토큰 카운터",
+      "description": "GPT, Claude 등 AI 모델의 토큰 수를 계산합니다. API 비용 예측과 컨텍스트 윈도우 사용량을 확인하세요.",
+      "selectModel": "AI 모델 선택",
+      "contextWindow": "컨텍스트 윈도우",
+      "inputText": "입력 텍스트",
+      "placeholder": "토큰을 계산할 텍스트를 입력하거나 붙여넣으세요...",
+      "outputRatio": "예상 출력 비율",
+      "outputRatioHelp": "모델이 입력 대비 생성할 출력 토큰 비율 예상치 (1.0x = 입력과 동일)",
+      "tokenCount": "토큰 수",
+      "tokens": "토큰",
+      "characters": "문자",
+      "words": "단어",
+      "lines": "줄",
+      "contextUsage": "컨텍스트 사용률",
+      "exceedsContext": "컨텍스트 윈도우 한도 초과!",
+      "costEstimate": "비용 예측",
+      "inputCost": "입력 비용",
+      "outputCost": "출력 비용",
+      "totalCost": "총 비용",
+      "inputPrice": "입력 가격",
+      "outputPrice": "출력 가격",
+      "emptyState": "위에 텍스트를 입력하면 토큰 수와 비용이 계산됩니다"
     }
   },
   "errorFix": {
@@ -1752,6 +1776,28 @@
         {
           "q": "어떤 내보내기 형식이 지원되나요?",
           "a": "PNG(최고 품질), JPEG(더 작은 파일 크기) 또는 SVG(확장 가능한 벡터)로 내보낼 수 있습니다. 대부분의 용도에는 PNG를 권장합니다."
+        }
+      ]
+    },
+    "token-counter": {
+      "whatIs": "토큰 카운터는 GPT-4, Claude 등 AI 모델에서 텍스트가 몇 개의 토큰으로 분할되는지 계산합니다. 토큰은 AI가 텍스트를 처리하는 기본 단위로, 영어의 경우 보통 단어의 3/4, 한국어의 경우 단어당 2-3개의 토큰으로 분할됩니다. API 비용과 컨텍스트 윈도우 사용량을 미리 파악할 수 있습니다.",
+      "howToUse": "사용할 AI 모델(GPT-4o, Claude 3.5 Sonnet 등)을 선택합니다. 텍스트를 입력하면 실시간으로 토큰 수, 문자 수, 단어 수가 표시됩니다. 예상 출력 비율을 조절하여 총 API 비용을 예측할 수 있습니다.",
+      "features": [
+        "14개 이상의 AI 모델 지원 (OpenAI + Anthropic)",
+        "gpt-tokenizer를 사용한 실시간 토큰 카운트",
+        "입력/출력 토큰 기준 API 비용 계산",
+        "컨텍스트 윈도우 사용률 시각화",
+        "다양한 시나리오를 위한 출력 비율 조절",
+        "100% 클라이언트 사이드 처리"
+      ],
+      "faq": [
+        {
+          "q": "토큰이란 무엇인가요?",
+          "a": "토큰은 AI 모델이 텍스트를 처리하는 기본 단위입니다. 영어에서 하나의 토큰은 대략 4자 또는 단어의 3/4입니다. 한국어나 일본어 같은 비영어권 언어는 일반적으로 단어당 더 많은 토큰을 사용합니다."
+        },
+        {
+          "q": "비용 계산은 얼마나 정확한가요?",
+          "a": "입력 토큰 비용은 정확하게 계산됩니다. 출력 토큰 비용은 선택한 비율에 따른 예상치입니다. 비율을 조절하여 다양한 시나리오를 시뮬레이션해보세요."
         }
       ]
     }
@@ -3482,5 +3528,18 @@
       "description": "43개 이상의 개발자 도구, 100% 무료, 100% 프라이버시. 설치가 필요 없습니다.",
       "button": "도구 사용 시작"
     }
+  },
+  "language": {
+    "indexTitle": "프로그래밍 언어 가이드",
+    "indexDescription": "Python, JavaScript, TypeScript 등 다양한 프로그래밍 언어에서 JSON, YAML, Base64, Hash 등을 사용하는 방법을 배우세요.",
+    "guides": "가이드",
+    "languages": "언어",
+    "tools": "도구",
+    "useCases": "사용 사례",
+    "codeExamples": "코드 예제",
+    "relatedTool": "관련 도구",
+    "relatedGuides": "관련 가이드",
+    "tryToolCTA": "온라인에서 이 도구를 사용해 보시겠습니까?",
+    "footerText": "이 가이드는 다양한 프로그래밍 언어에서 일반적인 데이터 처리 패턴을 구현하는 데 도움을 줍니다."
   }
 }

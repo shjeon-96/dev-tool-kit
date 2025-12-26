@@ -213,6 +213,10 @@ const toolImportConfigs: Record<ToolSlug, ToolImportConfig> = {
     import: () => import("@/features/share-as-image"),
     component: "ShareAsImage",
   },
+  "token-counter": {
+    import: () => import("@/features/token-counter"),
+    component: "TokenCounter",
+  },
 };
 
 /**

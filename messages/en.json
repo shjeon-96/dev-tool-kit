@@ -706,6 +706,30 @@
         "exporting": "Exporting...",
         "reset": "Reset Settings"
       }
+    },
+    "token-counter": {
+      "title": "Token Counter",
+      "description": "Count tokens for GPT, Claude and other AI models. Calculate API costs and context window usage.",
+      "selectModel": "Select AI Model",
+      "contextWindow": "Context Window",
+      "inputText": "Input Text",
+      "placeholder": "Enter or paste your text here to count tokens...",
+      "outputRatio": "Expected Output Ratio",
+      "outputRatioHelp": "Estimate how many output tokens the model will generate relative to input (1.0x = same as input)",
+      "tokenCount": "Token Count",
+      "tokens": "Tokens",
+      "characters": "Characters",
+      "words": "Words",
+      "lines": "Lines",
+      "contextUsage": "Context Usage",
+      "exceedsContext": "Exceeds context window limit!",
+      "costEstimate": "Cost Estimate",
+      "inputCost": "Input Cost",
+      "outputCost": "Output Cost",
+      "totalCost": "Total Cost",
+      "inputPrice": "Input Price",
+      "outputPrice": "Output Price",
+      "emptyState": "Enter text above to count tokens and estimate costs"
     }
   },
   "errorFix": {
@@ -1661,6 +1685,28 @@
         {
           "q": "What export formats are supported?",
           "a": "You can export as PNG (best quality), JPEG (smaller file size), or SVG (scalable vector). PNG is recommended for most uses."
+        }
+      ]
+    },
+    "token-counter": {
+      "whatIs": "Token Counter calculates how many tokens your text uses in AI models like GPT-4, Claude, and others. Tokens are the basic units AI uses to process text - in English, a token is roughly 3/4 of a word. Understanding token counts helps predict API costs and manage context window limits.",
+      "howToUse": "Select your target AI model (GPT-4o, Claude 3.5 Sonnet, etc.). Paste or type your text to see real-time token counts, character counts, and word counts. Adjust the expected output ratio to estimate total API costs. Monitor context window usage to avoid hitting limits.",
+      "features": [
+        "14+ AI models supported (OpenAI and Anthropic)",
+        "Real-time token counting with gpt-tokenizer",
+        "API cost estimation for input and output tokens",
+        "Context window usage visualization",
+        "Adjustable output ratio for cost scenarios",
+        "100% client-side processing"
+      ],
+      "faq": [
+        {
+          "q": "What is a token?",
+          "a": "A token is the basic unit AI models use to process text. In English, one token is roughly 4 characters or 3/4 of a word. Non-English languages like Korean or Japanese typically use more tokens per word."
+        },
+        {
+          "q": "How accurate is the cost estimate?",
+          "a": "Input token costs are calculated accurately. Output token costs are estimates based on your selected ratio. Adjust the ratio to simulate different scenarios."
         }
       ]
     }
@@ -3391,5 +3437,18 @@
       "description": "43+ developer tools, 100% free, 100% private. No installation required.",
       "button": "Start Using Tools"
     }
+  },
+  "language": {
+    "indexTitle": "Programming Language Guides",
+    "indexDescription": "Learn how to use JSON, YAML, Base64, Hash, and more in Python, JavaScript, TypeScript, and other programming languages.",
+    "guides": "guides",
+    "languages": "languages",
+    "tools": "tools",
+    "useCases": "Use Cases",
+    "codeExamples": "Code Examples",
+    "relatedTool": "Related Tool",
+    "relatedGuides": "Related Guides",
+    "tryToolCTA": "Ready to try this tool online?",
+    "footerText": "These guides help you implement common data processing patterns in various programming languages."
   }
 }
