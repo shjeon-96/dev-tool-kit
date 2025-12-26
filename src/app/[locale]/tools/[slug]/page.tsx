@@ -133,6 +133,11 @@ export default async function ToolPage({ params }: Props) {
               {/* Tool Implementation */}
               <div className="min-h-[400px]">{toolRenderer}</div>
 
+              {/* Mobile Ad - Only visible on mobile/tablet */}
+              <div className="lg:hidden my-6">
+                <AdUnit slot={AD_SLOTS.TOOL_RESULT} format="horizontal" />
+              </div>
+
               {/* SEO Content Section */}
               <ToolSeoSection slug={slug as ToolSlug} locale={locale} />
 
@@ -153,6 +158,11 @@ export default async function ToolPage({ params }: Props) {
                   locale={locale}
                   maxLinks={6}
                 />
+              </div>
+
+              {/* Mobile Ad Bottom - Only visible on mobile/tablet */}
+              <div className="lg:hidden my-6">
+                <AdUnit slot={AD_SLOTS.CONTENT_BOTTOM} format="rectangle" />
               </div>
 
               {/* FAQ schema if it exists */}
