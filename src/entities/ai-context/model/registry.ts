@@ -393,6 +393,664 @@ export const aiContextTools: Record<AICompatibleTool, AIContextMeta> = {
     keywords: ["ai url parser", "chatgpt url analyzer", "parse ai endpoints"],
     searchVolume: 700,
   },
+
+  // ============================================================
+  // Text & Code Tools (6개 추가)
+  // ============================================================
+
+  "unix-timestamp": {
+    slug: "unix-timestamp",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "Milliseconds vs seconds confusion",
+      "Timezone handling errors",
+      "Date parsing format mismatch",
+      "Epoch overflow issues",
+    ],
+    useCases: [
+      "Convert ChatGPT timestamp outputs",
+      "Debug AI-generated date calculations",
+      "Validate Claude time zone handling",
+    ],
+    keywords: [
+      "ai timestamp converter",
+      "chatgpt unix time",
+      "convert ai date to timestamp",
+      "fix ai epoch time",
+    ],
+    searchVolume: 2800,
+  },
+
+  "base-converter": {
+    slug: "base-converter",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "Binary to decimal mistakes",
+      "Hex color code errors",
+      "Octal prefix confusion",
+      "Large number overflow",
+    ],
+    useCases: [
+      "Convert ChatGPT number outputs",
+      "Verify AI binary calculations",
+      "Debug hex color conversions",
+    ],
+    keywords: [
+      "ai number converter",
+      "chatgpt binary hex",
+      "convert ai base numbers",
+      "fix ai number format",
+    ],
+    searchVolume: 1200,
+  },
+
+  "lorem-generator": {
+    slug: "lorem-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Inconsistent placeholder lengths",
+      "Wrong language characters",
+      "Missing paragraph structure",
+    ],
+    useCases: [
+      "Generate placeholder text for AI mockups",
+      "Replace ChatGPT dummy content",
+      "Create consistent test data",
+    ],
+    keywords: [
+      "ai lorem generator",
+      "chatgpt placeholder text",
+      "ai dummy content",
+      "generate test text",
+    ],
+    searchVolume: 900,
+  },
+
+  "text-case-converter": {
+    slug: "text-case-converter",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot", "cursor"],
+    commonErrors: [
+      "camelCase vs snake_case confusion",
+      "CONSTANT_CASE mistakes",
+      "PascalCase inconsistencies",
+      "kebab-case in wrong contexts",
+    ],
+    useCases: [
+      "Fix ChatGPT variable naming",
+      "Convert AI constant names",
+      "Standardize Copilot identifiers",
+    ],
+    keywords: [
+      "ai case converter",
+      "chatgpt variable naming",
+      "fix ai camelcase",
+      "convert ai text case",
+    ],
+    searchVolume: 1800,
+  },
+
+  "curl-builder": {
+    slug: "curl-builder",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "Missing authentication headers",
+      "Wrong content-type",
+      "Improperly escaped quotes",
+      "Invalid JSON body format",
+    ],
+    useCases: [
+      "Build cURL from ChatGPT API examples",
+      "Debug Claude HTTP request suggestions",
+      "Convert AI fetch code to cURL",
+    ],
+    keywords: [
+      "ai curl generator",
+      "chatgpt curl command",
+      "build curl from ai",
+      "convert ai api request",
+    ],
+    searchVolume: 2100,
+  },
+
+  "ua-parser": {
+    slug: "ua-parser",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "Outdated browser detection",
+      "Mobile vs desktop misidentification",
+      "Bot detection false positives",
+    ],
+    useCases: [
+      "Parse AI-generated user agent strings",
+      "Debug ChatGPT browser detection code",
+      "Validate device targeting logic",
+    ],
+    keywords: [
+      "ai user agent parser",
+      "chatgpt ua string",
+      "parse browser string",
+      "detect device ai",
+    ],
+    searchVolume: 600,
+  },
+
+  // ============================================================
+  // Media & Design Tools (10개 추가)
+  // ============================================================
+
+  "image-resizer": {
+    slug: "image-resizer",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "Wrong aspect ratio calculations",
+      "Quality degradation",
+      "Missing responsive breakpoints",
+      "Incorrect file format",
+    ],
+    useCases: [
+      "Resize images for AI-suggested dimensions",
+      "Create thumbnails for ChatGPT mockups",
+      "Optimize images per AI guidelines",
+    ],
+    keywords: [
+      "ai image resize",
+      "chatgpt image dimensions",
+      "resize for ai project",
+      "optimize image size",
+    ],
+    searchVolume: 3500,
+  },
+
+  "app-icon-generator": {
+    slug: "app-icon-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Wrong icon sizes for platforms",
+      "Missing required formats",
+      "Transparency issues",
+      "Resolution mismatch",
+    ],
+    useCases: [
+      "Generate icons from AI designs",
+      "Create app icons for ChatGPT projects",
+      "Export all required icon sizes",
+    ],
+    keywords: [
+      "ai app icon generator",
+      "chatgpt icon sizes",
+      "generate app icons",
+      "favicon generator ai",
+    ],
+    searchVolume: 1400,
+  },
+
+  "qr-generator": {
+    slug: "qr-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "URL encoding problems",
+      "Size too small for scanning",
+      "Low error correction level",
+      "Invalid data format",
+    ],
+    useCases: [
+      "Generate QR codes for AI URLs",
+      "Create scannable codes from ChatGPT data",
+      "Embed QR in AI presentations",
+    ],
+    keywords: [
+      "ai qr generator",
+      "chatgpt qr code",
+      "generate qr from ai",
+      "qr code maker offline",
+    ],
+    searchVolume: 2200,
+  },
+
+  "color-picker": {
+    slug: "color-picker",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "RGB vs HEX confusion",
+      "HSL conversion errors",
+      "Opacity/alpha mistakes",
+      "Color contrast issues",
+    ],
+    useCases: [
+      "Convert ChatGPT color codes",
+      "Extract colors from AI palettes",
+      "Verify accessibility contrast",
+    ],
+    keywords: [
+      "ai color picker",
+      "chatgpt hex color",
+      "convert ai colors",
+      "color code converter",
+    ],
+    searchVolume: 2600,
+  },
+
+  "box-shadow": {
+    slug: "box-shadow",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot", "cursor"],
+    commonErrors: [
+      "Incorrect spread vs blur values",
+      "Missing color alpha",
+      "Wrong offset directions",
+      "Browser compatibility issues",
+    ],
+    useCases: [
+      "Customize ChatGPT shadow suggestions",
+      "Fine-tune AI-generated CSS shadows",
+      "Preview Claude shadow code",
+    ],
+    keywords: [
+      "ai box shadow generator",
+      "chatgpt css shadow",
+      "edit ai shadow code",
+      "shadow generator tool",
+    ],
+    searchVolume: 1100,
+  },
+
+  "gradient-generator": {
+    slug: "gradient-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "Wrong gradient direction",
+      "Color stop position errors",
+      "Missing fallback colors",
+      "Radial vs linear confusion",
+    ],
+    useCases: [
+      "Edit ChatGPT gradient code",
+      "Preview AI color transitions",
+      "Generate CSS from AI descriptions",
+    ],
+    keywords: [
+      "ai gradient generator",
+      "chatgpt css gradient",
+      "edit ai gradient",
+      "gradient css maker",
+    ],
+    searchVolume: 1500,
+  },
+
+  "svg-optimizer": {
+    slug: "svg-optimizer",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot"],
+    commonErrors: [
+      "Verbose path data",
+      "Unnecessary metadata",
+      "Inline styles bloat",
+      "Missing viewBox",
+    ],
+    useCases: [
+      "Optimize ChatGPT SVG output",
+      "Clean AI-generated icons",
+      "Reduce Claude SVG file size",
+    ],
+    keywords: [
+      "ai svg optimizer",
+      "chatgpt svg cleaner",
+      "optimize ai svg",
+      "svg minifier tool",
+    ],
+    searchVolume: 1300,
+  },
+
+  "bg-remover": {
+    slug: "bg-remover",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Edge artifacts",
+      "Transparency not preserved",
+      "Hair/fine detail loss",
+      "Wrong output format",
+    ],
+    useCases: [
+      "Remove background from AI images",
+      "Create transparent assets",
+      "Prepare images for AI compositions",
+    ],
+    keywords: [
+      "ai background remover",
+      "remove bg free",
+      "transparent image maker",
+      "ai cutout tool",
+    ],
+    searchVolume: 8500,
+  },
+
+  "og-generator": {
+    slug: "og-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Wrong dimensions for platforms",
+      "Text overflow",
+      "Poor mobile preview",
+      "Missing required tags",
+    ],
+    useCases: [
+      "Create OG images for AI content",
+      "Generate social previews",
+      "Design ChatGPT blog thumbnails",
+    ],
+    keywords: [
+      "ai og image generator",
+      "chatgpt social image",
+      "og image maker",
+      "social preview generator",
+    ],
+    searchVolume: 2000,
+  },
+
+  "image-converter": {
+    slug: "image-converter",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "Quality loss in conversion",
+      "Wrong color profile",
+      "Metadata stripping issues",
+      "Format compatibility",
+    ],
+    useCases: [
+      "Convert AI-generated images",
+      "Change format for web optimization",
+      "Batch convert project assets",
+    ],
+    keywords: [
+      "ai image converter",
+      "convert png to webp",
+      "image format changer",
+      "batch image converter",
+    ],
+    searchVolume: 4200,
+  },
+
+  // ============================================================
+  // SEO & Web Tools (6개 추가)
+  // ============================================================
+
+  "meta-generator": {
+    slug: "meta-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Title length too long",
+      "Missing og:image",
+      "Duplicate meta tags",
+      "Wrong charset encoding",
+    ],
+    useCases: [
+      "Generate meta tags from AI descriptions",
+      "Complete ChatGPT HTML head",
+      "SEO optimize AI content",
+    ],
+    keywords: [
+      "ai meta tag generator",
+      "chatgpt seo tags",
+      "generate meta from ai",
+      "seo tag maker",
+    ],
+    searchVolume: 1900,
+  },
+
+  "schema-generator": {
+    slug: "schema-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Invalid JSON-LD syntax",
+      "Missing required properties",
+      "Wrong schema type",
+      "Deprecated schema fields",
+    ],
+    useCases: [
+      "Generate schema from AI content",
+      "Fix ChatGPT structured data",
+      "Validate Claude JSON-LD",
+    ],
+    keywords: [
+      "ai schema generator",
+      "chatgpt json-ld",
+      "structured data maker",
+      "schema markup tool",
+    ],
+    searchVolume: 2400,
+  },
+
+  "sitemap-generator": {
+    slug: "sitemap-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "Invalid XML format",
+      "Wrong lastmod dates",
+      "Missing priority values",
+      "URL encoding issues",
+    ],
+    useCases: [
+      "Generate sitemap from AI URL list",
+      "Validate ChatGPT sitemap output",
+      "Create XML sitemap offline",
+    ],
+    keywords: [
+      "ai sitemap generator",
+      "chatgpt sitemap xml",
+      "generate sitemap tool",
+      "xml sitemap maker",
+    ],
+    searchVolume: 1600,
+  },
+
+  "meta-tag-analyzer": {
+    slug: "meta-tag-analyzer",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "Missing critical tags",
+      "Duplicate content issues",
+      "Invalid og:url format",
+      "Twitter card errors",
+    ],
+    useCases: [
+      "Analyze AI-built HTML pages",
+      "Audit ChatGPT meta tags",
+      "Check SEO completeness",
+    ],
+    keywords: [
+      "ai meta analyzer",
+      "check chatgpt seo",
+      "meta tag checker",
+      "seo audit tool",
+    ],
+    searchVolume: 1100,
+  },
+
+  "robots-generator": {
+    slug: "robots-generator",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "Incorrect disallow syntax",
+      "Missing user-agent",
+      "Wildcard mistakes",
+      "Sitemap reference errors",
+    ],
+    useCases: [
+      "Generate robots.txt from AI rules",
+      "Fix ChatGPT robots directives",
+      "Create crawler instructions",
+    ],
+    keywords: [
+      "ai robots generator",
+      "chatgpt robots.txt",
+      "robots file maker",
+      "crawler rules tool",
+    ],
+    searchVolume: 800,
+  },
+
+  "serp-preview": {
+    slug: "serp-preview",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Title truncation",
+      "Description cut-off",
+      "URL display issues",
+      "Rich snippet errors",
+    ],
+    useCases: [
+      "Preview AI-written SEO content",
+      "Check ChatGPT title/description",
+      "Optimize search appearance",
+    ],
+    keywords: [
+      "ai serp preview",
+      "chatgpt google preview",
+      "seo preview tool",
+      "search result checker",
+    ],
+    searchVolume: 1200,
+  },
+
+  // ============================================================
+  // Utility Tools (6개 추가)
+  // ============================================================
+
+  "video-compressor": {
+    slug: "video-compressor",
+    aiSources: ["ai-generated", "chatgpt", "claude"],
+    commonErrors: [
+      "Quality vs size tradeoff",
+      "Wrong codec selection",
+      "Audio sync issues",
+      "Resolution mistakes",
+    ],
+    useCases: [
+      "Compress videos for AI projects",
+      "Optimize AI-generated content",
+      "Reduce file size for web",
+    ],
+    keywords: [
+      "ai video compressor",
+      "compress video online",
+      "reduce video size",
+      "video optimizer tool",
+    ],
+    searchVolume: 5200,
+  },
+
+  "pdf-toolkit": {
+    slug: "pdf-toolkit",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Merge order issues",
+      "Page rotation errors",
+      "Compression quality loss",
+      "Font embedding problems",
+    ],
+    useCases: [
+      "Process AI-generated PDFs",
+      "Merge ChatGPT document outputs",
+      "Compress PDF reports",
+    ],
+    keywords: [
+      "ai pdf tool",
+      "merge pdf online",
+      "compress pdf free",
+      "pdf editor tool",
+    ],
+    searchVolume: 6800,
+  },
+
+  "ocr-scanner": {
+    slug: "ocr-scanner",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Character recognition errors",
+      "Layout preservation issues",
+      "Language detection failures",
+      "Handwriting misreads",
+    ],
+    useCases: [
+      "Extract text for AI processing",
+      "Digitize documents for ChatGPT",
+      "Convert images to editable text",
+    ],
+    keywords: [
+      "ai ocr scanner",
+      "image to text ai",
+      "ocr online free",
+      "text extraction tool",
+    ],
+    searchVolume: 7500,
+  },
+
+  "headline-analyzer": {
+    slug: "headline-analyzer",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Clickbait detection",
+      "Emotional word overuse",
+      "Length optimization",
+      "Power word placement",
+    ],
+    useCases: [
+      "Analyze ChatGPT headlines",
+      "Optimize AI-generated titles",
+      "Improve content CTR",
+    ],
+    keywords: [
+      "ai headline analyzer",
+      "chatgpt title checker",
+      "headline score tool",
+      "title optimizer",
+    ],
+    searchVolume: 1700,
+  },
+
+  "css-to-tailwind": {
+    slug: "css-to-tailwind",
+    aiSources: ["ai-generated", "chatgpt", "claude", "copilot", "cursor"],
+    commonErrors: [
+      "Unsupported CSS properties",
+      "Complex selector conversion",
+      "Media query handling",
+      "Custom value approximation",
+    ],
+    useCases: [
+      "Convert ChatGPT CSS to Tailwind",
+      "Migrate AI styles to utility classes",
+      "Modernize legacy CSS code",
+    ],
+    keywords: [
+      "ai css to tailwind",
+      "chatgpt tailwind converter",
+      "convert css utility",
+      "tailwind migration tool",
+    ],
+    searchVolume: 3100,
+  },
+
+  "share-as-image": {
+    slug: "share-as-image",
+    aiSources: ["ai-generated", "chatgpt", "claude", "gemini"],
+    commonErrors: [
+      "Text overflow in image",
+      "Resolution too low",
+      "Font rendering issues",
+      "Background transparency",
+    ],
+    useCases: [
+      "Share AI code snippets",
+      "Create ChatGPT output images",
+      "Generate shareable quotes",
+    ],
+    keywords: [
+      "ai code to image",
+      "share chatgpt output",
+      "code screenshot maker",
+      "text to image tool",
+    ],
+    searchVolume: 2300,
+  },
 };
 
 /**

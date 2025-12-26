@@ -328,3 +328,300 @@ export function ArticleJsonLd({
     />
   );
 }
+
+// ItemList Schema for category/list pages (pSEO index pages)
+interface ItemListItem {
+  name: string;
+  url: string;
+  description?: string;
+  image?: string;
+}
+
+interface ItemListJsonLdProps {
+  name: string;
+  description: string;
+  url: string;
+  items: ItemListItem[];
+  itemType?: "ListItem" | "HowTo" | "Article" | "SoftwareApplication";
+}
+
+export function ItemListJsonLd({
+  name,
+  description,
+  url,
+  items,
+  itemType = "ListItem",
+}: ItemListJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    description,
+    url,
+    numberOfItems: items.length,
+    itemListElement: items.map((item, index) => ({
+      "@type": itemType,
+      position: index + 1,
+      name: item.name,
+      url: item.url,
+      ...(item.description && { description: item.description }),
+      ...(item.image && { image: item.image }),
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// TechArticle Schema for technical documentation
+interface TechArticleJsonLdProps {
+  headline: string;
+  description: string;
+  url: string;
+  dependencies?: string[];
+  proficiencyLevel?: "Beginner" | "Intermediate" | "Expert";
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+  image?: string;
+}
+
+export function TechArticleJsonLd({
+  headline,
+  description,
+  url,
+  dependencies,
+  proficiencyLevel,
+  datePublished,
+  dateModified,
+  author = SITE_CONFIG.author,
+  image,
+}: TechArticleJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline,
+    description,
+    url,
+    ...(dependencies && { dependencies }),
+    ...(proficiencyLevel && { proficiencyLevel }),
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+    author: {
+      "@type": "Person",
+      name: author,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+    ...(image && { image }),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// DefinedTerm Schema for glossary pages
+interface DefinedTermJsonLdProps {
+  name: string;
+  description: string;
+  url: string;
+  inDefinedTermSet?: string;
+}
+
+export function DefinedTermJsonLd({
+  name,
+  description,
+  url,
+  inDefinedTermSet = "Developer Glossary",
+}: DefinedTermJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name,
+    description,
+    url,
+    inDefinedTermSet: {
+      "@type": "DefinedTermSet",
+      name: inDefinedTermSet,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// WebApplication Schema (enhanced for PWA-like tools)
+interface WebApplicationJsonLdProps {
+  name: string;
+  description: string;
+  url: string;
+  browserRequirements?: string;
+  featureList?: string[];
+  permissions?: string;
+  screenshot?: string;
+}
+
+export function WebApplicationJsonLd({
+  name,
+  description,
+  url,
+  browserRequirements = "Requires JavaScript. Works in modern browsers (Chrome, Firefox, Safari, Edge).",
+  featureList,
+  permissions = "No special permissions required. All processing is done locally in your browser.",
+  screenshot,
+}: WebApplicationJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name,
+    description,
+    url,
+    applicationCategory: "DeveloperApplication",
+    browserRequirements,
+    permissions,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    ...(featureList && { featureList }),
+    ...(screenshot && { screenshot }),
+    author: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// Comparison Schema for VS pages (using Article with structured comparison)
+interface ComparisonItem {
+  aspect: string;
+  item1Value: string;
+  item2Value: string;
+  winner?: "item1" | "item2" | "tie";
+}
+
+interface ComparisonJsonLdProps {
+  item1: string;
+  item2: string;
+  headline: string;
+  description: string;
+  url: string;
+  comparisons: ComparisonItem[];
+  conclusion: string;
+}
+
+export function ComparisonJsonLd({
+  item1,
+  item2,
+  headline,
+  description,
+  url,
+  comparisons,
+  conclusion,
+}: ComparisonJsonLdProps) {
+  // Format comparison as structured content
+  const comparisonText = comparisons
+    .map(
+      (c) => `${c.aspect}: ${item1}=${c.item1Value}, ${item2}=${c.item2Value}`,
+    )
+    .join("; ");
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    articleBody: `${description} ${comparisonText} Conclusion: ${conclusion}`,
+    about: [
+      { "@type": "Thing", name: item1 },
+      { "@type": "Thing", name: item2 },
+    ],
+    author: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// CollectionPage Schema for tool category pages
+interface CollectionPageJsonLdProps {
+  name: string;
+  description: string;
+  url: string;
+  mainEntity?: {
+    name: string;
+    url: string;
+  }[];
+}
+
+export function CollectionPageJsonLd({
+  name,
+  description,
+  url,
+  mainEntity,
+}: CollectionPageJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name,
+    description,
+    url,
+    ...(mainEntity && {
+      mainEntity: mainEntity.map((item) => ({
+        "@type": "SoftwareApplication",
+        name: item.name,
+        url: item.url,
+      })),
+    }),
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}

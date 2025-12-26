@@ -16,9 +16,10 @@ export type AISource =
   | "gemini" // Google Gemini
   | "cursor"; // Cursor AI
 
-// AI 컨텍스트 적용 가능한 도구들
+// AI 컨텍스트 적용 가능한 도구들 (44개 전체)
 export type AICompatibleTool = Extract<
   ToolSlug,
+  // Text & Code (16) - 기존
   | "json-formatter"
   | "jwt-decoder"
   | "sql-formatter"
@@ -35,6 +36,38 @@ export type AICompatibleTool = Extract<
   | "cron-parser"
   | "uuid-generator"
   | "url-parser"
+  // Text & Code (6) - 신규
+  | "unix-timestamp"
+  | "base-converter"
+  | "lorem-generator"
+  | "text-case-converter"
+  | "curl-builder"
+  | "ua-parser"
+  // Media & Design (10)
+  | "image-resizer"
+  | "app-icon-generator"
+  | "qr-generator"
+  | "color-picker"
+  | "box-shadow"
+  | "gradient-generator"
+  | "svg-optimizer"
+  | "bg-remover"
+  | "og-generator"
+  | "image-converter"
+  // SEO & Web (6)
+  | "meta-generator"
+  | "schema-generator"
+  | "sitemap-generator"
+  | "meta-tag-analyzer"
+  | "robots-generator"
+  | "serp-preview"
+  // Utility (6)
+  | "video-compressor"
+  | "pdf-toolkit"
+  | "ocr-scanner"
+  | "headline-analyzer"
+  | "css-to-tailwind"
+  | "share-as-image"
 >;
 
 // AI 컨텍스트 페이지 메타데이터

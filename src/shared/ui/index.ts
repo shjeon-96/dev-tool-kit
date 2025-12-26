@@ -36,6 +36,12 @@ export {
   ProductJsonLd,
   ArticleJsonLd,
   SoftwareApplicationJsonLd,
+  ItemListJsonLd,
+  TechArticleJsonLd,
+  DefinedTermJsonLd,
+  WebApplicationJsonLd,
+  ComparisonJsonLd,
+  CollectionPageJsonLd,
 } from "./json-ld";
 // AdUnit moved to widgets/ad-unit
 export { ClarityScript } from "./clarity";

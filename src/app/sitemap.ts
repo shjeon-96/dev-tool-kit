@@ -13,6 +13,9 @@ import { getAllMinifyTypeSlugs } from "@/entities/minify-type";
 import { getAllValidateTypeSlugs } from "@/entities/validate-type";
 import { getAllDiffTypeSlugs } from "@/entities/diff-type";
 import { getAllPosts } from "@/entities/post";
+import { getAllHowToSlugs } from "@/entities/how-to";
+import { getAllVsSlugs } from "@/entities/vs";
+import { getAllForSlugs } from "@/entities/for";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
@@ -448,6 +451,105 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/diff/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // How-To listing page for each locale (pSEO)
+  const howTos = getAllHowToSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/how-to`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/how-to`]),
+        ),
+      },
+    });
+  }
+
+  // How-To pages for each locale (pSEO)
+  for (const slug of howTos) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/how-to/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/how-to/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // VS Comparison listing page for each locale (pSEO)
+  const vsComparisons = getAllVsSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/vs`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/vs`]),
+        ),
+      },
+    });
+  }
+
+  // VS Comparison pages for each locale (pSEO)
+  for (const slug of vsComparisons) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/vs/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/vs/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // For Use-Case listing page for each locale (pSEO)
+  const forUseCases = getAllForSlugs();
+  for (const locale of locales) {
+    entries.push({
+      url: `${baseUrl}/${locale}/for`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: Object.fromEntries(
+          locales.map((l) => [l, `${baseUrl}/${l}/for`]),
+        ),
+      },
+    });
+  }
+
+  // For Use-Case pages for each locale (pSEO)
+  for (const slug of forUseCases) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/for/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [l, `${baseUrl}/${l}/for/${slug}`]),
           ),
         },
       });
