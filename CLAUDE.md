@@ -27,21 +27,18 @@ npm run dev  # http://localhost:3000
 
 ### Key Commands
 
-| Command                   | Description                     |
-| ------------------------- | ------------------------------- |
-| `npm run dev`             | 개발 서버 (Turbopack)           |
-| `npm run build`           | 프로덕션 빌드                   |
-| `npm run lint`            | ESLint 검사                     |
-| `npm run test`            | Vitest 단위 테스트 (watch 모드) |
-| `npm run test -- [name]`  | 특정 파일 테스트                |
-| `npm run test -- --run`   | 단일 실행 (watch 없이)          |
-| `npm run test:ui`         | Vitest UI 모드                  |
-| `npm run test:coverage`   | 커버리지 리포트 생성            |
-| `npm run test:e2e`        | Playwright E2E 테스트           |
-| `npm run test:e2e:ui`     | Playwright UI 모드              |
-| `npm run analyze`         | 번들 분석 (`ANALYZE=true`)      |
-| `npm run validate:tools`  | 도구 레지스트리 유효성 검사     |
-| `npm run remotion:studio` | Remotion 스튜디오 (비디오 편집) |
+| Command                  | Description                     |
+| ------------------------ | ------------------------------- |
+| `npm run dev`            | 개발 서버 (Turbopack)           |
+| `npm run build`          | 프로덕션 빌드                   |
+| `npm run lint`           | ESLint 검사                     |
+| `npm run test`           | Vitest 단위 테스트 (watch 모드) |
+| `npm run test [name]`    | 특정 파일 테스트                |
+| `npm run test --run`     | 단일 실행 (watch 없이)          |
+| `npm run test:coverage`  | 커버리지 리포트 생성            |
+| `npm run test:e2e`       | Playwright E2E 테스트           |
+| `npm run analyze`        | 번들 분석 (`ANALYZE=true`)      |
+| `npm run validate:tools` | 도구 레지스트리 유효성 검사     |
 
 ---
 
@@ -65,10 +62,12 @@ src/
 │   ├── minify/[type]/            # pSEO: 코드 압축
 │   ├── validate/[type]/          # pSEO: 유효성 검사
 │   ├── diff/[type]/              # pSEO: 차이 비교
+│   ├── format/[type]/            # pSEO: 코드 포맷팅
+│   ├── generate/[type]/          # pSEO: 코드 생성
 │   ├── guides/[slug]/            # 가이드 페이지
 │   └── cheatsheets/[slug]/       # 치트시트 페이지
 │
-├── features/                     # 도구 + 기능 모듈 (60+)
+├── features/                     # 도구 + 기능 모듈 (50+)
 │   ├── json-formatter/           # 도구 예시
 │   │   ├── model/use-*.ts        # 상태/로직 Hook
 │   │   ├── lib/*.ts              # 순수 함수 (테스트 대상)
@@ -79,12 +78,19 @@ src/
 ├── entities/                     # 비즈니스 엔티티 + pSEO 레지스트리
 │   ├── tool/model/               # 도구 타입, 레지스트리, SEO
 │   ├── converter/model/          # 포맷 변환 레지스트리
-│   ├── image-resize-target/model/# 리사이즈 타겟 레지스트리
-│   ├── encode-decode-type/model/ # 인코딩/디코딩 레지스트리
-│   ├── hash-type/model/          # 해시 타입 레지스트리
-│   ├── minify-type/model/        # 압축 타입 레지스트리
-│   ├── validate-type/model/      # 검증 타입 레지스트리
-│   └── diff-type/model/          # 비교 타입 레지스트리
+│   ├── image-resize-target/      # 리사이즈 타겟 레지스트리
+│   ├── encode-decode-type/       # 인코딩/디코딩 레지스트리
+│   ├── hash-type/                # 해시 타입 레지스트리
+│   ├── minify-type/              # 압축 타입 레지스트리
+│   ├── validate-type/            # 검증 타입 레지스트리
+│   ├── diff-type/                # 비교 타입 레지스트리
+│   ├── format-type/              # 포맷 타입 레지스트리
+│   ├── generate-type/            # 생성 타입 레지스트리
+│   ├── competitor/               # 경쟁사 비교 레지스트리
+│   ├── glossary/                 # 용어집 레지스트리
+│   ├── use-case/                 # 사용 사례 레지스트리
+│   ├── comparison/               # 도구 비교 레지스트리
+│   └── ai-context/               # AI 컨텍스트 레지스트리
 │
 └── shared/
     ├── ui/                       # 공통 UI 컴포넌트 (Radix UI)
@@ -224,18 +230,23 @@ const content = data.content[localeKey];
 
 자동 생성되는 대량 SEO 페이지:
 
-| Route                    | Registry                               |
-| ------------------------ | -------------------------------------- |
-| `/convert/[slug]`        | `entities/converter/model/registry.ts` |
-| `/resize-to/[target]`    | `entities/image-resize-target/model/`  |
-| `/encode/[type]`         | `entities/encode-decode-type/model/`   |
-| `/decode/[type]`         | `entities/encode-decode-type/model/`   |
-| `/hash/[type]`           | `entities/hash-type/model/`            |
-| `/minify/[type]`         | `entities/minify-type/model/`          |
-| `/validate/[type]`       | `entities/validate-type/model/`        |
-| `/diff/[type]`           | `entities/diff-type/model/`            |
-| `/alternative-to/[comp]` | `entities/competitor/model/`           |
-| `/glossary/[term]`       | `entities/glossary/model/`             |
+| Route                    | Registry                              |
+| ------------------------ | ------------------------------------- |
+| `/convert/[slug]`        | `entities/converter/model/registry`   |
+| `/resize-to/[target]`    | `entities/image-resize-target/model/` |
+| `/encode/[type]`         | `entities/encode-decode-type/model/`  |
+| `/decode/[type]`         | `entities/encode-decode-type/model/`  |
+| `/hash/[type]`           | `entities/hash-type/model/`           |
+| `/minify/[type]`         | `entities/minify-type/model/`         |
+| `/validate/[type]`       | `entities/validate-type/model/`       |
+| `/diff/[type]`           | `entities/diff-type/model/`           |
+| `/format/[type]`         | `entities/format-type/model/`         |
+| `/generate/[type]`       | `entities/generate-type/model/`       |
+| `/alternative-to/[comp]` | `entities/competitor/model/`          |
+| `/glossary/[term]`       | `entities/glossary/model/`            |
+| `/use-cases/[slug]`      | `entities/use-case/model/`            |
+| `/compare/[slug]`        | `entities/comparison/model/`          |
+| `/ai/[context]`          | `entities/ai-context/model/`          |
 
 pSEO 페이지 추가 시:
 
@@ -262,16 +273,15 @@ npm run test:e2e:ui           # E2E UI 모드
 
 ## Key Files Reference
 
-| File                                              | Purpose                         |
-| ------------------------------------------------- | ------------------------------- |
-| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의              |
-| `src/entities/tool/model/registry.ts`             | 도구 메타데이터 레지스트리      |
-| `src/entities/tool/model/component-map.ts`        | 도구 컴포넌트 Dynamic Import 맵 |
-| `src/entities/tool/model/seo-content.ts`          | 도구별 SEO 콘텐츠               |
-| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 렌더링 컴포넌트            |
-| `src/i18n/routing.ts`                             | 지원 언어 목록 (6개)            |
-| `src/shared/lib/quota/`                           | 사용량 제한 시스템              |
-| `src/app/sitemap.ts`                              | 동적 사이트맵                   |
+| File                                       | Purpose                         |
+| ------------------------------------------ | ------------------------------- |
+| `src/entities/tool/model/types.ts`         | ToolSlug 타입 정의              |
+| `src/entities/tool/model/registry.ts`      | 도구 메타데이터 레지스트리      |
+| `src/entities/tool/model/component-map.ts` | 도구 컴포넌트 Dynamic Import 맵 |
+| `src/entities/tool/model/seo-content.ts`   | 도구별 SEO 콘텐츠               |
+| `src/i18n/routing.ts`                      | 지원 언어 목록 (6개)            |
+| `src/shared/lib/quota/`                    | 사용량 제한 시스템              |
+| `src/app/sitemap.ts`                       | 동적 사이트맵                   |
 
 ---
 
