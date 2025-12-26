@@ -10,6 +10,7 @@ import {
 } from "@/entities/guide";
 import { HowToJsonLd, ArticleJsonLd, BreadcrumbJsonLd } from "@/shared/ui";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 import { AdUnit } from "@/widgets/ad-unit/ad-unit";
 
 interface Props {
@@ -18,23 +19,47 @@ interface Props {
 
 export async function generateStaticParams() {
   const slugs = getGuideSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const t = await getTranslations("guides");
-  const tTools = await getTranslations("tools");
+  const { locale, slug } = await params;
+  const t = await getTranslations({ locale, namespace: "guides" });
+  const tTools = await getTranslations({ locale, namespace: "tools" });
 
   const guide = getGuide(slug);
   if (!guide) return {};
 
   const toolTitle = tTools(`${slug as GuideSlug}.title`);
+  const description = t(`${slug}.summary`);
+  const title = `${toolTitle} Guide`;
 
   return {
-    title: `${toolTitle} Guide - ${t("title")}`,
-    description: t(`${slug}.summary`),
+    title: `${title} - ${t("title")}`,
+    description,
     keywords: guide.keywords,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: `${SITE_CONFIG.url}/${locale}/guides/${slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    alternates: {
+      canonical: `${SITE_CONFIG.url}/${locale}/guides/${slug}`,
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/guides/${slug}`,
+        ]),
+      ),
+    },
   };
 }
 

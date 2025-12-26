@@ -44,7 +44,7 @@ export function CssToTailwind() {
   padding: 16px;
   margin: 8px;
 }`}
-            className="font-mono text-sm min-h-[300px]"
+            className="font-mono text-sm min-h-[200px] sm:min-h-[280px] lg:min-h-[300px]"
           />
         </div>
 
@@ -68,7 +68,9 @@ export function CssToTailwind() {
           </div>
           <div className="p-4 rounded-lg border bg-card min-h-[100px]">
             {result.tailwind ? (
-              <code className="text-sm font-mono break-all">{result.tailwind}</code>
+              <code className="text-sm font-mono break-all">
+                {result.tailwind}
+              </code>
             ) : (
               <p className="text-sm text-muted-foreground">
                 CSS를 입력하면 Tailwind 클래스가 여기에 표시됩니다

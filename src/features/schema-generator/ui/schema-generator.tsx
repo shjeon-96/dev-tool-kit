@@ -246,7 +246,7 @@ export function SchemaGenerator() {
         <Textarea
           value={output}
           readOnly
-          className="min-h-[500px] font-mono text-sm"
+          className="min-h-[280px] sm:min-h-[400px] lg:min-h-[500px] font-mono text-sm"
           placeholder="Fill in the form to generate JSON-LD..."
         />
 

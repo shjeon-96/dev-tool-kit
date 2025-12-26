@@ -167,7 +167,7 @@ export function Base64Converter() {
                 ? "Enter text to encode..."
                 : "Enter Base64 to decode..."
             }
-            className="h-[300px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+            className="h-[200px] sm:h-[280px] lg:h-[300px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
             spellCheck={false}
           />
         </div>
@@ -192,7 +192,7 @@ export function Base64Converter() {
             value={output}
             readOnly
             placeholder="Result will appear here"
-            className="h-[300px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+            className="h-[200px] sm:h-[280px] lg:h-[300px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
             spellCheck={false}
           />
         </div>

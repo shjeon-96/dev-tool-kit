@@ -101,10 +101,9 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}`,
-      languages: {
-        en: `${SITE_CONFIG.url}/en`,
-        ko: `${SITE_CONFIG.url}/ko`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, `${SITE_CONFIG.url}/${l}`]),
+      ),
     },
     verification: {
       google: "UbK-cRKd2S1F-xeGfKZsoDQqr5t9EXk8upUmWhqLb0w",

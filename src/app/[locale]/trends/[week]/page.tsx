@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 import {
   getTrendReport,
   listTrendReports,
@@ -31,13 +32,8 @@ interface PageProps {
 // 최근 12주만 정적 생성
 export async function generateStaticParams() {
   const weeks = getLastNWeeks(12);
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    weeks.map((week) => ({
-      locale,
-      week,
-    })),
+  return routing.locales.flatMap((locale) =>
+    weeks.map((week) => ({ locale, week })),
   );
 }
 

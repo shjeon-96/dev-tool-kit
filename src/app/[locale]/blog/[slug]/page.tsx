@@ -8,6 +8,7 @@ import { getAllPosts, getPostBySlug } from "@/entities/post";
 import { MarkdownViewer } from "@/features/blog";
 import { Button, Badge } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 
 interface PageProps {
   params: Promise<{
@@ -18,13 +19,8 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    posts.map((post) => ({
-      locale,
-      slug: post.slug,
-    })),
+  return routing.locales.flatMap((locale) =>
+    posts.map((post) => ({ locale, slug: post.slug })),
   );
 }
 

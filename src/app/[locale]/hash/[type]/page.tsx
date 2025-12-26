@@ -28,6 +28,7 @@ import {
 import { getUniqueHashContent } from "@/entities/hash-type";
 import type { LocaleKey, UniqueHashContent } from "@/entities/hash-type";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 import {
   BreadcrumbJsonLd,
   SoftwareApplicationJsonLd,
@@ -41,16 +42,17 @@ interface PageProps {
   }>;
 }
 
+// Safe locale fallback helper - returns valid LocaleKey or 'en'
+function getSafeLocaleKey(locale: string): LocaleKey {
+  if (locale === "ko" || locale === "ja") return locale;
+  return "en"; // Fallback for es, pt, de, and any other locale
+}
+
 // 정적 파라미터 생성 - 모든 해시 타입 페이지 사전 생성
 export async function generateStaticParams() {
   const slugs = getAllHashTypeSlugs();
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    slugs.map((slug) => ({
-      locale,
-      type: slug,
-    })),
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, type: slug })),
   );
 }
 
@@ -67,11 +69,10 @@ export async function generateMetadata({
     };
   }
 
-  const localeKey = locale as LocaleKey;
-  const title = hashType.title[localeKey] || hashType.title.en;
-  const description =
-    hashType.description[localeKey] || hashType.description.en;
-  const keywords = hashType.keywords[localeKey] || hashType.keywords.en;
+  const localeKey = getSafeLocaleKey(locale);
+  const title = hashType.title[localeKey];
+  const description = hashType.description[localeKey];
+  const keywords = hashType.keywords[localeKey];
 
   const ogImageUrl = `/api/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`;
 
@@ -101,11 +102,12 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}/hash/${typeSlug}`,
-      languages: {
-        en: `${SITE_CONFIG.url}/en/hash/${typeSlug}`,
-        ko: `${SITE_CONFIG.url}/ko/hash/${typeSlug}`,
-        ja: `${SITE_CONFIG.url}/ja/hash/${typeSlug}`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/hash/${typeSlug}`,
+        ]),
+      ),
     },
   };
 }
@@ -159,10 +161,9 @@ export default async function HashTypePage({ params }: PageProps) {
     notFound();
   }
 
-  const localeKey = locale as LocaleKey;
-  const title = hashType.title[localeKey] || hashType.title.en;
-  const description =
-    hashType.description[localeKey] || hashType.description.en;
+  const localeKey = getSafeLocaleKey(locale);
+  const title = hashType.title[localeKey];
+  const description = hashType.description[localeKey];
 
   // 고유 콘텐츠 (Thin Content 해결)
   const uniqueContent = getUniqueHashContent(typeSlug);

@@ -217,7 +217,7 @@ export function CssMinifier() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder=".class { color: red; }"
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
             spellCheck={false}
           />
         </div>
@@ -240,7 +240,7 @@ export function CssMinifier() {
             value={output}
             readOnly
             placeholder="Processed CSS will appear here"
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
             spellCheck={false}
           />
         </div>

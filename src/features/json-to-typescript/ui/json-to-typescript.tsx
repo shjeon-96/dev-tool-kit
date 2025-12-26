@@ -188,7 +188,7 @@ export function JsonToTypescript() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='{"name": "John", "age": 30}'
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
             spellCheck={false}
           />
         </div>
@@ -211,7 +211,7 @@ export function JsonToTypescript() {
             value={output}
             readOnly
             placeholder="TypeScript types will appear here"
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
             spellCheck={false}
           />
         </div>

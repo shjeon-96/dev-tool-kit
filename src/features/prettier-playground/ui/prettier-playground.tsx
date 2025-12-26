@@ -21,7 +21,14 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/ui";
-import { Copy, Check, RotateCcw, FileCode, AlertCircle, Settings } from "lucide-react";
+import {
+  Copy,
+  Check,
+  RotateCcw,
+  FileCode,
+  AlertCircle,
+  Settings,
+} from "lucide-react";
 import { useState } from "react";
 
 const languages: { value: Language; label: string }[] = [
@@ -78,7 +85,10 @@ export function PrettierPlayground() {
       <div className="flex items-center gap-4 flex-wrap">
         <div className="flex items-center gap-2">
           <Label>언어</Label>
-          <Select value={language} onValueChange={(v) => setLanguage(v as Language)}>
+          <Select
+            value={language}
+            onValueChange={(v) => setLanguage(v as Language)}
+          >
             <SelectTrigger className="w-40">
               <SelectValue />
             </SelectTrigger>
@@ -109,7 +119,7 @@ export function PrettierPlayground() {
             value={inputCode}
             onChange={(e) => setInputCode(e.target.value)}
             placeholder="코드를 입력하세요..."
-            className="font-mono text-sm min-h-[300px]"
+            className="font-mono text-sm min-h-[200px] sm:min-h-[280px] lg:min-h-[300px]"
           />
         </div>
 
@@ -140,7 +150,7 @@ export function PrettierPlayground() {
             value={outputCode}
             readOnly
             placeholder="포맷팅 결과가 여기에 표시됩니다..."
-            className="font-mono text-sm min-h-[300px]"
+            className="font-mono text-sm min-h-[200px] sm:min-h-[280px] lg:min-h-[300px]"
           />
         </div>
       </div>
@@ -215,21 +225,27 @@ export function PrettierPlayground() {
             <div className="flex items-center gap-2">
               <Switch
                 checked={options.singleQuote}
-                onCheckedChange={(checked) => updateOption("singleQuote", checked)}
+                onCheckedChange={(checked) =>
+                  updateOption("singleQuote", checked)
+                }
               />
               <Label>작은따옴표</Label>
             </div>
             <div className="flex items-center gap-2">
               <Switch
                 checked={options.bracketSpacing}
-                onCheckedChange={(checked) => updateOption("bracketSpacing", checked)}
+                onCheckedChange={(checked) =>
+                  updateOption("bracketSpacing", checked)
+                }
               />
               <Label>괄호 공백</Label>
             </div>
             <div className="flex items-center gap-2">
               <Switch
                 checked={options.bracketSameLine}
-                onCheckedChange={(checked) => updateOption("bracketSameLine", checked)}
+                onCheckedChange={(checked) =>
+                  updateOption("bracketSameLine", checked)
+                }
               />
               <Label>괄호 같은 줄</Label>
             </div>
@@ -238,7 +254,10 @@ export function PrettierPlayground() {
               <Select
                 value={options.trailingComma}
                 onValueChange={(v) =>
-                  updateOption("trailingComma", v as PrettierOptions["trailingComma"])
+                  updateOption(
+                    "trailingComma",
+                    v as PrettierOptions["trailingComma"],
+                  )
                 }
               >
                 <SelectTrigger>
@@ -277,7 +296,9 @@ export function PrettierPlayground() {
             <div className="flex items-center gap-2 pt-6">
               <Switch
                 checked={options.jsxSingleQuote}
-                onCheckedChange={(checked) => updateOption("jsxSingleQuote", checked)}
+                onCheckedChange={(checked) =>
+                  updateOption("jsxSingleQuote", checked)
+                }
               />
               <Label>JSX 작은따옴표</Label>
             </div>
@@ -286,7 +307,10 @@ export function PrettierPlayground() {
               <Select
                 value={options.arrowParens}
                 onValueChange={(v) =>
-                  updateOption("arrowParens", v as PrettierOptions["arrowParens"])
+                  updateOption(
+                    "arrowParens",
+                    v as PrettierOptions["arrowParens"],
+                  )
                 }
               >
                 <SelectTrigger>
@@ -345,7 +369,7 @@ export function PrettierPlayground() {
                 onValueChange={(v) =>
                   updateOption(
                     "htmlWhitespaceSensitivity",
-                    v as PrettierOptions["htmlWhitespaceSensitivity"]
+                    v as PrettierOptions["htmlWhitespaceSensitivity"],
                   )
                 }
               >

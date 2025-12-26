@@ -1,13 +1,18 @@
 "use client";
 
-import { useSvgOptimizer, type OptimizeOptions } from "../model/use-svg-optimizer";
 import {
-  Button,
-  Label,
-  Textarea,
-  Switch,
-} from "@/shared/ui";
-import { Copy, Check, Download, RotateCcw, Zap, AlertCircle } from "lucide-react";
+  useSvgOptimizer,
+  type OptimizeOptions,
+} from "../model/use-svg-optimizer";
+import { Button, Label, Textarea, Switch } from "@/shared/ui";
+import {
+  Copy,
+  Check,
+  Download,
+  RotateCcw,
+  Zap,
+  AlertCircle,
+} from "lucide-react";
 import { useState } from "react";
 
 const optionLabels: Record<keyof OptimizeOptions, string> = {
@@ -76,7 +81,7 @@ export function SvgOptimizer() {
             value={inputSvg}
             onChange={(e) => setInputSvg(e.target.value)}
             placeholder="SVG 코드를 붙여넣으세요..."
-            className="font-mono text-sm min-h-[300px]"
+            className="font-mono text-sm min-h-[200px] sm:min-h-[280px] lg:min-h-[300px]"
           />
 
           {/* Preview */}
@@ -119,7 +124,7 @@ export function SvgOptimizer() {
             value={outputSvg}
             readOnly
             placeholder="최적화 결과가 여기에 표시됩니다..."
-            className="font-mono text-sm min-h-[300px]"
+            className="font-mono text-sm min-h-[200px] sm:min-h-[280px] lg:min-h-[300px]"
           />
 
           {/* Preview */}
@@ -155,7 +160,11 @@ export function SvgOptimizer() {
           {isProcessing ? "처리 중..." : "최적화"}
         </Button>
         <Button variant="outline" onClick={handleCopy} disabled={!outputSvg}>
-          {copied ? <Check className="h-4 w-4 mr-2" /> : <Copy className="h-4 w-4 mr-2" />}
+          {copied ? (
+            <Check className="h-4 w-4 mr-2" />
+          ) : (
+            <Copy className="h-4 w-4 mr-2" />
+          )}
           {copied ? "복사됨" : "복사"}
         </Button>
         <Button variant="outline" onClick={downloadSvg} disabled={!outputSvg}>
@@ -183,7 +192,9 @@ export function SvgOptimizer() {
             </div>
             <div>
               <p className="text-muted-foreground">절약</p>
-              <p className="font-mono text-green-600">{formatBytes(stats.saved)}</p>
+              <p className="font-mono text-green-600">
+                {formatBytes(stats.saved)}
+              </p>
             </div>
             <div>
               <p className="text-muted-foreground">압축률</p>

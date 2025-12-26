@@ -11,6 +11,7 @@ import {
   getRelatedEncodeDecodeTypes,
 } from "@/entities/encode-decode-type";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 import {
   BreadcrumbJsonLd,
   SoftwareApplicationJsonLd,
@@ -27,13 +28,8 @@ interface PageProps {
 // 정적 파라미터 생성
 export async function generateStaticParams() {
   const slugs = getAllEncodeDecodeTypeSlugs();
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    slugs.map((slug) => ({
-      locale,
-      type: slug,
-    })),
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, type: slug })),
   );
 }
 
@@ -87,11 +83,12 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}/decode/${typeSlug}`,
-      languages: {
-        en: `${SITE_CONFIG.url}/en/decode/${typeSlug}`,
-        ko: `${SITE_CONFIG.url}/ko/decode/${typeSlug}`,
-        ja: `${SITE_CONFIG.url}/ja/decode/${typeSlug}`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/decode/${typeSlug}`,
+        ]),
+      ),
     },
   };
 }

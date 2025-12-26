@@ -4,6 +4,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { tools, type ToolSlug, RelatedToolsSSR } from "@/entities/tool";
 import { ToolFeatureCards } from "@/entities/tool";
+import { routing } from "@/i18n/routing";
 import {
   BreadcrumbJsonLd,
   FaqJsonLd,
@@ -26,11 +27,9 @@ interface Props {
 
 export function generateStaticParams() {
   const toolSlugs = Object.keys(tools);
-  return toolSlugs.flatMap((slug) => [
-    { locale: "en", slug },
-    { locale: "ko", slug },
-    { locale: "ja", slug },
-  ]);
+  return routing.locales.flatMap((locale) =>
+    toolSlugs.map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -67,11 +66,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/tools/${slug}`,
-      languages: {
-        en: `${baseUrl}/en/tools/${slug}`,
-        ko: `${baseUrl}/ko/tools/${slug}`,
-        ja: `${baseUrl}/ja/tools/${slug}`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, `${baseUrl}/${l}/tools/${slug}`]),
+      ),
     },
   };
 }
@@ -151,14 +148,16 @@ export default async function ToolPage({ params }: Props) {
               </Suspense>
 
               {/* Related Tools */}
-              <div className="mt-12">
-                <h2 className="mb-6 text-2xl font-bold">Related Tools</h2>
-                <RelatedToolsSSR
-                  currentTool={slug as ToolSlug}
-                  locale={locale}
-                  maxLinks={6}
-                />
-              </div>
+              <section className="mt-12 pt-8 border-t">
+                <div className="rounded-xl bg-muted/30 p-6 sm:p-8">
+                  <h2 className="mb-6 text-2xl font-bold">Related Tools</h2>
+                  <RelatedToolsSSR
+                    currentTool={slug as ToolSlug}
+                    locale={locale}
+                    maxLinks={6}
+                  />
+                </div>
+              </section>
 
               {/* Mobile Ad Bottom - Only visible on mobile/tablet */}
               <div className="lg:hidden my-6">
@@ -178,7 +177,7 @@ export default async function ToolPage({ params }: Props) {
 
             {/* Sidebar */}
             <aside className="hidden lg:col-span-3 lg:block">
-              <div className="sticky top-20 space-y-8">
+              <div className="sticky top-[72px] space-y-8">
                 <AdUnit slot={AD_SLOTS.TOOL_RESULT} format="vertical" />
 
                 <div className="rounded-lg border bg-card p-4">

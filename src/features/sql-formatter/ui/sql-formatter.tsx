@@ -150,7 +150,7 @@ export function SqlFormatter() {
             </div>
           </div>
           <textarea
-            className="flex min-h-[400px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono"
+            className="flex min-h-[250px] sm:min-h-[350px] lg:min-h-[400px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono"
             placeholder="SELECT * FROM users WHERE id = 1;"
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -175,7 +175,7 @@ export function SqlFormatter() {
             </Button>
           </div>
           <textarea
-            className="flex min-h-[400px] w-full rounded-md border border-input bg-muted px-3 py-2 text-sm font-mono"
+            className="flex min-h-[250px] sm:min-h-[350px] lg:min-h-[400px] w-full rounded-md border border-input bg-muted px-3 py-2 text-sm font-mono"
             value={output}
             readOnly
             placeholder="포맷된 SQL이 여기에 표시됩니다"

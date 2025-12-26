@@ -85,7 +85,7 @@ export function MarkdownPreview() {
           <div className="space-y-2">
             {viewMode === "split" && <Label>Markdown 소스</Label>}
             <textarea
-              className="flex min-h-[500px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono resize-none"
+              className="flex min-h-[280px] sm:min-h-[400px] lg:min-h-[500px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 font-mono resize-none"
               placeholder="Markdown을 입력하세요..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -98,7 +98,7 @@ export function MarkdownPreview() {
           <div className="space-y-2">
             {viewMode === "split" && <Label>미리보기</Label>}
             <div
-              className="min-h-[500px] rounded-md border bg-background p-4 overflow-auto prose prose-sm dark:prose-invert max-w-none prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-pre:bg-muted prose-pre:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none"
+              className="min-h-[280px] sm:min-h-[400px] lg:min-h-[500px] rounded-md border bg-background p-4 overflow-auto prose prose-sm dark:prose-invert max-w-none prose-headings:mt-4 prose-headings:mb-2 prose-p:my-2 prose-pre:bg-muted prose-pre:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none"
               dangerouslySetInnerHTML={{ __html: renderedHtml }}
             />
           </div>

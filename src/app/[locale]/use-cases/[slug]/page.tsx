@@ -11,6 +11,7 @@ import {
 import { tools, type ToolSlug } from "@/entities/tool";
 import { BreadcrumbJsonLd, HowToJsonLd } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;
@@ -18,7 +19,9 @@ interface Props {
 
 export function generateStaticParams() {
   const slugs = getUseCaseSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, slug })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -36,12 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description,
     keywords: useCase.keywords,
     alternates: {
-      canonical: `/${locale}/use-cases/${slug}`,
-      languages: {
-        en: `/en/use-cases/${slug}`,
-        ko: `/ko/use-cases/${slug}`,
-        ja: `/ja/use-cases/${slug}`,
-      },
+      canonical: `${SITE_CONFIG.url}/${locale}/use-cases/${slug}`,
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/use-cases/${slug}`,
+        ]),
+      ),
     },
   };
 }

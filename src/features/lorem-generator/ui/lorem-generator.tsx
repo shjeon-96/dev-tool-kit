@@ -1,6 +1,9 @@
 "use client";
 
-import { useLoremGenerator, type GenerateUnit } from "../model/use-lorem-generator";
+import {
+  useLoremGenerator,
+  type GenerateUnit,
+} from "../model/use-lorem-generator";
 import {
   Button,
   Label,
@@ -50,7 +53,7 @@ export function LoremGenerator() {
   };
 
   const handleRegenerate = () => {
-    setKey(k => k + 1);
+    setKey((k) => k + 1);
   };
 
   return (
@@ -90,7 +93,9 @@ export function LoremGenerator() {
                 step={1}
                 className="flex-1"
               />
-              <span className="w-8 text-center text-sm font-medium">{count}</span>
+              <span className="w-8 text-center text-sm font-medium">
+                {count}
+              </span>
             </div>
           </div>
         </div>
@@ -108,10 +113,7 @@ export function LoremGenerator() {
 
           <div className="flex items-center justify-between">
             <Label>한국어 텍스트</Label>
-            <Switch
-              checked={useKorean}
-              onCheckedChange={setUseKorean}
-            />
+            <Switch checked={useKorean} onCheckedChange={setUseKorean} />
           </div>
 
           <div className="flex items-center justify-between">
@@ -148,14 +150,16 @@ export function LoremGenerator() {
           key={key}
           value={generatedText}
           readOnly
-          className="min-h-[300px] font-mono text-sm"
+          className="min-h-[200px] sm:min-h-[280px] lg:min-h-[300px] font-mono text-sm"
         />
       </div>
 
       {/* Stats */}
       <div className="flex items-center gap-6 text-sm text-muted-foreground">
         <span>문자 수: {generatedText.length}</span>
-        <span>단어 수: {generatedText.split(/\s+/).filter(Boolean).length}</span>
+        <span>
+          단어 수: {generatedText.split(/\s+/).filter(Boolean).length}
+        </span>
       </div>
     </div>
   );

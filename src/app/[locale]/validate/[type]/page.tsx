@@ -12,6 +12,7 @@ import {
 } from "@/entities/validate-type";
 import type { LocaleKey } from "@/entities/validate-type";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 import {
   BreadcrumbJsonLd,
   SoftwareApplicationJsonLd,
@@ -28,13 +29,8 @@ interface PageProps {
 // 정적 파라미터 생성
 export async function generateStaticParams() {
   const slugs = getAllValidateTypeSlugs();
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    slugs.map((slug) => ({
-      locale,
-      type: slug,
-    })),
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, type: slug })),
   );
 }
 
@@ -75,11 +71,12 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}/validate/${typeSlug}`,
-      languages: {
-        en: `${SITE_CONFIG.url}/en/validate/${typeSlug}`,
-        ko: `${SITE_CONFIG.url}/ko/validate/${typeSlug}`,
-        ja: `${SITE_CONFIG.url}/ja/validate/${typeSlug}`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/validate/${typeSlug}`,
+        ]),
+      ),
     },
   };
 }

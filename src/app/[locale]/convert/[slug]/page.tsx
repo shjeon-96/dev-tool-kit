@@ -12,6 +12,7 @@ import {
   getReverseSlug,
 } from "@/entities/converter";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 
 interface PageProps {
   params: Promise<{
@@ -23,13 +24,8 @@ interface PageProps {
 // 정적 파라미터 생성 - 모든 변환 페이지 사전 생성
 export async function generateStaticParams() {
   const slugs = getAllConversionSlugs();
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    slugs.map((slug) => ({
-      locale,
-      slug,
-    })),
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, slug })),
   );
 }
 
@@ -81,11 +77,12 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}/convert/${slug}`,
-      languages: {
-        en: `${SITE_CONFIG.url}/en/convert/${slug}`,
-        ko: `${SITE_CONFIG.url}/ko/convert/${slug}`,
-        ja: `${SITE_CONFIG.url}/ja/convert/${slug}`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/convert/${slug}`,
+        ]),
+      ),
     },
   };
 }

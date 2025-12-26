@@ -26,6 +26,7 @@ import {
 } from "@/shared/ui";
 import { AdUnit } from "@/widgets/ad-unit/ad-unit";
 import { SITE_CONFIG, AD_SLOTS } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 
 interface Props {
   params: Promise<{ locale: string; tool: string }>;
@@ -33,7 +34,9 @@ interface Props {
 
 export function generateStaticParams() {
   const toolSlugs = Object.keys(aiContextTools);
-  return toolSlugs.map((tool) => ({ tool }));
+  return routing.locales.flatMap((locale) =>
+    toolSlugs.map((tool) => ({ locale, tool })),
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -55,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `/${locale}/ai/${tool}`,
+      url: `${SITE_CONFIG.url}/${locale}/ai/${tool}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -63,12 +66,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
     },
     alternates: {
-      canonical: `/${locale}/ai/${tool}`,
-      languages: {
-        en: `/en/ai/${tool}`,
-        ko: `/ko/ai/${tool}`,
-        ja: `/ja/ai/${tool}`,
-      },
+      canonical: `${SITE_CONFIG.url}/${locale}/ai/${tool}`,
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, `${SITE_CONFIG.url}/${l}/ai/${tool}`]),
+      ),
     },
   };
 }

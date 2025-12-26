@@ -226,7 +226,7 @@ export function SitemapGenerator() {
               value={output}
               readOnly
               placeholder={t("outputPlaceholder")}
-              className="min-h-[400px] font-mono text-sm"
+              className="min-h-[250px] sm:min-h-[350px] lg:min-h-[400px] font-mono text-sm"
             />
             {output && (
               <div className="absolute top-2 right-2 flex items-center gap-1 rounded bg-muted px-2 py-1 text-xs">

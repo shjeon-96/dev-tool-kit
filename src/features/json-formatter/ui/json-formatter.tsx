@@ -235,7 +235,7 @@ export function JsonFormatter() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder='{"key": "value"}'
-            className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
             spellCheck={false}
             aria-describedby={error ? "json-error" : undefined}
           />
@@ -278,7 +278,7 @@ export function JsonFormatter() {
               icon={<FileJson className="h-12 w-12" />}
               title="Start formatting JSON"
               description="Paste your JSON in the input area or click the Paste button to get started. We'll automatically format and validate it."
-              className="h-[400px]"
+              className="h-[250px] sm:h-[350px] lg:h-[400px]"
             />
           ) : (
             <textarea
@@ -286,7 +286,7 @@ export function JsonFormatter() {
               value={output}
               readOnly
               placeholder="Formatted output will appear here"
-              className="h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
+              className="h-[250px] sm:h-[350px] lg:h-[400px] w-full rounded-md border bg-muted/50 p-3 font-mono text-sm resize-none focus:outline-none"
               spellCheck={false}
               aria-readonly="true"
             />

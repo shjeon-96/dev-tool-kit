@@ -8,17 +8,10 @@ import {
   getSortedCategories,
 } from "@/entities/tool";
 import { BentoGrid } from "@/widgets/tools-list";
-import { HeroSearchBar } from "@/widgets/hero-search-bar";
+import { HeroSection } from "@/widgets/hero-section";
+import { FAQSection } from "@/widgets/faq-section";
 import { SITE_CONFIG } from "@/shared/config";
-import {
-  Shield,
-  Zap,
-  Gift,
-  Wifi,
-  ArrowRight,
-  Github,
-  Sparkles,
-} from "lucide-react";
+import { Shield, Zap, Gift, Wifi, ArrowRight } from "lucide-react";
 import { Button } from "@/shared/ui";
 
 interface Props {
@@ -94,46 +87,17 @@ export default async function LandingPage({ params }: Props) {
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="text-center space-y-6 py-8">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
-          <Sparkles className="h-4 w-4" />
-          {t("hero.badge")}
-        </div>
-
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-          {t("hero.title")}
-        </h1>
-
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          {t("hero.subtitle")}
-        </p>
-
-        <div className="pt-4">
-          <HeroSearchBar />
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <Button asChild size="lg" className="gap-2">
-            <Link href={`/${locale}/tools`}>
-              {t("hero.cta")}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="gap-2">
-            <a
-              href="https://github.com/jsh-me/dev-tool-kit"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github className="h-4 w-4" />
-              {t("hero.ctaSecondary")}
-            </a>
-          </Button>
-        </div>
-      </section>
+      <HeroSection
+        locale={locale}
+        badge={t("hero.badge")}
+        title={t("hero.title")}
+        subtitle={t("hero.subtitle")}
+        cta={t("hero.cta")}
+        ctaSecondary={t("hero.ctaSecondary")}
+      />
 
       {/* Stats Section */}
-      <section className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
+      <section className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
         <div className="text-center p-4 rounded-lg bg-muted/50">
           <div className="text-3xl md:text-4xl font-bold text-primary">
             {toolCount}+
@@ -313,27 +277,13 @@ export default async function LandingPage({ params }: Props) {
       </section>
 
       {/* FAQ Section for SEO */}
-      <section className="space-y-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-center">
-          {t("faq.title")}
-        </h2>
-        <div className="max-w-3xl mx-auto space-y-4">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <details
-              key={i}
-              className="group rounded-lg border bg-card overflow-hidden"
-            >
-              <summary className="flex items-center justify-between px-6 py-4 cursor-pointer font-medium hover:bg-muted/50 transition-colors">
-                {t(`faq.q${i}`)}
-                <ArrowRight className="h-4 w-4 rotate-90 group-open:rotate-[270deg] transition-transform" />
-              </summary>
-              <div className="px-6 pb-4 text-muted-foreground">
-                {t(`faq.a${i}`)}
-              </div>
-            </details>
-          ))}
-        </div>
-      </section>
+      <FAQSection
+        title={t("faq.title")}
+        items={[1, 2, 3, 4, 5].map((i) => ({
+          question: t(`faq.q${i}`),
+          answer: t(`faq.a${i}`),
+        }))}
+      />
 
       {/* CTA Section */}
       <section className="text-center space-y-6 py-12 px-6 rounded-2xl bg-primary/5 border border-primary/20">

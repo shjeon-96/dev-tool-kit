@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Check, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Check, X, Sparkles } from "lucide-react";
 import { formatPrice, type TierType } from "@/shared/lib/lemonsqueezy";
 import { Button } from "@/shared/ui";
 import { Switch } from "@/shared/ui";
@@ -41,27 +42,37 @@ export function PricingTiers() {
 
       {/* Pricing Cards */}
       <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        {tiers.map((tier) => {
+        {tiers.map((tier, index) => {
           const price = getPrice(tier.id);
           const isPopular = tier.popular;
 
           return (
-            <div
+            <motion.div
               key={tier.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ y: -4 }}
               className={cn(
-                "relative rounded-xl border p-6 flex flex-col",
+                "relative rounded-xl border p-6 flex flex-col transition-shadow duration-300",
                 isPopular
-                  ? "border-primary shadow-lg scale-105"
-                  : "border-border",
+                  ? "border-primary shadow-lg md:scale-105 shadow-primary/20"
+                  : "border-border hover:shadow-lg hover:shadow-muted/50",
               )}
             >
               {/* Popular Badge */}
               {isPopular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="absolute -top-3 left-1/2 -translate-x-1/2"
+                >
+                  <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
+                    <Sparkles className="h-3 w-3" />
                     {t("tier.popular")}
                   </span>
-                </div>
+                </motion.div>
               )}
 
               {/* Tier Header */}
@@ -101,14 +112,21 @@ export function PricingTiers() {
 
               {/* Features List */}
               <ul className="space-y-3 flex-1">
-                {tier.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm">
-                    <Check className="h-4 w-4 text-green-500 shrink-0 mt-0.5" />
-                    <span>{t(`tier.${tier.id}.features.${index}`)}</span>
-                  </li>
+                {tier.features.map((feature, featureIndex) => (
+                  <motion.li
+                    key={featureIndex}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + featureIndex * 0.05 }}
+                    className="flex items-start gap-2 text-sm"
+                  >
+                    <Check className="h-4 w-4 text-success shrink-0 mt-0.5" />
+                    <span>{t(`tier.${tier.id}.features.${featureIndex}`)}</span>
+                  </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           );
         })}
       </div>

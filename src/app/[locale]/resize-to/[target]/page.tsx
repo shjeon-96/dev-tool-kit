@@ -11,6 +11,7 @@ import {
   getRelatedResizeTargets,
 } from "@/entities/image-resize-target";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 import {
   BreadcrumbJsonLd,
   SoftwareApplicationJsonLd,
@@ -27,13 +28,8 @@ interface PageProps {
 // 정적 파라미터 생성 - 모든 리사이즈 타겟 페이지 사전 생성
 export async function generateStaticParams() {
   const slugs = getAllResizeTargetSlugs();
-  const locales = ["en", "ko", "ja"];
-
-  return locales.flatMap((locale) =>
-    slugs.map((slug) => ({
-      locale,
-      target: slug,
-    })),
+  return routing.locales.flatMap((locale) =>
+    slugs.map((slug) => ({ locale, target: slug })),
   );
 }
 
@@ -87,11 +83,12 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}/resize-to/${targetSlug}`,
-      languages: {
-        en: `${SITE_CONFIG.url}/en/resize-to/${targetSlug}`,
-        ko: `${SITE_CONFIG.url}/ko/resize-to/${targetSlug}`,
-        ja: `${SITE_CONFIG.url}/ja/resize-to/${targetSlug}`,
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [
+          l,
+          `${SITE_CONFIG.url}/${l}/resize-to/${targetSlug}`,
+        ]),
+      ),
     },
   };
 }

@@ -8,47 +8,37 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Web Toolkit** - 개발자를 위한 웹 기반 올인원 도구 모음 (100% 클라이언트 사이드 처리)
 
-| 항목            | 값                      |
-| --------------- | ----------------------- |
-| **URL**         | https://web-toolkit.app |
-| **Version**     | 1.3.0                   |
-| **Tools**       | 41+개                   |
-| **pSEO Pages**  | 500+개                  |
-| **Guides**      | 31개                    |
-| **Cheatsheets** | 14개                    |
-| **Languages**   | en, ko, ja, es, pt, de  |
+| 항목           | 값                      |
+| -------------- | ----------------------- |
+| **URL**        | https://web-toolkit.app |
+| **Tools**      | 40+                     |
+| **pSEO Pages** | 500+                    |
+| **Languages**  | en, ko, ja, es, pt, de  |
 
 ---
 
 ## Quick Start
 
 ```bash
-# Node.js 20+ 필수
-nvm use 20
-
-# 의존성 설치
+nvm use 20  # Node.js 20+ 필수
 npm install
-
-# 개발 서버 실행
 npm run dev  # http://localhost:3000
-
-# 프로덕션 빌드
-npm run build
 ```
 
 ### Key Commands
 
-| Command                  | Description                                        |
-| ------------------------ | -------------------------------------------------- |
-| `npm run dev`            | 개발 서버 (Turbopack)                              |
-| `npm run build`          | 프로덕션 빌드                                      |
-| `npm run lint`           | ESLint 검사                                        |
-| `npm run test`           | Vitest 단위 테스트 (watch 모드)                    |
-| `npm run test -- [name]` | 특정 파일 테스트 (예: `npm run test -- formatter`) |
-| `npm run test:coverage`  | 테스트 커버리지                                    |
-| `npm run test:e2e`       | Playwright E2E 테스트                              |
-| `npm run test:e2e:ui`    | Playwright UI 모드                                 |
-| `npm run analyze`        | 번들 분석 (`ANALYZE=true`)                         |
+| Command                   | Description                     |
+| ------------------------- | ------------------------------- |
+| `npm run dev`             | 개발 서버 (Turbopack)           |
+| `npm run build`           | 프로덕션 빌드                   |
+| `npm run lint`            | ESLint 검사                     |
+| `npm run test`            | Vitest 단위 테스트 (watch 모드) |
+| `npm run test -- [name]`  | 특정 파일 테스트                |
+| `npm run test -- --run`   | 단일 실행 (watch 없이)          |
+| `npm run test:e2e`        | Playwright E2E 테스트           |
+| `npm run test:e2e:ui`     | Playwright UI 모드              |
+| `npm run analyze`         | 번들 분석 (`ANALYZE=true`)      |
+| `npm run remotion:studio` | Remotion 스튜디오 (비디오 편집) |
 
 ---
 
@@ -63,51 +53,41 @@ npm run build
 ```
 src/
 ├── app/[locale]/                 # Next.js App Router (i18n)
-│   ├── tools/[slug]/             # 도구 페이지 (40+)
-│   ├── tools/bulk-actions/       # 대량 작업 페이지
-│   ├── convert/[slug]/           # pSEO: 포맷 변환 (54개)
-│   ├── resize-to/[slug]/         # pSEO: 이미지 리사이즈 (200+)
-│   ├── minify/[slug]/            # pSEO: 코드 압축
-│   ├── validate/[slug]/          # pSEO: 유효성 검사
-│   ├── diff/[slug]/              # pSEO: 차이 비교
-│   ├── hash/[slug]/              # pSEO: 해시 생성
-│   ├── guides/[slug]/            # 가이드 페이지 (31개)
-│   ├── cheatsheets/[slug]/       # 치트시트 페이지 (14개)
-│   ├── dashboard/                # 사용자 대시보드
-│   ├── docs/api/                 # API 문서 (Swagger UI)
-│   └── api/                      # API routes
+│   ├── tools/[slug]/             # 도구 페이지
+│   ├── convert/[slug]/           # pSEO: 포맷 변환
+│   ├── resize-to/[target]/       # pSEO: 이미지 리사이즈
+│   ├── encode/[type]/            # pSEO: 인코딩
+│   ├── decode/[type]/            # pSEO: 디코딩
+│   ├── hash/[type]/              # pSEO: 해시 생성
+│   ├── minify/[type]/            # pSEO: 코드 압축
+│   ├── validate/[type]/          # pSEO: 유효성 검사
+│   ├── diff/[type]/              # pSEO: 차이 비교
+│   ├── guides/[slug]/            # 가이드 페이지
+│   └── cheatsheets/[slug]/       # 치트시트 페이지
 │
 ├── features/                     # 도구 + 기능 모듈 (60+)
 │   ├── json-formatter/           # 도구 예시
-│   │   ├── model/use-json-formatter.ts  # 상태/로직 Hook
-│   │   ├── lib/formatter.ts             # 순수 함수 (테스트 대상)
-│   │   └── ui/json-formatter.tsx        # UI 컴포넌트
-│   ├── bulk-actions/             # 대량 처리 기능
-│   │   ├── hash-bulk/            # 대량 해시
-│   │   ├── json-bulk/            # 대량 JSON
-│   │   └── qr-bulk/              # 대량 QR
+│   │   ├── model/use-*.ts        # 상태/로직 Hook
+│   │   ├── lib/*.ts              # 순수 함수 (테스트 대상)
+│   │   └── ui/*.tsx              # UI 컴포넌트
 │   ├── auth/                     # 인증 (Supabase)
-│   ├── billing/                  # 결제 (LemonSqueezy)
-│   └── pricing/                  # 요금제 관리
+│   └── billing/                  # 결제 (LemonSqueezy)
 │
-├── entities/                     # 비즈니스 엔티티
-│   ├── tool/model/
-│   │   ├── types.ts              # ToolSlug 타입
-│   │   ├── registry.ts           # 도구 레지스트리
-│   │   └── seo-content.ts        # SEO 콘텐츠
-│   ├── converter/model/          # pSEO: 변환기 레지스트리
-│   ├── image-resize-target/model/ # pSEO: 리사이즈 타겟
-│   ├── subscription/             # 구독 상태 관리
-│   ├── guide/data/               # 가이드 데이터
-│   └── cheatsheet/data/          # 치트시트 데이터
+├── entities/                     # 비즈니스 엔티티 + pSEO 레지스트리
+│   ├── tool/model/               # 도구 타입, 레지스트리, SEO
+│   ├── converter/model/          # 포맷 변환 레지스트리
+│   ├── image-resize-target/model/# 리사이즈 타겟 레지스트리
+│   ├── encode-decode-type/model/ # 인코딩/디코딩 레지스트리
+│   ├── hash-type/model/          # 해시 타입 레지스트리
+│   ├── minify-type/model/        # 압축 타입 레지스트리
+│   ├── validate-type/model/      # 검증 타입 레지스트리
+│   └── diff-type/model/          # 비교 타입 레지스트리
 │
-├── shared/
-│   ├── ui/                       # 공통 UI 컴포넌트 (Radix UI)
-│   ├── lib/hooks/                # 공통 Hooks
-│   ├── lib/quota/                # 사용량 제한 시스템
-│   ├── lib/api/                  # API 유틸리티 (rate-limiter, auth)
-│   ├── lib/fs-access/            # File System Access API
-│   └── config/site.ts            # SITE_CONFIG
+└── shared/
+    ├── ui/                       # 공통 UI 컴포넌트 (Radix UI)
+    ├── lib/hooks/                # 공통 Hooks
+    ├── lib/quota/                # 사용량 제한 시스템
+    └── config/site.ts            # SITE_CONFIG
 ```
 
 ---
@@ -130,8 +110,8 @@ export type ToolSlug = "existing-tool" | "new-tool";
   description: "설명...",
   icon: IconComponent,
   category: "text" | "media" | "converters" | "security",
-  isPremium: false,        // Pro 전용 여부
-  freeLimit: undefined,    // 무료 사용자 일일 제한 (미설정시 무제한)
+  isPremium: false,
+  freeLimit: undefined,
 },
 ```
 
@@ -140,7 +120,7 @@ export type ToolSlug = "existing-tool" | "new-tool";
 ```
 new-tool/
 ├── model/use-new-tool.ts   # Hook (상태 관리)
-├── lib/logic.ts            # 순수 함수 (테스트 가능)
+├── lib/logic.ts            # 순수 함수 (테스트 대상)
 ├── ui/new-tool.tsx         # UI 컴포넌트
 └── index.ts                # 배럴 export (named export 필수)
 ```
@@ -179,75 +159,19 @@ new-tool/
 "use client";
 import { useTranslations } from "next-intl";
 const t = useTranslations("tools");
-t("json-formatter.title");
 
 // Server Component
 import { getTranslations } from "next-intl/server";
 const t = await getTranslations("tools");
 ```
 
-### Supported Languages
-
-- `en` (default), `ko`, `ja`, `es`, `pt`, `de`
-- Files: `messages/{locale}.json`
-
----
-
-## Custom Hooks
-
-| Hook               | Location                                     | Purpose                    |
-| ------------------ | -------------------------------------------- | -------------------------- |
-| useToolHistory     | shared/lib/hooks/use-tool-history.ts         | 로컬스토리지 기반 히스토리 |
-| useUrlState        | shared/lib/hooks/use-url-state.ts            | URL 쿼리 파라미터 상태     |
-| useCopyToClipboard | shared/lib/hooks/use-copy-to-clipboard.ts    | 클립보드 복사 + 피드백     |
-| useQuota           | shared/lib/quota/use-quota.ts                | 사용량 제한 체크           |
-| usePipelineInput   | features/tool-pipeline/model/use-pipeline.ts | 도구 간 데이터 전달        |
-
----
-
-## Testing
-
-```bash
-# 단위 테스트
-npm run test                  # watch 모드
-npm run test -- formatter     # 파일명 필터
-npm run test -- --run         # 단일 실행 (watch 없이)
-
-# E2E 테스트
-npm run test:e2e              # 전체 실행
-npm run test:e2e:ui           # UI 모드
-```
-
-### Test File Locations
-
-- 단위 테스트: `src/features/*/lib/*.test.ts`
-- E2E 테스트: `e2e/*.spec.ts`
-- 커버리지 대상: `src/features/**/lib/**`, `src/shared/lib/**`
-
----
-
-## Programmatic SEO (pSEO) Pages
-
-자동 생성되는 대량 SEO 페이지:
-
-| Route Pattern                  | Example                        | Registry Location                                    |
-| ------------------------------ | ------------------------------ | ---------------------------------------------------- |
-| `/convert/[slug]`              | `/convert/json-to-yaml`        | `src/entities/converter/model/registry.ts`           |
-| `/resize-to/[slug]`            | `/resize-to/1920x1080`         | `src/entities/image-resize-target/model/registry.ts` |
-| `/minify/[slug]`               | `/minify/json`                 | `src/entities/minify-type/model/registry.ts`         |
-| `/validate/[slug]`             | `/validate/json`               | `src/entities/validate-type/model/registry.ts`       |
-| `/diff/[slug]`                 | `/diff/json`                   | `src/entities/diff-type/model/registry.ts`           |
-| `/hash/[slug]`                 | `/hash/md5`                    | `src/entities/hash-type/model/registry.ts`           |
-| `/alternative-to/[competitor]` | `/alternative-to/codebeautify` | `src/entities/competitor/model/registry.ts`          |
-| `/glossary/[term]`             | `/glossary/json`               | `src/entities/glossary/model/registry.ts`            |
-
-각 pSEO 페이지는 기존 도구를 재활용하며, SEO 최적화된 콘텐츠를 제공합니다.
+**지원 언어**: `en` (default), `ko`, `ja`, `es`, `pt`, `de` (`src/i18n/routing.ts`)
 
 ---
 
 ## Next.js 16 Caveats
 
-### Async Params (중요!)
+### Async Params (필수!)
 
 ```typescript
 // ✅ Next.js 16 방식 - await 필수
@@ -266,51 +190,98 @@ export default function Page({ params }: { params: { slug: string } }) {
 }
 ```
 
+### Locale Fallback Pattern (pSEO 페이지)
+
+일부 pSEO 페이지에서 es, pt, de 번역이 없는 경우 fallback 필요:
+
+```typescript
+// LocaleKey가 en | ko | ja 만 지원하는 경우
+type LocaleKey = "en" | "ko" | "ja";
+
+function getSafeLocaleKey(locale: string): LocaleKey {
+  if (locale === "ko" || locale === "ja") return locale;
+  return "en"; // es, pt, de는 en으로 fallback
+}
+
+// 사용
+const localeKey = getSafeLocaleKey(locale);
+const content = data.content[localeKey];
+```
+
+---
+
+## pSEO Pages
+
+자동 생성되는 대량 SEO 페이지:
+
+| Route                    | Registry                               |
+| ------------------------ | -------------------------------------- |
+| `/convert/[slug]`        | `entities/converter/model/registry.ts` |
+| `/resize-to/[target]`    | `entities/image-resize-target/model/`  |
+| `/encode/[type]`         | `entities/encode-decode-type/model/`   |
+| `/decode/[type]`         | `entities/encode-decode-type/model/`   |
+| `/hash/[type]`           | `entities/hash-type/model/`            |
+| `/minify/[type]`         | `entities/minify-type/model/`          |
+| `/validate/[type]`       | `entities/validate-type/model/`        |
+| `/diff/[type]`           | `entities/diff-type/model/`            |
+| `/alternative-to/[comp]` | `entities/competitor/model/`           |
+| `/glossary/[term]`       | `entities/glossary/model/`             |
+
+pSEO 페이지 추가 시:
+
+1. `generateStaticParams()`에서 `routing.locales` 사용 (하드코딩 금지)
+2. `alternates.languages`에 6개 언어 모두 포함
+
+---
+
+## Testing
+
+```bash
+npm run test                  # watch 모드
+npm run test -- formatter     # 파일명 필터
+npm run test -- --run         # 단일 실행
+npm run test:e2e              # E2E 전체
+npm run test:e2e:ui           # E2E UI 모드
+```
+
+- 단위 테스트: `src/features/*/lib/*.test.ts`
+- E2E 테스트: `e2e/*.spec.ts`
+- 커버리지: `src/features/**/lib/**`, `src/shared/lib/**`
+
 ---
 
 ## Key Files Reference
 
-| File                                              | Purpose                |
-| ------------------------------------------------- | ---------------------- |
-| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의     |
-| `src/entities/tool/model/registry.ts`             | 도구 레지스트리        |
-| `src/entities/tool/model/seo-content.ts`          | SEO 콘텐츠             |
-| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 Dynamic Import    |
-| `src/entities/subscription/`                      | 구독/Premium 게이트    |
-| `src/shared/lib/quota/`                           | 사용량 제한 시스템     |
-| `src/shared/config/site.ts`                       | SITE_CONFIG            |
-| `src/i18n/routing.ts`                             | 지원 언어 목록         |
-| `messages/*.json`                                 | i18n 번역 파일         |
-| `src/app/sitemap.ts`                              | 동적 사이트맵 생성     |
-| `src/entities/*/model/registry.ts`                | pSEO 페이지 레지스트리 |
+| File                                              | Purpose              |
+| ------------------------------------------------- | -------------------- |
+| `src/entities/tool/model/types.ts`                | ToolSlug 타입 정의   |
+| `src/entities/tool/model/registry.ts`             | 도구 레지스트리      |
+| `src/app/[locale]/tools/[slug]/tool-renderer.tsx` | 도구 Dynamic Import  |
+| `src/i18n/routing.ts`                             | 지원 언어 목록 (6개) |
+| `src/shared/lib/quota/`                           | 사용량 제한 시스템   |
+| `src/app/sitemap.ts`                              | 동적 사이트맵        |
 
 ---
 
 ## Premium & Quota System
 
-도구별 사용량 제한 시스템:
-
 ```typescript
-// entities/tool/model/types.ts
+// Tool 정의
 interface Tool {
   isPremium?: boolean; // true면 Pro 전용
   freeLimit?: number; // 무료 사용자 일일 제한
 }
 
 // 사용량 체크
-const { stats, isLoading } = useQuota(slug);
+const { stats } = useQuota(slug);
 // stats.dailyUsage, stats.dailyLimit, stats.isExceeded
 ```
-
-- `PremiumToolGate`: Pro 전용 도구 접근 제어
-- `QuotaWarning`: 사용량 80% 이상시 경고 표시
 
 ---
 
 ## Environment Variables
 
 ```bash
-# .env.local
 NEXT_PUBLIC_APP_URL=https://web-toolkit.app
 
 # Supabase (인증)
@@ -319,22 +290,18 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 
 # LemonSqueezy (결제)
 LEMONSQUEEZY_API_KEY=...
-LEMONSQUEEZY_STORE_ID=...
 LEMONSQUEEZY_WEBHOOK_SECRET=...
 
 # Vercel KV (Magic Share)
 KV_REST_API_URL=...
 KV_REST_API_TOKEN=...
-
-# Optional
-NEXT_PUBLIC_CLARITY_ID=...
 ```
 
 ---
 
 ## Guide Section ID Rules
 
-**중요**: Guide Section ID는 반드시 **kebab-case** 사용
+Guide Section ID는 반드시 **kebab-case** 사용:
 
 ```typescript
 // ✅ 올바른 예
@@ -346,18 +313,36 @@ NEXT_PUBLIC_CLARITY_ID=...
 
 ---
 
-## API v1 (Public REST API)
+## UI Components & Design System
 
-공개 API 엔드포인트 (`/api/v1/`):
+상세 가이드: `docs/UI_COMPONENTS.md`
 
-| Endpoint                 | Method | Description             |
-| ------------------------ | ------ | ----------------------- |
-| `/api/v1/hash/generate`  | POST   | 해시 생성 (MD5, SHA 등) |
-| `/api/v1/json/format`    | POST   | JSON 포맷팅/압축        |
-| `/api/v1/qr/generate`    | POST   | QR 코드 생성            |
-| `/api/v1/uuid/generate`  | GET    | UUID 생성               |
-| `/api/v1/base64/convert` | POST   | Base64 인코딩/디코딩    |
+### 핵심 규칙
 
-- Rate Limit: 익명 100회/일, Pro 10,000회/일
-- 인증: `X-API-Key` 헤더 (대시보드에서 발급)
-- API 문서: `/docs/api` (Swagger UI)
+| 항목          | 권장                                  | 피하기                            |
+| ------------- | ------------------------------------- | --------------------------------- |
+| **색상**      | `text-primary`, `text-success`        | `text-blue-500`, `text-green-500` |
+| **Textarea**  | `h-[250px] sm:h-[350px] lg:h-[400px]` | `h-[400px]` (고정)                |
+| **Scale**     | `md:scale-105`                        | `scale-105` (모바일 깨짐)         |
+| **Animation** | Framer Motion                         | CSS animation                     |
+
+### 주요 컴포넌트
+
+```tsx
+// 공통 UI
+import { Button, Input, Textarea, Card } from "@/shared/ui";
+
+// Animated Widgets
+import { HeroSection } from "@/widgets/hero-section";
+import { FAQSection } from "@/widgets/faq-section";
+```
+
+### Framer Motion 주의사항
+
+```tsx
+// ❌ 타입 에러
+transition={{ ease: "easeOut" }}
+
+// ✅ 올바른 사용
+transition={{ duration: 0.5 }}
+```
