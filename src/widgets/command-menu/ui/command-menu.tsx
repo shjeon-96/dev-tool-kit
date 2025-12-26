@@ -40,8 +40,15 @@ export function CommandMenu() {
       }
     };
 
+    // Custom event listener for opening from other components
+    const handleOpenEvent = () => setOpen(true);
+
     document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
+    document.addEventListener("open-command-menu", handleOpenEvent);
+    return () => {
+      document.removeEventListener("keydown", down);
+      document.removeEventListener("open-command-menu", handleOpenEvent);
+    };
   }, []);
 
   const runCommand = React.useCallback((command: () => unknown) => {

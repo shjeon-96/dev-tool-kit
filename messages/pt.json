@@ -6,9 +6,10 @@
   },
   "landing": {
     "hero": {
-      "badge": "31+ Ferramentas Gratuitas",
+      "badge": "44+ Ferramentas Gratuitas",
       "title": "Kit de Ferramentas Completo",
       "subtitle": "Formate, converta, codifique e gere com poderosas ferramentas baseadas em navegador. Sem instalação, sem cadastro, 100% privado.",
+      "searchPlaceholder": "Pesquisar ferramentas... (ex: JSON, Imagem, Hash)",
       "cta": "Explorar Ferramentas",
       "ctaSecondary": "Ver no GitHub"
     },
@@ -165,7 +166,11 @@
     "relatedTools": "Ferramentas Relacionadas",
     "nextSteps": "Próximos Passos",
     "recentlyUsed": "Usados Recentemente",
-    "similarTools": "Ferramentas Similares"
+    "similarTools": "Ferramentas Similares",
+    "privacy": {
+      "noServerUpload": "Sem upload para servidor",
+      "worksOffline": "Funciona offline"
+    }
   },
   "adblock": {
     "title": "Gostando do Web Toolkit?",

@@ -6,9 +6,10 @@
   },
   "landing": {
     "hero": {
-      "badge": "31+ Kostenlose Entwicklertools",
+      "badge": "44+ Kostenlose Entwicklertools",
       "title": "All-in-One Entwickler-Toolkit",
       "subtitle": "Formatieren, konvertieren, kodieren und generieren mit leistungsstarken browserbasierte Tools. Keine Installation, keine Anmeldung, 100% privat.",
+      "searchPlaceholder": "Tools suchen... (z.B.: JSON, Bild, Hash)",
       "cta": "Tools entdecken",
       "ctaSecondary": "Auf GitHub ansehen"
     },
@@ -165,7 +166,11 @@
     "relatedTools": "Verwandte Tools",
     "nextSteps": "Nächste Schritte",
     "recentlyUsed": "Kürzlich verwendet",
-    "similarTools": "Ähnliche Tools"
+    "similarTools": "Ähnliche Tools",
+    "privacy": {
+      "noServerUpload": "Kein Server-Upload",
+      "worksOffline": "Funktioniert offline"
+    }
   },
   "adblock": {
     "title": "Gefällt Ihnen Web Toolkit?",

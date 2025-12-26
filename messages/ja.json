@@ -6,9 +6,10 @@
   },
   "landing": {
     "hero": {
-      "badge": "31以上の無料開発者ツール",
+      "badge": "44以上の無料開発者ツール",
       "title": "オールインワン開発者ツールキット",
       "subtitle": "ブラウザベースの強力なツールでフォーマット、変換、エンコード、生成まで。インストール不要、登録不要、100%プライバシー保護。",
+      "searchPlaceholder": "ツールを検索... (例: JSON、画像、ハッシュ)",
       "cta": "すべてのツールを見る",
       "ctaSecondary": "GitHubで見る"
     },
@@ -149,7 +150,11 @@
     "relatedTools": "関連ツール",
     "nextSteps": "次のステップ",
     "recentlyUsed": "最近使用",
-    "similarTools": "類似ツール"
+    "similarTools": "類似ツール",
+    "privacy": {
+      "noServerUpload": "サーバーアップロードなし",
+      "worksOffline": "オフライン動作"
+    }
   },
   "adblock": {
     "title": "Web Toolkitを気に入っていますか？",

@@ -8,6 +8,7 @@ import {
   getSortedCategories,
 } from "@/entities/tool";
 import { BentoGrid } from "@/widgets/tools-list";
+import { HeroSearchBar } from "@/widgets/hero-search-bar";
 import { SITE_CONFIG } from "@/shared/config";
 import {
   Shield,
@@ -106,6 +107,10 @@ export default async function LandingPage({ params }: Props) {
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
           {t("hero.subtitle")}
         </p>
+
+        <div className="pt-4">
+          <HeroSearchBar />
+        </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
           <Button asChild size="lg" className="gap-2">

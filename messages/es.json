@@ -6,9 +6,10 @@
   },
   "landing": {
     "hero": {
-      "badge": "31+ Herramientas Gratuitas",
+      "badge": "44+ Herramientas Gratuitas",
       "title": "Kit de Herramientas Todo en Uno",
       "subtitle": "Formatea, convierte, codifica y genera con potentes herramientas basadas en navegador. Sin instalación, sin registro, 100% privado.",
+      "searchPlaceholder": "Buscar herramientas... (ej: JSON, Imagen, Hash)",
       "cta": "Explorar Herramientas",
       "ctaSecondary": "Ver en GitHub"
     },
@@ -165,7 +166,11 @@
     "relatedTools": "Herramientas Relacionadas",
     "nextSteps": "Próximos Pasos",
     "recentlyUsed": "Usados Recientemente",
-    "similarTools": "Herramientas Similares"
+    "similarTools": "Herramientas Similares",
+    "privacy": {
+      "noServerUpload": "Sin subida al servidor",
+      "worksOffline": "Funciona sin conexión"
+    }
   },
   "adblock": {
     "title": "¿Disfrutando Web Toolkit?",

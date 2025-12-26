@@ -6,9 +6,10 @@
   },
   "landing": {
     "hero": {
-      "badge": "31+ Free Developer Tools",
+      "badge": "44+ Free Developer Tools",
       "title": "All-in-One Developer Toolkit",
       "subtitle": "Format, convert, encode, and generate with powerful browser-based tools. No installation, no signup, 100% private.",
+      "searchPlaceholder": "Search tools... (e.g., JSON, Image, Hash)",
       "cta": "Explore All Tools",
       "ctaSecondary": "View on GitHub"
     },
@@ -42,7 +43,7 @@
     },
     "why": {
       "title": "Why Developers Choose Web Toolkit",
-      "paragraph1": "Web Toolkit was built by developers, for developers. We understand the daily frustrations of switching between multiple websites, installing desktop applications, or worrying about data privacy when using online tools. That's why we created a comprehensive suite of over 30 developer tools that work entirely in your browser.",
+      "paragraph1": "Web Toolkit was built by developers, for developers. We understand the daily frustrations of switching between multiple websites, installing desktop applications, or worrying about data privacy when using online tools. That's why we created a comprehensive suite of over 40 developer tools that work entirely in your browser.",
       "paragraph2": "Unlike traditional online tools that send your data to remote servers, every tool in Web Toolkit processes data locally using modern web technologies like WebAssembly. This means your sensitive JSON data, JWT tokens, API keys, and other confidential information never leaves your device. Whether you're formatting production API responses or debugging authentication tokens, your data remains completely private.",
       "paragraph3": "Our tools are designed with modern development workflows in mind. From formatting JSON responses during API debugging to generating hash values for file verification, converting images for web optimization, or parsing complex regular expressions, Web Toolkit provides everything you need in one place. All tools work offline once loaded, making them perfect for developers who work in restricted network environments or simply want faster performance."
     },
@@ -179,7 +180,11 @@
     "relatedTools": "Related Tools",
     "nextSteps": "Next Steps",
     "recentlyUsed": "Recently Used",
-    "similarTools": "Similar Tools"
+    "similarTools": "Similar Tools",
+    "privacy": {
+      "noServerUpload": "No Server Upload",
+      "worksOffline": "Works Offline"
+    }
   },
   "adblock": {
     "title": "Enjoying Web Toolkit?",

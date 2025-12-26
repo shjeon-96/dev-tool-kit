@@ -6,9 +6,10 @@
   },
   "landing": {
     "hero": {
-      "badge": "31개 이상의 무료 개발자 도구",
+      "badge": "44개 이상의 무료 개발자 도구",
       "title": "올인원 개발자 툴킷",
       "subtitle": "브라우저 기반의 강력한 도구로 포맷, 변환, 인코딩, 생성까지. 설치 없이, 가입 없이, 100% 개인정보 보호.",
+      "searchPlaceholder": "도구 검색... (예: JSON, 이미지, 해시)",
       "cta": "모든 도구 살펴보기",
       "ctaSecondary": "GitHub에서 보기"
     },
@@ -179,7 +180,11 @@
     "relatedTools": "관련 도구",
     "nextSteps": "다음 단계",
     "recentlyUsed": "최근 사용",
-    "similarTools": "유사한 도구"
+    "similarTools": "유사한 도구",
+    "privacy": {
+      "noServerUpload": "서버 업로드 없음",
+      "worksOffline": "오프라인 작동"
+    }
   },
   "adblock": {
     "title": "Web Toolkit이 마음에 드시나요?",

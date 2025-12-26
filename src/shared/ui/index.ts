@@ -51,6 +51,7 @@ export {
   OfflineStatusIcon,
 } from "./offline-indicator";
 export { QuotaWarning, QuotaBadge } from "./quota-warning";
+export { PrivacyBadge } from "./privacy-badge";
 export { FileUploader } from "./file-uploader";
 export { AdBlockNotice } from "./adblock-notice";
 // SmartInternalLinks moved to widgets/smart-internal-links

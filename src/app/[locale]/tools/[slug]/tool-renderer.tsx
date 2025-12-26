@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { tools, type ToolSlug } from "@/entities/tool";
 import { PremiumToolGate, useFeatureAccess } from "@/entities/subscription";
 import { useQuota } from "@/shared/lib/quota";
-import { QuotaWarning, ErrorBoundary } from "@/shared/ui";
+import { QuotaWarning, ErrorBoundary, PrivacyBadge } from "@/shared/ui";
 
 const toolComponents: Record<ToolSlug, React.ComponentType> = {
   "json-formatter": dynamic(
@@ -262,6 +262,7 @@ export function ToolRenderer({ slug }: ToolRendererProps) {
       toolDescription={toolDescription}
       isPremium={tool?.isPremium}
     >
+      <PrivacyBadge className="mb-4" />
       {showQuotaWarning && stats && (
         <QuotaWarning
           dailyUsage={stats.dailyUsage}
