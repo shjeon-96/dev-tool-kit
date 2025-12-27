@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 항목           | 값                      |
 | -------------- | ----------------------- |
 | **URL**        | https://web-toolkit.app |
-| **Tools**      | 44                      |
+| **Tools**      | 45                      |
 | **pSEO Pages** | 500+                    |
 | **Languages**  | en, ko, ja, es, pt, de  |
 
@@ -27,18 +27,18 @@ npm run dev  # http://localhost:3000
 
 ### Key Commands
 
-| Command                  | Description                     |
-| ------------------------ | ------------------------------- |
-| `npm run dev`            | 개발 서버 (Turbopack)           |
-| `npm run build`          | 프로덕션 빌드                   |
-| `npm run lint`           | ESLint 검사                     |
-| `npm run test`           | Vitest 단위 테스트 (watch 모드) |
-| `npm run test [name]`    | 특정 파일 테스트                |
-| `npm run test --run`     | 단일 실행 (watch 없이)          |
-| `npm run test:coverage`  | 커버리지 리포트 생성            |
-| `npm run test:e2e`       | Playwright E2E 테스트           |
-| `npm run analyze`        | 번들 분석 (`ANALYZE=true`)      |
-| `npm run validate:tools` | 도구 레지스트리 유효성 검사     |
+| Command                  | Description                        |
+| ------------------------ | ---------------------------------- |
+| `npm run dev`            | 개발 서버 (Turbopack)              |
+| `npm run build`          | 프로덕션 빌드                      |
+| `npm run lint`           | ESLint 검사                        |
+| `npm run test`           | Vitest 단위 테스트 (watch 모드)    |
+| `npm run test [pattern]` | 특정 패턴 테스트 (예: `formatter`) |
+| `npm run test --run`     | 단일 실행 (watch 없이)             |
+| `npm run test:coverage`  | 커버리지 리포트 생성               |
+| `npm run test:e2e`       | Playwright E2E 테스트              |
+| `npm run analyze`        | 번들 분석 (`ANALYZE=true`)         |
+| `npm run validate:tools` | 도구 레지스트리 유효성 검사        |
 
 ---
 
@@ -103,10 +103,10 @@ src/
 
 ## Adding a New Tool
 
-### 1. types.ts - ToolSlug 타입 추가
+### 1. ToolSlug 타입 추가
 
 ```typescript
-// src/entities/tool/model/types.ts
+// src/shared/types/tool.ts (ToolSlug 정의 위치)
 export type ToolSlug = "existing-tool" | "new-tool";
 ```
 
@@ -259,10 +259,10 @@ pSEO 페이지 추가 시:
 
 ```bash
 npm run test                  # watch 모드
-npm run test -- formatter     # 파일명 필터
-npm run test -- --run         # 단일 실행
-npm run test:e2e              # E2E 전체
-npm run test:e2e:ui           # E2E UI 모드
+npm run test formatter        # 패턴 필터 (formatter 포함 파일)
+npm run test --run            # 단일 실행 (CI용)
+npm run test:e2e              # E2E 전체 (11 specs)
+npm run test:e2e:ui           # E2E UI 모드 (디버깅용)
 ```
 
 - 단위 테스트: `src/features/*/lib/*.test.ts`
@@ -275,7 +275,8 @@ npm run test:e2e:ui           # E2E UI 모드
 
 | File                                       | Purpose                         |
 | ------------------------------------------ | ------------------------------- |
-| `src/entities/tool/model/types.ts`         | ToolSlug 타입 정의              |
+| `src/shared/types/tool.ts`                 | ToolSlug, ToolCategory 타입     |
+| `src/entities/tool/model/types.ts`         | Tool 인터페이스 (re-export)     |
 | `src/entities/tool/model/registry.ts`      | 도구 메타데이터 레지스트리      |
 | `src/entities/tool/model/component-map.ts` | 도구 컴포넌트 Dynamic Import 맵 |
 | `src/entities/tool/model/seo-content.ts`   | 도구별 SEO 콘텐츠               |
@@ -367,4 +368,6 @@ transition={{ ease: "easeOut" }}
 
 // ✅ 올바른 사용
 transition={{ duration: 0.5 }}
+// 또는 베지어 커브 사용
+transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
 ```
