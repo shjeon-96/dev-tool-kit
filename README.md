@@ -5,7 +5,7 @@
 <h1 align="center">Web Toolkit</h1>
 
 <p align="center">
-  <strong>31+ free developer tools in your browser. No signup, no server uploads.</strong>
+  <strong>44+ free developer tools in your browser. No signup, no server uploads.</strong>
 </p>
 
 <p align="center">
@@ -17,11 +17,17 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/shjeon-96/dev-tool-kit/actions/workflows/ci.yml"><img src="https://github.com/shjeon-96/dev-tool-kit/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/shjeon-96/dev-tool-kit/stargazers"><img src="https://img.shields.io/github/stars/shjeon-96/dev-tool-kit?style=flat-square" alt="GitHub Stars"></a>
+  <a href="https://github.com/shjeon-96/dev-tool-kit/issues"><img src="https://img.shields.io/github/issues/shjeon-96/dev-tool-kit?style=flat-square" alt="GitHub Issues"></a>
+  <a href="https://github.com/shjeon-96/dev-tool-kit/blob/main/LICENSE"><img src="https://img.shields.io/github/license/shjeon-96/dev-tool-kit?style=flat-square" alt="License"></a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js" alt="Next.js">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React">
   <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript" alt="TypeScript">
   <img src="https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css" alt="Tailwind">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
 </p>
 
 ---
@@ -35,14 +41,14 @@ Most online developer tools have a problem: **you don't know where your data goe
 - 🔒 **100% Client-Side** – All processing happens in your browser. Your data never leaves your device.
 - ⚡ **Fast** – No server round-trips. Instant results.
 - 📴 **Works Offline** – It's a PWA. Install it and use it anywhere.
-- 🌍 **Multi-language** – Available in English, Korean, and Japanese.
+- 🌍 **Multi-language** – Available in 6 languages (EN, KO, JA, ES, PT, DE).
 - 🆓 **Free Forever** – No signup, no premium tiers, no ads (well, minimal ads).
 
 ---
 
 ## Features
 
-- **31+ Developer Tools** – Everything you need in one place
+- **44+ Developer Tools** – Everything you need in one place
 - **Privacy First** – No data collection, no tracking, no server uploads
 - **PWA Support** – Install as an app, works offline
 - **WebAssembly Powered** – High-performance processing with FFmpeg.wasm and hash-wasm
@@ -50,8 +56,8 @@ Most online developer tools have a problem: **you don't know where your data goe
 - **Chrome Extension** – Quick access from your browser toolbar
 - **Dark Mode** – Easy on the eyes
 - **Keyboard Shortcuts** – Power user friendly (⌘K to search)
-- **i18n** – English, Korean, Japanese
-- **31 Guides & 14 Cheatsheets** – Learn while you work
+- **i18n** – 6 languages (EN, KO, JA, ES, PT, DE)
+- **40+ Guides & Cheatsheets** – Learn while you work
 
 ---
 

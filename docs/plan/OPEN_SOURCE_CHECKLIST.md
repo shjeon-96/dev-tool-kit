@@ -87,16 +87,16 @@ grep -r "sk-\|sk_live\|api_key.*=" --include="*.ts" --include="*.tsx" src/
 
 ### 2.3 Branch Protection (GitHub 설정)
 
-- [ ] `main` 브랜치 보호 규칙
+- [x] `main` 브랜치 보호 규칙
   - Require PR before merging
-  - Require status checks
+  - Require status checks (Lint, Unit Tests, Build)
   - Require linear history (optional)
 
 ### 2.4 Repository 설정
 
-- [ ] Description 추가
-- [ ] Topics 추가: `developer-tools`, `nextjs`, `react`, `typescript`, `pwa`
-- [ ] Website URL 추가
+- [x] Description 추가
+- [x] Topics 추가: `developer-tools`, `nextjs`, `react`, `typescript`, `pwa`, `web-tools`, `devtools`, `online-tools`
+- [x] Website URL 추가
 - [ ] Discussions 활성화 (optional)
 
 ---
@@ -111,11 +111,16 @@ grep -r "sk-\|sk_live\|api_key.*=" --include="*.ts" --include="*.tsx" src/
 
 ### 3.2 Badge 추가 (README.md)
 
+- [x] CI Badge
+- [x] Stars Badge
+- [x] Issues Badge
+- [x] License Badge
+
 ```markdown
-![GitHub stars](https://img.shields.io/github/stars/shjeon-96/web-toolkit)
-![GitHub issues](https://img.shields.io/github/issues/shjeon-96/web-toolkit)
-![GitHub license](https://img.shields.io/github/license/shjeon-96/web-toolkit)
-![Build Status](https://github.com/shjeon-96/web-toolkit/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/shjeon-96/dev-tool-kit/actions/workflows/ci.yml/badge.svg)
+![GitHub stars](https://img.shields.io/github/stars/shjeon-96/dev-tool-kit)
+![GitHub issues](https://img.shields.io/github/issues/shjeon-96/dev-tool-kit)
+![GitHub license](https://img.shields.io/github/license/shjeon-96/dev-tool-kit)
 ```
 
 ### 3.3 Sponsorship
