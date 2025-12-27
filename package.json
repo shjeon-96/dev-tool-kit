@@ -1,7 +1,33 @@
 {
-  "name": "dev-tool-kit",
-  "version": "0.4.0",
-  "private": true,
+  "name": "web-toolkit",
+  "version": "1.0.0",
+  "description": "44+ free developer tools in your browser. 100% client-side processing, no server uploads.",
+  "author": "shjeon-96 <shjeon96@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://web-toolkit.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shjeon-96/web-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shjeon-96/web-toolkit/issues"
+  },
+  "keywords": [
+    "developer-tools",
+    "json-formatter",
+    "base64",
+    "jwt-decoder",
+    "hash-generator",
+    "qr-code",
+    "regex-tester",
+    "uuid-generator",
+    "nextjs",
+    "react",
+    "typescript",
+    "pwa",
+    "webassembly"
+  ],
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",

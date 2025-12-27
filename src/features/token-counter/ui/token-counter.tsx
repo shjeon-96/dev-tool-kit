@@ -121,7 +121,7 @@ export function TokenCounter() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={t("placeholder")}
-            className="h-[200px] sm:h-[250px] font-mono text-sm"
+            className="h-[250px] sm:h-[350px] lg:h-[400px] font-mono text-sm"
           />
         </CardContent>
       </Card>

@@ -5,7 +5,16 @@ import type { ToolSlug } from "@/entities/tool";
  *
  * "json in python", "yaml in javascript" 형태의 언어별 가이드 롱테일 키워드 타겟팅
  * 검색 의도: 특정 프로그래밍 언어에서 데이터 포맷/도구 사용법
+ *
+ * @note 콘텐츠 Locale 지원: en, ko, ja (es, pt, de는 en으로 fallback)
+ * @see CLAUDE.md의 "Locale Fallback Pattern" 섹션 참조
  */
+
+/**
+ * Language-Type 콘텐츠에서 지원되는 로케일
+ * es, pt, de 요청 시 page.tsx에서 getSafeLocaleKey()로 en fallback 처리
+ */
+export type LanguageTypeLocale = "en" | "ko" | "ja";
 
 // 지원 프로그래밍 언어
 export type ProgrammingLanguage =
@@ -118,28 +127,12 @@ export interface LanguageType {
   tool: ToolFormat;
   language: ProgrammingLanguage;
   category: LanguageTypeCategory;
-  title: {
-    en: string;
-    ko: string;
-    ja: string;
-  };
-  description: {
-    en: string;
-    ko: string;
-    ja: string;
-  };
+  title: Record<LanguageTypeLocale, string>;
+  description: Record<LanguageTypeLocale, string>;
   // 주요 사용 사례
-  useCases: {
-    en: string[];
-    ko: string[];
-    ja: string[];
-  };
+  useCases: Record<LanguageTypeLocale, string[]>;
   // 코드 예제
-  codeExamples: {
-    en: CodeExample[];
-    ko: CodeExample[];
-    ja: CodeExample[];
-  };
+  codeExamples: Record<LanguageTypeLocale, CodeExample[]>;
   // 관련 도구
   relatedTool: ToolSlug;
   // SEO 키워드

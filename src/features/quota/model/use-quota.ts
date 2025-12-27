@@ -15,6 +15,22 @@ import {
   isQuotaExceeded,
 } from "@/shared/lib/quota/config";
 import type { ToolSlug } from "@/shared/types/tool";
+import type { Database } from "@/shared/lib/supabase/types";
+
+type UsageRecordInsert =
+  Database["public"]["Tables"]["usage_records"]["Insert"];
+
+/**
+ * Helper to insert usage records with proper typing
+ * Workaround for @supabase/ssr generic type inference issue
+ */
+async function insertUsageRecord(
+  supabase: ReturnType<typeof createClient>,
+  record: UsageRecordInsert,
+): Promise<{ error: Error | null }> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (supabase as any).from("usage_records").insert(record);
+}
 
 interface UsageStats {
   dailyUsage: number;
@@ -186,8 +202,7 @@ export function useQuota(toolSlug: ToolSlug): UseQuotaReturn {
       if (isPro) {
         // DB에 기록만 하고 제한 없음
         if (userId) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          await (supabase as any).from("usage_records").insert({
+          await insertUsageRecord(supabase, {
             user_id: userId,
             tool_slug: toolSlug,
             action_type: "use",
@@ -204,15 +219,12 @@ export function useQuota(toolSlug: ToolSlug): UseQuotaReturn {
 
       if (userId) {
         // DB에 기록
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { error: insertError } = await (supabase as any)
-          .from("usage_records")
-          .insert({
-            user_id: userId,
-            tool_slug: toolSlug,
-            action_type: "use",
-            quantity: cost,
-          });
+        const { error: insertError } = await insertUsageRecord(supabase, {
+          user_id: userId,
+          tool_slug: toolSlug,
+          action_type: "use",
+          quantity: cost,
+        });
 
         if (insertError) {
           console.error("Failed to track usage:", insertError);

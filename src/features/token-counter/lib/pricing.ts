@@ -1,5 +1,5 @@
 /**
- * AI Model Pricing Data (as of 2024)
+ * AI Model Pricing Data (as of 2025-01)
  * Prices are per 1M tokens
  */
 
@@ -79,8 +79,35 @@ export const MODEL_INFO: Record<AIModel, ModelInfo> = {
     outputPrice: 600.0,
     description: "Most capable reasoning model",
   },
+  "o3-mini": {
+    id: "o3-mini",
+    name: "o3-mini",
+    provider: "openai",
+    contextWindow: 200000,
+    inputPrice: 1.1,
+    outputPrice: 4.4,
+    description: "Latest reasoning model",
+  },
 
-  // Anthropic Models
+  // Anthropic Claude 4 Models
+  "claude-opus-4": {
+    id: "claude-opus-4",
+    name: "Claude Opus 4",
+    provider: "anthropic",
+    contextWindow: 200000,
+    inputPrice: 15.0,
+    outputPrice: 75.0,
+    description: "Most capable Claude model",
+  },
+  "claude-sonnet-4": {
+    id: "claude-sonnet-4",
+    name: "Claude Sonnet 4",
+    provider: "anthropic",
+    contextWindow: 200000,
+    inputPrice: 3.0,
+    outputPrice: 15.0,
+    description: "Latest Claude 4 model",
+  },
   "claude-3.5-sonnet": {
     id: "claude-3.5-sonnet",
     name: "Claude 3.5 Sonnet",
@@ -129,17 +156,23 @@ export const MODEL_INFO: Record<AIModel, ModelInfo> = {
 };
 
 export const OPENAI_MODELS: AIModel[] = [
+  // GPT Series
   "gpt-4o",
   "gpt-4o-mini",
   "gpt-4-turbo",
   "gpt-4",
   "gpt-3.5-turbo",
+  // O Series (Reasoning)
   "o1",
   "o1-mini",
   "o1-pro",
+  "o3-mini",
 ];
 
 export const ANTHROPIC_MODELS: AIModel[] = [
+  // Claude 4
+  "claude-opus-4",
+  "claude-sonnet-4",
   "claude-3.5-sonnet",
   "claude-3.5-haiku",
   "claude-3-opus",
