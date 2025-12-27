@@ -1,6 +1,6 @@
 "use client";
 
-import { Shield, Wifi, WifiOff } from "lucide-react";
+import { Shield, WifiOff } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface PrivacyBadgeProps {

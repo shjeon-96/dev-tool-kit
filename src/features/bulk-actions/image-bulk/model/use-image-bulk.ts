@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useFeatureAccess } from "@/entities/subscription";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 import { getBulkLimits, isLimitExceeded } from "../../model/bulk-limits";
 import { useFSAccess, type WriteFileData } from "@/shared/lib/fs-access";
 

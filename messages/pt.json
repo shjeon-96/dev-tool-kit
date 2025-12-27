@@ -643,6 +643,29 @@
         "exporting": "Exportando...",
         "reset": "Redefinir Configurações"
       }
+    },
+    "token-counter": {
+      "title": "Contador de Tokens",
+      "description": "Conte tokens para GPT, Claude e outros modelos de IA. Calcule custos de API e compare tokenização entre modelos. Gratuito e offline.",
+      "selectModel": "Selecionar Modelo de IA",
+      "inputText": "Texto de Entrada",
+      "inputPlaceholder": "Digite ou cole seu texto aqui para contar tokens...",
+      "tokens": "Tokens",
+      "characters": "Caracteres",
+      "words": "Palavras",
+      "lines": "Linhas",
+      "estimatedCost": "Custo Estimado",
+      "inputCost": "Custo de Entrada",
+      "outputCost": "Custo de Saída",
+      "perMillionTokens": "por 1M tokens",
+      "modelInfo": "Informações do Modelo",
+      "contextWindow": "Janela de Contexto",
+      "tokensUsed": "tokens usados",
+      "copyTokens": "Copiar Contagem de Tokens",
+      "copied": "Copiado!",
+      "clear": "Limpar",
+      "noText": "Sem Texto",
+      "enterTextToCount": "Digite texto para contar tokens"
     }
   },
   "cheatsheets": {
@@ -2597,6 +2620,32 @@
         {
           "q": "What export formats are supported?",
           "a": "You can export as PNG (best quality), JPEG (smaller file size), or SVG (scalable vector). PNG is recommended for most uses."
+        }
+      ]
+    },
+    "token-counter": {
+      "whatIs": "O Contador de Tokens calcula com precisão os tokens para vários modelos de IA, incluindo GPT-4, GPT-3.5, Claude e outros modelos LLM. Entenda os custos de API e otimize seus prompts contando tokens antes de chamadas de API.",
+      "howToUse": "Cole ou digite seu texto na área de entrada. Selecione seu modelo de IA no dropdown - suportamos GPT-4, GPT-4 Turbo, GPT-3.5, Claude 3 e outros. A contagem de tokens, custos estimados e uso da janela de contexto são exibidos instantaneamente.",
+      "features": [
+        "Contagem precisa de tokens para GPT, Claude e outros modelos",
+        "Estimativa de custos de API em tempo real (entrada e saída)",
+        "Visualização de uso da janela de contexto",
+        "Suporte a mais de 15 modelos populares de IA",
+        "Estatísticas de caracteres, palavras e linhas",
+        "100% offline e seguro para privacidade"
+      ],
+      "faq": [
+        {
+          "q": "O que é um token em modelos de IA?",
+          "a": "Um token é uma unidade de texto que modelos de IA processam. Para texto em inglês, um token corresponde aproximadamente a 4 caracteres ou ¾ de uma palavra. Diferentes idiomas e caracteres especiais podem usar mais ou menos tokens."
+        },
+        {
+          "q": "Quão precisa é a contagem de tokens?",
+          "a": "Para modelos GPT, usamos o tokenizador oficial tiktoken, alcançando 100% de precisão. Para modelos Claude, usamos algoritmos de estimativa que são tipicamente precisos dentro de 5%."
+        },
+        {
+          "q": "Por que os custos de tokens importam?",
+          "a": "APIs de IA cobram por token. Entender suas contagens de tokens ajuda a otimizar prompts, controlar custos e evitar exceder limites de contexto que causam erros ou truncamento."
         }
       ]
     }

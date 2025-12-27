@@ -4,7 +4,7 @@
  * 사용량 제한 설정
  */
 
-import type { ToolSlug } from "@/entities/tool";
+import type { ToolSlug } from "@/shared/types/tool";
 
 export interface QuotaConfig {
   /** 일일 사용 제한 (operations) */

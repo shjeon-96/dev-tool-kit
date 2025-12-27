@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef, useMemo } from "react";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export type Language =
   | "javascript"

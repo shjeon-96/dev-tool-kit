@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { tools, toolComponents, type ToolSlug } from "@/entities/tool";
 import { PremiumToolGate, useFeatureAccess } from "@/entities/subscription";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 import { QuotaWarning, ErrorBoundary, PrivacyBadge } from "@/shared/ui";
 
 function ToolSkeleton() {

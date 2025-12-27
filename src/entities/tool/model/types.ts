@@ -1,12 +1,14 @@
 import type { LucideIcon } from "lucide-react";
 
-export type ToolCategory = "text" | "media" | "security" | "converters";
+// Re-export types from shared layer for backward compatibility
+export type { ToolSlug, ToolCategory } from "@/shared/types/tool";
+import type { ToolSlug } from "@/shared/types/tool";
 
 export interface Tool {
   title: string;
   description: string;
   icon: LucideIcon;
-  category: ToolCategory;
+  category: "text" | "media" | "security" | "converters";
   /** Pro 전용 기능 여부 */
   isPremium?: boolean;
   /** 무료 사용자 일일 사용 제한 (미설정 시 무제한) */
@@ -18,50 +20,3 @@ export interface Tool {
   /** FAQ 항목 키 목록 */
   faq?: string[];
 }
-
-export type ToolSlug =
-  | "json-formatter"
-  | "jwt-decoder"
-  | "image-resizer"
-  | "unix-timestamp"
-  | "base64-converter"
-  | "app-icon-generator"
-  | "qr-generator"
-  | "color-picker"
-  | "url-parser"
-  | "uuid-generator"
-  | "base-converter"
-  | "hash-generator"
-  | "sql-formatter"
-  | "cron-parser"
-  | "markdown-preview"
-  | "diff-checker"
-  | "lorem-generator"
-  | "url-encoder"
-  | "html-entity"
-  | "box-shadow"
-  | "gradient-generator"
-  | "ua-parser"
-  | "regex-tester"
-  | "meta-generator"
-  | "curl-builder"
-  | "svg-optimizer"
-  | "css-to-tailwind"
-  | "prettier-playground"
-  | "json-to-typescript"
-  | "css-minifier"
-  | "text-case-converter"
-  | "video-compressor"
-  | "pdf-toolkit"
-  | "ocr-scanner"
-  | "schema-generator"
-  | "headline-analyzer"
-  | "bg-remover"
-  | "og-generator"
-  | "image-converter"
-  | "sitemap-generator"
-  | "meta-tag-analyzer"
-  | "robots-generator"
-  | "serp-preview"
-  | "share-as-image"
-  | "token-counter";

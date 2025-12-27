@@ -21,7 +21,7 @@ export function OfflineIndicator({
   showLabel = true,
   size = "sm",
 }: OfflineIndicatorProps) {
-  const { isOnline, isOfflineReady, canWorkOffline } = useOfflineReady();
+  const { isOnline, canWorkOffline } = useOfflineReady();
 
   const sizeClasses = {
     sm: "text-xs px-2 py-0.5",

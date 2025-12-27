@@ -1,10 +1,10 @@
 /**
- * Quota System
+ * Quota Configuration
  *
- * 도구별 사용량 추적 및 제한 관리
+ * Quota config is in shared, hook is in features/quota
+ * @see @/features/quota for useQuota hook
  */
 
-export { useQuota } from "./use-quota";
 export {
   getToolQuota,
   getRemainingQuota,

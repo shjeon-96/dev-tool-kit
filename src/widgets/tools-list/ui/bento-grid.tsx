@@ -81,7 +81,6 @@ export function BentoCard({ slug, size = "normal", index }: BentoCardProps) {
 
   // Spotlight effect state
   const divRef = React.useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = React.useState(false);
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = React.useState(0);
 
@@ -95,12 +94,10 @@ export function BentoCard({ slug, size = "normal", index }: BentoCardProps) {
   };
 
   const handleFocus = () => {
-    setIsFocused(true);
     setOpacity(1);
   };
 
   const handleBlur = () => {
-    setIsFocused(false);
     setOpacity(0);
   };
 

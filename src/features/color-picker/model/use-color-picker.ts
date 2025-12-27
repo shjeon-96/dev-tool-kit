@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef } from "react";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export interface ColorInfo {
   hex: string;

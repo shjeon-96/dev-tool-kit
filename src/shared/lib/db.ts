@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from "dexie";
-import type { ToolSlug } from "@/entities/tool";
+import type { ToolSlug } from "@/shared/types/tool";
 
 // ============================================
 // Workspace Database Schema (Dexie.js)

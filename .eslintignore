@@ -1,0 +1,18 @@
+# Generated files
+public/sw.js
+public/workbox-*.js
+public/widget/loader.js
+
+# Coverage
+coverage/
+
+# Build output
+.next/
+out/
+
+# Dependencies
+node_modules/
+
+# Extensions
+extension/
+vscode-extension/

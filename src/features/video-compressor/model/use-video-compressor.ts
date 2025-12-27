@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef } from "react";
 import { useFFmpeg } from "@/shared/lib/ffmpeg/use-ffmpeg";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 import {
   compressVideo,
   getDefaultOptions,

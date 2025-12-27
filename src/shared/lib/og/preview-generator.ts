@@ -1,4 +1,4 @@
-import type { ToolSlug } from "@/entities/tool";
+import type { ToolSlug } from "@/shared/types/tool";
 
 // ============================================
 // OG Preview Generator

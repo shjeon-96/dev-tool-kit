@@ -643,6 +643,30 @@
         "exporting": "Exportando...",
         "reset": "Restablecer Configuración"
       }
+    },
+    "token-counter": {
+      "title": "Contador de Tokens",
+      "description": "Cuenta tokens para GPT, Claude y otros modelos de IA. Calcula costos de API y uso de ventana de contexto.",
+      "selectModel": "Seleccionar Modelo de IA",
+      "contextWindow": "Ventana de Contexto",
+      "inputText": "Texto de Entrada",
+      "placeholder": "Ingresa o pega tu texto aquí para contar tokens...",
+      "outputRatio": "Proporción de Salida Esperada",
+      "outputRatioHelp": "Estima cuántos tokens de salida generará el modelo en relación a la entrada (1.0x = igual que la entrada)",
+      "tokenCount": "Conteo de Tokens",
+      "tokens": "Tokens",
+      "characters": "Caracteres",
+      "words": "Palabras",
+      "lines": "Líneas",
+      "contextUsage": "Uso del Contexto",
+      "exceedsContext": "¡Excede el límite de ventana de contexto!",
+      "costEstimate": "Estimación de Costo",
+      "inputCost": "Costo de Entrada",
+      "outputCost": "Costo de Salida",
+      "totalCost": "Costo Total",
+      "inputPrice": "Precio de Entrada",
+      "outputPrice": "Precio de Salida",
+      "emptyState": "Ingresa texto arriba para contar tokens y estimar costos"
     }
   },
   "cheatsheets": {
@@ -2597,6 +2621,27 @@
         {
           "q": "What export formats are supported?",
           "a": "You can export as PNG (best quality), JPEG (smaller file size), or SVG (scalable vector). PNG is recommended for most uses."
+        }
+      ]
+    },
+    "token-counter": {
+      "whatIs": "El Contador de Tokens calcula cuántos tokens usa tu texto en modelos de IA como GPT-4, Claude y otros. Los tokens son las unidades básicas que la IA usa para procesar texto - en español, un token es aproximadamente 3/4 de una palabra. Entender el conteo de tokens ayuda a predecir costos de API y gestionar límites de ventana de contexto.",
+      "howToUse": "Selecciona tu modelo de IA objetivo (GPT-4o, Claude 3.5 Sonnet, etc.). Pega o escribe tu texto para ver conteos de tokens en tiempo real, conteo de caracteres y palabras. Ajusta la proporción de salida esperada para estimar costos totales de API. Monitorea el uso de la ventana de contexto para evitar alcanzar límites.",
+      "features": [
+        "14+ modelos de IA soportados (OpenAI y Anthropic)",
+        "Conteo de tokens en tiempo real con gpt-tokenizer",
+        "Estimación de costos de API para tokens de entrada y salida",
+        "Visualización del uso de ventana de contexto",
+        "Precios actualizados para GPT-4o, Claude 3.5 Sonnet y más"
+      ],
+      "faq": [
+        {
+          "q": "¿Qué es un token?",
+          "a": "Un token es la unidad básica de texto que procesan los modelos de IA. En español, un token es típicamente 3/4 de una palabra. Palabras comunes pueden ser un token, mientras que palabras más largas o raras pueden dividirse en múltiples tokens."
+        },
+        {
+          "q": "¿Por qué importa el conteo de tokens?",
+          "a": "El conteo de tokens determina los costos de API (cobras por tokens) y si tu texto cabe en la ventana de contexto del modelo. Exceder la ventana de contexto truncará tu entrada o causará errores."
         }
       ]
     }

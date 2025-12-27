@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useToolHistory, useUrlState } from "@/shared/lib";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export interface DecodedToken {
   header: Record<string, unknown>;

@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { format } from "sql-formatter";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export type SqlDialect = "sql" | "mysql" | "postgresql" | "sqlite" | "mariadb";
 

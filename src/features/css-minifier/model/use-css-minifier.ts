@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { useToolHistory } from "@/shared/lib";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 import {
   minifyCss,
   beautifyCss,

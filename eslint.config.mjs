@@ -83,6 +83,13 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Extension has its own build process
     "extension/**",
+    "vscode-extension/**",
+    // Generated files
+    "public/sw.js",
+    "public/workbox-*.js",
+    "public/widget/**",
+    // Coverage
+    "coverage/**",
   ]),
 ]);
 

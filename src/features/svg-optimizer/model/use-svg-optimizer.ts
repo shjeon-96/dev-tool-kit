@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useMemo } from "react";
 import { optimize, type Config } from "svgo/browser";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export interface OptimizeOptions {
   removeDoctype: boolean;

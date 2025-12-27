@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useToolHistory } from "@/shared/lib";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 import { convertCase, caseOptions, type CaseType } from "../lib/converter";
 
 export function useTextCaseConverter() {

@@ -1,7 +1,7 @@
 import { kv } from "@vercel/kv";
 import { nanoid } from "nanoid";
 import LZString from "lz-string";
-import type { ToolSlug } from "@/entities/tool";
+import type { ToolSlug } from "@/shared/types/tool";
 
 // ============================================
 // Magic Share - Vercel KV Configuration

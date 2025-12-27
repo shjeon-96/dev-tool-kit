@@ -9,8 +9,12 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { createClient } from "@/shared/lib/supabase/client";
 import { useFeatureAccess } from "@/entities/subscription";
-import { getToolQuota, getRemainingQuota, isQuotaExceeded } from "./config";
-import type { ToolSlug } from "@/entities/tool";
+import {
+  getToolQuota,
+  getRemainingQuota,
+  isQuotaExceeded,
+} from "@/shared/lib/quota/config";
+import type { ToolSlug } from "@/shared/types/tool";
 
 interface UsageStats {
   dailyUsage: number;

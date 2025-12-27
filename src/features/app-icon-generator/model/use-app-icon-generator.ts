@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { iconPlatforms, getActualSize } from "../lib/icon-sizes";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export interface SourceImage {
   file: File;

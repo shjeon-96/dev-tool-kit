@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { v1 as uuidv1, v4 as uuidv4 } from "uuid";
 import { ulid } from "ulid";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export type IdType = "uuid-v1" | "uuid-v4" | "ulid";
 

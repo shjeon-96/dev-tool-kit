@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { useFFmpeg, fetchFile } from "@/shared/lib/ffmpeg";
-import { useQuota } from "@/shared/lib/quota";
+import { useQuota } from "@/features/quota";
 
 export type OutputFormat = "image/png" | "image/jpeg" | "image/webp";
 export type ResizeMode = "pixel" | "percent";

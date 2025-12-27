@@ -643,6 +643,29 @@
         "exporting": "Exportiere...",
         "reset": "Einstellungen zurücksetzen"
       }
+    },
+    "token-counter": {
+      "title": "Token-Zähler",
+      "description": "Zählen Sie Tokens für GPT, Claude und andere KI-Modelle. Berechnen Sie API-Kosten und vergleichen Sie die Tokenisierung zwischen Modellen. Kostenlos und offline.",
+      "selectModel": "KI-Modell auswählen",
+      "inputText": "Eingabetext",
+      "inputPlaceholder": "Geben Sie Ihren Text hier ein oder fügen Sie ihn ein, um Tokens zu zählen...",
+      "tokens": "Tokens",
+      "characters": "Zeichen",
+      "words": "Wörter",
+      "lines": "Zeilen",
+      "estimatedCost": "Geschätzte Kosten",
+      "inputCost": "Eingabekosten",
+      "outputCost": "Ausgabekosten",
+      "perMillionTokens": "pro 1M Tokens",
+      "modelInfo": "Modellinformationen",
+      "contextWindow": "Kontextfenster",
+      "tokensUsed": "Tokens verwendet",
+      "copyTokens": "Token-Anzahl kopieren",
+      "copied": "Kopiert!",
+      "clear": "Löschen",
+      "noText": "Kein Text",
+      "enterTextToCount": "Geben Sie Text ein, um Tokens zu zählen"
     }
   },
   "cheatsheets": {
@@ -2706,6 +2729,32 @@
         {
           "q": "What export formats are supported?",
           "a": "You can export as PNG (best quality), JPEG (smaller file size), or SVG (scalable vector). PNG is recommended for most uses."
+        }
+      ]
+    },
+    "token-counter": {
+      "whatIs": "Der Token-Zähler berechnet präzise die Tokens für verschiedene KI-Modelle, einschließlich GPT-4, GPT-3.5, Claude und andere LLM-Modelle. Verstehen Sie API-Kosten und optimieren Sie Ihre Prompts, indem Sie Tokens vor API-Aufrufen zählen.",
+      "howToUse": "Fügen Sie Ihren Text in das Eingabefeld ein oder tippen Sie ihn ein. Wählen Sie Ihr KI-Modell aus dem Dropdown - wir unterstützen GPT-4, GPT-4 Turbo, GPT-3.5, Claude 3 und mehr. Token-Anzahl, geschätzte Kosten und Kontextfenster-Nutzung werden sofort angezeigt.",
+      "features": [
+        "Präzise Token-Zählung für GPT, Claude und andere Modelle",
+        "Echtzeit-API-Kostenschätzung (Ein- und Ausgabe)",
+        "Visualisierung der Kontextfenster-Nutzung",
+        "Unterstützung für 15+ beliebte KI-Modelle",
+        "Zeichen-, Wort- und Zeilenstatistiken",
+        "100% offline und datenschutzsicher"
+      ],
+      "faq": [
+        {
+          "q": "Was ist ein Token in KI-Modellen?",
+          "a": "Ein Token ist eine Texteinheit, die KI-Modelle verarbeiten. Bei englischem Text entspricht ein Token ungefähr 4 Zeichen oder ¾ eines Wortes. Verschiedene Sprachen und Sonderzeichen können mehr oder weniger Tokens verwenden."
+        },
+        {
+          "q": "Wie genau ist die Token-Zählung?",
+          "a": "Für GPT-Modelle verwenden wir den offiziellen tiktoken-Tokenizer und erreichen 100% Genauigkeit. Für Claude-Modelle verwenden wir Schätzungsalgorithmen, die typischerweise innerhalb von 5% genau sind."
+        },
+        {
+          "q": "Warum sind Token-Kosten wichtig?",
+          "a": "KI-APIs berechnen pro Token. Das Verständnis Ihrer Token-Anzahlen hilft, Prompts zu optimieren, Kosten zu kontrollieren und das Überschreiten von Kontextlimits zu vermeiden, die Fehler oder Kürzungen verursachen."
         }
       ]
     }

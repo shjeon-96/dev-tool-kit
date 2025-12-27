@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { AlertTriangle, RefreshCw, X } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "./button";
