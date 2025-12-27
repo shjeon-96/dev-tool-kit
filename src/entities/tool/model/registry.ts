@@ -405,6 +405,10 @@ export function getToolSlugs(): ToolSlug[] {
   return Object.keys(tools) as ToolSlug[];
 }
 
+export function getToolBySlug(slug: ToolSlug): Tool | undefined {
+  return tools[slug];
+}
+
 export function getPremiumToolSlugs(): ToolSlug[] {
   return (Object.entries(tools) as [ToolSlug, Tool][])
     .filter(([, tool]) => tool.isPremium)

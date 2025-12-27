@@ -291,18 +291,24 @@ describe("Headline Analyzer", () => {
   });
 
   describe("getGradeColor", () => {
-    it("returns green for A grades", () => {
-      expect(getGradeColor("A+")).toContain("green");
-      expect(getGradeColor("A")).toContain("green");
+    it("returns success color for A grades", () => {
+      expect(getGradeColor("A+")).toBe("text-success");
+      expect(getGradeColor("A")).toBe("text-success");
     });
 
-    it("returns blue for B grades", () => {
-      expect(getGradeColor("B+")).toContain("blue");
-      expect(getGradeColor("B")).toContain("blue");
+    it("returns info color for B grades", () => {
+      expect(getGradeColor("B+")).toBe("text-info");
+      expect(getGradeColor("B")).toBe("text-info");
     });
 
-    it("returns red for F grade", () => {
-      expect(getGradeColor("F")).toContain("red");
+    it("returns warning color for C and D grades", () => {
+      expect(getGradeColor("C+")).toBe("text-warning");
+      expect(getGradeColor("C")).toBe("text-warning");
+      expect(getGradeColor("D")).toBe("text-warning");
+    });
+
+    it("returns destructive color for F grade", () => {
+      expect(getGradeColor("F")).toBe("text-destructive");
     });
   });
 

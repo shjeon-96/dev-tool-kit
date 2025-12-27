@@ -1,4 +1,4 @@
-export { tools, getToolSlugs, toolSeoContent } from "./model";
+export { tools, getToolSlugs, getToolBySlug, toolSeoContent } from "./model";
 export {
   categoryConfig,
   getToolsByCategory,
