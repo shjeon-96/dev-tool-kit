@@ -239,6 +239,7 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: FileImage,
     category: "media",
     isPremium: true,
+    freeLimit: 3,
     relatedTools: ["image-resizer", "css-minifier", "app-icon-generator"],
   },
   "css-to-tailwind": {
@@ -261,6 +262,7 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: FileCode,
     category: "converters",
     isPremium: true,
+    freeLimit: 3,
     relatedTools: ["json-formatter", "prettier-playground", "diff-checker"],
   },
   "css-minifier": {
@@ -285,6 +287,7 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: FileVideo,
     category: "media",
     isPremium: true,
+    freeLimit: 3,
     relatedTools: ["image-resizer", "svg-optimizer", "app-icon-generator"],
   },
   "pdf-toolkit": {
@@ -325,6 +328,8 @@ export const tools: Record<ToolSlug, Tool> = {
       "AI로 이미지 배경을 자동 제거합니다. WebGPU 가속, 100% 클라이언트 사이드 처리.",
     icon: Eraser,
     category: "media",
+    isPremium: true,
+    freeLimit: 3,
     relatedTools: ["image-resizer", "ocr-scanner", "svg-optimizer"],
   },
   "og-generator": {

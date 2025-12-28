@@ -99,6 +99,7 @@ export default async function ToolPage({ params }: Props) {
           url={`${SITE_CONFIG.url}/${locale}/tools/${slug}`}
           applicationCategory="DeveloperApplication"
           operatingSystem="Web"
+          featureList={tool.features}
         />
         <BreadcrumbJsonLd
           items={[
