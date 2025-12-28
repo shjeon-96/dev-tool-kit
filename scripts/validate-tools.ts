@@ -42,8 +42,10 @@ interface ToolValidation {
 function extractToolSlugs(typesFilePath: string): string[] {
   const content = fs.readFileSync(typesFilePath, "utf-8");
 
-  // ToolSlug 타입 정의 찾기 (여러 줄에 걸쳐 있을 수 있음)
-  const typeMatch = content.match(/export\s+type\s+ToolSlug\s*=\s*([^;]+);/s);
+  // ToolSlug 타입 정의 찾기 (여러 줄에 걸쳐 있을 수 있음, 세미콜론 선택적)
+  const typeMatch = content.match(
+    /export\s+type\s+ToolSlug\s*=\s*([\s\S]+?)(?:;|\nexport|\n\n|$)/s,
+  );
 
   if (!typeMatch) {
     throw new Error("ToolSlug 타입 정의를 찾을 수 없습니다.");
@@ -120,7 +122,7 @@ function validateTools(): ValidationResult {
   const warnings: string[] = [];
 
   // 파일 경로
-  const typesPath = path.join(ROOT_DIR, "src/entities/tool/model/types.ts");
+  const typesPath = path.join(ROOT_DIR, "src/shared/types/tool.ts");
   const registryPath = path.join(
     ROOT_DIR,
     "src/entities/tool/model/registry.ts",

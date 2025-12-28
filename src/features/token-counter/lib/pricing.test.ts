@@ -125,8 +125,8 @@ describe("pricing", () => {
   });
 
   describe("OPENAI_MODELS", () => {
-    it("should contain 8 OpenAI models", () => {
-      expect(OPENAI_MODELS).toHaveLength(8);
+    it("should contain 9 OpenAI models", () => {
+      expect(OPENAI_MODELS).toHaveLength(9);
     });
 
     it("should include all expected OpenAI models", () => {
@@ -148,8 +148,8 @@ describe("pricing", () => {
   });
 
   describe("ANTHROPIC_MODELS", () => {
-    it("should contain 5 Anthropic models", () => {
-      expect(ANTHROPIC_MODELS).toHaveLength(5);
+    it("should contain 7 Anthropic models", () => {
+      expect(ANTHROPIC_MODELS).toHaveLength(7);
     });
 
     it("should include all expected Anthropic models", () => {
