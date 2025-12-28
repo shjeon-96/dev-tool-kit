@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Star } from "lucide-react";
 import { useFavorites, useRecentTools } from "@/shared/lib";
 import { Button, OfflineIndicator } from "@/shared/ui";
+import { QuotaIndicator } from "@/features/quota";
 import type { ToolSlug } from "@/entities/tool";
 
 interface ToolHeaderActionsProps {
@@ -24,6 +25,7 @@ export function ToolHeaderActions({ slug }: ToolHeaderActionsProps) {
   if (!isLoaded) {
     return (
       <div className="flex items-center gap-2">
+        <QuotaIndicator slug={slug} compact />
         <OfflineIndicator size="sm" />
         <Button variant="ghost" size="icon" disabled className="opacity-0">
           <Star className="h-5 w-5" />
@@ -34,6 +36,7 @@ export function ToolHeaderActions({ slug }: ToolHeaderActionsProps) {
 
   return (
     <div className="flex items-center gap-2">
+      <QuotaIndicator slug={slug} compact />
       <OfflineIndicator size="sm" />
       <Button
         variant="ghost"

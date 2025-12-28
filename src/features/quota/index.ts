@@ -5,3 +5,4 @@
  */
 
 export { useQuota } from "./model/use-quota";
+export { QuotaIndicator } from "./ui/quota-indicator";

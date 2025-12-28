@@ -3406,5 +3406,18 @@
       "low": "Low",
       "informational": "Info"
     }
+  },
+  "language": {
+    "indexTitle": "Programming Language Guides",
+    "indexDescription": "Learn how to use JSON, YAML, Base64, Hash, and more in Python, JavaScript, TypeScript, and other programming languages.",
+    "guides": "guides",
+    "languages": "languages",
+    "tools": "tools",
+    "useCases": "Use Cases",
+    "codeExamples": "Code Examples",
+    "relatedTool": "Related Tool",
+    "relatedGuides": "Related Guides",
+    "tryToolCTA": "Ready to try this tool online?",
+    "footerText": "These guides help you implement common data processing patterns in various programming languages."
   }
 }

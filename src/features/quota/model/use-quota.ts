@@ -9,6 +9,7 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { createClient } from "@/shared/lib/supabase/client";
 import { useFeatureAccess } from "@/entities/subscription";
+import { tools } from "@/entities/tool/model/registry";
 import {
   getToolQuota,
   getRemainingQuota,
@@ -101,7 +102,11 @@ export function useQuota(toolSlug: ToolSlug): UseQuotaReturn {
   const [userId, setUserId] = useState<string | null>(null);
 
   const tier = isPro ? "pro" : "free";
-  const quota = useMemo(() => getToolQuota(toolSlug, tier), [toolSlug, tier]);
+  const tool = tools[toolSlug];
+  const quota = useMemo(
+    () => getToolQuota(toolSlug, tier, tool),
+    [toolSlug, tier, tool],
+  );
 
   // 사용자 확인
   useEffect(() => {
