@@ -12,6 +12,7 @@ import {
   type ToolSlug,
 } from "@/entities/tool";
 import { LayoutGrid, BookOpen } from "lucide-react";
+import Image from "next/image";
 
 export function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
@@ -33,9 +34,18 @@ export function Sidebar({ className }: { className?: string }) {
     >
       <div className="flex-1 overflow-y-auto py-4">
         <div className="px-3 py-2">
-          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight text-primary">
-            DevToolkit
-          </h2>
+          <div className="flex items-center gap-2 px-4 mb-4">
+            <Image
+              src="/icons/icon-192x192.png"
+              alt="Logo"
+              width={24}
+              height={24}
+              className="rounded-sm"
+            />
+            <h2 className="text-lg font-semibold tracking-tight text-primary">
+              Web Toolkit
+            </h2>
+          </div>
 
           {/* Overview Link */}
           <div className="mb-4">

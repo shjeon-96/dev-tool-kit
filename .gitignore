@@ -57,3 +57,4 @@ build/chrome-mv3-prod
 
 # Data Pipeline (Local Cache)
 /data/trends
+firebase-debug.log
