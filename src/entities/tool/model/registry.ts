@@ -394,6 +394,8 @@ export const tools: Record<ToolSlug, Tool> = {
       "코드를 아름다운 이미지로 변환합니다. Carbon 스타일의 코드 스니펫을 생성하여 공유할 수 있습니다.",
     icon: Camera,
     category: "text",
+    isPremium: true,
+    freeLimit: 3,
     relatedTools: ["prettier-playground", "diff-checker", "og-generator"],
   },
   "token-counter": {
