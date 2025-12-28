@@ -6,7 +6,7 @@
   },
   "landing": {
     "hero": {
-      "badge": "44+ Kostenlose Entwicklertools",
+      "badge": "46+ Entwicklertools",
       "title": "All-in-One Entwickler-Toolkit",
       "subtitle": "Formatieren, konvertieren, kodieren und generieren mit leistungsstarken browserbasierte Tools. Keine Installation, keine Anmeldung, 100% privat.",
       "searchPlaceholder": "Tools suchen... (z.B.: JSON, Bild, Hash)",
@@ -24,8 +24,8 @@
         "description": "Keine Server-Roundtrips. Sofortige Ergebnisse für alle Ihre Entwicklungsaufgaben."
       },
       "free": {
-        "title": "Komplett kostenlos",
-        "description": "Alle Tools sind kostenlos ohne versteckte Limits oder Paywalls."
+        "title": "Kostenlose & Pro Tools",
+        "description": "45+ kostenlose Tools für alle. Erweiterte Funktionen mit Pro freischalten."
       },
       "offline": {
         "title": "Funktioniert offline",

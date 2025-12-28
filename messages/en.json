@@ -6,7 +6,7 @@
   },
   "landing": {
     "hero": {
-      "badge": "44+ Free Developer Tools",
+      "badge": "46+ Developer Tools",
       "title": "All-in-One Developer Toolkit",
       "subtitle": "Format, convert, encode, and generate with powerful browser-based tools. No installation, no signup, 100% private.",
       "searchPlaceholder": "Search tools... (e.g., JSON, Image, Hash)",
@@ -24,8 +24,8 @@
         "description": "No server roundtrips. Instant results for all your development tasks."
       },
       "free": {
-        "title": "Completely Free",
-        "description": "All tools are free to use with no hidden limits or paywalls."
+        "title": "Free & Pro Tools",
+        "description": "45+ free tools for everyone. Unlock advanced features with Pro."
       },
       "offline": {
         "title": "Works Offline",

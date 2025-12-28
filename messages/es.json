@@ -6,7 +6,7 @@
   },
   "landing": {
     "hero": {
-      "badge": "44+ Herramientas Gratuitas",
+      "badge": "46+ Herramientas para Desarrolladores",
       "title": "Kit de Herramientas Todo en Uno",
       "subtitle": "Formatea, convierte, codifica y genera con potentes herramientas basadas en navegador. Sin instalación, sin registro, 100% privado.",
       "searchPlaceholder": "Buscar herramientas... (ej: JSON, Imagen, Hash)",
@@ -24,8 +24,8 @@
         "description": "Sin viajes de ida y vuelta al servidor. Resultados instantáneos para todas tus tareas."
       },
       "free": {
-        "title": "Completamente Gratis",
-        "description": "Todas las herramientas son gratuitas sin límites ocultos ni muros de pago."
+        "title": "Herramientas Gratis & Pro",
+        "description": "45+ herramientas gratuitas para todos. Desbloquea funciones avanzadas con Pro."
       },
       "offline": {
         "title": "Funciona Sin Conexión",
