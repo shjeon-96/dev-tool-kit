@@ -168,7 +168,7 @@ export default async function ToolPage({ params }: Props) {
               {/* FAQ schema if it exists */}
               {tool.faq && (
                 <FaqJsonLd
-                  faqs={tool.faq.map((f: string) => ({
+                  faqs={tool.faq.map((f) => ({
                     q: t(`${slug}.faq.${f}.q`),
                     a: t(`${slug}.faq.${f}.a`),
                   }))}

@@ -6,7 +6,9 @@
 
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
+import { createLogger } from "@/shared/lib/logger";
 
+const logger = createLogger("api:revalidate");
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 
 export async function POST(request: Request) {
@@ -27,7 +29,7 @@ export async function POST(request: Request) {
     // 경로 기반 재생성
     // type: "page" | "layout"
     revalidatePath(path, type as "page" | "layout");
-    console.log(`[Revalidate] Path revalidated: ${path} (${type})`);
+    logger.info("Path revalidated", { path, type });
 
     return NextResponse.json({
       success: true,

@@ -23,7 +23,7 @@ interface AIConfigDialogProps {
     provider: AIProvider;
     model: string;
     apiKey: string;
-  }) => boolean;
+  }) => boolean | Promise<boolean>;
   currentConfig?: {
     provider: AIProvider;
     model: string;
@@ -56,13 +56,15 @@ export function AIConfigDialog({
     setError(null);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!apiKey.trim()) {
       setError(t("enterApiKey"));
       return;
     }
 
-    const success = onSave({ provider, model, apiKey: apiKey.trim() });
+    const success = await Promise.resolve(
+      onSave({ provider, model, apiKey: apiKey.trim() }),
+    );
     if (success) {
       onClose();
     } else {

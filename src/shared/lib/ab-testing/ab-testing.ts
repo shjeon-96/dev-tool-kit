@@ -10,6 +10,17 @@ import type {
   ABTestAssignment,
   ABTestEvent,
 } from "./types";
+import {
+  safeGetItem,
+  safeGetRawItem,
+  safeSetItem,
+  safeSetRawItem,
+  safeRemoveItem,
+  safeJsonParse,
+} from "@/shared/lib/storage";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("ab-testing");
 
 // Storage key prefix
 const STORAGE_PREFIX = "ab_test_";
@@ -87,16 +98,22 @@ export function getVariantAssignment(testId: string): ABTestVariant | null {
 
   // Check for existing assignment
   const storageKey = `${STORAGE_PREFIX}${testId}`;
-  const stored = localStorage.getItem(storageKey);
+  const stored = safeGetRawItem(storageKey);
 
   if (stored) {
-    try {
-      const assignment: ABTestAssignment = JSON.parse(stored);
-      const variant = test.variants.find((v) => v.id === assignment.variantId);
+    const parseResult = safeJsonParse<ABTestAssignment>(stored, {
+      testId: "",
+      variantId: "",
+      assignedAt: 0,
+    });
+    if (parseResult.success && parseResult.data) {
+      const variant = test.variants.find(
+        (v) => v.id === parseResult.data!.variantId,
+      );
       if (variant) return variant;
-    } catch {
-      // Invalid stored data, will reassign
     }
+    // Invalid stored data, will reassign
+    logger.debug("Invalid AB test assignment, reassigning", { testId });
   }
 
   // Create new assignment based on weighted random selection
@@ -108,7 +125,7 @@ export function getVariantAssignment(testId: string): ABTestVariant | null {
     variantId: variant.id,
     assignedAt: Date.now(),
   };
-  localStorage.setItem(storageKey, JSON.stringify(assignment));
+  safeSetItem(storageKey, assignment);
 
   return variant;
 }
@@ -163,8 +180,7 @@ export function trackABEvent(
   };
 
   // Store event locally (for batch upload)
-  const eventsStr = localStorage.getItem(EVENTS_KEY);
-  const events: ABTestEvent[] = eventsStr ? JSON.parse(eventsStr) : [];
+  const events = safeGetItem<ABTestEvent[]>(EVENTS_KEY, []);
   events.push(event);
 
   // Keep only last 100 events to prevent storage overflow
@@ -172,11 +188,16 @@ export function trackABEvent(
     events.splice(0, events.length - 100);
   }
 
-  localStorage.setItem(EVENTS_KEY, JSON.stringify(events));
+  safeSetItem(EVENTS_KEY, events);
 
   // In production, also send to analytics endpoint
   if (process.env.NODE_ENV === "production") {
-    sendEventToAnalytics(event).catch(console.error);
+    sendEventToAnalytics(event).catch((error) => {
+      logger.debug("Failed to send AB event to analytics", {
+        testId,
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+    });
   }
 }
 
@@ -209,14 +230,14 @@ export function trackClick(testId: string, elementId?: string): void {
  * Send event to analytics endpoint
  */
 async function sendEventToAnalytics(event: ABTestEvent): Promise<void> {
-  try {
-    await fetch("/api/analytics/ab-event", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(event),
-    });
-  } catch {
-    // Silently fail - events are stored locally as backup
+  const response = await fetch("/api/analytics/ab-event", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(event),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Analytics API returned ${response.status}`);
   }
 }
 
@@ -229,9 +250,7 @@ async function sendEventToAnalytics(event: ABTestEvent): Promise<void> {
  */
 export function getStoredEvents(): ABTestEvent[] {
   if (typeof window === "undefined") return [];
-
-  const eventsStr = localStorage.getItem(EVENTS_KEY);
-  return eventsStr ? JSON.parse(eventsStr) : [];
+  return safeGetItem<ABTestEvent[]>(EVENTS_KEY, []);
 }
 
 /**
@@ -239,7 +258,7 @@ export function getStoredEvents(): ABTestEvent[] {
  */
 export function clearStoredEvents(): void {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(EVENTS_KEY);
+  safeRemoveItem(EVENTS_KEY);
 }
 
 /**
@@ -253,11 +272,16 @@ export function getAllAssignments(): ABTestAssignment[] {
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
     if (key?.startsWith(STORAGE_PREFIX)) {
-      try {
-        const assignment = JSON.parse(localStorage.getItem(key) || "");
-        assignments.push(assignment);
-      } catch {
-        // Skip invalid entries
+      const stored = safeGetRawItem(key);
+      if (stored) {
+        const parseResult = safeJsonParse<ABTestAssignment>(stored, {
+          testId: "",
+          variantId: "",
+          assignedAt: 0,
+        });
+        if (parseResult.success && parseResult.data?.testId) {
+          assignments.push(parseResult.data);
+        }
       }
     }
   }
@@ -270,5 +294,5 @@ export function getAllAssignments(): ABTestAssignment[] {
  */
 export function resetTestAssignment(testId: string): void {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(`${STORAGE_PREFIX}${testId}`);
+  safeRemoveItem(`${STORAGE_PREFIX}${testId}`);
 }

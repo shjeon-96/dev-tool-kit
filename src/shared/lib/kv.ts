@@ -2,6 +2,9 @@ import { kv } from "@vercel/kv";
 import { nanoid } from "nanoid";
 import LZString from "lz-string";
 import type { ToolSlug } from "@/shared/types/tool";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("kv");
 
 // ============================================
 // Magic Share - Vercel KV Configuration
@@ -28,7 +31,69 @@ export const MAX_SHARE_DATA_SIZE = 1 * 1024 * 1024; // 1MB
 export const RATE_LIMIT = {
   maxRequests: 10, // 최대 요청 수
   windowSeconds: 60, // 시간 윈도우 (1분)
-};
+} as const;
+
+// ============================================
+// In-Memory LRU Cache Fallback for Rate Limiting
+// Used when Vercel KV is unavailable
+// ============================================
+
+interface RateLimitEntry {
+  count: number;
+  expiresAt: number;
+}
+
+/**
+ * Simple LRU Cache for rate limiting fallback
+ * Max 10,000 entries to prevent memory issues
+ */
+class RateLimitCache {
+  private readonly maxSize = 10_000;
+  private cache = new Map<string, RateLimitEntry>();
+
+  get(key: string): RateLimitEntry | undefined {
+    const entry = this.cache.get(key);
+    if (!entry) return undefined;
+
+    // Check expiration
+    if (entry.expiresAt < Date.now()) {
+      this.cache.delete(key);
+      return undefined;
+    }
+
+    // LRU: Move to end (most recently used)
+    this.cache.delete(key);
+    this.cache.set(key, entry);
+    return entry;
+  }
+
+  set(key: string, entry: RateLimitEntry): void {
+    // Evict oldest entries if at capacity
+    if (this.cache.size >= this.maxSize) {
+      const firstKey = this.cache.keys().next().value;
+      if (firstKey) this.cache.delete(firstKey);
+    }
+    this.cache.set(key, entry);
+  }
+
+  increment(key: string): RateLimitEntry {
+    const existing = this.get(key);
+    if (existing) {
+      existing.count++;
+      this.cache.set(key, existing);
+      return existing;
+    }
+    const newEntry: RateLimitEntry = {
+      count: 1,
+      expiresAt: Date.now() + RATE_LIMIT.windowSeconds * 1000,
+    };
+    this.set(key, newEntry);
+    return newEntry;
+  }
+}
+
+// Singleton instance for fallback rate limiting
+const rateLimitCache = new RateLimitCache();
 
 // ============================================
 // Share Data Types
@@ -128,7 +193,9 @@ export async function saveShareData(
       id,
     };
   } catch (error) {
-    console.error("Failed to save share data:", error);
+    logger.error("Failed to save share data", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return {
       success: false,
       error: "Failed to create share link. Please try again.",
@@ -171,7 +238,9 @@ export async function getShareData(id: string): Promise<ShareRetrieveResult> {
       data,
     };
   } catch (error) {
-    console.error("Failed to get share data:", error);
+    logger.error("Failed to get share data", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return {
       success: false,
       error: "Failed to retrieve share data",
@@ -204,27 +273,34 @@ function getRateLimitKey(ip: string): string {
 
 /**
  * Rate Limit 체크 및 증가
+ * Primary: Vercel KV (distributed)
+ * Fallback: In-memory LRU cache (server-local)
  */
 export async function checkRateLimit(
   ip: string,
-): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
+): Promise<{
+  allowed: boolean;
+  remaining: number;
+  resetAt: number;
+  source: "kv" | "memory";
+}> {
   const key = getRateLimitKey(ip);
 
   try {
-    // 현재 카운트 조회
+    // Primary: Use Vercel KV for distributed rate limiting
     const current = (await kv.get<number>(key)) ?? 0;
 
     if (current >= RATE_LIMIT.maxRequests) {
-      // TTL 조회
       const ttl = await kv.ttl(key);
       return {
         allowed: false,
         remaining: 0,
         resetAt: Date.now() + ttl * 1000,
+        source: "kv",
       };
     }
 
-    // 카운트 증가
+    // Increment count
     if (current === 0) {
       await kv.set(key, 1, { ex: RATE_LIMIT.windowSeconds });
     } else {
@@ -235,14 +311,30 @@ export async function checkRateLimit(
       allowed: true,
       remaining: RATE_LIMIT.maxRequests - current - 1,
       resetAt: Date.now() + RATE_LIMIT.windowSeconds * 1000,
+      source: "kv",
     };
   } catch (error) {
-    console.error("Rate limit check failed:", error);
-    // Rate limit 체크 실패 시 허용 (graceful degradation)
+    // Fallback: Use in-memory LRU cache when KV is unavailable
+    logger.warn("KV unavailable, using in-memory fallback", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+
+    const entry = rateLimitCache.increment(ip);
+
+    if (entry.count > RATE_LIMIT.maxRequests) {
+      return {
+        allowed: false,
+        remaining: 0,
+        resetAt: entry.expiresAt,
+        source: "memory",
+      };
+    }
+
     return {
       allowed: true,
-      remaining: RATE_LIMIT.maxRequests,
-      resetAt: Date.now() + RATE_LIMIT.windowSeconds * 1000,
+      remaining: RATE_LIMIT.maxRequests - entry.count,
+      resetAt: entry.expiresAt,
+      source: "memory",
     };
   }
 }

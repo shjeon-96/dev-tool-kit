@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import type { LocaleKey } from "@/shared/lib/i18n";
+import { getLabel } from "@/shared/lib/i18n";
 
 interface FeatureItem {
   text: string;
@@ -14,16 +14,9 @@ interface FeaturesSectionProps {
   variant?: "grid" | "list";
 }
 
-const defaultTitles: Record<LocaleKey, string> = {
-  en: "Features",
-  ko: "특징",
-  ja: "特徴",
-};
-
 function getTitle(locale: string, customTitle?: string): string {
   if (customTitle) return customTitle;
-  if (locale === "ko" || locale === "ja") return defaultTitles[locale];
-  return defaultTitles.en;
+  return getLabel("features", locale);
 }
 
 /**

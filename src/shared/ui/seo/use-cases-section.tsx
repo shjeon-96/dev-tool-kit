@@ -1,4 +1,4 @@
-import type { LocaleKey } from "@/shared/lib/i18n";
+import { getLabel } from "@/shared/lib/i18n";
 
 interface UseCasesSectionProps {
   locale: string;
@@ -6,16 +6,9 @@ interface UseCasesSectionProps {
   useCases: string[];
 }
 
-const defaultTitles: Record<LocaleKey, string> = {
-  en: "Use Cases",
-  ko: "사용 사례",
-  ja: "使用例",
-};
-
 function getTitle(locale: string, customTitle?: string): string {
   if (customTitle) return customTitle;
-  if (locale === "ko" || locale === "ja") return defaultTitles[locale];
-  return defaultTitles.en;
+  return getLabel("useCases", locale);
 }
 
 /**

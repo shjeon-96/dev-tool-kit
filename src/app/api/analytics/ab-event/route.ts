@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("api:ab-event");
 
 /**
  * A/B Test Event Tracking API
@@ -25,14 +28,12 @@ export async function POST(request: NextRequest) {
     // For now, just log and acknowledge
 
     // Log for development
-    if (process.env.NODE_ENV === "development") {
-      console.log("[A/B Event]", {
-        testId: event.testId,
-        variantId: event.variantId,
-        eventType: event.eventType,
-        timestamp: new Date(event.timestamp).toISOString(),
-      });
-    }
+    logger.debug("A/B Event received", {
+      testId: event.testId,
+      variantId: event.variantId,
+      eventType: event.eventType,
+      timestamp: new Date(event.timestamp).toISOString(),
+    });
 
     // TODO: Store to Supabase or analytics service
     // await supabase.from('ab_test_events').insert(event);

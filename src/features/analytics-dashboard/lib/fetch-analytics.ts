@@ -11,6 +11,9 @@ import type {
   ConversionMetrics,
   ABTestResult,
 } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("analytics");
 
 // ============================================
 // LemonSqueezy API (Subscription Revenue)
@@ -97,7 +100,9 @@ async function fetchLemonSqueezyMetrics(): Promise<
       cancelledThisMonth: cancelledThisMonth.length,
     };
   } catch (error) {
-    console.error("Failed to fetch LemonSqueezy metrics:", error);
+    logger.warn("Failed to fetch LemonSqueezy metrics", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return {
       mrr: 0,
       activeSubscribers: 0,

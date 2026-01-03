@@ -35,6 +35,8 @@ interface UseBillingReturn {
   showCancelDialog: boolean;
   setShowCancelDialog: (show: boolean) => void;
   isLoading: boolean;
+  error: string | null;
+  clearError: () => void;
 
   // 액션
   handleCancelSubscription: () => Promise<void>;
@@ -50,6 +52,9 @@ export function useBilling({
   // UI 상태
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const clearError = useCallback(() => setError(null), []);
 
   // 구독 상태 계산 (enterprise는 더 이상 지원하지 않으므로 pro로 매핑)
   const dbTier = user?.tier || "free";
@@ -67,18 +72,22 @@ export function useBilling({
   const handleCancelSubscription = useCallback(async () => {
     try {
       setIsLoading(true);
+      setError(null);
       const response = await fetch("/api/subscription/cancel", {
         method: "POST",
       });
 
       if (!response.ok) {
-        throw new Error("Failed to cancel subscription");
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to cancel subscription");
       }
 
       setShowCancelDialog(false);
       router.refresh();
-    } catch (error) {
-      console.error("Cancel error:", error);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to cancel subscription";
+      setError(message);
     } finally {
       setIsLoading(false);
     }
@@ -88,17 +97,21 @@ export function useBilling({
   const handleResumeSubscription = useCallback(async () => {
     try {
       setIsLoading(true);
+      setError(null);
       const response = await fetch("/api/subscription/resume", {
         method: "POST",
       });
 
       if (!response.ok) {
-        throw new Error("Failed to resume subscription");
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to resume subscription");
       }
 
       router.refresh();
-    } catch (error) {
-      console.error("Resume error:", error);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to resume subscription";
+      setError(message);
     } finally {
       setIsLoading(false);
     }
@@ -116,6 +129,8 @@ export function useBilling({
     showCancelDialog,
     setShowCancelDialog,
     isLoading,
+    error,
+    clearError,
 
     // 액션
     handleCancelSubscription,

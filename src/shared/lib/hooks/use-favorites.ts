@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import type { ToolSlug } from "@/shared/types/tool";
+import { safeGetItem, safeSetItem } from "@/shared/lib/storage";
 
 const STORAGE_KEY = "tool-favorites";
 const MAX_FAVORITES = 10;
@@ -14,14 +15,8 @@ export function useFavorites() {
   useEffect(() => {
     // Use queueMicrotask to avoid synchronous setState warning
     queueMicrotask(() => {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          setFavorites(JSON.parse(stored));
-        }
-      } catch {
-        // localStorage not available
-      }
+      const stored = safeGetItem<ToolSlug[]>(STORAGE_KEY, []);
+      setFavorites(stored);
       setIsLoaded(true);
     });
   }, []);
@@ -29,11 +24,7 @@ export function useFavorites() {
   // Save to localStorage when favorites change
   useEffect(() => {
     if (!isLoaded) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-    } catch {
-      // localStorage not available
-    }
+    safeSetItem(STORAGE_KEY, favorites);
   }, [favorites, isLoaded]);
 
   const addFavorite = useCallback((slug: ToolSlug) => {

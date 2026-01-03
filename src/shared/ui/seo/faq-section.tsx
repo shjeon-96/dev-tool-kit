@@ -1,4 +1,4 @@
-import type { LocaleKey } from "@/shared/lib/i18n";
+import { getLabel } from "@/shared/lib/i18n";
 
 interface FAQItem {
   q: string;
@@ -8,17 +8,6 @@ interface FAQItem {
 interface FAQSectionProps {
   locale: string;
   faqs: FAQItem[];
-}
-
-const titles: Record<LocaleKey, string> = {
-  en: "FAQ",
-  ko: "자주 묻는 질문",
-  ja: "よくある質問",
-};
-
-function getTitle(locale: string): string {
-  if (locale === "ko" || locale === "ja") return titles[locale];
-  return titles.en;
 }
 
 /**
@@ -31,7 +20,7 @@ export function FAQSectionSEO({ locale, faqs }: FAQSectionProps) {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-3">{getTitle(locale)}</h2>
+      <h2 className="text-xl font-semibold mb-3">{getLabel("faq", locale)}</h2>
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div key={index}>

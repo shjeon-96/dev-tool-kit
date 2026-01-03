@@ -21,6 +21,9 @@ import {
   reportExists,
   cleanupOldReports,
 } from "@/shared/lib/data-pipeline";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("cron:trends");
 
 // Cron 인증 시크릿 (환경 변수)
 const CRON_SECRET = process.env.CRON_SECRET;
@@ -32,20 +35,20 @@ export async function GET(request: Request) {
   // 인증 검증
   const authHeader = request.headers.get("authorization");
   if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
-    console.error("[Cron] 인증 실패");
+    logger.warn("인증 실패");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const startTime = Date.now();
   const week = getWeekString();
 
-  console.log(`[Cron] 트렌드 리포트 생성 시작: ${week}`);
+  logger.info("트렌드 리포트 생성 시작", { week });
 
   try {
     // 이미 해당 주차 리포트가 있는지 확인
     const exists = await reportExists(week);
     if (exists) {
-      console.log(`[Cron] ${week} 리포트 이미 존재, 스킵`);
+      logger.info("리포트 이미 존재, 스킵", { week });
       return NextResponse.json({
         success: true,
         message: "Report already exists",
@@ -65,7 +68,7 @@ export async function GET(request: Request) {
 
     const duration = Date.now() - startTime;
 
-    console.log(`[Cron] 완료: ${duration}ms`);
+    logger.info("완료", { duration: `${duration}ms` });
 
     return NextResponse.json({
       success: true,

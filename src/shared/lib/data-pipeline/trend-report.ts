@@ -10,6 +10,9 @@ import {
   filterDeveloperTools,
 } from "./github-collector";
 import type { WeeklyTrendReport, RedditPost, TrendingRepo } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("trend-report");
 
 // ============================================
 // 유틸리티 함수
@@ -268,20 +271,20 @@ export function extractEmergingTopics(posts: RedditPost[]): string[] {
  * 주간 트렌드 리포트 생성
  */
 export async function generateWeeklyTrendReport(): Promise<WeeklyTrendReport> {
-  console.log("[Report] 주간 트렌드 리포트 생성 시작...");
+  logger.info("주간 트렌드 리포트 생성 시작");
 
   const week = getWeekString();
   const languages = ["javascript", "typescript", "python", "go", "rust"];
 
   // 1. GitHub Trending 수집
-  console.log("[Report] GitHub Trending 수집 중...");
+  logger.info("GitHub Trending 수집 중");
   const [overallResult, byLanguageData] = await Promise.all([
     collectGitHubTrending(undefined, "weekly"),
     collectMultiLanguageTrending(languages, "weekly"),
   ]);
 
   // 2. Reddit 트렌드 수집
-  console.log("[Report] Reddit 트렌드 수집 중...");
+  logger.info("Reddit 트렌드 수집 중");
   const redditResult = await collectRedditTrends();
 
   // 3. 데이터 가공
@@ -307,7 +310,7 @@ export async function generateWeeklyTrendReport(): Promise<WeeklyTrendReport> {
     },
   };
 
-  console.log("[Report] 리포트 생성 완료:", {
+  logger.info("리포트 생성 완료", {
     week,
     githubRepos: report.githubTrending.overall.length,
     developerTools: report.githubTrending.developerTools.length,

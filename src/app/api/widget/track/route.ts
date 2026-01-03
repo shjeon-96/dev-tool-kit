@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("api:widget-track");
 
 // ============================================
 // Widget Embed Tracking API
@@ -42,7 +45,7 @@ export async function GET(request: NextRequest) {
   }
 
   // 로그 (프로덕션에서는 분석 서비스로 전송)
-  console.log(`[Widget Embed] tool=${tool} host=${host} v=${version}`);
+  logger.debug("Widget embed", { tool, host, version });
 
   // 1x1 투명 GIF 반환
   const pixel = Buffer.from(

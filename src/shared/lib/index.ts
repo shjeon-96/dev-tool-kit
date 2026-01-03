@@ -34,7 +34,7 @@ export {
   formatDuration,
 } from "./format-utils";
 
-// Storage utilities
+// Storage utilities (session storage)
 export {
   getByteSize,
   getSessionStorageUsage,
@@ -44,6 +44,19 @@ export {
   safeSessionStorageSet,
   PIPELINE_DATA_LIMIT,
 } from "./storage-utils";
+
+// Safe localStorage utilities
+export {
+  isStorageAvailable,
+  safeGetItem,
+  safeGetRawItem,
+  safeSetItem,
+  safeSetRawItem,
+  safeRemoveItem,
+  safeJsonParse,
+  createStorageAccessor,
+  type StorageResult,
+} from "./storage";
 
 // Database (Dexie.js)
 export { db } from "./db";

@@ -7,6 +7,9 @@
  */
 
 import type { WeeklyTrendReport, StorageMetadata } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("storage");
 
 // ============================================
 // 환경 감지
@@ -86,13 +89,13 @@ export async function saveTrendReport(
     // 메타데이터 업데이트
     await updateMetadataKV(existingList.length);
 
-    console.log(`[Storage:KV] 리포트 저장 완료: ${report.week}`);
+    logger.info("KV 리포트 저장 완료", { week: report.week });
   } else {
     await ensureDataDir();
     const filePath = path.join(DATA_DIR, `${report.week}.json`);
     await fs.writeFile(filePath, JSON.stringify(report, null, 2), "utf-8");
     await updateMetadataFS();
-    console.log(`[Storage:FS] 리포트 저장 완료: ${filePath}`);
+    logger.info("FS 리포트 저장 완료", { filePath });
   }
 }
 
@@ -235,7 +238,7 @@ export async function deleteTrendReport(week: string): Promise<boolean> {
     // 메타데이터 업데이트
     await updateMetadataKV(newList.length);
 
-    console.log(`[Storage:KV] 리포트 삭제 완료: ${week}`);
+    logger.info("KV 리포트 삭제 완료", { week });
     return true;
   } else {
     const filePath = path.join(DATA_DIR, `${week}.json`);
@@ -243,7 +246,7 @@ export async function deleteTrendReport(week: string): Promise<boolean> {
     try {
       await fs.unlink(filePath);
       await updateMetadataFS();
-      console.log(`[Storage:FS] 리포트 삭제 완료: ${week}`);
+      logger.info("FS 리포트 삭제 완료", { week });
       return true;
     } catch (error) {
       if ((error as NodeJS.ErrnoException).code === "ENOENT") {
@@ -270,7 +273,7 @@ export async function cleanupOldReports(keepWeeks = 52): Promise<number> {
     }
   }
 
-  console.log(`[Storage] ${deletedCount}개 오래된 리포트 삭제 완료`);
+  logger.info("오래된 리포트 삭제 완료", { deletedCount });
   return deletedCount;
 }
 

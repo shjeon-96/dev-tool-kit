@@ -7,6 +7,9 @@
 
 import { fetchWithRetry } from "./error-handling";
 import type { TrendingRepo, CollectionResult } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("github-graphql");
 
 // ============================================
 // 설정
@@ -262,7 +265,7 @@ export async function collectFromGitHubGraphQL(
   language?: string,
   period: TrendingPeriodGraphQL = "weekly",
 ): Promise<CollectionResult<TrendingRepo>> {
-  console.log(`[GitHub GraphQL] 수집 시작: ${language || "all"}, ${period}`);
+  logger.info("수집 시작", { language: language || "all", period });
 
   // 날짜 필터 계산
   const now = new Date();
@@ -309,9 +312,7 @@ export async function collectFromGitHubGraphQL(
     // 스타 수 기준 정렬
     mergedRepos.sort((a, b) => b.stars - a.stars);
 
-    console.log(
-      `[GitHub GraphQL] 수집 성공: ${mergedRepos.length}개 리포지토리`,
-    );
+    logger.info("수집 성공", { count: mergedRepos.length });
 
     return {
       success: true,

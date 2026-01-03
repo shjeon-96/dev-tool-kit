@@ -5,6 +5,9 @@
 
 import { fetchWithRetry, safeJsonParse, sleep } from "./error-handling";
 import type { TrendingRepo, TrendingPeriod, CollectionResult } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("github-collector");
 
 // ============================================
 // 설정
@@ -104,14 +107,16 @@ async function scrapeGitHubTrending(
     });
 
     if (!response.ok) {
-      console.error(`[GitHub] 스크래핑 실패: HTTP ${response.status}`);
+      logger.warn("스크래핑 실패", { status: response.status });
       return [];
     }
 
     const html = await response.text();
     return parseGitHubTrendingHtml(html);
   } catch (error) {
-    console.error("[GitHub] 스크래핑 에러:", (error as Error).message);
+    logger.warn("스크래핑 에러", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return [];
   }
 }
@@ -206,7 +211,7 @@ export async function collectGitHubTrending(
   language?: string,
   since: TrendingPeriod = "daily",
 ): Promise<CollectionResult<TrendingRepo>> {
-  console.log(`[GitHub] Trending 수집 시작: ${language || "all"}, ${since}`);
+  logger.info("Trending 수집 시작", { language: language || "all", since });
 
   // 1차: Gitter API 시도
   try {
@@ -230,7 +235,7 @@ export async function collectGitHubTrending(
 
       if (parsed.success && parsed.data && parsed.data.length > 0) {
         const repos = parseGitterResponse(parsed.data);
-        console.log(`[GitHub] API 수집 성공: ${repos.length}개 리포지토리`);
+        logger.info("API 수집 성공", { count: repos.length });
 
         return {
           success: true,
@@ -242,10 +247,9 @@ export async function collectGitHubTrending(
       }
     }
   } catch (error) {
-    console.warn(
-      "[GitHub] API 실패, 스크래핑으로 대체:",
-      (error as Error).message,
-    );
+    logger.warn("API 실패, 스크래핑으로 대체", {
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 
   // 2차: 직접 스크래핑
@@ -253,7 +257,7 @@ export async function collectGitHubTrending(
     const repos = await scrapeGitHubTrending(language, since);
 
     if (repos.length > 0) {
-      console.log(`[GitHub] 스크래핑 성공: ${repos.length}개 리포지토리`);
+      logger.info("스크래핑 성공", { count: repos.length });
 
       return {
         success: true,

@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import type { ToolSlug } from "@/shared/types/tool";
+import { safeGetItem, safeSetItem } from "@/shared/lib/storage";
 
 const STORAGE_KEY = "recent-tools";
 const MAX_RECENT = 8;
@@ -19,14 +20,8 @@ export function useRecentTools() {
   useEffect(() => {
     // Use queueMicrotask to avoid synchronous setState warning
     queueMicrotask(() => {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          setRecentTools(JSON.parse(stored));
-        }
-      } catch {
-        // localStorage not available
-      }
+      const stored = safeGetItem<RecentToolEntry[]>(STORAGE_KEY, []);
+      setRecentTools(stored);
       setIsLoaded(true);
     });
   }, []);
@@ -34,11 +29,7 @@ export function useRecentTools() {
   // Save to localStorage when recent tools change
   useEffect(() => {
     if (!isLoaded) return;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(recentTools));
-    } catch {
-      // localStorage not available
-    }
+    safeSetItem(STORAGE_KEY, recentTools);
   }, [recentTools, isLoaded]);
 
   const addRecentTool = useCallback((slug: ToolSlug) => {

@@ -11,6 +11,10 @@
  * 4. 환경 변수: GOOGLE_SERVICE_ACCOUNT (JSON 문자열)
  */
 
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("gsc-indexing");
+
 // ============================================
 // 타입 정의
 // ============================================
@@ -232,19 +236,19 @@ export async function requestBatchIndexing(
 ): Promise<BatchIndexingResult> {
   const results: IndexingResult[] = [];
 
-  console.log(`\n📤 ${urls.length}개 URL 색인 요청 중...`);
+  logger.info(`Requesting indexing for ${urls.length} URLs`, { type });
 
   for (let i = 0; i < urls.length; i++) {
     const url = urls[i];
-    console.log(`  [${i + 1}/${urls.length}] ${url}`);
+    logger.debug(`Processing URL ${i + 1}/${urls.length}`, { url });
 
     const result = await requestIndexing(url, type);
     results.push(result);
 
     if (result.success) {
-      console.log(`    ✅ 성공`);
+      logger.info(`URL indexed successfully`, { url });
     } else {
-      console.log(`    ❌ 실패: ${result.error}`);
+      logger.warn(`URL indexing failed`, { url, error: result.error });
     }
 
     // Rate limiting

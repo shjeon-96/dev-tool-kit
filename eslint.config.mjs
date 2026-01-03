@@ -6,10 +6,20 @@ import boundaries from "eslint-plugin-boundaries";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  // Console 사용 경고 (프로덕션 코드 품질)
+  // 프로덕션 코드 품질 규칙
   {
     rules: {
-      "no-console": ["warn", { allow: ["error"] }],
+      // console.log 금지 (console.warn, console.error 허용)
+      "no-console": ["error", { allow: ["warn", "error"] }],
+      // any 타입 사용 금지 (unknown 사용 권장)
+      "@typescript-eslint/no-explicit-any": "error",
+    },
+  },
+  // scripts/ 폴더는 CLI 출력을 위해 console.log 허용
+  {
+    files: ["scripts/**/*.ts", "scripts/**/*.mjs"],
+    rules: {
+      "no-console": "off",
     },
   },
   // Helper to force FSD boundaries

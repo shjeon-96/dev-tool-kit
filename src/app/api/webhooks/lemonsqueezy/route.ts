@@ -10,6 +10,9 @@ import {
 } from "@/shared/lib/lemonsqueezy";
 import { getTierByVariantId } from "@/shared/lib/lemonsqueezy/tiers";
 import type { Database } from "@/shared/lib/supabase/types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("webhook:lemonsqueezy");
 
 type SubscriptionStatus =
   Database["public"]["Tables"]["subscriptions"]["Row"]["status"];
@@ -61,7 +64,7 @@ export async function POST(request: NextRequest) {
     const payload = parseWebhookPayload(rawBody);
     const eventType = payload.meta.event_name as WebhookEventType;
 
-    console.log(`Webhook received: ${eventType}`);
+    logger.info("Webhook received", { eventType });
 
     // 구독 이벤트 처리
     if (isSubscriptionEvent(eventType)) {
@@ -131,85 +134,121 @@ async function handleSubscriptionEvent(
         .maybeSingle();
 
       if (existing) {
-        await supabase
+        const { error: updateError } = await supabase
           .from("subscriptions")
           .update(subscriptionUpdatePayload as never)
           .eq("user_id", userId);
+        if (updateError) {
+          console.error("Failed to update subscription:", updateError);
+        }
       } else {
-        await supabase
+        const { error: insertError } = await supabase
           .from("subscriptions")
           .insert(subscriptionInsertPayload as never);
+        if (insertError) {
+          console.error("Failed to insert subscription:", insertError);
+        }
       }
 
       // 사용자 티어 업데이트
-      await supabase
+      const { error: userTierError } = await supabase
         .from("users")
         .update({ tier: tierType } as UserUpdate as never)
         .eq("id", userId);
+      if (userTierError) {
+        console.error("Failed to update user tier:", userTierError);
+      }
       break;
     }
 
-    case "subscription_cancelled":
+    case "subscription_cancelled": {
       // 구독 취소 (기간 종료 시 취소 예정)
-      await supabase
+      const { error: cancelError } = await supabase
         .from("subscriptions")
         .update({
           status: "canceled",
           cancel_at_period_end: true,
         } as SubscriptionUpdate as never)
         .eq("user_id", userId);
+      if (cancelError) {
+        console.error("Failed to cancel subscription:", cancelError);
+      }
       break;
+    }
 
-    case "subscription_expired":
+    case "subscription_expired": {
       // 구독 만료
-      await supabase
+      const { error: expireError } = await supabase
         .from("subscriptions")
         .update({ status: "canceled" } as SubscriptionUpdate as never)
         .eq("user_id", userId);
+      if (expireError) {
+        console.error("Failed to expire subscription:", expireError);
+      }
 
       // 사용자 티어를 무료로 변경
-      await supabase
+      const { error: downgradeError } = await supabase
         .from("users")
         .update({ tier: "free" } as UserUpdate as never)
         .eq("id", userId);
+      if (downgradeError) {
+        console.error("Failed to downgrade user tier:", downgradeError);
+      }
       break;
+    }
 
-    case "subscription_paused":
+    case "subscription_paused": {
       // 구독 일시정지
-      await supabase
+      const { error: pauseError } = await supabase
         .from("subscriptions")
         .update({ status: "paused" } as SubscriptionUpdate as never)
         .eq("user_id", userId);
+      if (pauseError) {
+        console.error("Failed to pause subscription:", pauseError);
+      }
       break;
+    }
 
-    case "subscription_payment_success":
+    case "subscription_payment_success": {
       // 결제 성공 - 갱신 날짜 업데이트
-      await supabase
+      const { error: paymentSuccessError } = await supabase
         .from("subscriptions")
         .update({
           status: "active",
           current_period_end: subscriptionData.renewsAt,
         } as SubscriptionUpdate as never)
         .eq("user_id", userId);
+      if (paymentSuccessError) {
+        console.error("Failed to update payment success:", paymentSuccessError);
+      }
       break;
+    }
 
-    case "subscription_payment_failed":
+    case "subscription_payment_failed": {
       // 결제 실패
-      await supabase
+      const { error: paymentFailError } = await supabase
         .from("subscriptions")
         .update({ status: "past_due" } as SubscriptionUpdate as never)
         .eq("user_id", userId);
+      if (paymentFailError) {
+        console.error("Failed to update payment failed:", paymentFailError);
+      }
       break;
+    }
 
-    case "subscription_payment_recovered":
+    case "subscription_payment_recovered": {
       // 결제 복구
-      await supabase
+      const { error: recoverError } = await supabase
         .from("subscriptions")
         .update({ status: "active" } as SubscriptionUpdate as never)
         .eq("user_id", userId);
+      if (recoverError) {
+        console.error("Failed to update payment recovered:", recoverError);
+      }
       break;
+    }
 
     default:
-      console.log(`Unhandled subscription event: ${eventType}`);
+      logger.warn("Unhandled subscription event", { eventType });
   }
 }

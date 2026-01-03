@@ -13,6 +13,9 @@ import {
 import { collectGitHubTrending } from "./github-collector";
 import { loadFromStorage, saveToStorage } from "./storage";
 import type { TrendingRepo, CollectionResult } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("fallback");
 
 // ============================================
 // 설정
@@ -220,13 +223,14 @@ async function getFromCache(config: FallbackConfig): Promise<CacheData | null> {
 
     const age = Date.now() - new Date(stored.timestamp).getTime();
     if (age > config.cacheTtl) {
-      console.log("[Fallback] 캐시 만료됨");
+      logger.debug("캐시 만료됨");
       return null;
     }
 
-    console.log(
-      `[Fallback] 캐시 적중: ${stored.data.length}개 리포지토리 (소스: ${stored.source})`,
-    );
+    logger.debug("캐시 적중", {
+      count: stored.data.length,
+      source: stored.source,
+    });
     return stored;
   } catch {
     return null;
@@ -244,9 +248,7 @@ async function saveToCache(
   };
 
   await saveToStorage(CACHE_KEY, cacheData);
-  console.log(
-    `[Fallback] 캐시 저장: ${data.length}개 리포지토리 (소스: ${source})`,
-  );
+  logger.debug("캐시 저장", { count: data.length, source });
 }
 
 // ============================================
@@ -310,7 +312,7 @@ export async function collectWithFallback(
   config: Partial<FallbackConfig> = {},
 ): Promise<CollectionResult<TrendingRepo>> {
   const finalConfig = { ...DEFAULT_CONFIG, ...config };
-  console.log(`[Fallback] 수집 시작: ${language || "all"}, ${period}`);
+  logger.info("수집 시작", { language: language || "all", period });
 
   // 1. 캐시 확인
   const cached = await getFromCache(finalConfig);
@@ -325,7 +327,7 @@ export async function collectWithFallback(
   }
 
   // 2. GitHub GraphQL API (공식)
-  console.log("[Fallback] GitHub GraphQL API 시도...");
+  logger.debug("GitHub GraphQL API 시도");
   const startGraphQL = Date.now();
   const graphqlResult = await collectFromGitHubGraphQL(language, period);
 
@@ -344,7 +346,7 @@ export async function collectWithFallback(
   }
 
   updateSourceStatus("github-graphql", false, graphqlResult.errors[0]);
-  console.log("[Fallback] GraphQL 실패, REST API로 폴백...");
+  logger.debug("GraphQL 실패, REST API로 폴백");
 
   // 3. GitHub REST API (비공식)
   const startRest = Date.now();
@@ -368,7 +370,7 @@ export async function collectWithFallback(
   }
 
   updateSourceStatus("github-api", false, restResult.errors[0]);
-  console.log("[Fallback] REST API 실패, 정적 데이터로 폴백...");
+  logger.debug("REST API 실패, 정적 데이터로 폴백");
 
   // 4. 정적 Fallback 데이터
   if (finalConfig.useStaticFallback) {
@@ -386,9 +388,7 @@ export async function collectWithFallback(
       }
     }
 
-    console.log(
-      `[Fallback] 정적 데이터 사용: ${filteredRepos.length}개 리포지토리`,
-    );
+    logger.info("정적 데이터 사용", { count: filteredRepos.length });
 
     return {
       success: true,

@@ -5,6 +5,9 @@
 
 import { fetchWithRetry, sleep } from "./error-handling";
 import type { RedditPost, SubredditConfig, CollectionResult } from "./types";
+import { createLogger } from "@/shared/lib/logger";
+
+const logger = createLogger("reddit-collector");
 
 // ============================================
 // 설정
@@ -256,12 +259,17 @@ async function collectFromSubreddit(
         subreddit,
       }));
 
-    console.log(
-      `[Reddit] ${subreddit}: ${items.length}개 중 ${relevantPosts.length}개 관련 포스트`,
-    );
+    logger.debug("서브레딧 수집", {
+      subreddit,
+      total: items.length,
+      relevant: relevantPosts.length,
+    });
     return relevantPosts;
   } catch (error) {
-    console.error(`[Reddit] ${subreddit} 수집 에러:`, (error as Error).message);
+    logger.warn("서브레딧 수집 에러", {
+      subreddit,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
     return [];
   }
 }
@@ -275,7 +283,7 @@ export async function collectRedditTrends(): Promise<
   const allPosts: RedditPost[] = [];
   const errors: string[] = [];
 
-  console.log("[Reddit] 트렌드 수집 시작...");
+  logger.info("트렌드 수집 시작");
 
   for (const [subreddit, config] of Object.entries(SUBREDDIT_CONFIGS)) {
     try {
@@ -285,9 +293,9 @@ export async function collectRedditTrends(): Promise<
       // Rate limiting: 서브레딧 간 2초 대기
       await sleep(2000);
     } catch (error) {
-      const errorMsg = `${subreddit}: ${(error as Error).message}`;
+      const errorMsg = `${subreddit}: ${error instanceof Error ? error.message : "Unknown error"}`;
       errors.push(errorMsg);
-      console.error(`[Reddit] ${errorMsg}`);
+      logger.error("서브레딧 수집 실패", { subreddit, error: errorMsg });
     }
   }
 
@@ -302,9 +310,7 @@ export async function collectRedditTrends(): Promise<
     (a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime(),
   );
 
-  console.log(
-    `[Reddit] 수집 완료: ${uniquePosts.length}개 포스트 (중복 제거 후)`,
-  );
+  logger.info("수집 완료", { count: uniquePosts.length });
 
   return {
     success: errors.length === 0,

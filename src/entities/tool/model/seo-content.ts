@@ -12,7 +12,7 @@ export interface ToolSeoContent {
   useCases?: string[]; // 실제 사용 사례
 }
 
-export const toolSeoContent: Record<ToolSlug, ToolSeoContent> = {
+export const toolSeoContent = {
   "json-formatter": {
     whatIs:
       "JSON(JavaScript Object Notation)은 데이터를 저장하고 전송하는 가벼운 텍스트 형식입니다. 웹 API, 설정 파일, 데이터베이스 등 현대 소프트웨어 개발의 거의 모든 영역에서 사용됩니다. JSON Formatter는 이러한 JSON 데이터를 자동으로 정리하고 들여쓰기하여 사람이 읽기 쉬운 형태로 변환해주는 온라인 도구입니다. 복잡하게 압축된 JSON도 한 번의 클릭으로 깔끔하게 포맷팅할 수 있습니다.",
@@ -2845,4 +2845,4 @@ export const toolSeoContent: Record<ToolSlug, ToolSeoContent> = {
       "모델 간 비용 비교",
     ],
   },
-};
+} as const satisfies Readonly<Record<ToolSlug, ToolSeoContent>>;

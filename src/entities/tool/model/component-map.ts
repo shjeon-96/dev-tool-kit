@@ -20,15 +20,23 @@
  */
 
 import dynamic from "next/dynamic";
+import type { ComponentType, ReactNode } from "react";
 import type { ToolSlug } from "./types";
+
+/**
+ * Tool module export type
+ * Feature modules export components, hooks, and utility functions.
+ * We only extract the component specified by the component key.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ToolModule = Record<string, any>;
 
 /**
  * 도구 Import 설정
  */
 interface ToolImportConfig {
-  /** Dynamic import 함수 */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  import: () => Promise<any>;
+  /** Dynamic import 함수 - returns a module with React components */
+  import: () => Promise<ToolModule>;
   /** Export된 컴포넌트 이름 */
   component: string;
 }
@@ -220,16 +228,30 @@ const toolImportConfigs: Record<ToolSlug, ToolImportConfig> = {
 };
 
 /**
+ * Tool component type after dynamic import
+ */
+type ToolComponent = ComponentType<{ children?: ReactNode }>;
+
+/**
  * Dynamic 컴포넌트 맵 생성
  *
  * Next.js dynamic import를 사용하여 코드 스플리팅 적용
  */
-function createToolComponents(): Record<ToolSlug, React.ComponentType> {
-  const components = {} as Record<ToolSlug, React.ComponentType>;
+function createToolComponents(): Record<ToolSlug, ToolComponent> {
+  const components = {} as Record<ToolSlug, ToolComponent>;
 
   for (const [slug, config] of Object.entries(toolImportConfigs)) {
     components[slug as ToolSlug] = dynamic(
-      () => config.import().then((mod) => mod[config.component]),
+      () =>
+        config.import().then((mod) => {
+          const Component = mod[config.component];
+          if (!Component) {
+            throw new Error(
+              `Component "${config.component}" not found in module for tool "${slug}"`,
+            );
+          }
+          return Component;
+        }),
       { ssr: false },
     );
   }

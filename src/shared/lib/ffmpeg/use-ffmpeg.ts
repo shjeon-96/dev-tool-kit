@@ -88,9 +88,10 @@ export function useFFmpeg(options: UseFFmpegOptions = {}): UseFFmpegReturn {
       ffmpegRef.current = ffmpeg;
       setFfmpegInstance(ffmpeg);
 
-      // Set up logging if enabled
+      // Set up logging if enabled (debug mode only)
       if (enableLogging) {
         ffmpeg.on("log", ({ message }) => {
+          // eslint-disable-next-line no-console -- Intentional debug logging when enableLogging is true
           console.log("[FFmpeg]", message);
         });
       }
@@ -104,6 +105,7 @@ export function useFFmpeg(options: UseFFmpegOptions = {}): UseFFmpegReturn {
       const useMultiThread = multiThread && canUseMultiThread();
 
       if (enableLogging) {
+        // eslint-disable-next-line no-console -- Intentional debug logging when enableLogging is true
         console.log(
           `[FFmpeg] Loading ${useMultiThread ? "multi-threaded" : "single-threaded"} core...`,
         );
@@ -134,6 +136,7 @@ export function useFFmpeg(options: UseFFmpegOptions = {}): UseFFmpegReturn {
       setProgress(100);
 
       if (enableLogging) {
+        // eslint-disable-next-line no-console -- Intentional debug logging when enableLogging is true
         console.log("[FFmpeg] Loaded successfully!");
       }
 
