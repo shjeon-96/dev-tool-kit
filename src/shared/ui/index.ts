@@ -43,6 +43,8 @@ export {
   WebApplicationJsonLd,
   ComparisonJsonLd,
   CollectionPageJsonLd,
+  PersonJsonLd,
+  NewsArticleJsonLd,
 } from "./json-ld";
 // AdUnit moved to widgets/ad-unit
 export { ClarityScript } from "./clarity";
@@ -132,3 +134,6 @@ export {
 
 // Animation Components
 export { ScrollAnimate, StaggerContainer } from "./scroll-animate";
+
+// Media Components
+export { MediaEmbed, parseMediaMarkers } from "./media-embed";

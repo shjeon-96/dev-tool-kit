@@ -62,6 +62,9 @@ export interface ArticleFAQ {
   answer_en: string;
 }
 
+// Re-export from shared (for backwards compatibility)
+export type { MediaProvider, MediaItem } from "@/shared/types/media";
+
 // ============================================
 // Database Types
 // ============================================
@@ -94,6 +97,9 @@ export interface Article {
   id: string;
   trend_id: string | null;
   slug: string;
+
+  // Author (E-E-A-T)
+  author_id: string | null;
 
   // Korean content
   title_ko: string;
@@ -201,6 +207,7 @@ export interface CreateTrendInput {
  */
 export interface CreateArticleInput {
   trend_id?: string;
+  author_id?: string;
   slug: string;
   title_ko: string;
   title_en: string;

@@ -34,3 +34,18 @@ export {
   useScrollAnimation,
   useStaggeredAnimation,
 } from "./use-scroll-animation";
+
+// Theme Scheduling
+export {
+  useScheduledTheme,
+  formatScheduleTime,
+  type ThemeSchedule,
+  type ThemeScheduleMode,
+} from "./use-scheduled-theme";
+
+// User Preferences (Adaptive Interface)
+export {
+  useUserPreferences,
+  useApplyPreferences,
+  type UserPreferences,
+} from "./use-user-preferences";

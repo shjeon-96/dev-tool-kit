@@ -5,8 +5,10 @@ export type {
   ArticleStatus,
   PublishStatus,
   Region,
+  MediaProvider,
   // Shared types
   ArticleFAQ,
+  MediaItem,
   // Database types
   Trend,
   Article,

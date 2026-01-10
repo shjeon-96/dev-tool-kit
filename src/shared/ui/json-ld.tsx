@@ -618,6 +618,160 @@ export function CollectionPageJsonLd({
     },
   };
 
+  // Safe: JSON.stringify escapes all content
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// Person Schema for E-E-A-T author profiles
+interface PersonJsonLdProps {
+  name: string;
+  url: string;
+  description?: string;
+  image?: string;
+  jobTitle?: string;
+  worksFor?: {
+    name: string;
+    url: string;
+  };
+  sameAs?: string[];
+  knowsAbout?: string[];
+}
+
+export function PersonJsonLd({
+  name,
+  url,
+  description,
+  image,
+  jobTitle,
+  worksFor,
+  sameAs,
+  knowsAbout,
+}: PersonJsonLdProps) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    url,
+    ...(description && { description }),
+    ...(image && { image }),
+    ...(jobTitle && { jobTitle }),
+    ...(worksFor && {
+      worksFor: {
+        "@type": "Organization",
+        name: worksFor.name,
+        url: worksFor.url,
+      },
+    }),
+    ...(sameAs && sameAs.length > 0 && { sameAs }),
+    ...(knowsAbout && knowsAbout.length > 0 && { knowsAbout }),
+  };
+
+  // Safe: JSON.stringify escapes all content
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+// NewsArticle Schema with Person author support for E-E-A-T
+interface NewsArticleAuthor {
+  type: "Person" | "Organization";
+  name: string;
+  url?: string;
+  image?: string;
+  jobTitle?: string;
+  sameAs?: string[];
+}
+
+interface NewsArticleJsonLdProps {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  wordCount?: number;
+  author: NewsArticleAuthor;
+  image?: string;
+  keywords?: string[];
+  articleSection?: string;
+  inLanguage?: string;
+}
+
+export function NewsArticleJsonLd({
+  headline,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  wordCount,
+  author,
+  image,
+  keywords,
+  articleSection,
+  inLanguage = "en-US",
+}: NewsArticleJsonLdProps) {
+  const authorSchema =
+    author.type === "Person"
+      ? {
+          "@type": "Person",
+          name: author.name,
+          ...(author.url && { url: author.url }),
+          ...(author.image && { image: author.image }),
+          ...(author.jobTitle && { jobTitle: author.jobTitle }),
+          ...(author.sameAs &&
+            author.sameAs.length > 0 && { sameAs: author.sameAs }),
+        }
+      : {
+          "@type": "Organization",
+          name: author.name,
+          url: author.url || SITE_CONFIG.url,
+          logo: {
+            "@type": "ImageObject",
+            url: `${SITE_CONFIG.url}/icon.svg`,
+          },
+        };
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline,
+    description,
+    url,
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified }),
+    ...(wordCount && { wordCount }),
+    ...(image && { image }),
+    ...(keywords && { keywords: keywords.join(", ") }),
+    ...(articleSection && { articleSection }),
+    inLanguage,
+    author: authorSchema,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_CONFIG.title,
+      url: SITE_CONFIG.url,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_CONFIG.url}/icon.svg`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["article h1", "article p:first-of-type"],
+    },
+  };
+
+  // Safe: JSON.stringify escapes all content
   return (
     <script
       type="application/ld+json"
