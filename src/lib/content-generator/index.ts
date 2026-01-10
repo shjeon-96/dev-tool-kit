@@ -10,7 +10,10 @@ import type {
   ContentGenerationRequest,
   ContentGenerationResult,
 } from "@/entities/trend";
-import { ARTICLE_SYSTEM_PROMPT, generateArticlePrompt } from "./prompts/article";
+import {
+  ARTICLE_SYSTEM_PROMPT,
+  generateArticlePrompt,
+} from "./prompts/article";
 import { generateSlug, calculateReadingTime } from "@/lib/trend-detector";
 
 // Initialize Anthropic client
@@ -91,6 +94,55 @@ export async function generateArticleContent(
 }
 
 /**
+ * Escape control characters inside JSON string values
+ * Handles newlines, tabs, and other control chars that break JSON.parse
+ */
+function escapeControlCharsInJsonStrings(jsonStr: string): string {
+  let result = "";
+  let inString = false;
+  let i = 0;
+
+  while (i < jsonStr.length) {
+    const char = jsonStr[i];
+
+    if (char === '"' && (i === 0 || jsonStr[i - 1] !== "\\")) {
+      // Toggle string state (but check for escaped quotes)
+      // Count preceding backslashes to determine if quote is escaped
+      let backslashCount = 0;
+      let j = i - 1;
+      while (j >= 0 && jsonStr[j] === "\\") {
+        backslashCount++;
+        j--;
+      }
+      // Quote is escaped only if odd number of backslashes
+      if (backslashCount % 2 === 0) {
+        inString = !inString;
+      }
+      result += char;
+    } else if (inString) {
+      // Inside a string - escape control characters
+      if (char === "\n") {
+        result += "\\n";
+      } else if (char === "\r") {
+        result += "\\r";
+      } else if (char === "\t") {
+        result += "\\t";
+      } else if (char.charCodeAt(0) < 32) {
+        // Other control characters
+        result += "\\u" + char.charCodeAt(0).toString(16).padStart(4, "0");
+      } else {
+        result += char;
+      }
+    } else {
+      result += char;
+    }
+    i++;
+  }
+
+  return result;
+}
+
+/**
  * Parse JSON from AI response
  */
 function parseJsonResponse(text: string): GeneratedContent {
@@ -109,16 +161,15 @@ function parseJsonResponse(text: string): GeneratedContent {
 
   jsonStr = jsonStr.trim();
 
+  // Fix unescaped control characters inside JSON string values
+  // Process character by character to properly escape newlines, tabs, etc.
+  jsonStr = escapeControlCharsInJsonStrings(jsonStr);
+
   try {
     const parsed = JSON.parse(jsonStr);
 
     // Validate required fields
-    const required = [
-      "title_ko",
-      "title_en",
-      "content_ko",
-      "content_en",
-    ];
+    const required = ["title_ko", "title_en", "content_ko", "content_en"];
     for (const field of required) {
       if (!parsed[field]) {
         throw new Error(`Missing required field: ${field}`);
@@ -158,7 +209,10 @@ export async function generateArticleFromTrend(
   });
 
   if (!result.success || !result.content) {
-    console.error("[ContentGenerator] Failed to generate content:", result.error);
+    console.error(
+      "[ContentGenerator] Failed to generate content:",
+      result.error,
+    );
     return null;
   }
 
@@ -276,4 +330,7 @@ export function estimateCost(articleCount: number): {
 }
 
 // Export prompts for customization
-export { ARTICLE_SYSTEM_PROMPT, generateArticlePrompt } from "./prompts/article";
+export {
+  ARTICLE_SYSTEM_PROMPT,
+  generateArticlePrompt,
+} from "./prompts/article";
