@@ -49,6 +49,20 @@ export type PublishStatus =
 export type Region = "kr" | "us" | "global" | string;
 
 // ============================================
+// Shared Types
+// ============================================
+
+/**
+ * FAQ item for article (SEO rich snippets)
+ */
+export interface ArticleFAQ {
+  question_ko: string;
+  question_en: string;
+  answer_ko: string;
+  answer_en: string;
+}
+
+// ============================================
 // Database Types
 // ============================================
 
@@ -101,6 +115,11 @@ export interface Article {
   meta_title_en: string | null;
   meta_description_ko: string | null;
   meta_description_en: string | null;
+
+  // SEO-enhanced fields (2025)
+  faqs: ArticleFAQ[] | null;
+  key_takeaways_ko: string[] | null;
+  key_takeaways_en: string[] | null;
 
   // Metrics
   reading_time_minutes: number;
@@ -254,6 +273,10 @@ export interface GeneratedContent {
   content_en: string;
   tags: string[];
   seo_keywords: string[];
+  // New SEO-enhanced fields
+  faqs?: ArticleFAQ[];
+  key_takeaways_ko?: string[];
+  key_takeaways_en?: string[];
 }
 
 /**

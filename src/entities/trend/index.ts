@@ -5,6 +5,8 @@ export type {
   ArticleStatus,
   PublishStatus,
   Region,
+  // Shared types
+  ArticleFAQ,
   // Database types
   Trend,
   Article,

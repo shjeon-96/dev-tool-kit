@@ -8,10 +8,21 @@ import {
   getAllArticleSlugs,
   type Article,
   type ArticleCategory,
+  type ArticleFAQ,
 } from "@/entities/trend";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/shared/ui";
 import { SITE_CONFIG } from "@/shared/config";
 import { AD_SLOTS } from "@/shared/config/ad-slots";
-import { Clock, ArrowLeft, Calendar, ChevronRight, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Clock,
+  ArrowLeft,
+  Calendar,
+  ChevronRight,
+  ArrowRight,
+  Sparkles,
+  HelpCircle,
+  CheckCircle,
+} from "lucide-react";
 import { AdUnit } from "@/widgets/ad-unit";
 import { routing } from "@/i18n/routing";
 import { ArticleContent } from "./article-content";
@@ -103,11 +114,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 // Helper function to get localized content
-function getLocalizedContent(article: Article, field: "title" | "excerpt" | "content", locale: string): string {
+function getLocalizedContent(
+  article: Article,
+  field: "title" | "excerpt" | "content",
+  locale: string,
+): string {
   if (locale === "ko") {
     return article[`${field}_ko`] || article[`${field}_en`] || "";
   }
   return article[`${field}_en`] || article[`${field}_ko`] || "";
+}
+
+// Helper function to get localized FAQs
+function getLocalizedFaqs(
+  faqs: ArticleFAQ[] | null,
+  locale: string,
+): { q: string; a: string }[] {
+  if (!faqs || faqs.length === 0) return [];
+  return faqs.map((faq) => ({
+    q: locale === "ko" ? faq.question_ko : faq.question_en,
+    a: locale === "ko" ? faq.answer_ko : faq.answer_en,
+  }));
+}
+
+// Helper function to get localized key takeaways
+function getLocalizedTakeaways(article: Article, locale: string): string[] {
+  if (locale === "ko") {
+    return article.key_takeaways_ko || article.key_takeaways_en || [];
+  }
+  return article.key_takeaways_en || article.key_takeaways_ko || [];
 }
 
 // Category labels
@@ -145,14 +180,33 @@ export default async function ArticlePage({ params }: Props) {
   const categoryStyle = CATEGORY_STYLES[category] || CATEGORY_STYLES.news;
   const categoryLabel = CATEGORY_LABELS[category] || CATEGORY_LABELS.news;
 
+  // SEO-enhanced content
+  const faqs = getLocalizedFaqs(article.faqs, locale);
+  const keyTakeaways = getLocalizedTakeaways(article, locale);
+
+  // Breadcrumb items for schema
+  const breadcrumbItems = [
+    { name: isKorean ? "홈" : "Home", url: `${SITE_CONFIG.url}/${locale}` },
+    {
+      name: isKorean ? categoryLabel.ko : categoryLabel.en,
+      url: `${SITE_CONFIG.url}/${locale}/${category}`,
+    },
+    { name: title, url: `${SITE_CONFIG.url}/${locale}/${category}/${slug}` },
+  ];
+
   return (
     <div className="paper-texture">
       {/* Article Hero - Full Width Immersive Header */}
-      <header className={`-mx-6 -mt-6 px-6 pt-8 pb-12 bg-gradient-to-br ${categoryStyle.gradient}`}>
+      <header
+        className={`-mx-6 -mt-6 px-6 pt-8 pb-12 bg-gradient-to-br ${categoryStyle.gradient}`}
+      >
         <div className="max-w-4xl mx-auto">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
-            <Link href={`/${locale}`} className="hover:text-foreground transition-colors">
+            <Link
+              href={`/${locale}`}
+              className="hover:text-foreground transition-colors"
+            >
               {isKorean ? "홈" : "Home"}
             </Link>
             <ChevronRight className="h-4 w-4" />
@@ -215,7 +269,11 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* Top Ad - Native Style */}
       <div className="max-w-4xl mx-auto mt-10">
-        <AdUnit slot={AD_SLOTS.CONTENT_TOP} format="horizontal" className="ad-native" />
+        <AdUnit
+          slot={AD_SLOTS.CONTENT_TOP}
+          format="horizontal"
+          className="ad-native"
+        />
       </div>
 
       {/* Article Body */}
@@ -239,10 +297,7 @@ export default async function ArticlePage({ params }: Props) {
             <span className="text-sm text-muted-foreground">
               {isKorean ? "공유하기" : "Share"}
             </span>
-            <ShareButton
-              title={title}
-              label={isKorean ? "공유" : "Share"}
-            />
+            <ShareButton title={title} label={isKorean ? "공유" : "Share"} />
           </div>
         </div>
 
@@ -258,7 +313,8 @@ export default async function ArticlePage({ params }: Props) {
 
             <div className="grid gap-4 md:grid-cols-2">
               {relatedArticles.map((related, index) => {
-                const relatedStyle = CATEGORY_STYLES[related.category] || CATEGORY_STYLES.news;
+                const relatedStyle =
+                  CATEGORY_STYLES[related.category] || CATEGORY_STYLES.news;
 
                 return (
                   <Link
@@ -270,13 +326,16 @@ export default async function ArticlePage({ params }: Props) {
                     <article className="article-card p-5 h-full flex flex-col animate-fade-in-up opacity-0">
                       {/* Category & Time */}
                       <div className="flex items-center gap-2 text-xs mb-3">
-                        <span className={`font-semibold uppercase tracking-wider ${relatedStyle.accent}`}>
+                        <span
+                          className={`font-semibold uppercase tracking-wider ${relatedStyle.accent}`}
+                        >
                           {related.category}
                         </span>
                         <span className="text-muted-foreground/50">•</span>
                         <span className="text-muted-foreground flex items-center gap-1">
                           <Clock className="h-3 w-3" />
-                          {related.reading_time_minutes} {isKorean ? "분" : "min"}
+                          {related.reading_time_minutes}{" "}
+                          {isKorean ? "분" : "min"}
                         </span>
                       </div>
 
@@ -303,6 +362,60 @@ export default async function ArticlePage({ params }: Props) {
           </section>
         )}
 
+        {/* Key Takeaways Section */}
+        {keyTakeaways.length > 0 && (
+          <section className="p-6 md:p-8 rounded-2xl border bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-emerald-950/20 dark:to-teal-950/20">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h2 className="text-xl font-bold">
+                {isKorean ? "핵심 요약" : "Key Takeaways"}
+              </h2>
+            </div>
+            <ul className="space-y-3">
+              {keyTakeaways.map((takeaway, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-sm font-semibold">
+                    {index + 1}
+                  </span>
+                  <span className="text-foreground/80">{takeaway}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* FAQ Section - SEO Rich Snippets */}
+        {faqs.length > 0 && (
+          <section className="space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
+                <HelpCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h2 className="text-xl font-bold">
+                {isKorean ? "자주 묻는 질문" : "Frequently Asked Questions"}
+              </h2>
+            </div>
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <details
+                  key={index}
+                  className="group p-4 rounded-xl border bg-card hover:bg-secondary/50 transition-colors"
+                >
+                  <summary className="flex items-center justify-between cursor-pointer list-none font-medium">
+                    <span className="pr-4">{faq.q}</span>
+                    <ChevronRight className="w-5 h-5 text-muted-foreground group-open:rotate-90 transition-transform" />
+                  </summary>
+                  <p className="mt-4 text-muted-foreground leading-relaxed">
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Newsletter CTA */}
         <section className="relative p-8 md:p-10 rounded-2xl border bg-card overflow-hidden">
           <div className="absolute inset-0 mesh-gradient opacity-30" />
@@ -314,7 +427,9 @@ export default async function ArticlePage({ params }: Props) {
 
             <div className="flex-1 space-y-2">
               <h3 className="text-xl font-bold">
-                {isKorean ? "더 많은 인사이트를 원하세요?" : "Want more insights?"}
+                {isKorean
+                  ? "더 많은 인사이트를 원하세요?"
+                  : "Want more insights?"}
               </h3>
               <p className="text-muted-foreground">
                 {isKorean
@@ -337,7 +452,9 @@ export default async function ArticlePage({ params }: Props) {
         <AdUnit slot={AD_SLOTS.PAGE_BOTTOM} format="horizontal" />
       </footer>
 
-      {/* JSON-LD Schema */}
+      {/* JSON-LD Schemas for SEO */}
+
+      {/* NewsArticle Schema - Enhanced */}
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -347,28 +464,49 @@ export default async function ArticlePage({ params }: Props) {
             "@type": "NewsArticle",
             headline: title,
             description: excerpt,
+            image: `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(title)}`,
             datePublished: article.published_at,
             dateModified: article.updated_at,
+            wordCount:
+              locale === "ko" ? article.word_count_ko : article.word_count_en,
             author: {
               "@type": "Organization",
               name: SITE_CONFIG.title,
               url: SITE_CONFIG.url,
+              logo: {
+                "@type": "ImageObject",
+                url: `${SITE_CONFIG.url}/icon.svg`,
+              },
             },
             publisher: {
               "@type": "Organization",
               name: SITE_CONFIG.title,
               url: SITE_CONFIG.url,
+              logo: {
+                "@type": "ImageObject",
+                url: `${SITE_CONFIG.url}/icon.svg`,
+              },
             },
             mainEntityOfPage: {
               "@type": "WebPage",
               "@id": `${SITE_CONFIG.url}/${locale}/${category}/${slug}`,
             },
             keywords: article.seo_keywords?.join(", "),
-            articleSection: category,
+            articleSection: isKorean ? categoryLabel.ko : categoryLabel.en,
             inLanguage: locale === "ko" ? "ko-KR" : "en-US",
+            speakable: {
+              "@type": "SpeakableSpecification",
+              cssSelector: ["article h1", "article p:first-of-type"],
+            },
           }),
         }}
       />
+
+      {/* BreadcrumbList Schema */}
+      <BreadcrumbJsonLd items={breadcrumbItems} />
+
+      {/* FAQPage Schema - for rich snippets */}
+      {faqs.length > 0 && <FaqJsonLd faqs={faqs} />}
     </div>
   );
 }

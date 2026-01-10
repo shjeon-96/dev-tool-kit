@@ -185,6 +185,14 @@ function parseJsonResponse(text: string): GeneratedContent {
       content_en: parsed.content_en,
       tags: parsed.tags || [],
       seo_keywords: parsed.seo_keywords || [],
+      // SEO-enhanced fields (2025)
+      faqs: Array.isArray(parsed.faqs) ? parsed.faqs : undefined,
+      key_takeaways_ko: Array.isArray(parsed.key_takeaways_ko)
+        ? parsed.key_takeaways_ko
+        : undefined,
+      key_takeaways_en: Array.isArray(parsed.key_takeaways_en)
+        ? parsed.key_takeaways_en
+        : undefined,
     };
   } catch (error) {
     console.error("[ContentGenerator] JSON parse error:", error);
@@ -239,6 +247,10 @@ export async function generateArticleFromTrend(
       category: trend.category || "trending",
       tags: content.tags,
       seo_keywords: content.seo_keywords,
+      // SEO-enhanced fields (2025)
+      faqs: content.faqs || null,
+      key_takeaways_ko: content.key_takeaways_ko || null,
+      key_takeaways_en: content.key_takeaways_en || null,
       reading_time_minutes: readingTime,
       word_count_ko: wordCountKo,
       word_count_en: wordCountEn,
