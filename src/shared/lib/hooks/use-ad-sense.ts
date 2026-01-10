@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
-import { isWasmIsolatedPage } from "@/shared/lib/wasm";
 
 declare global {
   interface Window {
@@ -23,22 +21,20 @@ interface UseAdSenseReturn {
 
 /**
  * Custom hook for managing AdSense ad loading state
- * Handles WASM isolated pages, loading states, and ad initialization
+ * Handles loading states and ad initialization
  */
 export function useAdSense(options: UseAdSenseOptions = {}): UseAdSenseReturn {
   const { loadingDelay = 1500 } = options;
 
-  const pathname = usePathname();
   const adRef = useRef<HTMLDivElement>(null);
   const isAdLoaded = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // WASM isolated pages don't render ads (COOP/COEP headers block external scripts)
-  const isIsolated = pathname ? isWasmIsolatedPage(pathname) : false;
+  // No isolated pages in blog-only mode
+  const isIsolated = false;
 
   useEffect(() => {
-    // Don't attempt to load ads on isolated pages
-    if (isIsolated || isAdLoaded.current) return;
+    if (isAdLoaded.current) return;
 
     let timeoutId: NodeJS.Timeout;
 
@@ -47,7 +43,6 @@ export function useAdSense(options: UseAdSenseOptions = {}): UseAdSenseReturn {
         // Check if ad is already present
         const existingAd = adRef.current.querySelector(".adsbygoogle");
         if (existingAd && existingAd.getAttribute("data-adsbygoogle-status")) {
-          // Use timeout to avoid synchronous setState in effect
           timeoutId = setTimeout(() => setIsLoading(false), 0);
           return;
         }
@@ -66,7 +61,7 @@ export function useAdSense(options: UseAdSenseOptions = {}): UseAdSenseReturn {
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [isIsolated, loadingDelay]);
+  }, [loadingDelay]);
 
   return { adRef, isLoading, isIsolated };
 }

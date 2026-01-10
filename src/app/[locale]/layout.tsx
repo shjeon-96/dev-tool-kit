@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, DM_Sans, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import { Sidebar } from "@/widgets/sidebar";
 import { Header } from "@/widgets/header";
@@ -14,21 +14,30 @@ import {
   ToastProvider,
   AdBlockNotice,
 } from "@/shared/ui";
-import { CommandMenu } from "@/widgets/command-menu";
-import { SmartPasteProvider } from "@/features/smart-paste";
-import { LeadCaptureProvider } from "@/features/lead-capture";
 import { OfflineUpgradePrompt } from "@/entities/subscription";
 import { SITE_CONFIG } from "@/shared/config";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Editorial typography - Playfair Display for headlines
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
   display: "swap",
   preload: true,
+  weight: ["400", "500", "600", "700", "800"],
 });
 
+// Clean body font - DM Sans
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700"],
+});
+
+// Monospace for code
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -56,33 +65,21 @@ export async function generateMetadata({
       template: `%s | ${SITE_CONFIG.title}`,
     },
     description: isKorean
-      ? "개발자를 위한 웹 기반 올인원 도구 모음. JSON Formatter, JWT Decoder, Image Resizer 등을 설치 없이 브라우저에서 바로 사용하세요."
-      : "All-in-one web-based toolkit for developers. Use JSON Formatter, JWT Decoder, Image Resizer and more directly in your browser without installation.",
+      ? "최신 트렌드와 유용한 정보를 빠르게 전달하는 블로그"
+      : "Your source for trending topics and useful insights",
     keywords: isKorean
-      ? ["개발자 도구", "JSON 변환", "JWT 디코딩", "이미지 리사이즈", "웹툴"]
-      : [
-          "developer tools",
-          "JSON formatter",
-          "JWT decoder",
-          "image resizer",
-          "web tools",
-        ],
+      ? ["트렌드", "뉴스", "정보", "블로그", "인사이트"]
+      : ["trending", "news", "insights", "blog", "information"],
     openGraph: {
       type: "website",
       locale: isKorean ? "ko_KR" : "en_US",
       url: SITE_CONFIG.url,
       title: SITE_CONFIG.title,
       description: isKorean
-        ? "개발자를 위한 웹 기반 올인원 도구 모음"
-        : "All-in-one web-based toolkit for developers",
+        ? "최신 트렌드와 유용한 정보를 빠르게 전달하는 블로그"
+        : "Your source for trending topics and useful insights",
       siteName: SITE_CONFIG.title,
       images: [
-        {
-          url: "/api/og",
-          width: 1200,
-          height: 630,
-          alt: SITE_CONFIG.title,
-        },
         {
           url: "/og-image.png",
           width: 1200,
@@ -95,9 +92,9 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: SITE_CONFIG.title,
       description: isKorean
-        ? "개발자를 위한 웹 기반 올인원 도구 모음"
-        : "All-in-one web-based toolkit for developers",
-      images: ["/api/og"],
+        ? "최신 트렌드와 유용한 정보를 빠르게 전달하는 블로그"
+        : "Your source for trending topics and useful insights",
+      images: ["/og-image.png"],
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}`,
@@ -114,6 +111,13 @@ export async function generateMetadata({
     },
   };
 }
+
+// GTM script content - trusted Google Tag Manager code
+const GTM_SCRIPT = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NKT5P48C');`;
 
 export default async function LocaleLayout({
   children,
@@ -166,22 +170,12 @@ export default async function LocaleLayout({
             gtag('config', 'G-BHCZK28NQQ');
           `}
         </Script>
-        <Script
-          id="gtm-script"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-NKT5P48C');
-            `,
-          }}
-        />
+        <Script id="gtm-script" strategy="afterInteractive">
+          {GTM_SCRIPT}
+        </Script>
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${playfair.variable} ${dmSans.variable} ${geistMono.variable} antialiased`}
       >
         <noscript>
           <iframe
@@ -191,7 +185,7 @@ export default async function LocaleLayout({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-        {/* Standard AdSense snippet to avoid data-nscript warning */}
+        {/* Standard AdSense snippet */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4981986991458105"
@@ -209,38 +203,33 @@ export default async function LocaleLayout({
             <a href="#main-content" className="skip-link">
               {locale === "ko" ? "본문으로 건너뛰기" : "Skip to main content"}
             </a>
-            <SmartPasteProvider>
-              <LeadCaptureProvider>
-                <ToastProvider>
-                  <OfflineUpgradePrompt />
-                  <AdBlockNotice />
-                  <div className="fixed inset-0 flex bg-background">
-                    <aside
-                      className="hidden w-64 flex-col md:flex"
-                      aria-label={
-                        locale === "ko"
-                          ? "사이드바 네비게이션"
-                          : "Sidebar navigation"
-                      }
-                    >
-                      <Sidebar />
-                    </aside>
-                    <main
-                      id="main-content"
-                      className="flex-1 flex flex-col min-w-0"
-                      role="main"
-                    >
-                      <Header />
-                      <div className="main-scroll-area flex-1 overflow-y-auto p-6">
-                        {children}
-                      </div>
-                      <Footer />
-                      <CommandMenu />
-                    </main>
+            <ToastProvider>
+              <OfflineUpgradePrompt />
+              <AdBlockNotice />
+              <div className="fixed inset-0 flex bg-background">
+                <aside
+                  className="hidden w-64 flex-col md:flex"
+                  aria-label={
+                    locale === "ko"
+                      ? "사이드바 네비게이션"
+                      : "Sidebar navigation"
+                  }
+                >
+                  <Sidebar />
+                </aside>
+                <main
+                  id="main-content"
+                  className="flex-1 flex flex-col min-w-0"
+                  role="main"
+                >
+                  <Header />
+                  <div className="main-scroll-area flex-1 overflow-y-auto p-6">
+                    {children}
                   </div>
-                </ToastProvider>
-              </LeadCaptureProvider>
-            </SmartPasteProvider>
+                  <Footer />
+                </main>
+              </div>
+            </ToastProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

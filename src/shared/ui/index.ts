@@ -28,6 +28,7 @@ export { Switch } from "./switch";
 export { Tabs, TabsList, TabsTrigger, TabsContent } from "./tabs";
 export { Textarea } from "./textarea";
 export { ThemeProvider } from "./theme-provider";
+export { ModeToggle } from "./mode-toggle";
 export {
   JsonLd,
   BreadcrumbJsonLd,
@@ -51,14 +52,6 @@ export { Skeleton, SkeletonText, SkeletonCard } from "./skeleton";
 export { ErrorMessage, EmptyState } from "./error-message";
 export { ErrorBoundary, ErrorBoundaryWithReset } from "./error-boundary";
 export { ToastProvider, useToast } from "./toast";
-export {
-  OfflineIndicator,
-  OfflineBadge,
-  OfflineStatusIcon,
-} from "./offline-indicator";
-export { QuotaWarning, QuotaBadge } from "./quota-warning";
-export { PrivacyBadge } from "./privacy-badge";
-export { FileUploader } from "./file-uploader";
 export { AdBlockNotice } from "./adblock-notice";
 // SmartInternalLinks moved to widgets/smart-internal-links
 export {
@@ -83,12 +76,6 @@ export {
 } from "./alert-dialog";
 export { Alert, AlertTitle, AlertDescription } from "./alert";
 export { Avatar, AvatarImage, AvatarFallback } from "./avatar";
-export {
-  BulkStatusIcon,
-  BulkStatsBar,
-  BulkProgressBar,
-  EmptyDropzone,
-} from "./bulk-status";
 export { Checkbox } from "./checkbox";
 export {
   Command,
@@ -142,11 +129,3 @@ export {
   TableCell,
   TableCaption,
 } from "./table";
-// SEO Components
-export {
-  BreadcrumbNav,
-  FAQSectionSEO,
-  FeaturesSection,
-  RelatedTools,
-  UseCasesSection,
-} from "./seo";

@@ -1,10 +1,16 @@
 import { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { Shield, Clock, Zap, CreditCard } from "lucide-react";
-import { PricingTiers } from "@/features/pricing";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Shield, Clock, Zap, CreditCard, Check } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, Button } from "@/shared/ui";
+import Link from "next/link";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("pricing");
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "pricing" });
 
   return {
     title: t("meta.title"),
@@ -12,8 +18,12 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function PricingPage() {
-  const t = await getTranslations("pricing");
+export default async function PricingPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "pricing" });
+  const isKorean = locale === "ko";
 
   const trustBadges = [
     { icon: Shield, key: "secure" },
@@ -21,6 +31,26 @@ export default async function PricingPage() {
     { icon: Zap, key: "instant" },
     { icon: CreditCard, key: "payment" },
   ];
+
+  const freeFeatures = isKorean
+    ? ["모든 블로그 콘텐츠 접근", "기본 검색 기능", "이메일 뉴스레터"]
+    : ["Access all blog content", "Basic search", "Email newsletter"];
+
+  const proFeatures = isKorean
+    ? [
+        "모든 Free 기능 포함",
+        "광고 없는 읽기 경험",
+        "독점 프리미엄 콘텐츠",
+        "조기 접근권",
+        "우선 고객 지원",
+      ]
+    : [
+        "All Free features",
+        "Ad-free reading experience",
+        "Exclusive premium content",
+        "Early access to new articles",
+        "Priority support",
+      ];
 
   return (
     <div className="container max-w-6xl py-12 px-4">
@@ -50,20 +80,74 @@ export default async function PricingPage() {
         ))}
       </div>
 
-      {/* Pricing Tiers */}
-      <PricingTiers />
+      {/* Pricing Cards */}
+      <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {/* Free Tier */}
+        <Card className="relative">
+          <CardHeader>
+            <CardTitle className="text-2xl">Free</CardTitle>
+            <p className="text-muted-foreground">
+              {isKorean ? "시작하기 좋은 무료 플랜" : "Great for getting started"}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="text-4xl font-bold">
+              $0
+              <span className="text-base font-normal text-muted-foreground">
+                /{isKorean ? "월" : "month"}
+              </span>
+            </div>
+            <ul className="space-y-3">
+              {freeFeatures.map((feature, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-success" />
+                  <span className="text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <Button variant="outline" className="w-full" asChild>
+              <Link href={`/${locale}/auth/signup`}>
+                {isKorean ? "무료로 시작" : "Get Started Free"}
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
 
-      {/* Social Proof */}
-      <div className="mt-16 text-center">
-        <p className="text-sm text-muted-foreground mb-4">
-          {t("social.trusted")}
-        </p>
-        <div className="flex flex-wrap justify-center gap-8 opacity-60">
-          <span className="text-lg font-semibold">GitHub</span>
-          <span className="text-lg font-semibold">Stack Overflow</span>
-          <span className="text-lg font-semibold">Reddit</span>
-          <span className="text-lg font-semibold">Dev.to</span>
-        </div>
+        {/* Pro Tier */}
+        <Card className="relative border-primary">
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
+              {isKorean ? "추천" : "Recommended"}
+            </span>
+          </div>
+          <CardHeader>
+            <CardTitle className="text-2xl">Pro</CardTitle>
+            <p className="text-muted-foreground">
+              {isKorean ? "진정한 팬을 위한 플랜" : "For dedicated readers"}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="text-4xl font-bold">
+              $9
+              <span className="text-base font-normal text-muted-foreground">
+                /{isKorean ? "월" : "month"}
+              </span>
+            </div>
+            <ul className="space-y-3">
+              {proFeatures.map((feature, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-success" />
+                  <span className="text-sm">{feature}</span>
+                </li>
+              ))}
+            </ul>
+            <Button className="w-full" asChild>
+              <Link href={`/${locale}/auth/signup?plan=pro`}>
+                {isKorean ? "Pro 시작하기" : "Get Pro"}
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
 
       {/* FAQ Section */}
