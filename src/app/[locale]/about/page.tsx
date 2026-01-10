@@ -1,7 +1,18 @@
 import { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
-import { Shield, Zap, Globe, Code, Heart, Github, Mail } from "lucide-react";
+import {
+  Sparkles,
+  Globe,
+  Clock,
+  TrendingUp,
+  Heart,
+  Github,
+  Mail,
+  Zap,
+  Users,
+} from "lucide-react";
+import { routing } from "@/i18n/routing";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -10,12 +21,21 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
+  const title = locale === "ko" ? "소개" : "About";
+  const description =
+    locale === "ko"
+      ? "Web Toolkit은 최신 트렌드와 유용한 정보를 빠르게 전달하는 트렌드 블로그입니다."
+      : "Web Toolkit is a trend blog delivering the latest trends and useful insights.";
+
   return {
-    title: locale === "ko" ? "소개" : "About",
-    description:
-      locale === "ko"
-        ? "Web Toolkit은 개발자를 위한 무료 온라인 도구 모음입니다. 29개 이상의 유틸리티를 설치 없이 브라우저에서 바로 사용하세요."
-        : "Web Toolkit is a free online toolbox for developers. Use 29+ utilities directly in your browser without any installation.",
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/about`,
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, `/${l}/about`]),
+      ),
+    },
   };
 }
 
@@ -34,19 +54,19 @@ export default async function AboutPage({ params }: Props) {
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           {isKorean
-            ? "개발자를 위한 무료 온라인 도구 모음. 설치 없이 브라우저에서 바로 사용하세요."
-            : "Free online toolbox for developers. Use directly in your browser without installation."}
+            ? "최신 트렌드와 유용한 정보를 빠르게 전달하는 트렌드 블로그"
+            : "A trend blog delivering the latest trends and useful insights"}
         </p>
       </section>
 
       {/* Stats Section */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <StatCard value="6" label={isKorean ? "카테고리" : "Categories"} />
         <StatCard
-          value="29+"
-          label={isKorean ? "개발자 도구" : "Developer Tools"}
+          value="24/7"
+          label={isKorean ? "자동 업데이트" : "Auto Updates"}
         />
-        <StatCard value="14" label={isKorean ? "치트시트" : "Cheatsheets"} />
-        <StatCard value="3" label={isKorean ? "지원 언어" : "Languages"} />
+        <StatCard value="2" label={isKorean ? "지원 언어" : "Languages"} />
         <StatCard value="100%" label={isKorean ? "무료" : "Free"} />
       </section>
 
@@ -57,59 +77,63 @@ export default async function AboutPage({ params }: Props) {
         </h2>
         <div className="grid md:grid-cols-2 gap-6">
           <FeatureCard
-            icon={Shield}
-            title={
-              isKorean ? "100% 프라이버시 보장" : "100% Privacy Guaranteed"
-            }
+            icon={TrendingUp}
+            title={isKorean ? "실시간 트렌드" : "Real-time Trends"}
             description={
               isKorean
-                ? "모든 데이터 처리가 브라우저에서 이루어집니다. 귀하의 데이터는 절대 서버로 전송되지 않습니다."
-                : "All data processing happens in your browser. Your data is never sent to our servers."
+                ? "Google Trends, Reddit, 뉴스 등 다양한 소스에서 실시간으로 트렌드를 수집합니다."
+                : "We collect trends in real-time from various sources including Google Trends, Reddit, and news."
             }
           />
           <FeatureCard
             icon={Zap}
-            title={isKorean ? "빠른 속도" : "Lightning Fast"}
+            title={isKorean ? "AI 기반 콘텐츠" : "AI-Powered Content"}
             description={
               isKorean
-                ? "WebAssembly 기술을 활용하여 네이티브에 가까운 성능을 제공합니다."
-                : "Leveraging WebAssembly technology for near-native performance."
+                ? "최신 AI 기술을 활용하여 트렌드에 대한 깊이 있는 인사이트를 제공합니다."
+                : "Using cutting-edge AI technology to provide in-depth insights on trends."
             }
           />
           <FeatureCard
             icon={Globe}
-            title={isKorean ? "오프라인 지원" : "Offline Support"}
+            title={isKorean ? "다국어 지원" : "Multilingual Support"}
             description={
               isKorean
-                ? "PWA 지원으로 인터넷 연결 없이도 도구를 사용할 수 있습니다."
-                : "PWA support allows you to use tools even without internet connection."
+                ? "한국어와 영어로 콘텐츠를 제공하여 더 많은 독자에게 다가갑니다."
+                : "Content available in Korean and English to reach more readers."
             }
           />
           <FeatureCard
-            icon={Code}
-            title={isKorean ? "개발자 친화적" : "Developer Friendly"}
+            icon={Clock}
+            title={isKorean ? "자동 발행" : "Auto Publishing"}
             description={
               isKorean
-                ? "개발자의 일상적인 작업을 간소화하는 29개 이상의 전문 도구를 제공합니다."
-                : "29+ professional tools designed to simplify developers' daily tasks."
+                ? "24시간 자동으로 새로운 트렌드를 감지하고 기사를 발행합니다."
+                : "24/7 automatic trend detection and article publishing."
             }
           />
         </div>
       </section>
 
-      {/* Tools Overview */}
+      {/* Categories Section */}
       <section className="space-y-6">
         <h2 className="text-2xl font-semibold text-center">
-          {isKorean ? "제공 도구" : "Available Tools"}
+          {isKorean ? "카테고리" : "Categories"}
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {tools.map((tool) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {categories.map((category) => (
             <Link
-              key={tool.slug}
-              href={`/${locale}/tools/${tool.slug}`}
-              className="p-3 rounded-lg border hover:bg-muted/50 transition-colors text-sm"
+              key={category.id}
+              href={`/${locale}/${category.id}`}
+              className="p-4 rounded-lg border hover:bg-muted/50 transition-colors text-center"
             >
-              {tool.name}
+              <div className="text-2xl mb-2">{category.emoji}</div>
+              <div className="font-medium">
+                {isKorean ? category.labelKo : category.labelEn}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                {isKorean ? category.descKo : category.descEn}
+              </div>
             </Link>
           ))}
         </div>
@@ -125,9 +149,57 @@ export default async function AboutPage({ params }: Props) {
         </div>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
           {isKorean
-            ? "모든 개발자가 필요한 도구에 쉽게 접근할 수 있어야 한다고 믿습니다. Web Toolkit은 개발 워크플로우를 간소화하고, 프라이버시를 보호하며, 완전히 무료로 제공됩니다."
-            : "We believe every developer should have easy access to the tools they need. Web Toolkit simplifies your development workflow, protects your privacy, and is completely free to use."}
+            ? "빠르게 변화하는 세상에서 중요한 트렌드를 놓치지 않도록 도와드립니다. Web Toolkit은 신뢰할 수 있는 인사이트를 무료로 제공하며, 모든 사람이 정보에 쉽게 접근할 수 있도록 합니다."
+            : "We help you stay on top of important trends in a fast-changing world. Web Toolkit provides reliable insights for free, making information accessible to everyone."}
         </p>
+      </section>
+
+      {/* How It Works */}
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold text-center">
+          {isKorean ? "작동 방식" : "How It Works"}
+        </h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="text-center space-y-3">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+              <Sparkles className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="font-semibold">
+              {isKorean ? "1. 트렌드 감지" : "1. Detect Trends"}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {isKorean
+                ? "다양한 소스에서 실시간으로 트렌드를 수집합니다"
+                : "Collect trends from various sources in real-time"}
+            </p>
+          </div>
+          <div className="text-center space-y-3">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+              <Zap className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="font-semibold">
+              {isKorean ? "2. 콘텐츠 생성" : "2. Generate Content"}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {isKorean
+                ? "AI가 트렌드에 대한 깊이 있는 기사를 작성합니다"
+                : "AI writes in-depth articles about the trends"}
+            </p>
+          </div>
+          <div className="text-center space-y-3">
+            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+              <Users className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="font-semibold">
+              {isKorean ? "3. 자동 발행" : "3. Auto Publish"}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {isKorean
+                ? "완성된 기사가 자동으로 발행됩니다"
+                : "Completed articles are published automatically"}
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Contact Section */}
@@ -144,7 +216,7 @@ export default async function AboutPage({ params }: Props) {
             tmdgns893758@gmail.com
           </a>
           <a
-            href="https://github.com/jsh-me"
+            href="https://github.com/shjeon-96"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -163,8 +235,8 @@ export default async function AboutPage({ params }: Props) {
         <Link href={`/${locale}/terms`} className="hover:text-foreground">
           {isKorean ? "이용약관" : "Terms of Service"}
         </Link>
-        <Link href={`/${locale}/tools`} className="hover:text-foreground">
-          {isKorean ? "모든 도구" : "All Tools"}
+        <Link href={`/${locale}/blog`} className="hover:text-foreground">
+          {isKorean ? "블로그" : "Blog"}
         </Link>
       </section>
     </div>
@@ -202,21 +274,53 @@ function FeatureCard({
   );
 }
 
-const tools = [
-  { slug: "json-formatter", name: "JSON Formatter" },
-  { slug: "jwt-decoder", name: "JWT Decoder" },
-  { slug: "image-resizer", name: "Image Resizer" },
-  { slug: "base64-converter", name: "Base64 Converter" },
-  { slug: "hash-generator", name: "Hash Generator" },
-  { slug: "qr-generator", name: "QR Code Generator" },
-  { slug: "color-picker", name: "Color Picker" },
-  { slug: "uuid-generator", name: "UUID Generator" },
-  { slug: "url-encoder", name: "URL Encoder" },
-  { slug: "regex-tester", name: "Regex Tester" },
-  { slug: "markdown-preview", name: "Markdown Preview" },
-  { slug: "diff-checker", name: "Diff Checker" },
-  { slug: "sql-formatter", name: "SQL Formatter" },
-  { slug: "cron-parser", name: "Cron Parser" },
-  { slug: "video-compressor", name: "Video Compressor" },
-  { slug: "svg-optimizer", name: "SVG Optimizer" },
+const categories = [
+  {
+    id: "tech",
+    emoji: "💻",
+    labelEn: "Tech",
+    labelKo: "테크",
+    descEn: "Technology & Innovation",
+    descKo: "기술과 혁신",
+  },
+  {
+    id: "business",
+    emoji: "💼",
+    labelEn: "Business",
+    labelKo: "비즈니스",
+    descEn: "Markets & Finance",
+    descKo: "시장과 금융",
+  },
+  {
+    id: "lifestyle",
+    emoji: "🌟",
+    labelEn: "Lifestyle",
+    labelKo: "라이프스타일",
+    descEn: "Living & Wellness",
+    descKo: "생활과 웰빙",
+  },
+  {
+    id: "entertainment",
+    emoji: "🎬",
+    labelEn: "Entertainment",
+    labelKo: "엔터테인먼트",
+    descEn: "Movies & Culture",
+    descKo: "영화와 문화",
+  },
+  {
+    id: "trending",
+    emoji: "🔥",
+    labelEn: "Trending",
+    labelKo: "트렌딩",
+    descEn: "What's Hot Now",
+    descKo: "지금 뜨는 이슈",
+  },
+  {
+    id: "news",
+    emoji: "📰",
+    labelEn: "News",
+    labelKo: "뉴스",
+    descEn: "Breaking News",
+    descKo: "속보와 시사",
+  },
 ];

@@ -5,48 +5,83 @@
 import type { RawTrend, CollectorResult, GoogleTrendsOptions } from "../types";
 import { categorizeKeyword } from "../utils";
 
-// Note: For production, consider using google-trends-api npm package
-// or the official Google Trends API if available
+// Use require for google-trends-api as it doesn't have ES modules
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const googleTrends = require("google-trends-api");
 
 /**
  * Collect trending topics from Google Trends
- *
- * Note: This uses the unofficial Google Trends endpoint.
- * For more reliable access, install 'google-trends-api' package:
- * npm install google-trends-api
+ * Uses the google-trends-api package for reliable data fetching
  */
 export async function collectGoogleTrends(
   options: GoogleTrendsOptions = {},
 ): Promise<CollectorResult> {
-  const { region = "global", limit = 20, minVolume = 0 } = options;
+  const { region = "global", limit = 20 } = options;
 
   try {
     // Map region to Google Trends geo code
     const geo = mapRegionToGeo(region);
 
     // Fetch daily trends
-    const trends = await fetchDailyTrends(geo, limit);
+    const rawData = await googleTrends.dailyTrends({
+      geo: geo || "US", // Default to US if no geo specified
+      hl: region === "kr" ? "ko" : "en",
+    });
 
-    // Filter and format trends
-    const rawTrends: RawTrend[] = trends
-      .filter((t) => t.volume >= minVolume)
-      .map((t) => ({
-        keyword: t.title,
-        volume: t.volume,
-        source: "google_trends" as const,
-        region,
-        category: categorizeKeyword(t.title),
-        relatedKeywords: t.relatedQueries || [],
-        metadata: {
-          formattedTraffic: t.formattedTraffic,
-          image: t.image,
-          articles: t.articles,
-        },
-      }));
+    const parsedData = JSON.parse(rawData);
+    const trendingSearchesDays = parsedData.default?.trendingSearchesDays || [];
+
+    // Extract trends from all days
+    const allTrends: RawTrend[] = [];
+
+    for (const day of trendingSearchesDays) {
+      const trendingSearches = day.trendingSearches || [];
+
+      for (const search of trendingSearches) {
+        const title = search.title?.query || "";
+        const formattedTraffic = search.formattedTraffic || "0";
+        const volume = parseTrafficVolume(formattedTraffic);
+
+        // Extract related queries from articles
+        const relatedKeywords: string[] = [];
+        if (search.relatedQueries) {
+          search.relatedQueries.forEach((rq: { query: string }) => {
+            if (rq.query) relatedKeywords.push(rq.query);
+          });
+        }
+
+        // Extract articles info
+        const articles: Array<{ title: string; url: string }> = [];
+        if (search.articles) {
+          search.articles.forEach((article: { title: string; url: string }) => {
+            if (article.title && article.url) {
+              articles.push({ title: article.title, url: article.url });
+            }
+          });
+        }
+
+        allTrends.push({
+          keyword: title,
+          volume,
+          source: "google_trends" as const,
+          region,
+          category: categorizeKeyword(title),
+          relatedKeywords,
+          metadata: {
+            formattedTraffic,
+            image: search.image?.imageUrl,
+            articles,
+          },
+        });
+      }
+    }
+
+    // Limit results
+    const limitedTrends = allTrends.slice(0, limit);
 
     return {
       success: true,
-      trends: rawTrends,
+      trends: limitedTrends,
       source: "google_trends",
       collectedAt: new Date(),
     };
@@ -63,43 +98,25 @@ export async function collectGoogleTrends(
 }
 
 /**
- * Fetch daily trends from Google Trends
- * This is a simplified implementation - for production, use google-trends-api package
+ * Parse traffic volume from formatted string (e.g., "50K+", "1M+")
  */
-async function fetchDailyTrends(
-  geo: string,
-  limit: number,
-): Promise<GoogleTrendItem[]> {
-  // In production, use the google-trends-api package:
-  // const googleTrends = require('google-trends-api');
-  // const results = await googleTrends.dailyTrends({ geo });
+function parseTrafficVolume(formatted: string): number {
+  if (!formatted) return 0;
 
-  // For now, return mock data structure for development
-  // Replace this with actual API calls in production
-  // Fetching trends (mock implementation)
+  const cleanStr = formatted.replace(/[+,]/g, "").trim();
+  const multipliers: Record<string, number> = {
+    K: 1000,
+    M: 1000000,
+    B: 1000000000,
+  };
 
-  // Mock implementation - replace with actual API call
-  // This demonstrates the expected data structure
-  const mockTrends: GoogleTrendItem[] = [
-    {
-      title: "AI Technology",
-      volume: 50000,
-      formattedTraffic: "50K+",
-      relatedQueries: ["machine learning", "chatgpt", "openai"],
-      image: undefined,
-      articles: [],
-    },
-    {
-      title: "Tech Startup News",
-      volume: 30000,
-      formattedTraffic: "30K+",
-      relatedQueries: ["startup funding", "tech ipo"],
-      image: undefined,
-      articles: [],
-    },
-  ];
+  const match = cleanStr.match(/^(\d+(?:\.\d+)?)\s*([KMB])?$/i);
+  if (!match) return 0;
 
-  return mockTrends.slice(0, limit);
+  const num = parseFloat(match[1]);
+  const suffix = match[2]?.toUpperCase();
+
+  return suffix ? num * (multipliers[suffix] || 1) : num;
 }
 
 /**
@@ -116,25 +133,57 @@ function mapRegionToGeo(region: string): string {
 }
 
 /**
- * Google Trends item structure
- */
-interface GoogleTrendItem {
-  title: string;
-  volume: number;
-  formattedTraffic: string;
-  relatedQueries?: string[];
-  image?: string;
-  articles?: Array<{ title: string; url: string }>;
-}
-
-/**
  * Get real-time search trends
- * For production implementation
+ * Returns trending stories from the last 24 hours
  */
 export async function getRealTimeSearchTrends(
-  geo: string = "",
+  geo: string = "US",
 ): Promise<CollectorResult> {
-  // This would use the real-time trends API
-  // For now, delegate to daily trends
-  return collectGoogleTrends({ region: geo || "global" });
+  try {
+    const rawData = await googleTrends.realTimeTrends({
+      geo: geo || "US",
+      hl: geo === "KR" ? "ko" : "en",
+      category: "all", // all categories
+    });
+
+    const parsedData = JSON.parse(rawData);
+    const storySummaries = parsedData.storySummaries?.trendingStories || [];
+
+    const rawTrends: RawTrend[] = storySummaries.map(
+      (story: {
+        title: string;
+        entityNames?: string[];
+        articles?: Array<{ articleTitle: string; url: string }>;
+        image?: { imageUrl: string };
+      }) => ({
+        keyword: story.title || "",
+        volume: 10000, // Real-time trends don't have volume, use default
+        source: "google_trends" as const,
+        region: geo.toLowerCase() || "global",
+        category: categorizeKeyword(story.title || ""),
+        relatedKeywords: story.entityNames || [],
+        metadata: {
+          formattedTraffic: "Trending Now",
+          image: story.image?.imageUrl,
+          articles: story.articles?.map(
+            (a: { articleTitle: string; url: string }) => ({
+              title: a.articleTitle,
+              url: a.url,
+            }),
+          ),
+        },
+      }),
+    );
+
+    return {
+      success: true,
+      trends: rawTrends,
+      source: "google_trends",
+      collectedAt: new Date(),
+    };
+  } catch (error) {
+    console.error("Real-time trends collection error:", error);
+    // Fallback to daily trends if real-time fails
+    return collectGoogleTrends({ region: geo.toLowerCase() || "global" });
+  }
 }

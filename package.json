@@ -72,6 +72,7 @@
     "dexie": "^4.2.1",
     "dotenv": "^16.6.1",
     "framer-motion": "^12.23.25",
+    "google-trends-api": "^4.9.2",
     "he": "^1.2.0",
     "lucide-react": "^0.556.0",
     "markdown-it": "^14.1.0",
