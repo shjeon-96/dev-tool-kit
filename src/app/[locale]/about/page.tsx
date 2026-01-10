@@ -1,16 +1,7 @@
 import { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
-import {
-  Shield,
-  Zap,
-  Globe,
-  Code,
-  Heart,
-  Github,
-  Mail,
-  Wrench,
-} from "lucide-react";
+import { Shield, Zap, Globe, Code, Heart, Github, Mail } from "lucide-react";
 
 interface Props {
   params: Promise<{ locale: string }>;

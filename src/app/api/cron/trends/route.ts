@@ -32,7 +32,7 @@ export async function GET(request: Request) {
 
   const startTime = Date.now();
 
-  console.log("[Cron:Trends] Starting trend collection");
+  // Starting trend collection
 
   try {
     // Collect trends from all sources
@@ -46,7 +46,7 @@ export async function GET(request: Request) {
       maxTrendsPerSource: 30,
     });
 
-    console.log(`[Cron:Trends] Collected ${trends.length} trends`);
+    // Collected trends, proceeding to store
 
     // Store trends in Supabase
     const storedCount = await storeTrends(trends);
@@ -141,7 +141,10 @@ async function storeTrends(trends: ProcessedTrend[]): Promise<number> {
         if (!error) storedCount++;
       }
     } catch (error) {
-      console.error(`[Cron:Trends] Failed to store trend: ${trend.keyword}`, error);
+      console.error(
+        `[Cron:Trends] Failed to store trend: ${trend.keyword}`,
+        error,
+      );
     }
   }
 

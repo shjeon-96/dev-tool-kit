@@ -16,8 +16,7 @@ const logger = createLogger("github-collector");
 // GitHub Trending 비공식 API (gitterapp.com)
 const GITHUB_TRENDING_API = "https://api.gitterapp.com";
 
-// 대체 API (OSS Insight)
-const FALLBACK_API = "https://api.ossinsight.io/v1/trends/repos";
+// Note: Fallback API available at https://api.ossinsight.io/v1/trends/repos
 
 const USER_AGENT = "WebToolkit-TrendBot/1.0 (https://web-toolkit.app)";
 
@@ -140,7 +139,7 @@ function parseGitHubTrendingHtml(html: string): TrendingRepo[] {
     const fullName = repoMatch[1].replace(/\/$/, "").trim();
     const parts = fullName.split("/");
     if (parts.length !== 2) continue;
-    const [author, name] = parts;
+    const [, name] = parts;
 
     // 설명 추출
     const descMatch = articleHtml.match(

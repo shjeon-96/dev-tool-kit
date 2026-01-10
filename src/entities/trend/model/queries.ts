@@ -8,18 +8,21 @@ import type { Article, ArticleCategory } from "./types";
 function getSupabaseClient() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   );
 }
 
 /**
  * Get published articles with pagination
  */
-export async function getPublishedArticles(options: {
-  limit?: number;
-  offset?: number;
-  locale?: "ko" | "en";
-} = {}): Promise<{ articles: Article[]; total: number }> {
+export async function getPublishedArticles(
+  options: {
+    limit?: number;
+    offset?: number;
+    locale?: "ko" | "en";
+  } = {},
+): Promise<{ articles: Article[]; total: number }> {
   const { limit = 10, offset = 0 } = options;
   const supabase = getSupabaseClient();
 
@@ -45,18 +48,22 @@ export async function getPublishedArticles(options: {
  * Get trending articles (most viewed in last 7 days)
  * Falls back to most recent if analytics table is not available
  */
-export async function getTrendingArticles(limit: number = 5): Promise<Article[]> {
+export async function getTrendingArticles(
+  limit: number = 5,
+): Promise<Article[]> {
   const supabase = getSupabaseClient();
 
   // First try to get articles with analytics
   const { data: analyticsData, error: analyticsError } = await supabase
     .from("articles")
-    .select(`
+    .select(
+      `
       *,
       article_analytics!left (
         view_count
       )
-    `)
+    `,
+    )
     .eq("status", "published")
     .order("published_at", { ascending: false })
     .limit(limit);
@@ -71,12 +78,16 @@ export async function getTrendingArticles(limit: number = 5): Promise<Article[]>
     // Sort by view count descending
     articlesWithAnalytics.sort((a, b) => b._viewCount - a._viewCount);
 
-    // Remove internal _viewCount field
-    return articlesWithAnalytics.map(({ _viewCount, article_analytics, ...article }) => article as Article);
+    // Remove internal fields before returning
+    return articlesWithAnalytics.map((item) => {
+      const { _viewCount, article_analytics, ...article } = item;
+      void _viewCount; // Intentionally unused
+      void article_analytics; // Intentionally unused
+      return article as Article;
+    });
   }
 
   // Fallback: just get most recent published articles
-  console.log("[Queries] getTrendingArticles: Analytics not available, falling back to recent articles");
 
   const { data, error } = await supabase
     .from("articles")
@@ -225,7 +236,9 @@ export async function searchArticles(
 /**
  * Get all published article slugs (for sitemap)
  */
-export async function getAllArticleSlugs(): Promise<{ slug: string; category: string; updated_at: string }[]> {
+export async function getAllArticleSlugs(): Promise<
+  { slug: string; category: string; updated_at: string }[]
+> {
   const supabase = getSupabaseClient();
 
   const { data, error } = await supabase
@@ -245,7 +258,9 @@ export async function getAllArticleSlugs(): Promise<{ slug: string; category: st
 /**
  * Get article categories with counts
  */
-export async function getCategoryStats(): Promise<{ category: string; count: number }[]> {
+export async function getCategoryStats(): Promise<
+  { category: string; count: number }[]
+> {
   const supabase = getSupabaseClient();
 
   const { data, error } = await supabase

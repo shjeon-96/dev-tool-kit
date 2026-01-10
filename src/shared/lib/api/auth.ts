@@ -6,7 +6,6 @@ import {
   incrementRateLimit,
   getRateLimitHeaders,
   type RateLimitResult,
-  type RateLimitHeaders,
 } from "./rate-limiter";
 
 export interface ApiAuthResult {

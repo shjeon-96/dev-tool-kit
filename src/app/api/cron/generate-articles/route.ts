@@ -8,7 +8,10 @@
 
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { generateArticleFromTrend, estimateCost } from "@/lib/content-generator";
+import {
+  generateArticleFromTrend,
+  estimateCost,
+} from "@/lib/content-generator";
 import type { Trend } from "@/entities/trend";
 
 // Cron authentication secret
@@ -39,13 +42,15 @@ export async function GET(request: Request) {
 
   const startTime = Date.now();
 
-  console.log("[Cron:GenerateArticles] Starting article generation");
+  // Debug logging removed for production
 
   try {
     // Check daily spending
     const todaySpent = await getTodaySpending();
     if (todaySpent >= DAILY_BUDGET_USD) {
-      console.log(`[Cron:GenerateArticles] Daily budget exhausted: $${todaySpent.toFixed(4)}`);
+      console.warn(
+        `[Cron:GenerateArticles] Daily budget exhausted: $${todaySpent.toFixed(4)}`,
+      );
       return NextResponse.json({
         success: true,
         message: "Daily budget exhausted",
@@ -81,7 +86,7 @@ export async function GET(request: Request) {
     }
 
     if (!trends || trends.length === 0) {
-      console.log("[Cron:GenerateArticles] No unprocessed trends found");
+      console.warn("[Cron:GenerateArticles] No unprocessed trends found");
       return NextResponse.json({
         success: true,
         message: "No unprocessed trends",
@@ -89,7 +94,7 @@ export async function GET(request: Request) {
       });
     }
 
-    console.log(`[Cron:GenerateArticles] Processing ${trends.length} trends`);
+    // Processing trends
 
     const results = {
       generated: 0,
@@ -144,7 +149,9 @@ export async function GET(request: Request) {
 
         if (insertError) {
           results.failed++;
-          results.errors.push(`DB insert failed for ${trend.keyword}: ${insertError.message}`);
+          results.errors.push(
+            `DB insert failed for ${trend.keyword}: ${insertError.message}`,
+          );
           continue;
         }
 
@@ -167,7 +174,7 @@ export async function GET(request: Request) {
         results.totalCost += cost;
         results.articles.push(insertedArticle.slug);
 
-        console.log(`[Cron:GenerateArticles] Generated: ${insertedArticle.slug} ($${cost.toFixed(4)})`);
+        // Article generated successfully
 
         // Small delay between API calls
         await new Promise((resolve) => setTimeout(resolve, 500));
@@ -226,11 +233,17 @@ async function getTodaySpending(): Promise<number> {
     .gte("created_at", today.toISOString());
 
   if (error || !data) {
-    console.warn("[Cron:GenerateArticles] Failed to get today spending:", error);
+    console.warn(
+      "[Cron:GenerateArticles] Failed to get today spending:",
+      error,
+    );
     return 0;
   }
 
-  return data.reduce((sum, article) => sum + (article.generation_cost_usd || 0), 0);
+  return data.reduce(
+    (sum, article) => sum + (article.generation_cost_usd || 0),
+    0,
+  );
 }
 
 /**

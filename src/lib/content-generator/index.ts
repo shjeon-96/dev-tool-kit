@@ -5,7 +5,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import type {
   Trend,
-  ArticleCategory,
   GeneratedContent,
   ContentGenerationRequest,
   ContentGenerationResult,
@@ -36,7 +35,7 @@ const PRICING = {
 export async function generateArticleContent(
   request: ContentGenerationRequest,
 ): Promise<ContentGenerationResult> {
-  const { trend, style = "news", targetWordCount = 1000 } = request;
+  const { trend, style = "news" } = request;
 
   try {
     // Generate the prompt

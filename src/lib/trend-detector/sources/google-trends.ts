@@ -2,15 +2,8 @@
 // Google Trends Collector
 // ============================================
 
-import type {
-  RawTrend,
-  CollectorResult,
-  GoogleTrendsOptions,
-} from "../types";
+import type { RawTrend, CollectorResult, GoogleTrendsOptions } from "../types";
 import { categorizeKeyword } from "../utils";
-
-// Google Trends API endpoint (unofficial - use with caution)
-const GOOGLE_TRENDS_API = "https://trends.google.com/trends/api";
 
 // Note: For production, consider using google-trends-api npm package
 // or the official Google Trends API if available
@@ -25,12 +18,7 @@ const GOOGLE_TRENDS_API = "https://trends.google.com/trends/api";
 export async function collectGoogleTrends(
   options: GoogleTrendsOptions = {},
 ): Promise<CollectorResult> {
-  const {
-    region = "global",
-    limit = 20,
-    minVolume = 0,
-    timeRange = "now 1-d",
-  } = options;
+  const { region = "global", limit = 20, minVolume = 0 } = options;
 
   try {
     // Map region to Google Trends geo code
@@ -88,7 +76,7 @@ async function fetchDailyTrends(
 
   // For now, return mock data structure for development
   // Replace this with actual API calls in production
-  console.log(`[Google Trends] Fetching trends for geo: ${geo}, limit: ${limit}`);
+  // Fetching trends (mock implementation)
 
   // Mock implementation - replace with actual API call
   // This demonstrates the expected data structure
@@ -145,7 +133,6 @@ interface GoogleTrendItem {
  */
 export async function getRealTimeSearchTrends(
   geo: string = "",
-  category: string = "all",
 ): Promise<CollectorResult> {
   // This would use the real-time trends API
   // For now, delegate to daily trends

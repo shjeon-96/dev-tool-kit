@@ -17,7 +17,6 @@ import {
   filterDuplicates,
   sortByPriority,
   getTopTrends,
-  mergeTrends,
 } from "./utils";
 
 // Re-export types
@@ -85,13 +84,19 @@ export async function collectAllTrends(
   for (const source of sources) {
     switch (source) {
       case "google_trends":
-        collectors.push(collectGoogleTrends({ ...options, limit: maxTrendsPerSource }));
+        collectors.push(
+          collectGoogleTrends({ ...options, limit: maxTrendsPerSource }),
+        );
         break;
       case "reddit":
-        collectors.push(collectRedditTrends({ ...options, limit: maxTrendsPerSource }));
+        collectors.push(
+          collectRedditTrends({ ...options, limit: maxTrendsPerSource }),
+        );
         break;
       case "news_rss":
-        collectors.push(collectNewsRss({ ...options, limit: maxTrendsPerSource }));
+        collectors.push(
+          collectNewsRss({ ...options, limit: maxTrendsPerSource }),
+        );
         break;
       default:
         console.warn(`Unknown source: ${source}`);
@@ -168,9 +173,7 @@ export async function getTopTrendingTopics(
 export function mergeCollectorResults(
   results: CollectorResult[],
 ): ProcessedTrend[] {
-  const allTrends = results
-    .filter((r) => r.success)
-    .flatMap((r) => r.trends);
+  const allTrends = results.filter((r) => r.success).flatMap((r) => r.trends);
 
   const uniqueTrends = filterDuplicates(allTrends);
   return processTrends(uniqueTrends);

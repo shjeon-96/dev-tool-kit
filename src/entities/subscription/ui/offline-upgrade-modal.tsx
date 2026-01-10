@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/shared/ui";
 import { Button } from "@/shared/ui";
-import { WifiOff, Zap, Check, X } from "lucide-react";
+import { WifiOff, Zap, Check } from "lucide-react";
 
 interface OfflineUpgradeModalProps {
   isOpen: boolean;

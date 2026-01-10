@@ -43,12 +43,6 @@ export default async function DashboardPage({
     redirect(`/${locale}/auth/signin?redirect=/dashboard`);
   }
 
-  const { data: userData } = await supabase
-    .from("users")
-    .select("*")
-    .eq("id", user.id)
-    .single();
-
   const { data: subscriptionData } = await supabase
     .from("subscriptions")
     .select("*")
@@ -136,9 +130,9 @@ export default async function DashboardPage({
                   {isKorean ? "다음 결제일" : "Next billing"}
                 </span>
                 <span className="text-sm">
-                  {new Date(
-                    subscription.current_period_end,
-                  ).toLocaleDateString(locale)}
+                  {new Date(subscription.current_period_end).toLocaleDateString(
+                    locale,
+                  )}
                 </span>
               </div>
             )}

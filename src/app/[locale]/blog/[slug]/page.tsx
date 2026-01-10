@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { format } from "date-fns";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { ArrowLeft, Clock, User } from "lucide-react";
 import { getAllPosts, getPostBySlug } from "@/entities/post";
 import { MarkdownViewer } from "@/features/blog";
 import { Button, Badge } from "@/shared/ui";

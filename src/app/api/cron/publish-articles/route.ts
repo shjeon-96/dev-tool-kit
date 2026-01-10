@@ -36,13 +36,14 @@ export async function GET(request: Request) {
   const startTime = Date.now();
   const now = new Date();
 
-  console.log("[Cron:PublishArticles] Starting article publishing");
+  // Starting article publishing
 
   try {
     // Get articles ready to publish from queue
     const { data: queueItems, error: queueError } = await supabase
       .from("publish_queue")
-      .select(`
+      .select(
+        `
         id,
         article_id,
         priority,
@@ -56,7 +57,8 @@ export async function GET(request: Request) {
           category,
           status
         )
-      `)
+      `,
+      )
       .eq("status", "pending")
       .lte("scheduled_time", now.toISOString())
       .order("priority", { ascending: false })
@@ -68,7 +70,7 @@ export async function GET(request: Request) {
     }
 
     if (!queueItems || queueItems.length === 0) {
-      console.log("[Cron:PublishArticles] No articles ready to publish");
+      // No articles ready to publish
       return NextResponse.json({
         success: true,
         message: "No articles to publish",
@@ -76,7 +78,7 @@ export async function GET(request: Request) {
       });
     }
 
-    console.log(`[Cron:PublishArticles] Processing ${queueItems.length} articles`);
+    // Processing queue items
 
     const results = {
       published: 0,
@@ -88,7 +90,9 @@ export async function GET(request: Request) {
     for (const queueItem of queueItems) {
       // Handle both single object and array from Supabase join
       const articlesData = queueItem.articles;
-      const article = (Array.isArray(articlesData) ? articlesData[0] : articlesData) as {
+      const article = (
+        Array.isArray(articlesData) ? articlesData[0] : articlesData
+      ) as {
         id: string;
         slug: string;
         title_ko: string;
@@ -151,7 +155,10 @@ export async function GET(request: Request) {
           revalidatePath("/sitemap.xml");
         } catch (revalidateError) {
           // Log but don't fail - ISR will eventually catch up
-          console.warn("[Cron:PublishArticles] Revalidation warning:", revalidateError);
+          console.warn(
+            "[Cron:PublishArticles] Revalidation warning:",
+            revalidateError,
+          );
         }
 
         // Mark queue item as completed
@@ -175,7 +182,7 @@ export async function GET(request: Request) {
         results.published++;
         results.articles.push(article.slug);
 
-        console.log(`[Cron:PublishArticles] Published: ${article.slug}`);
+        // Article published successfully
       } catch (error) {
         // Handle retry logic
         const retryCount = queueItem.retry_count + 1;
@@ -187,7 +194,8 @@ export async function GET(request: Request) {
             .update({
               status: "failed",
               retry_count: retryCount,
-              error_message: error instanceof Error ? error.message : "Unknown error",
+              error_message:
+                error instanceof Error ? error.message : "Unknown error",
             })
             .eq("id", queueItem.id);
         } else {
@@ -199,7 +207,8 @@ export async function GET(request: Request) {
               status: "pending",
               retry_count: retryCount,
               scheduled_time: retryTime.toISOString(),
-              error_message: error instanceof Error ? error.message : "Unknown error",
+              error_message:
+                error instanceof Error ? error.message : "Unknown error",
             })
             .eq("id", queueItem.id);
         }
@@ -213,10 +222,7 @@ export async function GET(request: Request) {
 
     const duration = Date.now() - startTime;
 
-    // Log summary
-    console.log(
-      `[Cron:PublishArticles] Completed: ${results.published} published, ${results.failed} failed`,
-    );
+    // Publishing completed
 
     return NextResponse.json({
       success: true,
