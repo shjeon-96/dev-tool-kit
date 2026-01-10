@@ -62,6 +62,11 @@ interface Props {
 
 // Generate static params for all articles
 export async function generateStaticParams() {
+  // Skip during CI build when Supabase env vars are not available
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+    return [];
+  }
+
   const articles = await getAllArticleSlugs();
 
   return routing.locales.flatMap((locale) =>
