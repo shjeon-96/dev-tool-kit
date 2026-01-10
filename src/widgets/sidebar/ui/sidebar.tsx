@@ -14,15 +14,29 @@ import {
   Sparkles,
   Info,
   CreditCard,
+  Film,
+  Newspaper,
 } from "lucide-react";
 import Image from "next/image";
 
-// Blog categories
+// Blog categories (matches VALID_CATEGORIES in category page)
 const BLOG_CATEGORIES = [
   { id: "tech", icon: Laptop, labelEn: "Tech", labelKo: "테크" },
   { id: "business", icon: Briefcase, labelEn: "Business", labelKo: "비즈니스" },
-  { id: "lifestyle", icon: Sparkles, labelEn: "Lifestyle", labelKo: "라이프스타일" },
+  {
+    id: "lifestyle",
+    icon: Sparkles,
+    labelEn: "Lifestyle",
+    labelKo: "라이프스타일",
+  },
+  {
+    id: "entertainment",
+    icon: Film,
+    labelEn: "Entertainment",
+    labelKo: "엔터",
+  },
   { id: "trending", icon: TrendingUp, labelEn: "Trending", labelKo: "트렌딩" },
+  { id: "news", icon: Newspaper, labelEn: "News", labelKo: "뉴스" },
 ] as const;
 
 export function Sidebar({ className }: { className?: string }) {
@@ -97,8 +111,9 @@ export function Sidebar({ className }: { className?: string }) {
               </h3>
               <div className="space-y-1">
                 {BLOG_CATEGORIES.map((category) => {
-                  const href = `${basePath}/blog?category=${category.id}`;
-                  const isActive = pathname.includes(category.id);
+                  const href = `${basePath}/${category.id}`;
+                  const isActive =
+                    pathname === href || pathname.startsWith(`${href}/`);
 
                   return (
                     <Button
@@ -143,7 +158,9 @@ export function Sidebar({ className }: { className?: string }) {
                   </Link>
                 </Button>
                 <Button
-                  variant={pathname.includes("/pricing") ? "secondary" : "ghost"}
+                  variant={
+                    pathname.includes("/pricing") ? "secondary" : "ghost"
+                  }
                   className="w-full justify-start"
                   asChild
                 >
