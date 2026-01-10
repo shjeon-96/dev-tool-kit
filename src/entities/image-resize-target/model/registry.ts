@@ -511,9 +511,9 @@ const instagramTargets: ResizeTarget[] = [
     targetHeight: 1080,
     platform: "Instagram",
     title: {
-      en: "Resize Image for Instagram Post (1080x1080) - Free Tool",
-      ko: "인스타그램 포스트용 이미지 리사이즈 (1080x1080) - 무료 도구",
-      ja: "Instagramポスト用画像リサイズ (1080x1080) - 無料ツール",
+      en: "Resize Image for Instagram Post - Free Online Tool",
+      ko: "인스타그램 포스트용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Instagramポスト用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your photos to the perfect Instagram post size (1080x1080). Optimize your images for maximum engagement on Instagram.",
@@ -546,9 +546,9 @@ const instagramTargets: ResizeTarget[] = [
     targetHeight: 1920,
     platform: "Instagram",
     title: {
-      en: "Resize Image for Instagram Story (1080x1920) - Free Tool",
-      ko: "인스타그램 스토리용 이미지 리사이즈 (1080x1920) - 무료 도구",
-      ja: "Instagramストーリー用画像リサイズ (1080x1920) - 無料ツール",
+      en: "Resize Image for Instagram Story - Free Online Tool",
+      ko: "인스타그램 스토리용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Instagramストーリー用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images to the perfect Instagram Story size (1080x1920). Create stunning vertical content for your stories.",
@@ -581,9 +581,9 @@ const instagramTargets: ResizeTarget[] = [
     targetHeight: 320,
     platform: "Instagram",
     title: {
-      en: "Resize Image for Instagram Profile (320x320) - Free Tool",
-      ko: "인스타그램 프로필용 이미지 리사이즈 (320x320) - 무료 도구",
-      ja: "Instagramプロフィール用画像リサイズ (320x320) - 無料ツール",
+      en: "Resize Image for Instagram Profile - Free Online Tool",
+      ko: "인스타그램 프로필용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Instagramプロフィール用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your profile picture to the perfect Instagram profile size (320x320). Make a great first impression.",
@@ -620,9 +620,9 @@ const socialMediaTargets: ResizeTarget[] = [
     targetHeight: 630,
     platform: "Facebook",
     title: {
-      en: "Resize Image for Facebook Post (1200x630) - Free Tool",
-      ko: "페이스북 포스트용 이미지 리사이즈 (1200x630) - 무료 도구",
-      ja: "Facebookポスト用画像リサイズ (1200x630) - 無料ツール",
+      en: "Resize Image for Facebook Post - Free Online Tool",
+      ko: "페이스북 포스트용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Facebookポスト用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images to the optimal Facebook post size (1200x630). Maximize engagement with perfectly sized images.",
@@ -647,9 +647,9 @@ const socialMediaTargets: ResizeTarget[] = [
     targetHeight: 675,
     platform: "Twitter/X",
     title: {
-      en: "Resize Image for Twitter/X Post (1200x675) - Free Tool",
-      ko: "트위터/X 포스트용 이미지 리사이즈 (1200x675) - 무료 도구",
-      ja: "Twitter/Xポスト用画像リサイズ (1200x675) - 無料ツール",
+      en: "Resize Image for Twitter/X Post - Free Online Tool",
+      ko: "트위터/X 포스트용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Twitter/Xポスト用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images to the optimal Twitter/X post size (1200x675). Make your tweets stand out with perfectly sized images.",
@@ -674,9 +674,9 @@ const socialMediaTargets: ResizeTarget[] = [
     targetHeight: 720,
     platform: "YouTube",
     title: {
-      en: "Resize Image for YouTube Thumbnail (1280x720) - Free Tool",
-      ko: "유튜브 썸네일용 이미지 리사이즈 (1280x720) - 무료 도구",
-      ja: "YouTubeサムネイル用画像リサイズ (1280x720) - 無料ツール",
+      en: "Resize Image for YouTube Thumbnail - Free Online Tool",
+      ko: "유튜브 썸네일용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "YouTubeサムネイル用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images to the perfect YouTube thumbnail size (1280x720). Create eye-catching thumbnails that drive clicks.",
@@ -705,9 +705,9 @@ const socialMediaTargets: ResizeTarget[] = [
     targetHeight: 630,
     platform: "Open Graph",
     title: {
-      en: "Resize Image for OG Image / Social Share (1200x630) - Free Tool",
-      ko: "OG 이미지 / 소셜 공유용 이미지 리사이즈 (1200x630) - 무료 도구",
-      ja: "OG画像 / ソーシャルシェア用画像リサイズ (1200x630) - 無料ツール",
+      en: "Resize Image for OG Image / Social Share - Free Online Tool",
+      ko: "OG 이미지 / 소셜 공유용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "OG画像 / ソーシャルシェア用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images for Open Graph (OG) sharing (1200x630). Ensure your links look perfect when shared on social media.",
@@ -758,9 +758,9 @@ const faviconTargets: ResizeTarget[] = [
     targetHeight: 192,
     platform: "Favicon",
     title: {
-      en: "Resize Image for Favicon 192x192 (Android) - Free Tool",
-      ko: "파비콘 192x192 (Android)용 이미지 리사이즈 - 무료 도구",
-      ja: "ファビコン192x192 (Android)用画像リサイズ - 無料ツール",
+      en: "Resize Image for Favicon 192x192 (Android) - Free Online Tool",
+      ko: "파비콘 192x192 (Android)용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "ファビコン192x192 (Android)用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your image to 192x192 pixels for Android home screen icons. Required for PWA manifest.",
@@ -780,9 +780,9 @@ const faviconTargets: ResizeTarget[] = [
     targetHeight: 512,
     platform: "Favicon",
     title: {
-      en: "Resize Image for Favicon 512x512 (PWA) - Free Tool",
-      ko: "파비콘 512x512 (PWA)용 이미지 리사이즈 - 무료 도구",
-      ja: "ファビコン512x512 (PWA)用画像リサイズ - 無料ツール",
+      en: "Resize Image for Favicon 512x512 (PWA) - Free Online Tool",
+      ko: "파비콘 512x512 (PWA)용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "ファビコン512x512 (PWA)用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your image to 512x512 pixels for PWA splash screens. The largest icon size for Progressive Web Apps.",
@@ -927,9 +927,9 @@ const linkedinTargets: ResizeTarget[] = [
     targetHeight: 400,
     platform: "LinkedIn",
     title: {
-      en: "Resize Image for LinkedIn Profile (400x400) - Free Tool",
-      ko: "링크드인 프로필용 이미지 리사이즈 (400x400) - 무료 도구",
-      ja: "LinkedInプロフィール用画像リサイズ (400x400) - 無料ツール",
+      en: "Resize Image for LinkedIn Profile - Free Online Tool",
+      ko: "링크드인 프로필용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "LinkedInプロフィール用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your profile photo to the perfect LinkedIn size (400x400). Make a professional first impression on recruiters.",
@@ -958,9 +958,9 @@ const linkedinTargets: ResizeTarget[] = [
     targetHeight: 396,
     platform: "LinkedIn",
     title: {
-      en: "Resize Image for LinkedIn Cover (1584x396) - Free Tool",
-      ko: "링크드인 커버용 이미지 리사이즈 (1584x396) - 무료 도구",
-      ja: "LinkedInカバー用画像リサイズ (1584x396) - 無料ツール",
+      en: "Resize Image for LinkedIn Cover - Free Online Tool",
+      ko: "링크드인 커버용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "LinkedInカバー用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your banner to the perfect LinkedIn cover size (1584x396). Create an impressive header for your professional profile.",
@@ -985,9 +985,9 @@ const linkedinTargets: ResizeTarget[] = [
     targetHeight: 627,
     platform: "LinkedIn",
     title: {
-      en: "Resize Image for LinkedIn Post (1200x627) - Free Tool",
-      ko: "링크드인 포스트용 이미지 리사이즈 (1200x627) - 무료 도구",
-      ja: "LinkedInポスト用画像リサイズ (1200x627) - 無料ツール",
+      en: "Resize Image for LinkedIn Post - Free Online Tool",
+      ko: "링크드인 포스트용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "LinkedInポスト用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images to the optimal LinkedIn post size (1200x627). Maximize engagement with perfectly sized professional content.",
@@ -1016,9 +1016,9 @@ const tiktokTargets: ResizeTarget[] = [
     targetHeight: 200,
     platform: "TikTok",
     title: {
-      en: "Resize Image for TikTok Profile (200x200) - Free Tool",
-      ko: "틱톡 프로필용 이미지 리사이즈 (200x200) - 무료 도구",
-      ja: "TikTokプロフィール用画像リサイズ (200x200) - 無料ツール",
+      en: "Resize Image for TikTok Profile - Free Online Tool",
+      ko: "틱톡 프로필용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "TikTokプロフィール用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your profile picture to the perfect TikTok size (200x200). Stand out on the world's fastest-growing social platform.",
@@ -1043,9 +1043,9 @@ const tiktokTargets: ResizeTarget[] = [
     targetHeight: 1920,
     platform: "TikTok",
     title: {
-      en: "Resize Image for TikTok Video Cover (1080x1920) - Free Tool",
-      ko: "틱톡 영상 커버용 이미지 리사이즈 (1080x1920) - 무료 도구",
-      ja: "TikTok動画カバー用画像リサイズ (1080x1920) - 無料ツール",
+      en: "Resize Image for TikTok Video Cover - Free Online Tool",
+      ko: "틱톡 영상 커버용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "TikTok動画カバー用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your thumbnail to the perfect TikTok video cover size (1080x1920). Create eye-catching covers that drive views.",
@@ -1074,9 +1074,9 @@ const whatsappTargets: ResizeTarget[] = [
     targetHeight: 500,
     platform: "WhatsApp",
     title: {
-      en: "Resize Image for WhatsApp Profile (500x500) - Free Tool",
-      ko: "왓츠앱 프로필용 이미지 리사이즈 (500x500) - 무료 도구",
-      ja: "WhatsAppプロフィール用画像リサイズ (500x500) - 無料ツール",
+      en: "Resize Image for WhatsApp Profile - Free Online Tool",
+      ko: "왓츠앱 프로필용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "WhatsAppプロフィール用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your profile picture to the optimal WhatsApp size (500x500). Look great in all your chat conversations.",
@@ -1101,9 +1101,9 @@ const whatsappTargets: ResizeTarget[] = [
     targetHeight: 1920,
     platform: "WhatsApp",
     title: {
-      en: "Resize Image for WhatsApp Status (1080x1920) - Free Tool",
-      ko: "왓츠앱 상태용 이미지 리사이즈 (1080x1920) - 무료 도구",
-      ja: "WhatsAppステータス用画像リサイズ (1080x1920) - 無料ツール",
+      en: "Free WhatsApp Status Image Resizer (1080×1920) - No Signup",
+      ko: "무료 왓츠앱 상태 이미지 리사이저 (1080×1920) - 가입 불필요",
+      ja: "WhatsAppステータス用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your images to the perfect WhatsApp Status size (1080x1920). Share stunning vertical stories with your contacts.",
@@ -1136,9 +1136,9 @@ const passportTargets: ResizeTarget[] = [
     targetHeight: 600,
     platform: "Passport",
     title: {
-      en: "Resize Image for US Passport Photo (2x2 inch / 600x600) - Free Tool",
-      ko: "미국 여권 사진용 이미지 리사이즈 (2x2인치 / 600x600) - 무료 도구",
-      ja: "米国パスポート写真用画像リサイズ (2x2インチ / 600x600) - 無料ツール",
+      en: "Resize Image for US Passport Photo (2x2 inch) - Free Online Tool",
+      ko: "미국 여권 사진용 이미지 리사이즈 (2x2인치) - 무료 온라인 도구",
+      ja: "米国パスポート写真用画像リサイズ (2x2インチ) - 無料オンラインツール",
     },
     description: {
       en: "Resize your photo to US passport specifications (2x2 inches / 600x600 pixels). Meet official requirements instantly.",
@@ -1167,9 +1167,9 @@ const passportTargets: ResizeTarget[] = [
     targetHeight: 531,
     platform: "Passport",
     title: {
-      en: "Resize Image for EU Passport Photo (35x45mm) - Free Tool",
-      ko: "EU 여권 사진용 이미지 리사이즈 (35x45mm) - 무료 도구",
-      ja: "EUパスポート写真用画像リサイズ (35x45mm) - 無料ツール",
+      en: "Resize Image for EU Passport Photo (35x45mm) - Free Online Tool",
+      ko: "EU 여권 사진용 이미지 리사이즈 (35x45mm) - 무료 온라인 도구",
+      ja: "EUパスポート写真用画像リサイズ (35x45mm) - 無料オンラインツール",
     },
     description: {
       en: "Resize your photo to EU passport specifications (35x45mm). Compatible with Schengen visa and European ID cards.",
@@ -1198,9 +1198,9 @@ const passportTargets: ResizeTarget[] = [
     targetHeight: 350,
     platform: "Passport",
     title: {
-      en: "Resize Image for India Passport Photo (350x350) - Free Tool",
-      ko: "인도 여권 사진용 이미지 리사이즈 (350x350) - 무료 도구",
-      ja: "インドパスポート写真用画像リサイズ (350x350) - 無料ツール",
+      en: "Resize Image for India Passport Photo - Free Online Tool",
+      ko: "인도 여권 사진용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "インドパスポート写真用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your photo to India passport specifications (350x350 pixels). Perfect for Indian passport and visa applications.",
@@ -1229,9 +1229,9 @@ const ecommerceTargets: ResizeTarget[] = [
     targetHeight: 1000,
     platform: "Amazon",
     title: {
-      en: "Resize Image for Amazon Product (1000x1000) - Free Tool",
-      ko: "아마존 상품용 이미지 리사이즈 (1000x1000) - 무료 도구",
-      ja: "Amazon商品用画像リサイズ (1000x1000) - 無料ツール",
+      en: "Resize Image for Amazon Product - Free Online Tool",
+      ko: "아마존 상품용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Amazon商品用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your product images to Amazon's recommended size (1000x1000). Enable zoom functionality and boost sales.",
@@ -1264,9 +1264,9 @@ const ecommerceTargets: ResizeTarget[] = [
     targetHeight: 2000,
     platform: "Etsy",
     title: {
-      en: "Resize Image for Etsy Listing (2000x2000) - Free Tool",
-      ko: "Etsy 리스팅용 이미지 리사이즈 (2000x2000) - 무료 도구",
-      ja: "Etsyリスティング用画像リサイズ (2000x2000) - 無料ツール",
+      en: "Resize Image for Etsy Listing - Free Online Tool",
+      ko: "Etsy 리스팅용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Etsyリスティング用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your product images to Etsy's optimal size (2000x2000). Showcase your handmade items in stunning detail.",
@@ -1291,9 +1291,9 @@ const ecommerceTargets: ResizeTarget[] = [
     targetHeight: 2048,
     platform: "Shopify",
     title: {
-      en: "Resize Image for Shopify Product (2048x2048) - Free Tool",
-      ko: "Shopify 상품용 이미지 리사이즈 (2048x2048) - 무료 도구",
-      ja: "Shopify商品用画像リサイズ (2048x2048) - 無料ツール",
+      en: "Resize Image for Shopify Product - Free Online Tool",
+      ko: "Shopify 상품용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "Shopify商品用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your product images to Shopify's maximum size (2048x2048). Perfect for high-resolution zoom and retina displays.",
@@ -1326,9 +1326,9 @@ const ecommerceTargets: ResizeTarget[] = [
     targetHeight: 1600,
     platform: "eBay",
     title: {
-      en: "Resize Image for eBay Listing (1600x1600) - Free Tool",
-      ko: "eBay 리스팅용 이미지 리사이즈 (1600x1600) - 무료 도구",
-      ja: "eBayリスティング用画像リサイズ (1600x1600) - 無料ツール",
+      en: "Resize Image for eBay Listing - Free Online Tool",
+      ko: "eBay 리스팅용 이미지 리사이즈 - 무료 온라인 도구",
+      ja: "eBayリスティング用画像リサイズ - 無料オンラインツール",
     },
     description: {
       en: "Resize your product images to eBay's optimal size (1600x1600). Enable SuperSize photos and attract more buyers.",

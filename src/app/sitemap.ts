@@ -1,4 +1,4 @@
-import { getToolSlugs } from "@/entities/tool";
+import { getToolSlugs, categoryConfig } from "@/entities/tool";
 import { CHEATSHEET_SLUGS, type CheatsheetSlug } from "@/entities/cheatsheet";
 import { getGuideSlugs } from "@/entities/guide";
 import { getAllConversionSlugs } from "@/entities/converter";
@@ -127,6 +127,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: Object.fromEntries(
             locales.map((l) => [l, `${baseUrl}/${l}/tools/${slug}`]),
+          ),
+        },
+      });
+    }
+  }
+
+  // Tool category hub pages for each locale
+  const categories = Object.keys(categoryConfig);
+  for (const category of categories) {
+    for (const locale of locales) {
+      entries.push({
+        url: `${baseUrl}/${locale}/tools/category/${category}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.85,
+        alternates: {
+          languages: Object.fromEntries(
+            locales.map((l) => [
+              l,
+              `${baseUrl}/${l}/tools/category/${category}`,
+            ]),
           ),
         },
       });

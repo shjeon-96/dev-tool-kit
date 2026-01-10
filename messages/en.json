@@ -341,7 +341,21 @@
     },
     "color-picker": {
       "title": "Color Picker",
-      "description": "Extract colors from images and generate color palettes."
+      "description": "Extract colors from images and generate color palettes.",
+      "faq": {
+        "q1": {
+          "q": "How do I convert RGB to HSL?",
+          "a": "Enter your RGB values in the input field or use the color picker. The tool instantly displays the equivalent HSL, HEX, and CMYK values. Click to copy any format."
+        },
+        "q2": {
+          "q": "Can I extract colors from an image?",
+          "a": "Yes! Upload any image and click anywhere to pick colors. The eyedropper tool extracts the exact color value at that pixel."
+        },
+        "q3": {
+          "q": "Is this color picker free to use?",
+          "a": "Completely free with no limits. All processing happens in your browser - we never upload your images to any server."
+        }
+      }
     },
     "url-parser": {
       "title": "URL Parser",
@@ -393,7 +407,21 @@
     },
     "gradient-generator": {
       "title": "Gradient Generator",
-      "description": "Visually create CSS gradients and generate code."
+      "description": "Visually create CSS gradients and generate code.",
+      "faq": {
+        "q1": {
+          "q": "How do I create a CSS gradient?",
+          "a": "Add color stops, adjust their positions, and set the gradient angle. The tool generates CSS code automatically that you can copy and paste into your stylesheet."
+        },
+        "q2": {
+          "q": "Can I create radial gradients?",
+          "a": "Yes! Switch between linear and radial gradient types. For radial gradients, you can also control the center position and shape."
+        },
+        "q3": {
+          "q": "Does this generate Tailwind CSS classes?",
+          "a": "Yes, the tool outputs both standard CSS and Tailwind CSS gradient classes. Toggle between formats in the output section."
+        }
+      }
     },
     "ua-parser": {
       "title": "User Agent Parser",

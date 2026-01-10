@@ -106,6 +106,13 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Palette,
     category: "media",
     relatedTools: ["gradient-generator", "box-shadow", "css-to-tailwind"],
+    features: [
+      "Extract colors from images",
+      "Convert HEX, RGB, HSL, CMYK",
+      "Generate color palettes",
+      "Copy with one click",
+    ],
+    faq: ["q1", "q2", "q3"],
   },
   "url-parser": {
     title: "URL Parser",
@@ -199,6 +206,13 @@ export const tools: Record<ToolSlug, Tool> = {
     icon: Blend,
     category: "media",
     relatedTools: ["color-picker", "box-shadow", "css-to-tailwind"],
+    features: [
+      "Linear & Radial gradients",
+      "Multiple color stops",
+      "Angle control",
+      "CSS & Tailwind output",
+    ],
+    faq: ["q1", "q2", "q3"],
   },
   "ua-parser": {
     title: "User Agent Parser",

@@ -8,6 +8,7 @@ import {
 } from "@/entities/tool";
 import { FavoriteRecentSection, BentoGrid } from "@/widgets/tools-list";
 import { SITE_CONFIG } from "@/shared/config";
+import { routing } from "@/i18n/routing";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -37,11 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `/${locale}/tools`,
-      languages: {
-        en: "/en/tools",
-        ko: "/ko/tools",
-        ja: "/ja/tools",
-      },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, `/${l}/tools`]),
+      ),
     },
   };
 }
