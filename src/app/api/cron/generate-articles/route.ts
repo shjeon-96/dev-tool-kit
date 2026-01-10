@@ -23,11 +23,13 @@ const DAILY_BUDGET_USD = 2.0; // ~$60/month
 // Max articles per run
 const MAX_ARTICLES_PER_RUN = 5;
 
-// Supabase service role client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+// Lazy initialization to prevent build-time errors
+function getSupabaseClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 export const runtime = "nodejs";
 export const maxDuration = 300; // 5 minutes for article generation
@@ -72,6 +74,8 @@ export async function GET(request: Request) {
         stats: { remainingBudget, costPerArticle: estimate.estimatedCost },
       });
     }
+
+    const supabase = getSupabaseClient();
 
     // Get unprocessed trends with highest priority
     const { data: trends, error: trendsError } = await supabase
@@ -224,6 +228,7 @@ export async function POST(request: Request) {
  * Get today's total spending on article generation
  */
 async function getTodaySpending(): Promise<number> {
+  const supabase = getSupabaseClient();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

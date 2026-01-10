@@ -16,11 +16,13 @@ const CRON_SECRET = process.env.CRON_SECRET;
 // Max articles to publish per run
 const MAX_PUBLISH_PER_RUN = 10;
 
-// Supabase service role client
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+// Lazy initialization to prevent build-time errors
+function getSupabaseClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -39,6 +41,8 @@ export async function GET(request: Request) {
   // Starting article publishing
 
   try {
+    const supabase = getSupabaseClient();
+
     // Get articles ready to publish from queue
     const { data: queueItems, error: queueError } = await supabase
       .from("publish_queue")

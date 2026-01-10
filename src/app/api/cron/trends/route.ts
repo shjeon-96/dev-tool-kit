@@ -13,11 +13,13 @@ import { collectAllTrends, type ProcessedTrend } from "@/lib/trend-detector";
 // Cron authentication secret
 const CRON_SECRET = process.env.CRON_SECRET;
 
-// Supabase service role client (for server-side operations)
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-);
+// Lazy initialization to prevent build-time errors
+function getSupabaseClient() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+  );
+}
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -98,6 +100,7 @@ export async function POST(request: Request) {
 async function storeTrends(trends: ProcessedTrend[]): Promise<number> {
   if (trends.length === 0) return 0;
 
+  const supabase = getSupabaseClient();
   let storedCount = 0;
 
   for (const trend of trends) {
