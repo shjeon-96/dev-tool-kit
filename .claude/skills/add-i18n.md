@@ -6,7 +6,7 @@
 
 - "번역 추가해줘", "add translation"
 - "i18n 업데이트", "다국어 지원 추가"
-- 특정 도구/페이지의 번역 요청
+- 특정 페이지/기능의 번역 요청
 
 ## Supported Languages
 
@@ -14,26 +14,28 @@
 | ---- | ----------------- | ------------------ |
 | `en` | English (default) | `messages/en.json` |
 | `ko` | 한국어            | `messages/ko.json` |
-| `ja` | 日本語            | `messages/ja.json` |
-| `es` | Español           | `messages/es.json` |
-| `pt` | Português         | `messages/pt.json` |
-| `de` | Deutsch           | `messages/de.json` |
+
+**참고:** 프로젝트는 2개 언어만 지원합니다 (`src/i18n/routing.ts`)
 
 ## Translation Structure
 
-### Tool Translations
+### Blog/Article Translations
 
 ```json
 {
-  "tools": {
-    "tool-slug": {
-      "title": "Tool Title",
-      "description": "Tool description",
-      "inputPlaceholder": "Enter input...",
-      "outputPlaceholder": "Output will appear here...",
-      "action": "Process",
-      "copySuccess": "Copied!",
-      "error": "An error occurred"
+  "blog": {
+    "title": "Blog",
+    "description": "Latest articles and insights",
+    "readMore": "Read more",
+    "publishedAt": "Published on {date}",
+    "readingTime": "{minutes} min read",
+    "category": {
+      "tech": "Technology",
+      "business": "Business",
+      "lifestyle": "Lifestyle",
+      "entertainment": "Entertainment",
+      "trending": "Trending",
+      "news": "News"
     }
   }
 }
@@ -44,24 +46,30 @@
 ```json
 {
   "seo": {
-    "tool-slug": {
-      "title": "Tool Title - Web Toolkit",
-      "description": "SEO-optimized description (150-160 chars)",
-      "keywords": "keyword1, keyword2, keyword3"
+    "home": {
+      "title": "Web Toolkit - AI-Powered Trend Blog",
+      "description": "Fresh insights on tech, business, and lifestyle trends powered by AI"
+    },
+    "blog": {
+      "title": "Blog - Web Toolkit",
+      "description": "Explore our latest articles"
     }
   }
 }
 ```
 
-### pSEO Type Translations
+### Common UI Translations
 
 ```json
 {
-  "hashTypes": {
-    "md5": {
-      "title": "MD5 Hash Generator",
-      "description": "Generate MD5 hash values"
-    }
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "viewAll": "View all"
   }
 }
 ```
@@ -71,59 +79,34 @@
 ### Step 1: Identify Missing Translations
 
 ```bash
-# 특정 키가 모든 언어에 있는지 확인
-grep -l "tool-slug" messages/*.json
+# 특정 키가 두 언어에 있는지 확인
+grep -l "blog.title" messages/*.json
 ```
 
-### Step 2: Add to All Language Files
+### Step 2: Add to Both Language Files
 
-반드시 6개 파일 모두에 추가:
+반드시 2개 파일 모두에 추가:
 
 ```bash
-# 파일 목록
-messages/en.json  # 먼저 작성
-messages/ko.json
-messages/ja.json
-messages/es.json
-messages/pt.json
-messages/de.json
+messages/en.json  # 먼저 작성 (기본 언어)
+messages/ko.json  # 한국어 번역
 ```
 
 ### Step 3: Translation Guidelines
 
-#### English (en.json) - Source Language
+#### English (en.json) - Default Language
 
 - Clear, concise, professional tone
 - Use sentence case for titles
 - Include keywords for SEO
+- Example: "Fresh insights on technology trends"
 
 #### Korean (ko.json)
 
 - 존댓말 사용 (해요체)
-- 기술 용어는 영어 그대로 유지 (JSON, API 등)
-- 예: "JSON 데이터를 포맷팅합니다"
-
-#### Japanese (ja.json)
-
-- です/ます調 사용
-- 기술 용어는 카타카나 또는 영어
-- 예: "JSONデータをフォーマットします"
-
-#### Spanish (es.json)
-
-- Formal "usted" form
-- 예: "Formatee sus datos JSON"
-
-#### Portuguese (pt.json)
-
-- Brazilian Portuguese preferred
-- Formal tone
-- 예: "Formate seus dados JSON"
-
-#### German (de.json)
-
-- Formal "Sie" form
-- 예: "Formatieren Sie Ihre JSON-Daten"
+- 기술 용어는 영어 그대로 유지 (AI, API 등)
+- 자연스러운 한국어 표현 사용
+- 예: "최신 기술 트렌드에 대한 인사이트"
 
 ## Usage in Code
 
@@ -133,9 +116,9 @@ messages/de.json
 "use client";
 import { useTranslations } from "next-intl";
 
-export function Component() {
-  const t = useTranslations("tools.json-formatter");
-  return <h1>{t("title")}</h1>;
+export function ArticleCard() {
+  const t = useTranslations("blog");
+  return <span>{t("readMore")}</span>;
 }
 ```
 
@@ -145,54 +128,76 @@ export function Component() {
 import { getTranslations } from "next-intl/server";
 
 export default async function Page() {
-  const t = await getTranslations("tools.json-formatter");
+  const t = await getTranslations("blog");
   return <h1>{t("title")}</h1>;
 }
 ```
 
 ### With Parameters
 
+```json
+{
+  "publishedAt": "Published on {date}"
+}
+```
+
 ```typescript
-// JSON: "greeting": "Hello, {name}!"
-t("greeting", { name: "World" });
+t("publishedAt", { date: "Jan 10, 2025" });
 ```
 
 ### Pluralization
 
 ```json
 {
-  "items": "{count, plural, =0 {No items} one {# item} other {# items}}"
+  "articles": "{count, plural, =0 {No articles} one {# article} other {# articles}}"
 }
 ```
 
 ```typescript
-t("items", { count: 5 }); // "5 items"
+t("articles", { count: 5 }); // "5 articles"
 ```
 
-## Batch Translation Template
+## Trend Blog Specific Translations
 
-새 도구 추가 시 필요한 모든 번역:
+### Category Labels
 
 ```json
 {
-  "tools": {
-    "new-tool": {
-      "title": "",
-      "description": "",
-      "inputPlaceholder": "",
-      "outputPlaceholder": "",
-      "action": "",
-      "copySuccess": "",
-      "clear": "",
-      "error": ""
-    }
-  },
-  "seo": {
-    "new-tool": {
-      "title": "",
-      "description": "",
-      "keywords": ""
-    }
+  "category": {
+    "tech": "Technology",
+    "business": "Business",
+    "lifestyle": "Lifestyle",
+    "entertainment": "Entertainment",
+    "trending": "Trending",
+    "news": "News"
+  }
+}
+```
+
+### Article Metadata
+
+```json
+{
+  "article": {
+    "readingTime": "{minutes} min read",
+    "author": "By {name}",
+    "shareArticle": "Share this article",
+    "relatedArticles": "Related Articles",
+    "tableOfContents": "Table of Contents"
+  }
+}
+```
+
+### Subscription CTA
+
+```json
+{
+  "subscription": {
+    "title": "Stay Updated",
+    "description": "Get the latest trends delivered to your inbox",
+    "placeholder": "Enter your email",
+    "button": "Subscribe",
+    "success": "Thanks for subscribing!"
   }
 }
 ```
@@ -205,24 +210,56 @@ npm run build
 
 # 개발 서버에서 직접 확인
 npm run dev
-# 각 언어로 페이지 접근: /en/..., /ko/..., /ja/...
+# 각 언어로 페이지 접근: /en/..., /ko/...
 ```
 
 ## Common Pitfalls
 
-1. **일부 언어만 추가** - 런타임에 키가 그대로 표시됨
+1. **한쪽 언어만 추가** - 런타임에 키가 그대로 표시됨
 2. **중첩 구조 불일치** - 파싱 에러
 3. **JSON 문법 오류** - 쉼표 누락, 따옴표 오류
 4. **SEO 키 누락** - 메타데이터에 키가 표시됨
 
+## Batch Translation Template
+
+새 기능 추가 시 필요한 번역 템플릿:
+
+```json
+{
+  "featureName": {
+    "title": "",
+    "description": "",
+    "action": "",
+    "success": "",
+    "error": ""
+  },
+  "seo": {
+    "featureName": {
+      "title": "",
+      "description": ""
+    }
+  }
+}
+```
+
 ## Quick Add Script
 
-모든 언어 파일에 동일한 구조 추가할 때:
+두 언어 파일에 동일한 구조 추가:
 
 ```bash
 # jq 사용 (설치: brew install jq)
-for lang in en ko ja es pt de; do
-  jq '.tools["new-tool"] = {"title": "TODO", "description": "TODO"}' \
+for lang in en ko; do
+  jq '.newFeature = {"title": "TODO", "description": "TODO"}' \
     messages/$lang.json > tmp.json && mv tmp.json messages/$lang.json
 done
+```
+
+## Translation Comparison
+
+두 언어 파일 간 키 차이 확인:
+
+```bash
+# 영어에만 있는 키
+diff <(cat messages/en.json | jq -r 'paths | join(".")' | sort) \
+     <(cat messages/ko.json | jq -r 'paths | join(".")' | sort)
 ```

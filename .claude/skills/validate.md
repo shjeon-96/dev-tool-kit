@@ -1,34 +1,39 @@
-# Validate Tool Skill
+# Validate Skill
 
-도구 레지스트리와 프로젝트 일관성을 검증하는 워크플로우입니다.
+프로젝트 일관성과 코드 품질을 검증하는 워크플로우입니다.
 
 ## Trigger
 
 - "검증해줘", "validate"
-- "도구 체크해줘", "check tools"
-- 새 도구 추가 후 확인 요청
+- "빌드 체크", "build check"
+- "린트", "lint"
+
+## Quick Validation
+
+```bash
+# 전체 검증 (타입 + 린트 + 빌드)
+npx tsc --noEmit && npm run lint && npm run build
+```
 
 ## Validation Commands
 
-### Tool Registry Validation
-
-```bash
-npm run validate:tools
-```
-
-이 명령어는 다음을 검증합니다:
-
-- ToolSlug 타입과 registry.ts 일치
-- component-map.ts에 모든 도구 등록
-- 필수 필드 존재 (title, description, icon, category)
-
-### Type Check
+### 1. Type Check
 
 ```bash
 npx tsc --noEmit
 ```
 
-### Build Validation
+모든 TypeScript 타입 오류 확인
+
+### 2. Lint Check
+
+```bash
+npm run lint
+```
+
+ESLint 규칙 위반 검사
+
+### 3. Build Validation
 
 ```bash
 npm run build
@@ -37,130 +42,165 @@ npm run build
 빌드 시 검증되는 항목:
 
 - 모든 import 경로 유효성
-- 정적 페이지 생성 (pSEO)
+- 정적 페이지 생성
 - 번역 키 존재 여부
+- 환경 변수 참조
 
-### Lint Check
+### 4. Test Validation
 
 ```bash
-npm run lint
+npm run test --run      # 단위 테스트
+npm run test:e2e        # E2E 테스트
 ```
 
-## Manual Validation Checklist
+## Feature/Entity 추가 체크리스트
 
-### New Tool Checklist
+### Feature 추가 시
 
 ```markdown
-- [ ] `src/shared/types/tool.ts` - ToolSlug 추가
-- [ ] `src/entities/tool/model/registry.ts` - 메타데이터 등록
-- [ ] `src/features/[slug]/index.ts` - 배럴 export 존재
-- [ ] `src/entities/tool/model/component-map.ts` - Dynamic import 등록
-- [ ] `messages/en.json` - tools.[slug] 번역
-- [ ] `messages/ko.json` - tools.[slug] 번역
-- [ ] `messages/ja.json` - tools.[slug] 번역
-- [ ] `messages/es.json` - tools.[slug] 번역
-- [ ] `messages/pt.json` - tools.[slug] 번역
-- [ ] `messages/de.json` - tools.[slug] 번역
-- [ ] `messages/*/seo.[slug]` - SEO 번역 (6개 언어)
-- [ ] `src/entities/tool/model/seo-content.ts` - SEO 콘텐츠
+- [ ] `src/features/[feature]/` 디렉토리 생성
+  - `model/use-*.ts` - Hook
+  - `lib/*.ts` - 순수 함수
+  - `lib/*.test.ts` - 단위 테스트
+  - `ui/*.tsx` - UI 컴포넌트
+  - `index.ts` - 배럴 export
+- [ ] `messages/en.json` - 영어 번역
+- [ ] `messages/ko.json` - 한국어 번역
+- [ ] 린트 통과
+- [ ] 테스트 통과
 ```
 
-### pSEO Page Checklist
+### Entity 추가 시
 
 ```markdown
-- [ ] Entity 타입 정의
-- [ ] Registry 데이터 추가
-- [ ] generateStaticParams()에서 routing.locales 사용
-- [ ] alternates.languages에 6개 언어 포함
-- [ ] Locale fallback 처리 (es, pt, de → en)
-- [ ] sitemap.ts 업데이트
-- [ ] 번역 추가 (6개 언어)
+- [ ] `src/entities/[entity]/model/types.ts` - 타입 정의
+- [ ] `src/entities/[entity]/model/queries.ts` - Supabase 쿼리
+- [ ] `src/entities/[entity]/index.ts` - 배럴 export
+- [ ] Supabase 테이블 마이그레이션
 ```
 
-## Validation Scripts
+### API Route 추가 시
 
-### Check Registry Consistency
-
-```typescript
-// scripts/validate-registry.ts
-import { tools } from "../src/entities/tool/model/registry";
-import { toolImportConfigs } from "../src/entities/tool/model/component-map";
-
-const registrySlugs = Object.keys(tools);
-const componentMapSlugs = Object.keys(toolImportConfigs);
-
-// registry에는 있지만 component-map에 없는 것
-const missingInComponentMap = registrySlugs.filter(
-  (slug) => !componentMapSlugs.includes(slug),
-);
-
-if (missingInComponentMap.length > 0) {
-  console.error("Missing in component-map:", missingInComponentMap);
-  process.exit(1);
-}
-
-console.log("✅ All tools validated");
+```markdown
+- [ ] `src/app/api/[route]/route.ts` - API 핸들러
+- [ ] 인증/권한 검사 구현
+- [ ] 에러 핸들링 구현
+- [ ] Zod 스키마로 입력 검증
 ```
 
-### Check Translations
+### Cron Job 추가 시
+
+```markdown
+- [ ] `src/app/api/cron/[job]/route.ts` - Cron 핸들러
+- [ ] `vercel.json` - Cron 스케줄 등록
+- [ ] CRON_SECRET 인증 검사
+- [ ] 에러 핸들링 및 로깅
+```
+
+## Database Validation
+
+### Supabase 마이그레이션
+
+```bash
+# 마이그레이션 파일 위치
+ls supabase/migrations/
+
+# Supabase CLI로 적용 (로컬)
+npx supabase db push
+
+# 타입 생성 (선택)
+npx supabase gen types typescript --local > src/shared/types/database.ts
+```
+
+### 쿼리 함수 검증
 
 ```typescript
-// scripts/validate-translations.ts
-import fs from "fs";
+// src/entities/trend/model/queries.ts
+import {
+  getPublishedArticles,
+  getArticleBySlug,
+} from "@/entities/trend/model/queries";
 
-const languages = ["en", "ko", "ja", "es", "pt", "de"];
-const requiredKeys = ["site.title", "site.description"];
+// 테스트
+const articles = await getPublishedArticles();
+const article = await getArticleBySlug("test-slug");
+```
 
-languages.forEach((lang) => {
-  const content = JSON.parse(fs.readFileSync(`messages/${lang}.json`, "utf-8"));
+## i18n Validation
 
-  requiredKeys.forEach((key) => {
-    const value = key.split(".").reduce((obj, k) => obj?.[k], content);
-    if (!value) {
-      console.error(`Missing ${key} in ${lang}.json`);
-    }
-  });
-});
+### 번역 키 확인
+
+```bash
+# 영어 번역 키 목록
+cat messages/en.json | jq 'keys'
+
+# 한국어 번역 키 목록
+cat messages/ko.json | jq 'keys'
+
+# 키 비교 (누락 확인)
+diff <(cat messages/en.json | jq 'keys' | sort) \
+     <(cat messages/ko.json | jq 'keys' | sort)
+```
+
+### 사용하지 않는 번역 키 찾기
+
+```bash
+# 특정 키가 코드에서 사용되는지 확인
+grep -r "t(\"blog.title\")" src --include="*.ts*"
 ```
 
 ## Common Validation Issues
 
-### 1. ToolSlug Type Mismatch
+### 1. Next.js 16 Async Params
 
 ```
-Error: Type '"new-tool"' is not assignable to type 'ToolSlug'
+Error: params should be awaited before using its properties
 ```
 
-**Solution:** `src/shared/types/tool.ts`에 slug 추가
+**Solution:**
 
-### 2. Missing Export
-
-```
-Error: Module '"@/features/new-tool"' has no exported member 'NewTool'
-```
-
-**Solution:** `src/features/new-tool/index.ts`에 export 추가
-
-### 3. Dynamic Import Failure
-
-```
-Error: Cannot find module '@/features/new-tool'
+```typescript
+// ✅ 올바른 방식
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+}
 ```
 
-**Solution:** 디렉토리 이름과 import 경로 일치 확인
+### 2. Missing Translation Key
 
-### 4. Translation Key Missing
+페이지에 `blog.title` 같은 키가 그대로 표시됨
 
-페이지에 `tools.new-tool.title` 같은 키가 그대로 표시됨
-**Solution:** 6개 언어 파일 모두에 번역 추가
+**Solution:** `messages/en.json`, `messages/ko.json`에 번역 추가
 
-### 5. Build-time Static Generation Error
+### 3. Supabase Type Mismatch
 
 ```
-Error: Dynamic server usage: headers
+Error: Type 'string' is not assignable to type 'ArticleCategory'
 ```
 
-**Solution:** 클라이언트 전용 코드는 "use client" 디렉티브 추가
+**Solution:** `src/entities/trend/model/types.ts`에서 타입 확인
+
+### 4. Import Path Error
+
+```
+Error: Cannot find module '@/features/...'
+```
+
+**Solution:** 경로 확인, `index.ts` 배럴 export 확인
+
+## Pre-commit Validation
+
+`.husky/pre-commit`에서 자동 실행:
+
+```bash
+#!/bin/sh
+npx tsc --noEmit
+npm run lint
+```
 
 ## Full Validation Pipeline
 
@@ -177,29 +217,20 @@ npm run lint
 echo "🧪 Running tests..."
 npm run test --run
 
-echo "🔧 Validating tools..."
-npm run validate:tools
-
 echo "🏗️ Building..."
 npm run build
 
 echo "✅ All validations passed!"
 ```
 
-## Pre-commit Hook
+## CI/CD Validation
 
-`.husky/pre-commit`에 추가하면 커밋 전 자동 검증:
+GitHub Actions에서 자동 검증:
 
-```bash
-#!/bin/sh
-npm run validate:tools
-npx tsc --noEmit
-npm run lint
-```
-
-## Quick Health Check
-
-```bash
-# 빠른 상태 확인
-npm run validate:tools && npx tsc --noEmit && npm run lint
+```yaml
+# .github/workflows/ci.yml
+- run: npx tsc --noEmit
+- run: npm run lint
+- run: npm run test --run
+- run: npm run build
 ```

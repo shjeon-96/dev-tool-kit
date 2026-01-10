@@ -3,17 +3,17 @@
 ## General
 
 - **Language**: TypeScript (strict mode)
-- **Style**: ESLint + Prettier
+- **Style**: ESLint + Prettier (husky + lint-staged)
 - **Components**: 함수형 컴포넌트만 사용 (클래스 컴포넌트 금지)
 - **Types**: 명시적 타입 선언 권장, `any` 타입 금지 (`unknown` 사용)
 
 ## Naming Conventions
 
-- **Files**: kebab-case (예: `use-json-formatter.ts`)
-- **Components**: PascalCase (예: `JsonFormatter.tsx`)
-- **Hooks**: use 접두사 (예: `useJsonFormatter`)
-- **Constants**: UPPER_SNAKE_CASE (예: `MAX_FILE_SIZE`)
-- **Types/Interfaces**: PascalCase (예: `ToolSlug`)
+- **Files**: kebab-case (예: `trend-detector.ts`)
+- **Components**: PascalCase (예: `ArticleCard.tsx`)
+- **Hooks**: use 접두사 (예: `useArticles`)
+- **Constants**: UPPER_SNAKE_CASE (예: `MAX_ARTICLES_PER_PAGE`)
+- **Types/Interfaces**: PascalCase (예: `Article`, `ArticleCategory`)
 
 ## Feature Module Structure (FSD)
 
@@ -23,6 +23,16 @@ src/features/[feature-name]/
 ├── lib/*.ts            # 순수 함수 (테스트 대상)
 ├── ui/*.tsx            # UI 컴포넌트
 └── index.ts            # 배럴 export (named export 필수)
+```
+
+## Entity Module Structure
+
+```
+src/entities/[entity-name]/
+├── model/
+│   ├── types.ts        # 타입 정의
+│   └── queries.ts      # Supabase 쿼리 함수
+└── index.ts            # 배럴 export
 ```
 
 ## Next.js 16 필수 패턴 (Async Params)
@@ -35,7 +45,7 @@ export default async function Page({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params;
-  return <Tool slug={slug} />;
+  return <Article slug={slug} />;
 }
 
 // ❌ 이전 방식 (동작 안함)
@@ -50,11 +60,30 @@ export default function Page({ params }: { params: { slug: string } }) {
 // Client Component
 "use client";
 import { useTranslations } from "next-intl";
-const t = useTranslations("tools");
+const t = useTranslations("blog");
 
 // Server Component
 import { getTranslations } from "next-intl/server";
-const t = await getTranslations("tools");
+const t = await getTranslations("blog");
+```
+
+**지원 언어**: en (default), ko (`src/i18n/routing.ts`)
+
+## Article 관련 타입 사용
+
+```typescript
+import {
+  Article,
+  ArticleCategory,
+  ArticleStatus,
+  Trend,
+} from "@/entities/trend/model/types";
+
+import {
+  getPublishedArticles,
+  getTrendingArticles,
+  getArticleBySlug,
+} from "@/entities/trend/model/queries";
 ```
 
 ## UI Components
