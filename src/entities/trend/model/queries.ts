@@ -5,12 +5,18 @@ import { createClient } from "@supabase/supabase-js";
 import type { Article, ArticleCategory } from "./types";
 
 // Create Supabase client for server-side queries
+// Returns null if env vars are not available (e.g., during CI build)
 function getSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey =
     process.env.SUPABASE_SERVICE_ROLE_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-  );
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    return null;
+  }
+
+  return createClient(supabaseUrl, supabaseKey);
 }
 
 /**
@@ -25,6 +31,10 @@ export async function getPublishedArticles(
 ): Promise<{ articles: Article[]; total: number }> {
   const { limit = 10, offset = 0 } = options;
   const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return { articles: [], total: 0 };
+  }
 
   const { data, error, count } = await supabase
     .from("articles")
@@ -52,6 +62,10 @@ export async function getTrendingArticles(
   limit: number = 5,
 ): Promise<Article[]> {
   const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return [];
+  }
 
   // First try to get articles with analytics
   const { data: analyticsData, error: analyticsError } = await supabase
@@ -110,6 +124,10 @@ export async function getTrendingArticles(
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
   const supabase = getSupabaseClient();
 
+  if (!supabase) {
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("articles")
     .select("*")
@@ -137,6 +155,10 @@ export async function getArticlesByCategory(
 ): Promise<{ articles: Article[]; total: number }> {
   const { limit = 10, offset = 0 } = options;
   const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return { articles: [], total: 0 };
+  }
 
   const { data, error, count } = await supabase
     .from("articles")
@@ -170,6 +192,10 @@ export async function getRelatedArticles(
 ): Promise<Article[]> {
   const { limit = 4, tags = [], category } = options;
   const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return [];
+  }
 
   let query = supabase
     .from("articles")
@@ -211,6 +237,10 @@ export async function searchArticles(
   const { limit = 10, offset = 0, locale = "en" } = options;
   const supabase = getSupabaseClient();
 
+  if (!supabase) {
+    return { articles: [], total: 0 };
+  }
+
   const titleColumn = locale === "ko" ? "title_ko" : "title_en";
   const contentColumn = locale === "ko" ? "content_ko" : "content_en";
 
@@ -241,6 +271,10 @@ export async function getAllArticleSlugs(): Promise<
 > {
   const supabase = getSupabaseClient();
 
+  if (!supabase) {
+    return [];
+  }
+
   const { data, error } = await supabase
     .from("articles")
     .select("slug, category, updated_at")
@@ -262,6 +296,10 @@ export async function getCategoryStats(): Promise<
   { category: string; count: number }[]
 > {
   const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return [];
+  }
 
   const { data, error } = await supabase
     .from("articles")
@@ -294,6 +332,10 @@ export async function getCategoryStats(): Promise<
  */
 export async function incrementArticleView(articleId: string): Promise<void> {
   const supabase = getSupabaseClient();
+
+  if (!supabase) {
+    return;
+  }
 
   const { error } = await supabase.rpc("increment_article_views", {
     p_article_id: articleId,
