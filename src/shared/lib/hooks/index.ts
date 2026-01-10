@@ -28,3 +28,9 @@ export { useUrlState } from "./use-url-state";
 export { useOnlineStatus } from "./use-online-status";
 export { useAdBlockDetection } from "./use-adblock-detection";
 export { useAdSense } from "./use-ad-sense";
+
+// Animation
+export {
+  useScrollAnimation,
+  useStaggeredAnimation,
+} from "./use-scroll-animation";

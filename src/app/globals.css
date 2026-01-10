@@ -217,7 +217,10 @@
    ============================================== */
 @layer base {
   /* Headline styles */
-  h1, h2, h3, .font-serif {
+  h1,
+  h2,
+  h3,
+  .font-serif {
     font-family: var(--font-playfair), ui-serif, Georgia, serif;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -237,7 +240,10 @@
   }
 
   /* Body text */
-  body, p, span, div {
+  body,
+  p,
+  span,
+  div {
     font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
   }
 
@@ -248,7 +254,8 @@
     letter-spacing: 0.01em;
   }
 
-  .prose h2, .prose h3 {
+  .prose h2,
+  .prose h3 {
     margin-top: 2.5em;
     margin-bottom: 0.75em;
   }
@@ -408,23 +415,59 @@
     @apply inline-flex items-center gap-1.5 text-xs text-muted-foreground;
   }
 
-  /* Article card hover effect */
+  /* Article card hover effect - Enhanced */
   .article-card {
-    @apply relative overflow-hidden rounded-lg border bg-card transition-all duration-500;
+    @apply relative overflow-hidden rounded-xl border bg-card;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .article-card::before {
     content: "";
-    @apply absolute inset-0 bg-gradient-to-t from-foreground/5 to-transparent opacity-0 transition-opacity duration-500;
+    @apply absolute inset-0 opacity-0;
+    background: linear-gradient(
+      135deg,
+      oklch(0.65 0.2 25 / 6%) 0%,
+      oklch(0.55 0.15 200 / 4%) 100%
+    );
+    transition: opacity 0.4s ease;
+  }
+
+  .dark .article-card::before {
+    background: linear-gradient(
+      135deg,
+      oklch(0.7 0.15 180 / 10%) 0%,
+      oklch(0.6 0.2 25 / 6%) 100%
+    );
+  }
+
+  .article-card::after {
+    content: "";
+    @apply absolute bottom-0 left-0 right-0 h-1 bg-accent;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .article-card:hover::before {
     @apply opacity-100;
   }
 
+  .article-card:hover::after {
+    transform: scaleX(1);
+  }
+
   .article-card:hover {
-    @apply border-accent/50 shadow-lg;
-    transform: translateY(-2px);
+    @apply border-accent/40;
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 25px -5px oklch(0 0 0 / 8%),
+      0 8px 10px -6px oklch(0 0 0 / 6%);
+  }
+
+  .dark .article-card:hover {
+    box-shadow:
+      0 20px 25px -5px oklch(0 0 0 / 30%),
+      0 8px 10px -6px oklch(0 0 0 / 20%);
   }
 
   /* Featured article gradient overlay */
@@ -467,7 +510,7 @@
 }
 
 /* ==============================================
-   Hero Section Styles
+   Hero Section Styles - Enhanced
    ============================================== */
 @layer components {
   .hero-editorial {
@@ -478,14 +521,48 @@
     content: "";
     @apply absolute inset-0 pointer-events-none;
     background:
-      radial-gradient(ellipse 80% 60% at 0% 0%, oklch(0.65 0.2 25 / 8%), transparent 50%),
-      radial-gradient(ellipse 60% 50% at 100% 100%, oklch(0.55 0.15 200 / 6%), transparent 50%);
+      radial-gradient(
+        ellipse 100% 80% at 0% 0%,
+        oklch(0.65 0.2 25 / 12%),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 80% 60% at 100% 20%,
+        oklch(0.55 0.15 200 / 8%),
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 50% 100%,
+        oklch(0.7 0.12 145 / 6%),
+        transparent 50%
+      );
   }
 
   .dark .hero-editorial::before {
     background:
-      radial-gradient(ellipse 80% 60% at 0% 0%, oklch(0.7 0.15 180 / 12%), transparent 50%),
-      radial-gradient(ellipse 60% 50% at 100% 100%, oklch(0.6 0.2 25 / 8%), transparent 50%);
+      radial-gradient(
+        ellipse 100% 80% at 0% 0%,
+        oklch(0.7 0.15 180 / 15%),
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 80% 60% at 100% 20%,
+        oklch(0.6 0.2 25 / 10%),
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 50% 100%,
+        oklch(0.65 0.15 240 / 8%),
+        transparent 50%
+      );
+  }
+
+  /* Decorative line element for hero */
+  .hero-editorial::after {
+    content: "";
+    @apply absolute top-0 left-1/2 -translate-x-1/2 w-px h-16;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    opacity: 0.3;
   }
 
   /* Animated underline for hero title */
@@ -495,12 +572,29 @@
 
   .hero-title::after {
     content: "";
-    @apply absolute bottom-0 left-0 w-0 h-1 bg-accent;
-    @apply transition-all duration-700 ease-out;
+    @apply absolute -bottom-1 left-0 w-0 h-1.5 bg-accent rounded-full;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .group:hover .hero-title::after {
     @apply w-full;
+  }
+
+  /* Hero featured card enhanced */
+  .hero-featured {
+    @apply relative;
+  }
+
+  .hero-featured::before {
+    content: "";
+    @apply absolute -inset-px rounded-2xl opacity-0;
+    background: linear-gradient(135deg, var(--accent), oklch(0.55 0.15 200));
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+
+  .group:hover .hero-featured::before {
+    opacity: 0.15;
   }
 }
 
@@ -585,16 +679,30 @@
     animation: fadeInUp 0.6s ease-out forwards;
   }
 
-  .stagger-1 { animation-delay: 0.1s; }
-  .stagger-2 { animation-delay: 0.2s; }
-  .stagger-3 { animation-delay: 0.3s; }
-  .stagger-4 { animation-delay: 0.4s; }
-  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-1 {
+    animation-delay: 0.1s;
+  }
+  .stagger-2 {
+    animation-delay: 0.2s;
+  }
+  .stagger-3 {
+    animation-delay: 0.3s;
+  }
+  .stagger-4 {
+    animation-delay: 0.4s;
+  }
+  .stagger-5 {
+    animation-delay: 0.5s;
+  }
 
   /* Shimmer effect */
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   .shimmer {
@@ -615,8 +723,13 @@
 
   /* Subtle pulse for live/trending indicators */
   @keyframes pulse-subtle {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.6; }
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
   }
 
   .pulse-subtle {
@@ -625,8 +738,12 @@
 
   /* Line draw animation */
   @keyframes drawLine {
-    from { stroke-dashoffset: 1000; }
-    to { stroke-dashoffset: 0; }
+    from {
+      stroke-dashoffset: 1000;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 
   .draw-line {
@@ -662,19 +779,51 @@
   /* Gradient mesh background */
   .mesh-gradient {
     background:
-      radial-gradient(at 40% 20%, oklch(0.65 0.2 25 / 15%) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, oklch(0.55 0.15 200 / 10%) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, oklch(0.7 0.15 180 / 10%) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, oklch(0.7 0.12 145 / 8%) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, oklch(0.75 0.18 85 / 10%) 0px, transparent 50%);
+      radial-gradient(
+        at 40% 20%,
+        oklch(0.65 0.2 25 / 15%) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 80% 0%,
+        oklch(0.55 0.15 200 / 10%) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 0% 50%,
+        oklch(0.7 0.15 180 / 10%) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 80% 50%,
+        oklch(0.7 0.12 145 / 8%) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 0% 100%,
+        oklch(0.75 0.18 85 / 10%) 0px,
+        transparent 50%
+      );
   }
 
   .dark .mesh-gradient {
     background:
-      radial-gradient(at 40% 20%, oklch(0.7 0.15 180 / 20%) 0px, transparent 50%),
+      radial-gradient(
+        at 40% 20%,
+        oklch(0.7 0.15 180 / 20%) 0px,
+        transparent 50%
+      ),
       radial-gradient(at 80% 0%, oklch(0.6 0.2 25 / 12%) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, oklch(0.65 0.15 240 / 12%) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, oklch(0.7 0.12 145 / 10%) 0px, transparent 50%),
+      radial-gradient(
+        at 0% 50%,
+        oklch(0.65 0.15 240 / 12%) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 80% 50%,
+        oklch(0.7 0.12 145 / 10%) 0px,
+        transparent 50%
+      ),
       radial-gradient(at 0% 100%, oklch(0.6 0.15 300 / 8%) 0px, transparent 50%);
   }
 }
@@ -722,11 +871,26 @@
   /* Article content typography */
   .article-content {
     @apply text-lg leading-relaxed;
-    font-feature-settings: "kern" 1, "liga" 1;
+    font-feature-settings:
+      "kern" 1,
+      "liga" 1;
   }
 
   .article-content p {
     @apply mb-6 text-foreground/90;
+  }
+
+  /* Drop cap for first paragraph */
+  .article-content > p:first-of-type::first-letter {
+    @apply float-left font-serif font-bold text-accent;
+    font-size: 4rem;
+    line-height: 0.8;
+    margin-right: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .dark .article-content > p:first-of-type::first-letter {
+    @apply text-accent;
   }
 
   .article-content h1 {
@@ -907,5 +1071,327 @@
   /* Text balance */
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+/* ==============================================
+   Category-Specific Accent Colors
+   Each category has a unique color identity
+   ============================================== */
+@layer components {
+  /* Tech - Electric Blue */
+  .category-tech {
+    --category-accent: oklch(0.6 0.2 240);
+    --category-accent-light: oklch(0.6 0.2 240 / 15%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.6 0.2 240 / 12%),
+      oklch(0.55 0.18 200 / 8%)
+    );
+  }
+
+  .dark .category-tech {
+    --category-accent: oklch(0.7 0.18 240);
+    --category-accent-light: oklch(0.7 0.18 240 / 20%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.7 0.18 240 / 18%),
+      oklch(0.65 0.15 200 / 12%)
+    );
+  }
+
+  /* Business - Emerald Green */
+  .category-business {
+    --category-accent: oklch(0.6 0.18 160);
+    --category-accent-light: oklch(0.6 0.18 160 / 15%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.6 0.18 160 / 12%),
+      oklch(0.55 0.15 145 / 8%)
+    );
+  }
+
+  .dark .category-business {
+    --category-accent: oklch(0.72 0.16 160);
+    --category-accent-light: oklch(0.72 0.16 160 / 20%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.72 0.16 160 / 18%),
+      oklch(0.65 0.14 145 / 12%)
+    );
+  }
+
+  /* Lifestyle - Rose Pink */
+  .category-lifestyle {
+    --category-accent: oklch(0.65 0.2 350);
+    --category-accent-light: oklch(0.65 0.2 350 / 15%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.65 0.2 350 / 12%),
+      oklch(0.6 0.18 10 / 8%)
+    );
+  }
+
+  .dark .category-lifestyle {
+    --category-accent: oklch(0.75 0.18 350);
+    --category-accent-light: oklch(0.75 0.18 350 / 20%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.75 0.18 350 / 18%),
+      oklch(0.7 0.16 10 / 12%)
+    );
+  }
+
+  /* Entertainment - Vivid Purple */
+  .category-entertainment {
+    --category-accent: oklch(0.58 0.22 300);
+    --category-accent-light: oklch(0.58 0.22 300 / 15%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.58 0.22 300 / 12%),
+      oklch(0.55 0.2 280 / 8%)
+    );
+  }
+
+  .dark .category-entertainment {
+    --category-accent: oklch(0.72 0.2 300);
+    --category-accent-light: oklch(0.72 0.2 300 / 20%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.72 0.2 300 / 18%),
+      oklch(0.68 0.18 280 / 12%)
+    );
+  }
+
+  /* Trending - Warm Orange */
+  .category-trending {
+    --category-accent: oklch(0.7 0.2 45);
+    --category-accent-light: oklch(0.7 0.2 45 / 15%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.7 0.2 45 / 12%),
+      oklch(0.65 0.22 25 / 8%)
+    );
+  }
+
+  .dark .category-trending {
+    --category-accent: oklch(0.78 0.18 45);
+    --category-accent-light: oklch(0.78 0.18 45 / 20%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.78 0.18 45 / 18%),
+      oklch(0.72 0.2 25 / 12%)
+    );
+  }
+
+  /* News - Professional Slate */
+  .category-news {
+    --category-accent: oklch(0.5 0.05 250);
+    --category-accent-light: oklch(0.5 0.05 250 / 15%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.5 0.05 250 / 12%),
+      oklch(0.45 0.04 260 / 8%)
+    );
+  }
+
+  .dark .category-news {
+    --category-accent: oklch(0.7 0.04 250);
+    --category-accent-light: oklch(0.7 0.04 250 / 20%);
+    --category-gradient: linear-gradient(
+      135deg,
+      oklch(0.7 0.04 250 / 18%),
+      oklch(0.65 0.03 260 / 12%)
+    );
+  }
+
+  /* Category accent utilities */
+  .category-accent-text {
+    color: var(--category-accent);
+  }
+
+  .category-accent-bg {
+    background-color: var(--category-accent-light);
+  }
+
+  .category-accent-border {
+    border-color: var(--category-accent);
+  }
+
+  .category-gradient-bg {
+    background: var(--category-gradient);
+  }
+
+  /* Category pill with dynamic color */
+  .category-pill-dynamic {
+    @apply inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full;
+    background-color: var(--category-accent-light);
+    color: var(--category-accent);
+    border: 1px solid var(--category-accent);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .category-pill-dynamic:hover {
+    background-color: var(--category-accent);
+    color: white;
+  }
+
+  .dark .category-pill-dynamic:hover {
+    color: oklch(0.13 0.015 60);
+  }
+}
+
+/* ==============================================
+   Dark Mode Image Treatment
+   Subtle overlay to reduce eye strain
+   ============================================== */
+@layer components {
+  /* Image container with dark mode overlay */
+  .image-adaptive {
+    @apply relative overflow-hidden;
+  }
+
+  .image-adaptive::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none opacity-0;
+    background: linear-gradient(
+      180deg,
+      oklch(0.13 0.015 60 / 0%) 0%,
+      oklch(0.13 0.015 60 / 15%) 100%
+    );
+    transition: opacity 0.3s ease;
+  }
+
+  .dark .image-adaptive::after {
+    opacity: 1;
+  }
+
+  /* Stronger overlay for hero images */
+  .image-adaptive-hero::after {
+    background: linear-gradient(
+      180deg,
+      oklch(0.13 0.015 60 / 10%) 0%,
+      oklch(0.13 0.015 60 / 40%) 100%
+    );
+  }
+
+  /* Image with brightness/contrast adjustment */
+  .image-dark-adjust {
+    transition: filter 0.3s ease;
+  }
+
+  .dark .image-dark-adjust {
+    filter: brightness(0.85) contrast(1.1);
+  }
+
+  /* Thumbnail with vignette effect */
+  .image-vignette {
+    @apply relative overflow-hidden;
+  }
+
+  .image-vignette::after {
+    content: "";
+    @apply absolute inset-0 pointer-events-none;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      oklch(0 0 0 / 8%) 100%
+    );
+  }
+
+  .dark .image-vignette::after {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 40%,
+      oklch(0 0 0 / 25%) 100%
+    );
+  }
+}
+
+/* ==============================================
+   Stagger Animation Support
+   For scroll-triggered staggered reveals
+   ============================================== */
+@layer components {
+  .stagger-parent[data-in-view="true"] > * {
+    animation: staggerFadeUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .stagger-parent[data-in-view="true"] > *:nth-child(1) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 0);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(2) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 1);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(3) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 2);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(4) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 3);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(5) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 4);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(6) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 5);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(7) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 6);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(8) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 7);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(9) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 8);
+  }
+  .stagger-parent[data-in-view="true"] > *:nth-child(10) {
+    animation-delay: calc(var(--stagger-delay, 0.1s) * 9);
+  }
+
+  .stagger-parent > * {
+    opacity: 0;
+  }
+
+  @keyframes staggerFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide in variations */
+  .stagger-slide-left[data-in-view="true"] > * {
+    animation: staggerSlideLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes staggerSlideLeft {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Scale in variation */
+  .stagger-scale[data-in-view="true"] > * {
+    animation: staggerScale 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes staggerScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }

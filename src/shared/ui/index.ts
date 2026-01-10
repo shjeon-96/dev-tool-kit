@@ -129,3 +129,6 @@ export {
   TableCell,
   TableCaption,
 } from "./table";
+
+// Animation Components
+export { ScrollAnimate, StaggerContainer } from "./scroll-animate";
