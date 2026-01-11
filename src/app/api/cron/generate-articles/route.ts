@@ -148,10 +148,21 @@ export async function GET(request: Request) {
           .single();
 
         if (insertError) {
-          results.failed++;
-          results.errors.push(
-            `DB insert failed for ${trend.keyword}: ${insertError.message}`,
-          );
+          // Handle duplicate slug - article already exists, mark trend as processed
+          if (insertError.message.includes("duplicate key")) {
+            await supabase
+              .from("trends")
+              .update({ processed: true })
+              .eq("id", trend.id);
+            results.errors.push(
+              `Skipped duplicate for ${trend.keyword}: article already exists`,
+            );
+          } else {
+            results.failed++;
+            results.errors.push(
+              `DB insert failed for ${trend.keyword}: ${insertError.message}`,
+            );
+          }
           continue;
         }
 
