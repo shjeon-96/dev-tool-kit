@@ -228,9 +228,14 @@ function parseJsonResponse(text: string): GeneratedContent {
         : undefined,
     };
   } catch (error) {
-    console.error("[ContentGenerator] JSON parse error:", error);
-    console.error("[ContentGenerator] Raw response:", text.slice(0, 500));
-    throw new Error("Failed to parse AI response as JSON");
+    const errorMsg = error instanceof Error ? error.message : "Unknown";
+    console.error("[ContentGenerator] JSON parse error:", errorMsg);
+    console.error("[ContentGenerator] Raw response:", text.slice(0, 1000));
+    // Include response preview in error for debugging
+    const preview = text.slice(0, 150).replace(/\n/g, "\\n");
+    throw new Error(
+      `Failed to parse AI response as JSON: ${errorMsg} | Preview: ${preview}`,
+    );
   }
 }
 
