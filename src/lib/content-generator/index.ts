@@ -176,41 +176,6 @@ function escapeControlCharsInJsonStrings(jsonStr: string): string {
 }
 
 /**
- * Try to fix unescaped quotes inside JSON strings
- * Replaces "quoted text" patterns inside JSON string values with safer alternatives
- */
-function fixUnescapedQuotesInJson(jsonStr: string): string {
-  let result = jsonStr;
-
-  // Strategy: Find patterns where quotes appear inside JSON string values
-  // Pattern 1: Korean text with embedded quotes: 측 "아들 삼형제..." (at end of string)
-  result = result.replace(
-    /([가-힣·\s]+)"([^"\n]{3,100})""(,|\n|\})/g,
-    "$1「$2」$3",
-  );
-
-  // Pattern 2: Korean text with embedded quotes mid-string
-  result = result.replace(
-    /([가-힣·\s]+)"([^"\n]{3,100})"([가-힣·\s,]+)/g,
-    "$1「$2」$3",
-  );
-
-  // Pattern 3: Single word quotes in Korean
-  result = result.replace(
-    /([가-힣·]\s+)'([^']+)'(\s*[가-힣·,])/g,
-    "$1「$2」$3",
-  );
-
-  // Pattern 4: Handle English contractions and quotes - be more conservative
-  result = result.replace(
-    /(\s)\"([A-Za-z][^\"]{2,50}[A-Za-z])\"(\s)/g,
-    "$1'$2'$3",
-  );
-
-  return result;
-}
-
-/**
  * Parse JSON from AI response
  */
 function parseJsonResponse(text: string): GeneratedContent {
@@ -228,9 +193,6 @@ function parseJsonResponse(text: string): GeneratedContent {
   }
 
   jsonStr = jsonStr.trim();
-
-  // Fix unescaped quotes in JSON strings (common AI mistake)
-  jsonStr = fixUnescapedQuotesInJson(jsonStr);
 
   // Fix unescaped control characters inside JSON string values
   // Process character by character to properly escape newlines, tabs, etc.
