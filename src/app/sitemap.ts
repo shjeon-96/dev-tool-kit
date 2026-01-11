@@ -1,10 +1,16 @@
-import { getAllPosts } from "@/entities/post";
 import { getAllArticleSlugs } from "@/entities/trend";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
 
 // Valid categories for sitemap
-const CATEGORIES = ["tech", "business", "lifestyle", "entertainment", "trending", "news"];
+const CATEGORIES = [
+  "tech",
+  "business",
+  "lifestyle",
+  "entertainment",
+  "trending",
+  "news",
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://web-toolkit.app";
@@ -31,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "privacy", changeFrequency: "yearly" as const, priority: 0.3 },
     { path: "terms", changeFrequency: "yearly" as const, priority: 0.3 },
     { path: "pricing", changeFrequency: "monthly" as const, priority: 0.6 },
-    { path: "blog", changeFrequency: "daily" as const, priority: 0.9 },
+    { path: "articles", changeFrequency: "daily" as const, priority: 0.9 },
   ];
 
   for (const page of staticPages) {
@@ -67,24 +73,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Legacy blog posts for each locale
-  const posts = getAllPosts();
-  for (const post of posts) {
-    for (const locale of locales) {
-      entries.push({
-        url: `${baseUrl}/${locale}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: "monthly",
-        priority: 0.7,
-        alternates: {
-          languages: Object.fromEntries(
-            locales.map((l) => [l, `${baseUrl}/${l}/blog/${post.slug}`]),
-          ),
-        },
-      });
-    }
-  }
-
   // Dynamic articles from Supabase
   try {
     const articles = await getAllArticleSlugs();
@@ -97,7 +85,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           priority: 0.8,
           alternates: {
             languages: Object.fromEntries(
-              locales.map((l) => [l, `${baseUrl}/${l}/${article.category}/${article.slug}`]),
+              locales.map((l) => [
+                l,
+                `${baseUrl}/${l}/${article.category}/${article.slug}`,
+              ]),
             ),
           },
         });

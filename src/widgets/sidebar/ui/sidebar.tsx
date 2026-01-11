@@ -19,8 +19,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-// Blog categories (matches VALID_CATEGORIES in category page)
-const BLOG_CATEGORIES = [
+// Article categories (matches VALID_CATEGORIES in category page)
+const ARTICLE_CATEGORIES = [
   { id: "tech", icon: Laptop, labelEn: "Tech", labelKo: "테크" },
   { id: "business", icon: Briefcase, labelEn: "Business", labelKo: "비즈니스" },
   {
@@ -86,19 +86,22 @@ export function Sidebar({ className }: { className?: string }) {
             </Button>
           </div>
 
-          {/* Blog Link */}
+          {/* Articles Link */}
           <div className="mb-6">
             <Button
-              variant={pathname === `${basePath}/blog` ? "secondary" : "ghost"}
+              variant={
+                pathname === `${basePath}/articles` ? "secondary" : "ghost"
+              }
               className={cn(
                 "w-full justify-start",
-                pathname === `${basePath}/blog` && "bg-secondary font-medium",
+                pathname === `${basePath}/articles` &&
+                  "bg-secondary font-medium",
               )}
               asChild
             >
-              <Link href={`${basePath}/blog`}>
+              <Link href={`${basePath}/articles`}>
                 <BookOpen className="mr-2 h-4 w-4" />
-                {isKorean ? "블로그" : "Blog"}
+                {isKorean ? "전체 기사" : "All Articles"}
               </Link>
             </Button>
           </div>
@@ -110,7 +113,7 @@ export function Sidebar({ className }: { className?: string }) {
                 {isKorean ? "카테고리" : "Categories"}
               </h3>
               <div className="space-y-1">
-                {BLOG_CATEGORIES.map((category) => {
+                {ARTICLE_CATEGORIES.map((category) => {
                   const href = `${basePath}/${category.id}`;
                   const isActive =
                     pathname === href || pathname.startsWith(`${href}/`);

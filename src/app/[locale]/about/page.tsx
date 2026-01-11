@@ -235,8 +235,8 @@ export default async function AboutPage({ params }: Props) {
         <Link href={`/${locale}/terms`} className="hover:text-foreground">
           {isKorean ? "이용약관" : "Terms of Service"}
         </Link>
-        <Link href={`/${locale}/blog`} className="hover:text-foreground">
-          {isKorean ? "블로그" : "Blog"}
+        <Link href={`/${locale}/articles`} className="hover:text-foreground">
+          {isKorean ? "기사" : "Articles"}
         </Link>
       </section>
     </div>
