@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import {
   getArticleBySlug,
@@ -166,16 +166,6 @@ function getLocalizedTakeaways(article: Article, locale: string): string[] {
   return article.key_takeaways_en || article.key_takeaways_ko || [];
 }
 
-// Category labels
-const CATEGORY_LABELS: Record<string, { en: string; ko: string }> = {
-  tech: { en: "Technology", ko: "테크놀로지" },
-  business: { en: "Business", ko: "비즈니스" },
-  lifestyle: { en: "Lifestyle", ko: "라이프스타일" },
-  entertainment: { en: "Entertainment", ko: "엔터테인먼트" },
-  trending: { en: "Trending", ko: "트렌딩" },
-  news: { en: "News", ko: "뉴스" },
-};
-
 export default async function ArticlePage({ params }: Props) {
   const { locale, category, slug } = await params;
   setRequestLocale(locale);
@@ -203,11 +193,15 @@ export default async function ArticlePage({ params }: Props) {
       ? await getPillarArticle(article.topic_cluster_id)
       : null;
 
+  const tCategory = await getTranslations("category");
+  const tNav = await getTranslations("navigation");
+  const tSidebar = await getTranslations("sidebar");
+
   const title = getLocalizedContent(article, "title", locale);
   const excerpt = getLocalizedContent(article, "excerpt", locale);
   const content = getLocalizedContent(article, "content", locale);
   const categoryStyle = CATEGORY_STYLES[category] || CATEGORY_STYLES.news;
-  const categoryLabel = CATEGORY_LABELS[category] || CATEGORY_LABELS.news;
+  const categoryLabel = tCategory(`${category}.title`);
 
   // SEO-enhanced content
   const faqs = getLocalizedFaqs(article.faqs, locale);
@@ -215,11 +209,8 @@ export default async function ArticlePage({ params }: Props) {
 
   // Breadcrumb items for schema
   const breadcrumbItems = [
-    { name: isKorean ? "홈" : "Home", url: `${SITE_CONFIG.url}/${locale}` },
-    {
-      name: isKorean ? categoryLabel.ko : categoryLabel.en,
-      url: `${SITE_CONFIG.url}/${locale}/${category}`,
-    },
+    { name: tNav("home"), url: `${SITE_CONFIG.url}/${locale}` },
+    { name: categoryLabel, url: `${SITE_CONFIG.url}/${locale}/${category}` },
     { name: title, url: `${SITE_CONFIG.url}/${locale}/${category}/${slug}` },
   ];
 
@@ -236,22 +227,20 @@ export default async function ArticlePage({ params }: Props) {
               href={`/${locale}`}
               className="hover:text-foreground transition-colors"
             >
-              {isKorean ? "홈" : "Home"}
+              {tNav("home")}
             </Link>
             <ChevronRight className="h-4 w-4" />
             <Link
               href={`/${locale}/${category}`}
               className={`hover:text-foreground transition-colors ${categoryStyle.accent}`}
             >
-              {isKorean ? categoryLabel.ko : categoryLabel.en}
+              {categoryLabel}
             </Link>
           </nav>
 
           {/* Meta Row */}
           <div className="flex items-center gap-4 flex-wrap mb-6">
-            <span className="category-pill">
-              {isKorean ? categoryLabel.ko : categoryLabel.en}
-            </span>
+            <span className="category-pill">{categoryLabel}</span>
             {/* Pillar Page Badge */}
             {article.is_pillar_page && (
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
@@ -429,7 +418,7 @@ export default async function ArticlePage({ params }: Props) {
                         <span
                           className={`font-semibold uppercase tracking-wider ${relatedStyle.accent}`}
                         >
-                          {related.category}
+                          {tSidebar(`categories.${related.category}`)}
                         </span>
                         <span className="text-muted-foreground/50">•</span>
                         <span className="text-muted-foreground flex items-center gap-1">
@@ -603,7 +592,7 @@ export default async function ArticlePage({ params }: Props) {
               "@id": `${SITE_CONFIG.url}/${locale}/${category}/${slug}`,
             },
             keywords: article.seo_keywords?.join(", "),
-            articleSection: isKorean ? categoryLabel.ko : categoryLabel.en,
+            articleSection: categoryLabel,
             inLanguage: locale === "ko" ? "ko-KR" : "en-US",
             speakable: {
               "@type": "SpeakableSpecification",

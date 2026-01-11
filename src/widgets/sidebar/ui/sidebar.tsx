@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/shared/lib";
 import { Button } from "@/shared/ui";
 import {
@@ -18,32 +18,24 @@ import {
   Newspaper,
 } from "lucide-react";
 import Image from "next/image";
+import type { LucideIcon } from "lucide-react";
 
-// Article categories (matches VALID_CATEGORIES in category page)
-const ARTICLE_CATEGORIES = [
-  { id: "tech", icon: Laptop, labelEn: "Tech", labelKo: "테크" },
-  { id: "business", icon: Briefcase, labelEn: "Business", labelKo: "비즈니스" },
-  {
-    id: "lifestyle",
-    icon: Sparkles,
-    labelEn: "Lifestyle",
-    labelKo: "라이프스타일",
-  },
-  {
-    id: "entertainment",
-    icon: Film,
-    labelEn: "Entertainment",
-    labelKo: "엔터",
-  },
-  { id: "trending", icon: TrendingUp, labelEn: "Trending", labelKo: "트렌딩" },
-  { id: "news", icon: Newspaper, labelEn: "News", labelKo: "뉴스" },
-] as const;
+// Article categories with icons (labels come from i18n)
+const ARTICLE_CATEGORIES: { id: string; icon: LucideIcon }[] = [
+  { id: "tech", icon: Laptop },
+  { id: "business", icon: Briefcase },
+  { id: "lifestyle", icon: Sparkles },
+  { id: "entertainment", icon: Film },
+  { id: "trending", icon: TrendingUp },
+  { id: "news", icon: Newspaper },
+];
 
 export function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
   const locale = useLocale();
+  const t = useTranslations("sidebar");
+  const tNav = useTranslations("navigation");
 
-  const isKorean = locale === "ko";
   const basePath = `/${locale}`;
 
   return (
@@ -81,7 +73,7 @@ export function Sidebar({ className }: { className?: string }) {
             >
               <Link href={basePath}>
                 <Home className="mr-2 h-4 w-4" />
-                {isKorean ? "홈" : "Home"}
+                {tNav("home")}
               </Link>
             </Button>
           </div>
@@ -101,7 +93,7 @@ export function Sidebar({ className }: { className?: string }) {
             >
               <Link href={`${basePath}/articles`}>
                 <BookOpen className="mr-2 h-4 w-4" />
-                {isKorean ? "전체 기사" : "All Articles"}
+                {t("allArticles")}
               </Link>
             </Button>
           </div>
@@ -110,7 +102,7 @@ export function Sidebar({ className }: { className?: string }) {
           <div className="space-y-6">
             <div>
               <h3 className="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {isKorean ? "카테고리" : "Categories"}
+                {t("categoriesHeader")}
               </h3>
               <div className="space-y-1">
                 {ARTICLE_CATEGORIES.map((category) => {
@@ -123,9 +115,9 @@ export function Sidebar({ className }: { className?: string }) {
                       key={category.id}
                       variant={isActive ? "secondary" : "ghost"}
                       className={cn(
-                        "w-full justify-start relative",
+                        "w-full justify-start relative transition-all",
                         isActive &&
-                          "bg-secondary font-medium before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-6 before:w-1 before:bg-primary before:rounded-r-full",
+                          "bg-primary/15 font-medium text-primary before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-6 before:w-[3px] before:bg-primary before:rounded-r-full",
                       )}
                       asChild
                     >
@@ -136,7 +128,7 @@ export function Sidebar({ className }: { className?: string }) {
                             isActive && "text-primary",
                           )}
                         />
-                        {isKorean ? category.labelKo : category.labelEn}
+                        {t(`categories.${category.id}`)}
                       </Link>
                     </Button>
                   );
@@ -147,7 +139,7 @@ export function Sidebar({ className }: { className?: string }) {
             {/* Other Links */}
             <div>
               <h3 className="mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                {isKorean ? "더보기" : "More"}
+                {t("more")}
               </h3>
               <div className="space-y-1">
                 <Button
@@ -157,7 +149,7 @@ export function Sidebar({ className }: { className?: string }) {
                 >
                   <Link href={`${basePath}/about`}>
                     <Info className="mr-2 h-4 w-4" />
-                    {isKorean ? "소개" : "About"}
+                    {t("about")}
                   </Link>
                 </Button>
                 <Button
@@ -169,7 +161,7 @@ export function Sidebar({ className }: { className?: string }) {
                 >
                   <Link href={`${basePath}/pricing`}>
                     <CreditCard className="mr-2 h-4 w-4" />
-                    {isKorean ? "요금제" : "Pricing"}
+                    {t("pricing")}
                   </Link>
                 </Button>
               </div>

@@ -10,6 +10,11 @@
     "skipToContent": "본문으로 건너뛰기"
   },
   "sidebar": {
+    "allArticles": "전체 기사",
+    "categoriesHeader": "카테고리",
+    "more": "더보기",
+    "about": "소개",
+    "pricing": "요금제",
     "categories": {
       "tech": "테크놀로지",
       "business": "비즈니스",
@@ -149,6 +154,9 @@
     }
   },
   "userMenu": {
+    "signIn": "로그인",
+    "dashboard": "대시보드",
+    "billing": "결제",
     "profile": "프로필",
     "settings": "설정",
     "signOut": "로그아웃"

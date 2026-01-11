@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import {
   getArticlesByCategory,
@@ -29,63 +29,32 @@ const VALID_CATEGORIES: ArticleCategory[] = [
   "news",
 ];
 
-// Category metadata with editorial styling
-const CATEGORY_META: Record<
+// Category visual styling (labels come from i18n)
+const CATEGORY_STYLES: Record<
   ArticleCategory,
-  {
-    labelEn: string;
-    labelKo: string;
-    descEn: string;
-    descKo: string;
-    gradient: string;
-    accent: string;
-  }
+  { gradient: string; accent: string }
 > = {
   tech: {
-    labelEn: "Technology",
-    labelKo: "테크놀로지",
-    descEn: "Latest in tech, gadgets, and digital innovation",
-    descKo: "기술, 가젯, 디지털 혁신의 최신 소식",
     gradient: "from-blue-500/10 via-cyan-500/5 to-transparent",
     accent: "text-blue-600 dark:text-blue-400",
   },
   business: {
-    labelEn: "Business",
-    labelKo: "비즈니스",
-    descEn: "Markets, finance, and entrepreneurship insights",
-    descKo: "시장, 금융, 창업에 대한 인사이트",
     gradient: "from-emerald-500/10 via-green-500/5 to-transparent",
     accent: "text-emerald-600 dark:text-emerald-400",
   },
   lifestyle: {
-    labelEn: "Lifestyle",
-    labelKo: "라이프스타일",
-    descEn: "Living well, wellness, and personal growth",
-    descKo: "웰빙, 건강, 자기계발",
     gradient: "from-pink-500/10 via-rose-500/5 to-transparent",
     accent: "text-pink-600 dark:text-pink-400",
   },
   entertainment: {
-    labelEn: "Entertainment",
-    labelKo: "엔터테인먼트",
-    descEn: "Movies, music, gaming, and pop culture",
-    descKo: "영화, 음악, 게임, 대중문화",
     gradient: "from-purple-500/10 via-violet-500/5 to-transparent",
     accent: "text-purple-600 dark:text-purple-400",
   },
   trending: {
-    labelEn: "Trending",
-    labelKo: "트렌딩",
-    descEn: "What's hot right now across all topics",
-    descKo: "지금 가장 뜨거운 주제들",
     gradient: "from-orange-500/10 via-amber-500/5 to-transparent",
     accent: "text-orange-600 dark:text-orange-400",
   },
   news: {
-    labelEn: "News",
-    labelKo: "뉴스",
-    descEn: "Breaking news and current events",
-    descKo: "속보와 시사 이슈",
     gradient: "from-slate-500/10 via-gray-500/5 to-transparent",
     accent: "text-slate-600 dark:text-slate-400",
   },
@@ -116,7 +85,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const meta = CATEGORY_META[category as ArticleCategory];
+  const t = await getTranslations({ locale, namespace: "category" });
   const isKorean = locale === "ko";
 
   // Calculate pagination info for SEO
@@ -131,10 +100,13 @@ export async function generateMetadata({
   const prevPage = currentPage > 1 ? currentPage - 1 : null;
   const nextPage = currentPage < totalPages ? currentPage + 1 : null;
 
+  const categoryTitle = t(`${category}.title`);
+  const categoryDesc = t(`${category}.description`);
+
   const title = isKorean
-    ? `${meta.labelKo}${currentPage > 1 ? ` - ${currentPage}페이지` : ""} - ${SITE_CONFIG.title}`
-    : `${meta.labelEn}${currentPage > 1 ? ` - Page ${currentPage}` : ""} - ${SITE_CONFIG.title}`;
-  const description = isKorean ? meta.descKo : meta.descEn;
+    ? `${categoryTitle}${currentPage > 1 ? ` - ${currentPage}페이지` : ""} - ${SITE_CONFIG.title}`
+    : `${categoryTitle}${currentPage > 1 ? ` - Page ${currentPage}` : ""} - ${SITE_CONFIG.title}`;
+  const description = categoryDesc;
 
   // Build canonical URL (page 1 has no query param)
   const canonicalPath =
@@ -203,6 +175,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
   setRequestLocale(locale);
 
+  const t = await getTranslations("category");
+  const tNav = await getTranslations("navigation");
+  const tBlog = await getTranslations("blog");
   const isKorean = locale === "ko";
   const currentPage = parseInt(page || "1", 10);
   const pageSize = 13; // 1 featured + 12 grid
@@ -218,7 +193,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   );
 
   const totalPages = Math.ceil(total / pageSize);
-  const meta = CATEGORY_META[category as ArticleCategory];
+  const styles = CATEGORY_STYLES[category as ArticleCategory];
+  const categoryTitle = t(`${category}.title`);
+  const categoryDesc = t(`${category}.description`);
 
   // Split articles: first one is featured, rest go in grid
   const featuredArticle = currentPage === 1 ? articles[0] : null;
@@ -228,7 +205,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
     <div className="space-y-12 paper-texture">
       {/* Category Hero Header */}
       <section
-        className={`-mx-6 -mt-6 px-6 pt-10 pb-12 bg-gradient-to-br ${meta.gradient}`}
+        className={`-mx-6 -mt-6 px-6 pt-10 pb-12 bg-gradient-to-br ${styles.gradient}`}
       >
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}
@@ -237,21 +214,17 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               href={`/${locale}`}
               className="hover:text-foreground transition-colors"
             >
-              {isKorean ? "홈" : "Home"}
+              {tNav("home")}
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <span className={meta.accent}>
-              {isKorean ? meta.labelKo : meta.labelEn}
-            </span>
+            <span className={styles.accent}>{categoryTitle}</span>
           </nav>
 
           {/* Title and description */}
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl font-bold">
-              {isKorean ? meta.labelKo : meta.labelEn}
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-bold">{categoryTitle}</h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              {isKorean ? meta.descKo : meta.descEn}
+              {categoryDesc}
             </p>
             <div className="flex items-center gap-4 pt-2">
               <span className="text-sm text-muted-foreground">
@@ -282,7 +255,7 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   {/* Meta */}
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="px-3 py-1 rounded-full bg-foreground/10 text-sm font-medium">
-                      {isKorean ? "추천 기사" : "Featured"}
+                      {tBlog("featured")}
                     </span>
                     <span className="reading-badge">
                       <Clock className="h-3.5 w-3.5" />

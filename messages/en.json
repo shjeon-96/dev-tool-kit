@@ -10,6 +10,11 @@
     "skipToContent": "Skip to main content"
   },
   "sidebar": {
+    "allArticles": "All Articles",
+    "categoriesHeader": "Categories",
+    "more": "More",
+    "about": "About",
+    "pricing": "Pricing",
     "categories": {
       "tech": "Technology",
       "business": "Business",
@@ -149,6 +154,9 @@
     }
   },
   "userMenu": {
+    "signIn": "Sign In",
+    "dashboard": "Dashboard",
+    "billing": "Billing",
     "profile": "Profile",
     "settings": "Settings",
     "signOut": "Sign Out"
