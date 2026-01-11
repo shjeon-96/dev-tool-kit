@@ -2,10 +2,20 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
-import { getArticlesByCategory, type Article, type ArticleCategory } from "@/entities/trend";
+import {
+  getArticlesByCategory,
+  type Article,
+  type ArticleCategory,
+} from "@/entities/trend";
 import { SITE_CONFIG } from "@/shared/config";
 import { AD_SLOTS } from "@/shared/config/ad-slots";
-import { Clock, ChevronLeft, ChevronRight, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Clock,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import { AdUnit } from "@/widgets/ad-unit";
 import { routing } from "@/i18n/routing";
 
@@ -20,14 +30,17 @@ const VALID_CATEGORIES: ArticleCategory[] = [
 ];
 
 // Category metadata with editorial styling
-const CATEGORY_META: Record<ArticleCategory, {
-  labelEn: string;
-  labelKo: string;
-  descEn: string;
-  descKo: string;
-  gradient: string;
-  accent: string;
-}> = {
+const CATEGORY_META: Record<
+  ArticleCategory,
+  {
+    labelEn: string;
+    labelKo: string;
+    descEn: string;
+    descKo: string;
+    gradient: string;
+    accent: string;
+  }
+> = {
   tech: {
     labelEn: "Technology",
     labelKo: "테크놀로지",
@@ -92,8 +105,12 @@ export async function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Props): Promise<Metadata> {
   const { locale, category } = await params;
+  const { page } = await searchParams;
 
   if (!VALID_CATEGORIES.includes(category as ArticleCategory)) {
     return {};
@@ -102,10 +119,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const meta = CATEGORY_META[category as ArticleCategory];
   const isKorean = locale === "ko";
 
+  // Calculate pagination info for SEO
+  const currentPage = parseInt(page || "1", 10);
+  const pageSize = 13;
+  const { total } = await getArticlesByCategory(category as ArticleCategory, {
+    limit: 1,
+    offset: 0,
+  });
+  const totalPages = Math.ceil(total / pageSize);
+
+  const prevPage = currentPage > 1 ? currentPage - 1 : null;
+  const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+
   const title = isKorean
-    ? `${meta.labelKo} - ${SITE_CONFIG.title}`
-    : `${meta.labelEn} - ${SITE_CONFIG.title}`;
+    ? `${meta.labelKo}${currentPage > 1 ? ` - ${currentPage}페이지` : ""} - ${SITE_CONFIG.title}`
+    : `${meta.labelEn}${currentPage > 1 ? ` - Page ${currentPage}` : ""} - ${SITE_CONFIG.title}`;
   const description = isKorean ? meta.descKo : meta.descEn;
+
+  // Build canonical URL (page 1 has no query param)
+  const canonicalPath =
+    currentPage > 1
+      ? `/${locale}/${category}?page=${currentPage}`
+      : `/${locale}/${category}`;
+
+  // Build prev/next URLs for pagination SEO
+  const prevUrl = prevPage
+    ? prevPage > 1
+      ? `${SITE_CONFIG.url}/${locale}/${category}?page=${prevPage}`
+      : `${SITE_CONFIG.url}/${locale}/${category}`
+    : null;
+  const nextUrl = nextPage
+    ? `${SITE_CONFIG.url}/${locale}/${category}?page=${nextPage}`
+    : null;
 
   return {
     title,
@@ -113,20 +158,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `/${locale}/${category}`,
+      url: canonicalPath,
       type: "website",
     },
     alternates: {
-      canonical: `/${locale}/${category}`,
+      canonical: canonicalPath,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}/${category}`]),
+        routing.locales.map((l) => [
+          l,
+          currentPage > 1
+            ? `/${l}/${category}?page=${currentPage}`
+            : `/${l}/${category}`,
+        ]),
       ),
+    },
+    // Pagination SEO: rel="prev" and rel="next"
+    other: {
+      ...(prevUrl && { "link-prev": prevUrl }),
+      ...(nextUrl && { "link-next": nextUrl }),
     },
   };
 }
 
 // Helper function to get localized content
-function getLocalizedContent(article: Article, field: "title" | "excerpt" | "content", locale: string) {
+function getLocalizedContent(
+  article: Article,
+  field: "title" | "excerpt" | "content",
+  locale: string,
+) {
   if (locale === "ko") {
     return article[`${field}_ko`] || article[`${field}_en`];
   }
@@ -150,10 +209,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   const offset = (currentPage - 1) * pageSize;
 
   // Fetch articles for this category
-  const { articles, total } = await getArticlesByCategory(category as ArticleCategory, {
-    limit: pageSize,
-    offset,
-  });
+  const { articles, total } = await getArticlesByCategory(
+    category as ArticleCategory,
+    {
+      limit: pageSize,
+      offset,
+    },
+  );
 
   const totalPages = Math.ceil(total / pageSize);
   const meta = CATEGORY_META[category as ArticleCategory];
@@ -165,11 +227,16 @@ export default async function CategoryPage({ params, searchParams }: Props) {
   return (
     <div className="space-y-12 paper-texture">
       {/* Category Hero Header */}
-      <section className={`-mx-6 -mt-6 px-6 pt-10 pb-12 bg-gradient-to-br ${meta.gradient}`}>
+      <section
+        className={`-mx-6 -mt-6 px-6 pt-10 pb-12 bg-gradient-to-br ${meta.gradient}`}
+      >
         <div className="max-w-6xl mx-auto">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href={`/${locale}`} className="hover:text-foreground transition-colors">
+            <Link
+              href={`/${locale}`}
+              className="hover:text-foreground transition-colors"
+            >
               {isKorean ? "홈" : "Home"}
             </Link>
             <ChevronRight className="h-4 w-4" />
@@ -219,7 +286,8 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     </span>
                     <span className="reading-badge">
                       <Clock className="h-3.5 w-3.5" />
-                      {featuredArticle.reading_time_minutes} {isKorean ? "분" : "min"}
+                      {featuredArticle.reading_time_minutes}{" "}
+                      {isKorean ? "분" : "min"}
                     </span>
                   </div>
 
@@ -244,7 +312,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                 {featuredArticle.published_at && (
                   <div className="md:text-right">
                     <time className="text-sm text-muted-foreground">
-                      {new Date(featuredArticle.published_at).toLocaleDateString(locale, {
+                      {new Date(
+                        featuredArticle.published_at,
+                      ).toLocaleDateString(locale, {
                         month: "long",
                         day: "numeric",
                         year: "numeric",
@@ -260,7 +330,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
       {/* Ad Unit */}
       <div className="max-w-6xl mx-auto">
-        <AdUnit slot={AD_SLOTS.CONTENT_TOP} format="horizontal" className="ad-native" />
+        <AdUnit
+          slot={AD_SLOTS.CONTENT_TOP}
+          format="horizontal"
+          className="ad-native"
+        />
       </div>
 
       {/* Articles Grid - Masonry Style */}
@@ -278,7 +352,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                   className="group block"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <article className={`article-card animate-fade-in-up opacity-0 ${isLarge ? "p-6" : "p-5"}`}>
+                  <article
+                    className={`article-card animate-fade-in-up opacity-0 ${isLarge ? "p-6" : "p-5"}`}
+                  >
                     {/* Tags */}
                     {article.tags && article.tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mb-3">
@@ -294,7 +370,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                     )}
 
                     {/* Title */}
-                    <h3 className={`font-bold leading-snug group-hover:text-accent transition-colors mb-3 ${isLarge ? "text-xl" : "text-lg"} ${isLarge ? "line-clamp-3" : "line-clamp-2"}`}>
+                    <h3
+                      className={`font-bold leading-snug group-hover:text-accent transition-colors mb-3 ${isLarge ? "text-xl" : "text-lg"} ${isLarge ? "line-clamp-3" : "line-clamp-2"}`}
+                    >
                       {getLocalizedContent(article, "title", locale)}
                     </h3>
 
@@ -313,10 +391,13 @@ export default async function CategoryPage({ params, searchParams }: Props) {
                       </span>
                       {article.published_at && (
                         <time>
-                          {new Date(article.published_at).toLocaleDateString(locale, {
-                            month: "short",
-                            day: "numeric",
-                          })}
+                          {new Date(article.published_at).toLocaleDateString(
+                            locale,
+                            {
+                              month: "short",
+                              day: "numeric",
+                            },
+                          )}
                         </time>
                       )}
                     </div>
@@ -329,7 +410,11 @@ export default async function CategoryPage({ params, searchParams }: Props) {
           {/* Middle Ad - after articles */}
           {gridArticles.length >= 6 && (
             <div className="mt-8">
-              <AdUnit slot={AD_SLOTS.ARTICLE_MIDDLE} format="rectangle" className="mx-auto max-w-md" />
+              <AdUnit
+                slot={AD_SLOTS.ARTICLE_MIDDLE}
+                format="rectangle"
+                className="mx-auto max-w-md"
+              />
             </div>
           )}
         </section>
@@ -340,7 +425,9 @@ export default async function CategoryPage({ params, searchParams }: Props) {
               <Sparkles className="w-8 h-8 text-muted-foreground" />
             </div>
             <h2 className="text-xl font-bold mb-2">
-              {isKorean ? "이 카테고리에 아직 글이 없습니다" : "No articles yet"}
+              {isKorean
+                ? "이 카테고리에 아직 글이 없습니다"
+                : "No articles yet"}
             </h2>
             <p className="text-muted-foreground mb-6">
               {isKorean

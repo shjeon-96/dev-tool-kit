@@ -1,6 +1,12 @@
-import { getAllArticleSlugs } from "@/entities/trend";
+import {
+  getAllArticleSlugs,
+  getArticlesByCategory,
+  type ArticleCategory,
+} from "@/entities/trend";
 import { routing } from "@/i18n/routing";
 import type { MetadataRoute } from "next";
+
+const ARTICLES_PER_PAGE = 13;
 
 // Valid categories for sitemap
 const CATEGORIES = [
@@ -56,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Category pages for each locale
+  // Category pages for each locale (page 1)
   for (const category of CATEGORIES) {
     for (const locale of locales) {
       entries.push({
@@ -71,6 +77,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
       });
     }
+  }
+
+  // Category pagination URLs (page 2+) for SEO
+  try {
+    for (const category of CATEGORIES) {
+      const { total } = await getArticlesByCategory(
+        category as ArticleCategory,
+        {
+          limit: 1,
+          offset: 0,
+        },
+      );
+      const totalPages = Math.ceil(total / ARTICLES_PER_PAGE);
+
+      // Add pages 2 to totalPages
+      for (let page = 2; page <= totalPages; page++) {
+        for (const locale of locales) {
+          entries.push({
+            url: `${baseUrl}/${locale}/${category}?page=${page}`,
+            lastModified: new Date(),
+            changeFrequency: "daily",
+            priority: 0.6,
+            alternates: {
+              languages: Object.fromEntries(
+                locales.map((l) => [
+                  l,
+                  `${baseUrl}/${l}/${category}?page=${page}`,
+                ]),
+              ),
+            },
+          });
+        }
+      }
+    }
+  } catch (error) {
+    console.error("[Sitemap] Failed to generate pagination URLs:", error);
   }
 
   // Dynamic articles from Supabase

@@ -98,9 +98,12 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_CONFIG.url}/${locale}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `${SITE_CONFIG.url}/${l}`]),
-      ),
+      languages: {
+        ...Object.fromEntries(
+          routing.locales.map((l) => [l, `${SITE_CONFIG.url}/${l}`]),
+        ),
+        "x-default": `${SITE_CONFIG.url}/en`, // Default for unsupported languages
+      },
     },
     verification: {
       google: "UbK-cRKd2S1F-xeGfKZsoDQqr5t9EXk8upUmWhqLb0w",
