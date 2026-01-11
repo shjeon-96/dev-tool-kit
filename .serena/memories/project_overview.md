@@ -58,21 +58,23 @@ src/
 │
 ├── features/                  # 기능 모듈
 │   ├── auth/                  # 인증 (Supabase)
-│   ├── billing/               # 결제 (LemonSqueezy)
-│   └── blog/                  # 블로그 UI
+│   └── billing/               # 결제 (LemonSqueezy)
 │
 ├── entities/                  # 비즈니스 엔티티
 │   ├── trend/                 # 트렌드/기사 엔티티
-│   ├── post/                  # 블로그 포스트
+│   ├── author/                # 저자 프로필 (E-E-A-T SEO)
 │   └── subscription/          # 구독
 │
 ├── lib/                       # 자동화 라이브러리
 │   ├── trend-detector/        # 트렌드 감지 (Google Trends, RSS)
+│   ├── web-search/            # RAG 웹 검색 (Tavily)
 │   └── content-generator/     # AI 콘텐츠 생성 (Claude)
 │
 ├── widgets/                   # UI 위젯
 │   ├── header/                # 헤더
 │   ├── footer/                # 푸터
+│   ├── sidebar/               # 사이드바
+│   ├── user-menu/             # 사용자 메뉴
 │   └── ad-unit/               # AdSense 광고
 │
 └── shared/                    # 공통
@@ -83,14 +85,17 @@ src/
 
 ## Key Files
 
-| File                                  | Purpose                       |
-| ------------------------------------- | ----------------------------- |
-| `src/entities/trend/model/types.ts`   | Article, Trend, Category 타입 |
-| `src/entities/trend/model/queries.ts` | Supabase 쿼리 함수            |
-| `src/lib/trend-detector/`             | 트렌드 감지 시스템            |
-| `src/lib/content-generator/`          | AI 콘텐츠 생성                |
-| `src/i18n/routing.ts`                 | 지원 언어 (en, ko)            |
-| `messages/*.json`                     | 번역 파일                     |
+| File                                   | Purpose                       |
+| -------------------------------------- | ----------------------------- |
+| `src/entities/trend/model/types.ts`    | Article, Trend, Category 타입 |
+| `src/entities/trend/model/queries.ts`  | Supabase 쿼리 함수            |
+| `src/entities/author/model/types.ts`   | Author 타입 (E-E-A-T SEO)     |
+| `src/entities/author/model/queries.ts` | Author 쿼리 함수              |
+| `src/lib/trend-detector/`              | 트렌드 감지 시스템            |
+| `src/lib/web-search/`                  | RAG 웹 검색                   |
+| `src/lib/content-generator/`           | AI 콘텐츠 생성                |
+| `src/i18n/routing.ts`                  | 지원 언어 (en, ko)            |
+| `messages/*.json`                      | 번역 파일                     |
 
 ## Database Tables (Supabase)
 
