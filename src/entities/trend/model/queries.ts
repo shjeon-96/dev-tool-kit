@@ -1,23 +1,8 @@
 // Article Query Functions
 // Server-side queries for fetching articles from Supabase
 
-import { createClient } from "@supabase/supabase-js";
+import { getUntypedServiceClient } from "@/shared/lib/supabase/server";
 import type { Article, ArticleCategory } from "./types";
-
-// Create Supabase client for server-side queries
-// Returns null if env vars are not available (e.g., during CI build)
-function getSupabaseClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    return null;
-  }
-
-  return createClient(supabaseUrl, supabaseKey);
-}
 
 /**
  * Get published articles with pagination
@@ -30,7 +15,7 @@ export async function getPublishedArticles(
   } = {},
 ): Promise<{ articles: Article[]; total: number }> {
   const { limit = 10, offset = 0 } = options;
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return { articles: [], total: 0 };
@@ -61,7 +46,7 @@ export async function getPublishedArticles(
 export async function getTrendingArticles(
   limit: number = 5,
 ): Promise<Article[]> {
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return [];
@@ -122,7 +107,7 @@ export async function getTrendingArticles(
  * Get article by slug
  */
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return null;
@@ -154,7 +139,7 @@ export async function getArticlesByCategory(
   } = {},
 ): Promise<{ articles: Article[]; total: number }> {
   const { limit = 10, offset = 0 } = options;
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return { articles: [], total: 0 };
@@ -191,7 +176,7 @@ export async function getRelatedArticles(
   } = {},
 ): Promise<Article[]> {
   const { limit = 4, tags = [], category } = options;
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return [];
@@ -235,7 +220,7 @@ export async function searchArticles(
   } = {},
 ): Promise<{ articles: Article[]; total: number }> {
   const { limit = 10, offset = 0, locale = "en" } = options;
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return { articles: [], total: 0 };
@@ -269,7 +254,7 @@ export async function searchArticles(
 export async function getAllArticleSlugs(): Promise<
   { slug: string; category: string; updated_at: string }[]
 > {
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return [];
@@ -295,7 +280,7 @@ export async function getAllArticleSlugs(): Promise<
 export async function getCategoryStats(): Promise<
   { category: string; count: number }[]
 > {
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return [];
@@ -331,7 +316,7 @@ export async function getCategoryStats(): Promise<
  * Increment article view count
  */
 export async function incrementArticleView(articleId: string): Promise<void> {
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return;

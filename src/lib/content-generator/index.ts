@@ -1,5 +1,5 @@
 // ============================================
-// AI Content Generator
+// AI Content Generator with RAG (Web Search)
 // ============================================
 
 import Anthropic from "@anthropic-ai/sdk";
@@ -12,8 +12,14 @@ import type {
 import {
   ARTICLE_SYSTEM_PROMPT,
   generateArticlePrompt,
+  type ArticleGenerationContext,
 } from "./prompts/article";
 import { generateSlug, calculateReadingTime } from "@/lib/trend-detector";
+import {
+  searchTrendContext,
+  formatContextForPrompt,
+  isTavilyConfigured,
+} from "@/lib/web-search";
 
 // Initialize Anthropic client
 const anthropic = new Anthropic({
@@ -30,7 +36,7 @@ const PRICING = {
 };
 
 /**
- * Generate article content from a trend
+ * Generate article content from a trend with RAG
  */
 export async function generateArticleContent(
   request: ContentGenerationRequest,
@@ -38,12 +44,40 @@ export async function generateArticleContent(
   const { trend, style = "news" } = request;
 
   try {
-    // Generate the prompt
+    // Build generation context with date information
+    const generationContext: ArticleGenerationContext = {
+      generatedAt: new Date(),
+      trendDetectedAt: trend.detected_at
+        ? new Date(trend.detected_at)
+        : undefined,
+    };
+
+    // Perform web search for latest information (if Tavily is configured)
+    if (isTavilyConfigured()) {
+      try {
+        const searchResult = await searchTrendContext(
+          trend.keyword,
+          trend.related_keywords || [],
+        );
+
+        if (searchResult.context.length > 0) {
+          generationContext.searchContext =
+            formatContextForPrompt(searchResult);
+        }
+      } catch (searchError) {
+        // Log but continue without web search - fallback to model knowledge
+        console.warn("[ContentGenerator] Web search failed:", searchError);
+      }
+    }
+    // Note: If Tavily is not configured, falls back to model knowledge only
+
+    // Generate the prompt with context
     const prompt = generateArticlePrompt(
       trend.keyword,
       trend.category || "trending",
       trend.related_keywords || [],
       style,
+      generationContext,
     );
 
     // Call Claude API

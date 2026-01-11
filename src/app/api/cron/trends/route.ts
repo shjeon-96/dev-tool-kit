@@ -7,30 +7,17 @@
 // { "crons": [{ "path": "/api/cron/trends", "schedule": "0 0,2,4,6,8,10,12,14,16,18,20,22 * * *" }] }
 
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { collectAllTrends, type ProcessedTrend } from "@/lib/trend-detector";
-
-// Cron authentication secret
-const CRON_SECRET = process.env.CRON_SECRET;
-
-// Lazy initialization to prevent build-time errors
-function getSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
-}
+import { verifyCronAuth } from "@/shared/lib/api";
+import { getUntypedServiceClient } from "@/shared/lib/supabase/server";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 export async function GET(request: Request) {
-  // Verify authentication
-  const authHeader = request.headers.get("authorization");
-  if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
-    console.warn("[Cron:Trends] Unauthorized request");
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // Verify authentication using shared middleware
+  const auth = verifyCronAuth(request, "Trends");
+  if (!auth.authorized) return auth.error;
 
   const startTime = Date.now();
 
@@ -100,7 +87,9 @@ export async function POST(request: Request) {
 async function storeTrends(trends: ProcessedTrend[]): Promise<number> {
   if (trends.length === 0) return 0;
 
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
+  if (!supabase) return 0;
+
   let storedCount = 0;
 
   for (const trend of trends) {

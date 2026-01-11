@@ -7,33 +7,20 @@
 // { "crons": [{ "path": "/api/cron/publish-articles", "schedule": "0 * * * *" }] }
 
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
-
-// Cron authentication secret
-const CRON_SECRET = process.env.CRON_SECRET;
+import { verifyCronAuth } from "@/shared/lib/api";
+import { getUntypedServiceClient } from "@/shared/lib/supabase/server";
 
 // Max articles to publish per run
 const MAX_PUBLISH_PER_RUN = 10;
-
-// Lazy initialization to prevent build-time errors
-function getSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
-}
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 export async function GET(request: Request) {
-  // Verify authentication
-  const authHeader = request.headers.get("authorization");
-  if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
-    console.warn("[Cron:PublishArticles] Unauthorized request");
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // Verify authentication using shared middleware
+  const auth = verifyCronAuth(request, "PublishArticles");
+  if (!auth.authorized) return auth.error;
 
   const startTime = Date.now();
   const now = new Date();
@@ -41,7 +28,13 @@ export async function GET(request: Request) {
   // Starting article publishing
 
   try {
-    const supabase = getSupabaseClient();
+    const supabase = getUntypedServiceClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { success: false, error: "Database not configured" },
+        { status: 500 },
+      );
+    }
 
     // Get articles ready to publish from queue
     const { data: queueItems, error: queueError } = await supabase

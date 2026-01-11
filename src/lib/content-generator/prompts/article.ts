@@ -10,6 +10,15 @@
 import type { ArticleCategory } from "@/entities/trend";
 
 /**
+ * Web search context for RAG-based generation
+ */
+export interface ArticleGenerationContext {
+  searchContext?: string;
+  generatedAt: Date;
+  trendDetectedAt?: Date;
+}
+
+/**
  * System prompt for article generation - Enhanced for E-E-A-T
  */
 export const ARTICLE_SYSTEM_PROMPT = `You are an expert content writer specializing in creating high-quality, authoritative articles that demonstrate E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness).
@@ -46,19 +55,52 @@ export const ARTICLE_SYSTEM_PROMPT = `You are an expert content writer specializ
 Always return a valid JSON object as specified. Ensure proper escaping of special characters, quotes, and newlines within JSON strings.`;
 
 /**
- * Generate article prompt based on trend - Enhanced for SEO
+ * Generate article prompt based on trend - Enhanced for SEO with RAG
  */
 export function generateArticlePrompt(
   keyword: string,
   category: ArticleCategory,
   relatedKeywords: string[] = [],
   style: "news" | "howto" | "listicle" | "analysis" = "news",
+  context?: ArticleGenerationContext,
 ): string {
   const styleInstructions = getStyleInstructions(style);
   const categoryContext = getCategoryContext(category);
 
+  // Format dates for the prompt
+  const currentDate = context?.generatedAt || new Date();
+  const formattedDate = currentDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const trendDate = context?.trendDetectedAt
+    ? context.trendDetectedAt.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : formattedDate;
+
+  // Build web search context section
+  const searchSection = context?.searchContext
+    ? `
+## Real-Time Web Search Results (CRITICAL - Use This Information)
+${context.searchContext}
+
+**IMPORTANT**: Base your article primarily on the above search results. These are real-time, verified sources from the web. Do NOT rely on outdated training data.
+`
+    : "";
+
   return `Create a comprehensive, authoritative article about: "${keyword}"
 
+## Date Context (CRITICAL)
+- Article Generation Date: ${formattedDate}
+- Trend Detected: ${trendDate}
+- Current Year: ${currentDate.getFullYear()}
+
+**IMPORTANT**: You are writing content for ${currentDate.getFullYear()}. Ensure all information, statistics, and references are current and relevant to this time period. Do NOT use outdated information from 2022-2024.
+${searchSection}
 ## Context & Targeting
 - Category: ${category}
 - Related topics: ${relatedKeywords.join(", ") || "N/A"}

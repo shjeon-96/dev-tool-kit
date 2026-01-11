@@ -7,15 +7,13 @@
 // { "crons": [{ "path": "/api/cron/generate-articles", "schedule": "30 0,4,8,12,16,20 * * *" }] }
 
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import {
   generateArticleFromTrend,
   estimateCost,
 } from "@/lib/content-generator";
 import type { Trend } from "@/entities/trend";
-
-// Cron authentication secret
-const CRON_SECRET = process.env.CRON_SECRET;
+import { verifyCronAuth } from "@/shared/lib/api";
+import { getUntypedServiceClient } from "@/shared/lib/supabase/server";
 
 // Daily budget limit (in USD)
 const DAILY_BUDGET_USD = 2.0; // ~$60/month
@@ -23,24 +21,13 @@ const DAILY_BUDGET_USD = 2.0; // ~$60/month
 // Max articles per run
 const MAX_ARTICLES_PER_RUN = 5;
 
-// Lazy initialization to prevent build-time errors
-function getSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  );
-}
-
 export const runtime = "nodejs";
 export const maxDuration = 300; // 5 minutes for article generation
 
 export async function GET(request: Request) {
-  // Verify authentication
-  const authHeader = request.headers.get("authorization");
-  if (CRON_SECRET && authHeader !== `Bearer ${CRON_SECRET}`) {
-    console.warn("[Cron:GenerateArticles] Unauthorized request");
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // Verify authentication using shared middleware
+  const auth = verifyCronAuth(request, "GenerateArticles");
+  if (!auth.authorized) return auth.error;
 
   const startTime = Date.now();
 
@@ -75,7 +62,13 @@ export async function GET(request: Request) {
       });
     }
 
-    const supabase = getSupabaseClient();
+    const supabase = getUntypedServiceClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { success: false, error: "Database not configured" },
+        { status: 500 },
+      );
+    }
 
     // Get unprocessed trends with highest priority
     const { data: trends, error: trendsError } = await supabase
@@ -228,7 +221,9 @@ export async function POST(request: Request) {
  * Get today's total spending on article generation
  */
 async function getTodaySpending(): Promise<number> {
-  const supabase = getSupabaseClient();
+  const supabase = getUntypedServiceClient();
+  if (!supabase) return 0;
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

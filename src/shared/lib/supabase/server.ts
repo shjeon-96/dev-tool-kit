@@ -68,3 +68,53 @@ export function createServiceClient() {
     },
   });
 }
+
+/**
+ * Safe Service Client getter (returns null if not configured)
+ * Use this in entities/queries where graceful fallback is needed
+ * - Returns null during build time when env vars are not available
+ * - Safe for SSG/ISR pages that need to handle missing config
+ */
+export function getServiceClient() {
+  if (!isSupabaseConfigured()) {
+    return null;
+  }
+
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    // Fallback to anon key if service key not available
+    return createSupabaseClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    });
+  }
+
+  return createServiceClient();
+}
+
+/**
+ * Untyped Service Client for tables not in Database type
+ * Use this for trend blog tables (articles, authors, etc.)
+ * Returns null if not configured
+ */
+export function getUntypedServiceClient() {
+  if (!isSupabaseConfigured()) {
+    return null;
+  }
+
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!key) {
+    return null;
+  }
+
+  return createSupabaseClient(SUPABASE_URL, key, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
