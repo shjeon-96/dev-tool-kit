@@ -176,6 +176,56 @@ function escapeControlCharsInJsonStrings(jsonStr: string): string {
 }
 
 /**
+ * Repair JSON by escaping unescaped quotes inside string values
+ * Uses error-driven approach: try parse, find error position, escape problematic quote
+ */
+function repairJsonQuotes(jsonStr: string, maxAttempts = 30): string {
+  let result = jsonStr;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    try {
+      JSON.parse(result);
+      return result; // Success!
+    } catch (error) {
+      if (!(error instanceof SyntaxError)) {
+        break;
+      }
+
+      // Extract position from error message
+      const posMatch = error.message.match(/position (\d+)/);
+      if (!posMatch) break;
+
+      const errorPos = parseInt(posMatch[1], 10);
+
+      // Find the last unescaped quote before the error position
+      // This is likely the inner quote that prematurely "closed" the string
+      let quotePos = -1;
+      for (let i = errorPos - 1; i >= 0; i--) {
+        if (result[i] === '"') {
+          // Count preceding backslashes
+          let backslashes = 0;
+          for (let j = i - 1; j >= 0 && result[j] === "\\"; j--) {
+            backslashes++;
+          }
+          // Unescaped if even number of backslashes
+          if (backslashes % 2 === 0) {
+            quotePos = i;
+            break;
+          }
+        }
+      }
+
+      if (quotePos === -1) break;
+
+      // Escape this quote by inserting backslash before it
+      result = result.slice(0, quotePos) + "\\" + result.slice(quotePos);
+    }
+  }
+
+  return result;
+}
+
+/**
  * Parse JSON from AI response
  */
 function parseJsonResponse(text: string): GeneratedContent {
@@ -197,6 +247,10 @@ function parseJsonResponse(text: string): GeneratedContent {
   // Fix unescaped control characters inside JSON string values
   // Process character by character to properly escape newlines, tabs, etc.
   jsonStr = escapeControlCharsInJsonStrings(jsonStr);
+
+  // Repair unescaped quotes inside JSON string values
+  // Uses error-driven approach to find and fix problematic quotes
+  jsonStr = repairJsonQuotes(jsonStr);
 
   try {
     const parsed = JSON.parse(jsonStr);
