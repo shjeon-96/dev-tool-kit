@@ -68,7 +68,7 @@ export function generateArticlePrompt(
   keyword: string,
   category: ArticleCategory,
   relatedKeywords: string[] = [],
-  style: "news" | "howto" | "listicle" | "analysis" = "news",
+  style: "news" | "howto" | "listicle" | "analysis" | "comparison" = "news",
   context?: ArticleGenerationContext,
 ): string {
   const styleInstructions = getStyleInstructions(style);
@@ -197,7 +197,7 @@ Return a JSON object with this exact structure:
  * Get style-specific instructions - Enhanced
  */
 function getStyleInstructions(
-  style: "news" | "howto" | "listicle" | "analysis",
+  style: "news" | "howto" | "listicle" | "analysis" | "comparison",
 ): string {
   switch (style) {
     case "news":
@@ -243,6 +243,27 @@ function getStyleInstructions(
 - Implications for different stakeholders
 - Forward-looking predictions and trends
 - Methodology or reasoning explanation where relevant`;
+
+    case "comparison":
+      return `Write as a comprehensive comparison/review guide (HIGH RPM CONTENT):
+- Clear "Winner Summary" box at the top with verdict
+- Detailed comparison table with key features/specs
+  - Use markdown tables: | Feature | Option A | Option B |
+  - Include pricing, key metrics, ratings
+- "Best For" sections:
+  - Best for beginners/budget
+  - Best for professionals/enterprise
+  - Best for specific use cases
+- Pros and cons for each option (bullet points)
+- Head-to-head breakdown by category:
+  - Performance/Quality
+  - Price/Value
+  - Features/Functionality
+  - Support/Community
+- Real-world use case scenarios
+- Clear recommendation with reasoning
+- "Bottom Line" conclusion with definitive guidance
+- Include specific numbers, prices, and metrics`;
 
     default:
       return "";

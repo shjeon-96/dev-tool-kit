@@ -90,6 +90,54 @@ export const DEFAULT_PRIORITY_WEIGHTS: PriorityWeights = {
 };
 
 /**
+ * High-value keywords for RPM optimization
+ * Keywords with high CPC that boost priority score
+ */
+export const HIGH_VALUE_KEYWORDS: Record<string, number> = {
+  // Finance/Insurance (CPC $10-50+)
+  insurance: 1.8,
+  "credit card": 1.7,
+  loan: 1.6,
+  mortgage: 1.7,
+  investment: 1.5,
+  trading: 1.4,
+  banking: 1.4,
+  finance: 1.3,
+  crypto: 1.4,
+  bitcoin: 1.4,
+
+  // SaaS/Software (CPC $5-30+)
+  software: 1.4,
+  saas: 1.5,
+  "cloud computing": 1.4,
+  enterprise: 1.3,
+  automation: 1.3,
+  crm: 1.5,
+  erp: 1.5,
+
+  // Legal (CPC $20-100+)
+  lawyer: 1.8,
+  attorney: 1.8,
+  legal: 1.5,
+
+  // Education (CPC $5-20+)
+  degree: 1.4,
+  certification: 1.3,
+  course: 1.2,
+  training: 1.2,
+
+  // Health (CPC $5-30+)
+  healthcare: 1.4,
+  medical: 1.3,
+  treatment: 1.3,
+
+  // Real Estate (CPC $10-50+)
+  "real estate": 1.5,
+  property: 1.3,
+  housing: 1.2,
+};
+
+/**
  * Category keywords for auto-categorization
  */
 export const CATEGORY_KEYWORDS: Record<ArticleCategory, string[]> = {

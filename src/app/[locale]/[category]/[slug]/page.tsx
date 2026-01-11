@@ -24,6 +24,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { AdUnit } from "@/widgets/ad-unit";
+import { TrendingWidget } from "@/widgets/sidebar/ui/trending-widget";
 import { routing } from "@/i18n/routing";
 import { ArticleContent } from "./article-content";
 import { ShareButton } from "./share-button";
@@ -172,9 +173,9 @@ export default async function ArticlePage({ params }: Props) {
 
   const isKorean = locale === "ko";
 
-  // Fetch related articles
+  // Fetch related articles (increased from 4 to 6 for better internal linking)
   const relatedArticles = await getRelatedArticles(article.id, {
-    limit: 4,
+    limit: 6,
     tags: article.tags,
     category: article.category as ArticleCategory,
   });
@@ -273,7 +274,7 @@ export default async function ArticlePage({ params }: Props) {
       </header>
 
       {/* Top Ad - Native Style */}
-      <div className="max-w-4xl mx-auto mt-10">
+      <div className="max-w-5xl mx-auto mt-10">
         <AdUnit
           slot={AD_SLOTS.CONTENT_TOP}
           format="horizontal"
@@ -281,13 +282,67 @@ export default async function ArticlePage({ params }: Props) {
         />
       </div>
 
-      {/* Article Body */}
-      <article className="max-w-3xl mx-auto mt-12">
-        <ArticleContent content={content} />
-      </article>
+      {/* Two-Column Layout: Article + Sidebar */}
+      <div className="max-w-6xl mx-auto mt-12 flex gap-8">
+        {/* Main Content Column */}
+        <div className="flex-1 min-w-0 max-w-3xl">
+          {/* Article Body */}
+          <article>
+            <ArticleContent content={content} />
+          </article>
+        </div>
+
+        {/* Sidebar - Desktop Only */}
+        <aside className="hidden lg:block w-[300px] flex-shrink-0">
+          <div className="sticky top-6 space-y-6">
+            {/* Sidebar Ad - Sticky */}
+            <AdUnit
+              slot={AD_SLOTS.ARTICLE_SIDEBAR}
+              format="rectangle"
+              className="rounded-xl overflow-hidden"
+            />
+
+            {/* Quick Links / Table of Contents */}
+            <div className="p-4 rounded-xl border bg-card">
+              <h3 className="font-semibold text-sm mb-3">
+                {isKorean ? "빠른 탐색" : "Quick Links"}
+              </h3>
+              <div className="space-y-2 text-sm">
+                {keyTakeaways.length > 0 && (
+                  <a
+                    href="#key-takeaways"
+                    className="block text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {isKorean ? "핵심 요약" : "Key Takeaways"}
+                  </a>
+                )}
+                {faqs.length > 0 && (
+                  <a
+                    href="#faq"
+                    className="block text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {isKorean ? "자주 묻는 질문" : "FAQ"}
+                  </a>
+                )}
+                {relatedArticles.length > 0 && (
+                  <a
+                    href="#related"
+                    className="block text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {isKorean ? "관련 기사" : "Related Articles"}
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Trending Articles Widget */}
+            <TrendingWidget locale={locale} limit={5} excludeId={article.id} />
+          </div>
+        </aside>
+      </div>
 
       {/* Article Footer */}
-      <footer className="max-w-4xl mx-auto mt-16 space-y-12">
+      <footer className="max-w-5xl mx-auto mt-16 space-y-12">
         {/* Share & Navigation Row */}
         <div className="flex items-center justify-between flex-wrap gap-4 pt-8 border-t border-border">
           <Link
@@ -308,7 +363,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Related Articles - Editorial Grid */}
         {relatedArticles.length > 0 && (
-          <section className="space-y-8">
+          <section id="related" className="space-y-8 scroll-mt-6">
             <div className="flex items-center gap-4">
               <div className="w-1 h-8 bg-accent rounded-full" />
               <h2 className="text-2xl font-bold">
@@ -369,7 +424,10 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Key Takeaways Section */}
         {keyTakeaways.length > 0 && (
-          <section className="p-6 md:p-8 rounded-2xl border bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-emerald-950/20 dark:to-teal-950/20">
+          <section
+            id="key-takeaways"
+            className="p-6 md:p-8 rounded-2xl border bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-emerald-950/20 dark:to-teal-950/20 scroll-mt-6"
+          >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center">
                 <CheckCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
@@ -393,7 +451,7 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* FAQ Section - SEO Rich Snippets */}
         {faqs.length > 0 && (
-          <section className="space-y-6">
+          <section id="faq" className="space-y-6 scroll-mt-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center">
                 <HelpCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />

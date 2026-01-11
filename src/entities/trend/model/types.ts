@@ -291,7 +291,7 @@ export interface GeneratedContent {
  */
 export interface ContentGenerationRequest {
   trend: Trend;
-  style?: "news" | "howto" | "listicle" | "analysis";
+  style?: "news" | "howto" | "listicle" | "analysis" | "comparison";
   targetWordCount?: number;
   includeImages?: boolean;
 }

@@ -6,6 +6,7 @@ import type { ArticleCategory, Region } from "@/entities/trend";
 import {
   CATEGORY_KEYWORDS,
   DEFAULT_PRIORITY_WEIGHTS,
+  HIGH_VALUE_KEYWORDS,
   type PriorityWeights,
   type RawTrend,
   type ProcessedTrend,
@@ -28,7 +29,27 @@ export function categorizeKeyword(keyword: string): ArticleCategory {
 }
 
 /**
+ * Calculate high-value keyword multiplier for RPM optimization
+ * Matches keywords with high CPC to boost priority score
+ */
+export function calculateHighValueMultiplier(keyword: string): number {
+  const lowerKeyword = keyword.toLowerCase();
+  let maxMultiplier = 1.0;
+
+  for (const [highValueKeyword, multiplier] of Object.entries(
+    HIGH_VALUE_KEYWORDS,
+  )) {
+    if (lowerKeyword.includes(highValueKeyword)) {
+      maxMultiplier = Math.max(maxMultiplier, multiplier);
+    }
+  }
+
+  return maxMultiplier;
+}
+
+/**
  * Calculate priority score for a trend
+ * Applies high-value keyword multiplier for RPM optimization
  */
 export function calculatePriorityScore(
   trend: RawTrend,
@@ -39,8 +60,7 @@ export function calculatePriorityScore(
   const volumeScore = Math.min(trend.volume / 1000, 40) * weights.volume;
 
   // Freshness score (0-30 points)
-  const hoursOld =
-    (Date.now() - detectedAt.getTime()) / (1000 * 60 * 60);
+  const hoursOld = (Date.now() - detectedAt.getTime()) / (1000 * 60 * 60);
   const freshnessScore = Math.max(30 - hoursOld * 2, 0) * weights.freshness;
 
   // Competition score (0-30 points) - lower is better
@@ -48,7 +68,12 @@ export function calculatePriorityScore(
   const competition = 0.5;
   const competitionScore = (30 - competition * 30) * weights.competition;
 
-  return volumeScore + freshnessScore + competitionScore;
+  const baseScore = volumeScore + freshnessScore + competitionScore;
+
+  // Apply high-value keyword multiplier for RPM optimization
+  const highValueMultiplier = calculateHighValueMultiplier(trend.keyword);
+
+  return baseScore * highValueMultiplier;
 }
 
 /**
@@ -118,7 +143,10 @@ export function filterByCategory(
 /**
  * Filter trends by region
  */
-export function filterByRegion(trends: RawTrend[], regions: Region[]): RawTrend[] {
+export function filterByRegion(
+  trends: RawTrend[],
+  regions: Region[],
+): RawTrend[] {
   return trends.filter((trend) => regions.includes(trend.region));
 }
 
@@ -156,9 +184,7 @@ export function isFresh(detectedAt: Date, maxHours: number = 24): boolean {
 /**
  * Merge trends from multiple sources
  */
-export function mergeTrends(
-  ...trendArrays: RawTrend[][]
-): RawTrend[] {
+export function mergeTrends(...trendArrays: RawTrend[][]): RawTrend[] {
   const merged = trendArrays.flat();
   return filterDuplicates(merged);
 }

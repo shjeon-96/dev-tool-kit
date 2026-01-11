@@ -36,6 +36,13 @@ export const AD_SLOTS = {
   ARTICLE_MIDDLE: "8112667920",
 
   /**
+   * 기사 사이드바 - 데스크톱 Sticky 광고
+   * Format: rectangle (300x250 또는 300x600)
+   * 스크롤 시 고정되어 높은 노출 시간
+   */
+  ARTICLE_SIDEBAR: "8112667920",
+
+  /**
    * 관련 콘텐츠 상단 - 관련 기사 섹션 위
    * Format: horizontal
    */

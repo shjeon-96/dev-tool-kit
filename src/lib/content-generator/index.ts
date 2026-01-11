@@ -26,13 +26,13 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Claude Haiku model for cost-effective generation
-const MODEL = "claude-3-haiku-20240307";
+// Claude Haiku 4.5 model for cost-effective generation
+const MODEL = "claude-haiku-4-5-20241022";
 
-// Pricing (per million tokens)
+// Pricing (per million tokens) - Haiku 4.5
 const PRICING = {
-  input: 0.25, // $0.25 per 1M input tokens
-  output: 1.25, // $1.25 per 1M output tokens
+  input: 0.8, // $0.80 per 1M input tokens
+  output: 4.0, // $4.00 per 1M output tokens
 };
 
 /**
@@ -298,7 +298,7 @@ function parseJsonResponse(text: string): GeneratedContent {
  */
 export async function generateArticleFromTrend(
   trend: Trend,
-  style: "news" | "howto" | "listicle" | "analysis" = "news",
+  style: "news" | "howto" | "listicle" | "analysis" | "comparison" = "news",
 ): Promise<{
   article: Partial<import("@/entities/trend").Article>;
   cost: number;
@@ -363,7 +363,7 @@ export async function batchGenerateArticles(
   trends: Trend[],
   options: {
     maxArticles?: number;
-    style?: "news" | "howto" | "listicle" | "analysis";
+    style?: "news" | "howto" | "listicle" | "analysis" | "comparison";
     delayMs?: number;
   } = {},
 ): Promise<{

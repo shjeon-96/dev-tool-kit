@@ -123,8 +123,8 @@ export async function GET(request: Request) {
           updated_at: trendData.updated_at,
         };
 
-        // Determine article style based on category
-        const style = determineArticleStyle(trend.category);
+        // Determine article style based on category and keyword
+        const style = determineArticleStyle(trend.category, trend.keyword);
 
         // Generate article
         const result = await generateArticleFromTrend(trend, style);
@@ -261,11 +261,39 @@ async function getTodaySpending(): Promise<number> {
 }
 
 /**
- * Determine article style based on category
+ * Patterns that indicate comparison/review content (high RPM)
+ */
+const COMPARISON_PATTERNS = [
+  / vs\.? /i, // "X vs Y" or "X vs. Y"
+  / versus /i, // "X versus Y"
+  /best .+ for /i, // "best CRM for small business"
+  /top \d+ /i, // "top 10 software"
+  /\d+ best /i, // "10 best tools"
+  / comparison/i, // "software comparison"
+  / compared/i, // "tools compared"
+  / alternative/i, // "Slack alternatives"
+  / review/i, // "product review"
+];
+
+/**
+ * Check if keyword matches comparison patterns
+ */
+function isComparisonKeyword(keyword: string): boolean {
+  return COMPARISON_PATTERNS.some((pattern) => pattern.test(keyword));
+}
+
+/**
+ * Determine article style based on category and keyword
  */
 function determineArticleStyle(
   category?: string | null,
-): "news" | "howto" | "listicle" | "analysis" {
+  keyword?: string,
+): "news" | "howto" | "listicle" | "analysis" | "comparison" {
+  // Check for comparison patterns first (highest RPM potential)
+  if (keyword && isComparisonKeyword(keyword)) {
+    return "comparison";
+  }
+
   switch (category) {
     case "tech":
       return "analysis";
