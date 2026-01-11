@@ -129,9 +129,12 @@ export async function GET(request: Request) {
         // Generate article
         const result = await generateArticleFromTrend(trend, style);
 
-        if (!result) {
+        if (!result || result.error) {
           results.failed++;
-          results.errors.push(`Failed to generate for: ${trend.keyword}`);
+          const errorMsg = result?.error || "Unknown error";
+          results.errors.push(
+            `Failed to generate for: ${trend.keyword} - ${errorMsg}`,
+          );
           continue;
         }
 

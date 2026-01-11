@@ -243,6 +243,7 @@ export async function generateArticleFromTrend(
 ): Promise<{
   article: Partial<import("@/entities/trend").Article>;
   cost: number;
+  error?: string;
 } | null> {
   const result = await generateArticleContent({
     trend,
@@ -254,7 +255,8 @@ export async function generateArticleFromTrend(
       "[ContentGenerator] Failed to generate content:",
       result.error,
     );
-    return null;
+    // Return error info for debugging
+    return { article: {}, cost: 0, error: result.error || "Unknown error" };
   }
 
   const { content, costUsd = 0 } = result;
