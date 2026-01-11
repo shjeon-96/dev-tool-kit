@@ -52,7 +52,14 @@ export const ARTICLE_SYSTEM_PROMPT = `You are an expert content writer specializ
 - Include unique insights that demonstrate real expertise
 
 ## Output Format
-Always return a valid JSON object as specified. Ensure proper escaping of special characters, quotes, and newlines within JSON strings.`;
+Always return a valid JSON object as specified.
+
+### JSON String Escaping Rules (CRITICAL)
+- All double quotes inside string values MUST be escaped as \\"
+- Example WRONG: "title": "He said "Hello""
+- Example CORRECT: "title": "He said \\"Hello\\""
+- For Korean text with quotes, use Korean quotation marks 「」 or '' instead of ""
+- Never use raw double quotes (") inside a JSON string value`;
 
 /**
  * Generate article prompt based on trend - Enhanced for SEO with RAG
