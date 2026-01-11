@@ -165,7 +165,8 @@ export async function getArticlesByCategory(
 }
 
 /**
- * Get related articles based on tags and category
+ * Get related articles based on tags, category, and topic cluster
+ * Enhanced with cluster priority for better internal linking
  */
 export async function getRelatedArticles(
   articleId: string,
@@ -173,15 +174,71 @@ export async function getRelatedArticles(
     limit?: number;
     tags?: string[];
     category?: ArticleCategory;
+    topicClusterId?: string | null;
+    prioritizeClusters?: boolean;
   } = {},
 ): Promise<Article[]> {
-  const { limit = 4, tags = [], category } = options;
+  const {
+    limit = 4,
+    tags = [],
+    category,
+    topicClusterId,
+    prioritizeClusters = false,
+  } = options;
   const supabase = getUntypedServiceClient();
 
   if (!supabase) {
     return [];
   }
 
+  // If prioritizing clusters and we have a cluster ID, get cluster articles first
+  if (prioritizeClusters && topicClusterId) {
+    const clusterArticles = await getClusterArticles(topicClusterId, {
+      limit,
+      excludeArticleId: articleId,
+    });
+
+    // If we have enough cluster articles, return them
+    if (clusterArticles.length >= limit) {
+      return clusterArticles.slice(0, limit);
+    }
+
+    // Otherwise, supplement with tag/category-based articles
+    const remainingLimit = limit - clusterArticles.length;
+    const clusterIds = clusterArticles.map((a) => a.id);
+
+    let query = supabase
+      .from("articles")
+      .select("*")
+      .eq("status", "published")
+      .neq("id", articleId);
+
+    // Exclude already fetched cluster articles
+    if (clusterIds.length > 0) {
+      query = query.not("id", "in", `(${clusterIds.join(",")})`);
+    }
+
+    if (category) {
+      query = query.eq("category", category);
+    }
+
+    if (tags.length > 0) {
+      query = query.overlaps("tags", tags);
+    }
+
+    const { data, error } = await query
+      .order("published_at", { ascending: false })
+      .limit(remainingLimit);
+
+    if (error) {
+      console.error("[Queries] getRelatedArticles supplement error:", error);
+      return clusterArticles;
+    }
+
+    return [...clusterArticles, ...(data || [])];
+  }
+
+  // Standard related articles query (no cluster priority)
   let query = supabase
     .from("articles")
     .select("*")
@@ -202,6 +259,121 @@ export async function getRelatedArticles(
 
   if (error) {
     console.error("[Queries] getRelatedArticles error:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+/**
+ * Get articles in the same topic cluster
+ * Used for pillar page navigation and internal linking
+ */
+export async function getClusterArticles(
+  topicClusterId: string,
+  options: {
+    limit?: number;
+    excludeArticleId?: string;
+    includePillar?: boolean;
+  } = {},
+): Promise<Article[]> {
+  const { limit = 10, excludeArticleId, includePillar = false } = options;
+  const supabase = getUntypedServiceClient();
+
+  if (!supabase) {
+    return [];
+  }
+
+  let query = supabase
+    .from("articles")
+    .select("*")
+    .eq("status", "published")
+    .eq("topic_cluster_id", topicClusterId);
+
+  if (excludeArticleId) {
+    query = query.neq("id", excludeArticleId);
+  }
+
+  if (!includePillar) {
+    query = query.eq("is_pillar_page", false);
+  }
+
+  const { data, error } = await query
+    .order("cluster_order", { ascending: true })
+    .order("published_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("[Queries] getClusterArticles error:", error);
+    return [];
+  }
+
+  return data || [];
+}
+
+/**
+ * Get pillar article for a topic cluster
+ */
+export async function getPillarArticle(
+  topicClusterId: string,
+): Promise<Article | null> {
+  const supabase = getUntypedServiceClient();
+
+  if (!supabase) {
+    return null;
+  }
+
+  const { data, error } = await supabase
+    .from("articles")
+    .select("*")
+    .eq("status", "published")
+    .eq("topic_cluster_id", topicClusterId)
+    .eq("is_pillar_page", true)
+    .single();
+
+  if (error) {
+    // Not found is not an error
+    if (error.code !== "PGRST116") {
+      console.error("[Queries] getPillarArticle error:", error);
+    }
+    return null;
+  }
+
+  return data;
+}
+
+/**
+ * Get all pillar pages (for navigation/sitemap)
+ */
+export async function getPillarArticles(
+  options: {
+    limit?: number;
+    category?: ArticleCategory;
+  } = {},
+): Promise<Article[]> {
+  const { limit = 20, category } = options;
+  const supabase = getUntypedServiceClient();
+
+  if (!supabase) {
+    return [];
+  }
+
+  let query = supabase
+    .from("articles")
+    .select("*")
+    .eq("status", "published")
+    .eq("is_pillar_page", true);
+
+  if (category) {
+    query = query.eq("category", category);
+  }
+
+  const { data, error } = await query
+    .order("published_at", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("[Queries] getPillarArticles error:", error);
     return [];
   }
 

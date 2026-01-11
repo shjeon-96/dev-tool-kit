@@ -38,4 +38,8 @@ export {
   getAllArticleSlugs,
   getCategoryStats,
   incrementArticleView,
+  // Topic Cluster queries
+  getClusterArticles,
+  getPillarArticle,
+  getPillarArticles,
 } from "./model/queries";

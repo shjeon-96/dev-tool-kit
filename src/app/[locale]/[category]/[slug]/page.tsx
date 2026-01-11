@@ -6,6 +6,7 @@ import {
   getArticleBySlug,
   getRelatedArticles,
   getAllArticleSlugs,
+  getPillarArticle,
   type Article,
   type ArticleCategory,
   type ArticleFAQ,
@@ -22,6 +23,8 @@ import {
   Sparkles,
   HelpCircle,
   CheckCircle,
+  BookOpen,
+  Layers,
 } from "lucide-react";
 import { AdUnit } from "@/widgets/ad-unit";
 import { TrendingWidget } from "@/widgets/sidebar/ui/trending-widget";
@@ -185,12 +188,20 @@ export default async function ArticlePage({ params }: Props) {
 
   const isKorean = locale === "ko";
 
-  // Fetch related articles (increased from 4 to 6 for better internal linking)
+  // Fetch related articles with cluster priority for better internal linking
   const relatedArticles = await getRelatedArticles(article.id, {
     limit: 6,
     tags: article.tags,
     category: article.category as ArticleCategory,
+    topicClusterId: article.topic_cluster_id,
+    prioritizeClusters: !!article.topic_cluster_id,
   });
+
+  // Fetch pillar article if this article is part of a cluster
+  const pillarArticle =
+    article.topic_cluster_id && !article.is_pillar_page
+      ? await getPillarArticle(article.topic_cluster_id)
+      : null;
 
   const title = getLocalizedContent(article, "title", locale);
   const excerpt = getLocalizedContent(article, "excerpt", locale);
@@ -241,6 +252,23 @@ export default async function ArticlePage({ params }: Props) {
             <span className="category-pill">
               {isKorean ? categoryLabel.ko : categoryLabel.en}
             </span>
+            {/* Pillar Page Badge */}
+            {article.is_pillar_page && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">
+                <BookOpen className="h-3 w-3" />
+                {isKorean ? "필라 가이드" : "Pillar Guide"}
+              </span>
+            )}
+            {/* Topic Cluster Link */}
+            {pillarArticle && (
+              <Link
+                href={`/${locale}/${pillarArticle.category}/${pillarArticle.slug}`}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 border border-indigo-500/20 hover:bg-indigo-500/20 transition-colors"
+              >
+                <Layers className="h-3 w-3" />
+                {isKorean ? "토픽 가이드 보기" : "View Topic Guide"}
+              </Link>
+            )}
             <span className="reading-badge">
               <Clock className="h-3.5 w-3.5" />
               {article.reading_time_minutes} {isKorean ? "분" : "min read"}

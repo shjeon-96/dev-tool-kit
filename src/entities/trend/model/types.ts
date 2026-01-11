@@ -144,6 +144,12 @@ export interface Article {
   scheduled_at: string | null;
   published_at: string | null;
 
+  // Topic Cluster (SEO - Topical Authority)
+  parent_article_id: string | null;
+  topic_cluster_id: string | null;
+  is_pillar_page: boolean;
+  cluster_order: number;
+
   // Timestamps
   created_at: string;
   updated_at: string;
@@ -223,6 +229,11 @@ export interface CreateArticleInput {
   generation_cost_usd?: number;
   status?: ArticleStatus;
   scheduled_at?: string;
+  // Topic Cluster
+  parent_article_id?: string;
+  topic_cluster_id?: string;
+  is_pillar_page?: boolean;
+  cluster_order?: number;
 }
 
 /**
