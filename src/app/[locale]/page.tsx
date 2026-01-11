@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
-import { getPublishedArticles, getTrendingArticles, type Article } from "@/entities/trend";
+import {
+  getPublishedArticles,
+  getTrendingArticles,
+  type Article,
+} from "@/entities/trend";
 import { SITE_CONFIG } from "@/shared/config";
 import { AD_SLOTS } from "@/shared/config/ad-slots";
 import { ArrowRight, Clock, Sparkles } from "lucide-react";
@@ -39,15 +43,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `/${locale}`,
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `/${l}`]),
-      ),
+      languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
     },
   };
 }
 
 // Helper function to get localized content
-function getLocalizedContent(article: Article, field: "title" | "excerpt" | "content", locale: string) {
+function getLocalizedContent(
+  article: Article,
+  field: "title" | "excerpt" | "content",
+  locale: string,
+) {
   if (locale === "ko") {
     return article[`${field}_ko`] || article[`${field}_en`];
   }
@@ -56,12 +62,42 @@ function getLocalizedContent(article: Article, field: "title" | "excerpt" | "con
 
 // Category data with colors
 const CATEGORIES = [
-  { key: "tech", labelEn: "Tech", labelKo: "테크", gradient: "from-blue-500/20 to-cyan-500/20" },
-  { key: "business", labelEn: "Business", labelKo: "비즈니스", gradient: "from-emerald-500/20 to-green-500/20" },
-  { key: "lifestyle", labelEn: "Lifestyle", labelKo: "라이프", gradient: "from-pink-500/20 to-rose-500/20" },
-  { key: "entertainment", labelEn: "Entertainment", labelKo: "엔터", gradient: "from-purple-500/20 to-violet-500/20" },
-  { key: "trending", labelEn: "Trending", labelKo: "트렌딩", gradient: "from-orange-500/20 to-amber-500/20" },
-  { key: "news", labelEn: "News", labelKo: "뉴스", gradient: "from-slate-500/20 to-gray-500/20" },
+  {
+    key: "tech",
+    labelEn: "Tech",
+    labelKo: "테크",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+  },
+  {
+    key: "business",
+    labelEn: "Business",
+    labelKo: "비즈니스",
+    gradient: "from-emerald-500/20 to-green-500/20",
+  },
+  {
+    key: "lifestyle",
+    labelEn: "Lifestyle",
+    labelKo: "라이프",
+    gradient: "from-pink-500/20 to-rose-500/20",
+  },
+  {
+    key: "entertainment",
+    labelEn: "Entertainment",
+    labelKo: "엔터",
+    gradient: "from-purple-500/20 to-violet-500/20",
+  },
+  {
+    key: "trending",
+    labelEn: "Trending",
+    labelKo: "트렌딩",
+    gradient: "from-orange-500/20 to-amber-500/20",
+  },
+  {
+    key: "news",
+    labelEn: "News",
+    labelKo: "뉴스",
+    gradient: "from-slate-500/20 to-gray-500/20",
+  },
 ];
 
 export default async function HomePage({ params }: Props) {
@@ -113,11 +149,14 @@ export default async function HomePage({ params }: Props) {
                     </span>
                     <span className="reading-badge">
                       <Clock className="h-3.5 w-3.5" />
-                      {featuredArticle.reading_time_minutes} {isKorean ? "분" : "min"}
+                      {featuredArticle.reading_time_minutes}{" "}
+                      {isKorean ? "분" : "min"}
                     </span>
                     {featuredArticle.published_at && (
                       <time className="text-xs text-muted-foreground">
-                        {new Date(featuredArticle.published_at).toLocaleDateString(locale, {
+                        {new Date(
+                          featuredArticle.published_at,
+                        ).toLocaleDateString(locale, {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
@@ -149,7 +188,9 @@ export default async function HomePage({ params }: Props) {
           ) : (
             <div className="text-center py-20">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-balance mb-6">
-                {isKorean ? "최신 트렌드 & 인사이트" : "Latest Trends & Insights"}
+                {isKorean
+                  ? "최신 트렌드 & 인사이트"
+                  : "Latest Trends & Insights"}
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 {isKorean
@@ -213,7 +254,11 @@ export default async function HomePage({ params }: Props) {
 
       {/* Ad Unit - Native Style */}
       <div className="max-w-6xl mx-auto">
-        <AdUnit slot={AD_SLOTS.CONTENT_TOP} format="horizontal" className="ad-native" />
+        <AdUnit
+          slot={AD_SLOTS.CONTENT_TOP}
+          format="horizontal"
+          className="ad-native"
+        />
       </div>
 
       {/* Latest Articles - Bento Grid */}
@@ -226,7 +271,7 @@ export default async function HomePage({ params }: Props) {
             </h2>
           </div>
           <Link
-            href={`/${locale}/blog`}
+            href={`/${locale}/articles`}
             className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-accent transition-colors"
           >
             {isKorean ? "모든 기사" : "View All"}
@@ -238,11 +283,12 @@ export default async function HomePage({ params }: Props) {
           <div className="bento-grid">
             {gridArticles.map((article, index) => {
               // Bento layout: first item large, rest alternating sizes
-              const sizeClass = index === 0
-                ? "bento-item-large"
-                : index < 3
-                  ? "bento-item-small"
-                  : "bento-item-medium";
+              const sizeClass =
+                index === 0
+                  ? "bento-item-large"
+                  : index < 3
+                    ? "bento-item-small"
+                    : "bento-item-medium";
 
               const isLarge = index === 0;
 
@@ -253,7 +299,9 @@ export default async function HomePage({ params }: Props) {
                   className={`group ${sizeClass}`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <article className={`article-card h-full ${isLarge ? "p-8" : "p-5"} flex flex-col animate-fade-in-up opacity-0`}>
+                  <article
+                    className={`article-card h-full ${isLarge ? "p-8" : "p-5"} flex flex-col animate-fade-in-up opacity-0`}
+                  >
                     {/* Category & Time */}
                     <div className="flex items-center gap-2 text-xs mb-3">
                       <span className="px-2 py-1 rounded bg-secondary text-secondary-foreground uppercase tracking-wider font-medium">
@@ -266,7 +314,9 @@ export default async function HomePage({ params }: Props) {
                     </div>
 
                     {/* Title */}
-                    <h3 className={`font-bold leading-snug group-hover:text-accent transition-colors ${isLarge ? "text-2xl md:text-3xl mb-4" : "text-lg mb-2"} ${isLarge ? "line-clamp-3" : "line-clamp-2"}`}>
+                    <h3
+                      className={`font-bold leading-snug group-hover:text-accent transition-colors ${isLarge ? "text-2xl md:text-3xl mb-4" : "text-lg mb-2"} ${isLarge ? "line-clamp-3" : "line-clamp-2"}`}
+                    >
                       {getLocalizedContent(article, "title", locale)}
                     </h3>
 
@@ -281,10 +331,13 @@ export default async function HomePage({ params }: Props) {
                     <div className="mt-auto pt-3 border-t border-border/50">
                       {article.published_at && (
                         <time className="text-xs text-muted-foreground">
-                          {new Date(article.published_at).toLocaleDateString(locale, {
-                            month: "long",
-                            day: "numeric",
-                          })}
+                          {new Date(article.published_at).toLocaleDateString(
+                            locale,
+                            {
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )}
                         </time>
                       )}
                     </div>
@@ -299,7 +352,9 @@ export default async function HomePage({ params }: Props) {
               <Sparkles className="w-8 h-8 text-muted-foreground" />
             </div>
             <h3 className="text-xl font-bold mb-2">
-              {isKorean ? "곧 새로운 콘텐츠가 추가됩니다" : "New Content Coming Soon"}
+              {isKorean
+                ? "곧 새로운 콘텐츠가 추가됩니다"
+                : "New Content Coming Soon"}
             </h3>
             <p className="text-muted-foreground">
               {isKorean
@@ -331,7 +386,9 @@ export default async function HomePage({ params }: Props) {
               className="group"
               style={{ animationDelay: `${index * 0.05}s` }}
             >
-              <div className={`relative p-6 rounded-xl border bg-gradient-to-br ${category.gradient} overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg group-hover:border-accent/50 animate-fade-in-up opacity-0`}>
+              <div
+                className={`relative p-6 rounded-xl border bg-gradient-to-br ${category.gradient} overflow-hidden transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg group-hover:border-accent/50 animate-fade-in-up opacity-0`}
+              >
                 {/* Decorative element */}
                 <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-foreground/5" />
 
@@ -356,9 +413,7 @@ export default async function HomePage({ params }: Props) {
             </span>
 
             <h2 className="text-3xl md:text-4xl font-bold text-balance">
-              {isKorean
-                ? "트렌드를 놓치지 마세요"
-                : "Never Miss a Trend"}
+              {isKorean ? "트렌드를 놓치지 마세요" : "Never Miss a Trend"}
             </h2>
 
             <p className="text-lg text-muted-foreground max-w-xl mx-auto">
@@ -368,7 +423,7 @@ export default async function HomePage({ params }: Props) {
             </p>
 
             <Link
-              href={`/${locale}/blog`}
+              href={`/${locale}/articles`}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background font-semibold hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:gap-4"
             >
               {isKorean ? "모든 기사 보기" : "Explore All Articles"}
