@@ -93,6 +93,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? article.excerpt_ko || article.meta_description_ko
     : article.excerpt_en || article.meta_description_en;
 
+  // Dynamic OG image URL for Google Discover (1200x630)
+  const ogImageUrl = `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(title)}&category=${article.category}&locale=${locale}`;
+
   return {
     title: `${title} - ${SITE_CONFIG.title}`,
     description: description || "",
@@ -104,11 +107,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "article",
       publishedTime: article.published_at || undefined,
       tags: article.tags,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: description || "",
+      images: [ogImageUrl],
     },
     alternates: {
       canonical: `/${locale}/${article.category}/${slug}`,
@@ -517,7 +529,7 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* JSON-LD Schemas for SEO */}
 
-      {/* NewsArticle Schema - Enhanced */}
+      {/* NewsArticle Schema - Enhanced for Google Discover */}
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -527,7 +539,15 @@ export default async function ArticlePage({ params }: Props) {
             "@type": "NewsArticle",
             headline: title,
             description: excerpt,
-            image: `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(title)}`,
+            image: [
+              {
+                "@type": "ImageObject",
+                url: `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(title)}&category=${category}&locale=${locale}`,
+                width: 1200,
+                height: 630,
+              },
+            ],
+            thumbnailUrl: `${SITE_CONFIG.url}/api/og?title=${encodeURIComponent(title)}&category=${category}&locale=${locale}`,
             datePublished: article.published_at,
             dateModified: article.updated_at,
             wordCount:
