@@ -26,8 +26,8 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Claude Haiku 4.5 model for cost-effective generation
-const MODEL = "claude-haiku-4-5-20241022";
+// Claude 3.5 Haiku model for cost-effective generation
+const MODEL = "claude-3-5-haiku-20241022";
 
 // Pricing (per million tokens) - Haiku 4.5
 const PRICING = {
@@ -80,7 +80,7 @@ export async function generateArticleContent(
       generationContext,
     );
 
-    // Call Claude API
+    // Call Claude API with prefill technique to ensure JSON response
     const response = await anthropic.messages.create({
       model: MODEL,
       max_tokens: 4096,
@@ -89,6 +89,10 @@ export async function generateArticleContent(
         {
           role: "user",
           content: prompt,
+        },
+        {
+          role: "assistant",
+          content: "{", // Prefill to force JSON output
         },
       ],
     });
@@ -99,8 +103,8 @@ export async function generateArticleContent(
       throw new Error("No text content in response");
     }
 
-    // Parse JSON response
-    const content = parseJsonResponse(textContent.text);
+    // Parse JSON response (prepend "{" since we used it as prefill)
+    const content = parseJsonResponse("{" + textContent.text);
 
     // Calculate cost
     const inputTokens = response.usage.input_tokens;
@@ -243,6 +247,14 @@ function parseJsonResponse(text: string): GeneratedContent {
   }
 
   jsonStr = jsonStr.trim();
+
+  // Extract JSON object from text (handles preamble like "I'll help...")
+  // Find the first '{' and the matching last '}'
+  const firstBrace = jsonStr.indexOf("{");
+  const lastBrace = jsonStr.lastIndexOf("}");
+  if (firstBrace !== -1 && lastBrace > firstBrace) {
+    jsonStr = jsonStr.slice(firstBrace, lastBrace + 1);
+  }
 
   // Fix unescaped control characters inside JSON string values
   // Process character by character to properly escape newlines, tabs, etc.
