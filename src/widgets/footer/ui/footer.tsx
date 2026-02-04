@@ -8,11 +8,26 @@ export function Footer() {
   const t = useTranslations("footer");
 
   return (
-    <footer className="py-3 sm:py-4 border-t bg-muted/30" role="contentinfo">
-      <div className="flex flex-col items-center justify-between gap-3 sm:gap-4 sm:flex-row text-xs sm:text-sm text-muted-foreground px-4 sm:px-6">
-        <p className="text-center sm:text-left">
-          © {new Date().getFullYear()} Web Toolkit. {t("rights")}
-        </p>
+    <footer className="py-4 sm:py-6 border-t bg-muted/30" role="contentinfo">
+      <div className="flex flex-col items-center gap-4 text-xs sm:text-sm text-muted-foreground px-4 sm:px-6">
+        {/* Business Info */}
+        <div className="text-center space-y-1">
+          <p className="font-medium text-foreground/80">
+            {locale === "ko" ? "픽셀로직" : "PixelLogic"}
+          </p>
+          <p>
+            {locale === "ko"
+              ? "대표: 전승훈 | 사업자등록번호: 698-38-01639"
+              : "CEO: Seunghun Jeon | Business No: 698-38-01639"}
+          </p>
+          <p>
+            {locale === "ko"
+              ? "인천시 연수구 컨벤시아대로 81, 드림시티 5층 509-205A호"
+              : "509-205A, Dream City 5F, 81 Convensia-daero, Yeonsu-gu, Incheon, Korea"}
+          </p>
+        </div>
+
+        {/* Navigation Links */}
         <nav
           className="flex flex-wrap justify-center gap-3 sm:gap-4"
           aria-label={locale === "ko" ? "푸터 링크" : "Footer links"}
@@ -45,6 +60,11 @@ export function Footer() {
             GitHub
           </Link>
         </nav>
+
+        {/* Copyright */}
+        <p className="text-center">
+          © {new Date().getFullYear()} Web Toolkit. {t("rights")}
+        </p>
       </div>
     </footer>
   );
