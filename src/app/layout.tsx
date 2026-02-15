@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Web Toolkit",
-  description: "All-in-one web-based toolkit for developers",
+  title: "PixelLogic",
+  description: "Build small, useful apps for everyday life.",
 };
 
 export default function RootLayout({
@@ -10,5 +11,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
 }
