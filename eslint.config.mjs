@@ -53,31 +53,41 @@ const eslintConfig = defineConfig([
       ],
     },
     rules: {
-      "boundaries/element-types": [
+      "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
           rules: [
             {
-              from: "app",
-              allow: ["app", "widgets", "features", "entities", "shared"],
+              from: { type: "app" },
+              allow: {
+                to: { type: ["app", "widgets", "features", "entities", "shared"] },
+              },
             },
             {
-              from: "widgets",
-              allow: ["widgets", "features", "entities", "shared"],
+              from: { type: "widgets" },
+              allow: {
+                to: { type: ["widgets", "features", "entities", "shared"] },
+              },
             },
             {
-              from: "features",
+              from: { type: "features" },
               // widgets 허용: tool-actions 같은 cross-cutting concern이 widgets에 위치
-              allow: ["features", "entities", "shared", "widgets"],
+              allow: {
+                to: { type: ["features", "entities", "shared", "widgets"] },
+              },
             },
             {
-              from: "entities",
-              allow: ["entities", "shared"],
+              from: { type: "entities" },
+              allow: {
+                to: { type: ["entities", "shared"] },
+              },
             },
             {
-              from: "shared",
-              allow: ["shared"],
+              from: { type: "shared" },
+              allow: {
+                to: { type: "shared" },
+              },
             },
           ],
         },
