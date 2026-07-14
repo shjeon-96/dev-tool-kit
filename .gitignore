@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+.playwright-cli/
+playwright-report/
+test-results/
 
 # next.js
 /.next/
@@ -42,11 +45,9 @@ yarn-error.log*
 next-env.d.ts
 
 # PWA
+.env*.local
 public/sw.js
 public/workbox-*.js
-public/sw.js.map
-public/workbox-*.js.map
-.env*.local
 
 # Plasmo (Chrome Extension)
 .plasmo

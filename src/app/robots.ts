@@ -1,14 +1,13 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/shared/config/site";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://web-toolkit.app";
-
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

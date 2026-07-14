@@ -53,31 +53,62 @@ const eslintConfig = defineConfig([
       ],
     },
     rules: {
-      "boundaries/element-types": [
+      "boundaries/dependencies": [
         "error",
         {
           default: "disallow",
-          rules: [
+          policies: [
             {
-              from: "app",
-              allow: ["app", "widgets", "features", "entities", "shared"],
+              from: { element: { types: "app" } },
+              allow: {
+                to: {
+                  element: {
+                    types: {
+                      anyOf: [
+                        "app",
+                        "widgets",
+                        "features",
+                        "entities",
+                        "shared",
+                      ],
+                    },
+                  },
+                },
+              },
             },
             {
-              from: "widgets",
-              allow: ["widgets", "features", "entities", "shared"],
+              from: { element: { types: "widgets" } },
+              allow: {
+                to: {
+                  element: {
+                    types: {
+                      anyOf: ["widgets", "features", "entities", "shared"],
+                    },
+                  },
+                },
+              },
             },
             {
-              from: "features",
-              // widgets 허용: tool-actions 같은 cross-cutting concern이 widgets에 위치
-              allow: ["features", "entities", "shared", "widgets"],
+              from: { element: { types: "features" } },
+              allow: {
+                to: {
+                  element: {
+                    types: {
+                      anyOf: ["features", "entities", "shared", "widgets"],
+                    },
+                  },
+                },
+              },
             },
             {
-              from: "entities",
-              allow: ["entities", "shared"],
+              from: { element: { types: "entities" } },
+              allow: {
+                to: { element: { types: { anyOf: ["entities", "shared"] } } },
+              },
             },
             {
-              from: "shared",
-              allow: ["shared"],
+              from: { element: { types: "shared" } },
+              allow: { to: { element: { types: "shared" } } },
             },
           ],
         },
@@ -94,12 +125,11 @@ const eslintConfig = defineConfig([
     // Extension has its own build process
     "extension/**",
     "vscode-extension/**",
-    // Generated files
-    "public/sw.js",
-    "public/workbox-*.js",
-    "public/widget/**",
     // Coverage
     "coverage/**",
+    // Legacy generated PWA files may remain in local checkouts.
+    "public/sw.js",
+    "public/workbox-*.js",
   ]),
 ]);
 
