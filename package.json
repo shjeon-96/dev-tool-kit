@@ -1,7 +1,7 @@
 {
-  "name": "web-toolkit",
+  "name": "runway-10",
   "version": "3.0.0",
-  "description": "Fast, private, multilingual browser utilities for common developer data.",
+  "description": "A daily company survival decision game.",
   "author": "PixelLogic <pixellogic.app@gmail.com>",
   "license": "MIT",
   "homepage": "https://web-toolkit.app",
@@ -13,11 +13,10 @@
     "url": "https://github.com/shjeon-96/dev-tool-kit/issues"
   },
   "keywords": [
-    "developer-tools",
-    "browser-utilities",
-    "json-formatter",
-    "base64",
-    "uuid",
+    "web-game",
+    "strategy-game",
+    "daily-game",
+    "company-simulator",
     "nextjs"
   ],
   "private": true,

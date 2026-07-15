@@ -1,18 +1,20 @@
-# Web Toolkit Development Guide
+# RUNWAY 10 Development Guide
 
-`README.md` is the authoritative project overview. Keep implementation aligned with these invariants:
+## Product rules
 
-1. `web-toolkit.app` is the multilingual advertising-supported utility site.
-2. English, Korean and Japanese routes always use locale prefixes.
-3. Tool inputs remain client-side; adding network processing requires an explicit product decision and privacy update.
-4. Site identity, locales, tools and AdSense settings each have one source in `src/shared/config`.
-5. Localized copy lives only in `src/shared/i18n`.
-6. Do not add placeholder ad units or invent AdSense slot IDs. Auto ads use the configured publisher ID in production.
+1. `RUNWAY 10` is a daily company-survival decision game.
+2. Every UTC date has one deterministic ten-scenario order shared by all locales.
+3. Scenario data owns narrative and choice effects. Game engine owns state transitions and scoring.
+4. Cash, team, or trust reaching zero ends a run. Growth affects score but is not a failure condition.
+5. Decisions cannot be undone. Restart explicitly deletes the current local run.
+6. English, Korean, and Japanese versions must expose identical rules and effects.
+7. Do not add alternate game paths, placeholder scenarios, or compatibility implementations.
 
-Required completion checks:
+## Required checks
 
 ```bash
+npm test -- --run
 npm run lint
-npm run test:e2e
 npm run build
+npm run test:e2e
 ```

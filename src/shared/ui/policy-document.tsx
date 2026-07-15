@@ -1,16 +1,23 @@
+import Link from "next/link";
+import { localizedPath, type Locale } from "@/shared/config/site";
+
 export function PolicyDocument({
   title,
   updated,
   sections,
+  locale,
 }: {
   title: string;
   updated: string;
   sections: readonly { title: string; body: string }[];
+  locale: Locale;
 }) {
   return (
     <main className="shell content-page">
       <header className="content-page-header">
-        <p className="eyebrow">WEB TOOLKIT / DOCUMENT</p>
+        <Link className="eyebrow" href={localizedPath(locale)}>
+          RUNWAY 10 / DOCUMENT
+        </Link>
         <h1>{title}</h1>
         <p>{updated}</p>
       </header>

@@ -1,11 +1,11 @@
 {
-  "name": "Web Toolkit",
-  "short_name": "WTK",
-  "description": "Fast, private browser utilities for common developer data.",
+  "name": "RUNWAY 10 — Company Survival",
+  "short_name": "RUNWAY 10",
+  "description": "Keep a company alive through ten impossible decisions.",
   "start_url": "/en",
   "display": "standalone",
-  "background_color": "#f2efe6",
-  "theme_color": "#171813",
+  "background_color": "#111713",
+  "theme_color": "#111713",
   "icons": [
     {
       "src": "/icon.svg",
@@ -14,7 +14,7 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["developer tools", "utilities", "productivity"],
+  "categories": ["games", "entertainment", "strategy"],
   "lang": "en",
   "dir": "ltr",
   "scope": "/"
