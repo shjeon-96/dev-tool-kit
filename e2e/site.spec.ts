@@ -83,4 +83,32 @@ test.describe("multilingual Web Toolkit", () => {
       page.getByRole("link", { name: "도구", exact: true }),
     ).toBeVisible();
   });
+
+  test("completes and restores the five-round daily game", async ({ page }) => {
+    await page.goto("/en/play");
+
+    for (let round = 0; round < 5; round += 1) {
+      await page.getByRole("button", { name: "HIGHER" }).click();
+      const action = round === 4 ? "FINISH TEST" : "NEXT ROUND";
+      await page.getByRole("button", { name: action }).click();
+    }
+
+    await expect(page.getByRole("heading", { name: /\d \/ 5/ })).toBeVisible();
+    await expect(page.getByText("FIELD TEST COMPLETE")).toBeVisible();
+
+    await page.reload();
+    await expect(page.getByText("FIELD TEST COMPLETE")).toBeVisible();
+  });
+
+  test("switches category and keeps localized game navigation", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/ko/play");
+    await page.getByRole("link", { name: "동물", exact: true }).click();
+
+    await expect(page).toHaveURL(/\/ko\/play\/animals$/);
+    await expect(page.getByRole("button", { name: "더 높다" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "더 낮다" })).toBeVisible();
+  });
 });

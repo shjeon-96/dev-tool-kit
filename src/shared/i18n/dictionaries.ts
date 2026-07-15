@@ -23,6 +23,7 @@ interface Dictionary {
   meta: { title: string; description: string };
   nav: {
     tools: string;
+    play: string;
     about: string;
     menu: string;
     language: string;
@@ -96,6 +97,7 @@ const en: Dictionary = {
   },
   nav: {
     tools: "Tools",
+    play: "Play",
     about: "About",
     menu: "Menu",
     language: "Language",
@@ -488,6 +490,7 @@ const ko: Dictionary = {
   },
   nav: {
     tools: "도구",
+    play: "게임",
     about: "소개",
     menu: "메뉴",
     language: "언어",
@@ -875,6 +878,7 @@ const ja: Dictionary = {
   },
   nav: {
     tools: "ツール",
+    play: "ゲーム",
     about: "概要",
     menu: "メニュー",
     language: "言語",
