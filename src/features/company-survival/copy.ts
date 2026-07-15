@@ -12,6 +12,9 @@ export const COMPANY_COPY: Record<
     title: string;
     subtitle: string;
     briefing: string;
+    chooseCompany: string;
+    companyNote: string;
+    changeCompany: string;
     rules: readonly string[];
     start: string;
     resume: string;
@@ -23,9 +26,9 @@ export const COMPANY_COPY: Record<
     next: string;
     finalReport: string;
     restart: string;
-    copyResult: string;
-    copied: string;
-    copyFailed: string;
+    saveCard: string;
+    savedCard: string;
+    saveFailed: string;
     storageError: string;
     clearData: string;
     today: string;
@@ -33,6 +36,17 @@ export const COMPANY_COPY: Record<
     privacy: string;
     terms: string;
     score: string;
+    careerTitle: string;
+    currentStreak: string;
+    daysPlayed: string;
+    survivalRate: string;
+    bestScore: string;
+    dayUnit: string;
+    globalRank: string;
+    topPercent: string;
+    players: string;
+    rankLoading: string;
+    rankError: string;
     metrics: Record<CompanyMetric, string>;
     effectLabels: Record<CompanyMetric, string>;
     status: Record<
@@ -48,8 +62,11 @@ export const COMPANY_COPY: Record<
     subtitle:
       "좋은 선택은 없습니다. 숫자가 0이 되기 전에 다음 월요일까지 버티세요.",
     briefing: "대표이사 긴급 브리핑",
+    chooseCompany: "오늘 경영할 회사를 선택하세요",
+    companyNote: "업종마다 시작 지표와 전용 위기가 다릅니다.",
+    changeCompany: "다른 회사 선택",
     rules: [
-      "매일 모두에게 같은 10개 사건",
+      "같은 업종은 매일 동일한 10개 사건",
       "현금·팀·신뢰 중 하나라도 0이면 종료",
       "결정은 되돌릴 수 없음",
     ],
@@ -63,9 +80,9 @@ export const COMPANY_COPY: Record<
     next: "다음 보고서 열기",
     finalReport: "최종 생존 보고서",
     restart: "오늘의 회사 다시 시작",
-    copyResult: "결과 복사",
-    copied: "결과가 클립보드에 복사됐습니다.",
-    copyFailed: "복사 권한이 없습니다. 브라우저 설정을 확인하세요.",
+    saveCard: "결과 카드 저장",
+    savedCard: "공유용 결과 이미지를 저장했습니다.",
+    saveFailed: "결과 이미지를 만들지 못했습니다.",
     storageError:
       "저장된 경영 기록이 손상됐습니다. 기록을 지운 뒤 다시 시작해야 합니다.",
     clearData: "손상된 기록 지우기",
@@ -74,6 +91,17 @@ export const COMPANY_COPY: Record<
     privacy: "개인정보",
     terms: "이용약관",
     score: "기업가치 점수",
+    careerTitle: "대표이사 개인 기록",
+    currentStreak: "현재 연속 출근",
+    daysPlayed: "완료한 경영일",
+    survivalRate: "생존율",
+    bestScore: "최고 기업가치",
+    dayUnit: "일",
+    globalRank: "글로벌 업종 순위",
+    topPercent: "상위",
+    players: "개 기록",
+    rankLoading: "글로벌 순위를 집계하고 있습니다…",
+    rankError: "글로벌 순위 서버에 연결하지 못했습니다.",
     metrics: { cash: "현금", morale: "팀", trust: "신뢰", momentum: "성장" },
     effectLabels: {
       cash: "현금",
@@ -107,8 +135,11 @@ export const COMPANY_COPY: Record<
     subtitle:
       "There are no good choices. Make it to next Monday before a critical number hits zero.",
     briefing: "Chief executive emergency briefing",
+    chooseCompany: "Choose today's company",
+    companyNote: "Each industry starts differently and has exclusive crises.",
+    changeCompany: "Choose another company",
     rules: [
-      "The same ten crises for everyone each day",
+      "The same profile gets the same ten crises each day",
       "Cash, team, or trust at zero ends the company",
       "Every decision is final",
     ],
@@ -122,9 +153,9 @@ export const COMPANY_COPY: Record<
     next: "Open next report",
     finalReport: "View final report",
     restart: "Restart today's company",
-    copyResult: "Copy result",
-    copied: "Result copied to clipboard.",
-    copyFailed: "Clipboard permission denied. Check browser settings.",
+    saveCard: "Save result card",
+    savedCard: "Shareable result image saved.",
+    saveFailed: "Could not create the result image.",
     storageError:
       "Saved company record is corrupted. Clear it before starting again.",
     clearData: "Clear corrupted record",
@@ -133,6 +164,17 @@ export const COMPANY_COPY: Record<
     privacy: "Privacy",
     terms: "Terms",
     score: "COMPANY VALUE SCORE",
+    careerTitle: "CEO CAREER RECORD",
+    currentStreak: "CURRENT STREAK",
+    daysPlayed: "DAYS COMPLETED",
+    survivalRate: "SURVIVAL RATE",
+    bestScore: "BEST COMPANY VALUE",
+    dayUnit: "DAYS",
+    globalRank: "GLOBAL INDUSTRY RANK",
+    topPercent: "TOP",
+    players: "RUNS",
+    rankLoading: "Calculating your global rank…",
+    rankError: "The global leaderboard is unavailable.",
     metrics: {
       cash: "CASH",
       morale: "TEAM",
@@ -171,8 +213,11 @@ export const COMPANY_COPY: Record<
     subtitle:
       "正解はありません。重要な数字が0になる前に、次の月曜日まで耐えてください。",
     briefing: "代表取締役 緊急説明",
+    chooseCompany: "今日経営する会社を選択",
+    companyNote: "業種ごとに初期指標と専用危機が異なります。",
+    changeCompany: "別の会社を選ぶ",
     rules: [
-      "毎日全員に同じ10件の危機",
+      "同じ業種には毎日同じ10件の危機",
       "資金・チーム・信頼のどれかが0で終了",
       "決断は取り消せない",
     ],
@@ -186,9 +231,9 @@ export const COMPANY_COPY: Record<
     next: "次の報告書を開く",
     finalReport: "最終報告を見る",
     restart: "今日の会社を再開する",
-    copyResult: "結果をコピー",
-    copied: "結果をクリップボードにコピーしました。",
-    copyFailed: "コピー権限がありません。ブラウザ設定を確認してください。",
+    saveCard: "結果カードを保存",
+    savedCard: "共有用の結果画像を保存しました。",
+    saveFailed: "結果画像を作成できませんでした。",
     storageError:
       "保存された経営記録が破損しています。削除して再開してください。",
     clearData: "破損記録を削除",
@@ -197,6 +242,17 @@ export const COMPANY_COPY: Record<
     privacy: "プライバシー",
     terms: "利用規約",
     score: "企業価値スコア",
+    careerTitle: "CEO個人記録",
+    currentStreak: "現在の連続出勤",
+    daysPlayed: "完了した経営日",
+    survivalRate: "生存率",
+    bestScore: "最高企業価値",
+    dayUnit: "日",
+    globalRank: "世界業界ランキング",
+    topPercent: "上位",
+    players: "件",
+    rankLoading: "世界順位を集計中…",
+    rankError: "世界ランキングに接続できませんでした。",
     metrics: {
       cash: "資金",
       morale: "チーム",

@@ -4,7 +4,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  Clipboard,
+  ImageDown,
   RotateCcw,
   TriangleAlert,
 } from "lucide-react";
@@ -13,6 +13,10 @@ import {
   COMPANY_SCENARIOS,
   getScenario,
 } from "@/entities/company-scenario/data/scenarios";
+import {
+  COMPANY_PROFILES,
+  getCompanyProfile,
+} from "@/entities/company-scenario/data/profiles";
 import {
   LOCALE_LABELS,
   LOCALES,
@@ -25,13 +29,32 @@ import {
   calculateCompanyScore,
   createDailyScenarioOrder,
   createInitialGameState,
-  isCompanyGameState,
 } from "@/shared/lib/company-survival/game";
+import {
+  clearStoredRunsForDate,
+  clearCompanyArchive,
+  clearStoredProfile,
+  clearStoredRun,
+  createEmptyArchive,
+  deriveCareerStats,
+  readCompanyArchive,
+  readOrCreatePlayerId,
+  readStoredProfile,
+  readStoredRun,
+  recordCompletedRun,
+  writeStoredRun,
+  writeStoredProfile,
+} from "@/shared/lib/company-survival/storage";
+import { trackD1Return, trackGameEvent } from "@/shared/lib/analytics";
 import type {
+  CompanyCareerStats,
   CompanyGameState,
+  CompanyIndustry,
   CompanyMetric,
 } from "@/shared/types/company-survival";
 import { COMPANY_COPY } from "./copy";
+import { GameOverAd } from "./game-over-ad";
+import { createResultCardSvg, saveResultCard } from "./share-card";
 
 const METRICS: readonly CompanyMetric[] = [
   "cash",
@@ -45,9 +68,20 @@ interface Resolution {
   choiceId: string;
 }
 
-function storageKey(date: string) {
-  return `runway-10:company:${date}`;
-}
+type LeaderboardState =
+  | { kind: "idle" }
+  | { kind: "loading" }
+  | { kind: "error" }
+  | { kind: "ready"; percentile: number; total: number };
+
+const EMPTY_CAREER: CompanyCareerStats = {
+  daysPlayed: 0,
+  daysSurvived: 0,
+  currentStreak: 0,
+  bestStreak: 0,
+  bestScore: 0,
+};
+const DEFAULT_INDUSTRY: CompanyIndustry = "saas";
 
 export function CompanySurvivalGame({
   locale,
@@ -59,39 +93,120 @@ export function CompanySurvivalGame({
   challengeNumber: number;
 }) {
   const copy = COMPANY_COPY[locale];
+  const [industry, setIndustry] = useState<CompanyIndustry>(DEFAULT_INDUSTRY);
   const scenarioOrder = useMemo(
-    () => createDailyScenarioOrder(date, COMPANY_SCENARIOS),
-    [date],
+    () => createDailyScenarioOrder(date, industry, COMPANY_SCENARIOS),
+    [date, industry],
   );
   const [game, setGame] = useState<CompanyGameState>(() =>
-    createInitialGameState(date),
+    createInitialGameState(date, DEFAULT_INDUSTRY),
   );
   const [started, setStarted] = useState(false);
   const [resolution, setResolution] = useState<Resolution | null>(null);
   const [showFinal, setShowFinal] = useState(false);
   const [storageError, setStorageError] = useState(false);
   const [copyStatus, setCopyStatus] = useState("");
+  const [career, setCareer] = useState<CompanyCareerStats>(EMPTY_CAREER);
+  const [leaderboard, setLeaderboard] = useState<LeaderboardState>({
+    kind: "idle",
+  });
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
-      const saved = window.localStorage.getItem(storageKey(date));
-      if (!saved) return;
-
-      try {
-        const parsed: unknown = JSON.parse(saved);
-        if (!isCompanyGameState(parsed, date)) {
-          setStorageError(true);
-          return;
-        }
-        setGame(parsed);
-        setStarted(parsed.turn > 0);
-        setShowFinal(parsed.status !== "playing");
-      } catch {
+      const savedProfile = readStoredProfile(window.localStorage);
+      const savedArchive = readCompanyArchive(window.localStorage);
+      if (savedProfile.kind === "invalid" || savedArchive.kind === "invalid") {
         setStorageError(true);
+        return;
+      }
+      const activeIndustry =
+        savedProfile.kind === "valid" ? savedProfile.value : DEFAULT_INDUSTRY;
+      const savedRun = readStoredRun(window.localStorage, date, activeIndustry);
+      if (savedRun.kind === "invalid") {
+        setStorageError(true);
+        return;
+      }
+      const archive =
+        savedArchive.kind === "valid"
+          ? savedArchive.value
+          : createEmptyArchive();
+      setCareer(deriveCareerStats(archive, date));
+      setIndustry(activeIndustry);
+      trackD1Return(window.localStorage, date, activeIndustry);
+
+      if (savedRun.kind === "valid") {
+        setGame(savedRun.value);
+        setStarted(savedRun.value.turn > 0);
+        setShowFinal(savedRun.value.status !== "playing");
       }
     });
     return () => window.cancelAnimationFrame(frame);
   }, [date]);
+
+  useEffect(() => {
+    if (
+      !showFinal ||
+      game.status === "playing" ||
+      leaderboard.kind !== "idle"
+    ) {
+      return;
+    }
+    const submit = async () => {
+      setLeaderboard({ kind: "loading" });
+      try {
+        const response = await fetch("/api/company-survival/results", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            date: game.date,
+            industry: game.industry,
+            history: game.history,
+            playerId: readOrCreatePlayerId(window.localStorage),
+          }),
+        });
+        if (!response.ok)
+          throw new Error(`Leaderboard returned ${response.status}`);
+        const result = (await response.json()) as {
+          percentile: number;
+          total: number;
+        };
+        setLeaderboard({ kind: "ready", ...result });
+      } catch {
+        setLeaderboard({ kind: "error" });
+      }
+    };
+    void submit();
+  }, [game, leaderboard.kind, showFinal]);
+
+  const selectIndustry = (nextIndustry: CompanyIndustry) => {
+    const stored = readStoredRun(window.localStorage, date, nextIndustry);
+    if (stored.kind === "invalid") {
+      setStorageError(true);
+      return;
+    }
+    writeStoredProfile(window.localStorage, nextIndustry);
+    setIndustry(nextIndustry);
+    setGame(
+      stored.kind === "valid"
+        ? stored.value
+        : createInitialGameState(date, nextIndustry),
+    );
+    setShowFinal(stored.kind === "valid" && stored.value.status !== "playing");
+    setResolution(null);
+    setCopyStatus("");
+    setLeaderboard({ kind: "idle" });
+  };
+
+  const startGame = () => {
+    writeStoredProfile(window.localStorage, industry);
+    setShowFinal(game.status !== "playing");
+    setStarted(true);
+    trackGameEvent("game_started", {
+      challenge: challengeNumber,
+      industry,
+      resumed: game.turn > 0,
+    });
+  };
 
   const scenario =
     game.turn < GAME_LENGTH ? getScenario(scenarioOrder[game.turn]) : null;
@@ -105,9 +220,32 @@ export function CompanySurvivalGame({
   const decide = (choiceId: string) => {
     if (!scenario || resolution || game.status !== "playing") return;
     const next = applyDecision(game, scenario, choiceId);
-    window.localStorage.setItem(storageKey(date), JSON.stringify(next));
+    try {
+      writeStoredRun(window.localStorage, next);
+      if (next.status !== "playing") {
+        const archive = recordCompletedRun(window.localStorage, next);
+        setCareer(deriveCareerStats(archive, date));
+      }
+    } catch {
+      setStorageError(true);
+      return;
+    }
     setGame(next);
     setResolution({ scenarioId: scenario.id, choiceId });
+    trackGameEvent("choice_made", {
+      industry,
+      turn: next.turn,
+      scenario: scenario.id,
+      choice: choiceId,
+    });
+    if (next.status !== "playing") {
+      trackGameEvent("game_completed", {
+        industry,
+        status: next.status,
+        score: calculateCompanyScore(next),
+        turns: next.turn,
+      });
+    }
   };
 
   const advance = () => {
@@ -120,33 +258,43 @@ export function CompanySurvivalGame({
   };
 
   const restart = () => {
-    const fresh = createInitialGameState(date);
-    window.localStorage.removeItem(storageKey(date));
+    const fresh = createInitialGameState(date, industry);
+    clearStoredRun(window.localStorage, date, industry);
     setGame(fresh);
     setResolution(null);
     setShowFinal(false);
     setStarted(true);
     setCopyStatus("");
+    setLeaderboard({ kind: "idle" });
   };
 
   const clearCorruptedData = () => {
-    window.localStorage.removeItem(storageKey(date));
-    setGame(createInitialGameState(date));
+    clearStoredRunsForDate(window.localStorage, date);
+    clearStoredProfile(window.localStorage);
+    clearCompanyArchive(window.localStorage);
+    setIndustry(DEFAULT_INDUSTRY);
+    setGame(createInitialGameState(date, DEFAULT_INDUSTRY));
+    setCareer(EMPTY_CAREER);
     setStorageError(false);
     setStarted(false);
   };
 
-  const copyResult = async () => {
-    const status = game.status === "playing" ? "survived" : game.status;
-    const blocks = METRICS.map(
-      (metric) => `${copy.metrics[metric]} ${game.metrics[metric]}`,
-    ).join(" · ");
-    const result = `${copy.brand} #${challengeNumber}\n${copy.status[status].title}\n${blocks}\n${copy.score} ${calculateCompanyScore(game)}\n${window.location.href}`;
+  const saveCard = async () => {
     try {
-      await navigator.clipboard.writeText(result);
-      setCopyStatus(copy.copied);
+      const svg = createResultCardSvg({
+        locale,
+        challengeNumber,
+        game,
+        streak: career.currentStreak,
+      });
+      await saveResultCard(svg, challengeNumber);
+      setCopyStatus(copy.savedCard);
+      trackGameEvent("result_shared", {
+        industry,
+        score: calculateCompanyScore(game),
+      });
     } catch {
-      setCopyStatus(copy.copyFailed);
+      setCopyStatus(copy.saveFailed);
     }
   };
 
@@ -162,6 +310,7 @@ export function CompanySurvivalGame({
           <span>{copy.today}</span>
           <strong>
             #{challengeNumber} · {date}
+            {` · ${getCompanyProfile(industry).code}`}
           </strong>
         </div>
         <nav className="company-locales" aria-label="Language">
@@ -193,14 +342,38 @@ export function CompanySurvivalGame({
             </p>
             <h1>{copy.title}</h1>
             <p className="company-deck">{copy.subtitle}</p>
+            <fieldset className="company-profile-picker">
+              <legend>{copy.chooseCompany}</legend>
+              <p>{copy.companyNote}</p>
+              <div>
+                {COMPANY_PROFILES.map((profile) => (
+                  <button
+                    key={profile.id}
+                    type="button"
+                    aria-pressed={profile.id === industry}
+                    onClick={() => selectIndustry(profile.id)}
+                  >
+                    <span>{profile.code}</span>
+                    <strong>{profile.label[locale]}</strong>
+                    <small>{profile.description[locale]}</small>
+                  </button>
+                ))}
+              </div>
+            </fieldset>
             <button
               className="company-primary-action"
               type="button"
-              onClick={() => setStarted(true)}
+              onClick={startGame}
             >
               {game.turn > 0 ? copy.resume : copy.start}
               <ArrowRight aria-hidden="true" />
             </button>
+            {career.currentStreak > 0 ? (
+              <p className="company-streak-chip">
+                {copy.currentStreak} <strong>{career.currentStreak}</strong>
+                {copy.dayUnit}
+              </p>
+            ) : null}
           </div>
           <aside className="company-rules">
             <span className="company-stamp">CONFIDENTIAL</span>
@@ -246,14 +419,26 @@ export function CompanySurvivalGame({
               <span>{copy.score}</span>
               <strong>{calculateCompanyScore(game)}</strong>
             </div>
+            <CareerRecord locale={locale} career={career} />
+            <LeaderboardRecord locale={locale} state={leaderboard} />
             <div className="company-final-actions">
-              <button type="button" onClick={copyResult}>
-                <Clipboard aria-hidden="true" />
-                {copy.copyResult}
+              <button type="button" onClick={saveCard}>
+                <ImageDown aria-hidden="true" />
+                {copy.saveCard}
               </button>
               <button type="button" onClick={restart}>
                 <RotateCcw aria-hidden="true" />
                 {copy.restart}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setStarted(false);
+                  setShowFinal(false);
+                  setResolution(null);
+                }}
+              >
+                {copy.changeCompany}
               </button>
             </div>
             {copyStatus ? (
@@ -267,6 +452,7 @@ export function CompanySurvivalGame({
             metrics={game.metrics}
             turn={game.turn}
           />
+          <GameOverAd locale={locale} />
         </section>
       ) : (
         <section className="company-boardroom">
@@ -367,6 +553,70 @@ export function CompanySurvivalGame({
         </section>
       )}
     </main>
+  );
+}
+
+function LeaderboardRecord({
+  locale,
+  state,
+}: {
+  locale: Locale;
+  state: LeaderboardState;
+}) {
+  const copy = COMPANY_COPY[locale];
+  if (state.kind === "idle" || state.kind === "loading") {
+    return <p className="company-global-rank is-loading">{copy.rankLoading}</p>;
+  }
+  if (state.kind === "error") {
+    return <p className="company-global-rank is-error">{copy.rankError}</p>;
+  }
+  return (
+    <section className="company-global-rank" aria-label={copy.globalRank}>
+      <span>{copy.globalRank}</span>
+      <strong>
+        {copy.topPercent} {Math.max(1, 101 - state.percentile)}%
+      </strong>
+      <small>
+        {state.total.toLocaleString(locale)} {copy.players}
+      </small>
+    </section>
+  );
+}
+
+function CareerRecord({
+  locale,
+  career,
+}: {
+  locale: Locale;
+  career: CompanyCareerStats;
+}) {
+  const copy = COMPANY_COPY[locale];
+  const survivalRate = career.daysPlayed
+    ? Math.round((career.daysSurvived / career.daysPlayed) * 100)
+    : 0;
+  return (
+    <section className="company-career" aria-labelledby="career-record-title">
+      <h2 id="career-record-title">{copy.careerTitle}</h2>
+      <div>
+        <span>{copy.currentStreak}</span>
+        <strong>
+          {career.currentStreak}
+          <small>{copy.dayUnit}</small>
+        </strong>
+      </div>
+      <div>
+        <span>{copy.daysPlayed}</span>
+        <strong>{career.daysPlayed}</strong>
+      </div>
+      <div>
+        <span>{copy.survivalRate}</span>
+        <strong>{survivalRate}%</strong>
+      </div>
+      <div>
+        <span>{copy.bestScore}</span>
+        <strong>{career.bestScore}</strong>
+      </div>
+    </section>
   );
 }
 

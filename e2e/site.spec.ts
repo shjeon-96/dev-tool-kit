@@ -49,9 +49,30 @@ test.describe("RUNWAY 10 company survival", () => {
     ).toEqual(metricsAfter);
   });
 
+  test("changes the daily game state with the selected industry profile", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+    const gameStudio = page.getByRole("button", { name: /Game Studio/ });
+    await gameStudio.click();
+    await expect(gameStudio).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator(".company-seed strong")).toContainText("GAME");
+    await page.getByRole("button", { name: "Clock in as CEO" }).click();
+    await expect(page.locator(".company-metrics > div strong")).toHaveText([
+      "56",
+      "70",
+      "58",
+      "45",
+    ]);
+  });
+
   test("keeps decision controls usable on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/ko");
+    await expect(page.locator(".company-profile-picker button")).toHaveCount(6);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(390);
     await page.getByRole("button", { name: "대표이사로 출근하기" }).click();
     await expect(page.locator(".company-choices button")).toHaveCount(2);
     await expect(page.locator(".company-metrics > div")).toHaveCount(4);
@@ -62,5 +83,67 @@ test.describe("RUNWAY 10 company survival", () => {
     await expect(page).toHaveURL(/\/en$/);
     await page.goto("/en/play/animals");
     await expect(page).toHaveURL(/\/en$/);
+  });
+
+  test("restores career statistics and downloads a PNG result card", async ({
+    page,
+  }) => {
+    await page.route("**/api/company-survival/results", async (route) => {
+      await route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ score: 543, percentile: 88, total: 2407 }),
+      });
+    });
+    await page.goto("/en");
+    await page.evaluate(() => {
+      const date = new Date().toISOString().slice(0, 10);
+      const metrics = { cash: 72, morale: 66, trust: 81, momentum: 74 };
+      const history = Array.from({ length: 10 }, (_, index) => ({
+        scenarioId: `scenario-${index}`,
+        choiceId: "choice",
+      }));
+      const run = {
+        version: 2,
+        date,
+        industry: "saas",
+        turn: 10,
+        metrics,
+        status: "survived",
+        history,
+      };
+      const result = {
+        date,
+        industry: "saas",
+        status: "survived",
+        score: 543,
+        metrics,
+        decisions: 10,
+      };
+      localStorage.setItem(
+        `runway-10:company:v2:${date}:saas`,
+        JSON.stringify(run),
+      );
+      localStorage.setItem("runway-10:profile:v1", "saas");
+      localStorage.setItem(
+        "runway-10:archive:v2",
+        JSON.stringify({
+          version: 2,
+          results: { [`${date}:saas`]: result },
+        }),
+      );
+    });
+    await page.reload();
+
+    await expect(
+      page.getByRole("region", { name: "CEO CAREER RECORD" }),
+    ).toContainText("100%");
+    await expect(
+      page.getByRole("region", { name: "GLOBAL INDUSTRY RANK" }),
+    ).toContainText("TOP 13%");
+    await expect(page.locator(".company-game-over-ad")).toBeAttached();
+    const downloadPromise = page.waitForEvent("download");
+    await page.getByRole("button", { name: "Save result card" }).click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toMatch(/^runway-10-\d+\.png$/);
   });
 });

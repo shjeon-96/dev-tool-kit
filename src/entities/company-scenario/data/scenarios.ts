@@ -1,6 +1,10 @@
 import type { CompanyScenario } from "@/shared/types/company-survival";
+import { INDUSTRY_SCENARIOS } from "./industry-scenarios";
 
-export const COMPANY_SCENARIOS: readonly CompanyScenario[] = [
+const GENERAL_SCENARIOS: readonly Omit<
+  CompanyScenario,
+  "industry" | "cadence"
+>[] = [
   {
     id: "enterprise-client",
     department: { en: "SALES", ko: "영업팀", ja: "営業部" },
@@ -629,7 +633,16 @@ export const COMPANY_SCENARIOS: readonly CompanyScenario[] = [
       },
     ],
   },
-] as const;
+];
+
+export const COMPANY_SCENARIOS: readonly CompanyScenario[] = [
+  ...GENERAL_SCENARIOS.map((scenario) => ({
+    ...scenario,
+    industry: "all" as const,
+    cadence: "standard" as const,
+  })),
+  ...INDUSTRY_SCENARIOS,
+];
 
 export function getScenario(id: string) {
   const scenario = COMPANY_SCENARIOS.find((item) => item.id === id);

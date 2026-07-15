@@ -17,19 +17,23 @@ export const LEGAL_COPY: Record<
       sections: [
         {
           title: "Game records",
-          body: "RUNWAY 10 stores today's decisions and company metrics in your browser's local storage so a run can resume after a reload. This gameplay record is not sent to an application server.",
+          body: "RUNWAY 10 stores today's decisions, an anonymous player ID, and company metrics in browser local storage so a run can resume. When a run ends, its decision history and anonymous ID are sent to our server to verify and rank the score.",
         },
         {
           title: "Hosting data",
           body: "Our hosting provider may process standard request data such as IP address, browser type, requested URL, and timestamps for delivery, security, and reliability.",
         },
         {
+          title: "Analytics and leaderboard",
+          body: "Microsoft Clarity measures game starts, choices, completions, next-day returns, and result-card actions. Verified score, industry, date, and anonymous player ID are retained in Upstash Redis for the global leaderboard.",
+        },
+        {
           title: "Advertising",
           body: "RUNWAY 10 may use Google AdSense. Google and its partners may use cookies or similar technologies to deliver, measure, and personalize ads according to your consent choices and their policies.",
         },
         {
-          title: "Clipboard",
-          body: "The result-copy action writes a summary to your clipboard only after you press the copy button. The game does not read clipboard contents.",
+          title: "Result images",
+          body: "When you press the save-card button, RUNWAY 10 creates the result image in your browser and downloads it to your device. The image is not uploaded to an application server.",
         },
         {
           title: "Your controls",
@@ -51,7 +55,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "Daily challenge",
-          body: "Each UTC date determines one shared sequence of events. Scores and outcomes may change when game balance or scenario content is updated.",
+          body: "Each industry profile and UTC date determine one shared sequence, including a weekly featured crisis. Scores and outcomes may change when game balance or scenario content is updated.",
         },
         {
           title: "Fair use",
@@ -79,19 +83,23 @@ export const LEGAL_COPY: Record<
       sections: [
         {
           title: "게임 기록",
-          body: "RUNWAY 10은 새로고침 후에도 이어서 플레이할 수 있도록 오늘의 결정과 회사 지표를 브라우저 로컬 저장소에 보관합니다. 이 플레이 기록은 애플리케이션 서버로 전송되지 않습니다.",
+          body: "RUNWAY 10은 이어서 플레이할 수 있도록 오늘의 결정, 익명 플레이어 ID, 회사 지표를 브라우저 로컬 저장소에 보관합니다. 게임 종료 시 결정 기록과 익명 ID가 서버로 전송되어 점수를 검증하고 순위를 계산합니다.",
         },
         {
           title: "호스팅 데이터",
           body: "호스팅 제공자는 서비스 제공, 보안, 안정성을 위해 IP 주소, 브라우저 종류, 요청 URL, 시각 같은 표준 요청 정보를 처리할 수 있습니다.",
         },
         {
+          title: "분석 및 순위",
+          body: "Microsoft Clarity로 게임 시작, 선택, 완료, 다음 날 재방문, 결과 카드 행동을 측정합니다. 검증된 점수, 업종, 날짜, 익명 플레이어 ID는 글로벌 순위를 위해 Upstash Redis에 보관됩니다.",
+        },
+        {
           title: "광고",
           body: "RUNWAY 10은 Google AdSense를 사용할 수 있습니다. Google과 파트너는 사용자의 동의 선택 및 각 사 정책에 따라 광고 제공·측정·개인화를 위해 쿠키 또는 유사 기술을 사용할 수 있습니다.",
         },
         {
-          title: "클립보드",
-          body: "결과 복사 기능은 사용자가 버튼을 누른 뒤에만 요약 결과를 클립보드에 씁니다. 게임은 클립보드 내용을 읽지 않습니다.",
+          title: "결과 이미지",
+          body: "결과 카드 저장 버튼을 누르면 RUNWAY 10이 브라우저에서 결과 이미지를 생성해 기기에 다운로드합니다. 이미지는 애플리케이션 서버에 업로드되지 않습니다.",
         },
         {
           title: "사용자 선택권",
@@ -113,7 +121,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "오늘의 도전",
-          body: "UTC 날짜마다 모든 사용자에게 동일한 사건 순서가 정해집니다. 게임 밸런스나 사건 내용이 업데이트되면 점수와 결과가 달라질 수 있습니다.",
+          body: "업종과 UTC 날짜마다 공통 사건 순서와 주간 특별 위기가 정해집니다. 게임 밸런스나 사건 내용이 업데이트되면 점수와 결과가 달라질 수 있습니다.",
         },
         {
           title: "공정한 이용",
@@ -141,19 +149,23 @@ export const LEGAL_COPY: Record<
       sections: [
         {
           title: "ゲーム記録",
-          body: "RUNWAY 10は再読み込み後も続行できるよう、当日の決断と会社指標をブラウザのローカルストレージに保存します。このプレイ記録はアプリケーションサーバーへ送信されません。",
+          body: "RUNWAY 10は続行できるよう、当日の決断、匿名プレイヤーID、会社指標をブラウザに保存します。終了時に決断履歴と匿名IDをサーバーへ送り、得点を検証して順位を算出します。",
         },
         {
           title: "ホスティングデータ",
           body: "ホスティング事業者は配信、セキュリティ、信頼性のため、IPアドレス、ブラウザ種類、要求URL、時刻などの標準的な要求情報を処理する場合があります。",
         },
         {
+          title: "分析とランキング",
+          body: "Microsoft Clarityで開始、選択、完了、翌日再訪、結果カード操作を測定します。検証済み得点、業種、日付、匿名プレイヤーIDは世界ランキングのためUpstash Redisに保存されます。",
+        },
+        {
           title: "広告",
           body: "RUNWAY 10はGoogle AdSenseを利用する場合があります。Googleとそのパートナーは、同意内容と各社ポリシーに従い、広告の配信・測定・最適化にCookie等を利用する場合があります。",
         },
         {
-          title: "クリップボード",
-          body: "結果コピーはボタンを押した後にのみ要約をクリップボードへ書き込みます。ゲームがクリップボード内容を読むことはありません。",
+          title: "結果画像",
+          body: "結果カード保存ボタンを押すと、RUNWAY 10はブラウザ内で画像を生成し、端末へダウンロードします。画像はアプリケーションサーバーへ送信されません。",
         },
         {
           title: "利用者の設定",
@@ -175,7 +187,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "デイリーチャレンジ",
-          body: "UTC日付ごとに全員共通の事件順が決まります。ゲームバランスや事件内容の更新により、得点と結果が変わる場合があります。",
+          body: "業種とUTC日付ごとに共通の事件順と週間特別危機が決まります。ゲームバランスや事件内容の更新により、得点と結果が変わる場合があります。",
         },
         {
           title: "公正な利用",

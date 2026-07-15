@@ -1,5 +1,7 @@
+import { COMPANY_INDUSTRIES } from "@/shared/types/company-survival";
 import type {
   CompanyGameState,
+  CompanyIndustry,
   CompanyMetrics,
   CompanyScenario,
   CompanyStatus,
@@ -13,6 +15,18 @@ export const STARTING_METRICS: CompanyMetrics = {
   momentum: 45,
 };
 
+const PROFILE_METRIC_ADJUSTMENTS: Record<
+  CompanyIndustry,
+  Partial<CompanyMetrics>
+> = {
+  saas: {},
+  commerce: { cash: -5, momentum: 8 },
+  "game-studio": { cash: -8, morale: 8 },
+  fintech: { trust: 10, momentum: -6 },
+  "ai-lab": { trust: -8, momentum: 12 },
+  hardware: { cash: 10, momentum: -10 },
+};
+
 export function getUtcDateKey(date = new Date()) {
   return date.toISOString().slice(0, 10);
 }
@@ -23,9 +37,9 @@ export function getChallengeNumber(date: string) {
   return Math.floor((current - epoch) / 86_400_000) + 1;
 }
 
-function hashDate(date: string) {
+function hashChallenge(date: string, industry: CompanyIndustry) {
   let seed = 2166136261;
-  for (const character of date) {
+  for (const character of `${date}:${industry}`) {
     seed ^= character.charCodeAt(0);
     seed = Math.imul(seed, 16777619);
   }
@@ -40,18 +54,35 @@ function seededRandom(seed: number) {
   };
 }
 
+function getWeekKey(date: string) {
+  const current = new Date(`${date}T00:00:00.000Z`);
+  const day = current.getUTCDay() || 7;
+  current.setUTCDate(current.getUTCDate() - day + 1);
+  return current.toISOString().slice(0, 10);
+}
+
 export function createDailyScenarioOrder(
   date: string,
+  industry: CompanyIndustry,
   scenarios: readonly CompanyScenario[],
 ) {
-  if (scenarios.length < GAME_LENGTH) {
+  const profileScenarios = scenarios.filter(
+    (scenario) => scenario.industry === "all" || scenario.industry === industry,
+  );
+  const standardScenarios = profileScenarios.filter(
+    (scenario) => scenario.cadence === "standard",
+  );
+  const weeklyScenarios = profileScenarios.filter(
+    (scenario) => scenario.cadence === "weekly",
+  );
+  if (standardScenarios.length < GAME_LENGTH - 1 || !weeklyScenarios.length) {
     throw new Error(
-      `Company Survival requires at least ${GAME_LENGTH} scenarios`,
+      `Company Survival requires a weekly scenario and ${GAME_LENGTH - 1} standard scenarios for ${industry}`,
     );
   }
 
-  const random = seededRandom(hashDate(date));
-  const shuffled = [...scenarios];
+  const random = seededRandom(hashChallenge(date, industry));
+  const shuffled = [...standardScenarios];
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
     const swapIndex = Math.floor(random() * (index + 1));
     [shuffled[index], shuffled[swapIndex]] = [
@@ -59,15 +90,53 @@ export function createDailyScenarioOrder(
       shuffled[index],
     ];
   }
-  return shuffled.slice(0, GAME_LENGTH).map((scenario) => scenario.id);
+  const weeklyRandom = seededRandom(hashChallenge(getWeekKey(date), industry));
+  const weekly =
+    weeklyScenarios[Math.floor(weeklyRandom() * weeklyScenarios.length)];
+  return [weekly, ...shuffled.slice(0, GAME_LENGTH - 1)].map(
+    (scenario) => scenario.id,
+  );
 }
 
-export function createInitialGameState(date: string): CompanyGameState {
+export function replayCompanyRun(
+  date: string,
+  industry: CompanyIndustry,
+  history: CompanyGameState["history"],
+  scenarios: readonly CompanyScenario[],
+) {
+  const order = createDailyScenarioOrder(date, industry, scenarios);
+  let state = createInitialGameState(date, industry);
+  for (const decision of history) {
+    const expectedScenarioId = order[state.turn];
+    if (decision.scenarioId !== expectedScenarioId) {
+      throw new Error(
+        "Decision history does not match the daily scenario order",
+      );
+    }
+    const scenario = scenarios.find((item) => item.id === decision.scenarioId);
+    if (!scenario) throw new Error(`Unknown scenario ${decision.scenarioId}`);
+    state = applyDecision(state, scenario, decision.choiceId);
+  }
+  return state;
+}
+
+export function createInitialGameState(
+  date: string,
+  industry: CompanyIndustry,
+): CompanyGameState {
+  const adjustment = PROFILE_METRIC_ADJUSTMENTS[industry];
+  const metrics = Object.fromEntries(
+    Object.entries(STARTING_METRICS).map(([metric, value]) => [
+      metric,
+      value + (adjustment[metric as keyof CompanyMetrics] ?? 0),
+    ]),
+  ) as unknown as CompanyMetrics;
   return {
-    version: 1,
+    version: 2,
     date,
+    industry,
     turn: 0,
-    metrics: { ...STARTING_METRICS },
+    metrics,
     status: "playing",
     history: [],
   };
@@ -131,8 +200,9 @@ export function isCompanyGameState(
   if (!value || typeof value !== "object") return false;
   const state = value as Partial<CompanyGameState>;
   return (
-    state.version === 1 &&
+    state.version === 2 &&
     state.date === date &&
+    COMPANY_INDUSTRIES.some((industry) => industry === state.industry) &&
     typeof state.turn === "number" &&
     state.turn >= 0 &&
     state.turn <= GAME_LENGTH &&
