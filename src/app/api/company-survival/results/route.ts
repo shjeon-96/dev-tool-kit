@@ -48,7 +48,8 @@ export async function POST(request: Request) {
       history: payload.history,
       playerId: payload.playerId,
     });
-    console.warn(
+    // eslint-disable-next-line no-console -- Vercel runtime needs a structured info-level success event.
+    console.log(
       JSON.stringify({
         level: "info",
         message: "company_result_recorded",
