@@ -1,7 +1,8 @@
 import type { Locale } from "@/shared/config/site";
 import type { ToolSlug } from "@/shared/config/tools";
+import { EXTRA_TOOL_COPY } from "@/shared/i18n/extra-tool-copy";
 
-interface ToolCopy {
+export interface ToolCopy {
   title: string;
   shortDescription: string;
   description: string;
@@ -23,13 +24,13 @@ interface Dictionary {
   nav: {
     tools: string;
     about: string;
-    products: string;
     menu: string;
     language: string;
   };
   common: {
     openTool: string;
     allTools: string;
+    relatedTools: string;
     copy: string;
     copied: string;
     clear: string;
@@ -55,10 +56,6 @@ interface Dictionary {
     principleEyebrow: string;
     principleTitle: string;
     principles: readonly { title: string; body: string }[];
-    productsEyebrow: string;
-    productsTitle: string;
-    productsIntro: string;
-    visitProduct: string;
   };
   toolsIndex: { eyebrow: string; title: string; intro: string };
   about: {
@@ -95,18 +92,18 @@ const en: Dictionary = {
   meta: {
     title: "Web Toolkit — Fast, private browser utilities",
     description:
-      "Free developer utilities for JSON, Base64, UUIDs, timestamps, URLs and hashes. Everything runs locally in your browser.",
+      "Twenty free browser tools for JSON, text, colors, passwords, regular expressions and developer data. No uploads or accounts.",
   },
   nav: {
     tools: "Tools",
     about: "About",
-    products: "Products",
     menu: "Menu",
     language: "Language",
   },
   common: {
     openTool: "Open tool",
     allTools: "All tools",
+    relatedTools: "Related tools",
     copy: "Copy",
     copied: "Copied",
     clear: "Clear",
@@ -124,7 +121,7 @@ const en: Dictionary = {
       "Format, convert and generate common developer data without accounts, uploads or unnecessary steps.",
     primaryCta: "Browse the toolkit",
     secondaryCta: "How privacy works",
-    proofOne: "6 focused utilities",
+    proofOne: "20 focused utilities",
     proofTwo: "3 languages",
     proofThree: "0 server uploads",
     toolsEyebrow: "THE WORKBENCH",
@@ -147,15 +144,10 @@ const en: Dictionary = {
         body: "Fast copy actions, responsive layouts and sensible defaults keep recurring work moving.",
       },
     ],
-    productsEyebrow: "FROM PIXELLOGIC",
-    productsTitle: "More focused products.",
-    productsIntro:
-      "Independent apps live on their own subdomains while Web Toolkit stays dedicated to useful browser utilities.",
-    visitProduct: "Visit product",
   },
   toolsIndex: {
     eyebrow: "COMPLETE INDEX",
-    title: "Six tools. No account.",
+    title: "Twenty tools. No account.",
     intro:
       "Every utility runs on the client and includes a concise field guide for the format it handles.",
   },
@@ -223,7 +215,7 @@ const en: Dictionary = {
       },
       {
         title: "Third-party services",
-        body: "Advertising and linked products may be provided by third parties under their own terms and privacy practices.",
+        body: "Advertising services are provided by third parties under their own terms and privacy practices.",
       },
       {
         title: "Contact",
@@ -484,6 +476,7 @@ const en: Dictionary = {
         },
       ],
     },
+    ...EXTRA_TOOL_COPY.en,
   },
 };
 
@@ -491,18 +484,18 @@ const ko: Dictionary = {
   meta: {
     title: "Web Toolkit — 빠르고 안전한 브라우저 도구",
     description:
-      "JSON, Base64, UUID, 타임스탬프, URL, 해시 작업을 위한 무료 개발자 도구. 모든 데이터는 브라우저에서 처리됩니다.",
+      "JSON, 텍스트, 색상, 비밀번호, 정규식과 개발 데이터를 위한 무료 브라우저 도구 20개. 업로드와 가입이 없습니다.",
   },
   nav: {
     tools: "도구",
     about: "소개",
-    products: "제품",
     menu: "메뉴",
     language: "언어",
   },
   common: {
     openTool: "도구 열기",
     allTools: "전체 도구",
+    relatedTools: "관련 도구",
     copy: "복사",
     copied: "복사됨",
     clear: "지우기",
@@ -520,7 +513,7 @@ const ko: Dictionary = {
       "회원가입, 업로드, 불필요한 과정 없이 개발 데이터를 변환하고 생성하세요.",
     primaryCta: "도구 둘러보기",
     secondaryCta: "개인정보 처리 방식",
-    proofOne: "집중된 도구 6개",
+    proofOne: "집중된 도구 20개",
     proofTwo: "지원 언어 3개",
     proofThree: "서버 업로드 0회",
     toolsEyebrow: "THE WORKBENCH",
@@ -543,15 +536,10 @@ const ko: Dictionary = {
         body: "빠른 복사, 반응형 화면과 합리적인 기본값으로 자주 하는 작업을 줄입니다.",
       },
     ],
-    productsEyebrow: "FROM PIXELLOGIC",
-    productsTitle: "더 집중된 독립 제품.",
-    productsIntro:
-      "독립 앱은 서브도메인에서 운영하고 Web Toolkit은 브라우저 유틸리티에 집중합니다.",
-    visitProduct: "제품 방문",
   },
   toolsIndex: {
     eyebrow: "COMPLETE INDEX",
-    title: "도구 6개. 계정은 필요 없습니다.",
+    title: "도구 20개. 계정은 필요 없습니다.",
     intro:
       "모든 유틸리티는 클라이언트에서 실행되며 다루는 형식에 대한 간결한 설명을 포함합니다.",
   },
@@ -619,7 +607,7 @@ const ko: Dictionary = {
       },
       {
         title: "외부 서비스",
-        body: "광고 및 연결된 제품은 각자의 약관과 개인정보 처리 기준을 적용하는 제3자가 제공할 수 있습니다.",
+        body: "광고 서비스는 각자의 약관과 개인정보 처리 기준을 적용하는 제3자가 제공합니다.",
       },
       {
         title: "문의",
@@ -875,6 +863,7 @@ const ko: Dictionary = {
         },
       ],
     },
+    ...EXTRA_TOOL_COPY.ko,
   },
 };
 
@@ -882,18 +871,18 @@ const ja: Dictionary = {
   meta: {
     title: "Web Toolkit — 高速でプライベートなブラウザツール",
     description:
-      "JSON、Base64、UUID、タイムスタンプ、URL、ハッシュの無料開発ツール。すべてブラウザ内で処理されます。",
+      "JSON、テキスト、色、パスワード、正規表現、開発データ向け無料ブラウザツール20種。アップロードも登録も不要。",
   },
   nav: {
     tools: "ツール",
     about: "概要",
-    products: "製品",
     menu: "メニュー",
     language: "言語",
   },
   common: {
     openTool: "ツールを開く",
     allTools: "すべてのツール",
+    relatedTools: "関連ツール",
     copy: "コピー",
     copied: "コピー済み",
     clear: "クリア",
@@ -911,7 +900,7 @@ const ja: Dictionary = {
       "アカウント、アップロード、余計な手順なしで開発データを変換・生成できます。",
     primaryCta: "ツールを見る",
     secondaryCta: "プライバシーの仕組み",
-    proofOne: "6つの専用ツール",
+    proofOne: "20の専用ツール",
     proofTwo: "3言語対応",
     proofThree: "サーバー送信0回",
     toolsEyebrow: "THE WORKBENCH",
@@ -934,15 +923,10 @@ const ja: Dictionary = {
         body: "素早いコピー、レスポンシブ画面、適切な初期値で繰り返し作業を短縮します。",
       },
     ],
-    productsEyebrow: "FROM PIXELLOGIC",
-    productsTitle: "さらに特化した製品。",
-    productsIntro:
-      "独立アプリはサブドメインで運営し、Web Toolkitはブラウザユーティリティに集中します。",
-    visitProduct: "製品を見る",
   },
   toolsIndex: {
     eyebrow: "COMPLETE INDEX",
-    title: "6つのツール。アカウント不要。",
+    title: "20のツール。アカウント不要。",
     intro:
       "すべてクライアント上で動作し、扱う形式の簡潔なフィールドガイドを備えています。",
   },
@@ -1010,7 +994,7 @@ const ja: Dictionary = {
       },
       {
         title: "第三者サービス",
-        body: "広告およびリンク先製品は、それぞれの規約とプライバシー方針を持つ第三者が提供する場合があります。",
+        body: "広告サービスは、独自の規約とプライバシー方針を持つ第三者が提供します。",
       },
       {
         title: "お問い合わせ",
@@ -1260,6 +1244,7 @@ const ja: Dictionary = {
         },
       ],
     },
+    ...EXTRA_TOOL_COPY.ja,
   },
 };
 

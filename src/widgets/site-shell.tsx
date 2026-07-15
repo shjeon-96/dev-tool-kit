@@ -38,9 +38,6 @@ export function SiteHeader({
           <Link href={localizedPath(locale, "about")}>
             {dictionary.nav.about}
           </Link>
-          <Link href={`${localizedPath(locale)}#products`}>
-            {dictionary.nav.products}
-          </Link>
         </nav>
 
         <LanguageSwitcher

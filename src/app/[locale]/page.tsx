@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { ArrowDownRight, ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { PRODUCTS } from "@/shared/config/products";
 import { isLocale, localizedPath } from "@/shared/config/site";
-import { TOOLS } from "@/shared/config/tools";
+import { FEATURED_TOOLS } from "@/shared/config/tools";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import { SectionHeading } from "@/shared/ui/section-heading";
@@ -98,7 +97,7 @@ export default async function HomePage({ params }: PageProps) {
           intro={dictionary.home.toolsIntro}
         />
         <div className="tool-grid">
-          {TOOLS.map((tool) => (
+          {FEATURED_TOOLS.map((tool) => (
             <ToolCard
               key={tool.slug}
               tool={tool}
@@ -106,6 +105,15 @@ export default async function HomePage({ params }: PageProps) {
               dictionary={dictionary}
             />
           ))}
+        </div>
+        <div className="section-action">
+          <Link
+            className="button button-secondary"
+            href={localizedPath(locale, "tools")}
+          >
+            {dictionary.common.allTools}{" "}
+            <ArrowRight aria-hidden="true" size={17} />
+          </Link>
         </div>
       </section>
 
@@ -124,27 +132,6 @@ export default async function HomePage({ params }: PageProps) {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="shell products-section" id="products">
-        <SectionHeading
-          eyebrow={dictionary.home.productsEyebrow}
-          title={dictionary.home.productsTitle}
-          intro={dictionary.home.productsIntro}
-        />
-        <div className="product-list">
-          {PRODUCTS.map((product) => (
-            <a key={product.name} href={product.href} className="product-row">
-              <span>{product.code}</span>
-              <strong>{product.name}</strong>
-              <p>{product.description[locale]}</p>
-              <span className="product-action">
-                {dictionary.home.visitProduct}{" "}
-                <ArrowDownRight aria-hidden="true" size={18} />
-              </span>
-            </a>
-          ))}
         </div>
       </section>
     </main>

@@ -13,13 +13,13 @@ test.describe("multilingual Web Toolkit", () => {
   });
 
   for (const locale of ["en", "ko", "ja"] as const) {
-    test(`${locale} home exposes localized navigation and all tools`, async ({
+    test(`${locale} home exposes localized navigation and featured tools`, async ({
       page,
     }) => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("main")).toBeVisible();
-      await expect(page.locator(".tool-card")).toHaveCount(6);
+      await expect(page.locator(".tool-card")).toHaveCount(11);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         "href",
         `https://web-toolkit.app/${locale}`,
@@ -36,6 +36,32 @@ test.describe("multilingual Web Toolkit", () => {
     await expect(
       page.getByRole("textbox", { name: /Processed JSON/ }),
     ).toHaveValue('{\n  "ready": true\n}');
+  });
+
+  test("lists twenty working tool routes", async ({ page }) => {
+    await page.goto("/en/tools");
+    await expect(page.locator(".tool-card")).toHaveCount(20);
+    await expect(page.getByRole("link", { name: /JWT Decoder/ })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: /Secure Password Generator/ }),
+    ).toBeVisible();
+  });
+
+  test("converts quoted CSV to JSON locally", async ({ page }) => {
+    await page.goto("/en/tools/csv-json-converter");
+    await page
+      .getByRole("textbox", { name: "CSV or JSON array" })
+      .fill('name,note\nAda,"Hello, world"');
+    await page.getByRole("button", { name: "CSV to JSON" }).click();
+    await expect(
+      page.getByRole("textbox", { name: "Converted data" }),
+    ).toContainText('"note": "Hello, world"');
+  });
+
+  test("generates a cryptographically random password", async ({ page }) => {
+    await page.goto("/en/tools/password-generator");
+    await page.getByRole("button", { name: "Generate password" }).click();
+    await expect(page.locator(".hash-output code")).toHaveText(/^.{20}$/);
   });
 
   test("keeps the same tool when switching language", async ({ page }) => {

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { isLocale, localizedPath, LOCALES } from "@/shared/config/site";
 import {
   getToolDefinition,
+  getRelatedTools,
   isToolSlug,
   TOOL_SLUGS,
 } from "@/shared/config/tools";
@@ -12,6 +13,7 @@ import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import { ToolIcon } from "@/shared/ui/tool-icon";
 import { ToolWorkbench } from "@/features/tools/tool-workbench";
+import { ToolCard } from "@/widgets/tool-card";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -43,9 +45,35 @@ export default async function ToolPage({ params }: PageProps) {
   const dictionary = getDictionary(locale);
   const copy = dictionary.tools[slug];
   const tool = getToolDefinition(slug);
+  const relatedTools = getRelatedTools(slug);
+  const structuredData = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        name: copy.title,
+        description: copy.description,
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Any browser",
+        isAccessibleForFree: true,
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: copy.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      },
+    ],
+  }).replace(/</g, "\\u003c");
 
   return (
     <main id="main-content" className="tool-page">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: structuredData }}
+      />
       <header className="shell tool-page-header">
         <Link className="back-link" href={localizedPath(locale, "tools")}>
           <ArrowLeft aria-hidden="true" size={16} />{" "}
@@ -85,6 +113,24 @@ export default async function ToolPage({ params }: PageProps) {
           </ol>
         </aside>
       </article>
+
+      <section
+        className="shell related-section"
+        aria-labelledby="related-tools-title"
+      >
+        <p className="eyebrow">NEXT OPERATIONS</p>
+        <h2 id="related-tools-title">{dictionary.common.relatedTools}</h2>
+        <div className="tool-grid">
+          {relatedTools.map((relatedTool) => (
+            <ToolCard
+              key={relatedTool.slug}
+              tool={relatedTool}
+              locale={locale}
+              dictionary={dictionary}
+            />
+          ))}
+        </div>
+      </section>
 
       <section className="shell faq-section">
         <p className="eyebrow">REFERENCE</p>
