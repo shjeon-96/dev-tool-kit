@@ -1,6 +1,6 @@
 # RUNWAY 10 제품·상업화 단일 실행 계획
 
-> 상태: Office Roguelike V2 프로덕션 배포 완료 / 상업성 미검증
+> 상태: Office Roguelike V3 직접 배치 프로덕션 배포 완료 / 상업성 미검증
 >
 > 기준일: 2026-07-16
 >
@@ -200,7 +200,7 @@ Redis가 코호트/완료 KPI 원본이며 Clarity는 UX 원인 조사에만 사
 - [x] 390px 가로 오버플로 확인
 - [x] 린트
 - [x] Next.js 프로덕션 빌드
-- [x] V2 프로덕션 배포 (`dpl_HRwRBqMFuUfJFEu2ND6iNCdyUD9A`)
-- [x] V2 배포 URL 덱→직원 카드→사건 보고 흐름 재검증
+- [x] V3 프로덕션 배포 (`dpl_E47FALU3LkKbZSyPgDibCCBEkAjT`)
+- [x] V3 배포 URL 카드 선택→부서 직접 배치→사건 보고 흐름 재검증
 - [x] 14일 데이터 수집 시작일 기록 (`2026-07-16`)
 - [ ] 500명 도달 후 상업성 판정
