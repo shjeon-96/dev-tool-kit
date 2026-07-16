@@ -659,7 +659,7 @@ npm run test:e2e
 - [x] 이벤트 사전 확정
 - [x] RUN_LENGTH_POLICY 확정
 - [x] 개인정보 문구 확정
-- [ ] CMP 운영 설정 확인
+- [x] Google CMP 강제 표시 검증 (`fc=alwaysshow&fctype=gdpr`)
 
 ### 코드
 
@@ -686,7 +686,7 @@ npm run test:e2e
 - [x] lint 통과
 - [x] production build 통과
 - [ ] 모바일 실제 공유 검증
-- [ ] CMP 운영 설정 검증
+- [x] CMP 운영 설정 검증
 - [x] 결과 행동 버튼과 광고 150px 분리
 
 ### 배포·운영

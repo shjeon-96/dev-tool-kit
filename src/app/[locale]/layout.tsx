@@ -36,23 +36,13 @@ export default async function LocaleLayout({
     <html lang={rawLocale} data-scroll-behavior="smooth">
       <body>
         {process.env.NODE_ENV === "production" ? (
-          <>
-            <Script id="vercel-analytics-queue" strategy="beforeInteractive">
-              {`window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}`}
-            </Script>
-            <Script
-              id="vercel-analytics"
-              strategy="afterInteractive"
-              src="/_vercel/insights/script.js"
-            />
-            <Script
-              id="google-adsense"
-              async
-              strategy="beforeInteractive"
-              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
-              crossOrigin="anonymous"
-            />
-          </>
+          <Script
+            id="google-adsense"
+            async
+            strategy="beforeInteractive"
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+            crossOrigin="anonymous"
+          />
         ) : null}
         <ClarityScript />
         <a className="skip-link" href="#main-content">

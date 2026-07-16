@@ -63,6 +63,6 @@ src/
 - Game interface copy: `src/features/company-survival/copy.ts`
 - Site identity and locales: `src/shared/config/site.ts`
 
-Gameplay decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID and decision history, replays the authoritative daily scenario order on the server, and stores only the verified score in Redis. Production builds load Clarity, Vercel page analytics, and a post-game AdSense unit kept outside decision controls.
+Gameplay decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID and decision history, replays the authoritative daily scenario order on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside decision controls.
 
 Redis is the source of truth for growth metrics; Clarity remains exploratory UX analytics. The growth report reads the last 14 UTC days and never mutates production data.
