@@ -15,7 +15,7 @@ const payload = {
   industry: "saas",
   trait: "builder",
   deck: STARTER_DECK,
-  history: [{ cardId: "ship-core" }],
+  history: [{ cardId: "ship-core", department: "engineering" }],
   playerId: "00000000-0000-4000-8000-000000000001",
 };
 
@@ -32,6 +32,14 @@ describe("company result API", () => {
 
   it("rejects malformed identities before replay", async () => {
     const response = await POST(request({ ...payload, playerId: "forged" }));
+    expect(response.status).toBe(400);
+    expect(mocks.submit).not.toHaveBeenCalled();
+  });
+
+  it("rejects decisions without an office placement", async () => {
+    const response = await POST(
+      request({ ...payload, history: [{ cardId: "ship-core" }] }),
+    );
     expect(response.status).toBe(400);
     expect(mocks.submit).not.toHaveBeenCalled();
   });

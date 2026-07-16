@@ -23,7 +23,7 @@ describe("company career storage", () => {
   });
 
   it("surfaces invalid saved data instead of replacing it", () => {
-    localStorage.setItem("runway-10:company:v5:2026-07-15:saas", "{broken");
+    localStorage.setItem("runway-10:company:v6:2026-07-15:saas", "{broken");
     expect(readStoredRun(localStorage, "2026-07-15", "saas")).toEqual({
       kind: "invalid",
     });
@@ -33,7 +33,10 @@ describe("company career storage", () => {
     const state = createInitialGameState("2026-07-15", "saas");
     state.turn = 6;
     state.status = "survived";
-    state.history = Array.from({ length: 6 }, () => ({ cardId: "ship-core" }));
+    state.history = Array.from({ length: 6 }, () => ({
+      cardId: "ship-core",
+      department: "engineering" as const,
+    }));
     const archive = recordCompletedRun(localStorage, state);
     expect(Object.keys(archive.results)).toEqual(["2026-07-15:saas"]);
     expect(readCompanyArchive(localStorage).kind).toBe("valid");

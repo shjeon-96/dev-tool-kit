@@ -29,7 +29,7 @@ test.describe("RUNWAY 10 office roguelike", () => {
     });
   }
 
-  test("plays a card, animates its department, and resumes after reload", async ({
+  test("selects a card, places it in the office, and resumes after reload", async ({
     page,
   }) => {
     await page.goto("/en");
@@ -44,8 +44,12 @@ test.describe("RUNWAY 10 office roguelike", () => {
       .locator(".hud-metrics strong")
       .allTextContents();
     await page.locator(".action-card").first().click();
+    await expect(page.getByText("CHOOSE A DEPARTMENT")).toBeVisible();
+    await expect(page.locator(".office-unit.is-target")).toHaveCount(4);
+    await expect(page.locator(".turn-report")).toHaveCount(0);
+    await page.locator(".unit-engineering").click();
     await expect(page.locator(".turn-report")).toBeVisible();
-    await expect(page.locator(".office-unit.is-working")).toHaveCount(1);
+    await expect(page.locator(".unit-engineering.is-working")).toBeVisible();
     expect(
       await page.locator(".hud-metrics strong").allTextContents(),
     ).not.toEqual(metricsBefore);
@@ -97,6 +101,10 @@ test.describe("RUNWAY 10 office roguelike", () => {
     await expect(page.locator(".office-board")).toBeVisible();
     await expect(page.locator(".action-card")).toHaveCount(3);
     await expect(page.locator(".hud-metrics > div")).toHaveCount(4);
+    await page.locator(".action-card").first().click();
+    await expect(page.locator(".office-unit.is-target")).toHaveCount(4);
+    await page.locator(".unit-design").click();
+    await expect(page.locator(".turn-report")).toBeVisible();
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(390);

@@ -2,6 +2,7 @@ import { submitVerifiedCompanyResult } from "@/features/company-survival/leaderb
 import { isAnonymousId } from "@/shared/lib/company-survival/identity";
 import {
   isCompanyIndustry,
+  isCompanyDepartment,
   type DecisionRecord,
   type CeoTrait,
 } from "@/shared/types/company-survival";
@@ -23,7 +24,8 @@ function isDecisionHistory(value: unknown): value is DecisionRecord[] {
       (decision) =>
         decision &&
         typeof decision === "object" &&
-        typeof decision.cardId === "string",
+        typeof decision.cardId === "string" &&
+        isCompanyDepartment(decision.department),
     )
   );
 }

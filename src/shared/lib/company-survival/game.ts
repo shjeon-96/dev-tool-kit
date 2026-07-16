@@ -6,7 +6,11 @@ import {
   STARTER_DECK,
   getActionCard,
 } from "./rules";
-import { COMPANY_INDUSTRIES } from "@/shared/types/company-survival";
+import {
+  COMPANY_DEPARTMENTS,
+  COMPANY_INDUSTRIES,
+  isCompanyDepartment,
+} from "@/shared/types/company-survival";
 import type {
   CeoTrait,
   CompanyGameState,
@@ -18,7 +22,7 @@ import type {
 } from "@/shared/types/company-survival";
 
 export const RUN_LENGTH_POLICY = {
-  id: "office-roguelike-v2",
+  id: "office-roguelike-v3",
   mode: "fixed",
   variants: [6],
 } as const;
@@ -28,12 +32,6 @@ export const STARTING_METRICS: CompanyMetrics = {
   trust: 54,
   momentum: 34,
 };
-const DEPARTMENTS: readonly Department[] = [
-  "engineering",
-  "design",
-  "sales",
-  "operations",
-];
 const ZERO_DEPARTMENTS: Record<Department, number> = {
   engineering: 0,
   design: 0,
@@ -145,7 +143,7 @@ export function createInitialGameState(
 ): CompanyGameState {
   const starting = INDUSTRY_RULES[industry].starting;
   return {
-    version: 5,
+    version: 6,
     rulesetId: RUN_LENGTH_POLICY.id,
     targetTurns: 6,
     date,
@@ -161,6 +159,7 @@ export function createInitialGameState(
     ) as unknown as CompanyMetrics,
     employees: { ...ZERO_DEPARTMENTS },
     projects: {},
+    projectDepartments: {},
     completedProjects: [],
     fundingPressure: 0,
     status: "playing",
@@ -185,9 +184,18 @@ export function getDepartmentLevel(
   return (
     state.employees[department] +
     state.completedProjects.filter(
-      (id) => getActionCard(id).department === department,
+      (id) => state.projectDepartments[id] === department,
     ).length
   );
+}
+export function getPlacementDepartments(
+  state: CompanyGameState,
+  cardId: string,
+): readonly Department[] {
+  const card = getActionCard(cardId);
+  const assigned =
+    card.kind === "project" ? state.projectDepartments[cardId] : undefined;
+  return assigned ? [assigned] : COMPANY_DEPARTMENTS;
 }
 export function calculateProduction(state: CompanyGameState): CompanyMetrics {
   const employeeCount = Object.values(state.employees).reduce(
@@ -233,6 +241,7 @@ function deriveStatus(metrics: CompanyMetrics, turn: number): CompanyStatus {
 export function playActionCard(
   state: CompanyGameState,
   cardId: string,
+  department: Department,
 ): CompanyGameState {
   if (state.status !== "playing")
     throw new Error("Cannot play after game completion");
@@ -248,6 +257,8 @@ export function playActionCard(
     throw new Error("Card is not in the current hand");
 
   const card = getActionCard(cardId);
+  if (!getPlacementDepartments(state, cardId).includes(department))
+    throw new Error("Card cannot be placed in that department");
   const incident = getTurnIncident(state.date, state.industry, state.turn);
   const incidentResult = incidentEffects(state, incident);
   const production = calculateProduction(state);
@@ -263,15 +274,16 @@ export function playActionCard(
 
   const employees = { ...state.employees };
   const projects = { ...state.projects };
+  const projectDepartments = { ...state.projectDepartments };
   const completedProjects = [...state.completedProjects];
   let fundingPressure = state.fundingPressure;
   let projectCompleted = false;
 
-  if (card.kind === "employee") employees[card.department] += 1;
+  if (card.kind === "employee") employees[department] += 1;
   if (card.kind === "funding") fundingPressure += 1;
   if (card.kind === "project") {
-    const progress =
-      (projects[card.id] ?? 0) + 1 + state.employees[card.department];
+    projectDepartments[card.id] = department;
+    const progress = (projects[card.id] ?? 0) + 1 + state.employees[department];
     projects[card.id] = Math.min(card.projectTarget!, progress);
     if (
       progress >= card.projectTarget! &&
@@ -283,10 +295,10 @@ export function playActionCard(
     }
   }
 
-  const synergy = getDepartmentLevel(state, card.department) > 0;
+  const synergy = getDepartmentLevel(state, department) > 0;
   if (synergy) effects.momentum += 5;
   const trait = CEO_TRAITS.find((item) => item.id === state.trait)!;
-  if (trait.department === card.department) {
+  if (trait.department === department) {
     if (state.trait === "operator") effects.cash += 4;
     else effects.momentum += 4;
   }
@@ -304,12 +316,14 @@ export function playActionCard(
     metrics,
     employees,
     projects,
+    projectDepartments,
     completedProjects,
     fundingPressure,
     status: deriveStatus(metrics, turn),
-    history: [...state.history, { cardId }],
+    history: [...state.history, { cardId, department }],
     lastReport: {
       cardId,
+      department,
       incidentId: incident.id,
       synergy,
       incidentCountered: incidentResult.countered,
@@ -332,7 +346,7 @@ export function replayCompanyRun(
     deck,
   );
   for (const decision of history)
-    state = playActionCard(state, decision.cardId);
+    state = playActionCard(state, decision.cardId, decision.department);
   return state;
 }
 export function calculateCompanyScore(state: CompanyGameState) {
@@ -351,7 +365,7 @@ export function isCompanyGameState(
   if (!value || typeof value !== "object") return false;
   const state = value as Partial<CompanyGameState>;
   return (
-    state.version === 5 &&
+    state.version === 6 &&
     state.rulesetId === RUN_LENGTH_POLICY.id &&
     state.date === date &&
     COMPANY_INDUSTRIES.some((industry) => industry === state.industry) &&
@@ -363,17 +377,29 @@ export function isCompanyGameState(
     state.turn <= 6 &&
     Array.isArray(state.history) &&
     state.history.length === state.turn &&
+    state.history.every(
+      (decision) =>
+        typeof decision.cardId === "string" &&
+        isCompanyDepartment(decision.department),
+    ) &&
     Boolean(state.metrics) &&
     Object.values(state.metrics!).every(
       (metric) => typeof metric === "number",
     ) &&
     Boolean(state.employees) &&
-    DEPARTMENTS.every(
+    COMPANY_DEPARTMENTS.every(
       (department) => typeof state.employees?.[department] === "number",
     ) &&
     Boolean(state.projects) &&
     Object.values(state.projects!).every(
       (progress) => typeof progress === "number",
+    ) &&
+    Boolean(state.projectDepartments) &&
+    Object.entries(state.projectDepartments!).every(
+      ([cardId, department]) =>
+        ACTION_CARDS.some(
+          (card) => card.id === cardId && card.kind === "project",
+        ) && isCompanyDepartment(department),
     ) &&
     Array.isArray(state.completedProjects) &&
     typeof state.fundingPressure === "number" &&

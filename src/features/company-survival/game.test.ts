@@ -9,6 +9,7 @@ import {
 import {
   calculateProduction,
   createInitialGameState,
+  getPlacementDepartments,
   getTurnHand,
   getTurnIncident,
   playActionCard,
@@ -17,6 +18,7 @@ import {
   selectGameDeck,
 } from "@/shared/lib/company-survival/game";
 import {
+  COMPANY_DEPARTMENTS,
   COMPANY_INDUSTRIES,
   type CompanyGameState,
 } from "@/shared/types/company-survival";
@@ -39,13 +41,16 @@ describe("office roguelike engine", () => {
   it("plays only a dealt card and records its incident", () => {
     const state = createInitialGameState("2026-07-16", "saas");
     const card = getTurnHand(state.date, state.industry, 0)[0];
-    const next = playActionCard(state, card.id);
+    const next = playActionCard(state, card.id, "sales");
     expect(next.turn).toBe(1);
-    expect(next.history).toEqual([{ cardId: card.id }]);
+    expect(next.history).toEqual([{ cardId: card.id, department: "sales" }]);
+    expect(next.lastReport?.department).toBe("sales");
     expect(next.lastReport?.incidentId).toBe(
       getTurnIncident(state.date, state.industry, 0).id,
     );
-    expect(() => playActionCard(state, "forged")).toThrow("current hand");
+    expect(() => playActionCard(state, "forged", "sales")).toThrow(
+      "current hand",
+    );
   });
 
   it("turns persistent employees into monthly production", () => {
@@ -57,6 +62,35 @@ describe("office roguelike engine", () => {
       trust: 2,
       momentum: 4,
     });
+  });
+
+  it("uses the chosen office department for employee placement", () => {
+    const state = createInitialGameState("2026-07-16", "saas");
+    const card = getTurnHand(state.date, state.industry, 0).find(
+      (item) => item.kind === "employee",
+    )!;
+    const department = COMPANY_DEPARTMENTS.find(
+      (item) => item !== card.department,
+    )!;
+    const next = playActionCard(state, card.id, department);
+    expect(next.employees[department]).toBe(1);
+    expect(next.employees[card.department]).toBe(0);
+  });
+
+  it("locks an in-progress project to its chosen department", () => {
+    const date = Array.from(
+      { length: 31 },
+      (_, index) => `2026-07-${String(index + 1).padStart(2, "0")}`,
+    ).find((candidate) =>
+      getTurnHand(candidate, "saas", 0).some((card) => card.kind === "project"),
+    )!;
+    const state = createInitialGameState(date, "saas");
+    const card = getTurnHand(date, "saas", 0).find(
+      (item) => item.kind === "project",
+    )!;
+    const next = playActionCard(state, card.id, "operations");
+    expect(next.projectDepartments[card.id]).toBe("operations");
+    expect(getPlacementDepartments(next, card.id)).toEqual(["operations"]);
   });
 
   it("gives every industry a real starting or production rule", () => {
@@ -75,6 +109,7 @@ describe("office roguelike engine", () => {
     const next = playActionCard(
       state,
       getTurnHand(state.date, state.industry, 0)[0].id,
+      "engineering",
     );
     expect(() => selectGameDeck(next, deck)).toThrow("locked");
   });
@@ -106,7 +141,9 @@ describe("office roguelike engine", () => {
       state.deck,
       state.completedProjects,
     )[0];
-    expect(playActionCard(state, card.id).lastReport).toMatchObject({
+    expect(
+      playActionCard(state, card.id, "engineering").lastReport,
+    ).toMatchObject({
       incidentCountered: true,
     });
   });
@@ -119,6 +156,7 @@ describe("office roguelike engine", () => {
     const next = playActionCard(
       state,
       getTurnHand(state.date, state.industry, 0)[0].id,
+      "engineering",
     );
     expect(next.trait).toBe("rainmaker");
     expect(() => selectCeoTrait(next, "operator")).toThrow("locked");
@@ -128,7 +166,11 @@ describe("office roguelike engine", () => {
     const date = "2026-07-16";
     let state = createInitialGameState(date, "saas", "operator");
     for (let turn = 0; turn < 2; turn++)
-      state = playActionCard(state, getTurnHand(date, "saas", turn)[0].id);
+      state = playActionCard(
+        state,
+        getTurnHand(date, "saas", turn)[0].id,
+        turn % 2 ? "sales" : "engineering",
+      );
     expect(
       replayCompanyRun(date, "saas", "operator", state.deck, state.history),
     ).toEqual(state);
@@ -143,7 +185,7 @@ describe("office roguelike engine", () => {
         state.turn,
         state.deck,
         state.completedProjects,
-      ).some((card) => canWin(playActionCard(state, card.id)));
+      ).some((card) => canWin(playActionCard(state, card.id, card.department)));
     };
     for (const date of [
       "2026-07-15",

@@ -36,6 +36,7 @@ import {
   calculateCompanyScore,
   createInitialGameState,
   getDepartmentLevel,
+  getPlacementDepartments,
   getTurnHand,
   isValidDeck,
   playActionCard,
@@ -56,13 +57,14 @@ import {
   writeStoredRun,
 } from "@/shared/lib/company-survival/storage";
 import { recordCompanyActivity, trackGameEvent } from "@/shared/lib/analytics";
-import type {
-  CeoTrait,
-  CompanyCareerStats,
-  CompanyGameState,
-  CompanyIndustry,
-  CompanyMetric,
-  Department,
+import {
+  COMPANY_DEPARTMENTS,
+  type CeoTrait,
+  type CompanyCareerStats,
+  type CompanyGameState,
+  type CompanyIndustry,
+  type CompanyMetric,
+  type Department,
 } from "@/shared/types/company-survival";
 import { COMPANY_COPY } from "./copy";
 import { GameOverAd } from "./game-over-ad";
@@ -73,12 +75,6 @@ const METRICS: readonly CompanyMetric[] = [
   "morale",
   "trust",
   "momentum",
-];
-const DEPARTMENTS: readonly Department[] = [
-  "engineering",
-  "design",
-  "sales",
-  "operations",
 ];
 const SPRITES: Record<Department, string> = {
   engineering: "/game/engineer-sheet-v2.webp",
@@ -117,6 +113,16 @@ const UI = {
     select: "선택",
     project: "부서 레벨",
     noUndo: "카드 실행 → 팀 생산 → 돌발 사건",
+    placing: "배치할 부서를 선택하세요",
+    placeHint: "빛나는 부서를 클릭하면 이번 달이 실행됩니다.",
+    selected: "선택됨",
+    place: "배치",
+    departments: {
+      engineering: "개발",
+      design: "디자인",
+      sales: "영업",
+      operations: "운영",
+    },
     deckTitle: "시작 덱 구성",
     deckRule: "8장 선택 · 직원/프로젝트/자금 각 1장 이상",
     deckKinds: { employee: "직원", project: "프로젝트", funding: "자금" },
@@ -147,6 +153,16 @@ const UI = {
     select: "SELECT",
     project: "DEPARTMENT LEVEL",
     noUndo: "PLAY CARD → TEAM PRODUCES → CRISIS HITS",
+    placing: "CHOOSE A DEPARTMENT",
+    placeHint: "Click a glowing team to commit this month.",
+    selected: "SELECTED",
+    place: "PLACE",
+    departments: {
+      engineering: "ENGINEERING",
+      design: "DESIGN",
+      sales: "SALES",
+      operations: "OPERATIONS",
+    },
     deckTitle: "BUILD STARTING DECK",
     deckRule: "Choose 8 · include employee, project, and funding",
     deckKinds: { employee: "EMPLOYEE", project: "PROJECT", funding: "FUNDING" },
@@ -177,6 +193,16 @@ const UI = {
     select: "選択",
     project: "部門レベル",
     noUndo: "カード実行 → チーム生産 → 緊急事態",
+    placing: "配置する部門を選択",
+    placeHint: "光る部門をクリックすると今月を実行します。",
+    selected: "選択中",
+    place: "配置",
+    departments: {
+      engineering: "開発",
+      design: "デザイン",
+      sales: "営業",
+      operations: "運営",
+    },
     deckTitle: "開始デッキ編成",
     deckRule: "8枚選択・社員/プロジェクト/資金を各1枚以上",
     deckKinds: { employee: "社員", project: "プロジェクト", funding: "資金" },
@@ -226,6 +252,7 @@ export function CompanySurvivalGame({
   const [rank, setRank] = useState<string>("");
   const [incomingReferralId, setIncomingReferralId] = useState<string>();
   const [draftDeck, setDraftDeck] = useState<string[]>(game.deck);
+  const [selectedCardId, setSelectedCardId] = useState<string>();
   const hand = useMemo(
     () =>
       game.status === "playing"
@@ -239,6 +266,9 @@ export function CompanySurvivalGame({
         : [],
     [date, game.completedProjects, game.deck, game.status, game.turn, industry],
   );
+  const selectedCard = selectedCardId
+    ? getActionCard(selectedCardId)
+    : undefined;
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -340,6 +370,7 @@ export function CompanySurvivalGame({
         : createInitialGameState(date, value).deck,
     );
     setShowReport(stored.kind === "valid" && Boolean(stored.value.lastReport));
+    setSelectedCardId(undefined);
   };
   const chooseTrait = (trait: CeoTrait) => {
     setGame((state) => selectCeoTrait(state, trait));
@@ -363,23 +394,28 @@ export function CompanySurvivalGame({
         referralId: incomingReferralId,
       });
   };
-  const play = (cardId: string) => {
-    const next = playActionCard(game, cardId);
+  const play = (cardId: string, department: Department) => {
+    const next = playActionCard(game, cardId, department);
     writeStoredRun(localStorage, next);
     if (next.status !== "playing") {
       const archive = recordCompletedRun(localStorage, next);
       setCareer(deriveCareerStats(archive, date));
     }
     setGame(next);
+    setSelectedCardId(undefined);
     setShowReport(true);
     beep(muted, next.status === "survived");
     trackGameEvent("choice_made", {
       card: cardId,
+      department,
       turn: next.turn,
       trait: next.trait,
     });
   };
-  const next = () => setShowReport(false);
+  const next = () => {
+    setSelectedCardId(undefined);
+    setShowReport(false);
+  };
   const retry = () => {
     clearStoredRun(localStorage, date, industry);
     setGame(
@@ -389,6 +425,7 @@ export function CompanySurvivalGame({
       ),
     );
     setShowReport(false);
+    setSelectedCardId(undefined);
     setRank("");
     beep(muted);
   };
@@ -565,8 +602,12 @@ export function CompanySurvivalGame({
           </div>
           <OfficeBoard
             game={game}
-            active={showReport ? game.lastReport?.cardId : undefined}
+            active={showReport ? game.lastReport?.department : undefined}
+            selectedCardId={selectedCardId}
             locale={locale}
+            onPlace={(department) => {
+              if (selectedCardId) play(selectedCardId, department);
+            }}
           />
           {showReport && game.lastReport ? (
             <TurnReport game={game} locale={locale} onNext={next} />
@@ -574,22 +615,27 @@ export function CompanySurvivalGame({
             <div className="action-dock">
               <header>
                 <div>
-                  <span>{ui.hand}</span>
-                  <small>{ui.burn}</small>
+                  <span>{selectedCard ? ui.placing : ui.hand}</span>
+                  <small>
+                    {selectedCard ? selectedCard.title[locale] : ui.burn}
+                  </small>
                 </div>
-                <p>{ui.noUndo}</p>
+                <p>{selectedCard ? ui.placeHint : ui.noUndo}</p>
               </header>
               <div className="card-hand">
                 {hand.map((card) => (
                   <button
                     type="button"
                     key={card.id}
-                    className={`action-card dept-${card.department}`}
-                    onClick={() => play(card.id)}
+                    className={`action-card dept-${card.department} ${selectedCardId === card.id ? "is-selected" : ""}`}
+                    aria-pressed={selectedCardId === card.id}
+                    onClick={() =>
+                      setSelectedCardId((selected) =>
+                        selected === card.id ? undefined : card.id,
+                      )
+                    }
                   >
-                    <span>
-                      {ui.deckKinds[card.kind]} · {card.department}
-                    </span>
+                    <span>{ui.deckKinds[card.kind]}</span>
                     <h2>{card.title[locale]}</h2>
                     <p>{card.detail[locale]}</p>
                     <dl>
@@ -608,7 +654,7 @@ export function CompanySurvivalGame({
                       ))}
                     </dl>
                     <b className="play-label">
-                      {ui.select}
+                      {selectedCardId === card.id ? ui.selected : ui.select}
                       <ArrowRight />
                     </b>
                   </button>
@@ -625,18 +671,25 @@ export function CompanySurvivalGame({
 function OfficeBoard({
   game,
   active,
+  selectedCardId,
   locale,
+  onPlace,
 }: {
   game: CompanyGameState;
-  active?: string;
+  active?: Department;
+  selectedCardId?: string;
   locale: Locale;
+  onPlace: (department: Department) => void;
 }) {
   const ui = UI[locale];
-  const activeDepartment = active
-    ? getActionCard(active).department
-    : undefined;
+  const targets = selectedCardId
+    ? getPlacementDepartments(game, selectedCardId)
+    : [];
   return (
-    <section className="office-board" aria-label="Office board">
+    <section
+      className={`office-board ${selectedCardId ? "is-placing" : ""}`}
+      aria-label="Office board"
+    >
       <Image
         className="office-bg"
         src="/game/office-board-v2.webp"
@@ -645,10 +698,14 @@ function OfficeBoard({
         priority
         sizes="(max-width: 1050px) 100vw, 70vw"
       />
-      {DEPARTMENTS.map((department) => (
-        <div
+      {COMPANY_DEPARTMENTS.map((department) => (
+        <button
+          type="button"
           key={department}
-          className={`office-unit unit-${department} ${game.employees[department] === 0 ? "is-empty" : ""} ${activeDepartment === department ? "is-working" : ""}`}
+          className={`office-unit unit-${department} ${game.employees[department] === 0 ? "is-empty" : ""} ${active === department ? "is-working" : ""} ${targets.includes(department) ? "is-target" : ""}`}
+          disabled={!targets.includes(department)}
+          aria-label={`${ui.place} · ${ui.departments[department]}`}
+          onClick={() => onPlace(department)}
         >
           <div
             className="sprite"
@@ -659,7 +716,7 @@ function OfficeBoard({
             }
           />
           <span>
-            {department}
+            {ui.departments[department]}
             <b>LV.{getDepartmentLevel(game, department)}</b>
             <em>×{game.employees[department]}</em>
           </span>
@@ -669,7 +726,7 @@ function OfficeBoard({
               {ui.project} {getDepartmentLevel(game, department)}
             </i>
           )}
-        </div>
+        </button>
       ))}
       <div className="project-rack">
         {game.deck
@@ -686,6 +743,9 @@ function OfficeBoard({
               <b>
                 {game.projects[card.id] ?? 0}/{card.projectTarget}
               </b>
+              {game.projectDepartments[card.id] && (
+                <em>{ui.departments[game.projectDepartments[card.id]]}</em>
+              )}
             </span>
           ))}
       </div>
@@ -717,7 +777,9 @@ function TurnReport({
       </p>
       {report.incidentCountered && <p className="countered">{ui.countered}</p>}
       <div className="report-divider" />
-      <strong>{card.title[locale]}</strong>
+      <strong>
+        {card.title[locale]} → {ui.departments[report.department]}
+      </strong>
       {report.projectCompleted && (
         <p className="completed-project">{ui.completed}</p>
       )}

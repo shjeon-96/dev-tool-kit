@@ -2,7 +2,16 @@ import type { Locale } from "@/shared/config/site";
 
 export type CompanyMetric = "cash" | "morale" | "trust" | "momentum";
 export type CompanyMetrics = Record<CompanyMetric, number>;
-export type Department = "engineering" | "design" | "sales" | "operations";
+export const COMPANY_DEPARTMENTS = [
+  "engineering",
+  "design",
+  "sales",
+  "operations",
+] as const;
+export type Department = (typeof COMPANY_DEPARTMENTS)[number];
+export function isCompanyDepartment(value: unknown): value is Department {
+  return COMPANY_DEPARTMENTS.some((department) => department === value);
+}
 export type CeoTrait = "builder" | "rainmaker" | "operator";
 export type CardKind = "employee" | "project" | "funding";
 
@@ -66,9 +75,11 @@ export type CompanyStatus =
 export type CompanyRunLength = 6;
 export interface DecisionRecord {
   cardId: string;
+  department: Department;
 }
 export interface TurnReport {
   cardId: string;
+  department: Department;
   incidentId: string;
   synergy: boolean;
   incidentCountered: boolean;
@@ -77,8 +88,8 @@ export interface TurnReport {
   effects: CompanyMetrics;
 }
 export interface CompanyGameState {
-  version: 5;
-  rulesetId: "office-roguelike-v2";
+  version: 6;
+  rulesetId: "office-roguelike-v3";
   targetTurns: CompanyRunLength;
   date: string;
   industry: CompanyIndustry;
@@ -88,6 +99,7 @@ export interface CompanyGameState {
   metrics: CompanyMetrics;
   employees: Record<Department, number>;
   projects: Record<string, number>;
+  projectDepartments: Record<string, Department>;
   completedProjects: string[];
   fundingPressure: number;
   status: CompanyStatus;
