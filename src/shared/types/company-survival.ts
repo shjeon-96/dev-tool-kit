@@ -4,6 +4,7 @@ export type CompanyMetric = "cash" | "morale" | "trust" | "momentum";
 export type CompanyMetrics = Record<CompanyMetric, number>;
 export type Department = "engineering" | "design" | "sales" | "operations";
 export type CeoTrait = "builder" | "rainmaker" | "operator";
+export type CardKind = "employee" | "project" | "funding";
 
 export const COMPANY_INDUSTRIES = [
   "saas",
@@ -25,23 +26,35 @@ export interface LocalizedText {
 }
 export interface ActionCard {
   id: string;
+  kind: CardKind;
   department: Department;
   title: LocalizedText;
   detail: LocalizedText;
   cost: number;
   effects: Partial<CompanyMetrics>;
+  projectTarget?: number;
+  completionEffects?: Partial<CompanyMetrics>;
 }
 export interface Incident {
   id: string;
   title: LocalizedText;
   body: LocalizedText;
   effects: Partial<CompanyMetrics>;
+  counterDepartment?: Department;
+  counterProjectId?: string;
+  counterEffects?: Partial<CompanyMetrics>;
+  counterBody?: LocalizedText;
 }
 export interface TraitDefinition {
   id: CeoTrait;
   title: LocalizedText;
   detail: LocalizedText;
   department: Department;
+}
+export interface IndustryRule {
+  starting: Partial<CompanyMetrics>;
+  production: Partial<CompanyMetrics>;
+  passive: LocalizedText;
 }
 
 export type CompanyStatus =
@@ -58,18 +71,25 @@ export interface TurnReport {
   cardId: string;
   incidentId: string;
   synergy: boolean;
+  incidentCountered: boolean;
+  projectCompleted: boolean;
+  production: CompanyMetrics;
   effects: CompanyMetrics;
 }
 export interface CompanyGameState {
-  version: 4;
-  rulesetId: "office-roguelike-v1";
+  version: 5;
+  rulesetId: "office-roguelike-v2";
   targetTurns: CompanyRunLength;
   date: string;
   industry: CompanyIndustry;
   trait: CeoTrait;
+  deck: string[];
   turn: number;
   metrics: CompanyMetrics;
-  departments: Record<Department, number>;
+  employees: Record<Department, number>;
+  projects: Record<string, number>;
+  completedProjects: string[];
+  fundingPressure: number;
   status: CompanyStatus;
   history: DecisionRecord[];
   lastReport: TurnReport | null;

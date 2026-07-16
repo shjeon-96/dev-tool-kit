@@ -1,8 +1,67 @@
 import type {
   ActionCard,
   Incident,
+  IndustryRule,
   TraitDefinition,
+  CompanyIndustry,
 } from "@/shared/types/company-survival";
+
+export const INDUSTRY_RULES: Readonly<Record<CompanyIndustry, IndustryRule>> = {
+  saas: {
+    starting: {},
+    production: { momentum: 1 },
+    passive: {
+      ko: "복리 코드 · 매달 성장 +1",
+      en: "Compound code · +1 growth monthly",
+      ja: "複利コード・毎月成長 +1",
+    },
+  },
+  commerce: {
+    starting: { cash: -5, momentum: 6 },
+    production: { cash: 2 },
+    passive: {
+      ko: "현금 회전 · 매달 현금 +2",
+      en: "Cash cycle · +2 cash monthly",
+      ja: "資金回転・毎月資金 +2",
+    },
+  },
+  "game-studio": {
+    starting: { cash: -8, morale: 10 },
+    production: { morale: 2 },
+    passive: {
+      ko: "크리에이티브 팀 · 매달 사기 +2",
+      en: "Creative crew · +2 morale monthly",
+      ja: "制作チーム・毎月士気 +2",
+    },
+  },
+  fintech: {
+    starting: { trust: 10, momentum: -4 },
+    production: { trust: 2 },
+    passive: {
+      ko: "규제 신뢰 · 매달 신뢰 +2",
+      en: "Regulated trust · +2 trust monthly",
+      ja: "規制の信頼・毎月信頼 +2",
+    },
+  },
+  "ai-lab": {
+    starting: { cash: -10, trust: -8, momentum: 16 },
+    production: { cash: -1, momentum: 3 },
+    passive: {
+      ko: "컴퓨트 레이스 · 현금 -1, 성장 +3",
+      en: "Compute race · -1 cash, +3 growth",
+      ja: "計算競争・資金 -1、成長 +3",
+    },
+  },
+  hardware: {
+    starting: { cash: 12, momentum: -9 },
+    production: { cash: -2, trust: 1 },
+    passive: {
+      ko: "공장 고정비 · 현금 -2, 신뢰 +1",
+      en: "Factory overhead · -2 cash, +1 trust",
+      ja: "工場固定費・資金 -2、信頼 +1",
+    },
+  },
+};
 
 export const CEO_TRAITS: readonly TraitDefinition[] = [
   {
@@ -39,59 +98,87 @@ export const CEO_TRAITS: readonly TraitDefinition[] = [
 
 export const ACTION_CARDS: readonly ActionCard[] = [
   {
-    id: "ship-core",
-    department: "engineering",
-    title: { ko: "코어 기능 출시", en: "Ship the Core", ja: "コア機能を出荷" },
-    detail: {
-      ko: "제품은 전진한다. 팀은 야근한다.",
-      en: "The product moves. The team stays late.",
-      ja: "製品は進む。チームは残業する。",
-    },
-    cost: 9,
-    effects: { momentum: 18, morale: -5 },
-  },
-  {
-    id: "kill-bugs",
-    department: "engineering",
-    title: { ko: "버그 전쟁", en: "Bug War", ja: "バグ戦争" },
-    detail: {
-      ko: "신뢰를 복구하고 속도를 희생한다.",
-      en: "Restore trust, sacrifice speed.",
-      ja: "信頼を戻し、速度を犠牲に。",
-    },
-    cost: 6,
-    effects: { trust: 15, momentum: -4 },
-  },
-  {
-    id: "automation",
+    id: "hire-engineer",
+    kind: "employee",
     department: "engineering",
     title: {
-      ko: "자동화 스프린트",
-      en: "Automation Sprint",
-      ja: "自動化スプリント",
+      ko: "시니어 엔지니어",
+      en: "Senior Engineer",
+      ja: "シニアエンジニア",
     },
     detail: {
-      ko: "지금 지불하고 다음을 빠르게 만든다.",
-      en: "Pay now to compound velocity.",
-      ja: "今払い、次を速くする。",
+      ko: "매달 성장 +3, 급여 -2.",
+      en: "+3 growth each month, -2 payroll.",
+      ja: "毎月成長 +3、給与 -2。",
     },
-    cost: 12,
-    effects: { momentum: 12, morale: 6 },
+    cost: 8,
+    effects: { morale: 3 },
   },
   {
-    id: "research",
+    id: "hire-designer",
+    kind: "employee",
     department: "design",
-    title: { ko: "고객 잠입 조사", en: "Customer Safari", ja: "顧客潜入調査" },
-    detail: {
-      ko: "고객의 진짜 문제를 찾아낸다.",
-      en: "Find the problem behind the request.",
-      ja: "要望の裏の問題を探る。",
+    title: {
+      ko: "프로덕트 디자이너",
+      en: "Product Designer",
+      ja: "プロダクトデザイナー",
     },
-    cost: 5,
-    effects: { trust: 12, momentum: 7 },
+    detail: {
+      ko: "매달 신뢰 +2, 급여 -2.",
+      en: "+2 trust each month, -2 payroll.",
+      ja: "毎月信頼 +2、給与 -2。",
+    },
+    cost: 7,
+    effects: { trust: 3 },
+  },
+  {
+    id: "hire-sales",
+    kind: "employee",
+    department: "sales",
+    title: { ko: "세일즈 리드", en: "Sales Lead", ja: "セールスリード" },
+    detail: {
+      ko: "매달 현금 +4, 급여 -2.",
+      en: "+4 cash each month, -2 payroll.",
+      ja: "毎月資金 +4、給与 -2。",
+    },
+    cost: 6,
+    effects: { cash: 6 },
+  },
+  {
+    id: "hire-operator",
+    kind: "employee",
+    department: "operations",
+    title: {
+      ko: "운영 매니저",
+      en: "Operations Manager",
+      ja: "運営マネージャー",
+    },
+    detail: {
+      ko: "매달 사기 +2, 급여 -2.",
+      en: "+2 morale each month, -2 payroll.",
+      ja: "毎月士気 +2、給与 -2。",
+    },
+    cost: 6,
+    effects: { morale: 5 },
+  },
+  {
+    id: "ship-core",
+    kind: "project",
+    department: "engineering",
+    title: { ko: "코어 제품 출시", en: "Ship the Core", ja: "コア製品を出荷" },
+    detail: {
+      ko: "3 작업 필요. 완료 시 성장 +20, 신뢰 +8.",
+      en: "Needs 3 work. Completion: +20 growth, +8 trust.",
+      ja: "作業3。完了時：成長 +20、信頼 +8。",
+    },
+    cost: 7,
+    effects: { momentum: 6 },
+    projectTarget: 3,
+    completionEffects: { momentum: 20, trust: 8 },
   },
   {
     id: "redesign",
+    kind: "project",
     department: "design",
     title: {
       ko: "온보딩 재설계",
@@ -99,27 +186,18 @@ export const ACTION_CARDS: readonly ActionCard[] = [
       ja: "導入を再設計",
     },
     detail: {
-      ko: "첫 3분의 이탈을 줄인다.",
-      en: "Fix the first three minutes.",
-      ja: "最初の3分を直す。",
+      ko: "2 작업 필요. 완료 시 신뢰 +18, 성장 +8.",
+      en: "Needs 2 work. Completion: +18 trust, +8 growth.",
+      ja: "作業2。完了時：信頼 +18、成長 +8。",
     },
-    cost: 8,
-    effects: { trust: 9, momentum: 11 },
-  },
-  {
-    id: "brand-stunt",
-    department: "design",
-    title: { ko: "브랜드 도발", en: "Brand Stunt", ja: "ブランド挑発" },
-    detail: {
-      ko: "시선은 얻지만 안전하진 않다.",
-      en: "Earn attention, invite risk.",
-      ja: "注目とリスクを得る。",
-    },
-    cost: 7,
-    effects: { momentum: 16, trust: -6 },
+    cost: 6,
+    effects: { trust: 5 },
+    projectTarget: 2,
+    completionEffects: { trust: 18, momentum: 8 },
   },
   {
     id: "enterprise",
+    kind: "project",
     department: "sales",
     title: {
       ko: "대기업 파일럿",
@@ -127,27 +205,33 @@ export const ACTION_CARDS: readonly ActionCard[] = [
       ja: "大企業パイロット",
     },
     detail: {
-      ko: "큰 계약, 더 큰 약속.",
-      en: "A big logo and a bigger promise.",
-      ja: "大きな契約、さらに大きな約束。",
+      ko: "2 작업 필요. 완료 시 현금 +26, 신뢰 +5.",
+      en: "Needs 2 work. Completion: +26 cash, +5 trust.",
+      ja: "作業2。完了時：資金 +26、信頼 +5。",
     },
     cost: 5,
-    effects: { cash: 18, trust: -4 },
+    effects: { cash: 4, trust: -3 },
+    projectTarget: 2,
+    completionEffects: { cash: 26, trust: 5 },
   },
   {
-    id: "founder-sales",
-    department: "sales",
-    title: { ko: "대표 직접 영업", en: "Founder Sales", ja: "創業者営業" },
+    id: "automation",
+    kind: "project",
+    department: "engineering",
+    title: { ko: "운영 자동화", en: "Operations Automation", ja: "運営自動化" },
     detail: {
-      ko: "대표가 제품 대신 전화를 든다.",
-      en: "The CEO picks up the phone.",
-      ja: "CEOが電話を取る。",
+      ko: "3 작업 필요. 클라우드 사고를 막는다.",
+      en: "Needs 3 work. Counters cloud incidents.",
+      ja: "作業3。クラウド事故を防ぐ。",
     },
-    cost: 3,
-    effects: { cash: 13, morale: -3 },
+    cost: 8,
+    effects: { momentum: 4 },
+    projectTarget: 3,
+    completionEffects: { cash: 10, morale: 12 },
   },
   {
     id: "community",
+    kind: "project",
     department: "sales",
     title: {
       ko: "커뮤니티 공략",
@@ -155,15 +239,18 @@ export const ACTION_CARDS: readonly ActionCard[] = [
       ja: "コミュニティ攻略",
     },
     detail: {
-      ko: "느리지만 강한 입소문을 만든다.",
-      en: "Slow, credible word of mouth.",
-      ja: "遅く強い口コミを作る。",
+      ko: "2 작업 필요. 바이럴 위기를 기회로 바꾼다.",
+      en: "Needs 2 work. Turns virality into revenue.",
+      ja: "作業2。バズを売上に変える。",
     },
     cost: 4,
-    effects: { trust: 10, momentum: 8 },
+    effects: { trust: 4, momentum: 3 },
+    projectTarget: 2,
+    completionEffects: { trust: 14, cash: 10 },
   },
   {
     id: "cut-burn",
+    kind: "funding",
     department: "operations",
     title: { ko: "번레이트 절단", en: "Cut the Burn", ja: "燃焼率を削減" },
     detail: {
@@ -176,18 +263,20 @@ export const ACTION_CARDS: readonly ActionCard[] = [
   },
   {
     id: "team-day",
-    department: "operations",
-    title: { ko: "팀 리셋 데이", en: "Team Reset", ja: "チームリセット" },
+    kind: "funding",
+    department: "sales",
+    title: { ko: "정부 지원금", en: "Public Grant", ja: "公的助成金" },
     detail: {
-      ko: "하루를 멈춰 다음 달을 살린다.",
-      en: "Stop for a day to save the month.",
-      ja: "一日止まり、一か月を救う。",
+      ko: "느린 서류, 희석 없는 현금.",
+      en: "Slow paperwork, non-dilutive cash.",
+      ja: "遅い書類、希薄化なしの資金。",
     },
-    cost: 7,
-    effects: { morale: 18, momentum: -5 },
+    cost: 3,
+    effects: { cash: 24, momentum: -4 },
   },
   {
     id: "bridge-round",
+    kind: "funding",
     department: "operations",
     title: { ko: "브리지 라운드", en: "Bridge Round", ja: "ブリッジラウンド" },
     detail: {
@@ -199,6 +288,24 @@ export const ACTION_CARDS: readonly ActionCard[] = [
     effects: { cash: 22, trust: -10 },
   },
 ] as const;
+
+export const STARTER_DECK = [
+  "hire-engineer",
+  "hire-designer",
+  "hire-sales",
+  "ship-core",
+  "redesign",
+  "enterprise",
+  "cut-burn",
+  "bridge-round",
+] as const;
+
+export const CARD_UNLOCKS: Readonly<Record<string, number>> = {
+  "hire-operator": 1,
+  automation: 2,
+  community: 2,
+  "team-day": 3,
+};
 
 export const INCIDENTS: readonly Incident[] = [
   {
@@ -214,6 +321,13 @@ export const INCIDENTS: readonly Incident[] = [
       ja: "トラフィックではなく設定が会社を襲った。",
     },
     effects: { cash: -8 },
+    counterProjectId: "automation",
+    counterEffects: { cash: -1, morale: 2 },
+    counterBody: {
+      ko: "자동화가 폭주 비용을 차단했다.",
+      en: "Automation contained the runaway bill.",
+      ja: "自動化が暴走コストを止めた。",
+    },
   },
   {
     id: "viral-post",
@@ -224,6 +338,13 @@ export const INCIDENTS: readonly Incident[] = [
       ja: "顧客は来た。準備は別だ。",
     },
     effects: { momentum: 9, morale: -5 },
+    counterProjectId: "community",
+    counterEffects: { cash: 10, momentum: 12 },
+    counterBody: {
+      ko: "커뮤니티가 관심을 유료 고객으로 전환했다.",
+      en: "The community converted attention into customers.",
+      ja: "コミュニティが注目を顧客に変えた。",
+    },
   },
   {
     id: "key-resignation",
@@ -238,6 +359,13 @@ export const INCIDENTS: readonly Incident[] = [
       ja: "会議名：少し話せますか？",
     },
     effects: { morale: -10 },
+    counterDepartment: "operations",
+    counterEffects: { morale: -3, trust: 2 },
+    counterBody: {
+      ko: "운영 매니저가 퇴사 신호를 먼저 잡았다.",
+      en: "Operations caught the resignation signal early.",
+      ja: "運営担当が退職の兆候を先に掴んだ。",
+    },
   },
   {
     id: "investor-demo",
@@ -252,6 +380,13 @@ export const INCIDENTS: readonly Incident[] = [
       ja: "最も不安定な画面を最初に押した。",
     },
     effects: { trust: -8 },
+    counterProjectId: "ship-core",
+    counterEffects: { trust: 8, momentum: 3 },
+    counterBody: {
+      ko: "완성된 코어 제품이 데모를 버텼다.",
+      en: "The finished core product survived the demo.",
+      ja: "完成したコア製品がデモを耐えた。",
+    },
   },
   {
     id: "renewal",
@@ -262,6 +397,13 @@ export const INCIDENTS: readonly Incident[] = [
       ja: "一社が来年も残ると決めた。",
     },
     effects: { cash: 9, trust: 5 },
+    counterDepartment: "sales",
+    counterEffects: { cash: 14, trust: 7 },
+    counterBody: {
+      ko: "세일즈 리드가 다년 계약까지 끌어냈다.",
+      en: "The sales lead expanded it into a multi-year deal.",
+      ja: "営業リードが複数年契約に広げた。",
+    },
   },
   {
     id: "scope-creep",
@@ -272,6 +414,13 @@ export const INCIDENTS: readonly Incident[] = [
       ja: "小さな要望がロードマップを食べ始めた。",
     },
     effects: { momentum: -8, morale: -4 },
+    counterDepartment: "design",
+    counterEffects: { momentum: -2, morale: -1, trust: 3 },
+    counterBody: {
+      ko: "디자이너가 요구를 하나의 문제로 다시 정의했다.",
+      en: "Design reframed the requests into one problem.",
+      ja: "デザインが要求を一つの問題に整理した。",
+    },
   },
 ] as const;
 

@@ -17,18 +17,20 @@ export async function submitVerifiedCompanyResult({
   industry,
   history,
   trait,
+  deck,
   playerId,
 }: {
   date: string;
   industry: CompanyIndustry;
   history: CompanyGameState["history"];
   trait: CeoTrait;
+  deck: CompanyGameState["deck"];
   playerId: string;
 }) {
   const targetTurns = 6;
   let state: CompanyGameState;
   try {
-    state = replayCompanyRun(date, industry, trait, history);
+    state = replayCompanyRun(date, industry, trait, deck, history);
   } catch {
     return { kind: "invalid" as const, error: "Invalid decision history" };
   }

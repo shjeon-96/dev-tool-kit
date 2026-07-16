@@ -20,7 +20,7 @@ type StoredValue<T> =
   | { kind: "invalid" };
 
 export function runStorageKey(date: string, industry: CompanyIndustry) {
-  return `runway-10:company:v4:${date}:${industry}`;
+  return `runway-10:company:v5:${date}:${industry}`;
 }
 
 export function readStoredProfile(

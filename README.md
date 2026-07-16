@@ -5,7 +5,10 @@ Five-minute daily office-management roguelike. Play action cards, build departme
 ## Product
 
 - Illustrated late-night office board and four animated role sprites
-- 12 action cards, six incidents, and three unlockable CEO traits
+- Four employee, five project, and three funding cards in an editable eight-card deck
+- Persistent payroll/production, project completion, funding pressure, and incident counters
+- Six industries with distinct starting resources and monthly passives
+- Six incidents and three unlockable CEO traits
 - One deterministic three-card hand per industry, turn, and UTC date
 - Six-month fixed daily run with same-seed retries
 - Four live metrics: cash, team, trust, and growth
@@ -63,6 +66,6 @@ src/
 - Game interface copy: `src/features/company-survival/copy.ts`
 - Site identity and locales: `src/shared/config/site.ts`
 
-Card decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID, CEO trait, and card history, replays the authoritative daily engine on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside game controls.
+Card decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID, CEO trait, selected deck, and card history, replays the authoritative daily engine on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside game controls.
 
 Redis is the source of truth for growth metrics; Clarity remains exploratory UX analytics. The growth report reads the last 14 UTC days and never mutates production data.

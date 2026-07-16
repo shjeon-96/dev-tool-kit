@@ -1,12 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { ACTION_CARDS, INCIDENTS } from "@/shared/lib/company-survival/rules";
 import {
+  ACTION_CARDS,
+  INCIDENTS,
+  STARTER_DECK,
+} from "@/shared/lib/company-survival/rules";
+import {
+  calculateProduction,
   createInitialGameState,
   getTurnHand,
   getTurnIncident,
   playActionCard,
   replayCompanyRun,
   selectCeoTrait,
+  selectGameDeck,
 } from "@/shared/lib/company-survival/game";
 import {
   COMPANY_INDUSTRIES,
@@ -37,16 +43,59 @@ describe("office roguelike engine", () => {
     expect(next.lastReport?.incidentId).toBe(
       getTurnIncident(state.date, state.industry, 0).id,
     );
-    expect(next.departments[card.department]).toBe(1);
     expect(() => playActionCard(state, "forged")).toThrow("current hand");
   });
 
-  it("adds a department chain bonus on repeat investment", () => {
+  it("turns persistent employees into monthly production", () => {
     const state = createInitialGameState("2026-07-16", "saas");
-    const card = getTurnHand(state.date, state.industry, 0)[0];
-    state.departments[card.department] = 1;
+    state.employees = { engineering: 1, design: 1, sales: 1, operations: 1 };
+    expect(calculateProduction(state)).toEqual({
+      cash: -3,
+      morale: 2,
+      trust: 2,
+      momentum: 4,
+    });
+  });
+
+  it("gives every industry a real starting or production rule", () => {
+    const baselines = COMPANY_INDUSTRIES.map((industry) => {
+      const state = createInitialGameState("2026-07-16", industry);
+      return JSON.stringify([state.metrics, calculateProduction(state)]);
+    });
+    expect(new Set(baselines)).toHaveLength(COMPANY_INDUSTRIES.length);
+  });
+
+  it("builds a valid eight-card deck before the run locks", () => {
+    const state = createInitialGameState("2026-07-16", "saas");
+    const deck = [...STARTER_DECK.slice(0, 7), "hire-operator"];
+    expect(selectGameDeck(state, deck).deck).toEqual(deck);
+    expect(() => selectGameDeck(state, deck.slice(1))).toThrow("eight unique");
+    const next = playActionCard(
+      state,
+      getTurnHand(state.date, state.industry, 0)[0].id,
+    );
+    expect(() => selectGameDeck(next, deck)).toThrow("locked");
+  });
+
+  it("lets completed projects counter later incidents", () => {
+    const date = Array.from(
+      { length: 31 },
+      (_, index) => `2026-07-${String(index + 1).padStart(2, "0")}`,
+    ).find(
+      (candidate) =>
+        getTurnIncident(candidate, "saas", 0).id === "investor-demo",
+    )!;
+    const state = createInitialGameState(date, "saas");
+    state.completedProjects = ["ship-core"];
+    const card = getTurnHand(
+      date,
+      "saas",
+      0,
+      state.deck,
+      state.completedProjects,
+    )[0];
     expect(playActionCard(state, card.id).lastReport).toMatchObject({
-      synergy: true,
+      incidentCountered: true,
     });
   });
 
@@ -68,17 +117,21 @@ describe("office roguelike engine", () => {
     let state = createInitialGameState(date, "saas", "operator");
     for (let turn = 0; turn < 2; turn++)
       state = playActionCard(state, getTurnHand(date, "saas", turn)[0].id);
-    expect(replayCompanyRun(date, "saas", "operator", state.history)).toEqual(
-      state,
-    );
+    expect(
+      replayCompanyRun(date, "saas", "operator", state.deck, state.history),
+    ).toEqual(state);
   });
 
   it("offers at least one winning line for every industry seed in the launch week", () => {
     const canWin = (state: CompanyGameState): boolean => {
       if (state.status !== "playing") return state.status === "survived";
-      return getTurnHand(state.date, state.industry, state.turn).some((card) =>
-        canWin(playActionCard(state, card.id)),
-      );
+      return getTurnHand(
+        state.date,
+        state.industry,
+        state.turn,
+        state.deck,
+        state.completedProjects,
+      ).some((card) => canWin(playActionCard(state, card.id)));
     };
     for (const date of [
       "2026-07-15",

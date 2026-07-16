@@ -13,7 +13,10 @@ import {
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import {
+  ACTION_CARDS,
+  CARD_UNLOCKS,
   CEO_TRAITS,
+  INDUSTRY_RULES,
   getActionCard,
   getIncident,
 } from "@/shared/lib/company-survival/rules";
@@ -30,9 +33,12 @@ import {
 import {
   calculateCompanyScore,
   createInitialGameState,
+  getDepartmentLevel,
   getTurnHand,
+  isValidDeck,
   playActionCard,
   selectCeoTrait,
+  selectGameDeck,
 } from "@/shared/lib/company-survival/game";
 import { isAnonymousId } from "@/shared/lib/company-survival/identity";
 import {
@@ -109,6 +115,12 @@ const UI = {
     select: "선택",
     project: "부서 레벨",
     noUndo: "카드를 실행하면 이번 달은 되돌릴 수 없습니다.",
+    deckTitle: "시작 덱 구성",
+    deckRule: "8장 선택 · 직원/프로젝트/자금 각 1장 이상",
+    deckKinds: { employee: "직원", project: "프로젝트", funding: "자금" },
+    countered: "이전 투자가 위기를 막았습니다",
+    completed: "프로젝트 완료",
+    production: "이번 달 팀 생산",
   },
   en: {
     title: "Build the company before it breaks.",
@@ -133,6 +145,12 @@ const UI = {
     select: "SELECT",
     project: "DEPARTMENT LEVEL",
     noUndo: "Playing a card commits the month.",
+    deckTitle: "BUILD STARTING DECK",
+    deckRule: "Choose 8 · include employee, project, and funding",
+    deckKinds: { employee: "EMPLOYEE", project: "PROJECT", funding: "FUNDING" },
+    countered: "A prior investment countered the crisis",
+    completed: "PROJECT COMPLETED",
+    production: "TEAM PRODUCTION",
   },
   ja: {
     title: "壊れる前に、会社を作れ。",
@@ -157,6 +175,12 @@ const UI = {
     select: "選択",
     project: "部門レベル",
     noUndo: "カード実行後は今月を戻せません。",
+    deckTitle: "開始デッキ編成",
+    deckRule: "8枚選択・社員/プロジェクト/資金を各1枚以上",
+    deckKinds: { employee: "社員", project: "プロジェクト", funding: "資金" },
+    countered: "以前の投資が危機を防ぎました",
+    completed: "プロジェクト完了",
+    production: "今月のチーム生産",
   },
 } as const;
 
@@ -199,10 +223,19 @@ export function CompanySurvivalGame({
   const [muted, setMuted] = useState(false);
   const [rank, setRank] = useState<string>("");
   const [incomingReferralId, setIncomingReferralId] = useState<string>();
+  const [draftDeck, setDraftDeck] = useState<string[]>(game.deck);
   const hand = useMemo(
     () =>
-      game.status === "playing" ? getTurnHand(date, industry, game.turn) : [],
-    [date, game.status, game.turn, industry],
+      game.status === "playing"
+        ? getTurnHand(
+            date,
+            industry,
+            game.turn,
+            game.deck,
+            game.completedProjects,
+          )
+        : [],
+    [date, game.completedProjects, game.deck, game.status, game.turn, industry],
   );
 
   useEffect(() => {
@@ -231,6 +264,7 @@ export function CompanySurvivalGame({
       }
       if (stored.kind === "valid") {
         setGame(stored.value);
+        setDraftDeck(stored.value.deck);
         setStarted(stored.value.turn > 0);
         setShowReport(Boolean(stored.value.lastReport));
       }
@@ -253,6 +287,7 @@ export function CompanySurvivalGame({
         date,
         industry,
         trait: game.trait,
+        deck: game.deck,
         history: game.history,
         playerId,
       }),
@@ -297,12 +332,19 @@ export function CompanySurvivalGame({
         ? stored.value
         : createInitialGameState(date, value),
     );
+    setDraftDeck(
+      stored.kind === "valid"
+        ? stored.value.deck
+        : createInitialGameState(date, value).deck,
+    );
     setShowReport(stored.kind === "valid" && Boolean(stored.value.lastReport));
   };
   const chooseTrait = (trait: CeoTrait) => {
     setGame((state) => selectCeoTrait(state, trait));
   };
   const start = () => {
+    if (!isValidDeck(draftDeck)) return;
+    setGame((state) => selectGameDeck(state, draftDeck));
     setStarted(true);
     trackGameEvent("game_started", {
       challenge: challengeNumber,
@@ -338,13 +380,27 @@ export function CompanySurvivalGame({
   const next = () => setShowReport(false);
   const retry = () => {
     clearStoredRun(localStorage, date, industry);
-    setGame(createInitialGameState(date, industry, game.trait));
+    setGame(
+      selectGameDeck(
+        createInitialGameState(date, industry, game.trait),
+        game.deck,
+      ),
+    );
     setShowReport(false);
     setRank("");
     beep(muted);
   };
   const canUseTrait = (trait: CeoTrait) =>
     trait === "builder" || career.daysPlayed >= (trait === "rainmaker" ? 1 : 2);
+  const toggleDeckCard = (cardId: string) => {
+    setDraftDeck((deck) =>
+      deck.includes(cardId)
+        ? deck.filter((id) => id !== cardId)
+        : deck.length < 8
+          ? [...deck, cardId]
+          : deck,
+    );
+  };
 
   return (
     <main id="main-content" className="company-game roguelike-game">
@@ -392,6 +448,7 @@ export function CompanySurvivalGame({
               className="company-primary-action"
               type="button"
               onClick={start}
+              disabled={!isValidDeck(draftDeck)}
             >
               {game.turn ? ui.resume : ui.start}
               <ArrowRight />
@@ -418,6 +475,7 @@ export function CompanySurvivalGame({
                 >
                   <b>{profile.code}</b>
                   <span>{profile.label[locale]}</span>
+                  <small>{INDUSTRY_RULES[profile.id].passive[locale]}</small>
                 </button>
               ))}
             </div>
@@ -442,6 +500,38 @@ export function CompanySurvivalGame({
                   </button>
                 );
               })}
+            </div>
+            <div className="deck-builder">
+              <header>
+                <h2>{ui.deckTitle}</h2>
+                <span className={isValidDeck(draftDeck) ? "is-ready" : ""}>
+                  {draftDeck.length} / 8 · {ui.deckRule}
+                </span>
+              </header>
+              <div>
+                {ACTION_CARDS.map((card) => {
+                  const requiredRuns = CARD_UNLOCKS[card.id] ?? 0;
+                  const open = career.daysPlayed >= requiredRuns;
+                  return (
+                    <button
+                      type="button"
+                      key={card.id}
+                      disabled={!open}
+                      aria-pressed={draftDeck.includes(card.id)}
+                      onClick={() => toggleDeckCard(card.id)}
+                    >
+                      {!open && <LockKeyhole />}
+                      <span>{ui.deckKinds[card.kind]}</span>
+                      <b>{card.title[locale]}</b>
+                      <small>
+                        {open
+                          ? card.detail[locale]
+                          : `${ui.locked} · ${requiredRuns}`}
+                      </small>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
@@ -497,7 +587,9 @@ export function CompanySurvivalGame({
                     className={`action-card dept-${card.department}`}
                     onClick={() => play(card.id)}
                   >
-                    <span>{card.department}</span>
+                    <span>
+                      {ui.deckKinds[card.kind]} · {card.department}
+                    </span>
                     <h2>{card.title[locale]}</h2>
                     <p>{card.detail[locale]}</p>
                     <dl>
@@ -556,7 +648,7 @@ function OfficeBoard({
       {DEPARTMENTS.map((department) => (
         <div
           key={department}
-          className={`office-unit unit-${department} ${activeDepartment === department ? "is-working" : ""}`}
+          className={`office-unit unit-${department} ${game.employees[department] === 0 ? "is-empty" : ""} ${activeDepartment === department ? "is-working" : ""}`}
         >
           <div
             className="sprite"
@@ -564,16 +656,35 @@ function OfficeBoard({
           />
           <span>
             {department}
-            <b>LV.{game.departments[department]}</b>
+            <b>LV.{getDepartmentLevel(game, department)}</b>
+            <em>×{game.employees[department]}</em>
           </span>
-          {game.departments[department] > 1 && (
+          {getDepartmentLevel(game, department) > 1 && (
             <i>
               <Zap />
-              {ui.project} {game.departments[department]}
+              {ui.project} {getDepartmentLevel(game, department)}
             </i>
           )}
         </div>
       ))}
+      <div className="project-rack">
+        {game.deck
+          .map(getActionCard)
+          .filter((card) => card.kind === "project")
+          .map((card) => (
+            <span
+              key={card.id}
+              className={
+                game.completedProjects.includes(card.id) ? "is-complete" : ""
+              }
+            >
+              {card.title[locale]}
+              <b>
+                {game.projects[card.id] ?? 0}/{card.projectTarget}
+              </b>
+            </span>
+          ))}
+      </div>
     </section>
   );
 }
@@ -595,9 +706,29 @@ function TurnReport({
     <aside className="turn-report">
       <p className="report-kicker">{ui.incident}</p>
       <h2>{incident.title[locale]}</h2>
-      <p>{incident.body[locale]}</p>
+      <p>
+        {report.incidentCountered && incident.counterBody
+          ? incident.counterBody[locale]
+          : incident.body[locale]}
+      </p>
+      {report.incidentCountered && <p className="countered">{ui.countered}</p>}
       <div className="report-divider" />
       <strong>{card.title[locale]}</strong>
+      {report.projectCompleted && (
+        <p className="completed-project">{ui.completed}</p>
+      )}
+      {Object.values(report.production).some(Boolean) && (
+        <p className="production-line">
+          {ui.production} ·{" "}
+          {Object.entries(report.production)
+            .filter(([, value]) => value)
+            .map(
+              ([metric, value]) =>
+                `${COMPANY_COPY[locale].effectLabels[metric as CompanyMetric]} ${value > 0 ? "+" : ""}${value}`,
+            )
+            .join(" / ")}
+        </p>
+      )}
       <div className="report-effects">
         {Object.entries(report.effects)
           .filter(([, value]) => value)

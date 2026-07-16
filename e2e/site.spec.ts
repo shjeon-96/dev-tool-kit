@@ -65,6 +65,24 @@ test.describe("RUNWAY 10 office roguelike", () => {
     await expect(page.locator(".action-card")).toHaveCount(3);
   });
 
+  test("requires a valid eight-card starting deck", async ({ page }) => {
+    await page.goto("/en");
+    await expect(page.locator(".deck-builder button")).toHaveCount(12);
+    const selected = page.locator('.deck-builder button[aria-pressed="true"]');
+    await expect(selected).toHaveCount(8);
+    await selected.first().click();
+    await expect(
+      page.getByRole("button", { name: /Start month one/ }),
+    ).toBeDisabled();
+    await page
+      .locator('.deck-builder button[aria-pressed="false"]:not(:disabled)')
+      .first()
+      .click();
+    await expect(
+      page.getByRole("button", { name: /Start month one/ }),
+    ).toBeEnabled();
+  });
+
   test("keeps the board and cards usable on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/ko");

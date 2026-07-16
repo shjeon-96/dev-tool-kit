@@ -8,11 +8,13 @@ vi.mock("@/features/company-survival/leaderboard", () => ({
 }));
 
 import { POST } from "./route";
+import { STARTER_DECK } from "@/shared/lib/company-survival/rules";
 
 const payload = {
   date: "2026-07-16",
   industry: "saas",
   trait: "builder",
+  deck: STARTER_DECK,
   history: [{ cardId: "ship-core" }],
   playerId: "00000000-0000-4000-8000-000000000001",
 };

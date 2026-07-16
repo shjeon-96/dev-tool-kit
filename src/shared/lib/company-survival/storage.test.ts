@@ -23,7 +23,7 @@ describe("company career storage", () => {
   });
 
   it("surfaces invalid saved data instead of replacing it", () => {
-    localStorage.setItem("runway-10:company:v4:2026-07-15:saas", "{broken");
+    localStorage.setItem("runway-10:company:v5:2026-07-15:saas", "{broken");
     expect(readStoredRun(localStorage, "2026-07-15", "saas")).toEqual({
       kind: "invalid",
     });

@@ -12,6 +12,7 @@ interface ResultPayload {
   history?: unknown;
   playerId?: unknown;
   trait?: unknown;
+  deck?: unknown;
 }
 
 function isDecisionHistory(value: unknown): value is DecisionRecord[] {
@@ -36,6 +37,8 @@ export async function POST(request: Request) {
       !/^\d{4}-\d{2}-\d{2}$/.test(payload.date) ||
       !isCompanyIndustry(payload.industry) ||
       !isDecisionHistory(payload.history) ||
+      !Array.isArray(payload.deck) ||
+      !payload.deck.every((cardId) => typeof cardId === "string") ||
       !["builder", "rainmaker", "operator"].includes(
         payload.trait as CeoTrait,
       ) ||
@@ -53,6 +56,7 @@ export async function POST(request: Request) {
       history: payload.history,
       playerId: payload.playerId,
       trait: payload.trait as CeoTrait,
+      deck: payload.deck,
     });
     if (result.kind === "invalid") {
       return Response.json({ error: result.error }, { status: 400 });
