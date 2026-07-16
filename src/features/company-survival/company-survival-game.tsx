@@ -19,6 +19,8 @@ import {
   INDUSTRY_RULES,
   getActionCard,
   getIncident,
+  isCardUnlocked,
+  isCeoTraitUnlocked,
 } from "@/shared/lib/company-survival/rules";
 import {
   COMPANY_PROFILES,
@@ -390,8 +392,6 @@ export function CompanySurvivalGame({
     setRank("");
     beep(muted);
   };
-  const canUseTrait = (trait: CeoTrait) =>
-    trait === "builder" || career.daysPlayed >= (trait === "rainmaker" ? 1 : 2);
   const toggleDeckCard = (cardId: string) => {
     setDraftDeck((deck) =>
       deck.includes(cardId)
@@ -481,7 +481,7 @@ export function CompanySurvivalGame({
             </div>
             <div className="trait-strip">
               {CEO_TRAITS.map((trait, index) => {
-                const open = canUseTrait(trait.id);
+                const open = isCeoTraitUnlocked(trait.id, career.daysPlayed);
                 return (
                   <button
                     type="button"
@@ -511,7 +511,7 @@ export function CompanySurvivalGame({
               <div>
                 {ACTION_CARDS.map((card) => {
                   const requiredRuns = CARD_UNLOCKS[card.id] ?? 0;
-                  const open = career.daysPlayed >= requiredRuns;
+                  const open = isCardUnlocked(card.id, career.daysPlayed);
                   return (
                     <button
                       type="button"

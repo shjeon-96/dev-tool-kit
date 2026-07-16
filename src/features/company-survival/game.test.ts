@@ -3,6 +3,8 @@ import {
   ACTION_CARDS,
   INCIDENTS,
   STARTER_DECK,
+  isCardUnlocked,
+  isCeoTraitUnlocked,
 } from "@/shared/lib/company-survival/rules";
 import {
   calculateProduction,
@@ -75,6 +77,16 @@ describe("office roguelike engine", () => {
       getTurnHand(state.date, state.industry, 0)[0].id,
     );
     expect(() => selectGameDeck(next, deck)).toThrow("locked");
+  });
+
+  it("unlocks new cards and CEO traits after completed runs", () => {
+    expect(isCardUnlocked("hire-operator", 0)).toBe(false);
+    expect(isCardUnlocked("hire-operator", 1)).toBe(true);
+    expect(isCardUnlocked("automation", 1)).toBe(false);
+    expect(isCardUnlocked("automation", 2)).toBe(true);
+    expect(isCeoTraitUnlocked("rainmaker", 1)).toBe(true);
+    expect(isCeoTraitUnlocked("operator", 1)).toBe(false);
+    expect(isCeoTraitUnlocked("operator", 2)).toBe(true);
   });
 
   it("lets completed projects counter later incidents", () => {

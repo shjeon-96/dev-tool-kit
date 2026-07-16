@@ -1,5 +1,6 @@
 import type {
   ActionCard,
+  CeoTrait,
   Incident,
   IndustryRule,
   TraitDefinition,
@@ -306,6 +307,18 @@ export const CARD_UNLOCKS: Readonly<Record<string, number>> = {
   community: 2,
   "team-day": 3,
 };
+
+export const CEO_TRAIT_UNLOCKS: Readonly<Record<CeoTrait, number>> = {
+  builder: 0,
+  rainmaker: 1,
+  operator: 2,
+};
+
+export const isCardUnlocked = (cardId: string, completedRuns: number) =>
+  completedRuns >= (CARD_UNLOCKS[cardId] ?? 0);
+
+export const isCeoTraitUnlocked = (trait: CeoTrait, completedRuns: number) =>
+  completedRuns >= CEO_TRAIT_UNLOCKS[trait];
 
 export const INCIDENTS: readonly Incident[] = [
   {
