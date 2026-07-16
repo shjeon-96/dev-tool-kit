@@ -176,7 +176,7 @@ a:focus-visible {
   margin: auto;
   padding: clamp(46px, 7vw, 90px) 0;
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
+  grid-template-columns: 0.72fr 1.28fr;
   grid-template-rows: auto auto;
   gap: 40px 60px;
   align-items: center;
@@ -186,13 +186,13 @@ a:focus-visible {
   z-index: 2;
 }
 .lobby-hero h1 {
-  max-width: 690px;
+  max-width: 580px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(4rem, 7.6vw, 8.7rem);
+  font-size: clamp(3.2rem, 5.25vw, 6.2rem);
   font-weight: 500;
   letter-spacing: -0.065em;
-  line-height: 0.84;
+  line-height: 0.92;
 }
 .lobby-hero > p:not(.company-kicker) {
   max-width: 610px;
@@ -712,10 +712,10 @@ a:focus-visible {
   max-width: 850px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(4rem, 9vw, 8rem);
+  font-size: clamp(3.4rem, 6.5vw, 6rem);
   font-weight: 500;
   letter-spacing: -0.06em;
-  line-height: 0.86;
+  line-height: 0.92;
 }
 .rogue-final > p:not(.company-kicker, .rank-line) {
   max-width: 620px;
@@ -818,7 +818,7 @@ a:focus-visible {
     padding-top: 35px;
   }
   .lobby-hero h1 {
-    font-size: clamp(3.7rem, 17vw, 6rem);
+    font-size: clamp(3rem, 12vw, 4.6rem);
   }
   .lobby-office {
     min-height: 270px;
