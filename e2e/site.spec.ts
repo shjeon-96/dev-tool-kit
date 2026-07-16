@@ -35,6 +35,10 @@ test.describe("RUNWAY 10 office roguelike", () => {
     await page.goto("/en");
     await page.getByRole("button", { name: /Start month one/ }).click();
     await expect(page.locator(".office-board")).toBeVisible();
+    await expect(page.getByText("CHOOSE ONE CARD")).toBeVisible();
+    await expect(
+      page.getByText("PLAY CARD → TEAM PRODUCES → CRISIS HITS"),
+    ).toBeVisible();
     await expect(page.locator(".action-card")).toHaveCount(3);
     const metricsBefore = await page
       .locator(".hud-metrics strong")

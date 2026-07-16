@@ -81,10 +81,10 @@ const DEPARTMENTS: readonly Department[] = [
   "operations",
 ];
 const SPRITES: Record<Department, string> = {
-  engineering: "/game/engineer-sheet-v1.png",
-  design: "/game/designer-sheet-v1.png",
-  sales: "/game/sales-sheet-v1.png",
-  operations: "/game/operator-sheet-v1.png",
+  engineering: "/game/engineer-sheet-v2.webp",
+  design: "/game/designer-sheet-v2.webp",
+  sales: "/game/sales-sheet-v2.webp",
+  operations: "/game/operator-sheet-v2.webp",
 };
 const EMPTY_CAREER: CompanyCareerStats = {
   daysPlayed: 0,
@@ -101,8 +101,8 @@ const UI = {
     start: "첫 달 시작",
     resume: "워룸 복귀",
     month: "MONTH",
-    hand: "이번 달 액션",
-    burn: "기본 고정비 -10",
+    hand: "카드 1장을 선택하세요",
+    burn: "목표: 6개월 생존 · 고정비 -10",
     incident: "긴급 속보",
     next: "다음 달",
     synergy: "부서 연쇄 +5 성장",
@@ -116,7 +116,7 @@ const UI = {
     unlock2: "2회 플레이",
     select: "선택",
     project: "부서 레벨",
-    noUndo: "카드를 실행하면 이번 달은 되돌릴 수 없습니다.",
+    noUndo: "카드 실행 → 팀 생산 → 돌발 사건",
     deckTitle: "시작 덱 구성",
     deckRule: "8장 선택 · 직원/프로젝트/자금 각 1장 이상",
     deckKinds: { employee: "직원", project: "프로젝트", funding: "자금" },
@@ -131,8 +131,8 @@ const UI = {
     start: "Start month one",
     resume: "Return to war room",
     month: "MONTH",
-    hand: "THIS MONTH'S ACTIONS",
-    burn: "BASE BURN -10",
+    hand: "CHOOSE ONE CARD",
+    burn: "GOAL: SURVIVE 6 MONTHS · BURN -10",
     incident: "BREAKING",
     next: "Next month",
     synergy: "Department chain: +5 growth",
@@ -146,7 +146,7 @@ const UI = {
     unlock2: "2 completed runs",
     select: "SELECT",
     project: "DEPARTMENT LEVEL",
-    noUndo: "Playing a card commits the month.",
+    noUndo: "PLAY CARD → TEAM PRODUCES → CRISIS HITS",
     deckTitle: "BUILD STARTING DECK",
     deckRule: "Choose 8 · include employee, project, and funding",
     deckKinds: { employee: "EMPLOYEE", project: "PROJECT", funding: "FUNDING" },
@@ -161,8 +161,8 @@ const UI = {
     start: "1か月目を開始",
     resume: "作戦室へ戻る",
     month: "MONTH",
-    hand: "今月のアクション",
-    burn: "固定費 -10",
+    hand: "カードを1枚選択",
+    burn: "目標：6か月生存・固定費 -10",
     incident: "緊急速報",
     next: "次の月",
     synergy: "部門連鎖：成長 +5",
@@ -176,7 +176,7 @@ const UI = {
     unlock2: "2回完走",
     select: "選択",
     project: "部門レベル",
-    noUndo: "カード実行後は今月を戻せません。",
+    noUndo: "カード実行 → チーム生産 → 緊急事態",
     deckTitle: "開始デッキ編成",
     deckRule: "8枚選択・社員/プロジェクト/資金を各1枚以上",
     deckKinds: { employee: "社員", project: "プロジェクト", funding: "資金" },
@@ -456,7 +456,7 @@ export function CompanySurvivalGame({
           </div>
           <div className="lobby-office" aria-hidden="true">
             <Image
-              src="/game/office-board-v1.png"
+              src="/game/office-board-v2.webp"
               alt=""
               fill
               priority
@@ -639,7 +639,7 @@ function OfficeBoard({
     <section className="office-board" aria-label="Office board">
       <Image
         className="office-bg"
-        src="/game/office-board-v1.png"
+        src="/game/office-board-v2.webp"
         alt="Late-night startup office"
         fill
         priority
@@ -652,7 +652,11 @@ function OfficeBoard({
         >
           <div
             className="sprite"
-            style={{ backgroundImage: `url(${SPRITES[department]})` }}
+            style={
+              game.employees[department]
+                ? { backgroundImage: `url(${SPRITES[department]})` }
+                : undefined
+            }
           />
           <span>
             {department}

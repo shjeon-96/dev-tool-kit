@@ -394,7 +394,7 @@ a:focus-visible {
   margin: auto;
   padding: 22px 0 34px;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 430px;
+  grid-template-columns: minmax(0, 1fr) 520px;
   grid-template-rows: auto 1fr;
   gap: 16px;
 }
@@ -533,8 +533,20 @@ a:focus-visible {
   transition: transform 0.2s;
 }
 .office-unit.is-empty .sprite {
-  opacity: 0.22;
-  filter: grayscale(1);
+  width: 56px;
+  height: 56px;
+  margin: 40% auto 0;
+  border: 1px dashed #dfff6370;
+  border-radius: 50%;
+  background: #0b1510b8;
+}
+.office-unit.is-empty .sprite::after {
+  content: "+";
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: #dfff63;
+  font: 500 1.5rem var(--mono);
 }
 .office-unit.is-working .sprite {
   background-position-y: 56%;
@@ -630,14 +642,14 @@ a:focus-visible {
 }
 .action-dock header span {
   color: #dfff63;
-  font-size: 0.67rem;
+  font-size: 0.76rem;
   font-weight: 800;
   letter-spacing: 0.12em;
 }
 .action-dock header small,
 .action-dock header p {
   color: #9da69e;
-  font-size: 0.49rem;
+  font-size: 0.55rem;
 }
 .action-dock header p {
   max-width: 130px;
@@ -694,7 +706,7 @@ a:focus-visible {
 .action-card p {
   margin: 0;
   color: #aeb6ae;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
 }
 .action-card dl {
   display: flex;
