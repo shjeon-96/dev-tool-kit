@@ -1,4 +1,5 @@
 import { submitVerifiedCompanyResult } from "@/features/company-survival/leaderboard";
+import { isAnonymousId } from "@/shared/lib/company-survival/identity";
 import {
   isCompanyIndustry,
   type DecisionRecord,
@@ -35,7 +36,7 @@ export async function POST(request: Request) {
       !isCompanyIndustry(payload.industry) ||
       !isDecisionHistory(payload.history) ||
       typeof payload.playerId !== "string" ||
-      !/^[0-9a-f-]{36}$/i.test(payload.playerId)
+      !isAnonymousId(payload.playerId)
     ) {
       return Response.json(
         { error: "Invalid result payload" },
@@ -48,6 +49,9 @@ export async function POST(request: Request) {
       history: payload.history,
       playerId: payload.playerId,
     });
+    if (result.kind === "invalid") {
+      return Response.json({ error: result.error }, { status: 400 });
+    }
     // eslint-disable-next-line no-console -- Vercel runtime needs a structured info-level success event.
     console.log(
       JSON.stringify({
@@ -57,7 +61,11 @@ export async function POST(request: Request) {
         duration_ms: Date.now() - startedAt,
       }),
     );
-    return Response.json(result);
+    return Response.json({
+      score: result.score,
+      percentile: result.percentile,
+      total: result.total,
+    });
   } catch (error) {
     console.error(
       JSON.stringify({

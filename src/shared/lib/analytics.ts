@@ -1,9 +1,17 @@
+import type { CompanyActivityPayload } from "@/shared/types/company-survival";
+
 type GameEvent =
+  | "ad_loaded"
+  | "ad_requested"
+  | "card_downloaded"
   | "choice_made"
   | "game_completed"
-  | "game_d1_return"
   | "game_started"
-  | "result_shared";
+  | "profile_selected"
+  | "referral_landed"
+  | "session_started"
+  | "share_opened"
+  | "share_sheet_completed";
 
 declare global {
   interface Window {
@@ -22,27 +30,14 @@ export function trackGameEvent(
   window.clarity("event", name);
 }
 
-const FIRST_VISIT_KEY = "runway-10:first-visit:v1";
-const D1_TRACKED_KEY = "runway-10:d1-tracked:v1";
-
-export function trackD1Return(
-  storage: Pick<Storage, "getItem" | "setItem">,
-  date: string,
-  industry: string,
-) {
-  const firstVisit = storage.getItem(FIRST_VISIT_KEY);
-  if (!firstVisit) {
-    storage.setItem(FIRST_VISIT_KEY, date);
-    return;
-  }
-  if (storage.getItem(D1_TRACKED_KEY)) return;
-  const difference = Math.round(
-    (Date.parse(`${date}T00:00:00.000Z`) -
-      Date.parse(`${firstVisit}T00:00:00.000Z`)) /
-      86_400_000,
-  );
-  if (difference === 1) {
-    trackGameEvent("game_d1_return", { industry });
-    storage.setItem(D1_TRACKED_KEY, date);
+export async function recordCompanyActivity(activity: CompanyActivityPayload) {
+  const response = await fetch("/api/company-survival/activity", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(activity),
+    keepalive: true,
+  });
+  if (!response.ok) {
+    throw new Error(`Activity endpoint returned ${response.status}`);
   }
 }

@@ -1,4 +1,5 @@
 import { calculateCompanyScore, isCompanyGameState } from "./game";
+import { isAnonymousId } from "./identity";
 import {
   COMPANY_INDUSTRIES,
   type CompanyArchive,
@@ -6,6 +7,7 @@ import {
   type CompanyDailyResult,
   type CompanyGameState,
   type CompanyIndustry,
+  type CompanyRunLength,
   isCompanyIndustry,
 } from "@/shared/types/company-survival";
 
@@ -19,7 +21,7 @@ type StoredValue<T> =
   | { kind: "invalid" };
 
 export function runStorageKey(date: string, industry: CompanyIndustry) {
-  return `runway-10:company:v2:${date}:${industry}`;
+  return `runway-10:company:v3:${date}:${industry}`;
 }
 
 export function readStoredProfile(
@@ -47,12 +49,19 @@ export function readStoredRun(
   storage: Pick<Storage, "getItem">,
   date: string,
   industry: CompanyIndustry,
+  targetTurns: CompanyRunLength,
 ): StoredValue<CompanyGameState> {
   const saved = storage.getItem(runStorageKey(date, industry));
-  if (!saved) return { kind: "empty" };
+  if (!saved) {
+    return storage.getItem(`runway-10:company:v2:${date}:${industry}`)
+      ? { kind: "invalid" }
+      : { kind: "empty" };
+  }
   try {
     const parsed: unknown = JSON.parse(saved);
-    return isCompanyGameState(parsed, date) && parsed.industry === industry
+    return isCompanyGameState(parsed, date) &&
+      parsed.industry === industry &&
+      parsed.targetTurns === targetTurns
       ? { kind: "valid", value: parsed }
       : { kind: "invalid" };
   } catch {
@@ -76,6 +85,19 @@ export function clearStoredRun(
   industry: CompanyIndustry,
 ) {
   storage.removeItem(runStorageKey(date, industry));
+  storage.removeItem(`runway-10:company:v2:${date}:${industry}`);
+}
+
+const REFERRAL_ID_KEY = "runway-10:referral:v1";
+
+export function readOrCreateReferralId(
+  storage: Pick<Storage, "getItem" | "setItem">,
+) {
+  const stored = storage.getItem(REFERRAL_ID_KEY);
+  if (isAnonymousId(stored)) return stored;
+  const referralId = crypto.randomUUID();
+  storage.setItem(REFERRAL_ID_KEY, referralId);
+  return referralId;
 }
 
 export function clearStoredRunsForDate(
@@ -91,7 +113,7 @@ export function readOrCreatePlayerId(
   storage: Pick<Storage, "getItem" | "setItem">,
 ) {
   const stored = storage.getItem(PLAYER_ID_KEY);
-  if (stored && /^[0-9a-f-]{36}$/i.test(stored)) return stored;
+  if (isAnonymousId(stored)) return stored;
   const playerId = crypto.randomUUID();
   storage.setItem(PLAYER_ID_KEY, playerId);
   return playerId;

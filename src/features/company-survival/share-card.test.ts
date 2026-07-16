@@ -4,7 +4,7 @@ import { createResultCardSvg } from "./share-card";
 
 describe("result share card", () => {
   it("renders challenge, score, metrics, and streak into one image source", () => {
-    const game = createInitialGameState("2026-07-15", "saas");
+    const game = createInitialGameState("2026-07-15", "saas", 10);
     game.turn = 10;
     game.status = "survived";
     const svg = createResultCardSvg({

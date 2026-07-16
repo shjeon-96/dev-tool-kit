@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { ADSENSE_CLIENT_ID } from "@/shared/config/adsense";
 import type { Locale } from "@/shared/config/site";
+import { trackGameEvent } from "@/shared/lib/analytics";
 
 const GAME_OVER_AD_SLOT = "4991680569";
 
@@ -15,6 +16,7 @@ declare global {
 export function GameOverAd({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
+      trackGameEvent("ad_requested", { placement: "game_over" });
       (window.adsbygoogle ??= []).push({});
     }
   }, []);

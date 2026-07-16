@@ -3,11 +3,20 @@ import type {
   CompanyGameState,
   CompanyIndustry,
   CompanyMetrics,
+  CompanyRunLength,
   CompanyScenario,
   CompanyStatus,
 } from "@/shared/types/company-survival";
 
-export const GAME_LENGTH = 10;
+export const RUN_LENGTH_POLICY = {
+  id: "run-length-v1",
+  mode: "experiment",
+  variants: [6, 10],
+} as const satisfies {
+  id: CompanyGameState["rulesetId"];
+  mode: "experiment" | "fixed";
+  variants: readonly CompanyRunLength[];
+};
 export const STARTING_METRICS: CompanyMetrics = {
   cash: 64,
   morale: 62,
@@ -46,6 +55,15 @@ function hashChallenge(date: string, industry: CompanyIndustry) {
   return seed >>> 0;
 }
 
+export function getRunLength(playerId: string): CompanyRunLength {
+  let seed = 2166136261;
+  for (const character of `${RUN_LENGTH_POLICY.id}:${playerId}`) {
+    seed ^= character.charCodeAt(0);
+    seed = Math.imul(seed, 16777619);
+  }
+  return RUN_LENGTH_POLICY.variants[(seed >>> 0) % 2];
+}
+
 function seededRandom(seed: number) {
   let state = seed || 1;
   return () => {
@@ -65,6 +83,7 @@ export function createDailyScenarioOrder(
   date: string,
   industry: CompanyIndustry,
   scenarios: readonly CompanyScenario[],
+  targetTurns: CompanyRunLength,
 ) {
   const profileScenarios = scenarios.filter(
     (scenario) => scenario.industry === "all" || scenario.industry === industry,
@@ -75,9 +94,9 @@ export function createDailyScenarioOrder(
   const weeklyScenarios = profileScenarios.filter(
     (scenario) => scenario.cadence === "weekly",
   );
-  if (standardScenarios.length < GAME_LENGTH - 1 || !weeklyScenarios.length) {
+  if (standardScenarios.length < targetTurns - 1 || !weeklyScenarios.length) {
     throw new Error(
-      `Company Survival requires a weekly scenario and ${GAME_LENGTH - 1} standard scenarios for ${industry}`,
+      `Company Survival requires a weekly scenario and ${targetTurns - 1} standard scenarios for ${industry}`,
     );
   }
 
@@ -93,7 +112,7 @@ export function createDailyScenarioOrder(
   const weeklyRandom = seededRandom(hashChallenge(getWeekKey(date), industry));
   const weekly =
     weeklyScenarios[Math.floor(weeklyRandom() * weeklyScenarios.length)];
-  return [weekly, ...shuffled.slice(0, GAME_LENGTH - 1)].map(
+  return [weekly, ...shuffled.slice(0, targetTurns - 1)].map(
     (scenario) => scenario.id,
   );
 }
@@ -103,9 +122,15 @@ export function replayCompanyRun(
   industry: CompanyIndustry,
   history: CompanyGameState["history"],
   scenarios: readonly CompanyScenario[],
+  targetTurns: CompanyRunLength,
 ) {
-  const order = createDailyScenarioOrder(date, industry, scenarios);
-  let state = createInitialGameState(date, industry);
+  const order = createDailyScenarioOrder(
+    date,
+    industry,
+    scenarios,
+    targetTurns,
+  );
+  let state = createInitialGameState(date, industry, targetTurns);
   for (const decision of history) {
     const expectedScenarioId = order[state.turn];
     if (decision.scenarioId !== expectedScenarioId) {
@@ -123,6 +148,7 @@ export function replayCompanyRun(
 export function createInitialGameState(
   date: string,
   industry: CompanyIndustry,
+  targetTurns: CompanyRunLength,
 ): CompanyGameState {
   const adjustment = PROFILE_METRIC_ADJUSTMENTS[industry];
   const metrics = Object.fromEntries(
@@ -132,7 +158,9 @@ export function createInitialGameState(
     ]),
   ) as unknown as CompanyMetrics;
   return {
-    version: 2,
+    version: 3,
+    rulesetId: RUN_LENGTH_POLICY.id,
+    targetTurns,
     date,
     industry,
     turn: 0,
@@ -149,11 +177,12 @@ function clamp(value: number) {
 function deriveStatus(
   metrics: CompanyMetrics,
   nextTurn: number,
+  targetTurns: CompanyRunLength,
 ): CompanyStatus {
   if (metrics.cash === 0) return "bankrupt";
   if (metrics.morale === 0) return "exodus";
   if (metrics.trust === 0) return "rejected";
-  if (nextTurn >= GAME_LENGTH) return "survived";
+  if (nextTurn >= targetTurns) return "survived";
   return "playing";
 }
 
@@ -180,7 +209,7 @@ export function applyDecision(
     ...state,
     turn,
     metrics,
-    status: deriveStatus(metrics, turn),
+    status: deriveStatus(metrics, turn, state.targetTurns),
     history: [...state.history, { scenarioId: scenario.id, choiceId }],
   };
 }
@@ -190,7 +219,7 @@ export function calculateCompanyScore(state: CompanyGameState) {
     (sum, value) => sum + value,
     0,
   );
-  return Math.round(metricScore + state.turn * 25);
+  return Math.round(metricScore + (state.turn / state.targetTurns) * 250);
 }
 
 export function isCompanyGameState(
@@ -200,12 +229,16 @@ export function isCompanyGameState(
   if (!value || typeof value !== "object") return false;
   const state = value as Partial<CompanyGameState>;
   return (
-    state.version === 2 &&
+    state.version === 3 &&
+    state.rulesetId === RUN_LENGTH_POLICY.id &&
+    RUN_LENGTH_POLICY.variants.some(
+      (targetTurns) => targetTurns === state.targetTurns,
+    ) &&
     state.date === date &&
     COMPANY_INDUSTRIES.some((industry) => industry === state.industry) &&
     typeof state.turn === "number" &&
     state.turn >= 0 &&
-    state.turn <= GAME_LENGTH &&
+    state.turn <= state.targetTurns! &&
     Array.isArray(state.history) &&
     state.history.length === state.turn &&
     Boolean(state.metrics) &&

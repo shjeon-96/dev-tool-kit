@@ -6,6 +6,7 @@ import {
   Check,
   ImageDown,
   RotateCcw,
+  Share2,
   TriangleAlert,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -24,11 +25,12 @@ import {
   type Locale,
 } from "@/shared/config/site";
 import {
-  GAME_LENGTH,
+  RUN_LENGTH_POLICY,
   applyDecision,
   calculateCompanyScore,
   createDailyScenarioOrder,
   createInitialGameState,
+  getRunLength,
 } from "@/shared/lib/company-survival/game";
 import {
   clearStoredRunsForDate,
@@ -39,13 +41,15 @@ import {
   deriveCareerStats,
   readCompanyArchive,
   readOrCreatePlayerId,
+  readOrCreateReferralId,
   readStoredProfile,
   readStoredRun,
   recordCompletedRun,
   writeStoredRun,
   writeStoredProfile,
 } from "@/shared/lib/company-survival/storage";
-import { trackD1Return, trackGameEvent } from "@/shared/lib/analytics";
+import { isAnonymousId } from "@/shared/lib/company-survival/identity";
+import { recordCompanyActivity, trackGameEvent } from "@/shared/lib/analytics";
 import type {
   CompanyCareerStats,
   CompanyGameState,
@@ -83,6 +87,12 @@ const EMPTY_CAREER: CompanyCareerStats = {
 };
 const DEFAULT_INDUSTRY: CompanyIndustry = "saas";
 
+function reportActivity(activity: Parameters<typeof recordCompanyActivity>[0]) {
+  void recordCompanyActivity(activity).catch((error: unknown) => {
+    console.error("RUNWAY 10 activity tracking failed", error);
+  });
+}
+
 export function CompanySurvivalGame({
   locale,
   date,
@@ -93,13 +103,26 @@ export function CompanySurvivalGame({
   challengeNumber: number;
 }) {
   const copy = COMPANY_COPY[locale];
+  const [playerId, setPlayerId] = useState("");
+  const [incomingReferralId, setIncomingReferralId] = useState<string>();
+  const [canShare, setCanShare] = useState(false);
   const [industry, setIndustry] = useState<CompanyIndustry>(DEFAULT_INDUSTRY);
-  const scenarioOrder = useMemo(
-    () => createDailyScenarioOrder(date, industry, COMPANY_SCENARIOS),
-    [date, industry],
-  );
   const [game, setGame] = useState<CompanyGameState>(() =>
-    createInitialGameState(date, DEFAULT_INDUSTRY),
+    createInitialGameState(
+      date,
+      DEFAULT_INDUSTRY,
+      RUN_LENGTH_POLICY.variants[1],
+    ),
+  );
+  const scenarioOrder = useMemo(
+    () =>
+      createDailyScenarioOrder(
+        date,
+        industry,
+        COMPANY_SCENARIOS,
+        game.targetTurns,
+      ),
+    [date, game.targetTurns, industry],
   );
   const [started, setStarted] = useState(false);
   const [resolution, setResolution] = useState<Resolution | null>(null);
@@ -121,7 +144,14 @@ export function CompanySurvivalGame({
       }
       const activeIndustry =
         savedProfile.kind === "valid" ? savedProfile.value : DEFAULT_INDUSTRY;
-      const savedRun = readStoredRun(window.localStorage, date, activeIndustry);
+      const activePlayerId = readOrCreatePlayerId(window.localStorage);
+      const targetTurns = getRunLength(activePlayerId);
+      const savedRun = readStoredRun(
+        window.localStorage,
+        date,
+        activeIndustry,
+        targetTurns,
+      );
       if (savedRun.kind === "invalid") {
         setStorageError(true);
         return;
@@ -131,17 +161,38 @@ export function CompanySurvivalGame({
           ? savedArchive.value
           : createEmptyArchive();
       setCareer(deriveCareerStats(archive, date));
+      setPlayerId(activePlayerId);
       setIndustry(activeIndustry);
-      trackD1Return(window.localStorage, date, activeIndustry);
+      setCanShare(typeof navigator.share === "function");
+      const ref = new URLSearchParams(window.location.search).get("ref");
+      const validRef = isAnonymousId(ref) ? ref : undefined;
+      setIncomingReferralId(validRef);
+      trackGameEvent("session_started", { locale });
+      reportActivity({
+        event: "session_started",
+        date,
+        playerId: activePlayerId,
+      });
+      if (validRef) {
+        trackGameEvent("referral_landed", { referral: validRef });
+        reportActivity({
+          event: "referral_landed",
+          date,
+          playerId: activePlayerId,
+          referralId: validRef,
+        });
+      }
 
       if (savedRun.kind === "valid") {
         setGame(savedRun.value);
         setStarted(savedRun.value.turn > 0);
         setShowFinal(savedRun.value.status !== "playing");
+      } else {
+        setGame(createInitialGameState(date, activeIndustry, targetTurns));
       }
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [date]);
+  }, [date, locale]);
 
   useEffect(() => {
     if (
@@ -171,6 +222,13 @@ export function CompanySurvivalGame({
           total: number;
         };
         setLeaderboard({ kind: "ready", ...result });
+        trackGameEvent("game_completed", {
+          industry: game.industry,
+          status: game.status,
+          score: calculateCompanyScore(game),
+          turns: game.turn,
+          variant: game.targetTurns,
+        });
       } catch {
         setLeaderboard({ kind: "error" });
       }
@@ -179,17 +237,23 @@ export function CompanySurvivalGame({
   }, [game, leaderboard.kind, showFinal]);
 
   const selectIndustry = (nextIndustry: CompanyIndustry) => {
-    const stored = readStoredRun(window.localStorage, date, nextIndustry);
+    const stored = readStoredRun(
+      window.localStorage,
+      date,
+      nextIndustry,
+      game.targetTurns,
+    );
     if (stored.kind === "invalid") {
       setStorageError(true);
       return;
     }
     writeStoredProfile(window.localStorage, nextIndustry);
+    trackGameEvent("profile_selected", { industry: nextIndustry });
     setIndustry(nextIndustry);
     setGame(
       stored.kind === "valid"
         ? stored.value
-        : createInitialGameState(date, nextIndustry),
+        : createInitialGameState(date, nextIndustry, game.targetTurns),
     );
     setShowFinal(stored.kind === "valid" && stored.value.status !== "playing");
     setResolution(null);
@@ -198,6 +262,7 @@ export function CompanySurvivalGame({
   };
 
   const startGame = () => {
+    if (!playerId) return;
     writeStoredProfile(window.localStorage, industry);
     setShowFinal(game.status !== "playing");
     setStarted(true);
@@ -205,11 +270,20 @@ export function CompanySurvivalGame({
       challenge: challengeNumber,
       industry,
       resumed: game.turn > 0,
+      variant: game.targetTurns,
+    });
+    reportActivity({
+      event: "game_started",
+      date,
+      playerId,
+      industry,
+      targetTurns: game.targetTurns,
+      referralId: incomingReferralId,
     });
   };
 
   const scenario =
-    game.turn < GAME_LENGTH ? getScenario(scenarioOrder[game.turn]) : null;
+    game.turn < game.targetTurns ? getScenario(scenarioOrder[game.turn]) : null;
   const resolvedScenario = resolution
     ? getScenario(resolution.scenarioId)
     : null;
@@ -238,14 +312,6 @@ export function CompanySurvivalGame({
       scenario: scenario.id,
       choice: choiceId,
     });
-    if (next.status !== "playing") {
-      trackGameEvent("game_completed", {
-        industry,
-        status: next.status,
-        score: calculateCompanyScore(next),
-        turns: next.turn,
-      });
-    }
   };
 
   const advance = () => {
@@ -258,7 +324,7 @@ export function CompanySurvivalGame({
   };
 
   const restart = () => {
-    const fresh = createInitialGameState(date, industry);
+    const fresh = createInitialGameState(date, industry, game.targetTurns);
     clearStoredRun(window.localStorage, date, industry);
     setGame(fresh);
     setResolution(null);
@@ -273,7 +339,7 @@ export function CompanySurvivalGame({
     clearStoredProfile(window.localStorage);
     clearCompanyArchive(window.localStorage);
     setIndustry(DEFAULT_INDUSTRY);
-    setGame(createInitialGameState(date, DEFAULT_INDUSTRY));
+    setGame(createInitialGameState(date, DEFAULT_INDUSTRY, game.targetTurns));
     setCareer(EMPTY_CAREER);
     setStorageError(false);
     setStarted(false);
@@ -289,12 +355,61 @@ export function CompanySurvivalGame({
       });
       await saveResultCard(svg, challengeNumber);
       setCopyStatus(copy.savedCard);
-      trackGameEvent("result_shared", {
+      trackGameEvent("card_downloaded", {
         industry,
         score: calculateCompanyScore(game),
       });
     } catch {
       setCopyStatus(copy.saveFailed);
+    }
+  };
+
+  const shareResult = async () => {
+    if (!navigator.share || !playerId) return;
+    const referralId = readOrCreateReferralId(window.localStorage);
+    const profile = getCompanyProfile(game.industry);
+    const url = new URL(localizedPath(locale), window.location.origin);
+    url.searchParams.set("ref", referralId);
+    url.searchParams.set("utm_source", "share");
+    url.searchParams.set("utm_medium", "web_share");
+    trackGameEvent("share_opened", {
+      industry,
+      score: calculateCompanyScore(game),
+    });
+    try {
+      await recordCompanyActivity({
+        event: "share_opened",
+        date,
+        playerId,
+        referralId,
+      });
+      await navigator.share({
+        title: `RUNWAY 10 #${challengeNumber}`,
+        text: copy.shareText({
+          challengeNumber,
+          companyCode: profile.code,
+          score: calculateCompanyScore(game),
+          status:
+            copy.status[game.status === "playing" ? "survived" : game.status]
+              .title,
+          turns: game.targetTurns,
+        }),
+        url: url.toString(),
+      });
+      setCopyStatus(copy.sharedResult);
+      trackGameEvent("share_sheet_completed", {
+        industry,
+        score: calculateCompanyScore(game),
+      });
+      reportActivity({
+        event: "share_sheet_completed",
+        date,
+        playerId,
+        referralId,
+      });
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      setCopyStatus(copy.shareFailed);
     }
   };
 
@@ -422,6 +537,12 @@ export function CompanySurvivalGame({
             <CareerRecord locale={locale} career={career} />
             <LeaderboardRecord locale={locale} state={leaderboard} />
             <div className="company-final-actions">
+              {canShare ? (
+                <button type="button" onClick={shareResult}>
+                  <Share2 aria-hidden="true" />
+                  {copy.shareResult}
+                </button>
+              ) : null}
               <button type="button" onClick={saveCard}>
                 <ImageDown aria-hidden="true" />
                 {copy.saveCard}
@@ -458,21 +579,23 @@ export function CompanySurvivalGame({
         <section className="company-boardroom">
           <div
             className="company-progress"
-            aria-label={`${copy.turn} ${game.turn + (resolution ? 0 : 1)} ${copy.of} ${GAME_LENGTH}`}
+            aria-label={`${copy.turn} ${game.turn + (resolution ? 0 : 1)} ${copy.of} ${game.targetTurns}`}
           >
             <div>
               <span>{copy.turn}</span>
               <strong>
                 {String(
-                  Math.min(game.turn + (resolution ? 0 : 1), GAME_LENGTH),
+                  Math.min(game.turn + (resolution ? 0 : 1), game.targetTurns),
                 ).padStart(2, "0")}
               </strong>
               <i>
-                {copy.of} {GAME_LENGTH}
+                {copy.of} {game.targetTurns}
               </i>
             </div>
             <div className="company-progress-line">
-              <i style={{ width: `${(game.turn / GAME_LENGTH) * 100}%` }} />
+              <i
+                style={{ width: `${(game.turn / game.targetTurns) * 100}%` }}
+              />
             </div>
           </div>
 

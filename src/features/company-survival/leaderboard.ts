@@ -3,42 +3,15 @@ import "server-only";
 import { COMPANY_SCENARIOS } from "@/entities/company-scenario/data/scenarios";
 import {
   calculateCompanyScore,
+  getRunLength,
   replayCompanyRun,
 } from "@/shared/lib/company-survival/game";
+import { runRedisPipeline } from "@/shared/lib/redis";
 import type {
   CompanyGameState,
   CompanyIndustry,
 } from "@/shared/types/company-survival";
-
-interface RedisResult {
-  result?: number;
-  error?: string;
-}
-
-function redisConfig() {
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
-  if (!url || !token) throw new Error("Vercel KV is not configured");
-  return { url, token };
-}
-
-async function runRedisPipeline(commands: (string | number)[][]) {
-  const { url, token } = redisConfig();
-  const response = await fetch(`${url}/pipeline`, {
-    method: "POST",
-    headers: {
-      authorization: `Bearer ${token}`,
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(commands),
-    cache: "no-store",
-  });
-  if (!response.ok) throw new Error(`Vercel KV returned ${response.status}`);
-  const results = (await response.json()) as RedisResult[];
-  const failure = results.find((result) => result.error);
-  if (failure?.error) throw new Error(failure.error);
-  return results;
-}
+import { recordVerifiedCompletion } from "./engagement";
 
 export async function submitVerifiedCompanyResult({
   date,
@@ -51,8 +24,22 @@ export async function submitVerifiedCompanyResult({
   history: CompanyGameState["history"];
   playerId: string;
 }) {
-  const state = replayCompanyRun(date, industry, history, COMPANY_SCENARIOS);
-  if (state.status === "playing") throw new Error("Run is not complete");
+  const targetTurns = getRunLength(playerId);
+  let state: CompanyGameState;
+  try {
+    state = replayCompanyRun(
+      date,
+      industry,
+      history,
+      COMPANY_SCENARIOS,
+      targetTurns,
+    );
+  } catch {
+    return { kind: "invalid" as const, error: "Invalid decision history" };
+  }
+  if (state.status === "playing") {
+    return { kind: "invalid" as const, error: "Run is not complete" };
+  }
   const score = calculateCompanyScore(state);
   const key = `runway10:leaderboard:v1:${industry}`;
   const member = `${playerId}:${date}`;
@@ -66,7 +53,9 @@ export async function submitVerifiedCompanyResult({
   if (typeof atOrBelow !== "number" || typeof total !== "number" || total < 1) {
     throw new Error("Vercel KV returned an invalid leaderboard result");
   }
+  await recordVerifiedCompletion({ date, playerId, targetTurns });
   return {
+    kind: "verified" as const,
     score,
     percentile: Math.round((atOrBelow / total) * 100),
     total,

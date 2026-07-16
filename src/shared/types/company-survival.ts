@@ -44,13 +44,17 @@ export type CompanyStatus =
   | "exodus"
   | "rejected";
 
+export type CompanyRunLength = 6 | 10;
+
 export interface DecisionRecord {
   scenarioId: string;
   choiceId: string;
 }
 
 export interface CompanyGameState {
-  version: 2;
+  version: 3;
+  rulesetId: "run-length-v1";
+  targetTurns: CompanyRunLength;
   date: string;
   industry: CompanyIndustry;
   turn: number;
@@ -80,3 +84,36 @@ export interface CompanyCareerStats {
   bestStreak: number;
   bestScore: number;
 }
+
+export type CompanyActivityPayload =
+  | {
+      event: "session_started";
+      date: string;
+      playerId: string;
+    }
+  | {
+      event: "game_started";
+      date: string;
+      playerId: string;
+      industry: CompanyIndustry;
+      targetTurns: CompanyRunLength;
+      referralId?: string;
+    }
+  | {
+      event: "share_opened";
+      date: string;
+      playerId: string;
+      referralId: string;
+    }
+  | {
+      event: "share_sheet_completed";
+      date: string;
+      playerId: string;
+      referralId: string;
+    }
+  | {
+      event: "referral_landed";
+      date: string;
+      playerId: string;
+      referralId: string;
+    };

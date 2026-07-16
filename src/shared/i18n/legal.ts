@@ -13,7 +13,7 @@ export const LEGAL_COPY: Record<
   en: {
     privacy: {
       title: "Privacy Policy",
-      updated: "Last updated: July 15, 2026",
+      updated: "Last updated: July 16, 2026",
       sections: [
         {
           title: "Game records",
@@ -25,7 +25,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "Analytics and leaderboard",
-          body: "Microsoft Clarity measures game starts, choices, completions, next-day returns, and result-card actions. Verified score, industry, date, and anonymous player ID are retained in Upstash Redis for the global leaderboard.",
+          body: "Microsoft Clarity helps us understand game interactions. Upstash Redis stores an anonymous player ID with daily sessions, verified completions, cohort returns, share-sheet completions, and referral activity so we can measure retention and operate the leaderboard. Daily activity data is retained for up to 120 days and anonymous identity mappings for up to 400 days.",
         },
         {
           title: "Advertising",
@@ -33,7 +33,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "Result images",
-          body: "When you press the save-card button, RUNWAY 10 creates the result image in your browser and downloads it to your device. The image is not uploaded to an application server.",
+          body: "When you save a result card, RUNWAY 10 creates the image in your browser and downloads it to your device. The image is not uploaded to our application server. If you use the share button, your device opens its native share sheet with result text and an anonymous referral link.",
         },
         {
           title: "Your controls",
@@ -79,7 +79,7 @@ export const LEGAL_COPY: Record<
   ko: {
     privacy: {
       title: "개인정보 처리방침",
-      updated: "최종 수정: 2026년 7월 15일",
+      updated: "최종 수정: 2026년 7월 16일",
       sections: [
         {
           title: "게임 기록",
@@ -91,7 +91,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "분석 및 순위",
-          body: "Microsoft Clarity로 게임 시작, 선택, 완료, 다음 날 재방문, 결과 카드 행동을 측정합니다. 검증된 점수, 업종, 날짜, 익명 플레이어 ID는 글로벌 순위를 위해 Upstash Redis에 보관됩니다.",
+          body: "Microsoft Clarity로 게임 이용 과정을 파악합니다. Upstash Redis에는 유지율 측정과 글로벌 순위 운영을 위해 익명 플레이어 ID와 일별 세션, 검증된 완료, 코호트 재방문, 공유 시트 완료, 추천 활동을 저장합니다. 일별 활동 데이터는 최대 120일, 익명 식별자 매핑은 최대 400일 보관합니다.",
         },
         {
           title: "광고",
@@ -99,7 +99,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "결과 이미지",
-          body: "결과 카드 저장 버튼을 누르면 RUNWAY 10이 브라우저에서 결과 이미지를 생성해 기기에 다운로드합니다. 이미지는 애플리케이션 서버에 업로드되지 않습니다.",
+          body: "결과 카드를 저장하면 RUNWAY 10이 브라우저에서 이미지를 생성해 기기에 다운로드합니다. 이미지는 애플리케이션 서버에 업로드되지 않습니다. 공유 버튼을 사용하면 결과 문구와 익명 추천 링크가 기기의 기본 공유 시트에서 열립니다.",
         },
         {
           title: "사용자 선택권",
@@ -145,7 +145,7 @@ export const LEGAL_COPY: Record<
   ja: {
     privacy: {
       title: "プライバシーポリシー",
-      updated: "最終更新：2026年7月15日",
+      updated: "最終更新：2026年7月16日",
       sections: [
         {
           title: "ゲーム記録",
@@ -157,7 +157,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "分析とランキング",
-          body: "Microsoft Clarityで開始、選択、完了、翌日再訪、結果カード操作を測定します。検証済み得点、業種、日付、匿名プレイヤーIDは世界ランキングのためUpstash Redisに保存されます。",
+          body: "Microsoft Clarityでゲーム操作を把握します。Upstash Redisには継続率の測定と世界ランキング運営のため、匿名プレイヤーID、日別セッション、検証済み完了、コホート再訪、共有シート完了、紹介活動を保存します。日別活動データは最大120日、匿名識別子の対応は最大400日保持します。",
         },
         {
           title: "広告",
@@ -165,7 +165,7 @@ export const LEGAL_COPY: Record<
         },
         {
           title: "結果画像",
-          body: "結果カード保存ボタンを押すと、RUNWAY 10はブラウザ内で画像を生成し、端末へダウンロードします。画像はアプリケーションサーバーへ送信されません。",
+          body: "結果カードを保存すると、RUNWAY 10はブラウザ内で画像を生成し、端末へダウンロードします。画像はアプリケーションサーバーへ送信されません。共有ボタンを使うと、結果文と匿名紹介リンクが端末の共有シートで開きます。",
         },
         {
           title: "利用者の設定",

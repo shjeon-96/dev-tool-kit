@@ -47,7 +47,7 @@ export function createResultCardSvg({
   <text x="1148" y="454" text-anchor="end" fill="#9da69e" font-family="monospace" font-size="15" letter-spacing="2">${escapeXml(copy.currentStreak)}</text>
   <text x="1148" y="506" text-anchor="end" fill="#ff674d" font-family="monospace" font-size="48" font-weight="800">${streak}</text>
   <text x="52" y="574" fill="#9da69e" font-family="monospace" font-size="15">web-toolkit.app</text>
-  <text x="1148" y="574" text-anchor="end" fill="#f3eedf" font-family="monospace" font-size="15">10 DECISIONS. NO UNDO.</text>
+  <text x="1148" y="574" text-anchor="end" fill="#f3eedf" font-family="monospace" font-size="15">${game.targetTurns} DECISIONS. NO UNDO.</text>
 </svg>`;
 }
 

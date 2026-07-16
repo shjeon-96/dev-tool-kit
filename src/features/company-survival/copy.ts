@@ -26,6 +26,16 @@ export const COMPANY_COPY: Record<
     next: string;
     finalReport: string;
     restart: string;
+    shareResult: string;
+    sharedResult: string;
+    shareFailed: string;
+    shareText: (input: {
+      challengeNumber: number;
+      companyCode: string;
+      score: number;
+      status: string;
+      turns: number;
+    }) => string;
     saveCard: string;
     savedCard: string;
     saveFailed: string;
@@ -58,7 +68,7 @@ export const COMPANY_COPY: Record<
   ko: {
     brand: "RUNWAY 10",
     edition: "오늘의 경영 위기",
-    title: "회사를 10번의 결정 동안 살려라.",
+    title: "오늘도 회사를 살려서 퇴근하라.",
     subtitle:
       "좋은 선택은 없습니다. 숫자가 0이 되기 전에 다음 월요일까지 버티세요.",
     briefing: "대표이사 긴급 브리핑",
@@ -66,7 +76,7 @@ export const COMPANY_COPY: Record<
     companyNote: "업종마다 시작 지표와 전용 위기가 다릅니다.",
     changeCompany: "다른 회사 선택",
     rules: [
-      "같은 업종은 매일 동일한 10개 사건",
+      "같은 업종은 매일 동일한 사건 순서",
       "현금·팀·신뢰 중 하나라도 0이면 종료",
       "결정은 되돌릴 수 없음",
     ],
@@ -80,6 +90,11 @@ export const COMPANY_COPY: Record<
     next: "다음 보고서 열기",
     finalReport: "최종 생존 보고서",
     restart: "오늘의 회사 다시 시작",
+    shareResult: "생존 보고서 공유",
+    sharedResult: "공유 시트를 완료했습니다.",
+    shareFailed: "공유 시트를 열지 못했습니다.",
+    shareText: ({ challengeNumber, companyCode, score, status, turns }) =>
+      `RUNWAY 10 #${challengeNumber}\n${companyCode} · ${status}\n점수 ${score} · ${turns}개 결정\n오늘 당신의 회사는 살아남을 수 있을까요?`,
     saveCard: "결과 카드 저장",
     savedCard: "공유용 결과 이미지를 저장했습니다.",
     saveFailed: "결과 이미지를 만들지 못했습니다.",
@@ -131,7 +146,7 @@ export const COMPANY_COPY: Record<
   en: {
     brand: "RUNWAY 10",
     edition: "TODAY'S CORPORATE CRISIS",
-    title: "Keep the company alive for ten decisions.",
+    title: "Keep the company alive until you clock out.",
     subtitle:
       "There are no good choices. Make it to next Monday before a critical number hits zero.",
     briefing: "Chief executive emergency briefing",
@@ -139,7 +154,7 @@ export const COMPANY_COPY: Record<
     companyNote: "Each industry starts differently and has exclusive crises.",
     changeCompany: "Choose another company",
     rules: [
-      "The same profile gets the same ten crises each day",
+      "The same profile gets the same crisis order each day",
       "Cash, team, or trust at zero ends the company",
       "Every decision is final",
     ],
@@ -153,6 +168,11 @@ export const COMPANY_COPY: Record<
     next: "Open next report",
     finalReport: "View final report",
     restart: "Restart today's company",
+    shareResult: "Share survival report",
+    sharedResult: "Share sheet completed.",
+    shareFailed: "Could not open the share sheet.",
+    shareText: ({ challengeNumber, companyCode, score, status, turns }) =>
+      `RUNWAY 10 #${challengeNumber}\n${companyCode} · ${status}\nScore ${score} · ${turns} decisions\nCan your company survive today?`,
     saveCard: "Save result card",
     savedCard: "Shareable result image saved.",
     saveFailed: "Could not create the result image.",
@@ -209,7 +229,7 @@ export const COMPANY_COPY: Record<
   ja: {
     brand: "RUNWAY 10",
     edition: "今日の経営危機",
-    title: "10回の決断で会社を生き残らせろ。",
+    title: "今日も会社を生き残らせて退勤せよ。",
     subtitle:
       "正解はありません。重要な数字が0になる前に、次の月曜日まで耐えてください。",
     briefing: "代表取締役 緊急説明",
@@ -217,7 +237,7 @@ export const COMPANY_COPY: Record<
     companyNote: "業種ごとに初期指標と専用危機が異なります。",
     changeCompany: "別の会社を選ぶ",
     rules: [
-      "同じ業種には毎日同じ10件の危機",
+      "同じ業種には毎日同じ危機の順序",
       "資金・チーム・信頼のどれかが0で終了",
       "決断は取り消せない",
     ],
@@ -231,6 +251,11 @@ export const COMPANY_COPY: Record<
     next: "次の報告書を開く",
     finalReport: "最終報告を見る",
     restart: "今日の会社を再開する",
+    shareResult: "生存報告を共有",
+    sharedResult: "共有シートを完了しました。",
+    shareFailed: "共有シートを開けませんでした。",
+    shareText: ({ challengeNumber, companyCode, score, status, turns }) =>
+      `RUNWAY 10 #${challengeNumber}\n${companyCode} · ${status}\nスコア ${score} · ${turns}件の決断\n今日、あなたの会社は生き残れるでしょうか？`,
     saveCard: "結果カードを保存",
     savedCard: "共有用の結果画像を保存しました。",
     saveFailed: "結果画像を作成できませんでした。",

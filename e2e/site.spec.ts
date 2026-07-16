@@ -1,4 +1,10 @@
 import { expect, test } from "@playwright/test";
+import { getRunLength } from "@/shared/lib/company-survival/game";
+
+const tenTurnPlayerId = Array.from(
+  { length: 100 },
+  (_, index) => `00000000-0000-4000-8000-${String(index).padStart(12, "0")}`,
+).find((playerId) => getRunLength(playerId) === 10)!;
 
 test.describe("RUNWAY 10 company survival", () => {
   test("redirects root to the preferred language", async ({ browser }) => {
@@ -88,14 +94,28 @@ test.describe("RUNWAY 10 company survival", () => {
   test("restores career statistics and downloads a PNG result card", async ({
     page,
   }) => {
+    const activities: Record<string, unknown>[] = [];
+    await page.route("**/api/company-survival/activity", async (route) => {
+      activities.push(route.request().postDataJSON());
+      await route.fulfill({ status: 204 });
+    });
     await page.route("**/api/company-survival/results", async (route) => {
       await route.fulfill({
         contentType: "application/json",
         body: JSON.stringify({ score: 543, percentile: 88, total: 2407 }),
       });
     });
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: async (data: ShareData) => {
+          (window as unknown as { runway10Shared?: ShareData }).runway10Shared =
+            data;
+        },
+      });
+    });
     await page.goto("/en");
-    await page.evaluate(() => {
+    await page.evaluate((playerId) => {
       const date = new Date().toISOString().slice(0, 10);
       const metrics = { cash: 72, morale: 66, trust: 81, momentum: 74 };
       const history = Array.from({ length: 10 }, (_, index) => ({
@@ -103,7 +123,9 @@ test.describe("RUNWAY 10 company survival", () => {
         choiceId: "choice",
       }));
       const run = {
-        version: 2,
+        version: 3,
+        rulesetId: "run-length-v1",
+        targetTurns: 10,
         date,
         industry: "saas",
         turn: 10,
@@ -120,9 +142,10 @@ test.describe("RUNWAY 10 company survival", () => {
         decisions: 10,
       };
       localStorage.setItem(
-        `runway-10:company:v2:${date}:saas`,
+        `runway-10:company:v3:${date}:saas`,
         JSON.stringify(run),
       );
+      localStorage.setItem("runway-10:player:v1", playerId);
       localStorage.setItem("runway-10:profile:v1", "saas");
       localStorage.setItem(
         "runway-10:archive:v2",
@@ -131,7 +154,7 @@ test.describe("RUNWAY 10 company survival", () => {
           results: { [`${date}:saas`]: result },
         }),
       );
-    });
+    }, tenTurnPlayerId);
     await page.reload();
 
     await expect(
@@ -145,5 +168,20 @@ test.describe("RUNWAY 10 company survival", () => {
     await page.getByRole("button", { name: "Save result card" }).click();
     const download = await downloadPromise;
     expect(download.suggestedFilename()).toMatch(/^runway-10-\d+\.png$/);
+    await page.getByRole("button", { name: "Share survival report" }).click();
+    await expect
+      .poll(() =>
+        activities.some(
+          (activity) => activity.event === "share_sheet_completed",
+        ),
+      )
+      .toBe(true);
+    const sharedUrl = await page.evaluate(
+      () =>
+        (window as unknown as { runway10Shared?: ShareData }).runway10Shared
+          ?.url,
+    );
+    expect(sharedUrl).toContain("?ref=");
+    expect(sharedUrl).toContain("utm_source=share");
   });
 });

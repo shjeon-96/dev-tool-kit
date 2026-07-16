@@ -1,33 +1,48 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { createInitialGameState } from "./game";
 import {
   createEmptyArchive,
   deriveCareerStats,
   readCompanyArchive,
+  readOrCreateReferralId,
   readStoredRun,
   recordCompletedRun,
   writeStoredRun,
 } from "./storage";
 
 describe("company career storage", () => {
+  beforeEach(() => localStorage.clear());
+
   it("round-trips an active daily run", () => {
-    const state = createInitialGameState("2026-07-15", "saas");
+    const state = createInitialGameState("2026-07-15", "saas", 6);
     writeStoredRun(localStorage, state);
-    expect(readStoredRun(localStorage, state.date, state.industry)).toEqual({
-      kind: "valid",
-      value: state,
-    });
+    expect(
+      readStoredRun(
+        localStorage,
+        state.date,
+        state.industry,
+        state.targetTurns,
+      ),
+    ).toEqual({ kind: "valid", value: state });
   });
 
   it("surfaces invalid saved data instead of replacing it", () => {
     localStorage.setItem("runway-10:company:v2:2026-07-15:saas", "{broken");
-    expect(readStoredRun(localStorage, "2026-07-15", "saas")).toEqual({
+    expect(readStoredRun(localStorage, "2026-07-15", "saas", 10)).toEqual({
       kind: "invalid",
     });
   });
 
+  it("rejects a saved run assigned to another experiment variant", () => {
+    const state = createInitialGameState("2026-07-15", "saas", 6);
+    writeStoredRun(localStorage, state);
+    expect(readStoredRun(localStorage, state.date, state.industry, 10)).toEqual(
+      { kind: "invalid" },
+    );
+  });
+
   it("records one authoritative result per date", () => {
-    const state = createInitialGameState("2026-07-15", "saas");
+    const state = createInitialGameState("2026-07-15", "saas", 10);
     state.turn = 10;
     state.status = "survived";
     state.history = Array.from({ length: 10 }, () => ({
@@ -37,6 +52,12 @@ describe("company career storage", () => {
     const archive = recordCompletedRun(localStorage, state);
     expect(Object.keys(archive.results)).toEqual(["2026-07-15:saas"]);
     expect(readCompanyArchive(localStorage).kind).toBe("valid");
+  });
+
+  it("creates and reuses one anonymous referral ID", () => {
+    const first = readOrCreateReferralId(localStorage);
+    expect(readOrCreateReferralId(localStorage)).toBe(first);
+    expect(first).toMatch(/^[0-9a-f-]{36}$/i);
   });
 
   it("derives streaks and career totals from dated results", () => {

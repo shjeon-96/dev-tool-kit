@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { COMPANY_SCENARIOS } from "@/entities/company-scenario/data/scenarios";
 import {
-  GAME_LENGTH,
   applyDecision,
+  calculateCompanyScore,
   createDailyScenarioOrder,
   createInitialGameState,
+  getRunLength,
   replayCompanyRun,
 } from "@/shared/lib/company-survival/game";
 
@@ -14,19 +15,32 @@ describe("company survival game", () => {
       "2026-07-15",
       "saas",
       COMPANY_SCENARIOS,
+      10,
     );
     const second = createDailyScenarioOrder(
       "2026-07-15",
       "saas",
       COMPANY_SCENARIOS,
+      10,
     );
     expect(first).toEqual(second);
-    expect(first).toHaveLength(GAME_LENGTH);
-    expect(new Set(first)).toHaveLength(GAME_LENGTH);
+    expect(first).toHaveLength(10);
+    expect(new Set(first)).toHaveLength(10);
+  });
+
+  it("assigns each player to one deterministic run-length variant", () => {
+    const players = Array.from(
+      { length: 100 },
+      (_, index) =>
+        `00000000-0000-4000-8000-${String(index).padStart(12, "0")}`,
+    );
+    const variants = players.map(getRunLength);
+    expect(players.map(getRunLength)).toEqual(variants);
+    expect(new Set(variants)).toEqual(new Set([6, 10]));
   });
 
   it("applies the selected choice and records one turn", () => {
-    const state = createInitialGameState("2026-07-15", "saas");
+    const state = createInitialGameState("2026-07-15", "saas", 10);
     const scenario = COMPANY_SCENARIOS[0];
     const next = applyDecision(state, scenario, scenario.choices[0].id);
     expect(next.turn).toBe(1);
@@ -37,7 +51,7 @@ describe("company survival game", () => {
   });
 
   it("fails the company when a critical metric reaches zero", () => {
-    const state = createInitialGameState("2026-07-15", "saas");
+    const state = createInitialGameState("2026-07-15", "saas", 10);
     state.metrics.cash = 1;
     const scenario = COMPANY_SCENARIOS.find((item) =>
       item.choices.some((choice) => (choice.effects.cash ?? 0) < 0),
@@ -55,12 +69,20 @@ describe("company survival game", () => {
     const steadyChoice = scenario.choices.find(
       (item) => item.id === "decline",
     )!;
-    let state = createInitialGameState("2026-07-15", "saas");
-    for (let turn = 0; turn < GAME_LENGTH; turn += 1) {
+    let state = createInitialGameState("2026-07-15", "saas", 10);
+    for (let turn = 0; turn < state.targetTurns; turn += 1) {
       state = applyDecision(state, scenario, steadyChoice.id);
     }
     expect(state.status).toBe("survived");
-    expect(state.turn).toBe(GAME_LENGTH);
+    expect(state.turn).toBe(10);
+  });
+
+  it("normalizes the completed-turn score across run lengths", () => {
+    const short = createInitialGameState("2026-07-15", "saas", 6);
+    const long = createInitialGameState("2026-07-15", "saas", 10);
+    short.turn = 6;
+    long.turn = 10;
+    expect(calculateCompanyScore(short)).toBe(calculateCompanyScore(long));
   });
 
   it("provides 84 unique scenarios with twelve exclusive crises per industry", () => {
@@ -89,6 +111,7 @@ describe("company survival game", () => {
         "2026-07-15",
         industry,
         COMPANY_SCENARIOS,
+        10,
       );
       expect(order).toHaveLength(10);
       expect(
@@ -102,19 +125,21 @@ describe("company survival game", () => {
       "2026-07-15",
       "saas",
       COMPANY_SCENARIOS,
+      10,
     );
     const thursday = createDailyScenarioOrder(
       "2026-07-16",
       "saas",
       COMPANY_SCENARIOS,
+      10,
     );
     expect(wednesday[0]).toBe(thursday[0]);
   });
 
   it("replays submitted decisions from the authoritative daily order", () => {
     const date = "2026-07-15";
-    const order = createDailyScenarioOrder(date, "saas", COMPANY_SCENARIOS);
-    let state = createInitialGameState(date, "saas");
+    const order = createDailyScenarioOrder(date, "saas", COMPANY_SCENARIOS, 6);
+    let state = createInitialGameState(date, "saas", 6);
     while (state.status === "playing") {
       const scenario = COMPANY_SCENARIOS.find(
         (item) => item.id === order[state.turn],
@@ -122,7 +147,7 @@ describe("company survival game", () => {
       state = applyDecision(state, scenario, scenario.choices[0].id);
     }
     expect(
-      replayCompanyRun(date, "saas", state.history, COMPANY_SCENARIOS),
+      replayCompanyRun(date, "saas", state.history, COMPANY_SCENARIOS, 6),
     ).toEqual(state);
     expect(() =>
       replayCompanyRun(
@@ -130,6 +155,7 @@ describe("company survival game", () => {
         "saas",
         [{ scenarioId: "forged", choiceId: "forged" }],
         COMPANY_SCENARIOS,
+        6,
       ),
     ).toThrow("daily scenario order");
   });

@@ -1,20 +1,21 @@
 # RUNWAY 10
 
-Daily company-survival game. Make ten irreversible decisions while keeping cash, team, and trust above zero.
+Daily company-survival game. Make irreversible decisions while keeping cash, team, and trust above zero.
 
 ## Product
 
 - 84 localized crises across six industry profiles
 - One deterministic crisis sequence per profile and UTC date
 - One featured industry crisis fixed for each UTC week
-- Ten decisions per run
+- Deterministic 6-vs-10 decision retention experiment
 - Four live metrics: cash, team, trust, and growth
 - Browser-local run persistence
 - Daily streak, survival rate, and personal best records
+- Native result sharing with attributed referral links
 - Downloadable PNG result cards
 - Server-verified global industry percentile
 - Post-game AdSense placement
-- Start, completion, D1 return, sharing, and choice analytics
+- Server-backed start, completion, D1/D7 cohort, sharing, and referral analytics
 - English, Korean, and Japanese
 - Responsive desktop and mobile interface
 
@@ -37,6 +38,7 @@ npm test -- --run
 npm run lint
 npm run build
 npm run test:e2e
+npm run report:growth -- --end=2026-07-16
 ```
 
 ## Architecture
@@ -62,3 +64,5 @@ src/
 - Site identity and locales: `src/shared/config/site.ts`
 
 Gameplay decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID and decision history, replays the authoritative daily scenario order on the server, and stores only the verified score in Redis. Production builds load Clarity, Vercel page analytics, and a post-game AdSense unit kept outside decision controls.
+
+Redis is the source of truth for growth metrics; Clarity remains exploratory UX analytics. The growth report reads the last 14 UTC days and never mutates production data.
