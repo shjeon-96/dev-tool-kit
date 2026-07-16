@@ -1,76 +1,71 @@
-# Web Toolkit
+# RUNWAY 10
 
-Fast, private browser utilities for common developer data. The main domain is an advertising-supported utility site.
+Five-minute daily office-management roguelike. Play action cards, build department chains, and survive six months to Demo Day.
 
-Supported locales: English (`en`), Korean (`ko`), Japanese (`ja`). Locale prefixes are mandatory. `/` redirects using `Accept-Language`, with English as the explicit default.
+## Product
 
-## Tools
-
-- JSON formatter and validator
-- Base64 encoder and decoder
-- UUID v4 generator
-- Unix timestamp converter
-- URL component encoder and decoder
-- SHA-256/384/512 hash generator
-- JWT decoder
-- HTML entity encoder and decoder
-- HEX/RGB/HSL color converter
-- Regular expression tester
-- Word, character, line and byte counter
-- Text case converter
-- URL slug generator
-- Secure password generator
-- Binary/octal/decimal/HEX converter
-- CSV and JSON converter
-- Query string parser and builder
-- JSON to TypeScript generator
-- Line sorter
-- Duplicate line remover
-
-All tool inputs are processed with browser APIs. Tool data is not sent to an application API.
-
-## Architecture
-
-```text
-src/
-├── app/[locale]/              # Localized routes and metadata
-├── features/tools/            # Interactive browser workbench
-├── shared/config/             # Site, tool and AdSense truth
-├── shared/i18n/               # EN/KO/JA content dictionaries and tool guides
-├── shared/lib/                # Shared metadata helpers
-├── shared/ui/                 # Small presentational primitives
-└── widgets/                   # Site shell, language switcher, tool cards
-```
-
-Authoritative sources:
-
-- Locales and site identity: `src/shared/config/site.ts`
-- Tool slugs and display definitions: `src/shared/config/tools.ts`
-- Localized content: `src/shared/i18n/dictionaries.ts` and `extra-tool-copy.ts`
-- AdSense publisher identity and `ads.txt`: `src/shared/config/adsense.ts`
-
-Cards, routes, metadata and sitemap entries derive from these sources.
-
-## Development
-
-```bash
-npm install
-npm run dev
-npm run lint
-npm run test:e2e
-npm run build
-```
-
-The project currently requires no runtime secrets. Auto ads load only in production. Google AdSense must also be enabled for `web-toolkit.app` in the AdSense console.
+- Illustrated late-night office board and four animated role sprites
+- Four employee, five project, and three funding cards in an editable eight-card deck
+- Persistent payroll/production, project completion, funding pressure, and incident counters
+- Six industries with distinct starting resources and monthly passives
+- Six incidents and three unlockable CEO traits
+- One deterministic three-card hand per industry, turn, and UTC date
+- Six-month fixed daily run with same-seed retries
+- Four live metrics: cash, team, trust, and growth
+- Browser-local run persistence
+- Daily streak, survival rate, and personal best records
+- Native result sharing with attributed referral links
+- Downloadable PNG result cards
+- Server-verified global industry percentile
+- Post-game AdSense placement
+- Server-backed start, completion, D1/D7 cohort, sharing, and referral analytics
+- English, Korean, and Japanese
+- Responsive desktop and mobile interface
 
 ## Stack
 
 - Next.js 16 App Router
 - React 19
 - TypeScript
-- Tailwind CSS 4 build pipeline with a custom field-manual design system
-- Playwright for route and browser behavior verification
+- Tailwind CSS 4
+- Upstash Redis through Vercel Marketplace
+- Microsoft Clarity product analytics
+- Vitest and Playwright
 
-## License
+## Commands
 
-[MIT](LICENSE)
+```bash
+npm install
+npm run dev
+npm test -- --run
+npm run lint
+npm run build
+npm run test:e2e
+npm run report:growth -- --end=2026-07-16
+```
+
+## Architecture
+
+```text
+src/
+├── app/                              # Routes, metadata, OG image, global design
+├── entities/company-scenario/        # Industry profiles
+├── features/company-survival/        # Interactive game and localized game copy
+└── shared/
+    ├── config/                       # Site and advertising configuration
+    ├── i18n/                         # Localized legal copy
+    ├── lib/company-survival/         # Pure game state transitions
+    └── types/                        # Shared game contracts
+```
+
+## Sources of truth
+
+- Cards, incidents, CEO traits and effects: `src/shared/lib/company-survival/rules.ts`
+- Industry profile copy: `src/entities/company-scenario/data/profiles.ts`
+- Daily hands, settlement, chains, status transitions, and score: `src/shared/lib/company-survival/game.ts`
+- Game interface copy: `src/features/company-survival/copy.ts`
+- Site identity and locales: `src/shared/config/site.ts`
+
+Card decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID, CEO trait, selected deck, and card history, replays the authoritative daily engine on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside game controls.
+
+Redis is the source of truth for growth metrics; Clarity remains exploratory UX analytics. The growth report reads the last 14 UTC days and never mutates production data.

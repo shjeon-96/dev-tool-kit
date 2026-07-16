@@ -1,4 +1,4 @@
-export const SITE_NAME = "Web Toolkit";
+export const SITE_NAME = "RUNWAY 10";
 export const SITE_URL = "https://web-toolkit.app";
 export const SITE_EMAIL = "pixellogic.app@gmail.com";
 

@@ -7,11 +7,11 @@ export function GET() {
         width: "100%",
         height: "100%",
         display: "flex",
-        color: "#171813",
-        background: "#f2efe6",
-        fontFamily: "serif",
-        border: "24px solid #171813",
-        padding: "66px",
+        color: "#e9ff70",
+        background: "#111713",
+        border: "22px solid #e9ff70",
+        padding: "64px",
+        fontFamily: "monospace",
         position: "relative",
       }}
     >
@@ -20,88 +20,52 @@ export function GET() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          width: "100%",
         }}
       >
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            gap: "24px",
-            fontFamily: "monospace",
+            justifyContent: "space-between",
+            fontSize: "22px",
+            letterSpacing: "4px",
           }}
         >
-          <div
-            style={{
-              width: "74px",
-              height: "74px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fffdf5",
-              background: "#171813",
-              boxShadow: "8px 8px 0 #f05a28",
-              fontSize: "24px",
-            }}
-          >
-            W/
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <strong style={{ fontSize: "30px" }}>WEB TOOLKIT</strong>
-            <span style={{ fontSize: "15px", letterSpacing: "4px" }}>
-              LOCAL UTILITY FIELD KIT
-            </span>
-          </div>
+          <strong>RUNWAY 10</strong>
+          <span>DAILY CORPORATE CRISIS</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <span
-            style={{
-              color: "#f05a28",
-              fontFamily: "monospace",
-              fontSize: "19px",
-              letterSpacing: "4px",
-            }}
+            style={{ color: "#ff674d", fontSize: "18px", letterSpacing: "5px" }}
           >
-            FAST / PRIVATE / PRECISE
+            DECISION REQUIRED
           </span>
-          <div
+          <strong
             style={{
-              maxWidth: "920px",
-              marginTop: "18px",
-              fontSize: "92px",
+              maxWidth: "940px",
+              marginTop: "22px",
+              color: "#f5f0df",
+              fontFamily: "serif",
+              fontSize: "94px",
               lineHeight: 0.92,
               letterSpacing: "-5px",
             }}
           >
-            Small tools for precise work.
-          </div>
+            Keep the company alive.
+          </strong>
         </div>
         <div
           style={{
             display: "flex",
-            gap: "34px",
-            fontFamily: "monospace",
-            fontSize: "17px",
+            justifyContent: "space-between",
+            color: "#f5f0df",
+            fontSize: "18px",
           }}
         >
-          <span>JSON</span>
-          <span>BASE64</span>
-          <span>UUID</span>
-          <span>TIME</span>
-          <span>URL</span>
-          <span>SHA</span>
+          <span>CASH / TEAM / TRUST / GROWTH</span>
+          <span>10 DECISIONS. NO UNDO.</span>
         </div>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          top: "66px",
-          right: "66px",
-          width: "150px",
-          height: "150px",
-          border: "2px solid #2f55d4",
-          borderRadius: "50%",
-        }}
-      />
     </div>,
     { width: 1200, height: 630 },
   );

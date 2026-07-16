@@ -3,8 +3,7 @@ import Script from "next/script";
 import { notFound } from "next/navigation";
 import { ADSENSE_CLIENT_ID } from "@/shared/config/adsense";
 import { LOCALES, SITE_NAME, SITE_URL, isLocale } from "@/shared/config/site";
-import { getDictionary } from "@/shared/i18n/dictionaries";
-import { SiteFooter, SiteHeader } from "@/widgets/site-shell";
+import { ClarityScript } from "@/shared/ui/clarity";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
     template: `%s — ${SITE_NAME}`,
   },
   applicationName: SITE_NAME,
-  category: "technology",
+  category: "game",
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
 };
@@ -33,8 +32,6 @@ export default async function LocaleLayout({
   const { locale: rawLocale } = await params;
   if (!isLocale(rawLocale)) notFound();
 
-  const dictionary = getDictionary(rawLocale);
-
   return (
     <html lang={rawLocale} data-scroll-behavior="smooth">
       <body>
@@ -47,12 +44,15 @@ export default async function LocaleLayout({
             crossOrigin="anonymous"
           />
         ) : null}
+        <ClarityScript />
         <a className="skip-link" href="#main-content">
-          {dictionary.common.skipToContent}
+          {rawLocale === "ko"
+            ? "게임으로 건너뛰기"
+            : rawLocale === "ja"
+              ? "ゲームへ移動"
+              : "Skip to game"}
         </a>
-        <SiteHeader locale={rawLocale} dictionary={dictionary} />
         {children}
-        <SiteFooter locale={rawLocale} dictionary={dictionary} />
       </body>
     </html>
   );
