@@ -1,6 +1,6 @@
 # RUNWAY 10 상업화 실행 계획
 
-> 상태: Phase A~C 구현 완료, 배포·14일 수집 대기
+> 상태: Phase A~C 배포 완료, 14일 수집 중
 >
 > 작성일: 2026-07-16
 >
@@ -686,17 +686,18 @@ npm run test:e2e
 - [x] lint 통과
 - [x] production build 통과
 - [ ] 모바일 실제 공유 검증
-- [ ] 광고 거리·CMP 검증
+- [ ] CMP 운영 설정 검증
+- [x] 결과 행동 버튼과 광고 150px 분리
 
 ### 배포·운영
 
-- [ ] 커밋
-- [ ] main push
-- [ ] Vercel production Ready
-- [ ] production smoke test
-- [ ] Redis 이벤트 확인
-- [ ] Clarity 이벤트 확인
-- [ ] 14일 수집 시작일 기록
+- [x] 커밋
+- [x] 작업 브랜치 push
+- [x] Vercel production Ready
+- [x] production smoke test
+- [x] Redis 이벤트 확인 후 probe 제거
+- [x] Clarity 이벤트 요청 확인
+- [x] 14일 수집 시작일 기록: 2026-07-16
 - [ ] 14일 판정 기록
 
 ## 18. 의사결정 기록
