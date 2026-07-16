@@ -200,7 +200,7 @@ Redis가 코호트/완료 KPI 원본이며 Clarity는 UX 원인 조사에만 사
 - [x] 390px 가로 오버플로 확인
 - [x] 린트
 - [x] Next.js 프로덕션 빌드
-- [x] V2 프로덕션 배포 (`dpl_EoTaCL6apuJzhSYD6ZmwiGHWuR3t`)
+- [x] V2 프로덕션 배포 (`dpl_HpgrTZdCXVsw5HbGcHVSLbsPAHHU`)
 - [x] V2 배포 URL 덱→직원 카드→사건 보고 흐름 재검증
 - [x] 14일 데이터 수집 시작일 기록 (`2026-07-16`)
 - [ ] 500명 도달 후 상업성 판정
