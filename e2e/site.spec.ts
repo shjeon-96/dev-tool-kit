@@ -1,12 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { getRunLength } from "@/shared/lib/company-survival/game";
 
-const tenTurnPlayerId = Array.from(
-  { length: 100 },
-  (_, index) => `00000000-0000-4000-8000-${String(index).padStart(12, "0")}`,
-).find((playerId) => getRunLength(playerId) === 10)!;
-
-test.describe("RUNWAY 10 company survival", () => {
+test.describe("RUNWAY 10 office roguelike", () => {
   test("redirects root to the preferred language", async ({ browser }) => {
     const context = await browser.newContext({ locale: "ko-KR" });
     const page = await context.newPage();
@@ -16,72 +10,74 @@ test.describe("RUNWAY 10 company survival", () => {
     await context.close();
   });
 
-  for (const locale of ["en", "ko", "ja"] as const) {
-    test(`${locale} renders the localized daily briefing`, async ({ page }) => {
+  for (const [locale, heading] of [
+    ["en", "Build the company before it breaks."],
+    ["ko", "망하기 전에, 회사를 만들어라."],
+    ["ja", "壊れる前に、会社を作れ。"],
+  ] as const) {
+    test(`${locale} renders the localized game lobby`, async ({ page }) => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
-      await expect(
-        page.getByText("RUNWAY 10", { exact: true }).first(),
-      ).toBeVisible();
+      await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+      await expect(page.locator(".lobby-office")).toBeVisible();
+      await expect(page.locator(".profile-strip button")).toHaveCount(6);
+      await expect(page.locator(".trait-strip button")).toHaveCount(3);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         "href",
         `https://web-toolkit.app/${locale}`,
       );
-      await expect(page.locator(".company-rules li")).toHaveCount(3);
     });
   }
 
-  test("applies a decision, updates company metrics, and resumes after reload", async ({
+  test("plays a card, animates its department, and resumes after reload", async ({
     page,
   }) => {
     await page.goto("/en");
-    await page.getByRole("button", { name: "Clock in as CEO" }).click();
+    await page.getByRole("button", { name: /Start month one/ }).click();
+    await expect(page.locator(".office-board")).toBeVisible();
+    await expect(page.locator(".action-card")).toHaveCount(3);
     const metricsBefore = await page
-      .locator(".company-metrics > div strong")
+      .locator(".hud-metrics strong")
       .allTextContents();
-    await page.locator(".company-choices button").first().click();
-    await expect(
-      page.getByText("DECISION OUTCOME", { exact: false }),
-    ).toBeVisible();
-    await expect(page.locator(".company-effects span")).not.toHaveCount(0);
-    const metricsAfter = await page
-      .locator(".company-metrics > div strong")
-      .allTextContents();
-    expect(metricsAfter).not.toEqual(metricsBefore);
-    await page.reload();
-    await expect(page.locator(".company-decision-card")).toBeVisible();
+    await page.locator(".action-card").first().click();
+    await expect(page.locator(".turn-report")).toBeVisible();
+    await expect(page.locator(".office-unit.is-working")).toHaveCount(1);
     expect(
-      await page.locator(".company-metrics > div strong").allTextContents(),
-    ).toEqual(metricsAfter);
+      await page.locator(".hud-metrics strong").allTextContents(),
+    ).not.toEqual(metricsBefore);
+    await page.reload();
+    await expect(page.locator(".turn-report")).toBeVisible();
+    await page.getByRole("button", { name: /Next month/ }).click();
+    await expect(page.locator(".action-card")).toHaveCount(3);
   });
 
-  test("changes the daily game state with the selected industry profile", async ({
+  test("changes the deterministic deck with the selected industry", async ({
     page,
   }) => {
     await page.goto("/en");
-    const gameStudio = page.getByRole("button", { name: /Game Studio/ });
+    const gameStudio = page
+      .locator(".profile-strip button")
+      .filter({ hasText: "GAME" });
     await gameStudio.click();
     await expect(gameStudio).toHaveAttribute("aria-pressed", "true");
     await expect(page.locator(".company-seed strong")).toContainText("GAME");
-    await page.getByRole("button", { name: "Clock in as CEO" }).click();
-    await expect(page.locator(".company-metrics > div strong")).toHaveText([
-      "56",
-      "70",
-      "58",
-      "45",
-    ]);
+    await page.getByRole("button", { name: /Start month one/ }).click();
+    await expect(page.locator(".action-card")).toHaveCount(3);
   });
 
-  test("keeps decision controls usable on mobile", async ({ page }) => {
+  test("keeps the board and cards usable on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/ko");
-    await expect(page.locator(".company-profile-picker button")).toHaveCount(6);
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(390);
-    await page.getByRole("button", { name: "대표이사로 출근하기" }).click();
-    await expect(page.locator(".company-choices button")).toHaveCount(2);
-    await expect(page.locator(".company-metrics > div")).toHaveCount(4);
+    await page.getByRole("button", { name: /첫 달 시작/ }).click();
+    await expect(page.locator(".office-board")).toBeVisible();
+    await expect(page.locator(".action-card")).toHaveCount(3);
+    await expect(page.locator(".hud-metrics > div")).toHaveCount(4);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(390);
   });
 
   test("redirects old product routes to the game", async ({ page }) => {
@@ -89,99 +85,5 @@ test.describe("RUNWAY 10 company survival", () => {
     await expect(page).toHaveURL(/\/en$/);
     await page.goto("/en/play/animals");
     await expect(page).toHaveURL(/\/en$/);
-  });
-
-  test("restores career statistics and downloads a PNG result card", async ({
-    page,
-  }) => {
-    const activities: Record<string, unknown>[] = [];
-    await page.route("**/api/company-survival/activity", async (route) => {
-      activities.push(route.request().postDataJSON());
-      await route.fulfill({ status: 204 });
-    });
-    await page.route("**/api/company-survival/results", async (route) => {
-      await route.fulfill({
-        contentType: "application/json",
-        body: JSON.stringify({ score: 543, percentile: 88, total: 2407 }),
-      });
-    });
-    await page.addInitScript(() => {
-      Object.defineProperty(navigator, "share", {
-        configurable: true,
-        value: async (data: ShareData) => {
-          (window as unknown as { runway10Shared?: ShareData }).runway10Shared =
-            data;
-        },
-      });
-    });
-    await page.goto("/en");
-    await page.evaluate((playerId) => {
-      const date = new Date().toISOString().slice(0, 10);
-      const metrics = { cash: 72, morale: 66, trust: 81, momentum: 74 };
-      const history = Array.from({ length: 10 }, (_, index) => ({
-        scenarioId: `scenario-${index}`,
-        choiceId: "choice",
-      }));
-      const run = {
-        version: 3,
-        rulesetId: "run-length-v1",
-        targetTurns: 10,
-        date,
-        industry: "saas",
-        turn: 10,
-        metrics,
-        status: "survived",
-        history,
-      };
-      const result = {
-        date,
-        industry: "saas",
-        status: "survived",
-        score: 543,
-        metrics,
-        decisions: 10,
-      };
-      localStorage.setItem(
-        `runway-10:company:v3:${date}:saas`,
-        JSON.stringify(run),
-      );
-      localStorage.setItem("runway-10:player:v1", playerId);
-      localStorage.setItem("runway-10:profile:v1", "saas");
-      localStorage.setItem(
-        "runway-10:archive:v2",
-        JSON.stringify({
-          version: 2,
-          results: { [`${date}:saas`]: result },
-        }),
-      );
-    }, tenTurnPlayerId);
-    await page.reload();
-
-    await expect(
-      page.getByRole("region", { name: "CEO CAREER RECORD" }),
-    ).toContainText("100%");
-    await expect(
-      page.getByRole("region", { name: "GLOBAL INDUSTRY RANK" }),
-    ).toContainText("TOP 13%");
-    await expect(page.locator(".company-game-over-ad")).toBeAttached();
-    const downloadPromise = page.waitForEvent("download");
-    await page.getByRole("button", { name: "Save result card" }).click();
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toMatch(/^runway-10-\d+\.png$/);
-    await page.getByRole("button", { name: "Share survival report" }).click();
-    await expect
-      .poll(() =>
-        activities.some(
-          (activity) => activity.event === "share_sheet_completed",
-        ),
-      )
-      .toBe(true);
-    const sharedUrl = await page.evaluate(
-      () =>
-        (window as unknown as { runway10Shared?: ShareData }).runway10Shared
-          ?.url,
-    );
-    expect(sharedUrl).toContain("?ref=");
-    expect(sharedUrl).toContain("utm_source=share");
   });
 });

@@ -1,227 +1,214 @@
+import { ACTION_CARDS, CEO_TRAITS, INCIDENTS, getActionCard } from "./rules";
 import { COMPANY_INDUSTRIES } from "@/shared/types/company-survival";
 import type {
+  CeoTrait,
   CompanyGameState,
   CompanyIndustry,
   CompanyMetrics,
-  CompanyRunLength,
-  CompanyScenario,
   CompanyStatus,
+  Department,
 } from "@/shared/types/company-survival";
 
 export const RUN_LENGTH_POLICY = {
-  id: "run-length-v1",
-  mode: "experiment",
-  variants: [6, 10],
-} as const satisfies {
-  id: CompanyGameState["rulesetId"];
-  mode: "experiment" | "fixed";
-  variants: readonly CompanyRunLength[];
-};
+  id: "office-roguelike-v1",
+  mode: "fixed",
+  variants: [6],
+} as const;
 export const STARTING_METRICS: CompanyMetrics = {
-  cash: 64,
+  cash: 70,
   morale: 62,
-  trust: 58,
-  momentum: 45,
+  trust: 54,
+  momentum: 34,
 };
-
-const PROFILE_METRIC_ADJUSTMENTS: Record<
-  CompanyIndustry,
-  Partial<CompanyMetrics>
-> = {
-  saas: {},
-  commerce: { cash: -5, momentum: 8 },
-  "game-studio": { cash: -8, morale: 8 },
-  fintech: { trust: 10, momentum: -6 },
-  "ai-lab": { trust: -8, momentum: 12 },
-  hardware: { cash: 10, momentum: -10 },
+const DEPARTMENTS: readonly Department[] = [
+  "engineering",
+  "design",
+  "sales",
+  "operations",
+];
+const ZERO_DEPARTMENTS: Record<Department, number> = {
+  engineering: 0,
+  design: 0,
+  sales: 0,
+  operations: 0,
 };
 
 export function getUtcDateKey(date = new Date()) {
   return date.toISOString().slice(0, 10);
 }
-
 export function getChallengeNumber(date: string) {
-  const epoch = Date.parse("2026-01-01T00:00:00.000Z");
-  const current = Date.parse(`${date}T00:00:00.000Z`);
-  return Math.floor((current - epoch) / 86_400_000) + 1;
+  return (
+    Math.floor(
+      (Date.parse(`${date}T00:00:00.000Z`) -
+        Date.parse("2026-01-01T00:00:00.000Z")) /
+        86_400_000,
+    ) + 1
+  );
 }
-
-function hashChallenge(date: string, industry: CompanyIndustry) {
+function hash(value: string) {
   let seed = 2166136261;
-  for (const character of `${date}:${industry}`) {
-    seed ^= character.charCodeAt(0);
+  for (const char of value) {
+    seed ^= char.charCodeAt(0);
     seed = Math.imul(seed, 16777619);
   }
   return seed >>> 0;
 }
-
-export function getRunLength(playerId: string): CompanyRunLength {
-  let seed = 2166136261;
-  for (const character of `${RUN_LENGTH_POLICY.id}:${playerId}`) {
-    seed ^= character.charCodeAt(0);
-    seed = Math.imul(seed, 16777619);
-  }
-  return RUN_LENGTH_POLICY.variants[(seed >>> 0) % 2];
-}
-
-function seededRandom(seed: number) {
+function pickIndexes(seed: number, size: number, count: number) {
+  const pool = Array.from({ length: size }, (_, index) => index);
   let state = seed || 1;
-  return () => {
+  for (let index = pool.length - 1; index > 0; index--) {
     state = Math.imul(1664525, state) + 1013904223;
-    return (state >>> 0) / 4_294_967_296;
-  };
+    const swap = (state >>> 0) % (index + 1);
+    [pool[index], pool[swap]] = [pool[swap], pool[index]];
+  }
+  return pool.slice(0, count);
 }
 
-function getWeekKey(date: string) {
-  const current = new Date(`${date}T00:00:00.000Z`);
-  const day = current.getUTCDay() || 7;
-  current.setUTCDate(current.getUTCDate() - day + 1);
-  return current.toISOString().slice(0, 10);
+export function getRunLength(): 6 {
+  return 6;
 }
-
-export function createDailyScenarioOrder(
+export function getTurnHand(
   date: string,
   industry: CompanyIndustry,
-  scenarios: readonly CompanyScenario[],
-  targetTurns: CompanyRunLength,
+  turn: number,
 ) {
-  const profileScenarios = scenarios.filter(
-    (scenario) => scenario.industry === "all" || scenario.industry === industry,
+  const seed = hash(`${date}:${industry}:hand:${turn}`);
+  const runwayCards = ACTION_CARDS.filter(
+    (card) => (card.effects.cash ?? 0) > 0 || card.cost < 0,
   );
-  const standardScenarios = profileScenarios.filter(
-    (scenario) => scenario.cadence === "standard",
-  );
-  const weeklyScenarios = profileScenarios.filter(
-    (scenario) => scenario.cadence === "weekly",
-  );
-  if (standardScenarios.length < targetTurns - 1 || !weeklyScenarios.length) {
-    throw new Error(
-      `Company Survival requires a weekly scenario and ${targetTurns - 1} standard scenarios for ${industry}`,
-    );
-  }
-
-  const random = seededRandom(hashChallenge(date, industry));
-  const shuffled = [...standardScenarios];
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(random() * (index + 1));
-    [shuffled[index], shuffled[swapIndex]] = [
-      shuffled[swapIndex],
-      shuffled[index],
-    ];
-  }
-  const weeklyRandom = seededRandom(hashChallenge(getWeekKey(date), industry));
-  const weekly =
-    weeklyScenarios[Math.floor(weeklyRandom() * weeklyScenarios.length)];
-  return [weekly, ...shuffled.slice(0, targetTurns - 1)].map(
-    (scenario) => scenario.id,
-  );
+  const runwayCard = runwayCards[pickIndexes(seed, runwayCards.length, 1)[0]];
+  const remaining = ACTION_CARDS.filter((card) => card.id !== runwayCard.id);
+  return [
+    runwayCard,
+    ...pickIndexes(seed ^ 0x9e3779b9, remaining.length, 2).map(
+      (index) => remaining[index],
+    ),
+  ];
 }
-
-export function replayCompanyRun(
+export function getTurnIncident(
   date: string,
   industry: CompanyIndustry,
-  history: CompanyGameState["history"],
-  scenarios: readonly CompanyScenario[],
-  targetTurns: CompanyRunLength,
+  turn: number,
 ) {
-  const order = createDailyScenarioOrder(
-    date,
-    industry,
-    scenarios,
-    targetTurns,
-  );
-  let state = createInitialGameState(date, industry, targetTurns);
-  for (const decision of history) {
-    const expectedScenarioId = order[state.turn];
-    if (decision.scenarioId !== expectedScenarioId) {
-      throw new Error(
-        "Decision history does not match the daily scenario order",
-      );
-    }
-    const scenario = scenarios.find((item) => item.id === decision.scenarioId);
-    if (!scenario) throw new Error(`Unknown scenario ${decision.scenarioId}`);
-    state = applyDecision(state, scenario, decision.choiceId);
-  }
-  return state;
+  return INCIDENTS[
+    pickIndexes(
+      hash(`${date}:${industry}:incident`),
+      INCIDENTS.length,
+      INCIDENTS.length,
+    )[turn % INCIDENTS.length]
+  ];
 }
 
 export function createInitialGameState(
   date: string,
   industry: CompanyIndustry,
-  targetTurns: CompanyRunLength,
+  trait: CeoTrait = "builder",
 ): CompanyGameState {
-  const adjustment = PROFILE_METRIC_ADJUSTMENTS[industry];
-  const metrics = Object.fromEntries(
-    Object.entries(STARTING_METRICS).map(([metric, value]) => [
-      metric,
-      value + (adjustment[metric as keyof CompanyMetrics] ?? 0),
-    ]),
-  ) as unknown as CompanyMetrics;
   return {
-    version: 3,
+    version: 4,
     rulesetId: RUN_LENGTH_POLICY.id,
-    targetTurns,
+    targetTurns: 6,
     date,
     industry,
+    trait,
     turn: 0,
-    metrics,
+    metrics: { ...STARTING_METRICS },
+    departments: { ...ZERO_DEPARTMENTS },
     status: "playing",
     history: [],
+    lastReport: null,
   };
 }
-
+export function selectCeoTrait(
+  state: CompanyGameState,
+  trait: CeoTrait,
+): CompanyGameState {
+  if (state.turn !== 0)
+    throw new Error("CEO trait is locked after the run starts");
+  if (!CEO_TRAITS.some((item) => item.id === trait))
+    throw new Error("Unknown CEO trait");
+  return { ...state, trait };
+}
 function clamp(value: number) {
   return Math.max(0, Math.min(100, value));
 }
-
-function deriveStatus(
-  metrics: CompanyMetrics,
-  nextTurn: number,
-  targetTurns: CompanyRunLength,
-): CompanyStatus {
+function status(metrics: CompanyMetrics, turn: number): CompanyStatus {
   if (metrics.cash === 0) return "bankrupt";
   if (metrics.morale === 0) return "exodus";
   if (metrics.trust === 0) return "rejected";
-  if (nextTurn >= targetTurns) return "survived";
-  return "playing";
+  return turn >= 6 ? "survived" : "playing";
 }
 
-export function applyDecision(
+export function playActionCard(
   state: CompanyGameState,
-  scenario: CompanyScenario,
-  choiceId: string,
+  cardId: string,
 ): CompanyGameState {
   if (state.status !== "playing")
-    throw new Error("Cannot decide after game completion");
-  const choice = scenario.choices.find((item) => item.id === choiceId);
-  if (!choice)
-    throw new Error(`Unknown choice ${choiceId} for scenario ${scenario.id}`);
-
+    throw new Error("Cannot play after game completion");
+  if (
+    !getTurnHand(state.date, state.industry, state.turn).some(
+      (card) => card.id === cardId,
+    )
+  )
+    throw new Error("Card is not in the current hand");
+  const card = getActionCard(cardId);
+  const incident = getTurnIncident(state.date, state.industry, state.turn);
+  const synergy = state.departments[card.department] > 0;
+  const trait = CEO_TRAITS.find((item) => item.id === state.trait)!;
+  const effects: CompanyMetrics = {
+    cash: -10 - card.cost,
+    morale: -2,
+    trust: 0,
+    momentum: Math.floor(state.metrics.momentum / 25),
+  };
+  for (const metric of Object.keys(effects) as (keyof CompanyMetrics)[])
+    effects[metric] +=
+      (card.effects[metric] ?? 0) + (incident.effects[metric] ?? 0);
+  if (synergy) effects.momentum += 5;
+  if (trait.department === card.department) {
+    if (state.trait === "operator") effects.cash += 4;
+    else effects.momentum += 4;
+  }
   const metrics = Object.fromEntries(
     Object.entries(state.metrics).map(([metric, value]) => [
       metric,
-      clamp(value + (choice.effects[metric as keyof CompanyMetrics] ?? 0)),
+      clamp(value + effects[metric as keyof CompanyMetrics]),
     ]),
   ) as unknown as CompanyMetrics;
+  const departments = {
+    ...state.departments,
+    [card.department]: state.departments[card.department] + 1,
+  };
   const turn = state.turn + 1;
-
   return {
     ...state,
     turn,
     metrics,
-    status: deriveStatus(metrics, turn, state.targetTurns),
-    history: [...state.history, { scenarioId: scenario.id, choiceId }],
+    departments,
+    status: status(metrics, turn),
+    history: [...state.history, { cardId }],
+    lastReport: { cardId, incidentId: incident.id, synergy, effects },
   };
 }
 
-export function calculateCompanyScore(state: CompanyGameState) {
-  const metricScore = Object.values(state.metrics).reduce(
-    (sum, value) => sum + value,
-    0,
-  );
-  return Math.round(metricScore + (state.turn / state.targetTurns) * 250);
+export function replayCompanyRun(
+  date: string,
+  industry: CompanyIndustry,
+  trait: CeoTrait,
+  history: CompanyGameState["history"],
+) {
+  let state = createInitialGameState(date, industry, trait);
+  for (const decision of history)
+    state = playActionCard(state, decision.cardId);
+  return state;
 }
-
+export function calculateCompanyScore(state: CompanyGameState) {
+  return Math.round(
+    Object.values(state.metrics).reduce((sum, value) => sum + value, 0) +
+      state.turn * 55 +
+      Object.values(state.departments).filter(Boolean).length * 25,
+  );
+}
 export function isCompanyGameState(
   value: unknown,
   date: string,
@@ -229,23 +216,25 @@ export function isCompanyGameState(
   if (!value || typeof value !== "object") return false;
   const state = value as Partial<CompanyGameState>;
   return (
-    state.version === 3 &&
+    state.version === 4 &&
     state.rulesetId === RUN_LENGTH_POLICY.id &&
-    RUN_LENGTH_POLICY.variants.some(
-      (targetTurns) => targetTurns === state.targetTurns,
-    ) &&
     state.date === date &&
     COMPANY_INDUSTRIES.some((industry) => industry === state.industry) &&
+    CEO_TRAITS.some((trait) => trait.id === state.trait) &&
+    state.targetTurns === 6 &&
     typeof state.turn === "number" &&
     state.turn >= 0 &&
-    state.turn <= state.targetTurns! &&
+    state.turn <= 6 &&
     Array.isArray(state.history) &&
     state.history.length === state.turn &&
     Boolean(state.metrics) &&
-    typeof state.metrics?.cash === "number" &&
-    typeof state.metrics?.morale === "number" &&
-    typeof state.metrics?.trust === "number" &&
-    typeof state.metrics?.momentum === "number" &&
+    Object.values(state.metrics!).every(
+      (metric) => typeof metric === "number",
+    ) &&
+    Boolean(state.departments) &&
+    DEPARTMENTS.every(
+      (department) => typeof state.departments?.[department] === "number",
+    ) &&
     ["playing", "survived", "bankrupt", "exodus", "rejected"].includes(
       state.status ?? "",
     )

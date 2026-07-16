@@ -7,7 +7,6 @@ import {
   type CompanyDailyResult,
   type CompanyGameState,
   type CompanyIndustry,
-  type CompanyRunLength,
   isCompanyIndustry,
 } from "@/shared/types/company-survival";
 
@@ -21,7 +20,7 @@ type StoredValue<T> =
   | { kind: "invalid" };
 
 export function runStorageKey(date: string, industry: CompanyIndustry) {
-  return `runway-10:company:v3:${date}:${industry}`;
+  return `runway-10:company:v4:${date}:${industry}`;
 }
 
 export function readStoredProfile(
@@ -49,19 +48,14 @@ export function readStoredRun(
   storage: Pick<Storage, "getItem">,
   date: string,
   industry: CompanyIndustry,
-  targetTurns: CompanyRunLength,
 ): StoredValue<CompanyGameState> {
   const saved = storage.getItem(runStorageKey(date, industry));
   if (!saved) {
-    return storage.getItem(`runway-10:company:v2:${date}:${industry}`)
-      ? { kind: "invalid" }
-      : { kind: "empty" };
+    return { kind: "empty" };
   }
   try {
     const parsed: unknown = JSON.parse(saved);
-    return isCompanyGameState(parsed, date) &&
-      parsed.industry === industry &&
-      parsed.targetTurns === targetTurns
+    return isCompanyGameState(parsed, date) && parsed.industry === industry
       ? { kind: "valid", value: parsed }
       : { kind: "invalid" };
   } catch {
@@ -85,7 +79,6 @@ export function clearStoredRun(
   industry: CompanyIndustry,
 ) {
   storage.removeItem(runStorageKey(date, industry));
-  storage.removeItem(`runway-10:company:v2:${date}:${industry}`);
 }
 
 const REFERRAL_ID_KEY = "runway-10:referral:v1";

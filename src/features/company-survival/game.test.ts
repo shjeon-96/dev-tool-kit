@@ -1,162 +1,98 @@
 import { describe, expect, it } from "vitest";
-import { COMPANY_SCENARIOS } from "@/entities/company-scenario/data/scenarios";
+import { ACTION_CARDS, INCIDENTS } from "@/shared/lib/company-survival/rules";
 import {
-  applyDecision,
-  calculateCompanyScore,
-  createDailyScenarioOrder,
   createInitialGameState,
-  getRunLength,
+  getTurnHand,
+  getTurnIncident,
+  playActionCard,
   replayCompanyRun,
+  selectCeoTrait,
 } from "@/shared/lib/company-survival/game";
+import {
+  COMPANY_INDUSTRIES,
+  type CompanyGameState,
+} from "@/shared/types/company-survival";
 
-describe("company survival game", () => {
-  it("creates one deterministic ten-event challenge per date", () => {
-    const first = createDailyScenarioOrder(
-      "2026-07-15",
-      "saas",
-      COMPANY_SCENARIOS,
-      10,
-    );
-    const second = createDailyScenarioOrder(
-      "2026-07-15",
-      "saas",
-      COMPANY_SCENARIOS,
-      10,
-    );
-    expect(first).toEqual(second);
-    expect(first).toHaveLength(10);
-    expect(new Set(first)).toHaveLength(10);
+describe("office roguelike engine", () => {
+  it("deals the same three-card hand for the same daily seed", () => {
+    const first = getTurnHand("2026-07-16", "saas", 0);
+    expect(getTurnHand("2026-07-16", "saas", 0)).toEqual(first);
+    expect(first).toHaveLength(3);
+    expect(new Set(first.map((card) => card.id))).toHaveLength(3);
   });
 
-  it("assigns each player to one deterministic run-length variant", () => {
-    const players = Array.from(
-      { length: 100 },
-      (_, index) =>
-        `00000000-0000-4000-8000-${String(index).padStart(12, "0")}`,
-    );
-    const variants = players.map(getRunLength);
-    expect(players.map(getRunLength)).toEqual(variants);
-    expect(new Set(variants)).toEqual(new Set([6, 10]));
+  it("keeps cards, incidents, and ids unique in the authoritative content source", () => {
+    expect(ACTION_CARDS).toHaveLength(12);
+    expect(INCIDENTS).toHaveLength(6);
+    expect(new Set(ACTION_CARDS.map((card) => card.id))).toHaveLength(12);
+    expect(new Set(INCIDENTS.map((incident) => incident.id))).toHaveLength(6);
   });
 
-  it("applies the selected choice and records one turn", () => {
-    const state = createInitialGameState("2026-07-15", "saas", 10);
-    const scenario = COMPANY_SCENARIOS[0];
-    const next = applyDecision(state, scenario, scenario.choices[0].id);
+  it("plays only a dealt card and records its incident", () => {
+    const state = createInitialGameState("2026-07-16", "saas");
+    const card = getTurnHand(state.date, state.industry, 0)[0];
+    const next = playActionCard(state, card.id);
     expect(next.turn).toBe(1);
-    expect(next.history).toEqual([
-      { scenarioId: scenario.id, choiceId: scenario.choices[0].id },
-    ]);
-    expect(next.metrics).not.toEqual(state.metrics);
+    expect(next.history).toEqual([{ cardId: card.id }]);
+    expect(next.lastReport?.incidentId).toBe(
+      getTurnIncident(state.date, state.industry, 0).id,
+    );
+    expect(next.departments[card.department]).toBe(1);
+    expect(() => playActionCard(state, "forged")).toThrow("current hand");
   });
 
-  it("fails the company when a critical metric reaches zero", () => {
-    const state = createInitialGameState("2026-07-15", "saas", 10);
-    state.metrics.cash = 1;
-    const scenario = COMPANY_SCENARIOS.find((item) =>
-      item.choices.some((choice) => (choice.effects.cash ?? 0) < 0),
-    )!;
-    const choice = scenario.choices.find(
-      (item) => (item.effects.cash ?? 0) < 0,
-    )!;
-    expect(applyDecision(state, scenario, choice.id).status).toBe("bankrupt");
+  it("adds a department chain bonus on repeat investment", () => {
+    const state = createInitialGameState("2026-07-16", "saas");
+    const card = getTurnHand(state.date, state.industry, 0)[0];
+    state.departments[card.department] = 1;
+    expect(playActionCard(state, card.id).lastReport).toMatchObject({
+      synergy: true,
+    });
   });
 
-  it("marks a company as survived after the tenth completed decision", () => {
-    const scenario = COMPANY_SCENARIOS.find(
-      (item) => item.id === "founder-interview",
-    )!;
-    const steadyChoice = scenario.choices.find(
-      (item) => item.id === "decline",
-    )!;
-    let state = createInitialGameState("2026-07-15", "saas", 10);
-    for (let turn = 0; turn < state.targetTurns; turn += 1) {
-      state = applyDecision(state, scenario, steadyChoice.id);
-    }
-    expect(state.status).toBe("survived");
-    expect(state.turn).toBe(10);
+  it("locks the CEO trait once the run starts", () => {
+    const state = selectCeoTrait(
+      createInitialGameState("2026-07-16", "saas"),
+      "rainmaker",
+    );
+    const next = playActionCard(
+      state,
+      getTurnHand(state.date, state.industry, 0)[0].id,
+    );
+    expect(next.trait).toBe("rainmaker");
+    expect(() => selectCeoTrait(next, "operator")).toThrow("locked");
   });
 
-  it("normalizes the completed-turn score across run lengths", () => {
-    const short = createInitialGameState("2026-07-15", "saas", 6);
-    const long = createInitialGameState("2026-07-15", "saas", 10);
-    short.turn = 6;
-    long.turn = 10;
-    expect(calculateCompanyScore(short)).toBe(calculateCompanyScore(long));
+  it("replays submitted card decisions with the same engine", () => {
+    const date = "2026-07-16";
+    let state = createInitialGameState(date, "saas", "operator");
+    for (let turn = 0; turn < 2; turn++)
+      state = playActionCard(state, getTurnHand(date, "saas", turn)[0].id);
+    expect(replayCompanyRun(date, "saas", "operator", state.history)).toEqual(
+      state,
+    );
   });
 
-  it("provides 84 unique scenarios with twelve exclusive crises per industry", () => {
-    expect(COMPANY_SCENARIOS).toHaveLength(84);
-    expect(
-      new Set(COMPANY_SCENARIOS.map((scenario) => scenario.id)),
-    ).toHaveLength(84);
-    for (const industry of [
-      "saas",
-      "commerce",
-      "game-studio",
-      "fintech",
-      "ai-lab",
-      "hardware",
-    ] as const) {
-      expect(
-        COMPANY_SCENARIOS.filter((scenario) => scenario.industry === industry),
-      ).toHaveLength(12);
-      expect(
-        COMPANY_SCENARIOS.filter(
-          (scenario) =>
-            scenario.industry === industry && scenario.cadence === "weekly",
-        ),
-      ).toHaveLength(2);
-      const order = createDailyScenarioOrder(
-        "2026-07-15",
-        industry,
-        COMPANY_SCENARIOS,
-        10,
+  it("offers at least one winning line for every industry seed in the launch week", () => {
+    const canWin = (state: CompanyGameState): boolean => {
+      if (state.status !== "playing") return state.status === "survived";
+      return getTurnHand(state.date, state.industry, state.turn).some((card) =>
+        canWin(playActionCard(state, card.id)),
       );
-      expect(order).toHaveLength(10);
-      expect(
-        COMPANY_SCENARIOS.find((scenario) => scenario.id === order[0]),
-      ).toHaveProperty("cadence", "weekly");
-    }
-  });
-
-  it("keeps the featured crisis fixed throughout one UTC week", () => {
-    const wednesday = createDailyScenarioOrder(
+    };
+    for (const date of [
       "2026-07-15",
-      "saas",
-      COMPANY_SCENARIOS,
-      10,
-    );
-    const thursday = createDailyScenarioOrder(
       "2026-07-16",
-      "saas",
-      COMPANY_SCENARIOS,
-      10,
-    );
-    expect(wednesday[0]).toBe(thursday[0]);
-  });
-
-  it("replays submitted decisions from the authoritative daily order", () => {
-    const date = "2026-07-15";
-    const order = createDailyScenarioOrder(date, "saas", COMPANY_SCENARIOS, 6);
-    let state = createInitialGameState(date, "saas", 6);
-    while (state.status === "playing") {
-      const scenario = COMPANY_SCENARIOS.find(
-        (item) => item.id === order[state.turn],
-      )!;
-      state = applyDecision(state, scenario, scenario.choices[0].id);
-    }
-    expect(
-      replayCompanyRun(date, "saas", state.history, COMPANY_SCENARIOS, 6),
-    ).toEqual(state);
-    expect(() =>
-      replayCompanyRun(
-        date,
-        "saas",
-        [{ scenarioId: "forged", choiceId: "forged" }],
-        COMPANY_SCENARIOS,
-        6,
-      ),
-    ).toThrow("daily scenario order");
+      "2026-07-17",
+      "2026-07-18",
+      "2026-07-19",
+      "2026-07-20",
+      "2026-07-21",
+    ])
+      for (const industry of COMPANY_INDUSTRIES)
+        expect(
+          canWin(createInitialGameState(date, industry)),
+          `${date}:${industry}`,
+        ).toBe(true);
   });
 });

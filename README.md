@@ -1,13 +1,13 @@
 # RUNWAY 10
 
-Daily company-survival game. Make irreversible decisions while keeping cash, team, and trust above zero.
+Five-minute daily office-management roguelike. Play action cards, build department chains, and survive six months to Demo Day.
 
 ## Product
 
-- 84 localized crises across six industry profiles
-- One deterministic crisis sequence per profile and UTC date
-- One featured industry crisis fixed for each UTC week
-- Deterministic 6-vs-10 decision retention experiment
+- Illustrated late-night office board and four animated role sprites
+- 12 action cards, six incidents, and three unlockable CEO traits
+- One deterministic three-card hand per industry, turn, and UTC date
+- Six-month fixed daily run with same-seed retries
 - Four live metrics: cash, team, trust, and growth
 - Browser-local run persistence
 - Daily streak, survival rate, and personal best records
@@ -46,7 +46,7 @@ npm run report:growth -- --end=2026-07-16
 ```text
 src/
 ├── app/                              # Routes, metadata, OG image, global design
-├── entities/company-scenario/        # Authoritative scenario deck
+├── entities/company-scenario/        # Industry profiles
 ├── features/company-survival/        # Interactive game and localized game copy
 └── shared/
     ├── config/                       # Site and advertising configuration
@@ -57,12 +57,12 @@ src/
 
 ## Sources of truth
 
-- Scenario writing and effects: `src/entities/company-scenario/data/scenarios.ts`
+- Cards, incidents, CEO traits and effects: `src/shared/lib/company-survival/rules.ts`
 - Industry profile copy: `src/entities/company-scenario/data/profiles.ts`
-- Initial metrics, daily order, status transitions, and score: `src/shared/lib/company-survival/game.ts`
+- Daily hands, settlement, chains, status transitions, and score: `src/shared/lib/company-survival/game.ts`
 - Game interface copy: `src/features/company-survival/copy.ts`
 - Site identity and locales: `src/shared/config/site.ts`
 
-Gameplay decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID and decision history, replays the authoritative daily scenario order on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside decision controls.
+Card decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID, CEO trait, and card history, replays the authoritative daily engine on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside game controls.
 
 Redis is the source of truth for growth metrics; Clarity remains exploratory UX analytics. The growth report reads the last 14 UTC days and never mutates production data.

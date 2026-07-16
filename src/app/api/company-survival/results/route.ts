@@ -3,6 +3,7 @@ import { isAnonymousId } from "@/shared/lib/company-survival/identity";
 import {
   isCompanyIndustry,
   type DecisionRecord,
+  type CeoTrait,
 } from "@/shared/types/company-survival";
 
 interface ResultPayload {
@@ -10,18 +11,18 @@ interface ResultPayload {
   industry?: unknown;
   history?: unknown;
   playerId?: unknown;
+  trait?: unknown;
 }
 
 function isDecisionHistory(value: unknown): value is DecisionRecord[] {
   return (
     Array.isArray(value) &&
-    value.length <= 10 &&
+    value.length <= 6 &&
     value.every(
       (decision) =>
         decision &&
         typeof decision === "object" &&
-        typeof decision.scenarioId === "string" &&
-        typeof decision.choiceId === "string",
+        typeof decision.cardId === "string",
     )
   );
 }
@@ -35,6 +36,9 @@ export async function POST(request: Request) {
       !/^\d{4}-\d{2}-\d{2}$/.test(payload.date) ||
       !isCompanyIndustry(payload.industry) ||
       !isDecisionHistory(payload.history) ||
+      !["builder", "rainmaker", "operator"].includes(
+        payload.trait as CeoTrait,
+      ) ||
       typeof payload.playerId !== "string" ||
       !isAnonymousId(payload.playerId)
     ) {
@@ -48,6 +52,7 @@ export async function POST(request: Request) {
       industry: payload.industry,
       history: payload.history,
       playerId: payload.playerId,
+      trait: payload.trait as CeoTrait,
     });
     if (result.kind === "invalid") {
       return Response.json({ error: result.error }, { status: 400 });

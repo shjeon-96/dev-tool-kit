@@ -1,15 +1,14 @@
 import "server-only";
 
-import { COMPANY_SCENARIOS } from "@/entities/company-scenario/data/scenarios";
 import {
   calculateCompanyScore,
-  getRunLength,
   replayCompanyRun,
 } from "@/shared/lib/company-survival/game";
 import { runRedisPipeline } from "@/shared/lib/redis";
 import type {
   CompanyGameState,
   CompanyIndustry,
+  CeoTrait,
 } from "@/shared/types/company-survival";
 import { recordVerifiedCompletion } from "./engagement";
 
@@ -17,23 +16,19 @@ export async function submitVerifiedCompanyResult({
   date,
   industry,
   history,
+  trait,
   playerId,
 }: {
   date: string;
   industry: CompanyIndustry;
   history: CompanyGameState["history"];
+  trait: CeoTrait;
   playerId: string;
 }) {
-  const targetTurns = getRunLength(playerId);
+  const targetTurns = 6;
   let state: CompanyGameState;
   try {
-    state = replayCompanyRun(
-      date,
-      industry,
-      history,
-      COMPANY_SCENARIOS,
-      targetTurns,
-    );
+    state = replayCompanyRun(date, industry, trait, history);
   } catch {
     return { kind: "invalid" as const, error: "Invalid decision history" };
   }

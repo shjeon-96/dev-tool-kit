@@ -12,7 +12,8 @@ import { POST } from "./route";
 const payload = {
   date: "2026-07-16",
   industry: "saas",
-  history: [{ scenarioId: "scenario", choiceId: "choice" }],
+  trait: "builder",
+  history: [{ cardId: "ship-core" }],
   playerId: "00000000-0000-4000-8000-000000000001",
 };
 

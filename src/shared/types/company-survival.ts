@@ -1,6 +1,9 @@
 import type { Locale } from "@/shared/config/site";
 
 export type CompanyMetric = "cash" | "morale" | "trust" | "momentum";
+export type CompanyMetrics = Record<CompanyMetric, number>;
+export type Department = "engineering" | "design" | "sales" | "operations";
+export type CeoTrait = "builder" | "rainmaker" | "operator";
 
 export const COMPANY_INDUSTRIES = [
   "saas",
@@ -10,31 +13,35 @@ export const COMPANY_INDUSTRIES = [
   "ai-lab",
   "hardware",
 ] as const;
-
 export type CompanyIndustry = (typeof COMPANY_INDUSTRIES)[number];
-
 export function isCompanyIndustry(value: unknown): value is CompanyIndustry {
   return COMPANY_INDUSTRIES.some((industry) => industry === value);
 }
 
-export type CompanyMetrics = Record<CompanyMetric, number>;
-
-export interface ScenarioChoice {
+export interface LocalizedText {
+  en: string;
+  ko: string;
+  ja: string;
+}
+export interface ActionCard {
   id: string;
-  label: Record<Locale, string>;
-  detail: Record<Locale, string>;
-  result: Record<Locale, string>;
+  department: Department;
+  title: LocalizedText;
+  detail: LocalizedText;
+  cost: number;
   effects: Partial<CompanyMetrics>;
 }
-
-export interface CompanyScenario {
+export interface Incident {
   id: string;
-  industry: CompanyIndustry | "all";
-  cadence: "standard" | "weekly";
-  department: Record<Locale, string>;
-  title: Record<Locale, string>;
-  body: Record<Locale, string>;
-  choices: readonly [ScenarioChoice, ScenarioChoice];
+  title: LocalizedText;
+  body: LocalizedText;
+  effects: Partial<CompanyMetrics>;
+}
+export interface TraitDefinition {
+  id: CeoTrait;
+  title: LocalizedText;
+  detail: LocalizedText;
+  department: Department;
 }
 
 export type CompanyStatus =
@@ -43,24 +50,29 @@ export type CompanyStatus =
   | "bankrupt"
   | "exodus"
   | "rejected";
-
-export type CompanyRunLength = 6 | 10;
-
+export type CompanyRunLength = 6;
 export interface DecisionRecord {
-  scenarioId: string;
-  choiceId: string;
+  cardId: string;
 }
-
+export interface TurnReport {
+  cardId: string;
+  incidentId: string;
+  synergy: boolean;
+  effects: CompanyMetrics;
+}
 export interface CompanyGameState {
-  version: 3;
-  rulesetId: "run-length-v1";
+  version: 4;
+  rulesetId: "office-roguelike-v1";
   targetTurns: CompanyRunLength;
   date: string;
   industry: CompanyIndustry;
+  trait: CeoTrait;
   turn: number;
   metrics: CompanyMetrics;
+  departments: Record<Department, number>;
   status: CompanyStatus;
   history: DecisionRecord[];
+  lastReport: TurnReport | null;
 }
 
 export interface CompanyDailyResult {
@@ -71,12 +83,10 @@ export interface CompanyDailyResult {
   metrics: CompanyMetrics;
   decisions: number;
 }
-
 export interface CompanyArchive {
   version: 2;
   results: Record<string, CompanyDailyResult>;
 }
-
 export interface CompanyCareerStats {
   daysPlayed: number;
   daysSurvived: number;
@@ -86,11 +96,7 @@ export interface CompanyCareerStats {
 }
 
 export type CompanyActivityPayload =
-  | {
-      event: "session_started";
-      date: string;
-      playerId: string;
-    }
+  | { event: "session_started"; date: string; playerId: string }
   | {
       event: "game_started";
       date: string;
@@ -100,20 +106,10 @@ export type CompanyActivityPayload =
       referralId?: string;
     }
   | {
-      event: "share_opened";
-      date: string;
-      playerId: string;
-      referralId: string;
-    }
-  | {
-      event: "share_sheet_completed";
-      date: string;
-      playerId: string;
-      referralId: string;
-    }
-  | {
-      event: "referral_landed";
+      event: "share_opened" | "share_sheet_completed" | "referral_landed";
       date: string;
       playerId: string;
       referralId: string;
     };
+
+export type { Locale };

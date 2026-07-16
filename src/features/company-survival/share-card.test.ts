@@ -15,7 +15,7 @@ describe("result share card", () => {
     });
     expect(svg).toContain("RUNWAY 10");
     expect(svg).toContain("#196");
-    expect(svg).toContain("CASH 64");
+    expect(svg).toContain("CASH 70");
     expect(svg).toContain(">4</text>");
   });
 });
