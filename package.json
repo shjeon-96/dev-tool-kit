@@ -1,7 +1,7 @@
 {
-  "name": "runway-10",
-  "version": "3.0.0",
-  "description": "A daily company survival decision game.",
+  "name": "pixellogic-site",
+  "version": "1.0.0",
+  "description": "The official PixelLogic product studio website.",
   "author": "PixelLogic <pixellogic.app@gmail.com>",
   "license": "MIT",
   "homepage": "https://web-toolkit.app",
@@ -13,10 +13,9 @@
     "url": "https://github.com/shjeon-96/dev-tool-kit/issues"
   },
   "keywords": [
-    "web-game",
-    "strategy-game",
-    "daily-game",
-    "company-simulator",
+    "pixellogic",
+    "product-studio",
+    "mobile-apps",
     "nextjs"
   ],
   "private": true,
@@ -25,14 +24,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "analyze": "ANALYZE=true next build",
     "prepare": "husky",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "report:growth": "node --env-file-if-exists=.env.local scripts/growth-report.mjs"
+    "test:e2e:ui": "playwright test --ui"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -45,34 +39,23 @@
   },
   "dependencies": {
     "babel-plugin-react-compiler": "^1.0.0",
-    "lucide-react": "^0.556.0",
-    "next": "16.2.10",
+    "next": "^16.3.3",
     "react": "19.2.7",
     "react-dom": "19.2.7"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "16.2.10",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4.1.18",
-    "@testing-library/dom": "^10.4.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "^16.3.3",
     "eslint-plugin-boundaries": "^7.0.2",
     "husky": "^9.1.7",
-    "jsdom": "^26.1.0",
     "lint-staged": "^15.5.2",
     "prettier": "^3.7.4",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5",
-    "vitest": "^3.2.6"
-  },
-  "overrides": {
-    "postcss": "8.5.19"
+    "typescript": "^5"
   }
 }

@@ -1,71 +1,36 @@
-# RUNWAY 10
+# PixelLogic Website
 
-Five-minute daily office-management roguelike. Play action cards, build department chains, and survive six months to Demo Day.
+픽셀로직이 직접 만들고 운영하는 모바일 제품과 데이터 처리 원칙을 소개하는 공식 홈페이지입니다.
 
-## Product
+## 공개 화면
 
-- Illustrated late-night office board and four animated role sprites
-- Four employee, five project, and three funding cards in an editable eight-card deck
-- Persistent payroll/production, project completion, funding pressure, and incident counters
-- Six industries with distinct starting resources and monthly passives
-- Six incidents and three unlockable CEO traits
-- One deterministic three-card hand per industry, turn, and UTC date
-- Six-month fixed daily run with same-seed retries
-- Four live metrics: cash, team, trust, and growth
-- Browser-local run persistence
-- Daily streak, survival rate, and personal best records
-- Native result sharing with attributed referral links
-- Downloadable PNG result cards
-- Server-verified global industry percentile
-- Post-game AdSense placement
-- Server-backed start, completion, D1/D7 cohort, sharing, and referral analytics
-- English, Korean, and Japanese
-- Responsive desktop and mobile interface
+- `/ko`, `/en` — 픽셀로직 홈페이지
+- `/ko/privacy`, `/en/privacy` — 개인정보처리방침
+- `/ko/terms`, `/en/terms` — 서비스 이용약관
+- `/ko/account-deletion`, `/en/account-deletion` — 계정 및 데이터 삭제 안내
 
-## Stack
+## 제품
 
-- Next.js 16 App Router
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- Upstash Redis through Vercel Marketplace
-- Microsoft Clarity product analytics
-- Vitest and Playwright
+- 헤아림 사주 — 근거를 펼쳐 보여주는 사주 앱
+- TalkTalk — AI와 이어가는 안전한 영어 대화
+- Orbit — 관계를 발견하는 소셜 퀴즈
+- SideQuest — 평범한 하루를 작은 모험으로
 
-## Commands
+## 개발
 
 ```bash
 npm install
 npm run dev
-npm test -- --run
 npm run lint
 npm run build
 npm run test:e2e
-npm run report:growth -- --end=2026-07-16
 ```
 
-## Architecture
+## 단일 원본
 
-```text
-src/
-├── app/                              # Routes, metadata, OG image, global design
-├── entities/company-scenario/        # Industry profiles
-├── features/company-survival/        # Interactive game and localized game copy
-└── shared/
-    ├── config/                       # Site and advertising configuration
-    ├── i18n/                         # Localized legal copy
-    ├── lib/company-survival/         # Pure game state transitions
-    └── types/                        # Shared game contracts
-```
+- 브랜드·토큰·컴포넌트·모션: `docs/design/DESIGN_SET.md`
+- 홈페이지 콘텐츠와 제품 매핑: `src/shared/content/site-content.ts`
+- 정책·약관·삭제 안내: `src/shared/i18n/legal.ts`
+- 사이트 식별자와 로케일: `src/shared/config/site.ts`
 
-## Sources of truth
-
-- Cards, incidents, CEO traits and effects: `src/shared/lib/company-survival/rules.ts`
-- Industry profile copy: `src/entities/company-scenario/data/profiles.ts`
-- Daily hands, settlement, chains, status transitions, and score: `src/shared/lib/company-survival/game.ts`
-- Game interface copy: `src/features/company-survival/copy.ts`
-- Site identity and locales: `src/shared/config/site.ts`
-
-Card decisions are stored under profile- and date-scoped browser keys. On completion, the leaderboard API receives the anonymous player ID, CEO trait, selected deck, and card history, replays the authoritative daily engine on the server, and stores only the verified score in Redis. Production builds load Clarity and a post-game AdSense unit kept outside game controls.
-
-Redis is the source of truth for growth metrics; Clarity remains exploratory UX analytics. The growth report reads the last 14 UTC days and never mutates production data.
+Google OAuth 브랜딩 심사에 입력하는 홈페이지·개인정보처리방침·서비스 이용약관 URL은 이 사이트의 공개 정적 URL과 정확히 일치해야 합니다.

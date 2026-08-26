@@ -1,27 +1,35 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("RUNWAY 10 office roguelike", () => {
-  test("redirects root to the preferred language", async ({ browser }) => {
-    const context = await browser.newContext({ locale: "ko-KR" });
-    const page = await context.newPage();
-    await page.goto("/");
-    await expect(page).toHaveURL(/\/ko$/);
-    await expect(page.locator("html")).toHaveAttribute("lang", "ko");
-    await context.close();
+test.describe("PixelLogic public website", () => {
+  test("redirects the root to the preferred supported language", async ({
+    browser,
+  }) => {
+    const koContext = await browser.newContext({ locale: "ko-KR" });
+    const koPage = await koContext.newPage();
+    await koPage.goto("/");
+    await expect(koPage).toHaveURL(/\/ko$/);
+    await expect(koPage.locator("html")).toHaveAttribute("lang", "ko");
+    await koContext.close();
+
+    const enContext = await browser.newContext({ locale: "en-US" });
+    const enPage = await enContext.newPage();
+    await enPage.goto("/");
+    await expect(enPage).toHaveURL(/\/en$/);
+    await enContext.close();
   });
 
   for (const [locale, heading] of [
-    ["en", "Build the company before it breaks."],
-    ["ko", "망하기 전에, 회사를 만들어라."],
-    ["ja", "壊れる前に、会社を作れ。"],
+    ["ko", "작은 호기심을, 오래 쓰는 경험으로."],
+    ["en", "Small curiosities, built to last."],
   ] as const) {
-    test(`${locale} renders the localized game lobby`, async ({ page }) => {
+    test(`${locale} renders the studio and four real products`, async ({
+      page,
+    }) => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-      await expect(page.locator(".lobby-office")).toBeVisible();
-      await expect(page.locator(".profile-strip button")).toHaveCount(6);
-      await expect(page.locator(".trait-strip button")).toHaveCount(3);
+      await expect(page.locator(".product-window")).toHaveCount(4);
+      await expect(page.locator(".product-row")).toHaveCount(4);
       await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
         "href",
         `https://web-toolkit.app/${locale}`,
@@ -29,91 +37,69 @@ test.describe("RUNWAY 10 office roguelike", () => {
     });
   }
 
-  test("selects a card, places it in the office, and resumes after reload", async ({
+  test("publishes privacy, terms, and deletion documents without sign-in", async ({
     page,
   }) => {
-    await page.goto("/en");
-    await page.getByRole("button", { name: /Start month one/ }).click();
-    await expect(page.locator(".office-board")).toBeVisible();
-    await expect(page.getByText("CHOOSE ONE CARD")).toBeVisible();
+    await page.goto("/ko/privacy");
     await expect(
-      page.getByText("PLAY CARD → TEAM PRODUCES → CRISIS HITS"),
+      page.getByRole("heading", { name: "개인정보처리방침" }),
     ).toBeVisible();
-    await expect(page.locator(".action-card")).toHaveCount(3);
-    const metricsBefore = await page
-      .locator(".hud-metrics strong")
-      .allTextContents();
-    await page.locator(".action-card").first().click();
-    await expect(page.getByText("CHOOSE A DEPARTMENT")).toBeVisible();
-    await expect(page.locator(".office-unit.is-target")).toHaveCount(4);
-    await expect(page.locator(".turn-report")).toHaveCount(0);
-    await page.locator(".unit-engineering").click();
-    await expect(page.locator(".turn-report")).toBeVisible();
-    await expect(page.locator(".unit-engineering.is-working")).toBeVisible();
-    expect(
-      await page.locator(".hud-metrics strong").allTextContents(),
-    ).not.toEqual(metricsBefore);
+    await expect(
+      page.getByRole("heading", { name: "Google 사용자 데이터" }),
+    ).toBeVisible();
+    await expect(
+      page.getByText(/Gmail, Google Drive, Google Calendar/),
+    ).toBeVisible();
+
+    await page.goto("/ko/terms");
+    await expect(
+      page.getByRole("heading", { name: "서비스 이용약관" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "유료 서비스" }),
+    ).toBeVisible();
+
+    await page.goto("/ko/account-deletion");
+    await expect(
+      page.getByRole("heading", { name: "계정 및 데이터 삭제", exact: true }),
+    ).toBeVisible();
+    await expect(page.locator(".deletion-steps li")).toHaveCount(4);
+    await expect(
+      page.getByText(
+        "마지막 활성 앱이면 전체 픽셀로직 계정 삭제로 안내합니다.",
+      ),
+    ).toBeVisible();
+  });
+
+  test("persists an explicit color theme", async ({ page }) => {
+    await page.goto("/ko");
+    const initial = await page.locator("html").getAttribute("data-theme");
+    await page.getByRole("button", { name: "색상 테마 바꾸기" }).click();
+    const next = initial === "dark" ? "light" : "dark";
+    await expect(page.locator("html")).toHaveAttribute("data-theme", next);
     await page.reload();
-    await expect(page.locator(".turn-report")).toBeVisible();
-    await page.getByRole("button", { name: /Next month/ }).click();
-    await expect(page.locator(".action-card")).toHaveCount(3);
+    await expect(page.locator("html")).toHaveAttribute("data-theme", next);
   });
 
-  test("changes the deterministic deck with the selected industry", async ({
-    page,
-  }) => {
-    await page.goto("/en");
-    const gameStudio = page
-      .locator(".profile-strip button")
-      .filter({ hasText: "GAME" });
-    await gameStudio.click();
-    await expect(gameStudio).toHaveAttribute("aria-pressed", "true");
-    await expect(page.locator(".company-seed strong")).toContainText("GAME");
-    await page.getByRole("button", { name: /Start month one/ }).click();
-    await expect(page.locator(".action-card")).toHaveCount(3);
-  });
-
-  test("requires a valid eight-card starting deck", async ({ page }) => {
-    await page.goto("/en");
-    await expect(page.locator(".deck-builder button")).toHaveCount(12);
-    const selected = page.locator('.deck-builder button[aria-pressed="true"]');
-    await expect(selected).toHaveCount(8);
-    await selected.first().click();
-    await expect(
-      page.getByRole("button", { name: /Start month one/ }),
-    ).toBeDisabled();
-    await page
-      .locator('.deck-builder button[aria-pressed="false"]:not(:disabled)')
-      .first()
-      .click();
-    await expect(
-      page.getByRole("button", { name: /Start month one/ }),
-    ).toBeEnabled();
-  });
-
-  test("keeps the board and cards usable on mobile", async ({ page }) => {
+  test("keeps the homepage usable on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/ko");
+    await expect(
+      page.getByRole("heading", { name: "작은 호기심을, 오래 쓰는 경험으로." }),
+    ).toBeVisible();
+    await expect(page.locator(".product-window")).toHaveCount(4);
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBeLessThanOrEqual(390);
-    await page.getByRole("button", { name: /첫 달 시작/ }).click();
-    await expect(page.locator(".office-board")).toBeVisible();
-    await expect(page.locator(".action-card")).toHaveCount(3);
-    await expect(page.locator(".hud-metrics > div")).toHaveCount(4);
-    await page.locator(".action-card").first().click();
-    await expect(page.locator(".office-unit.is-target")).toHaveCount(4);
-    await page.locator(".unit-design").click();
-    await expect(page.locator(".turn-report")).toBeVisible();
-    expect(
-      await page.evaluate(() => document.documentElement.scrollWidth),
-    ).toBeLessThanOrEqual(390);
+    await page.getByRole("link", { name: "데이터 이용" }).last().click();
+    await expect(page.locator("#data-use")).toBeInViewport();
   });
 
-  test("redirects old product routes to the game", async ({ page }) => {
-    await page.goto("/en/tools/json-formatter");
-    await expect(page).toHaveURL(/\/en$/);
-    await page.goto("/en/play/animals");
-    await expect(page).toHaveURL(/\/en$/);
+  test("removes the former game routes and APIs", async ({ request }) => {
+    expect((await request.get("/ko/play")).status()).toBe(404);
+    expect((await request.get("/ko/tools")).status()).toBe(404);
+    expect((await request.get("/api/company-survival/results")).status()).toBe(
+      404,
+    );
   });
 });

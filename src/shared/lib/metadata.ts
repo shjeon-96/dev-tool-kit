@@ -8,9 +8,8 @@ import {
 } from "@/shared/config/site";
 
 const OPEN_GRAPH_LOCALES: Record<Locale, string> = {
-  en: "en_US",
   ko: "ko_KR",
-  ja: "ja_JP",
+  en: "en_US",
 };
 
 export function createPageMetadata({
@@ -33,7 +32,7 @@ export function createPageMetadata({
       canonical: url,
       languages: {
         ...localeAlternates(path),
-        "x-default": `${SITE_URL}${localizedPath("en", path)}`,
+        "x-default": `${SITE_URL}${localizedPath("ko", path)}`,
       },
     },
     openGraph: {

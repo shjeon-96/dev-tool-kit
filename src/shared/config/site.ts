@@ -1,16 +1,16 @@
-export const SITE_NAME = "RUNWAY 10";
+export const SITE_NAME = "픽셀로직";
+export const SITE_NAME_EN = "PixelLogic";
 export const SITE_URL = "https://web-toolkit.app";
 export const SITE_EMAIL = "pixellogic.app@gmail.com";
 
-export const LOCALES = ["en", "ko", "ja"] as const;
+export const LOCALES = ["ko", "en"] as const;
 export type Locale = (typeof LOCALES)[number];
 
-export const DEFAULT_LOCALE: Locale = "en";
+export const DEFAULT_LOCALE: Locale = "ko";
 
 export const LOCALE_LABELS: Record<Locale, string> = {
-  en: "English",
   ko: "한국어",
-  ja: "日本語",
+  en: "English",
 };
 
 export function isLocale(value: string): value is Locale {

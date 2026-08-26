@@ -1,11 +1,11 @@
 {
-  "name": "RUNWAY 10 — Company Survival",
-  "short_name": "RUNWAY 10",
-  "description": "Keep a company alive through ten impossible decisions.",
-  "start_url": "/en",
+  "name": "픽셀로직 — 모바일 제품 스튜디오",
+  "short_name": "픽셀로직",
+  "description": "일상·배움·관계를 위한 모바일 앱을 직접 만들고 운영합니다.",
+  "start_url": "/ko",
   "display": "standalone",
-  "background_color": "#111713",
-  "theme_color": "#111713",
+  "background_color": "#050914",
+  "theme_color": "#050914",
   "icons": [
     {
       "src": "/icon.svg",
@@ -14,8 +14,8 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["games", "entertainment", "strategy"],
-  "lang": "en",
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "ko",
   "dir": "ltr",
   "scope": "/"
 }

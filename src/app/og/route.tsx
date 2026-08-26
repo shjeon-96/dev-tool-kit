@@ -7,63 +7,97 @@ export function GET() {
         width: "100%",
         height: "100%",
         display: "flex",
-        color: "#e9ff70",
-        background: "#111713",
-        border: "22px solid #e9ff70",
-        padding: "64px",
-        fontFamily: "monospace",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        color: "#f5f7fa",
+        background: "#050914",
+        padding: "58px 64px",
+        fontFamily: "Arial, sans-serif",
         position: "relative",
+        overflow: "hidden",
       }}
     >
       <div
         style={{
+          position: "absolute",
+          inset: 0,
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          width: "100%",
+          opacity: 0.16,
+          backgroundImage:
+            "linear-gradient(#263043 1px, transparent 1px), linear-gradient(90deg, #263043 1px, transparent 1px)",
+          backgroundSize: "42px 42px",
+        }}
+      />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "20px",
+          zIndex: 1,
         }}
       >
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            fontSize: "22px",
-            letterSpacing: "4px",
+            color: "#d9ff00",
+            fontSize: "48px",
+            fontWeight: 900,
           }}
         >
-          <strong>RUNWAY 10</strong>
-          <span>DAILY CORPORATE CRISIS</span>
+          PL
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span
-            style={{ color: "#ff674d", fontSize: "18px", letterSpacing: "5px" }}
+        <div style={{ display: "flex", fontSize: "24px", fontWeight: 800 }}>
+          PIXELLOGIC / 픽셀로직
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "space-between",
+          zIndex: 1,
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            maxWidth: "830px",
+          }}
+        >
+          <div
+            style={{ color: "#a8afbc", fontSize: "18px", letterSpacing: "4px" }}
           >
-            DECISION REQUIRED
-          </span>
-          <strong
+            INDEPENDENT PRODUCT STUDIO
+          </div>
+          <div
             style={{
-              maxWidth: "940px",
-              marginTop: "22px",
-              color: "#f5f0df",
-              fontFamily: "serif",
-              fontSize: "94px",
-              lineHeight: 0.92,
-              letterSpacing: "-5px",
+              display: "flex",
+              marginTop: "24px",
+              fontSize: "72px",
+              fontWeight: 900,
+              lineHeight: 1.02,
+              letterSpacing: "-4px",
             }}
           >
-            Keep the company alive.
-          </strong>
+            작은 호기심을, 오래 쓰는 경험으로.
+          </div>
         </div>
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            color: "#f5f0df",
-            fontSize: "18px",
+            width: "94px",
+            height: "94px",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "1px solid #9a78ff",
+            borderRadius: "50%",
+            color: "#d9ff00",
+            fontSize: "30px",
+            fontWeight: 900,
           }}
         >
-          <span>CASH / TEAM / TRUST / GROWTH</span>
-          <span>10 DECISIONS. NO UNDO.</span>
+          PL
         </div>
       </div>
     </div>,
