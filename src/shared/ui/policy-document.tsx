@@ -1,16 +1,9 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import type { DeletionContent, PolicyContent } from "@/shared/i18n/legal";
 import { SITE_EMAIL, localizedPath, type Locale } from "@/shared/config/site";
 import { BrandMark, PolicyFooter } from "@/shared/ui/brand-shell";
 import { ThemeToggle } from "@/shared/ui/theme-toggle";
-
-function ArrowIcon() {
-  return (
-    <svg className="inline-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h13M14 7l5 5-5 5" />
-    </svg>
-  );
-}
 
 function DocumentHeader({
   locale,
@@ -34,7 +27,7 @@ function DocumentHeader({
           <BrandMark />
         </Link>
         <Link className="document-back" href={localizedPath(locale)}>
-          <ArrowIcon />
+          <ArrowRight className="inline-icon" aria-hidden="true" />
           {homeLink}
         </Link>
         <div className="header-actions">
@@ -217,7 +210,7 @@ export function AccountDeletionDocument({
               href={`mailto:${SITE_EMAIL}?subject=PixelLogic%20account%20deletion`}
             >
               {content.supportAction}
-              <ArrowIcon />
+              <ArrowRight className="inline-icon" aria-hidden="true" />
             </a>
           </section>
         </div>

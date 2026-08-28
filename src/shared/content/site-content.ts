@@ -55,15 +55,14 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
     },
     eyebrow: "INDEPENDENT PRODUCT STUDIO · SEOUL",
     title: "작은 호기심을, 오래 쓰는 경험으로.",
-    intro:
-      "픽셀로직은 일상·배움·관계를 위한 모바일 앱을 직접 만들고 운영합니다.",
+    intro: "픽셀로직은 일상·배움·관계를 위한 모바일 앱을 직접 만들고 운영해요.",
     primaryAction: "픽셀로직 제품 보기",
     secondaryAction: "데이터 이용 원칙",
-    googleNote: "Google 로그인은 계정 연결에 필요한 범위에서만 사용합니다.",
+    googleNote: "Google 로그인은 계정 연결에 필요한 범위에서만 사용해요.",
     productsLabel: "PRODUCT CONSTELLATION",
     productsTitle: "우리가 만들고 있는 경험",
     productsIntro:
-      "서로 다른 관심에서 출발한 제품들이 하나의 원칙으로 연결됩니다. 적게 묻고, 분명한 가치를 주고, 사용자의 데이터를 제품보다 앞에 둡니다.",
+      "서로 다른 관심에서 출발한 제품들이 하나의 원칙으로 연결돼요. 적게 묻고, 분명한 가치를 주고, 사용자의 데이터를 제품보다 앞에 둬요.",
     products: [
       {
         id: "woon",
@@ -99,49 +98,49 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
       },
     ],
     principlesLabel: "HOW WE BUILD",
-    principlesTitle: "기능보다 먼저, 쓰는 순간을 설계합니다.",
+    principlesTitle: "기능보다 먼저, 쓰는 순간을 설계해요.",
     principles: [
       {
         index: "01",
-        title: "적게 묻습니다",
-        body: "첫 가치를 만나기 전 입력과 선택을 줄입니다. 필요한 정보는 필요한 순간에만 요청합니다.",
+        title: "적게 물어요",
+        body: "첫 가치를 만나기 전 입력과 선택을 줄여요. 필요한 정보는 필요한 순간에만 요청해요.",
       },
       {
         index: "02",
-        title: "끝맺음을 만듭니다",
-        body: "사용 시간을 붙잡는 대신 한 번의 경험이 스스로 완결되도록 설계합니다.",
+        title: "끝맺음을 만들어요",
+        body: "사용 시간을 붙잡는 대신 한 번의 경험이 스스로 완결되도록 설계해요.",
       },
       {
         index: "03",
-        title: "데이터 경계를 지킵니다",
-        body: "로그인 신원은 연결하되 제품 데이터는 앱별로 구분하고, 삭제 범위를 사용자가 확인할 수 있게 합니다.",
+        title: "데이터 경계를 지켜요",
+        body: "로그인 신원은 연결하되 제품 데이터는 앱별로 구분하고, 삭제 범위를 사용자가 확인할 수 있게 해요.",
       },
     ],
     dataLabel: "GOOGLE USER DATA",
     dataTitle: "로그인은 문을 여는 열쇠일 뿐이에요.",
     dataIntro:
-      "Google 로그인은 픽셀로직 계정을 만들고 기존 계정에 안전하게 연결하는 데 사용합니다. 승인 화면에 표시된 범위를 넘어 Gmail, Drive, Calendar 같은 Google 제품 데이터에는 접근하지 않습니다.",
+      "Google 로그인은 픽셀로직 계정을 만들고 기존 계정에 안전하게 연결하는 데 사용해요. 승인 화면에 표시된 범위를 넘어 Gmail, Drive, Calendar 같은 Google 제품 데이터에는 접근하지 않아요.",
     dataPoints: [
       {
         title: "무엇을 받나요?",
-        body: "로그인에 필요한 Google 계정 식별자와 기본 프로필 정보를 받습니다.",
+        body: "로그인에 필요한 Google 계정 식별자와 기본 프로필 정보를 받아요.",
       },
       {
         title: "어디에 쓰나요?",
-        body: "가입·로그인·계정 연결, 보안 확인과 사용자 지원에만 사용합니다.",
+        body: "가입·로그인·계정 연결, 보안 확인과 사용자 지원에만 사용해요.",
       },
       {
         title: "어떻게 지우나요?",
-        body: "각 앱 설정에서 해당 앱 데이터 또는 마지막 앱일 때 전체 계정 삭제 범위를 확인하고 요청할 수 있습니다.",
+        body: "각 앱 설정에서 해당 앱 데이터 또는 마지막 앱일 때 전체 계정 삭제 범위를 확인하고 요청할 수 있어요.",
       },
     ],
     dataLink: "개인정보 처리 기준 전체 보기",
     contactLabel: "CONTACT",
     contactTitle: "제품과 개인정보에 관한 질문을 보내주세요.",
     contactBody:
-      "앱 사용, 계정, 개인정보 처리와 협업에 관한 문의를 한 곳에서 받습니다.",
+      "앱 사용, 계정, 개인정보 처리와 협업에 관한 문의를 한 곳에서 받아요.",
     contactAction: "픽셀로직에 이메일 보내기",
-    footerStatement: "사람의 하루에 오래 남는 작은 경험을 만듭니다.",
+    footerStatement: "사람의 하루에 오래 남는 작은 경험을 만들어요.",
   },
   en: {
     skip: "Skip to content",

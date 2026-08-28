@@ -21,7 +21,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "predev": "node scripts/generate-design-tokens.mjs",
     "build": "next build",
+    "prebuild": "node scripts/generate-design-tokens.mjs",
+    "ratchet": "node scripts/ratchet/design_rules.mjs",
     "start": "next start",
     "lint": "eslint",
     "prepare": "husky",
@@ -39,6 +42,7 @@
   },
   "dependencies": {
     "babel-plugin-react-compiler": "^1.0.0",
+    "lucide-react": "^0.556.0",
     "next": "^16.3.3",
     "react": "19.2.7",
     "react-dom": "19.2.7"

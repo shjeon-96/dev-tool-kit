@@ -1,28 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import type {
   HomeContent,
   ProductContent,
 } from "@/shared/content/site-content";
 import { SITE_EMAIL, localizedPath, type Locale } from "@/shared/config/site";
 import { BrandHeader, PolicyFooter } from "@/shared/ui/brand-shell";
-
-function ArrowIcon() {
-  return (
-    <svg className="inline-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h13M14 7l5 5-5 5" />
-    </svg>
-  );
-}
-
-function ShieldIcon() {
-  return (
-    <svg className="trust-icon" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2.5 20 6v5.7c0 4.8-3.1 8.1-8 9.8-4.9-1.7-8-5-8-9.8V6l8-3.5Z" />
-      <path d="m8.5 12 2.2 2.2 4.8-5" />
-    </svg>
-  );
-}
 
 function ProductWindow({
   product,
@@ -128,15 +112,15 @@ export function ProductStudioHome({
             <div className="hero-actions reveal-item">
               <a className="button button-primary" href="#products">
                 {content.primaryAction}
-                <ArrowIcon />
+                <ArrowRight className="inline-icon" aria-hidden="true" />
               </a>
               <a className="button button-secondary" href="#data-use">
                 {content.secondaryAction}
-                <ArrowIcon />
+                <ArrowRight className="inline-icon" aria-hidden="true" />
               </a>
             </div>
             <p className="google-trust reveal-item">
-              <ShieldIcon />
+              <ShieldCheck className="trust-icon" aria-hidden="true" />
               <span>{content.googleNote}</span>
             </p>
           </div>
@@ -208,7 +192,7 @@ export function ProductStudioHome({
             <p>{content.dataIntro}</p>
             <Link className="text-link" href={localizedPath(locale, "privacy")}>
               {content.dataLink}
-              <ArrowIcon />
+              <ArrowRight className="inline-icon" aria-hidden="true" />
             </Link>
           </div>
           <div className="data-points">
@@ -237,7 +221,7 @@ export function ProductStudioHome({
             </div>
             <a className="button button-primary" href={`mailto:${SITE_EMAIL}`}>
               {content.contactAction}
-              <ArrowIcon />
+              <ArrowRight className="inline-icon" aria-hidden="true" />
             </a>
           </div>
         </section>

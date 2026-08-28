@@ -1,0 +1,275 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "PixelLogic shared design tokens. CSS is generated from this source.",
+  "reference": {
+    "color": {
+      "canvas-light": { "$type": "color", "$value": "#F7F6F2" },
+      "canvas-dark": { "$type": "color", "$value": "#050914" },
+      "canvas-rgb-light": { "$type": "string", "$value": "247 246 242" },
+      "canvas-rgb-dark": { "$type": "string", "$value": "5 9 20" },
+      "ink-light": { "$type": "color", "$value": "#0A0C10" },
+      "ink-dark": { "$type": "color", "$value": "#F5F7FA" },
+      "muted-light": { "$type": "color", "$value": "#565B63" },
+      "muted-dark": { "$type": "color", "$value": "#A8AFBC" },
+      "line-light": { "$type": "color", "$value": "#C9C9C3" },
+      "line-dark": { "$type": "color", "$value": "#263043" },
+      "line-soft-light": { "$type": "color", "$value": "#E4E3DD" },
+      "line-soft-dark": { "$type": "color", "$value": "#151D2C" },
+      "surface-light": { "$type": "color", "$value": "#FFFFFF" },
+      "surface-dark": { "$type": "color", "$value": "#0B1120" },
+      "surface-raised-light": { "$type": "color", "$value": "#FBFAF6" },
+      "surface-raised-dark": { "$type": "color", "$value": "#101827" },
+      "signal-light": { "$type": "color", "$value": "#C8F000" },
+      "signal-dark": { "$type": "color", "$value": "#D9FF00" },
+      "signal-ink": { "$type": "color", "$value": "#111400" },
+      "violet-light": { "$type": "color", "$value": "#7655E8" },
+      "violet-dark": { "$type": "color", "$value": "#9A78FF" },
+      "cyan-light": { "$type": "color", "$value": "#087AB8" },
+      "cyan-dark": { "$type": "color", "$value": "#35C8FF" },
+      "danger-light": { "$type": "color", "$value": "#C9362C" },
+      "danger-dark": { "$type": "color", "$value": "#FF5A4E" },
+      "inverse-signal-light": { "$type": "color", "$value": "#D9FF00" },
+      "inverse-signal-dark": { "$type": "color", "$value": "#536300" },
+      "ring-light": { "$type": "color", "$value": "#7655E814" },
+      "ring-dark": { "$type": "color", "$value": "#9A78FF14" },
+      "ring-outer-light": { "$type": "color", "$value": "#7655E80D" },
+      "ring-outer-dark": { "$type": "color", "$value": "#9A78FF0D" },
+      "product-gold": { "$type": "color", "$value": "#E9A900" }
+    },
+    "space": {
+      "0": { "$type": "dimension", "$value": "0px" },
+      "1": { "$type": "dimension", "$value": "4px" },
+      "2": { "$type": "dimension", "$value": "8px" },
+      "3": { "$type": "dimension", "$value": "12px" },
+      "4": { "$type": "dimension", "$value": "16px" },
+      "5": { "$type": "dimension", "$value": "20px" },
+      "6": { "$type": "dimension", "$value": "24px" },
+      "8": { "$type": "dimension", "$value": "32px" },
+      "10": { "$type": "dimension", "$value": "40px" },
+      "12": { "$type": "dimension", "$value": "48px" },
+      "14": { "$type": "dimension", "$value": "56px" },
+      "16": { "$type": "dimension", "$value": "64px" },
+      "18": { "$type": "dimension", "$value": "72px" },
+      "22": { "$type": "dimension", "$value": "88px" },
+      "24": { "$type": "dimension", "$value": "96px" },
+      "28": { "$type": "dimension", "$value": "112px" },
+      "32": { "$type": "dimension", "$value": "128px" },
+      "36": { "$type": "dimension", "$value": "144px" },
+      "38": { "$type": "dimension", "$value": "152px" },
+      "40": { "$type": "dimension", "$value": "160px" }
+    },
+    "size": {
+      "control": { "$type": "dimension", "$value": "44px" },
+      "button": { "$type": "dimension", "$value": "56px" },
+      "icon": { "$type": "dimension", "$value": "20px" },
+      "content-width": { "$type": "dimension", "$value": "1440px" }
+    },
+    "radius": {
+      "control": { "$type": "dimension", "$value": "3px" },
+      "window": { "$type": "dimension", "$value": "8px" },
+      "round": { "$type": "dimension", "$value": "50%" }
+    },
+    "motion": {
+      "fast": { "$type": "duration", "$value": "180ms" },
+      "standard": { "$type": "duration", "$value": "240ms" },
+      "assemble": { "$type": "duration", "$value": "700ms" },
+      "reduced": { "$type": "duration", "$value": "0.001ms" },
+      "ease-standard": { "$type": "cubicBezier", "$value": [0.2, 0.75, 0.2, 1] }
+    },
+    "elevation": {
+      "window-light": {
+        "$type": "shadow",
+        "$value": "0 20px 60px rgb(12 16 24 / 13%)"
+      },
+      "window-dark": {
+        "$type": "shadow",
+        "$value": "0 22px 80px rgb(0 0 0 / 38%)"
+      },
+      "window-hover": {
+        "$type": "shadow",
+        "$value": "0 26px 90px rgb(0 0 0 / 24%)"
+      }
+    }
+  },
+  "semantic": {
+    "color": {
+      "canvas": {
+        "$type": "color",
+        "$value": "{reference.color.canvas-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.canvas-dark}" } }
+      },
+      "canvas-rgb": {
+        "$type": "string",
+        "$value": "{reference.color.canvas-rgb-light}",
+        "$extensions": {
+          "mode": { "dark": "{reference.color.canvas-rgb-dark}" }
+        }
+      },
+      "ink": {
+        "$type": "color",
+        "$value": "{reference.color.ink-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.ink-dark}" } }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "{reference.color.muted-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.muted-dark}" } }
+      },
+      "line": {
+        "$type": "color",
+        "$value": "{reference.color.line-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.line-dark}" } }
+      },
+      "line-soft": {
+        "$type": "color",
+        "$value": "{reference.color.line-soft-light}",
+        "$extensions": {
+          "mode": { "dark": "{reference.color.line-soft-dark}" }
+        }
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "{reference.color.surface-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.surface-dark}" } }
+      },
+      "surface-raised": {
+        "$type": "color",
+        "$value": "{reference.color.surface-raised-light}",
+        "$extensions": {
+          "mode": { "dark": "{reference.color.surface-raised-dark}" }
+        }
+      },
+      "signal": {
+        "$type": "color",
+        "$value": "{reference.color.signal-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.signal-dark}" } }
+      },
+      "signal-ink": {
+        "$type": "color",
+        "$value": "{reference.color.signal-ink}"
+      },
+      "violet": {
+        "$type": "color",
+        "$value": "{reference.color.violet-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.violet-dark}" } }
+      },
+      "cyan": {
+        "$type": "color",
+        "$value": "{reference.color.cyan-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.cyan-dark}" } }
+      },
+      "danger": {
+        "$type": "color",
+        "$value": "{reference.color.danger-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.danger-dark}" } }
+      },
+      "inverse-canvas": {
+        "$type": "color",
+        "$value": "{reference.color.canvas-dark}",
+        "$extensions": { "mode": { "dark": "{reference.color.canvas-light}" } }
+      },
+      "inverse-ink": {
+        "$type": "color",
+        "$value": "{reference.color.ink-dark}",
+        "$extensions": { "mode": { "dark": "{reference.color.ink-light}" } }
+      },
+      "inverse-muted": {
+        "$type": "color",
+        "$value": "{reference.color.muted-dark}",
+        "$extensions": { "mode": { "dark": "{reference.color.muted-light}" } }
+      },
+      "inverse-line": {
+        "$type": "color",
+        "$value": "{reference.color.line-dark}",
+        "$extensions": { "mode": { "dark": "{reference.color.line-light}" } }
+      },
+      "inverse-signal": {
+        "$type": "color",
+        "$value": "{reference.color.inverse-signal-light}",
+        "$extensions": {
+          "mode": { "dark": "{reference.color.inverse-signal-dark}" }
+        }
+      },
+      "ring": {
+        "$type": "color",
+        "$value": "{reference.color.ring-light}",
+        "$extensions": { "mode": { "dark": "{reference.color.ring-dark}" } }
+      },
+      "ring-outer": {
+        "$type": "color",
+        "$value": "{reference.color.ring-outer-light}",
+        "$extensions": {
+          "mode": { "dark": "{reference.color.ring-outer-dark}" }
+        }
+      }
+    },
+    "motion": {
+      "fast": { "$type": "duration", "$value": "{reference.motion.fast}" },
+      "standard": {
+        "$type": "duration",
+        "$value": "{reference.motion.standard}"
+      },
+      "assemble": {
+        "$type": "duration",
+        "$value": "{reference.motion.assemble}"
+      },
+      "reduced": {
+        "$type": "duration",
+        "$value": "{reference.motion.reduced}"
+      },
+      "ease-standard": {
+        "$type": "cubicBezier",
+        "$value": "{reference.motion.ease-standard}"
+      }
+    }
+  },
+  "product": {
+    "signal": {
+      "gold": { "$type": "color", "$value": "{reference.color.product-gold}" }
+    }
+  },
+  "component": {
+    "layout": {
+      "content-width": {
+        "$type": "dimension",
+        "$value": "{reference.size.content-width}"
+      },
+      "control-height": {
+        "$type": "dimension",
+        "$value": "{reference.size.control}"
+      },
+      "button-height": {
+        "$type": "dimension",
+        "$value": "{reference.size.button}"
+      },
+      "icon-size": { "$type": "dimension", "$value": "{reference.size.icon}" }
+    },
+    "shape": {
+      "control-radius": {
+        "$type": "dimension",
+        "$value": "{reference.radius.control}"
+      },
+      "window-radius": {
+        "$type": "dimension",
+        "$value": "{reference.radius.window}"
+      },
+      "round-radius": {
+        "$type": "dimension",
+        "$value": "{reference.radius.round}"
+      }
+    },
+    "elevation": {
+      "window": {
+        "$type": "shadow",
+        "$value": "{reference.elevation.window-light}",
+        "$extensions": {
+          "mode": { "dark": "{reference.elevation.window-dark}" }
+        }
+      },
+      "window-hover": {
+        "$type": "shadow",
+        "$value": "{reference.elevation.window-hover}"
+      }
+    }
+  }
+}

@@ -29,6 +29,9 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Run design rules ratchet
+        run: npm run ratchet
+
   build:
     name: Build
     runs-on: ubuntu-latest

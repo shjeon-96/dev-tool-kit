@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   applicationName: SITE_NAME,
   description:
-    "일상·배움·관계를 위한 모바일 앱을 직접 만들고 운영하는 픽셀로직의 공식 홈페이지입니다.",
+    "일상·배움·관계를 위한 모바일 앱을 직접 만들고 운영하는 픽셀로직의 공식 홈페이지예요.",
   category: "technology",
   robots: { index: true, follow: true },
   manifest: "/manifest.json",
