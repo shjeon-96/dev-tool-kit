@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale } from "@/shared/config/site";
-import { getDictionary } from "@/shared/i18n/dictionaries";
+import { LEGAL_CONTENT } from "@/shared/i18n/legal";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import { PolicyDocument } from "@/shared/ui/policy-document";
 
@@ -14,11 +14,11 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const copy = getDictionary(locale).privacy;
+  const copy = LEGAL_CONTENT[locale].privacy;
   return createPageMetadata({
     locale,
     title: copy.title,
-    description: copy.sections[0].body,
+    description: copy.description,
     path: "privacy",
   });
 }
@@ -26,12 +26,14 @@ export async function generateMetadata({
 export default async function PrivacyPage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const copy = getDictionary(locale).privacy;
+  const copy = LEGAL_CONTENT[locale];
   return (
     <PolicyDocument
-      title={copy.title}
-      updated={copy.updated}
-      sections={copy.sections}
+      content={copy.privacy}
+      locale={locale}
+      homeLink={copy.homeLink}
+      footerStatement={copy.footerStatement}
+      accent="signal"
     />
   );
 }

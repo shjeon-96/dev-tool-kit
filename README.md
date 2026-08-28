@@ -1,76 +1,36 @@
-# Web Toolkit
+# PixelLogic Website
 
-Fast, private browser utilities for common developer data. The main domain is an advertising-supported utility site.
+픽셀로직이 직접 만들고 운영하는 모바일 제품과 데이터 처리 원칙을 소개하는 공식 홈페이지입니다.
 
-Supported locales: English (`en`), Korean (`ko`), Japanese (`ja`). Locale prefixes are mandatory. `/` redirects using `Accept-Language`, with English as the explicit default.
+## 공개 화면
 
-## Tools
+- `/ko`, `/en` — 픽셀로직 홈페이지
+- `/ko/privacy`, `/en/privacy` — 개인정보처리방침
+- `/ko/terms`, `/en/terms` — 서비스 이용약관
+- `/ko/account-deletion`, `/en/account-deletion` — 계정 및 데이터 삭제 안내
 
-- JSON formatter and validator
-- Base64 encoder and decoder
-- UUID v4 generator
-- Unix timestamp converter
-- URL component encoder and decoder
-- SHA-256/384/512 hash generator
-- JWT decoder
-- HTML entity encoder and decoder
-- HEX/RGB/HSL color converter
-- Regular expression tester
-- Word, character, line and byte counter
-- Text case converter
-- URL slug generator
-- Secure password generator
-- Binary/octal/decimal/HEX converter
-- CSV and JSON converter
-- Query string parser and builder
-- JSON to TypeScript generator
-- Line sorter
-- Duplicate line remover
+## 제품
 
-All tool inputs are processed with browser APIs. Tool data is not sent to an application API.
+- 헤아림 사주 — 근거를 펼쳐 보여주는 사주 앱
+- TalkTalk — AI와 이어가는 안전한 영어 대화
+- Orbit — 관계를 발견하는 소셜 퀴즈
+- SideQuest — 평범한 하루를 작은 모험으로
 
-## Architecture
-
-```text
-src/
-├── app/[locale]/              # Localized routes and metadata
-├── features/tools/            # Interactive browser workbench
-├── shared/config/             # Site, tool and AdSense truth
-├── shared/i18n/               # EN/KO/JA content dictionaries and tool guides
-├── shared/lib/                # Shared metadata helpers
-├── shared/ui/                 # Small presentational primitives
-└── widgets/                   # Site shell, language switcher, tool cards
-```
-
-Authoritative sources:
-
-- Locales and site identity: `src/shared/config/site.ts`
-- Tool slugs and display definitions: `src/shared/config/tools.ts`
-- Localized content: `src/shared/i18n/dictionaries.ts` and `extra-tool-copy.ts`
-- AdSense publisher identity and `ads.txt`: `src/shared/config/adsense.ts`
-
-Cards, routes, metadata and sitemap entries derive from these sources.
-
-## Development
+## 개발
 
 ```bash
 npm install
 npm run dev
 npm run lint
-npm run test:e2e
 npm run build
+npm run test:e2e
 ```
 
-The project currently requires no runtime secrets. Auto ads load only in production. Google AdSense must also be enabled for `web-toolkit.app` in the AdSense console.
+## 단일 원본
 
-## Stack
+- 브랜드·토큰·컴포넌트·모션: `docs/design/DESIGN_SET.md`
+- 홈페이지 콘텐츠와 제품 매핑: `src/shared/content/site-content.ts`
+- 정책·약관·삭제 안내: `src/shared/i18n/legal.ts`
+- 사이트 식별자와 로케일: `src/shared/config/site.ts`
 
-- Next.js 16 App Router
-- React 19
-- TypeScript
-- Tailwind CSS 4 build pipeline with a custom field-manual design system
-- Playwright for route and browser behavior verification
-
-## License
-
-[MIT](LICENSE)
+Google OAuth 브랜딩 심사에 입력하는 홈페이지·개인정보처리방침·서비스 이용약관 URL은 이 사이트의 공개 정적 URL과 정확히 일치해야 합니다.

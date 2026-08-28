@@ -3,8 +3,7 @@ import { DEFAULT_LOCALE, type Locale } from "@/shared/config/site";
 
 function preferredLocale(request: NextRequest): Locale {
   const language = request.headers.get("accept-language")?.toLowerCase() ?? "";
-  if (language.includes("ko")) return "ko";
-  if (language.includes("ja")) return "ja";
+  if (language.includes("en")) return "en";
   return DEFAULT_LOCALE;
 }
 

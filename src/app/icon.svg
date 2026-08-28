@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#171813"/>
-  <path d="M11 16h9l5 25 7-17h7l6 17 3-25h7l-6 34h-9l-5-15-6 15h-9z" fill="#fffdf5"/>
-  <path d="M49 10h5L43 54h-5z" fill="#f05a28"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="PixelLogic">
+  <rect width="512" height="512" rx="88" fill="#050914"/>
+  <path fill="#d9ff00" fill-rule="evenodd" d="M58 82h130c80 0 130 42 130 110S268 302 188 302h-56v128H58V82Zm74 74v72h56c36 0 56-14 56-36s-20-36-56-36h-56Z"/>
+  <path fill="#f5f7fa" d="M330 82h74v274h78v74H330V82Z"/>
+  <rect x="284" y="82" width="34" height="34" fill="#9a78ff"/>
 </svg>
