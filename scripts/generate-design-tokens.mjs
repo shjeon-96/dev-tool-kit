@@ -24,7 +24,11 @@ visit(source);
 const cssName = (path) => `--${path.join("-")}`;
 const resolveValue = (value) => {
   if (typeof value !== "string") {
-    if (Array.isArray(value)) return `cubic-bezier(${value.join(", ")})`;
+    if (Array.isArray(value)) {
+      return typeof value[0] === "number"
+        ? `cubic-bezier(${value.join(", ")})`
+        : value.join(", ");
+    }
     return String(value);
   }
   const alias = value.match(/^\{(.+)\}$/);
@@ -71,14 +75,39 @@ const lines = [
   "  --inverse-muted: var(--semantic-color-inverse-muted);",
   "  --inverse-line: var(--semantic-color-inverse-line);",
   "  --inverse-signal: var(--semantic-color-inverse-signal);",
-  "  --ring: var(--semantic-color-ring);",
-  "  --ring-outer: var(--semantic-color-ring-outer);",
+  "  --constellation-ring: var(--semantic-color-constellation-ring);",
+  "  --constellation-ring-outer: var(--semantic-color-constellation-ring-outer);",
   "  --gold: var(--product-signal-gold);",
   "  --shadow-window: var(--component-elevation-window);",
   "  --shadow-hover: var(--component-elevation-window-hover);",
+  "  --background: var(--canvas);",
+  "  --foreground: var(--ink);",
+  "  --card: var(--surface);",
+  "  --card-foreground: var(--ink);",
+  "  --border: var(--line);",
+  "  --input: var(--line);",
+  "  --primary: var(--signal);",
+  "  --primary-foreground: var(--signal-ink);",
+  "  --muted-foreground: var(--muted);",
+  "  --ring: var(--cyan);",
+  "  --radius: var(--radius-control);",
   "  --radius-window: var(--component-shape-window-radius);",
   "  --radius-control: var(--component-shape-control-radius);",
   "  --shell: var(--component-layout-content-width);",
+  "  --font-family-system: var(--semantic-typography-family-system);",
+  "  --font-family-mono: var(--semantic-typography-family-mono);",
+  "  --font-body-size: var(--semantic-typography-size-body);",
+  "  --font-label-size: var(--semantic-typography-size-label);",
+  "  --font-display-size: var(--semantic-typography-size-display);",
+  "  --font-title-size: var(--semantic-typography-size-title);",
+  "  --font-weight-regular: var(--semantic-typography-weight-regular);",
+  "  --font-weight-semibold: var(--semantic-typography-weight-semibold);",
+  "  --font-weight-bold: var(--semantic-typography-weight-bold);",
+  "  --font-weight-black: var(--semantic-typography-weight-black);",
+  "  --font-line-body: var(--semantic-typography-line-body);",
+  "  --font-line-display: var(--semantic-typography-line-display);",
+  "  --font-tracking-display: var(--semantic-typography-tracking-display);",
+  "  --font-tracking-eyebrow: var(--semantic-typography-tracking-eyebrow);",
   "  color-scheme: light;",
   "}",
   'html[data-theme="dark"] {',
@@ -101,8 +130,8 @@ const lines = [
   "  --inverse-muted: var(--semantic-color-inverse-muted);",
   "  --inverse-line: var(--semantic-color-inverse-line);",
   "  --inverse-signal: var(--semantic-color-inverse-signal);",
-  "  --ring: var(--semantic-color-ring);",
-  "  --ring-outer: var(--semantic-color-ring-outer);",
+  "  --constellation-ring: var(--semantic-color-constellation-ring);",
+  "  --constellation-ring-outer: var(--semantic-color-constellation-ring-outer);",
   "  --gold: var(--product-signal-gold);",
   "  --shadow-window: var(--component-elevation-window);",
   "  --shadow-hover: var(--component-elevation-window-hover);",
@@ -129,8 +158,8 @@ const lines = [
   "    --inverse-muted: var(--semantic-color-inverse-muted);",
   "    --inverse-line: var(--semantic-color-inverse-line);",
   "    --inverse-signal: var(--semantic-color-inverse-signal);",
-  "    --ring: var(--semantic-color-ring);",
-  "    --ring-outer: var(--semantic-color-ring-outer);",
+  "    --constellation-ring: var(--semantic-color-constellation-ring);",
+  "    --constellation-ring-outer: var(--semantic-color-constellation-ring-outer);",
   "    --gold: var(--product-signal-gold);",
   "    --shadow-window: var(--component-elevation-window);",
   "    --shadow-hover: var(--component-elevation-window-hover);",

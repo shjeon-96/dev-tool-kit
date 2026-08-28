@@ -17,9 +17,9 @@ body {
     linear-gradient(var(--line-soft) 1px, transparent 1px),
     linear-gradient(90deg, var(--line-soft) 1px, transparent 1px), var(--canvas);
   background-size: 48px 48px;
-  font-family: Arial, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
+  font-family: var(--font-family-system);
+  font-size: var(--font-body-size);
+  line-height: var(--font-line-body);
   text-rendering: optimizeLegibility;
   transition:
     color 240ms ease,
@@ -237,10 +237,10 @@ html[data-theme="dark"] .theme-icon-moon {
 .eyebrow {
   margin: 0;
   color: var(--muted);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 12px;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-label-size);
   font-weight: 750;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--font-tracking-eyebrow);
   line-height: 1.4;
 }
 .hero h1 {
@@ -450,8 +450,8 @@ html[data-theme="dark"] .theme-icon-moon {
   color: var(--signal);
   background: var(--surface);
   box-shadow:
-    0 0 0 12px var(--ring),
-    0 0 0 24px var(--ring-outer);
+    0 0 0 12px var(--constellation-ring),
+    0 0 0 24px var(--constellation-ring-outer);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 28px;
   font-weight: 900;
