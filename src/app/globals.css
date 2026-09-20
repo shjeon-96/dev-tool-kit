@@ -2511,10 +2511,10 @@ html:not([data-theme="light"]) .theme-icon-moon {
 }
 
 .hero {
-  min-height: 650px;
+  min-height: 600px;
   grid-template-columns: minmax(0, 1fr) minmax(420px, 0.86fr);
   gap: 72px;
-  padding-block: 92px 96px;
+  padding-block: 72px 76px;
 }
 
 .hero h1,
@@ -2549,6 +2549,7 @@ html:not([data-theme="light"]) .theme-icon-moon {
   color: var(--ink-soft);
   font-size: clamp(1rem, 1.5vw, 1.16rem);
   line-height: 1.75;
+  word-break: keep-all;
 }
 
 .hero-actions {
@@ -2661,9 +2662,10 @@ html:not([data-theme="light"]) .theme-icon-moon {
 
 .brand-companion-image {
   position: absolute;
-  right: 10%;
-  bottom: -20px;
-  width: min(66%, 290px);
+  left: 7%;
+  right: auto;
+  bottom: -18px;
+  width: min(46%, 220px);
   height: auto;
   object-fit: contain;
 }
@@ -3120,9 +3122,10 @@ html:not([data-theme="light"]) .local-status-card {
   }
 
   .brand-companion-image {
-    right: 4%;
+    left: 2%;
+    right: auto;
     bottom: -18px;
-    width: 74%;
+    width: 58%;
   }
 
   .local-status-card {
