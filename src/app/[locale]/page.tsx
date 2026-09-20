@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, Copy, ShieldCheck, UserRound } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isLocale, localizedPath } from "@/shared/config/site";
 import { FEATURED_TOOLS } from "@/shared/config/tools";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
+import { CreamCatCompanion } from "@/shared/ui/brand-assets";
 import { SectionHeading } from "@/shared/ui/section-heading";
 import { ToolCard } from "@/widgets/tool-card";
 
@@ -56,22 +57,41 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="hero-instrument" aria-hidden="true">
-          <div className="instrument-ruler">
-            <span>00</span>
-            <span>20</span>
-            <span>40</span>
-            <span>60</span>
-            <span>80</span>
+        <div className="hero-instrument" aria-label="Local processing status">
+          <div className="brand-panel-header">
+            <span>PIXELLOGIC / BRAND ASSET</span>
+            <span>01</span>
           </div>
-          <div className="instrument-screen">
-            <span>LOCAL PROCESS</span>
-            <strong>
-              READY<span>_</span>
-            </strong>
-            <code>{`{ "upload": false }`}</code>
+          <div className="brand-companion-stage">
+            <div className="brand-companion-copy">
+              <span className="brand-companion-note">SAFE, LOCAL, READY</span>
+              <strong>
+                작업 데이터는
+                <br />
+                브라우저 안에 있어요.
+              </strong>
+            </div>
+            <CreamCatCompanion />
+            <div className="local-status-card">
+              <span className="local-status-label">LOCAL PROCESSING</span>
+              <strong>READY</strong>
+              <code>{dictionary.home.proofThree}</code>
+            </div>
           </div>
-          <div className="instrument-note">INPUT → BROWSER → OUTPUT</div>
+          <div className="brand-proof-row">
+            <span>
+              <Check aria-hidden="true" size={16} />
+              {dictionary.common.browserOnly}
+            </span>
+            <span>
+              <UserRound aria-hidden="true" size={16} />
+              {dictionary.home.proofTwo}
+            </span>
+            <span>
+              <Copy aria-hidden="true" size={16} />
+              {dictionary.common.copy}
+            </span>
+          </div>
         </div>
       </section>
 

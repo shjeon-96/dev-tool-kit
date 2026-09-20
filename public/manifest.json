@@ -1,11 +1,11 @@
 {
-  "name": "Web Toolkit",
-  "short_name": "WTK",
-  "description": "Fast, private browser utilities for common developer data.",
+  "name": "PixelLogic Web Toolkit",
+  "short_name": "PixelLogic",
+  "description": "Fast, private browser utilities from PixelLogic.",
   "start_url": "/en",
   "display": "standalone",
-  "background_color": "#f2efe6",
-  "theme_color": "#171813",
+  "background_color": "#fffbf6",
+  "theme_color": "#39281f",
   "icons": [
     {
       "src": "/icon.svg",

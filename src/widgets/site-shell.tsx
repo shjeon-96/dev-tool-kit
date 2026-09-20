@@ -7,6 +7,8 @@ import {
   localizedPath,
   type Locale,
 } from "@/shared/config/site";
+import { PixelLogicLockup } from "@/shared/ui/brand-assets";
+import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import { LanguageSwitcher } from "./language-switcher";
 
 type Dictionary = ReturnType<typeof getDictionary>;
@@ -21,14 +23,12 @@ export function SiteHeader({
   return (
     <header className="site-header">
       <div className="shell header-inner">
-        <Link className="brand-lockup" href={localizedPath(locale)}>
-          <span className="brand-mark" aria-hidden="true">
-            W/
-          </span>
-          <span>
-            <strong>{SITE_NAME}</strong>
-            <small>LOCAL UTILITY FIELD KIT</small>
-          </span>
+        <Link
+          className="brand-link"
+          href={localizedPath(locale)}
+          aria-label={`${SITE_NAME} home`}
+        >
+          <PixelLogicLockup />
         </Link>
 
         <nav className="primary-nav" aria-label="Primary navigation">
@@ -43,10 +43,13 @@ export function SiteHeader({
           </Link>
         </nav>
 
-        <LanguageSwitcher
-          currentLocale={locale}
-          label={dictionary.nav.language}
-        />
+        <div className="header-tools">
+          <LanguageSwitcher
+            currentLocale={locale}
+            label={dictionary.nav.language}
+          />
+          <ThemeToggle label={locale === "ko" ? "테마 전환" : "Toggle theme"} />
+        </div>
       </div>
     </header>
   );
@@ -63,9 +66,7 @@ export function SiteFooter({
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div className="footer-brand">
-          <span className="brand-mark" aria-hidden="true">
-            W/
-          </span>
+          <PixelLogicLockup compact />
           <p>{dictionary.footer.statement}</p>
         </div>
 

@@ -36,8 +36,15 @@ export default async function LocaleLayout({
   const dictionary = getDictionary(rawLocale);
 
   return (
-    <html lang={rawLocale} data-scroll-behavior="smooth">
+    <html
+      lang={rawLocale}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body>
+        <Script id="pixellogic-theme" strategy="beforeInteractive">
+          {`try{var t=localStorage.getItem("pixellogic-theme-v1");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=t==="light"||t==="dark"?t:m?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`}
+        </Script>
         {process.env.NODE_ENV === "production" ? (
           <Script
             id="google-adsense"
