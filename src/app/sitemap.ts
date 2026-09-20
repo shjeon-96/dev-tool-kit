@@ -5,14 +5,12 @@ import {
   localeAlternates,
   localizedPath,
 } from "@/shared/config/site";
-import { TOOL_SLUGS } from "@/shared/config/tools";
 import { CATEGORY_SLUGS } from "@/entities/trend-item/data/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date("2026-07-15T00:00:00.000Z");
   const staticPaths = [
     { path: "", priority: 1 },
-    { path: "tools", priority: 0.9 },
     { path: "play", priority: 0.9 },
     { path: "about", priority: 0.6 },
     { path: "privacy", priority: 0.4 },
@@ -33,17 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
               : "monthly",
         priority: page.priority,
         alternates: { languages: localeAlternates(page.path) },
-      });
-    }
-
-    for (const slug of TOOL_SLUGS) {
-      const path = `tools/${slug}`;
-      entries.push({
-        url: `${SITE_URL}${localizedPath(locale, path)}`,
-        lastModified,
-        changeFrequency: "monthly",
-        priority: 0.8,
-        alternates: { languages: localeAlternates(path) },
       });
     }
 

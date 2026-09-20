@@ -1,14 +1,20 @@
-import Link from "next/link";
-import { ArrowRight, Check, Copy, ShieldCheck, UserRound } from "lucide-react";
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { isLocale, localizedPath } from "@/shared/config/site";
-import { FEATURED_TOOLS } from "@/shared/config/tools";
+import Link from "next/link";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CalendarDays,
+  Gamepad2,
+  Heart,
+  Smartphone,
+} from "lucide-react";
+import { notFound } from "next/navigation";
+import { isLocale, localizedPath, SITE_EMAIL } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import { CreamCatCompanion } from "@/shared/ui/brand-assets";
 import { SectionHeading } from "@/shared/ui/section-heading";
-import { ToolCard } from "@/widgets/tool-card";
+import { ProductCard } from "@/widgets/product-card";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -27,6 +33,13 @@ export async function generateMetadata({
   });
 }
 
+const PRODUCT_ICONS = {
+  Bitemory: Smartphone,
+  "Sol Calendar": CalendarDays,
+  "One Second Run": Heart,
+  "PixelLogic Blocks": Gamepad2,
+} as const;
+
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
@@ -34,7 +47,7 @@ export default async function HomePage({ params }: PageProps) {
 
   return (
     <main id="main-content">
-      <section className="hero shell">
+      <section className="studio-hero shell">
         <div className="hero-copy">
           <p className="eyebrow">{dictionary.home.eyebrow}</p>
           <h1>
@@ -43,97 +56,92 @@ export default async function HomePage({ params }: PageProps) {
           </h1>
           <p className="hero-intro">{dictionary.home.intro}</p>
           <div className="hero-actions">
-            <Link
-              className="button button-primary"
-              href={localizedPath(locale, "tools")}
-            >
+            <Link className="button button-primary" href="#products">
               {dictionary.home.primaryCta}{" "}
               <ArrowRight aria-hidden="true" size={18} />
             </Link>
-            <Link className="text-link" href={localizedPath(locale, "privacy")}>
-              <ShieldCheck aria-hidden="true" size={17} />{" "}
-              {dictionary.home.secondaryCta}
+            <Link className="text-link" href={localizedPath(locale, "about")}>
+              {dictionary.home.secondaryCta}{" "}
+              <ArrowRight aria-hidden="true" size={17} />
             </Link>
+          </div>
+          <div className="hero-proof" aria-label="PixelLogic principles">
+            {[
+              dictionary.home.proofOne,
+              dictionary.home.proofTwo,
+              dictionary.home.proofThree,
+            ].map((proof, index) => (
+              <span key={proof}>
+                <b>0{index + 1}</b>
+                {proof}
+              </span>
+            ))}
           </div>
         </div>
 
-        <div className="hero-instrument" aria-label="Local processing status">
-          <div className="brand-panel-header">
-            <span>PIXELLOGIC / BRAND ASSET</span>
-            <span>01</span>
+        <div className="studio-window" aria-label="PixelLogic product preview">
+          <div className="studio-window-topbar">
+            <span className="window-dots" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span>PIXELLOGIC / STUDIO SHELF</span>
+            <span>01 — 04</span>
           </div>
-          <div className="brand-companion-stage">
-            <div className="brand-companion-copy">
-              <span className="brand-companion-note">SAFE, LOCAL, READY</span>
-              <strong>
-                작업 데이터는
-                <br />
-                브라우저 안에 있어요.
-              </strong>
+          <div className="studio-window-body">
+            <div className="studio-window-heading">
+              <span className="studio-window-kicker">MADE WITH CARE</span>
+              <strong>Useful things, with a little feeling.</strong>
             </div>
-            <CreamCatCompanion />
-            <div className="local-status-card">
-              <span className="local-status-label">LOCAL PROCESSING</span>
-              <strong>READY</strong>
-              <code>{dictionary.home.proofThree}</code>
+            <div className="studio-product-stack">
+              {dictionary.home.products.slice(0, 3).map((product, index) => (
+                <div
+                  className={`studio-product-row accent-${product.accent}`}
+                  key={product.name}
+                >
+                  <span className="studio-product-index">0{index + 1}</span>
+                  <span className="studio-product-name">{product.name}</span>
+                  <span className="studio-product-status">
+                    {product.status}
+                  </span>
+                </div>
+              ))}
             </div>
-          </div>
-          <div className="brand-proof-row">
-            <span>
-              <Check aria-hidden="true" size={16} />
-              {dictionary.common.browserOnly}
-            </span>
-            <span>
-              <UserRound aria-hidden="true" size={16} />
-              {dictionary.home.proofTwo}
-            </span>
-            <span>
-              <Copy aria-hidden="true" size={16} />
-              {dictionary.common.copy}
-            </span>
+            <div className="studio-cat-dock">
+              <div>
+                <span className="studio-window-kicker">A SMALL STUDIO</span>
+                <strong>
+                  Built slowly.
+                  <br />
+                  Used often.
+                </strong>
+              </div>
+              <CreamCatCompanion />
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="proof-strip">
-        <div className="shell">
-          {[
-            dictionary.home.proofOne,
-            dictionary.home.proofTwo,
-            dictionary.home.proofThree,
-          ].map((proof, index) => (
-            <span key={proof}>
-              <b>0{index + 1}</b>
-              {proof}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <section className="shell section-block" id="tools">
+      <section className="shell section-block product-section" id="products">
         <SectionHeading
-          eyebrow={dictionary.home.toolsEyebrow}
-          title={dictionary.home.toolsTitle}
-          intro={dictionary.home.toolsIntro}
+          eyebrow={dictionary.home.productsEyebrow}
+          title={dictionary.home.productsTitle}
+          intro={dictionary.home.productsIntro}
         />
-        <div className="tool-grid">
-          {FEATURED_TOOLS.map((tool) => (
-            <ToolCard
-              key={tool.slug}
-              tool={tool}
-              locale={locale}
-              dictionary={dictionary}
-            />
-          ))}
-        </div>
-        <div className="section-action">
-          <Link
-            className="button button-secondary"
-            href={localizedPath(locale, "tools")}
-          >
-            {dictionary.common.allTools}{" "}
-            <ArrowRight aria-hidden="true" size={17} />
-          </Link>
+        <div className="product-grid">
+          {dictionary.home.products.map((product, index) => {
+            const Icon =
+              PRODUCT_ICONS[product.name as keyof typeof PRODUCT_ICONS];
+            return (
+              <ProductCard
+                key={product.name}
+                product={product}
+                index={index}
+                icon={Icon}
+              />
+            );
+          })}
         </div>
       </section>
 
@@ -152,6 +160,20 @@ export default async function HomePage({ params }: PageProps) {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="studio-contact">
+        <div className="shell studio-contact-inner">
+          <div>
+            <p className="eyebrow">{dictionary.home.contactEyebrow}</p>
+            <h2>{dictionary.home.contactTitle}</h2>
+            <p>{dictionary.home.contactBody}</p>
+          </div>
+          <a className="button button-primary" href={`mailto:${SITE_EMAIL}`}>
+            {dictionary.home.contactCta}{" "}
+            <ArrowUpRight aria-hidden="true" size={18} />
+          </a>
         </div>
       </section>
     </main>

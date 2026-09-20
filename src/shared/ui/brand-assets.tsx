@@ -23,10 +23,8 @@ export function PixelLogicLockup({ compact = false }: { compact?: boolean }) {
     <span className={`brand-lockup${compact ? " is-compact" : ""}`}>
       <PixelLogicMark />
       <span>
-        <strong>
-          PixelLogic <em>{compact ? "" : "Web Toolkit"}</em>
-        </strong>
-        {!compact ? <small>LOCAL BY DEFAULT</small> : null}
+        <strong>PixelLogic</strong>
+        {!compact ? <small>PRODUCT STUDIO</small> : null}
       </span>
     </span>
   );

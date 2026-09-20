@@ -1,7 +1,7 @@
 {
-  "name": "PixelLogic Web Toolkit",
+  "name": "PixelLogic",
   "short_name": "PixelLogic",
-  "description": "Fast, private browser utilities from PixelLogic.",
+  "description": "Small apps, games and digital products made with care.",
   "start_url": "/en",
   "display": "standalone",
   "background_color": "#fffbf6",
@@ -14,7 +14,7 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["developer tools", "utilities", "productivity"],
+  "categories": ["productivity", "games"],
   "lang": "en",
   "dir": "ltr",
   "scope": "/"

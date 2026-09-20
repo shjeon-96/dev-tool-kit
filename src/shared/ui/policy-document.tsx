@@ -10,7 +10,7 @@ export function PolicyDocument({
   return (
     <main className="shell content-page">
       <header className="content-page-header">
-        <p className="eyebrow">WEB TOOLKIT / DOCUMENT</p>
+        <p className="eyebrow">PIXELLOGIC / DOCUMENT</p>
         <h1>{title}</h1>
         <p>{updated}</p>
       </header>

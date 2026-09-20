@@ -1,13 +1,11 @@
-# Web Toolkit Development Guide
+# PixelLogic homepage development guide
 
-`README.md` is the authoritative project overview. Keep implementation aligned with these invariants:
-
-1. `web-toolkit.app` is the multilingual advertising-supported utility site.
+1. `web-toolkit.app` is the current hosted surface for the PixelLogic studio homepage.
 2. English, Korean and Japanese routes always use locale prefixes.
-3. Tool inputs remain client-side; adding network processing requires an explicit product decision and privacy update.
-4. Site identity, locales, tools and AdSense settings each have one source in `src/shared/config`.
-5. Localized copy lives only in `src/shared/i18n`.
-6. Do not add placeholder ad units or invent AdSense slot IDs. Auto ads use the configured publisher ID in production.
+3. Product names and localized showcase copy have one source in `src/shared/i18n/dictionaries.ts`.
+4. Site identity and canonical metadata have one source in `src/shared/config/site.ts`.
+5. Keep the homepage focused on PixelLogic products, craft and studio principles. Do not reintroduce the retired developer-utility surface.
+6. Do not invent product metrics, store availability or product promises that are not confirmed by the source project.
 
 Required completion checks:
 

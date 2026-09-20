@@ -46,9 +46,9 @@ export function GET() {
             W/
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <strong style={{ fontSize: "30px" }}>WEB TOOLKIT</strong>
+            <strong style={{ fontSize: "30px" }}>PIXELLOGIC</strong>
             <span style={{ fontSize: "15px", letterSpacing: "4px" }}>
-              LOCAL UTILITY FIELD KIT
+              SMALL PRODUCTS / MADE WITH CARE
             </span>
           </div>
         </div>
@@ -72,7 +72,7 @@ export function GET() {
               letterSpacing: "-5px",
             }}
           >
-            Small tools for precise work.
+            Small products for a brighter everyday.
           </div>
         </div>
         <div
@@ -83,12 +83,11 @@ export function GET() {
             fontSize: "17px",
           }}
         >
-          <span>JSON</span>
-          <span>BASE64</span>
-          <span>UUID</span>
-          <span>TIME</span>
-          <span>URL</span>
-          <span>SHA</span>
+          <span>APPS</span>
+          <span>GAMES</span>
+          <span>CARE</span>
+          <span>PLAY</span>
+          <span>STUDIO</span>
         </div>
       </div>
       <div

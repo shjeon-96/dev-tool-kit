@@ -32,8 +32,8 @@ export function SiteHeader({
         </Link>
 
         <nav className="primary-nav" aria-label="Primary navigation">
-          <Link href={localizedPath(locale, "tools")}>
-            {dictionary.nav.tools}
+          <Link href={localizedPath(locale, "#products")}>
+            {dictionary.nav.products}
           </Link>
           <Link href={localizedPath(locale, "play")}>
             {dictionary.nav.play}
@@ -43,7 +43,7 @@ export function SiteHeader({
           </Link>
         </nav>
 
-        <div className="header-tools">
+        <div className="header-actions">
           <LanguageSwitcher
             currentLocale={locale}
             label={dictionary.nav.language}
@@ -71,9 +71,9 @@ export function SiteFooter({
         </div>
 
         <div>
-          <p className="footer-label">{dictionary.footer.tools}</p>
-          <Link href={localizedPath(locale, "tools")}>
-            {dictionary.common.allTools}
+          <p className="footer-label">{dictionary.footer.products}</p>
+          <Link href={localizedPath(locale, "#products")}>
+            {dictionary.nav.products}
           </Link>
         </div>
         <div>
