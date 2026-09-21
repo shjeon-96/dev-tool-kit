@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
     { path: "", priority: 1 },
     { path: "privacy", priority: 0.4 },
+    { path: "bori-cleaner/privacy", priority: 0.4 },
     { path: "terms", priority: 0.4 },
   ] as const;
   const entries: MetadataRoute.Sitemap = [];
