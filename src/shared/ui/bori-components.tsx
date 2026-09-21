@@ -267,7 +267,11 @@ export function BoriPrinciplesSection({
   principles: readonly { title: string; body: string }[];
 }) {
   return (
-    <UI.Section title={title} description={description}>
+    <UI.Section
+      className="bori-principles"
+      title={title}
+      description={description}
+    >
       <UI.Stack gap="sm" className="bori-principle-grid">
         {principles.map((principle, index) => (
           <UI.ListRow
@@ -297,7 +301,11 @@ export function BoriContactSection({
   email: string;
 }) {
   return (
-    <UI.Section title={title} description={description}>
+    <UI.Section
+      className="bori-contact"
+      title={title}
+      description={description}
+    >
       <UI.Stack direction="row" align="center" gap="xl">
         <BoriCompanion asset="wave" width={88} height={88} />
         <UI.Stack gap="sm" align="start">
