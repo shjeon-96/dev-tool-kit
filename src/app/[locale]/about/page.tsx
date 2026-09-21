@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
+import { BoriDocumentNote } from "@/shared/ui/brand-assets";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -30,6 +31,7 @@ export default async function AboutPage({ params }: PageProps) {
   return (
     <main id="main-content" className="shell about-page">
       <header>
+        <BoriDocumentNote label={`${copy.eyebrow} / BORI`} />
         <p className="eyebrow">{copy.eyebrow}</p>
         <h1>{copy.title}</h1>
         <p>{copy.intro}</p>

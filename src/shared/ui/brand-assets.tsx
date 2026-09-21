@@ -84,3 +84,12 @@ export function BoriContactNote({ label }: { label: string }) {
     </div>
   );
 }
+
+export function BoriDocumentNote({ label }: { label: string }) {
+  return (
+    <div className="bori-document-note">
+      <BoriCompanion className="bori-document-character" />
+      <span className="bori-component-label">{label}</span>
+    </div>
+  );
+}
