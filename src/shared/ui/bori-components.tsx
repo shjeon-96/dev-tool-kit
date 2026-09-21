@@ -23,6 +23,12 @@ const PRODUCT_ICONS = {
   oneSecondRun: Heart,
 } as const;
 
+const PRODUCT_BORI_ASSETS = {
+  weightHistory: "wellnessCheckup",
+  solScheduler: "planning",
+  oneSecondRun: "fitnessRunning",
+} as const;
+
 type ProductLinkLabels = {
   appStore: string;
   googlePlay: string;
@@ -35,7 +41,7 @@ function BoriGuide({ label, message }: { label: string; message: string }) {
     <UI.Card className="bori-guide-card">
       <UI.CardContent>
         <UI.Stack direction="row" align="center" gap="lg">
-          <BoriCompanion width={96} height={96} />
+          <BoriCompanion asset="welcome" width={96} height={96} />
           <UI.Stack gap="sm" align="start">
             <UI.Badge variant="secondary">{label}</UI.Badge>
             <strong>{message}</strong>
@@ -68,7 +74,14 @@ function BoriProductCard({
             </UI.Badge>
             <UI.Badge variant="outline">{product.meta}</UI.Badge>
           </UI.Stack>
-          <UI.Icon icon={Icon} size="large" />
+          <UI.Stack direction="row" align="center" gap="md">
+            <UI.Icon icon={Icon} size="large" />
+            <BoriCompanion
+              asset={PRODUCT_BORI_ASSETS[product.id]}
+              width={56}
+              height={56}
+            />
+          </UI.Stack>
           <UI.Stack direction="row" align="center" gap="sm">
             <UI.CardTitle role="heading" aria-level={3}>
               {product.name}
@@ -196,7 +209,7 @@ export function BoriHomeHero({
           </UI.CardContent>
           <UI.CardFooter>
             <UI.Stack direction="row" align="center" gap="sm">
-              <BoriCompanion width={64} height={64} />
+              <BoriCompanion asset="success" width={64} height={64} />
               <UI.Badge variant="secondary">{shelfLabel}</UI.Badge>
             </UI.Stack>
           </UI.CardFooter>
@@ -236,7 +249,7 @@ export function BoriProductShelf({
           />
         ))}
         <UI.Stack direction="row" align="center" gap="sm">
-          <BoriCompanion width={56} height={56} />
+          <BoriCompanion asset="wave" width={56} height={56} />
           <UI.Badge variant="secondary">{shelfLabel}</UI.Badge>
         </UI.Stack>
       </UI.Stack>
@@ -286,7 +299,7 @@ export function BoriContactSection({
   return (
     <UI.Section title={title} description={description}>
       <UI.Stack direction="row" align="center" gap="xl">
-        <BoriCompanion width={88} height={88} />
+        <BoriCompanion asset="wave" width={88} height={88} />
         <UI.Stack gap="sm" align="start">
           <UI.Badge variant="secondary">{label}</UI.Badge>
           <UI.Button
