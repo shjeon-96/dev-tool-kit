@@ -1125,6 +1125,17 @@ html[data-theme="dark"] .theme-icon-moon {
   display: grid;
   gap: var(--pl-space-sm);
 }
+.bori-component-label {
+  display: inline-flex;
+  width: fit-content;
+  padding: var(--pl-space-xs) var(--pl-space-sm);
+  border-radius: var(--pl-radius-pill);
+  color: var(--pl-primary-foreground);
+  background: var(--pl-secondary);
+  font-size: var(--pl-font-size-caption);
+  font-weight: var(--pl-font-weight-semibold);
+  letter-spacing: var(--pl-letter-spacing-wide);
+}
 .bori-hero-guide strong {
   max-width: 15rem;
   font-family: var(--display);

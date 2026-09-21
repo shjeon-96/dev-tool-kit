@@ -6,7 +6,11 @@ import { notFound } from "next/navigation";
 import { isLocale, localizedPath, SITE_EMAIL } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
-import { BoriCompanion } from "@/shared/ui/brand-assets";
+import {
+  BoriContactNote,
+  BoriHeroGuide,
+  BoriShelfNote,
+} from "@/shared/ui/brand-assets";
 import { ProductCard } from "@/widgets/product-card";
 
 interface PageProps {
@@ -78,15 +82,10 @@ export default async function HomePage({ params }: PageProps) {
             </div>
             <UI.CardTitle>Useful things, with a little feeling.</UI.CardTitle>
           </UI.CardHeader>
-          <div className="bori-hero-guide">
-            <BoriCompanion className="bori-hero-character" priority />
-            <div>
-              <UI.Badge variant="secondary">
-                {dictionary.home.boriHeroLabel}
-              </UI.Badge>
-              <strong>{dictionary.home.boriHeroMessage}</strong>
-            </div>
-          </div>
+          <BoriHeroGuide
+            label={dictionary.home.boriHeroLabel}
+            message={dictionary.home.boriHeroMessage}
+          />
           <UI.CardContent>
             <UI.Stack gap="sm">
               {dictionary.home.products.map((product) => (
@@ -99,11 +98,7 @@ export default async function HomePage({ params }: PageProps) {
             </UI.Stack>
           </UI.CardContent>
           <UI.CardFooter className="studio-preview-footer">
-            <div>
-              <UI.Badge variant="secondary">A SMALL STUDIO</UI.Badge>
-              <strong>Built slowly. Used often.</strong>
-            </div>
-            <BoriCompanion className="bori-preview-character" priority />
+            <BoriShelfNote label={dictionary.home.boriShelfLabel} />
           </UI.CardFooter>
         </UI.Card>
       </section>
@@ -129,12 +124,7 @@ export default async function HomePage({ params }: PageProps) {
             />
           ))}
         </div>
-        <div className="bori-shelf-note">
-          <BoriCompanion className="bori-shelf-character" />
-          <UI.Badge variant="secondary">
-            {dictionary.home.boriShelfLabel}
-          </UI.Badge>
-        </div>
+        <BoriShelfNote label={dictionary.home.boriShelfLabel} />
       </UI.Section>
 
       <UI.Section
@@ -163,12 +153,7 @@ export default async function HomePage({ params }: PageProps) {
         <div className="shell studio-contact-inner">
           <UI.Card className="studio-contact-card">
             <UI.CardContent>
-              <div className="bori-contact-note">
-                <BoriCompanion className="bori-contact-character" />
-                <UI.Badge variant="secondary">
-                  {dictionary.home.boriContactLabel}
-                </UI.Badge>
-              </div>
+              <BoriContactNote label={dictionary.home.boriContactLabel} />
             </UI.CardContent>
             <UI.CardFooter>
               <a className={actionClass} href={`mailto:${SITE_EMAIL}`}>

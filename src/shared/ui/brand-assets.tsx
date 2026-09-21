@@ -48,3 +48,39 @@ export function BoriCompanion({
     />
   );
 }
+
+export function BoriHeroGuide({
+  label,
+  message,
+}: {
+  label: string;
+  message: string;
+}) {
+  return (
+    <div className="bori-hero-guide">
+      <BoriCompanion className="bori-hero-character" priority />
+      <div>
+        <span className="bori-component-label">{label}</span>
+        <strong>{message}</strong>
+      </div>
+    </div>
+  );
+}
+
+export function BoriShelfNote({ label }: { label: string }) {
+  return (
+    <div className="bori-shelf-note">
+      <BoriCompanion className="bori-shelf-character" />
+      <span className="bori-component-label">{label}</span>
+    </div>
+  );
+}
+
+export function BoriContactNote({ label }: { label: string }) {
+  return (
+    <div className="bori-contact-note">
+      <BoriCompanion className="bori-contact-character" />
+      <span className="bori-component-label">{label}</span>
+    </div>
+  );
+}
