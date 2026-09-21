@@ -284,28 +284,22 @@ export function BoriContactSection({
   email: string;
 }) {
   return (
-    <UI.Section
-      className="bori-contact"
-      title={title}
-      description={description}
-    >
-      <UI.Card className="bori-contact-card">
-        <UI.CardContent>
-          <UI.Stack direction="row" align="center" gap="lg">
-            <BoriCompanion width={88} height={88} />
-            <UI.Badge variant="secondary">{label}</UI.Badge>
-          </UI.Stack>
-        </UI.CardContent>
-        <UI.CardFooter>
-          <a
-            className={UI.buttonVariants({ size: "lg" })}
-            href={`mailto:${email}`}
+    <UI.Section title={title} description={description}>
+      <UI.Stack direction="row" align="center" gap="xl">
+        <BoriCompanion width={88} height={88} />
+        <UI.Stack gap="sm" align="start">
+          <UI.Badge variant="secondary">{label}</UI.Badge>
+          <UI.Button
+            size="lg"
+            onClick={() => {
+              window.location.href = `mailto:${email}`;
+            }}
           >
             {cta}
             <ArrowUpRight aria-hidden="true" size={18} />
-          </a>
-        </UI.CardFooter>
-      </UI.Card>
+          </UI.Button>
+        </UI.Stack>
+      </UI.Stack>
     </UI.Section>
   );
 }
