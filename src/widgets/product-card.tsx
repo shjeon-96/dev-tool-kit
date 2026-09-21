@@ -1,45 +1,81 @@
-import type { LucideIcon } from "lucide-react";
-import { ArrowUpRight } from "lucide-react";
-import { PRODUCT_STORE_LINKS } from "@/shared/config/site";
+"use client";
+
+import * as UI from "@pixellogic/ui/react";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  Gamepad2,
+  Heart,
+  Scale,
+} from "lucide-react";
+import { PRODUCT_LINKS } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
+
+const PRODUCT_ICONS = {
+  weightHistory: Scale,
+  solScheduler: CalendarDays,
+  oneSecondRun: Heart,
+  pixelLogicBlocks: Gamepad2,
+} as const;
 
 export function ProductCard({
   product,
   index,
-  icon: Icon,
-  storeLabels,
+  linkLabels,
 }: {
   product: ProductCopy;
   index: number;
-  icon: LucideIcon;
-  storeLabels: { ios: string; android: string };
+  linkLabels: {
+    appStore: string;
+    googlePlay: string;
+    web: string;
+    publicPage: string;
+  };
 }) {
-  const stores = PRODUCT_STORE_LINKS[product.id];
+  const links = PRODUCT_LINKS[product.id];
+  const Icon = PRODUCT_ICONS[product.id];
+
+  const openLink = (url: string) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   return (
-    <article className={`product-card accent-${product.accent}`}>
-      <div className="product-card-topline">
-        <span>{String(index + 1).padStart(2, "0")}</span>
-        <span>{product.meta}</span>
-      </div>
-      <div className="product-card-mark" aria-hidden="true">
-        <Icon size={24} strokeWidth={1.8} />
-      </div>
-      <div className="product-card-copy">
-        <div className="product-card-title-row">
-          <h3>{product.name}</h3>
-          <span className="product-status">{product.status}</span>
+    <UI.Card className={`product-card-shell accent-${product.accent}`}>
+      <UI.CardHeader className="product-card-header">
+        <div className="product-card-topline">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <span>{product.meta}</span>
         </div>
-        <p>{product.description}</p>
-      </div>
-      <div className="product-card-actions">
-        <a href={stores.ios} target="_blank" rel="noreferrer">
-          {storeLabels.ios} <ArrowUpRight aria-hidden="true" size={14} />
-        </a>
-        <a href={stores.android} target="_blank" rel="noreferrer">
-          {storeLabels.android} <ArrowUpRight aria-hidden="true" size={14} />
-        </a>
-      </div>
-    </article>
+        <div className="product-card-mark" aria-hidden="true">
+          <UI.Icon icon={Icon} size="large" />
+        </div>
+        <div className="product-card-title-row">
+          <UI.CardTitle role="heading" aria-level={3}>
+            {product.name}
+          </UI.CardTitle>
+          <UI.StatusBadge tone="success">{product.status}</UI.StatusBadge>
+        </div>
+        <UI.CardDescription>{product.description}</UI.CardDescription>
+      </UI.CardHeader>
+      <UI.CardFooter className="product-card-footer">
+        {Object.entries(links).map(([kind, url]) => (
+          <UI.Button
+            key={kind}
+            size="sm"
+            variant="outline"
+            onClick={() => openLink(url)}
+          >
+            {kind === "appStore"
+              ? linkLabels.appStore
+              : kind === "googlePlay"
+                ? linkLabels.googlePlay
+                : kind === "web"
+                  ? linkLabels.web
+                  : linkLabels.publicPage}{" "}
+            <ArrowUpRight aria-hidden="true" size={14} />
+          </UI.Button>
+        ))}
+      </UI.CardFooter>
+    </UI.Card>
   );
 }

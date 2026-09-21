@@ -2,22 +2,28 @@ export const SITE_NAME = "PixelLogic";
 export const SITE_URL = "https://web-toolkit.app";
 export const SITE_EMAIL = "pixellogic.app@gmail.com";
 
-export const PRODUCT_STORE_LINKS = {
+export const PRODUCT_LINKS = {
   oneSecondRun: {
-    ios: "https://apps.apple.com/us/app/one-second-run/id6763670652",
-    android:
+    appStore: "https://apps.apple.com/us/app/one-second-run/id6763670652",
+    googlePlay:
       "https://play.google.com/store/apps/details?id=com.jeonseunghun.onesecondrun",
   },
   pixelLogicBlocks: {
-    ios: "https://apps.apple.com/us/app/pixellogic-blocks/id6808668810",
-    android:
+    appStore: "https://apps.apple.com/us/app/pixellogic-blocks/id6808668810",
+    googlePlay:
       "https://play.google.com/store/apps/details?id=com.pixellogic.blockblast",
+  },
+  solScheduler: {
+    publicPage: "https://sola-scheduler-6476537626.web.app/privacy.html",
+  },
+  weightHistory: {
+    web: "https://weight-history-nextjs.vercel.app/ko",
   },
 } as const;
 
 export const LOCALES = ["en", "ko", "ja"] as const;
 export type Locale = (typeof LOCALES)[number];
-export type ProductId = keyof typeof PRODUCT_STORE_LINKS;
+export type ProductId = keyof typeof PRODUCT_LINKS;
 
 export const DEFAULT_LOCALE: Locale = "en";
 

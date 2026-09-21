@@ -22,6 +22,8 @@ interface Dictionary {
     skipToContent: string;
     appStore: string;
     googlePlay: string;
+    webApp: string;
+    publicPage: string;
   };
   home: {
     eyebrow: string;
@@ -91,6 +93,8 @@ const en: Dictionary = {
     skipToContent: "Skip to content",
     appStore: "App Store",
     googlePlay: "Google Play",
+    webApp: "Open app",
+    publicPage: "Public page",
   },
   home: {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
@@ -105,8 +109,7 @@ const en: Dictionary = {
     proofThree: "Care over noise",
     productsEyebrow: "THE STUDIO SHELF",
     productsTitle: "A few things you can use.",
-    productsIntro:
-      "Real products, already available on the stores, made with the same care.",
+    productsIntro: "Real products and public apps, made with the same care.",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "Clear enough to use. Warm enough to keep.",
     principles: [
@@ -124,6 +127,24 @@ const en: Dictionary = {
       },
     ],
     products: [
+      {
+        id: "weightHistory",
+        name: "Weight History",
+        status: "Live app",
+        description:
+          "A calmer way to record weight, understand trends and keep moving toward a goal.",
+        meta: "APP / HEALTH RECORDS",
+        accent: "blue",
+      },
+      {
+        id: "solScheduler",
+        name: "Sol Scheduler",
+        status: "Live app",
+        description:
+          "A focused calendar for schedules, tasks and the rhythm of everyday plans.",
+        meta: "APP / TIME & ROUTINE",
+        accent: "orange",
+      },
       {
         id: "oneSecondRun",
         name: "One Second Run",
@@ -235,6 +256,8 @@ const ko: Dictionary = {
     skipToContent: "본문으로 건너뛰기",
     appStore: "App Store",
     googlePlay: "Google Play",
+    webApp: "앱 열기",
+    publicPage: "공개 안내",
   },
   home: {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
@@ -249,7 +272,7 @@ const ko: Dictionary = {
     proofThree: "소음보다 세심함",
     productsEyebrow: "STUDIO SHELF",
     productsTitle: "지금 만날 수 있는 제품들",
-    productsIntro: "실제 스토어에서 만날 수 있는 PixelLogic 제품들이에요.",
+    productsIntro: "실제 배포된 PixelLogic 앱과 게임들이에요.",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "분명하게 쓰고, 따뜻하게 머무는 제품.",
     principles: [
@@ -267,6 +290,24 @@ const ko: Dictionary = {
       },
     ],
     products: [
+      {
+        id: "weightHistory",
+        name: "Weight History",
+        status: "배포 중",
+        description:
+          "체중을 기록하고 흐름을 살펴보며 목표까지 이어가도록 돕는 앱이에요.",
+        meta: "APP / HEALTH RECORDS",
+        accent: "blue",
+      },
+      {
+        id: "solScheduler",
+        name: "Sol Scheduler",
+        status: "배포 중",
+        description:
+          "일정과 할 일을 정리하고 하루의 리듬을 이어가는 캘린더 앱이에요.",
+        meta: "APP / TIME & ROUTINE",
+        accent: "orange",
+      },
       {
         id: "oneSecondRun",
         name: "One Second Run",
@@ -377,6 +418,8 @@ const ja: Dictionary = {
     skipToContent: "本文へ移動",
     appStore: "App Store",
     googlePlay: "Google Play",
+    webApp: "アプリを開く",
+    publicPage: "公開ページ",
   },
   home: {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
@@ -391,7 +434,7 @@ const ja: Dictionary = {
     proofThree: "ノイズより丁寧さ",
     productsEyebrow: "STUDIO SHELF",
     productsTitle: "いま使えるプロダクト",
-    productsIntro: "実際のストアで公開しているPixelLogicのプロダクトです。",
+    productsIntro: "実際に公開しているPixelLogicのアプリとゲームです。",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "明確に使えて、あたたかく残るプロダクト。",
     principles: [
@@ -409,6 +452,24 @@ const ja: Dictionary = {
       },
     ],
     products: [
+      {
+        id: "weightHistory",
+        name: "Weight History",
+        status: "公開中",
+        description:
+          "体重を記録し、変化を確認しながら目標へ進むためのアプリです。",
+        meta: "APP / HEALTH RECORDS",
+        accent: "blue",
+      },
+      {
+        id: "solScheduler",
+        name: "Sol Scheduler",
+        status: "公開中",
+        description:
+          "予定とタスクを整理し、毎日のリズムを続けるカレンダーアプリです。",
+        meta: "APP / TIME & ROUTINE",
+        accent: "orange",
+      },
       {
         id: "oneSecondRun",
         name: "One Second Run",

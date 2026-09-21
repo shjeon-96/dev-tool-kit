@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { ADSENSE_CLIENT_ID } from "@/shared/config/adsense";
 import { LOCALES, SITE_NAME, SITE_URL, isLocale } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
+import { PixelLogicProvider } from "@/app/pixel-logic-provider";
 import { SiteFooter, SiteHeader } from "@/widgets/site-shell";
+import "@pixellogic/ui/styles.css";
 import "../globals.css";
 
 export const metadata: Metadata = {
@@ -42,24 +44,23 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body>
-        <Script id="pixellogic-theme" strategy="beforeInteractive">
-          {`try{var t=localStorage.getItem("pixellogic-theme-v1");var m=window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.dataset.theme=t==="light"||t==="dark"?t:m?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`}
-        </Script>
-        {process.env.NODE_ENV === "production" ? (
-          <Script
-            id="google-adsense"
-            async
-            strategy="beforeInteractive"
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
-            crossOrigin="anonymous"
-          />
-        ) : null}
-        <a className="skip-link" href="#main-content">
-          {dictionary.common.skipToContent}
-        </a>
-        <SiteHeader locale={rawLocale} dictionary={dictionary} />
-        {children}
-        <SiteFooter locale={rawLocale} dictionary={dictionary} />
+        <PixelLogicProvider>
+          {process.env.NODE_ENV === "production" ? (
+            <Script
+              id="google-adsense"
+              async
+              strategy="beforeInteractive"
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+              crossOrigin="anonymous"
+            />
+          ) : null}
+          <a className="skip-link" href="#main-content">
+            {dictionary.common.skipToContent}
+          </a>
+          <SiteHeader locale={rawLocale} dictionary={dictionary} />
+          {children}
+          <SiteFooter locale={rawLocale} dictionary={dictionary} />
+        </PixelLogicProvider>
       </body>
     </html>
   );

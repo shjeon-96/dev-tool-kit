@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Gamepad2, Heart } from "lucide-react";
+import * as UI from "@pixellogic/ui/react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { isLocale, localizedPath, SITE_EMAIL } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
-import { CreamCatCompanion } from "@/shared/ui/brand-assets";
-import { SectionHeading } from "@/shared/ui/section-heading";
 import { ProductCard } from "@/widgets/product-card";
 
 interface PageProps {
@@ -26,150 +25,145 @@ export async function generateMetadata({
   });
 }
 
-const PRODUCT_ICONS = {
-  oneSecondRun: Heart,
-  pixelLogicBlocks: Gamepad2,
-} as const;
-
 export default async function HomePage({ params }: PageProps) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const dictionary = getDictionary(locale);
+  const actionClass = "pl-button pl-button-primary pl-button-large";
+  const secondaryActionClass = "pl-button pl-button-outline pl-button-large";
 
   return (
-    <main id="main-content">
+    <main id="main-content" className="pixel-home">
       <section className="studio-hero shell">
         <div className="hero-copy">
-          <p className="eyebrow">{dictionary.home.eyebrow}</p>
-          <h1>
-            {dictionary.home.title}
-            <em>{dictionary.home.titleAccent}</em>
-          </h1>
-          <p className="hero-intro">{dictionary.home.intro}</p>
-          <div className="hero-actions">
-            <Link className="button button-primary" href="#products">
-              {dictionary.home.primaryCta}{" "}
-              <ArrowRight aria-hidden="true" size={18} />
-            </Link>
-            <Link className="text-link" href={localizedPath(locale, "about")}>
-              {dictionary.home.secondaryCta}{" "}
-              <ArrowRight aria-hidden="true" size={17} />
-            </Link>
-          </div>
+          <UI.PageHeader
+            eyebrow={dictionary.home.eyebrow}
+            title={`${dictionary.home.title} ${dictionary.home.titleAccent}`}
+            description={dictionary.home.intro}
+            action={
+              <div className="hero-actions">
+                <Link className={actionClass} href="#products">
+                  {dictionary.home.primaryCta}
+                  <ArrowRight aria-hidden="true" size={18} />
+                </Link>
+                <Link
+                  className={secondaryActionClass}
+                  href={localizedPath(locale, "about")}
+                >
+                  {dictionary.home.secondaryCta}
+                </Link>
+              </div>
+            }
+          />
           <div className="hero-proof" aria-label="PixelLogic principles">
-            {[
-              dictionary.home.proofOne,
-              dictionary.home.proofTwo,
-              dictionary.home.proofThree,
-            ].map((proof, index) => (
-              <span key={proof}>
-                <b>0{index + 1}</b>
-                {proof}
-              </span>
-            ))}
+            {[dictionary.home.proofOne, dictionary.home.proofTwo].map(
+              (proof, index) => (
+                <span key={proof}>
+                  <b>0{index + 1}</b>
+                  {proof}
+                </span>
+              ),
+            )}
           </div>
         </div>
 
-        <div className="studio-window" aria-label="PixelLogic product preview">
-          <div className="studio-window-topbar">
-            <span className="window-dots" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-            <span>PIXELLOGIC / STUDIO SHELF</span>
-            <span>01 — 02</span>
-          </div>
-          <div className="studio-window-body">
-            <div className="studio-window-heading">
-              <span className="studio-window-kicker">MADE WITH CARE</span>
-              <strong>Useful things, with a little feeling.</strong>
+        <UI.Card className="studio-preview-card">
+          <UI.CardHeader>
+            <div className="studio-preview-topline">
+              <UI.Badge variant="outline">PIXELLOGIC / LIVE APPS</UI.Badge>
+              <UI.StatusBadge tone="success">
+                {String(dictionary.home.products.length).padStart(2, "0")} APPS
+              </UI.StatusBadge>
             </div>
-            <div className="studio-product-stack">
-              {dictionary.home.products.map((product, index) => (
-                <div
-                  className={`studio-product-row accent-${product.accent}`}
-                  key={product.name}
-                >
-                  <span className="studio-product-index">0{index + 1}</span>
-                  <span className="studio-product-name">{product.name}</span>
-                  <span className="studio-product-status">
-                    {product.status}
-                  </span>
+            <UI.CardTitle>Useful things, with a little feeling.</UI.CardTitle>
+          </UI.CardHeader>
+          <UI.CardContent>
+            <UI.Stack gap="sm">
+              {dictionary.home.products.map((product) => (
+                <div className="studio-app-row" key={product.id}>
+                  <UI.Badge variant="outline">{product.meta}</UI.Badge>
+                  <strong>{product.name}</strong>
+                  <UI.StatusBadge tone="success">LIVE</UI.StatusBadge>
                 </div>
               ))}
+            </UI.Stack>
+          </UI.CardContent>
+          <UI.CardFooter className="studio-preview-footer">
+            <div>
+              <UI.Badge variant="secondary">A SMALL STUDIO</UI.Badge>
+              <strong>Built slowly. Used often.</strong>
             </div>
-            <div className="studio-cat-dock">
-              <div>
-                <span className="studio-window-kicker">A SMALL STUDIO</span>
-                <strong>
-                  Built slowly.
-                  <br />
-                  Used often.
-                </strong>
-              </div>
-              <CreamCatCompanion />
-            </div>
-          </div>
-        </div>
+            <UI.Mascot
+              asset="neutral"
+              size="large"
+              label="PixelLogic 크림 고양이"
+            />
+          </UI.CardFooter>
+        </UI.Card>
       </section>
 
-      <section className="shell section-block product-section" id="products">
-        <SectionHeading
-          eyebrow={dictionary.home.productsEyebrow}
-          title={dictionary.home.productsTitle}
-          intro={dictionary.home.productsIntro}
-        />
+      <UI.Section
+        id="products"
+        className="shell product-section"
+        title={dictionary.home.productsTitle}
+        description={dictionary.home.productsIntro}
+      >
         <div className="product-grid">
-          {dictionary.home.products.map((product, index) => {
-            const Icon = PRODUCT_ICONS[product.id];
-            return (
-              <ProductCard
-                key={product.name}
-                product={product}
-                index={index}
-                icon={Icon}
-                storeLabels={{
-                  ios: dictionary.common.appStore,
-                  android: dictionary.common.googlePlay,
-                }}
-              />
-            );
-          })}
+          {dictionary.home.products.map((product, index) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              index={index}
+              linkLabels={{
+                appStore: dictionary.common.appStore,
+                googlePlay: dictionary.common.googlePlay,
+                web: dictionary.common.webApp,
+                publicPage: dictionary.common.publicPage,
+              }}
+            />
+          ))}
         </div>
-      </section>
+      </UI.Section>
 
-      <section className="principles-section">
-        <div className="shell">
-          <SectionHeading
-            eyebrow={dictionary.home.principleEyebrow}
-            title={dictionary.home.principleTitle}
-          />
-          <div className="principle-grid">
-            {dictionary.home.principles.map((principle, index) => (
-              <article key={principle.title}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{principle.title}</h3>
+      <UI.Section
+        className="principles-section"
+        title={dictionary.home.principleTitle}
+        description={dictionary.home.principleEyebrow}
+      >
+        <div className="shell principle-grid">
+          {dictionary.home.principles.map((principle, index) => (
+            <div key={principle.title} className="principle-row">
+              <UI.Badge variant="outline">0{index + 1}</UI.Badge>
+              <div>
+                <strong>{principle.title}</strong>
                 <p>{principle.body}</p>
-              </article>
-            ))}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </UI.Section>
 
-      <section className="studio-contact">
+      <UI.Section
+        className="studio-contact"
+        title={dictionary.home.contactTitle}
+        description={dictionary.home.contactBody}
+      >
         <div className="shell studio-contact-inner">
-          <div>
-            <p className="eyebrow">{dictionary.home.contactEyebrow}</p>
-            <h2>{dictionary.home.contactTitle}</h2>
-            <p>{dictionary.home.contactBody}</p>
-          </div>
-          <a className="button button-primary" href={`mailto:${SITE_EMAIL}`}>
-            {dictionary.home.contactCta}{" "}
-            <ArrowUpRight aria-hidden="true" size={18} />
-          </a>
+          <UI.Card className="studio-contact-card">
+            <UI.CardContent>
+              <UI.Badge variant="secondary">
+                {dictionary.home.contactEyebrow}
+              </UI.Badge>
+            </UI.CardContent>
+            <UI.CardFooter>
+              <a className={actionClass} href={`mailto:${SITE_EMAIL}`}>
+                {dictionary.home.contactCta}
+                <ArrowUpRight aria-hidden="true" size={18} />
+              </a>
+            </UI.CardFooter>
+          </UI.Card>
         </div>
-      </section>
+      </UI.Section>
     </main>
   );
 }

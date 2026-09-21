@@ -17,28 +17,32 @@ test.describe("multilingual PixelLogic homepage", () => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("main")).toBeVisible();
-      await expect(page.locator(".product-card")).toHaveCount(2);
+      await expect(page.locator(".product-card-shell")).toHaveCount(4);
+      await expect(
+        page.getByRole("heading", { name: "Weight History" }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("heading", { name: "Sol Scheduler" }),
+      ).toBeVisible();
       await expect(
         page.getByRole("heading", { name: "One Second Run" }),
       ).toBeVisible();
       await expect(
         page.getByRole("heading", { name: "PixelLogic Blocks" }),
       ).toBeVisible();
+      await expect(page.getByRole("button", { name: "App Store" })).toHaveCount(
+        2,
+      );
       await expect(
-        page.locator('a[href*="apps.apple.com/us/app/one-second-run"]'),
+        page.getByRole("button", { name: "Google Play" }),
+      ).toHaveCount(2);
+      await expect(
+        page.getByRole("button", { name: /Open app|앱 열기|アプリを開く/ }),
       ).toHaveCount(1);
       await expect(
-        page.locator(
-          'a[href*="play.google.com/store/apps/details?id=com.jeonseunghun.onesecondrun"]',
-        ),
-      ).toHaveCount(1);
-      await expect(
-        page.locator('a[href*="apps.apple.com/us/app/pixellogic-blocks"]'),
-      ).toHaveCount(1);
-      await expect(
-        page.locator(
-          'a[href*="play.google.com/store/apps/details?id=com.pixellogic.blockblast"]',
-        ),
+        page.getByRole("button", {
+          name: /Public page|공개 안내|公開ページ/,
+        }),
       ).toHaveCount(1);
       await expect(
         page.getByRole("link", { name: /Products|제품|プロダクト/ }).first(),
