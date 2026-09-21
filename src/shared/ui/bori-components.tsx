@@ -32,7 +32,7 @@ type ProductLinkLabels = {
 
 function BoriGuide({ label, message }: { label: string; message: string }) {
   return (
-    <UI.Card>
+    <UI.Card className="bori-guide-card">
       <UI.CardContent>
         <UI.Stack direction="row" align="center" gap="lg">
           <BoriCompanion width={96} height={96} />
@@ -59,7 +59,7 @@ function BoriProductCard({
   const links = PRODUCT_LINKS[product.id];
 
   return (
-    <UI.Card data-testid="bori-product-card">
+    <UI.Card className="bori-product-card" data-testid="bori-product-card">
       <UI.CardHeader>
         <UI.Stack gap="sm">
           <UI.Stack direction="row" align="center" gap="sm">
@@ -131,68 +131,77 @@ export function BoriHomeHero({
   shelfLabel: string;
 }) {
   return (
-    <UI.Stack gap="xxl">
-      <UI.PageHeader
-        eyebrow={eyebrow}
-        title={`${title} ${titleAccent}`}
-        description={intro}
-        action={
-          <UI.Stack direction="row" gap="sm">
-            <Link
-              className={UI.buttonVariants({ size: "lg" })}
-              href="#products"
-            >
-              {primaryCta}
-              <ArrowRight aria-hidden="true" size={18} />
-            </Link>
-            <Link
-              className={UI.buttonVariants({ variant: "outline", size: "lg" })}
-              href={localizedPath(locale, "about")}
-            >
-              {secondaryCta}
-            </Link>
-          </UI.Stack>
-        }
-      />
-      <UI.Stack gap="sm">
-        {proof.map((item, index) => (
-          <UI.ListRow
-            key={item}
-            title={item}
-            leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
-          />
-        ))}
+    <UI.Stack gap="xxl" className="bori-home-hero">
+      <UI.Stack gap="lg" className="bori-hero-copy">
+        <UI.PageHeader
+          eyebrow={eyebrow}
+          title={`${title} ${titleAccent}`}
+          description={intro}
+          action={
+            <UI.Stack direction="row" gap="sm">
+              <Link
+                className={UI.buttonVariants({ size: "lg" })}
+                href="#products"
+              >
+                {primaryCta}
+                <ArrowRight aria-hidden="true" size={18} />
+              </Link>
+              <Link
+                className={UI.buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                })}
+                href={localizedPath(locale, "about")}
+              >
+                {secondaryCta}
+              </Link>
+            </UI.Stack>
+          }
+        />
+        <UI.Stack gap="sm">
+          {proof.map((item, index) => (
+            <UI.ListRow
+              key={item}
+              title={item}
+              leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
+            />
+          ))}
+        </UI.Stack>
       </UI.Stack>
-      <BoriGuide label={heroLabel} message={heroMessage} />
-      <UI.Card>
-        <UI.CardHeader>
-          <UI.Stack direction="row" align="center" gap="sm">
-            <UI.Badge variant="outline">PIXELLOGIC / LIVE APPS</UI.Badge>
-            <UI.StatusBadge tone="success">
-              {String(products.length).padStart(2, "0")} APPS
-            </UI.StatusBadge>
-          </UI.Stack>
-          <UI.CardTitle>Useful things, with a little feeling.</UI.CardTitle>
-        </UI.CardHeader>
-        <UI.CardContent>
-          <UI.Stack gap="sm">
-            {products.map((product) => (
-              <UI.ListRow
-                key={product.id}
-                title={product.name}
-                description={product.meta}
-                trailing={<UI.StatusBadge tone="success">LIVE</UI.StatusBadge>}
-              />
-            ))}
-          </UI.Stack>
-        </UI.CardContent>
-        <UI.CardFooter>
-          <UI.Stack direction="row" align="center" gap="sm">
-            <BoriCompanion width={64} height={64} />
-            <UI.Badge variant="secondary">{shelfLabel}</UI.Badge>
-          </UI.Stack>
-        </UI.CardFooter>
-      </UI.Card>
+      <UI.Stack gap="lg" className="bori-hero-side">
+        <BoriGuide label={heroLabel} message={heroMessage} />
+        <UI.Card className="bori-live-preview">
+          <UI.CardHeader>
+            <UI.Stack direction="row" align="center" gap="sm">
+              <UI.Badge variant="outline">PIXELLOGIC / LIVE APPS</UI.Badge>
+              <UI.StatusBadge tone="success">
+                {String(products.length).padStart(2, "0")} APPS
+              </UI.StatusBadge>
+            </UI.Stack>
+            <UI.CardTitle>Useful things, with a little feeling.</UI.CardTitle>
+          </UI.CardHeader>
+          <UI.CardContent>
+            <UI.Stack gap="sm">
+              {products.map((product) => (
+                <UI.ListRow
+                  key={product.id}
+                  title={product.name}
+                  description={product.meta}
+                  trailing={
+                    <UI.StatusBadge tone="success">LIVE</UI.StatusBadge>
+                  }
+                />
+              ))}
+            </UI.Stack>
+          </UI.CardContent>
+          <UI.CardFooter>
+            <UI.Stack direction="row" align="center" gap="sm">
+              <BoriCompanion width={64} height={64} />
+              <UI.Badge variant="secondary">{shelfLabel}</UI.Badge>
+            </UI.Stack>
+          </UI.CardFooter>
+        </UI.Card>
+      </UI.Stack>
     </UI.Stack>
   );
 }
@@ -211,8 +220,13 @@ export function BoriProductShelf({
   shelfLabel: string;
 }) {
   return (
-    <UI.Section id="products" title={title} description={description}>
-      <UI.Stack gap="lg">
+    <UI.Section
+      id="products"
+      className="bori-product-shelf"
+      title={title}
+      description={description}
+    >
+      <UI.Stack gap="lg" className="bori-product-grid">
         {products.map((product, index) => (
           <BoriProductCard
             key={product.id}
@@ -241,10 +255,11 @@ export function BoriPrinciplesSection({
 }) {
   return (
     <UI.Section title={title} description={description}>
-      <UI.Stack gap="sm">
+      <UI.Stack gap="sm" className="bori-principle-grid">
         {principles.map((principle, index) => (
           <UI.ListRow
             key={principle.title}
+            className="bori-principle-row"
             title={principle.title}
             description={principle.body}
             leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
@@ -269,8 +284,12 @@ export function BoriContactSection({
   email: string;
 }) {
   return (
-    <UI.Section title={title} description={description}>
-      <UI.Card>
+    <UI.Section
+      className="bori-contact"
+      title={title}
+      description={description}
+    >
+      <UI.Card className="bori-contact-card">
         <UI.CardContent>
           <UI.Stack direction="row" align="center" gap="lg">
             <BoriCompanion width={88} height={88} />

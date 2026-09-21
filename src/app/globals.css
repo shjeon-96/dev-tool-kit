@@ -436,6 +436,110 @@ html[data-theme="dark"] .theme-icon-moon {
   font-size: 0.68rem;
 }
 
+/* Bori component recipes: the page stays editorial while primitives stay shared. */
+.bori-home-hero {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+  padding-block: 72px 88px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 72px;
+}
+.bori-hero-copy .pl-page-header {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.bori-hero-copy .pl-page-header h1 {
+  max-width: 680px;
+  font-size: clamp(3.2rem, 5.6vw, 5.6rem);
+  letter-spacing: -0.075em;
+  line-height: 0.96;
+}
+.bori-hero-copy .pl-page-header .pl-description {
+  max-width: 540px;
+}
+.bori-hero-side .bori-guide-card,
+.bori-hero-side .bori-live-preview {
+  box-shadow: 6px 6px 0
+    color-mix(in srgb, var(--pl-foreground) 12%, transparent);
+}
+.bori-hero-side .bori-guide-card {
+  background: var(--pl-muted);
+}
+.bori-hero-side .bori-live-preview {
+  transform: rotate(1deg);
+}
+.bori-product-shelf,
+.bori-principles,
+.bori-contact {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+.bori-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+.bori-product-card {
+  min-height: 300px;
+  background: color-mix(in srgb, var(--pl-surface) 84%, var(--pl-muted));
+}
+.bori-product-card .pl-card-title {
+  font-size: var(--pl-font-size-title);
+}
+.bori-principles {
+  padding-block: 72px;
+  border-top: 1px solid var(--pl-border);
+  border-bottom: 1px solid var(--pl-border);
+}
+.bori-principle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.bori-principle-row {
+  border-right: 1px solid var(--pl-border);
+}
+.bori-principle-row:last-child {
+  border-right: 0;
+}
+.bori-contact {
+  padding-block: 80px;
+}
+.bori-contact-card {
+  background: var(--pl-foreground);
+  color: var(--pl-surface);
+}
+
+@media (max-width: 820px) {
+  .bori-home-hero {
+    width: min(100% - 28px, 1180px);
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding-block: 48px 64px;
+  }
+  .bori-hero-side .bori-live-preview {
+    transform: none;
+  }
+  .bori-product-shelf,
+  .bori-principles,
+  .bori-contact {
+    width: min(100% - 28px, 1180px);
+  }
+  .bori-product-grid,
+  .bori-principle-grid {
+    grid-template-columns: 1fr;
+  }
+  .bori-principle-row,
+  .bori-principle-row:last-child {
+    border-right: 0;
+    border-bottom: 1px solid var(--pl-border);
+  }
+  .bori-principle-row:last-child {
+    border-bottom: 0;
+  }
+}
+
 @keyframes reveal-up {
   from {
     opacity: 0;
