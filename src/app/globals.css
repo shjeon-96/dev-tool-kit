@@ -459,6 +459,12 @@ html[data-theme="dark"] .theme-icon-moon {
 .bori-hero-side .bori-guide-card {
   background: var(--pl-muted);
 }
+.bori-guide-description {
+  max-width: 280px;
+  margin: 0;
+  color: var(--pl-muted-foreground);
+  font-size: var(--pl-font-size-body);
+}
 .bori-hero-side .bori-live-preview {
   transform: rotate(1deg);
 }
@@ -481,9 +487,16 @@ html[data-theme="dark"] .theme-icon-moon {
   font-size: var(--pl-font-size-title);
 }
 .bori-principles {
-  padding-block: 72px;
+  padding-block: 64px;
   border-top: 1px solid var(--pl-border);
   border-bottom: 1px solid var(--pl-border);
+  background: color-mix(in srgb, var(--pl-muted) 60%, transparent);
+}
+.bori-principles-layout {
+  align-items: flex-start;
+}
+.bori-principles-layout > .brand-companion-image {
+  margin-top: var(--pl-space-sm);
 }
 .bori-principle-grid {
   display: grid;
@@ -499,8 +512,11 @@ html[data-theme="dark"] .theme-icon-moon {
   padding-block: 80px;
 }
 .bori-contact-card {
-  background: var(--pl-foreground);
-  color: var(--pl-surface);
+  width: 100%;
+  border-color: transparent;
+  background: color-mix(in srgb, var(--pl-primary) 14%, var(--pl-background));
+  box-shadow: 6px 6px 0
+    color-mix(in srgb, var(--pl-foreground) 12%, transparent);
 }
 
 @media (max-width: 820px) {
@@ -521,6 +537,13 @@ html[data-theme="dark"] .theme-icon-moon {
   .bori-product-grid,
   .bori-principle-grid {
     grid-template-columns: 1fr;
+  }
+  .bori-principles-layout {
+    flex-direction: column;
+  }
+  .bori-contact-card [data-direction="row"] {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .bori-principle-row,
   .bori-principle-row:last-child {

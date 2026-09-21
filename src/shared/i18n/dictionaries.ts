@@ -44,6 +44,7 @@ interface Dictionary {
     contactCta: string;
     boriHeroLabel: string;
     boriHeroMessage: string;
+    boriHeroBody: string;
     boriShelfLabel: string;
     boriContactLabel: string;
   };
@@ -91,27 +92,27 @@ const en: Dictionary = {
     title: "Small products",
     titleAccent: "for a brighter everyday.",
     intro:
-      "We make focused apps and quiet digital experiences that earn a place in daily life.",
+      "We make focused apps for recording health, organizing time and building habits that last.",
     primaryCta: "See the products",
     proofOne: "Apps / products / experiments",
     proofTwo: "Built by PixelLogic",
-    proofThree: "Care over noise",
+    proofThree: "One care standard",
     productsTitle: "A few things you can use.",
     productsIntro: "Real products and public apps, made with the same care.",
-    principleEyebrow: "HOW WE BUILD",
-    principleTitle: "Clear enough to use. Warm enough to keep.",
+    principleEyebrow: "ONE PRODUCT MINDSET",
+    principleTitle: "Different days, one steady point of view.",
     principles: [
       {
-        title: "Start with the ordinary",
-        body: "The best product ideas often begin with a small friction in a real day.",
+        title: "Make everyday progress visible",
+        body: "Weight History turns a simple record into a clearer view of change.",
       },
       {
-        title: "Make the next step obvious",
-        body: "We remove noise until the useful action is easy to see and easy to return to.",
+        title: "Make the next moment easier",
+        body: "Sol Scheduler brings schedules and tasks into a rhythm you can return to.",
       },
       {
-        title: "Leave room for feeling",
-        body: "Careful motion, friendly detail and honest states make software feel human.",
+        title: "Make small habits stick",
+        body: "One Second Run keeps progress light, specific and repeatable.",
       },
     ],
     products: [
@@ -150,6 +151,8 @@ const en: Dictionary = {
     contactCta: "Say hello",
     boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
     boriHeroMessage: "Small products, a little more heart.",
+    boriHeroBody:
+      "Bori is PixelLogic's little guide. We make apps that bring a little more calm to everyday routines.",
     boriShelfLabel: "BORI'S PICKS",
     boriContactLabel: "BORI SAYS HELLO",
   },
@@ -221,27 +224,28 @@ const ko: Dictionary = {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "작지만 오래 쓰는 제품을",
     titleAccent: "만들어요.",
-    intro: "일상에 필요한 앱과 다음을 배우는 작은 디지털 경험을 만들어요.",
+    intro:
+      "건강을 기록하고, 시간을 정리하고, 좋은 습관을 이어가도록 돕는 앱을 만들어요.",
     primaryCta: "제품 보기",
     proofOne: "앱 / 제품 / 실험",
     proofTwo: "PixelLogic에서 만들어요",
-    proofThree: "소음보다 세심함",
+    proofThree: "하나의 세심한 기준",
     productsTitle: "지금 만날 수 있는 제품들",
     productsIntro: "실제 배포된 PixelLogic 앱과 디지털 제품들이에요.",
-    principleEyebrow: "HOW WE BUILD",
-    principleTitle: "분명하게 쓰고, 따뜻하게 머무는 제품.",
+    principleEyebrow: "ONE PRODUCT MINDSET",
+    principleTitle: "서로 다른 하루를 하나의 마음으로 이어가요.",
     principles: [
       {
-        title: "평범한 하루에서 시작해요",
-        body: "좋은 제품은 실제 하루 속 작은 불편을 발견하는 데서 시작해요.",
+        title: "변화를 눈에 보이게 해요",
+        body: "Weight History는 간단한 기록을 흐름으로 보여줘요.",
       },
       {
-        title: "다음 행동을 분명하게 해요",
-        body: "소음을 덜어내고 지금 필요한 행동이 쉽게 보이도록 만들어요.",
+        title: "다음 순간을 가볍게 해요",
+        body: "Sol Scheduler는 일정과 할 일을 하루의 리듬으로 정리해요.",
       },
       {
-        title: "느낌이 머물 자리를 남겨요",
-        body: "세심한 모션과 친절한 상태가 소프트웨어를 사람답게 만들어요.",
+        title: "작은 습관을 오래 가게 해요",
+        body: "One Second Run은 구체적이고 반복 가능한 달리기를 만들어요.",
       },
     ],
     products: [
@@ -279,6 +283,8 @@ const ko: Dictionary = {
     contactCta: "이야기 나누기",
     boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
     boriHeroMessage: "작은 제품도, 오래 쓰는 마음으로 만들어요.",
+    boriHeroBody:
+      "보리는 PixelLogic의 작은 안내자예요. 매일 쓰는 앱이 조금 더 차분하고 따뜻하게 남기를 바라요.",
     boriShelfLabel: "보리가 고른 제품",
     boriContactLabel: "보리가 인사해요",
   },
@@ -351,28 +357,29 @@ const ja: Dictionary = {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "小さく、丁寧に",
     titleAccent: "つくる。",
-    intro: "毎日に役立つアプリと、次を学ぶ小さなデジタル体験をつくっています。",
+    intro:
+      "健康を記録し、時間を整え、続く習慣をつくるためのアプリをつくっています。",
     primaryCta: "プロダクトを見る",
     proofOne: "アプリ / プロダクト / 実験",
     proofTwo: "PixelLogicで制作",
-    proofThree: "ノイズより丁寧さ",
+    proofThree: "ひとつの丁寧な基準",
     productsTitle: "いま使えるプロダクト",
     productsIntro:
       "実際に公開しているPixelLogicのアプリとデジタルプロダクトです。",
-    principleEyebrow: "HOW WE BUILD",
-    principleTitle: "明確に使えて、あたたかく残るプロダクト。",
+    principleEyebrow: "ONE PRODUCT MINDSET",
+    principleTitle: "違う毎日に、ひとつの確かな視点を。",
     principles: [
       {
-        title: "日常から始める",
-        body: "本当に使う一日の小さな不便から、アイデアを始めます。",
+        title: "日々の変化を見えるようにする",
+        body: "Weight Historyは、シンプルな記録を変化の流れとして見せます。",
       },
       {
-        title: "次の行動を明確にする",
-        body: "ノイズを減らし、いま必要な行動が見えるようにつくります。",
+        title: "次の瞬間を軽くする",
+        body: "Sol Schedulerは、予定とタスクを戻りやすいリズムに整えます。",
       },
       {
-        title: "気持ちの余白を残す",
-        body: "丁寧な動きと親切な状態が、ソフトウェアを人間らしくします。",
+        title: "小さな習慣を続けやすくする",
+        body: "One Second Runは、具体的で繰り返せるランニングをつくります。",
       },
     ],
     products: [
@@ -410,6 +417,8 @@ const ja: Dictionary = {
     contactCta: "話しかける",
     boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
     boriHeroMessage: "小さなプロダクトに、もう少しあたたかさを。",
+    boriHeroBody:
+      "ボリはPixelLogicの小さな案内役です。毎日使うアプリが、少し落ち着いてあたたかく残るようにつくっています。",
     boriShelfLabel: "ボリのおすすめ",
     boriContactLabel: "ボリからごあいさつ",
   },

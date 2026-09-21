@@ -14,7 +14,15 @@ type ProductLinkLabels = {
   publicPage: string;
 };
 
-function BoriGuide({ label, message }: { label: string; message: string }) {
+function BoriGuide({
+  label,
+  message,
+  description,
+}: {
+  label: string;
+  message: string;
+  description: string;
+}) {
   return (
     <UI.Card className="bori-guide-card">
       <UI.CardContent>
@@ -23,6 +31,7 @@ function BoriGuide({ label, message }: { label: string; message: string }) {
           <UI.Stack gap="sm" align="start">
             <UI.Badge variant="secondary">{label}</UI.Badge>
             <strong>{message}</strong>
+            <p className="bori-guide-description">{description}</p>
           </UI.Stack>
         </UI.Stack>
       </UI.CardContent>
@@ -98,6 +107,7 @@ export function BoriHomeHero({
   products,
   heroLabel,
   heroMessage,
+  heroDescription,
 }: {
   eyebrow: string;
   title: string;
@@ -108,6 +118,7 @@ export function BoriHomeHero({
   products: readonly ProductCopy[];
   heroLabel: string;
   heroMessage: string;
+  heroDescription: string;
 }) {
   return (
     <UI.Stack gap="xxl" className="bori-home-hero">
@@ -139,7 +150,11 @@ export function BoriHomeHero({
         </UI.Stack>
       </UI.Stack>
       <UI.Stack gap="lg" className="bori-hero-side">
-        <BoriGuide label={heroLabel} message={heroMessage} />
+        <BoriGuide
+          label={heroLabel}
+          message={heroMessage}
+          description={heroDescription}
+        />
         <UI.Card className="bori-live-preview">
           <UI.CardHeader>
             <UI.Stack direction="row" align="center" gap="sm">
@@ -230,16 +245,24 @@ export function BoriPrinciplesSection({
       title={title}
       description={description}
     >
-      <UI.Stack gap="sm" className="bori-principle-grid">
-        {principles.map((principle, index) => (
-          <UI.ListRow
-            key={principle.title}
-            className="bori-principle-row"
-            title={principle.title}
-            description={principle.body}
-            leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
-          />
-        ))}
+      <UI.Stack
+        direction="row"
+        align="start"
+        gap="xl"
+        className="bori-principles-layout"
+      >
+        <BoriCompanion asset="planning" width={88} height={88} />
+        <UI.Stack gap="sm" className="bori-principle-grid">
+          {principles.map((principle, index) => (
+            <UI.ListRow
+              key={principle.title}
+              className="bori-principle-row"
+              title={principle.title}
+              description={principle.body}
+              leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
+            />
+          ))}
+        </UI.Stack>
       </UI.Stack>
     </UI.Section>
   );
@@ -264,21 +287,25 @@ export function BoriContactSection({
       title={title}
       description={description}
     >
-      <UI.Stack direction="row" align="center" gap="xl">
-        <BoriCompanion asset="wave" width={88} height={88} />
-        <UI.Stack gap="sm" align="start">
-          <UI.Badge variant="secondary">{label}</UI.Badge>
-          <UI.Button
-            size="lg"
-            onClick={() => {
-              window.location.href = `mailto:${email}`;
-            }}
-          >
-            {cta}
-            <ArrowUpRight aria-hidden="true" size={18} />
-          </UI.Button>
-        </UI.Stack>
-      </UI.Stack>
+      <UI.Card className="bori-contact-card">
+        <UI.CardContent>
+          <UI.Stack direction="row" align="center" gap="xl">
+            <BoriCompanion asset="wave" width={88} height={88} />
+            <UI.Stack gap="sm" align="start">
+              <UI.Badge variant="secondary">{label}</UI.Badge>
+              <UI.Button
+                size="lg"
+                onClick={() => {
+                  window.location.href = `mailto:${email}`;
+                }}
+              >
+                {cta}
+                <ArrowUpRight aria-hidden="true" size={18} />
+              </UI.Button>
+            </UI.Stack>
+          </UI.Stack>
+        </UI.CardContent>
+      </UI.Card>
     </UI.Section>
   );
 }
