@@ -65,6 +65,24 @@ export const PRODUCT_APP_ICONS = {
 
 export type ProductAppIcon = keyof typeof PRODUCT_APP_ICONS;
 
+// Only store-grade captures of the shipped app belong here. A product without
+// one falls back to its Bori illustration (see docs/design.md).
+export const PRODUCT_SCREENSHOTS: Partial<
+  Record<ProductAppIcon, { src: string; source: string; sha256: string }>
+> = {
+  oneSecondRun: {
+    src: "/brand/screenshots/one-second-run.png",
+    source: "running-app marketing/app-store/iphone-69/02-today.png (660w)",
+    sha256: "f4cb92a01cd2691feabcbed0ff6f84dfa1533f23b9d51884b480bdfba32d90d0",
+  },
+};
+
+const PRODUCT_BORI: Record<ProductAppIcon, BoriAsset> = {
+  weightHistory: "wellnessCheckup",
+  solScheduler: "workProjectPlan",
+  oneSecondRun: "fitnessRunning",
+};
+
 export function PixelLogicMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
@@ -104,7 +122,7 @@ export function BoriCompanion({
     <Image
       className={`brand-companion-image${className ? ` ${className}` : ""}`}
       src={BORI_ASSETS[asset].src}
-      alt="PixelLogic 보리 캐릭터"
+      alt=""
       width={width}
       height={height}
       priority={priority}
@@ -135,11 +153,23 @@ export function PixelLogicAppIcon({
   );
 }
 
-export function BoriDocumentNote({ label }: { label: string }) {
+export function ProductVisual({ product }: { product: ProductAppIcon }) {
+  const screenshot = PRODUCT_SCREENSHOTS[product];
+
   return (
-    <div className="bori-document-note">
-      <BoriCompanion className="bori-document-character" />
-      <span className="bori-component-label">{label}</span>
+    <div className="product-visual">
+      {screenshot ? (
+        <Image
+          className="product-visual-phone"
+          src={screenshot.src}
+          alt=""
+          width={660}
+          height={1434}
+          sizes="(max-width: 820px) 60vw, 220px"
+        />
+      ) : (
+        <BoriCompanion asset={PRODUCT_BORI[product]} width={168} height={168} />
+      )}
     </div>
   );
 }

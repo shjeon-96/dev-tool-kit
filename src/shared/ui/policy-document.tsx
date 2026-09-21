@@ -1,4 +1,4 @@
-import { BoriDocumentNote } from "@/shared/ui/brand-assets";
+import { BoriCompanion } from "@/shared/ui/brand-assets";
 
 export function PolicyDocument({
   title,
@@ -12,7 +12,7 @@ export function PolicyDocument({
   return (
     <main className="shell content-page">
       <header className="content-page-header">
-        <BoriDocumentNote label="PIXELLOGIC / BORI / DOCUMENT" />
+        <BoriCompanion width={72} height={72} />
         <p className="eyebrow">PIXELLOGIC / DOCUMENT</p>
         <h1>{title}</h1>
         <p>{updated}</p>

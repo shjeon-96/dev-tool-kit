@@ -18,6 +18,7 @@ interface Dictionary {
   };
   common: {
     skipToContent: string;
+    toggleTheme: string;
     appStore: string;
     googlePlay: string;
     webApp: string;
@@ -82,6 +83,7 @@ const en: Dictionary = {
   },
   common: {
     skipToContent: "Skip to content",
+    toggleTheme: "Toggle theme",
     appStore: "App Store",
     googlePlay: "Google Play",
     webApp: "Open app",
@@ -215,6 +217,7 @@ const ko: Dictionary = {
   },
   common: {
     skipToContent: "본문으로 건너뛰기",
+    toggleTheme: "테마 전환",
     appStore: "App Store",
     googlePlay: "Google Play",
     webApp: "앱 열기",
@@ -348,6 +351,7 @@ const ja: Dictionary = {
   },
   common: {
     skipToContent: "本文へ移動",
+    toggleTheme: "テーマを切り替える",
     appStore: "App Store",
     googlePlay: "Google Play",
     webApp: "アプリを開く",

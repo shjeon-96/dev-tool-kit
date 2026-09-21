@@ -8,7 +8,7 @@ The multilingual PixelLogic product-studio homepage. It presents the studio's ap
 npm install
 npm run dev
 npm run lint
-npm run test:e2e
+npx vitest run
 npm run build
 ```
 

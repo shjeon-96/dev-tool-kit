@@ -6,11 +6,12 @@
 4. Site identity and canonical metadata have one source in `src/shared/config/site.ts`.
 5. Keep the homepage focused on PixelLogic products, craft and studio principles. Do not reintroduce the retired developer-utility surface.
 6. Do not invent product metrics, store availability or product promises that are not confirmed by the source project.
+7. Visual changes follow `docs/design.md`: `@pixellogic/ui` tokens only, real links, verified product images, no badge or list-row filler.
 
 Required completion checks:
 
 ```bash
 npm run lint
-npm run test:e2e
+npx vitest run
 npm run build
 ```

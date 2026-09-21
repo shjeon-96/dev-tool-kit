@@ -42,7 +42,7 @@ export function SiteHeader({
             currentLocale={locale}
             label={dictionary.nav.language}
           />
-          <ThemeToggle label={locale === "ko" ? "테마 전환" : "Toggle theme"} />
+          <ThemeToggle label={dictionary.common.toggleTheme} />
         </div>
       </div>
     </header>

@@ -1,11 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import * as UI from "@pixellogic/ui/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PRODUCT_LINKS } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
-import { BoriCompanion, PixelLogicAppIcon } from "@/shared/ui/brand-assets";
+import {
+  BoriCompanion,
+  PixelLogicAppIcon,
+  ProductVisual,
+} from "@/shared/ui/brand-assets";
 
 type ProductLinkLabels = {
   appStore: string;
@@ -14,83 +17,71 @@ type ProductLinkLabels = {
   publicPage: string;
 };
 
-function BoriGuide({
-  label,
-  message,
-  description,
+function LinkButton({
+  href,
+  size = "sm",
+  variant = "outline",
+  children,
 }: {
-  label: string;
-  message: string;
-  description: string;
+  href: string;
+  size?: "sm" | "lg";
+  variant?: "default" | "outline";
+  children: React.ReactNode;
 }) {
+  const external = href.startsWith("http");
+
   return (
-    <UI.Card className="bori-guide-card">
-      <UI.CardContent>
-        <UI.Stack direction="row" align="center" gap="lg">
-          <BoriCompanion asset="welcome" width={96} height={96} />
-          <UI.Stack gap="sm" align="start">
-            <UI.Badge variant="secondary">{label}</UI.Badge>
-            <strong>{message}</strong>
-            <p className="bori-guide-description">{description}</p>
-          </UI.Stack>
-        </UI.Stack>
-      </UI.CardContent>
-    </UI.Card>
+    <UI.Button asChild size={size} variant={variant}>
+      <a
+        href={href}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {children}
+      </a>
+    </UI.Button>
   );
 }
 
 function BoriProductCard({
   product,
-  index,
   linkLabels,
 }: {
   product: ProductCopy;
-  index: number;
   linkLabels: ProductLinkLabels;
 }) {
-  const links = PRODUCT_LINKS[product.id];
+  const links = Object.entries(PRODUCT_LINKS[product.id]) as [
+    keyof ProductLinkLabels,
+    string,
+  ][];
 
   return (
     <UI.Card className="bori-product-card" data-testid="bori-product-card">
+      <ProductVisual product={product.id} />
       <UI.CardHeader>
-        <UI.Stack gap="sm">
-          <UI.Stack direction="row" align="center" gap="sm">
-            <UI.Badge variant="outline">
-              {String(index + 1).padStart(2, "0")}
-            </UI.Badge>
-            <UI.Badge variant="outline">{product.meta}</UI.Badge>
-          </UI.Stack>
+        <UI.Stack gap="md">
           <UI.Stack direction="row" align="center" gap="md">
-            <PixelLogicAppIcon product={product.id} />
-          </UI.Stack>
-          <UI.Stack direction="row" align="center" gap="sm">
-            <UI.CardTitle role="heading" aria-level={3}>
-              {product.name}
-            </UI.CardTitle>
-            <UI.StatusBadge tone="success">{product.status}</UI.StatusBadge>
+            <PixelLogicAppIcon product={product.id} width={48} height={48} />
+            <UI.Stack gap="xs">
+              <p className="bori-meta">{product.meta}</p>
+              <UI.CardTitle role="heading" aria-level={3}>
+                {product.name}
+              </UI.CardTitle>
+            </UI.Stack>
           </UI.Stack>
           <UI.CardDescription>{product.description}</UI.CardDescription>
         </UI.Stack>
       </UI.CardHeader>
       <UI.CardFooter>
-        <UI.Stack direction="row" gap="sm">
-          {Object.entries(links).map(([kind, url]) => (
-            <UI.Button
-              key={kind}
-              size="sm"
-              variant="outline"
-              onClick={() => window.open(url, "_blank", "noopener,noreferrer")}
-            >
-              {kind === "appStore"
-                ? linkLabels.appStore
-                : kind === "googlePlay"
-                  ? linkLabels.googlePlay
-                  : kind === "web"
-                    ? linkLabels.web
-                    : linkLabels.publicPage}
-              <ArrowUpRight aria-hidden="true" size={14} />
-            </UI.Button>
-          ))}
+        <UI.Stack gap="md" align="start">
+          <UI.StatusBadge tone="success">{product.status}</UI.StatusBadge>
+          <UI.Stack direction="row" gap="sm">
+            {links.map(([kind, url]) => (
+              <LinkButton key={kind} href={url}>
+                {linkLabels[kind]}
+                <ArrowUpRight aria-hidden="true" size={14} />
+              </LinkButton>
+            ))}
+          </UI.Stack>
         </UI.Stack>
       </UI.CardFooter>
     </UI.Card>
@@ -121,74 +112,48 @@ export function BoriHomeHero({
   heroDescription: string;
 }) {
   return (
-    <UI.Stack gap="xxl" className="bori-home-hero">
-      <UI.Stack gap="lg" className="bori-hero-copy">
+    <div className="bori-home-hero">
+      <UI.Stack gap="xl" align="start" className="bori-hero-copy">
         <UI.PageHeader
           eyebrow={eyebrow}
           title={`${title} ${titleAccent}`}
           description={intro}
-          action={
-            <UI.Stack direction="row" gap="sm">
-              <Link
-                className={UI.buttonVariants({ size: "lg" })}
-                href="#products"
-              >
-                {primaryCta}
-                <ArrowRight aria-hidden="true" size={18} />
-              </Link>
-            </UI.Stack>
-          }
         />
-        <UI.Stack gap="sm">
-          {proof.map((item, index) => (
-            <UI.ListRow
-              key={item}
-              title={item}
-              leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
-            />
+        <LinkButton href="#products" size="lg" variant="default">
+          {primaryCta}
+          <ArrowRight aria-hidden="true" size={18} />
+        </LinkButton>
+        <ul className="bori-proof">
+          {proof.map((item) => (
+            <li key={item}>{item}</li>
           ))}
-        </UI.Stack>
+        </ul>
       </UI.Stack>
-      <UI.Stack gap="lg" className="bori-hero-side">
-        <BoriGuide
-          label={heroLabel}
-          message={heroMessage}
-          description={heroDescription}
-        />
-        <UI.Card className="bori-live-preview">
-          <UI.CardHeader>
-            <UI.Stack direction="row" align="center" gap="sm">
-              <UI.Badge variant="outline">PIXELLOGIC / LIVE APPS</UI.Badge>
-              <UI.StatusBadge tone="success">
-                {String(products.length).padStart(2, "0")} APPS
-              </UI.StatusBadge>
+      <UI.Card className="bori-guide-card">
+        <UI.CardContent>
+          <UI.Stack gap="lg" align="start">
+            <BoriCompanion asset="welcome" width={144} height={144} priority />
+            <UI.Stack gap="sm" align="start">
+              <p className="bori-meta">{heroLabel}</p>
+              <strong className="bori-guide-message">{heroMessage}</strong>
+              <p className="bori-guide-description">{heroDescription}</p>
             </UI.Stack>
-            <UI.CardTitle>Useful things, with a little feeling.</UI.CardTitle>
-          </UI.CardHeader>
-          <UI.CardContent>
-            <UI.Stack gap="sm">
+            <ul className="bori-hero-apps">
               {products.map((product) => (
-                <UI.ListRow
-                  key={product.id}
-                  title={product.name}
-                  description={product.meta}
-                  leading={
-                    <PixelLogicAppIcon
-                      product={product.id}
-                      width={36}
-                      height={36}
-                    />
-                  }
-                  trailing={
-                    <UI.StatusBadge tone="success">LIVE</UI.StatusBadge>
-                  }
-                />
+                <li key={product.id}>
+                  <PixelLogicAppIcon
+                    product={product.id}
+                    width={56}
+                    height={56}
+                  />
+                  <span>{product.name}</span>
+                </li>
               ))}
-            </UI.Stack>
-          </UI.CardContent>
-        </UI.Card>
-      </UI.Stack>
-    </UI.Stack>
+            </ul>
+          </UI.Stack>
+        </UI.CardContent>
+      </UI.Card>
+    </div>
   );
 }
 
@@ -208,24 +173,25 @@ export function BoriProductShelf({
   return (
     <UI.Section
       id="products"
-      className="bori-product-shelf"
+      className="bori-section bori-product-shelf"
       title={title}
       description={description}
+      action={
+        <UI.Stack direction="row" align="center" gap="sm">
+          <BoriCompanion asset="wave" width={56} height={56} />
+          <p className="bori-meta">{shelfLabel}</p>
+        </UI.Stack>
+      }
     >
-      <UI.Stack gap="lg" className="bori-product-grid">
-        {products.map((product, index) => (
+      <div className="bori-product-grid">
+        {products.map((product) => (
           <BoriProductCard
             key={product.id}
             product={product}
-            index={index}
             linkLabels={linkLabels}
           />
         ))}
-        <UI.Stack direction="row" align="center" gap="sm">
-          <BoriCompanion asset="wave" width={56} height={56} />
-          <UI.Badge variant="secondary">{shelfLabel}</UI.Badge>
-        </UI.Stack>
-      </UI.Stack>
+      </div>
     </UI.Section>
   );
 }
@@ -240,31 +206,26 @@ export function BoriPrinciplesSection({
   principles: readonly { title: string; body: string }[];
 }) {
   return (
-    <UI.Section
-      className="bori-principles"
-      title={title}
-      description={description}
-    >
-      <UI.Stack
-        direction="row"
-        align="start"
-        gap="xl"
-        className="bori-principles-layout"
+    <div className="bori-principles">
+      <UI.Section
+        className="bori-section"
+        title={title}
+        description={description}
+        action={<BoriCompanion asset="planning" width={88} height={88} />}
       >
-        <BoriCompanion asset="planning" width={88} height={88} />
-        <UI.Stack gap="sm" className="bori-principle-grid">
+        <ol className="bori-principle-grid">
           {principles.map((principle, index) => (
-            <UI.ListRow
-              key={principle.title}
-              className="bori-principle-row"
-              title={principle.title}
-              description={principle.body}
-              leading={<UI.Badge variant="outline">0{index + 1}</UI.Badge>}
-            />
+            <li key={principle.title}>
+              <span className="bori-principle-number" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
+            </li>
           ))}
-        </UI.Stack>
-      </UI.Stack>
-    </UI.Section>
+        </ol>
+      </UI.Section>
+    </div>
   );
 }
 
@@ -282,30 +243,23 @@ export function BoriContactSection({
   email: string;
 }) {
   return (
-    <UI.Section
-      className="bori-contact"
-      title={title}
-      description={description}
-    >
+    <section className="bori-section bori-contact" aria-labelledby="contact">
       <UI.Card className="bori-contact-card">
         <UI.CardContent>
-          <UI.Stack direction="row" align="center" gap="xl">
-            <BoriCompanion asset="wave" width={88} height={88} />
+          <div className="bori-contact-layout">
+            <BoriCompanion asset="wave" width={120} height={120} />
             <UI.Stack gap="sm" align="start">
-              <UI.Badge variant="secondary">{label}</UI.Badge>
-              <UI.Button
-                size="lg"
-                onClick={() => {
-                  window.location.href = `mailto:${email}`;
-                }}
-              >
-                {cta}
-                <ArrowUpRight aria-hidden="true" size={18} />
-              </UI.Button>
+              <p className="bori-meta">{label}</p>
+              <h2 id="contact">{title}</h2>
+              <p className="bori-guide-description">{description}</p>
             </UI.Stack>
-          </UI.Stack>
+            <LinkButton href={`mailto:${email}`} size="lg" variant="default">
+              {cta}
+              <ArrowUpRight aria-hidden="true" size={18} />
+            </LinkButton>
+          </div>
         </UI.CardContent>
       </UI.Card>
-    </UI.Section>
+    </section>
   );
 }
