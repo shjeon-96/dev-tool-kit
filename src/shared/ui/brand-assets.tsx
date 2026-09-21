@@ -30,15 +30,21 @@ export function PixelLogicLockup({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function BoriCompanion() {
+export function BoriCompanion({
+  className,
+  priority = false,
+}: {
+  className?: string;
+  priority?: boolean;
+}) {
   return (
     <Image
-      className="brand-companion-image"
+      className={`brand-companion-image${className ? ` ${className}` : ""}`}
       src={BORI_ASSET.src}
       alt="PixelLogic 보리 캐릭터"
       width={1254}
       height={1254}
-      priority
+      priority={priority}
     />
   );
 }

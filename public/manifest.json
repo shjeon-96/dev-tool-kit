@@ -1,7 +1,7 @@
 {
   "name": "PixelLogic",
   "short_name": "PixelLogic",
-  "description": "Small apps, games and digital products made with care.",
+  "description": "Small apps and digital products made with care.",
   "start_url": "/en",
   "display": "standalone",
   "background_color": "#fffbf6",
@@ -14,7 +14,7 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["productivity", "games"],
+  "categories": ["productivity"],
   "lang": "en",
   "dir": "ltr",
   "scope": "/"

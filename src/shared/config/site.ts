@@ -8,11 +8,6 @@ export const PRODUCT_LINKS = {
     googlePlay:
       "https://play.google.com/store/apps/details?id=com.jeonseunghun.onesecondrun",
   },
-  pixelLogicBlocks: {
-    appStore: "https://apps.apple.com/us/app/pixellogic-blocks/id6808668810",
-    googlePlay:
-      "https://play.google.com/store/apps/details?id=com.pixellogic.blockblast",
-  },
   solScheduler: {
     publicPage: "https://sola-scheduler-6476537626.web.app/privacy.html",
   },

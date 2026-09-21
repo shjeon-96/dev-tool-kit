@@ -1,13 +1,7 @@
 "use client";
 
 import * as UI from "@pixellogic/ui/react";
-import {
-  ArrowUpRight,
-  CalendarDays,
-  Gamepad2,
-  Heart,
-  Scale,
-} from "lucide-react";
+import { ArrowUpRight, CalendarDays, Heart, Scale } from "lucide-react";
 import { PRODUCT_LINKS } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
 
@@ -15,7 +9,6 @@ const PRODUCT_ICONS = {
   weightHistory: Scale,
   solScheduler: CalendarDays,
   oneSecondRun: Heart,
-  pixelLogicBlocks: Gamepad2,
 } as const;
 
 export function ProductCard({

@@ -819,219 +819,6 @@ html[data-theme="dark"] .theme-icon-moon {
   font-size: 0.68rem;
 }
 
-/* Trend Battle is a separate playful surface, not part of the studio shelf. */
-.trend-page {
-  padding: 72px 20px 120px;
-}
-.trend-game-shell {
-  width: min(1120px, 100%);
-  margin: 0 auto;
-}
-.trend-game-main {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 24px;
-}
-.trend-title-block h1 {
-  margin: 0;
-  font-family: var(--display);
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  font-weight: 500;
-  letter-spacing: -0.07em;
-  line-height: 0.9;
-}
-.trend-date,
-.trend-category-line,
-.trend-progress,
-.trend-card > p,
-.trend-card > span,
-.trend-keyboard-note,
-.trend-record,
-.trend-categories,
-.trend-round-result,
-.trend-share-status {
-  color: var(--ink-soft);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.trend-category-line {
-  margin: 16px 0 0;
-}
-.trend-progress {
-  display: flex;
-  gap: 8px;
-  margin: 28px 0;
-}
-.trend-progress > span {
-  display: block;
-  width: 34px;
-  height: 4px;
-  background: var(--line);
-}
-.trend-progress > span.is-active {
-  background: var(--blue);
-}
-.trend-progress > span.is-correct {
-  background: var(--green);
-}
-.trend-progress > span.is-wrong {
-  background: var(--signal);
-}
-.trend-round {
-  display: grid;
-  gap: 14px;
-}
-.trend-card {
-  min-height: 240px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 28px;
-  border: 1px solid var(--ink);
-  background: var(--cream);
-}
-.trend-card h2 {
-  margin: 18px 0 0;
-  font-family: var(--display);
-  font-size: 2.3rem;
-  font-weight: 500;
-  line-height: 1;
-}
-.trend-card > strong {
-  font-size: 2rem;
-}
-.trend-card-arrow {
-  align-self: center;
-}
-.trend-answer-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.trend-answer-buttons button,
-.trend-share-button,
-.trend-complete-actions button {
-  min-height: 52px;
-  border: 1px solid var(--ink);
-  background: var(--cream);
-  font-weight: 800;
-  cursor: pointer;
-}
-.trend-answer-buttons button:hover,
-.trend-share-button:hover,
-.trend-complete-actions button:hover {
-  color: var(--cream);
-  background: var(--ink);
-}
-.trend-round-result,
-.trend-complete {
-  padding: 28px;
-  border: 1px solid var(--ink);
-  background: var(--cream);
-}
-.trend-round-result.is-correct {
-  border-color: var(--green);
-}
-.trend-round-result.is-wrong {
-  border-color: var(--signal);
-}
-.trend-round-result strong {
-  display: block;
-  margin-top: 8px;
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 2rem;
-}
-.trend-complete h2 {
-  margin: 12px 0;
-  font-family: var(--display);
-  font-size: 3rem;
-  font-weight: 500;
-  line-height: 1;
-}
-.trend-complete-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
-}
-.trend-record {
-  align-self: start;
-  padding: 24px;
-  border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--cream) 70%, transparent);
-}
-.trend-record h2 {
-  margin: 0 0 22px;
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 1.8rem;
-  font-weight: 500;
-}
-.trend-record-score strong {
-  color: var(--ink);
-  font-family: var(--display);
-  font-size: 3.2rem;
-  font-weight: 500;
-  line-height: 1;
-}
-.trend-week {
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
-  margin-top: 22px;
-}
-.trend-week i {
-  display: block;
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-}
-.trend-week i.is-done {
-  background: var(--green);
-}
-.trend-share-button {
-  width: 100%;
-  margin-top: 24px;
-}
-.trend-categories {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 34px;
-}
-.trend-categories p {
-  width: 100%;
-  margin: 0;
-}
-.trend-categories a {
-  padding: 7px 10px;
-  border: 1px solid var(--line);
-}
-.trend-categories a.is-active {
-  color: var(--cream);
-  background: var(--ink);
-}
-.trend-guide-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 72px;
-}
-.trend-guide-grid article {
-  padding: 26px;
-  border-top: 1px solid var(--ink);
-}
-.trend-guide-grid h2 {
-  margin: 16px 0;
-  font-family: var(--display);
-  font-size: 1.8rem;
-  font-weight: 500;
-}
-
 @keyframes reveal-up {
   from {
     opacity: 0;
@@ -1074,15 +861,6 @@ html[data-theme="dark"] .theme-icon-moon {
   .studio-window {
     width: min(680px, 94%);
     justify-self: center;
-  }
-  .trend-game-shell {
-    max-width: 720px;
-  }
-  .trend-game-main {
-    grid-template-columns: 1fr;
-  }
-  .trend-record {
-    order: -1;
   }
 }
 
@@ -1165,8 +943,7 @@ html[data-theme="dark"] .theme-icon-moon {
   }
   .about-sections,
   .document-grid,
-  .principle-grid,
-  .trend-guide-grid {
+  .principle-grid {
     grid-template-columns: 1fr;
   }
   .about-sections section,
@@ -1194,15 +971,6 @@ html[data-theme="dark"] .theme-icon-moon {
   .footer-bottom {
     align-items: flex-start;
     flex-direction: column;
-  }
-  .trend-page {
-    padding-top: 44px;
-  }
-  .trend-card h2 {
-    font-size: 1.9rem;
-  }
-  .trend-answer-buttons {
-    grid-template-columns: 1fr;
   }
 }
 
@@ -1332,6 +1100,53 @@ html[data-theme="dark"] .theme-icon-moon {
 .studio-preview-footer .brand-companion-image {
   width: 112px;
   height: 112px;
+  object-fit: contain;
+}
+.bori-hero-guide {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-space-lg);
+  margin: 0 var(--pl-space-xl);
+  padding: var(--pl-space-md) var(--pl-space-lg);
+  border: 1px solid var(--pl-border);
+  background: var(--pl-muted);
+}
+.bori-hero-character {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.bori-hero-guide > div {
+  display: grid;
+  gap: var(--pl-space-sm);
+}
+.bori-hero-guide strong {
+  max-width: 15rem;
+  font-family: var(--display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.05;
+}
+.bori-shelf-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pl-space-md);
+  margin-top: var(--pl-space-xl);
+}
+.bori-shelf-character {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+}
+.bori-contact-note {
+  display: flex;
+  align-items: center;
+  gap: var(--pl-space-md);
+}
+.bori-contact-character {
+  width: 88px;
+  height: 88px;
   object-fit: contain;
 }
 .product-grid {
@@ -1490,6 +1305,14 @@ html[data-theme="dark"] .theme-icon-moon {
   }
   .studio-preview-card {
     transform: none;
+  }
+  .bori-hero-guide {
+    align-items: flex-start;
+    margin-inline: var(--pl-space-lg);
+  }
+  .bori-hero-character {
+    width: 76px;
+    height: 76px;
   }
   .principle-grid {
     grid-template-columns: 1fr;

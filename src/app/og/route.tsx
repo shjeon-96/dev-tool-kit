@@ -84,9 +84,9 @@ export function GET() {
           }}
         >
           <span>APPS</span>
-          <span>GAMES</span>
+          <span>APPS</span>
           <span>CARE</span>
-          <span>PLAY</span>
+          <span>PRODUCTS</span>
           <span>STUDIO</span>
         </div>
       </div>

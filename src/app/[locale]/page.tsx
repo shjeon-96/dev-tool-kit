@@ -78,6 +78,15 @@ export default async function HomePage({ params }: PageProps) {
             </div>
             <UI.CardTitle>Useful things, with a little feeling.</UI.CardTitle>
           </UI.CardHeader>
+          <div className="bori-hero-guide">
+            <BoriCompanion className="bori-hero-character" priority />
+            <div>
+              <UI.Badge variant="secondary">
+                {dictionary.home.boriHeroLabel}
+              </UI.Badge>
+              <strong>{dictionary.home.boriHeroMessage}</strong>
+            </div>
+          </div>
           <UI.CardContent>
             <UI.Stack gap="sm">
               {dictionary.home.products.map((product) => (
@@ -94,7 +103,7 @@ export default async function HomePage({ params }: PageProps) {
               <UI.Badge variant="secondary">A SMALL STUDIO</UI.Badge>
               <strong>Built slowly. Used often.</strong>
             </div>
-            <BoriCompanion />
+            <BoriCompanion className="bori-preview-character" priority />
           </UI.CardFooter>
         </UI.Card>
       </section>
@@ -119,6 +128,12 @@ export default async function HomePage({ params }: PageProps) {
               }}
             />
           ))}
+        </div>
+        <div className="bori-shelf-note">
+          <BoriCompanion className="bori-shelf-character" />
+          <UI.Badge variant="secondary">
+            {dictionary.home.boriShelfLabel}
+          </UI.Badge>
         </div>
       </UI.Section>
 
@@ -148,9 +163,12 @@ export default async function HomePage({ params }: PageProps) {
         <div className="shell studio-contact-inner">
           <UI.Card className="studio-contact-card">
             <UI.CardContent>
-              <UI.Badge variant="secondary">
-                {dictionary.home.contactEyebrow}
-              </UI.Badge>
+              <div className="bori-contact-note">
+                <BoriCompanion className="bori-contact-character" />
+                <UI.Badge variant="secondary">
+                  {dictionary.home.boriContactLabel}
+                </UI.Badge>
+              </div>
             </UI.CardContent>
             <UI.CardFooter>
               <a className={actionClass} href={`mailto:${SITE_EMAIL}`}>

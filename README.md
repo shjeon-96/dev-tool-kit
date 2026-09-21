@@ -1,6 +1,6 @@
 # PixelLogic homepage
 
-The multilingual PixelLogic product-studio homepage. It presents the studio's apps, games and experiments in English, Korean and Japanese, with the daily Trend Battle game kept as a separate playful surface.
+The multilingual PixelLogic product-studio homepage. It presents the studio's apps and digital products in English, Korean and Japanese.
 
 ## Development
 
@@ -16,9 +16,7 @@ npm run build
 
 ```text
 src/
-├── app/[locale]/       # Localized homepage, studio, play and legal routes
-├── entities/           # Trend Battle game data
-├── features/           # Trend Battle game experience
+├── app/[locale]/       # Localized homepage, studio and legal routes
 ├── shared/config/      # Site identity and AdSense settings
 ├── shared/i18n/        # EN/KO/JA homepage and legal copy
 ├── shared/ui/          # Brand assets and document primitives

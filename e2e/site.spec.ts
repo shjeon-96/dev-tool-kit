@@ -17,7 +17,7 @@ test.describe("multilingual PixelLogic homepage", () => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("main")).toBeVisible();
-      await expect(page.locator(".product-card-shell")).toHaveCount(4);
+      await expect(page.locator(".product-card-shell")).toHaveCount(3);
       await expect(
         page.getByRole("heading", { name: "Weight History" }),
       ).toBeVisible();
@@ -27,15 +27,12 @@ test.describe("multilingual PixelLogic homepage", () => {
       await expect(
         page.getByRole("heading", { name: "One Second Run" }),
       ).toBeVisible();
-      await expect(
-        page.getByRole("heading", { name: "PixelLogic Blocks" }),
-      ).toBeVisible();
       await expect(page.getByRole("button", { name: "App Store" })).toHaveCount(
-        2,
+        1,
       );
       await expect(
         page.getByRole("button", { name: "Google Play" }),
-      ).toHaveCount(2);
+      ).toHaveCount(1);
       await expect(
         page.getByRole("button", { name: /Open app|앱 열기|アプリを開く/ }),
       ).toHaveCount(1);
@@ -55,13 +52,11 @@ test.describe("multilingual PixelLogic homepage", () => {
     });
   }
 
-  test("keeps the PixelLogic studio pages reachable", async ({ page }) => {
+  test("keeps the PixelLogic studio page reachable", async ({ page }) => {
     await page.goto("/en/about");
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       "studio",
     );
-    await page.getByRole("link", { name: "Play" }).click();
-    await expect(page).toHaveURL(/\/en\/play$/);
   });
 
   test("keeps the primary navigation available on mobile", async ({ page }) => {

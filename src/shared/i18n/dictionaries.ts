@@ -13,7 +13,6 @@ interface Dictionary {
   meta: { title: string; description: string };
   nav: {
     products: string;
-    play: string;
     about: string;
     menu: string;
     language: string;
@@ -46,6 +45,10 @@ interface Dictionary {
     contactTitle: string;
     contactBody: string;
     contactCta: string;
+    boriHeroLabel: string;
+    boriHeroMessage: string;
+    boriShelfLabel: string;
+    boriContactLabel: string;
   };
   about: {
     eyebrow: string;
@@ -80,11 +83,10 @@ const en: Dictionary = {
   meta: {
     title: "PixelLogic — Small products, made with care",
     description:
-      "PixelLogic makes thoughtful apps, games and useful digital products for everyday life.",
+      "PixelLogic makes thoughtful apps and useful digital products for everyday life.",
   },
   nav: {
     products: "Products",
-    play: "Play",
     about: "About",
     menu: "Menu",
     language: "Language",
@@ -101,10 +103,10 @@ const en: Dictionary = {
     title: "Small products",
     titleAccent: "for a brighter everyday.",
     intro:
-      "We make focused apps, playful games and quiet digital experiences that earn a place in daily life.",
+      "We make focused apps and quiet digital experiences that earn a place in daily life.",
     primaryCta: "See the products",
     secondaryCta: "How we work",
-    proofOne: "Apps / games / experiments",
+    proofOne: "Apps / products / experiments",
     proofTwo: "Built by PixelLogic",
     proofThree: "Care over noise",
     productsEyebrow: "THE STUDIO SHELF",
@@ -154,21 +156,16 @@ const en: Dictionary = {
         meta: "APP / DAILY PRACTICE",
         accent: "green",
       },
-      {
-        id: "pixelLogicBlocks",
-        name: "PixelLogic Blocks",
-        status: "Available now",
-        description:
-          "A focused block puzzle for short sessions, clear choices and satisfying turns.",
-        meta: "GAME / SHORT PLAY",
-        accent: "orange",
-      },
     ],
     contactEyebrow: "START A CONVERSATION",
     contactTitle: "Have a small idea worth keeping?",
     contactBody:
       "Tell us what you are making, noticing or trying to make better.",
     contactCta: "Say hello",
+    boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
+    boriHeroMessage: "Small products, a little more heart.",
+    boriShelfLabel: "BORI'S PICKS",
+    boriContactLabel: "BORI SAYS HELLO",
   },
   about: {
     eyebrow: "ABOUT PIXELLOGIC",
@@ -178,7 +175,7 @@ const en: Dictionary = {
     sections: [
       {
         title: "What we make",
-        body: "Apps that help people remember, plan and keep going. Games that make a few spare minutes feel worthwhile. Small experiments that teach us what to build next.",
+        body: "Apps that help people remember, plan and keep going. Small digital experiences that teach us what to build next.",
       },
       {
         title: "How we work",
@@ -243,11 +240,10 @@ const ko: Dictionary = {
   meta: {
     title: "PixelLogic — 작지만 오래 쓰는 제품을 만들어요",
     description:
-      "PixelLogic은 일상에 오래 남는 앱, 게임과 디지털 제품을 만드는 작은 제품 스튜디오예요.",
+      "PixelLogic은 일상에 오래 남는 앱과 디지털 제품을 만드는 작은 제품 스튜디오예요.",
   },
   nav: {
     products: "제품",
-    play: "게임",
     about: "스튜디오",
     menu: "메뉴",
     language: "언어",
@@ -263,16 +259,15 @@ const ko: Dictionary = {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "작지만 오래 쓰는 제품을",
     titleAccent: "만들어요.",
-    intro:
-      "일상에 필요한 앱, 잠깐의 시간을 즐겁게 하는 게임, 다음을 배우는 작은 실험을 만들어요.",
+    intro: "일상에 필요한 앱과 다음을 배우는 작은 디지털 경험을 만들어요.",
     primaryCta: "제품 보기",
     secondaryCta: "만드는 방식",
-    proofOne: "앱 / 게임 / 실험",
+    proofOne: "앱 / 제품 / 실험",
     proofTwo: "PixelLogic에서 만들어요",
     proofThree: "소음보다 세심함",
     productsEyebrow: "STUDIO SHELF",
     productsTitle: "지금 만날 수 있는 제품들",
-    productsIntro: "실제 배포된 PixelLogic 앱과 게임들이에요.",
+    productsIntro: "실제 배포된 PixelLogic 앱과 디지털 제품들이에요.",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "분명하게 쓰고, 따뜻하게 머무는 제품.",
     principles: [
@@ -316,21 +311,16 @@ const ko: Dictionary = {
         meta: "APP / DAILY PRACTICE",
         accent: "green",
       },
-      {
-        id: "pixelLogicBlocks",
-        name: "PixelLogic Blocks",
-        status: "스토어에서 만나요",
-        description:
-          "짧은 시간에도 분명한 선택과 기분 좋은 한 수를 주는 블록 퍼즐이에요.",
-        meta: "GAME / SHORT PLAY",
-        accent: "orange",
-      },
     ],
     contactEyebrow: "START A CONVERSATION",
     contactTitle: "오래 남길 작은 아이디어가 있나요?",
     contactBody:
       "만들고 있거나, 발견했거나, 더 나아지게 만들고 싶은 이야기를 들려 주세요.",
     contactCta: "이야기 나누기",
+    boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
+    boriHeroMessage: "작은 제품도, 오래 쓰는 마음으로 만들어요.",
+    boriShelfLabel: "보리가 고른 제품",
+    boriContactLabel: "보리가 인사해요",
   },
   about: {
     eyebrow: "ABOUT PIXELLOGIC",
@@ -340,7 +330,7 @@ const ko: Dictionary = {
     sections: [
       {
         title: "무엇을 만들어요",
-        body: "기억하고, 계획하고, 계속 나아가도록 돕는 앱을 만들어요. 짧은 시간을 가치 있게 만드는 게임도 만들어요.",
+        body: "기억하고, 계획하고, 계속 나아가도록 돕는 앱과 작은 디지털 경험을 만들어요.",
       },
       {
         title: "어떻게 만들어요",
@@ -405,11 +395,10 @@ const ja: Dictionary = {
   meta: {
     title: "PixelLogic — 小さく、丁寧につくるプロダクト",
     description:
-      "PixelLogicは、日々の暮らしに長く残るアプリ、ゲーム、デジタルプロダクトをつくる小さなスタジオです。",
+      "PixelLogicは、日々の暮らしに長く残るアプリとデジタルプロダクトをつくる小さなスタジオです。",
   },
   nav: {
     products: "プロダクト",
-    play: "ゲーム",
     about: "スタジオ",
     menu: "メニュー",
     language: "言語",
@@ -425,16 +414,16 @@ const ja: Dictionary = {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "小さく、丁寧に",
     titleAccent: "つくる。",
-    intro:
-      "毎日に役立つアプリ、短い時間を楽しむゲーム、次を学ぶ小さな実験をつくっています。",
+    intro: "毎日に役立つアプリと、次を学ぶ小さなデジタル体験をつくっています。",
     primaryCta: "プロダクトを見る",
     secondaryCta: "つくり方を見る",
-    proofOne: "アプリ / ゲーム / 実験",
+    proofOne: "アプリ / プロダクト / 実験",
     proofTwo: "PixelLogicで制作",
     proofThree: "ノイズより丁寧さ",
     productsEyebrow: "STUDIO SHELF",
     productsTitle: "いま使えるプロダクト",
-    productsIntro: "実際に公開しているPixelLogicのアプリとゲームです。",
+    productsIntro:
+      "実際に公開しているPixelLogicのアプリとデジタルプロダクトです。",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "明確に使えて、あたたかく残るプロダクト。",
     principles: [
@@ -478,21 +467,16 @@ const ja: Dictionary = {
         meta: "APP / DAILY PRACTICE",
         accent: "green",
       },
-      {
-        id: "pixelLogicBlocks",
-        name: "PixelLogic Blocks",
-        status: "ストアで配信中",
-        description:
-          "短い時間で、明確な選択と気持ちよい一手を楽しむブロックパズルです。",
-        meta: "GAME / SHORT PLAY",
-        accent: "orange",
-      },
     ],
     contactEyebrow: "START A CONVERSATION",
     contactTitle: "残しておきたい小さなアイデアがありますか？",
     contactBody:
       "つくっていること、気づいたこと、もっと良くしたいことを聞かせてください。",
     contactCta: "話しかける",
+    boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
+    boriHeroMessage: "小さなプロダクトに、もう少しあたたかさを。",
+    boriShelfLabel: "ボリのおすすめ",
+    boriContactLabel: "ボリからごあいさつ",
   },
   about: {
     eyebrow: "ABOUT PIXELLOGIC",
@@ -502,7 +486,7 @@ const ja: Dictionary = {
     sections: [
       {
         title: "つくるもの",
-        body: "覚える、計画する、続けることを助けるアプリ。短い時間を価値あるものにするゲーム。次を学ぶ小さな実験をつくります。",
+        body: "覚える、計画する、続けることを助けるアプリと、次を学ぶ小さなデジタル体験をつくります。",
       },
       {
         title: "つくり方",
