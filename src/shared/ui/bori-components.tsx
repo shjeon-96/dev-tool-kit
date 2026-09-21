@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import * as UI from "@pixellogic/ui/react";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CalendarDays,
-  Heart,
-  Scale,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import {
   PRODUCT_LINKS,
   localizedPath,
@@ -16,12 +10,6 @@ import {
 } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
 import { BoriCompanion } from "@/shared/ui/brand-assets";
-
-const PRODUCT_ICONS = {
-  weightHistory: Scale,
-  solScheduler: CalendarDays,
-  oneSecondRun: Heart,
-} as const;
 
 const PRODUCT_BORI_ASSETS = {
   weightHistory: "wellnessCheckup",
@@ -61,7 +49,6 @@ function BoriProductCard({
   index: number;
   linkLabels: ProductLinkLabels;
 }) {
-  const Icon = PRODUCT_ICONS[product.id];
   const links = PRODUCT_LINKS[product.id];
 
   return (
@@ -75,11 +62,10 @@ function BoriProductCard({
             <UI.Badge variant="outline">{product.meta}</UI.Badge>
           </UI.Stack>
           <UI.Stack direction="row" align="center" gap="md">
-            <UI.Icon icon={Icon} size="large" />
             <BoriCompanion
               asset={PRODUCT_BORI_ASSETS[product.id]}
-              width={56}
-              height={56}
+              width={64}
+              height={64}
             />
           </UI.Stack>
           <UI.Stack direction="row" align="center" gap="sm">
