@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export const CREAM_CAT_ASSET = {
+export const BORI_ASSET = {
   id: "neutral",
   version: "1.0.0",
   src: "/brand/cream-cat-neutral.png",
@@ -30,12 +30,12 @@ export function PixelLogicLockup({ compact = false }: { compact?: boolean }) {
   );
 }
 
-export function CreamCatCompanion() {
+export function BoriCompanion() {
   return (
     <Image
       className="brand-companion-image"
-      src={CREAM_CAT_ASSET.src}
-      alt="PixelLogic 크림 고양이 브랜드 캐릭터"
+      src={BORI_ASSET.src}
+      alt="PixelLogic 보리 캐릭터"
       width={1254}
       height={1254}
       priority

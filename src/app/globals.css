@@ -1329,9 +1329,10 @@ html[data-theme="dark"] .theme-icon-moon {
   font-weight: 500;
   line-height: 1;
 }
-.studio-preview-footer .pl-mascot {
+.studio-preview-footer .brand-companion-image {
   width: 112px;
   height: 112px;
+  object-fit: contain;
 }
 .product-grid {
   margin-top: 28px;

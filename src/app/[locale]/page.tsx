@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { isLocale, localizedPath, SITE_EMAIL } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
+import { BoriCompanion } from "@/shared/ui/brand-assets";
 import { ProductCard } from "@/widgets/product-card";
 
 interface PageProps {
@@ -93,11 +94,7 @@ export default async function HomePage({ params }: PageProps) {
               <UI.Badge variant="secondary">A SMALL STUDIO</UI.Badge>
               <strong>Built slowly. Used often.</strong>
             </div>
-            <UI.Mascot
-              asset="neutral"
-              size="large"
-              label="PixelLogic 크림 고양이"
-            />
+            <BoriCompanion />
           </UI.CardFooter>
         </UI.Card>
       </section>
