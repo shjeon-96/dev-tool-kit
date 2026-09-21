@@ -61,6 +61,16 @@ export const PRODUCT_APP_ICONS = {
     source: "running-app iOS AppIcon 1024",
     sha256: "40f7cfb022628f273289272534b0ca793d66707cec3266ecf305c4b621441141",
   },
+  blockBlast: {
+    src: "/brand/products/block-blast.png",
+    source: "block-blast assets/icon.png",
+    sha256: "485c3a1b9317434c9a4f5cbf18ff65c218d7fa29cd104d71105c0eab2062c3e2",
+  },
+  orbit: {
+    src: "/brand/products/orbit.png",
+    source: "orbit/apps/mobile/assets/images/orbit-center.png",
+    sha256: "73d2ae75147be4fcbd0600b5e2c12e560caf7717bf6ddd3d7141998bc8220898",
+  },
 } as const;
 
 export type ProductAppIcon = keyof typeof PRODUCT_APP_ICONS;
@@ -81,6 +91,8 @@ const PRODUCT_BORI: Record<ProductAppIcon, BoriAsset> = {
   weightHistory: "wellnessCheckup",
   solScheduler: "workProjectPlan",
   oneSecondRun: "fitnessRunning",
+  blockBlast: "success",
+  orbit: "welcome",
 };
 
 export function PixelLogicMark() {

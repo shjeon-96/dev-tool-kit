@@ -93,7 +93,7 @@ const en: Dictionary = {
     title: "Small products",
     titleAccent: "for a brighter everyday.",
     intro:
-      "We make focused apps for recording health, organizing time and building habits that last.",
+      "We make focused apps for health, routines, play and the small ways people connect.",
     primaryCta: "See the products",
     proofOne: "Apps / products / experiments",
     proofTwo: "Built by PixelLogic",
@@ -140,6 +140,22 @@ const en: Dictionary = {
         description:
           "A daily running ritual that grows by one second at a time.",
         meta: "APP / DAILY PRACTICE",
+      },
+      {
+        id: "blockBlast",
+        name: "PixelLogic Blocks",
+        status: "Available now",
+        description:
+          "An 8×8 block puzzle about placing pieces, clearing lines and keeping a combo.",
+        meta: "APP / PUZZLE",
+      },
+      {
+        id: "orbit",
+        name: "Orbit: Who Knows You?",
+        status: "Open on the web",
+        description:
+          "A playful quiz for sharing questions with friends and discovering how they see you.",
+        meta: "WEB / SOCIAL QUIZ",
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -270,6 +286,22 @@ const ko: Dictionary = {
         status: "스토어에서 만나요",
         description: "매일 1초씩 늘어나는 달리기 루틴을 만드는 앱이에요.",
         meta: "APP / DAILY PRACTICE",
+      },
+      {
+        id: "blockBlast",
+        name: "PixelLogic Blocks",
+        status: "스토어에서 만나요",
+        description:
+          "블록을 놓고 줄을 지우며 콤보를 이어가는 8×8 퍼즐 게임이에요.",
+        meta: "APP / PUZZLE",
+      },
+      {
+        id: "orbit",
+        name: "Orbit: Who Knows You?",
+        status: "웹에서 만나요",
+        description:
+          "친구에게 퀴즈를 보내고 서로가 나를 어떻게 보는지 알아가는 서비스예요.",
+        meta: "WEB / SOCIAL QUIZ",
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -402,6 +434,22 @@ const ja: Dictionary = {
         status: "ストアで配信中",
         description: "毎日1秒ずつ伸びるランニングの習慣をつくるアプリです。",
         meta: "APP / DAILY PRACTICE",
+      },
+      {
+        id: "blockBlast",
+        name: "PixelLogic Blocks",
+        status: "ストアで配信中",
+        description:
+          "ブロックを置き、ラインを消しながらコンボをつなぐ8×8パズルです。",
+        meta: "APP / PUZZLE",
+      },
+      {
+        id: "orbit",
+        name: "Orbit: Who Knows You?",
+        status: "ウェブで公開中",
+        description:
+          "友だちにクイズを送り、お互いがどう見ているかを楽しむサービスです。",
+        meta: "WEB / SOCIAL QUIZ",
       },
     ],
     contactEyebrow: "START A CONVERSATION",
