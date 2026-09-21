@@ -8,7 +8,11 @@ export function PixelLogicProvider({
   children: React.ReactNode;
 }) {
   return (
-    <UI.PixelLogicProvider defaultMode="system" toast={false}>
+    <UI.PixelLogicProvider
+      className="pixellogic-theme"
+      defaultMode="system"
+      toast={false}
+    >
       {children}
     </UI.PixelLogicProvider>
   );

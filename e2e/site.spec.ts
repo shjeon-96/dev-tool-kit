@@ -59,6 +59,41 @@ test.describe("multilingual PixelLogic homepage", () => {
     );
   });
 
+  test("keeps the site shell and product shelf in sync with the theme", async ({
+    page,
+  }) => {
+    await page.goto("/ko");
+
+    const themeRoot = page.locator(".pixellogic-theme");
+    const themeToggle = page.getByRole("button", { name: "테마 전환" });
+    const readTheme = () =>
+      themeRoot.evaluate((root) => {
+        const getPaper = (element: Element | null) =>
+          element ? getComputedStyle(element).getPropertyValue("--paper") : "";
+        const getBackground = (element: Element | null) =>
+          element ? getComputedStyle(element).backgroundColor : "";
+
+        return {
+          mode: root.getAttribute("data-pl-theme"),
+          pagePaper: getPaper(root),
+          headerPaper: getPaper(document.querySelector(".site-header")),
+          footerPaper: getPaper(document.querySelector(".site-footer")),
+          productCardBackground: getBackground(
+            document.querySelector(".bori-product-card"),
+          ),
+        };
+      });
+
+    const initial = await readTheme();
+    await themeToggle.click();
+    await expect(themeRoot).not.toHaveAttribute("data-pl-theme", initial.mode);
+
+    const next = await readTheme();
+    expect(next.headerPaper).toBe(next.pagePaper);
+    expect(next.footerPaper).toBe(next.pagePaper);
+    expect(next.productCardBackground).not.toBe(initial.productCardBackground);
+  });
+
   test("keeps the primary navigation available on mobile", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/ko");

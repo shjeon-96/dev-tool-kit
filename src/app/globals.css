@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-:root {
+:root,
+.pixellogic-theme {
   --paper: #f2efe6;
   --paper-deep: #e7e2d5;
   --ink: #171813;
@@ -19,7 +20,8 @@
   --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 }
 
-html[data-theme="dark"] {
+html[data-theme="dark"],
+.pixellogic-theme[data-pl-theme="dark"] {
   --paper: #241d19;
   --paper-deep: #3d312a;
   --ink: #fff9f0;
@@ -30,6 +32,11 @@ html[data-theme="dark"] {
   --cream: #302722;
   --line: #665044;
   --line-soft: #51372b;
+}
+
+.pixellogic-theme {
+  color: var(--ink);
+  background: var(--paper);
 }
 
 @media (prefers-color-scheme: dark) {
