@@ -44,7 +44,6 @@ export default async function HomePage({ params }: PageProps) {
         products={dictionary.home.products}
         heroLabel={dictionary.home.boriHeroLabel}
         heroMessage={dictionary.home.boriHeroMessage}
-        shelfLabel={dictionary.home.boriShelfLabel}
       />
       <BoriProductShelf
         title={dictionary.home.productsTitle}

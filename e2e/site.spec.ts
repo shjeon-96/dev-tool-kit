@@ -18,6 +18,13 @@ test.describe("multilingual PixelLogic homepage", () => {
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("main")).toBeVisible();
       await expect(page.getByTestId("bori-product-card")).toHaveCount(3);
+      await expect(page.locator(".product-app-icon")).toHaveCount(6);
+      await expect(
+        page.getByTestId("bori-product-card").locator(".product-app-icon"),
+      ).toHaveCount(3);
+      await expect(
+        page.getByTestId("bori-product-card").locator(".brand-companion-image"),
+      ).toHaveCount(0);
       await expect(
         page.getByRole("heading", { name: "Weight History" }),
       ).toBeVisible();

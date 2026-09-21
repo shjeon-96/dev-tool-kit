@@ -45,6 +45,26 @@ export const BORI_ASSETS = {
 
 export type BoriAsset = keyof typeof BORI_ASSETS;
 
+export const PRODUCT_APP_ICONS = {
+  weightHistory: {
+    src: "/brand/products/weight-history.png",
+    source: "weight-history iOS AppIcon 1024",
+    sha256: "3cebecc3e759ffd136ec7c3a8a756aae096e719db9704c9d8a077bb336440f0e",
+  },
+  solScheduler: {
+    src: "/brand/products/sol-scheduler.png",
+    source: "sol-calendar iOS AppIcon",
+    sha256: "2e3f80e5c6a3377a9584fa996c5c0d60b58988b44102360910a2227c25ed595e",
+  },
+  oneSecondRun: {
+    src: "/brand/products/one-second-run.png",
+    source: "running-app iOS AppIcon 1024",
+    sha256: "40f7cfb022628f273289272534b0ca793d66707cec3266ecf305c4b621441141",
+  },
+} as const;
+
+export type ProductAppIcon = keyof typeof PRODUCT_APP_ICONS;
+
 export function PixelLogicMark() {
   return (
     <span className="brand-mark" aria-hidden="true">
@@ -88,6 +108,29 @@ export function BoriCompanion({
       width={width}
       height={height}
       priority={priority}
+    />
+  );
+}
+
+export function PixelLogicAppIcon({
+  product,
+  className,
+  width = 72,
+  height = 72,
+}: {
+  product: ProductAppIcon;
+  className?: string;
+  width?: number;
+  height?: number;
+}) {
+  return (
+    <Image
+      className={`product-app-icon${className ? ` ${className}` : ""}`}
+      src={PRODUCT_APP_ICONS[product].src}
+      alt=""
+      width={width}
+      height={height}
+      aria-hidden="true"
     />
   );
 }

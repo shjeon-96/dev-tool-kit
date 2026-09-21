@@ -5,13 +5,7 @@ import * as UI from "@pixellogic/ui/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { PRODUCT_LINKS } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
-import { BoriCompanion } from "@/shared/ui/brand-assets";
-
-const PRODUCT_BORI_ASSETS = {
-  weightHistory: "wellnessCheckup",
-  solScheduler: "planning",
-  oneSecondRun: "fitnessRunning",
-} as const;
+import { BoriCompanion, PixelLogicAppIcon } from "@/shared/ui/brand-assets";
 
 type ProductLinkLabels = {
   appStore: string;
@@ -58,11 +52,7 @@ function BoriProductCard({
             <UI.Badge variant="outline">{product.meta}</UI.Badge>
           </UI.Stack>
           <UI.Stack direction="row" align="center" gap="md">
-            <BoriCompanion
-              asset={PRODUCT_BORI_ASSETS[product.id]}
-              width={64}
-              height={64}
-            />
+            <PixelLogicAppIcon product={product.id} />
           </UI.Stack>
           <UI.Stack direction="row" align="center" gap="sm">
             <UI.CardTitle role="heading" aria-level={3}>
@@ -108,7 +98,6 @@ export function BoriHomeHero({
   products,
   heroLabel,
   heroMessage,
-  shelfLabel,
 }: {
   eyebrow: string;
   title: string;
@@ -119,7 +108,6 @@ export function BoriHomeHero({
   products: readonly ProductCopy[];
   heroLabel: string;
   heroMessage: string;
-  shelfLabel: string;
 }) {
   return (
     <UI.Stack gap="xxl" className="bori-home-hero">
@@ -169,6 +157,13 @@ export function BoriHomeHero({
                   key={product.id}
                   title={product.name}
                   description={product.meta}
+                  leading={
+                    <PixelLogicAppIcon
+                      product={product.id}
+                      width={36}
+                      height={36}
+                    />
+                  }
                   trailing={
                     <UI.StatusBadge tone="success">LIVE</UI.StatusBadge>
                   }
@@ -176,12 +171,6 @@ export function BoriHomeHero({
               ))}
             </UI.Stack>
           </UI.CardContent>
-          <UI.CardFooter>
-            <UI.Stack direction="row" align="center" gap="sm">
-              <BoriCompanion asset="success" width={64} height={64} />
-              <UI.Badge variant="secondary">{shelfLabel}</UI.Badge>
-            </UI.Stack>
-          </UI.CardFooter>
         </UI.Card>
       </UI.Stack>
     </UI.Stack>

@@ -190,6 +190,14 @@ summary:focus-visible {
   height: 28px;
   fill: currentColor;
 }
+.product-app-icon {
+  display: block;
+  flex-shrink: 0;
+  border-radius: var(--pl-radius-lg);
+  box-shadow: 0 8px 18px
+    color-mix(in srgb, var(--pl-foreground) 14%, transparent);
+  object-fit: cover;
+}
 .brand-lockup > span:last-child {
   display: grid;
 }
