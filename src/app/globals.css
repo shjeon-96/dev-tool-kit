@@ -1333,3 +1333,67 @@ html[data-theme="dark"] .theme-icon-moon {
     grid-template-columns: 1fr;
   }
 }
+
+/* 원칙은 제품보다 앞에 나서지 않도록 중립 surface로 낮춰요. */
+.principles-section {
+  color: var(--pl-foreground);
+  background: var(--pl-background);
+  border-top: 1px solid var(--pl-border);
+  border-bottom: 1px solid var(--pl-border);
+}
+.principles-section .pl-section-header,
+.principles-section .principle-grid {
+  width: min(1180px, calc(100% - 40px));
+  margin-inline: auto;
+}
+.principles-section .pl-section-header {
+  max-width: 1180px;
+}
+.principles-section .pl-section-header h2 {
+  color: var(--pl-foreground);
+}
+.principles-section .pl-section-header .pl-description {
+  color: var(--pl-muted-foreground);
+}
+.principles-section .principle-grid {
+  gap: 0;
+  margin-top: var(--pl-space-xl);
+  border-top: 1px solid var(--pl-border);
+}
+.principles-section .principle-row {
+  min-height: 176px;
+  padding: var(--pl-space-xl) var(--pl-space-lg) var(--pl-space-xl) 0;
+  border: 0;
+  border-right: 1px solid var(--pl-border);
+  border-radius: 0;
+  background: transparent;
+}
+.principles-section .principle-row + .principle-row {
+  padding-left: var(--pl-space-lg);
+}
+.principles-section .principle-row:last-child {
+  border-right: 0;
+}
+.principles-section .principle-row strong {
+  color: var(--pl-foreground);
+}
+.principles-section .principle-row p {
+  color: var(--pl-muted-foreground);
+}
+
+@media (max-width: 720px) {
+  .principles-section .pl-section-header,
+  .principles-section .principle-grid {
+    width: min(100% - 28px, 1180px);
+  }
+  .principles-section .principle-row,
+  .principles-section .principle-row + .principle-row {
+    min-height: auto;
+    padding: var(--pl-space-lg) 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--pl-border);
+  }
+  .principles-section .principle-row:last-child {
+    border-bottom: 0;
+  }
+}
