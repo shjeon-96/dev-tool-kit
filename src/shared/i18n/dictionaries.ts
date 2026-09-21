@@ -1,6 +1,7 @@
-import type { Locale } from "@/shared/config/site";
+import { type Locale, type ProductId } from "@/shared/config/site";
 
 export interface ProductCopy {
+  id: ProductId;
   name: string;
   status: string;
   description: string;
@@ -17,7 +18,11 @@ interface Dictionary {
     menu: string;
     language: string;
   };
-  common: { skipToContent: string };
+  common: {
+    skipToContent: string;
+    appStore: string;
+    googlePlay: string;
+  };
   home: {
     eyebrow: string;
     title: string;
@@ -82,7 +87,11 @@ const en: Dictionary = {
     menu: "Menu",
     language: "Language",
   },
-  common: { skipToContent: "Skip to content" },
+  common: {
+    skipToContent: "Skip to content",
+    appStore: "App Store",
+    googlePlay: "Google Play",
+  },
   home: {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "Small products",
@@ -95,9 +104,9 @@ const en: Dictionary = {
     proofTwo: "Built by PixelLogic",
     proofThree: "Care over noise",
     productsEyebrow: "THE STUDIO SHELF",
-    productsTitle: "A few things we are making.",
+    productsTitle: "A few things you can use.",
     productsIntro:
-      "Different problems, one shared instinct: make the useful part feel considered.",
+      "Real products, already available on the stores, made with the same care.",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "Clear enough to use. Warm enough to keep.",
     principles: [
@@ -116,32 +125,18 @@ const en: Dictionary = {
     ],
     products: [
       {
-        name: "Bitemory",
-        status: "In the studio",
-        description:
-          "A gentler way to remember meals, nutrition and the small patterns around them.",
-        meta: "APP / EVERYDAY MEMORY",
-        accent: "orange",
-      },
-      {
-        name: "Sol Calendar",
-        status: "In the studio",
-        description:
-          "Schedules, tasks and progress brought together in one calmer calendar.",
-        meta: "APP / TIME & ROUTINE",
-        accent: "blue",
-      },
-      {
+        id: "oneSecondRun",
         name: "One Second Run",
-        status: "In the studio",
+        status: "Available now",
         description:
           "A daily running ritual that grows by one second at a time.",
         meta: "APP / DAILY PRACTICE",
         accent: "green",
       },
       {
+        id: "pixelLogicBlocks",
         name: "PixelLogic Blocks",
-        status: "In the studio",
+        status: "Available now",
         description:
           "A focused block puzzle for short sessions, clear choices and satisfying turns.",
         meta: "GAME / SHORT PLAY",
@@ -236,7 +231,11 @@ const ko: Dictionary = {
     menu: "메뉴",
     language: "언어",
   },
-  common: { skipToContent: "본문으로 건너뛰기" },
+  common: {
+    skipToContent: "본문으로 건너뛰기",
+    appStore: "App Store",
+    googlePlay: "Google Play",
+  },
   home: {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "작지만 오래 쓰는 제품을",
@@ -249,9 +248,8 @@ const ko: Dictionary = {
     proofTwo: "PixelLogic에서 만들어요",
     proofThree: "소음보다 세심함",
     productsEyebrow: "STUDIO SHELF",
-    productsTitle: "지금 만들고 있는 것들",
-    productsIntro:
-      "서로 다른 문제를 풀지만, 유용한 부분이 오래 기억되도록 만든다는 마음은 같아요.",
+    productsTitle: "지금 만날 수 있는 제품들",
+    productsIntro: "실제 스토어에서 만날 수 있는 PixelLogic 제품들이에요.",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "분명하게 쓰고, 따뜻하게 머무는 제품.",
     principles: [
@@ -270,31 +268,17 @@ const ko: Dictionary = {
     ],
     products: [
       {
-        name: "Bitemory",
-        status: "만드는 중",
-        description:
-          "식사와 영양, 그 주변의 작은 패턴을 더 편하게 기억하는 앱이에요.",
-        meta: "APP / EVERYDAY MEMORY",
-        accent: "orange",
-      },
-      {
-        name: "Sol Calendar",
-        status: "만드는 중",
-        description:
-          "일정과 할 일, 이어지는 기록을 한 곳에서 관리하는 캘린더예요.",
-        meta: "APP / TIME & ROUTINE",
-        accent: "blue",
-      },
-      {
+        id: "oneSecondRun",
         name: "One Second Run",
-        status: "만드는 중",
+        status: "스토어에서 만나요",
         description: "매일 1초씩 늘어나는 달리기 루틴을 만드는 앱이에요.",
         meta: "APP / DAILY PRACTICE",
         accent: "green",
       },
       {
+        id: "pixelLogicBlocks",
         name: "PixelLogic Blocks",
-        status: "만드는 중",
+        status: "스토어에서 만나요",
         description:
           "짧은 시간에도 분명한 선택과 기분 좋은 한 수를 주는 블록 퍼즐이에요.",
         meta: "GAME / SHORT PLAY",
@@ -389,7 +373,11 @@ const ja: Dictionary = {
     menu: "メニュー",
     language: "言語",
   },
-  common: { skipToContent: "本文へ移動" },
+  common: {
+    skipToContent: "本文へ移動",
+    appStore: "App Store",
+    googlePlay: "Google Play",
+  },
   home: {
     eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "小さく、丁寧に",
@@ -402,9 +390,8 @@ const ja: Dictionary = {
     proofTwo: "PixelLogicで制作",
     proofThree: "ノイズより丁寧さ",
     productsEyebrow: "STUDIO SHELF",
-    productsTitle: "いま、つくっているもの",
-    productsIntro:
-      "解く課題は違っても、役立つ部分を心地よく残すという考えは共通しています。",
+    productsTitle: "いま使えるプロダクト",
+    productsIntro: "実際のストアで公開しているPixelLogicのプロダクトです。",
     principleEyebrow: "HOW WE BUILD",
     principleTitle: "明確に使えて、あたたかく残るプロダクト。",
     principles: [
@@ -423,31 +410,17 @@ const ja: Dictionary = {
     ],
     products: [
       {
-        name: "Bitemory",
-        status: "制作中",
-        description:
-          "食事と栄養、その周りの小さなパターンを記録するアプリです。",
-        meta: "APP / EVERYDAY MEMORY",
-        accent: "orange",
-      },
-      {
-        name: "Sol Calendar",
-        status: "制作中",
-        description:
-          "予定、タスク、続けてきた記録をひとつにまとめるカレンダーです。",
-        meta: "APP / TIME & ROUTINE",
-        accent: "blue",
-      },
-      {
+        id: "oneSecondRun",
         name: "One Second Run",
-        status: "制作中",
+        status: "ストアで配信中",
         description: "毎日1秒ずつ伸びるランニングの習慣をつくるアプリです。",
         meta: "APP / DAILY PRACTICE",
         accent: "green",
       },
       {
+        id: "pixelLogicBlocks",
         name: "PixelLogic Blocks",
-        status: "制作中",
+        status: "ストアで配信中",
         description:
           "短い時間で、明確な選択と気持ちよい一手を楽しむブロックパズルです。",
         meta: "GAME / SHORT PLAY",

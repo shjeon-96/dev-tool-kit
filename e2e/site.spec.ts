@@ -17,7 +17,29 @@ test.describe("multilingual PixelLogic homepage", () => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("main")).toBeVisible();
-      await expect(page.locator(".product-card")).toHaveCount(4);
+      await expect(page.locator(".product-card")).toHaveCount(2);
+      await expect(
+        page.getByRole("heading", { name: "One Second Run" }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("heading", { name: "PixelLogic Blocks" }),
+      ).toBeVisible();
+      await expect(
+        page.locator('a[href*="apps.apple.com/us/app/one-second-run"]'),
+      ).toHaveCount(1);
+      await expect(
+        page.locator(
+          'a[href*="play.google.com/store/apps/details?id=com.jeonseunghun.onesecondrun"]',
+        ),
+      ).toHaveCount(1);
+      await expect(
+        page.locator('a[href*="apps.apple.com/us/app/pixellogic-blocks"]'),
+      ).toHaveCount(1);
+      await expect(
+        page.locator(
+          'a[href*="play.google.com/store/apps/details?id=com.pixellogic.blockblast"]',
+        ),
+      ).toHaveCount(1);
       await expect(
         page.getByRole("link", { name: /Products|제품|プロダクト/ }).first(),
       ).toBeVisible();

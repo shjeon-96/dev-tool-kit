@@ -612,15 +612,26 @@ html[data-theme="dark"] .theme-icon-moon {
   margin: 12px 0 0;
   color: var(--ink-soft);
 }
-.product-card-note {
+.product-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
   margin-top: auto;
   margin-left: 16px;
-  color: var(--ink-soft);
   font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+.product-card-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink-soft);
+}
+.product-card-actions a:hover {
+  color: var(--ink);
 }
 
 .principles-section {

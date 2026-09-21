@@ -1,13 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CalendarDays,
-  Gamepad2,
-  Heart,
-  Smartphone,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, Gamepad2, Heart } from "lucide-react";
 import { notFound } from "next/navigation";
 import { isLocale, localizedPath, SITE_EMAIL } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
@@ -34,10 +27,8 @@ export async function generateMetadata({
 }
 
 const PRODUCT_ICONS = {
-  Bitemory: Smartphone,
-  "Sol Calendar": CalendarDays,
-  "One Second Run": Heart,
-  "PixelLogic Blocks": Gamepad2,
+  oneSecondRun: Heart,
+  pixelLogicBlocks: Gamepad2,
 } as const;
 
 export default async function HomePage({ params }: PageProps) {
@@ -87,7 +78,7 @@ export default async function HomePage({ params }: PageProps) {
               <i />
             </span>
             <span>PIXELLOGIC / STUDIO SHELF</span>
-            <span>01 — 04</span>
+            <span>01 — 02</span>
           </div>
           <div className="studio-window-body">
             <div className="studio-window-heading">
@@ -95,7 +86,7 @@ export default async function HomePage({ params }: PageProps) {
               <strong>Useful things, with a little feeling.</strong>
             </div>
             <div className="studio-product-stack">
-              {dictionary.home.products.slice(0, 3).map((product, index) => (
+              {dictionary.home.products.map((product, index) => (
                 <div
                   className={`studio-product-row accent-${product.accent}`}
                   key={product.name}
@@ -131,14 +122,17 @@ export default async function HomePage({ params }: PageProps) {
         />
         <div className="product-grid">
           {dictionary.home.products.map((product, index) => {
-            const Icon =
-              PRODUCT_ICONS[product.name as keyof typeof PRODUCT_ICONS];
+            const Icon = PRODUCT_ICONS[product.id];
             return (
               <ProductCard
                 key={product.name}
                 product={product}
                 index={index}
                 icon={Icon}
+                storeLabels={{
+                  ios: dictionary.common.appStore,
+                  android: dictionary.common.googlePlay,
+                }}
               />
             );
           })}
