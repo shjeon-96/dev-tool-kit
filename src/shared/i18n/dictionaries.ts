@@ -6,7 +6,6 @@ export interface ProductCopy {
   status: string;
   description: string;
   meta: string;
-  accent: "orange" | "blue" | "green";
 }
 
 interface Dictionary {
@@ -125,7 +124,6 @@ const en: Dictionary = {
         description:
           "A calmer way to record weight, understand trends and keep moving toward a goal.",
         meta: "APP / HEALTH RECORDS",
-        accent: "blue",
       },
       {
         id: "solScheduler",
@@ -134,7 +132,6 @@ const en: Dictionary = {
         description:
           "A focused calendar for schedules, tasks and the rhythm of everyday plans.",
         meta: "APP / TIME & ROUTINE",
-        accent: "orange",
       },
       {
         id: "oneSecondRun",
@@ -143,7 +140,6 @@ const en: Dictionary = {
         description:
           "A daily running ritual that grows by one second at a time.",
         meta: "APP / DAILY PRACTICE",
-        accent: "green",
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -259,7 +255,6 @@ const ko: Dictionary = {
         description:
           "체중을 기록하고 흐름을 살펴보며 목표까지 이어가도록 돕는 앱이에요.",
         meta: "APP / HEALTH RECORDS",
-        accent: "blue",
       },
       {
         id: "solScheduler",
@@ -268,7 +263,6 @@ const ko: Dictionary = {
         description:
           "일정과 할 일을 정리하고 하루의 리듬을 이어가는 캘린더 앱이에요.",
         meta: "APP / TIME & ROUTINE",
-        accent: "orange",
       },
       {
         id: "oneSecondRun",
@@ -276,7 +270,6 @@ const ko: Dictionary = {
         status: "스토어에서 만나요",
         description: "매일 1초씩 늘어나는 달리기 루틴을 만드는 앱이에요.",
         meta: "APP / DAILY PRACTICE",
-        accent: "green",
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -394,7 +387,6 @@ const ja: Dictionary = {
         description:
           "体重を記録し、変化を確認しながら目標へ進むためのアプリです。",
         meta: "APP / HEALTH RECORDS",
-        accent: "blue",
       },
       {
         id: "solScheduler",
@@ -403,7 +395,6 @@ const ja: Dictionary = {
         description:
           "予定とタスクを整理し、毎日のリズムを続けるカレンダーアプリです。",
         meta: "APP / TIME & ROUTINE",
-        accent: "orange",
       },
       {
         id: "oneSecondRun",
@@ -411,7 +402,6 @@ const ja: Dictionary = {
         status: "ストアで配信中",
         description: "毎日1秒ずつ伸びるランニングの習慣をつくるアプリです。",
         meta: "APP / DAILY PRACTICE",
-        accent: "green",
       },
     ],
     contactEyebrow: "START A CONVERSATION",

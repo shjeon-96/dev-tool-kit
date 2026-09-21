@@ -216,7 +216,8 @@ summary:focus-visible {
 }
 .bori-hero-apps {
   display: flex;
-  gap: var(--pl-space-xl);
+  flex-wrap: wrap;
+  gap: var(--pl-space-lg) var(--pl-space-xl);
   width: 100%;
   margin: 0;
   padding: var(--pl-space-lg) 0 0;
@@ -256,7 +257,8 @@ summary:focus-visible {
 }
 .bori-product-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* 제품 수가 아니라 폭으로 열을 정한다. 앱이 늘어도 CSS를 고칠 일이 없다. */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--pl-space-xl);
 }
 .bori-product-card .pl-card-title,
@@ -291,7 +293,7 @@ summary:focus-visible {
 }
 .bori-principle-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--pl-space-xxl);
   margin: 0;
   padding: 0;
@@ -419,10 +421,6 @@ summary:focus-visible {
     grid-template-columns: 1fr;
     gap: var(--pl-space-section);
     padding-block: var(--pl-space-section) var(--pl-space-hero);
-  }
-  .bori-product-grid,
-  .bori-principle-grid {
-    grid-template-columns: 1fr;
   }
   .bori-contact-layout {
     grid-template-columns: 1fr;

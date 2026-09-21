@@ -2,7 +2,7 @@
 
 import * as UI from "@pixellogic/ui/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { PRODUCT_LINKS } from "@/shared/config/site";
+import { PRODUCT_LINKS, type ProductLinkKind } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
 import {
   BoriCompanion,
@@ -10,12 +10,7 @@ import {
   ProductVisual,
 } from "@/shared/ui/brand-assets";
 
-type ProductLinkLabels = {
-  appStore: string;
-  googlePlay: string;
-  web: string;
-  publicPage: string;
-};
+type ProductLinkLabels = Record<ProductLinkKind, string>;
 
 function LinkButton({
   href,
@@ -50,7 +45,7 @@ function BoriProductCard({
   linkLabels: ProductLinkLabels;
 }) {
   const links = Object.entries(PRODUCT_LINKS[product.id]) as [
-    keyof ProductLinkLabels,
+    ProductLinkKind,
     string,
   ][];
 

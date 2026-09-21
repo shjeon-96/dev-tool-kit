@@ -2,6 +2,15 @@ export const SITE_NAME = "PixelLogic";
 export const SITE_URL = "https://web-toolkit.app";
 export const SITE_EMAIL = "pixellogic.app@gmail.com";
 
+// 새 링크 종류를 늘리려면 여기와 dictionaries의 common 라벨을 함께 늘린다.
+export const PRODUCT_LINK_KINDS = [
+  "appStore",
+  "googlePlay",
+  "web",
+  "publicPage",
+] as const;
+export type ProductLinkKind = (typeof PRODUCT_LINK_KINDS)[number];
+
 export const PRODUCT_LINKS = {
   oneSecondRun: {
     appStore: "https://apps.apple.com/us/app/one-second-run/id6763670652",
@@ -14,7 +23,7 @@ export const PRODUCT_LINKS = {
   weightHistory: {
     web: "https://weight-history-nextjs.vercel.app/ko",
   },
-} as const;
+} as const satisfies Record<string, Partial<Record<ProductLinkKind, string>>>;
 
 export const LOCALES = ["en", "ko", "ja"] as const;
 export type Locale = (typeof LOCALES)[number];
