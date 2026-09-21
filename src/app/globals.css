@@ -130,11 +130,7 @@ summary:focus-visible {
   transform: translateY(0);
 }
 .eyebrow,
-.footer-label,
-.brand-lockup small,
-.studio-window-kicker,
-.product-card-topline,
-.product-status {
+.footer-label {
   font-family: var(--mono);
   font-size: 0.7rem;
   font-weight: 700;
@@ -201,11 +197,6 @@ summary:focus-visible {
   font-family: var(--display);
   font-size: 1.18rem;
   line-height: 1.05;
-}
-.brand-lockup small {
-  margin-top: 4px;
-  color: var(--ink-soft);
-  font-size: 0.55rem;
 }
 .primary-nav {
   display: flex;
@@ -328,17 +319,14 @@ html[data-theme="dark"] .theme-icon-moon {
   color: var(--signal);
 }
 
-.about-page,
 .content-page {
   padding-block: 100px 140px;
 }
-.about-page > header,
 .content-page-header {
   max-width: 780px;
   padding-bottom: 58px;
   border-bottom: 1px solid var(--line);
 }
-.about-page h1,
 .content-page h1 {
   margin: 0;
   font-family: var(--display);
@@ -347,35 +335,25 @@ html[data-theme="dark"] .theme-icon-moon {
   letter-spacing: -0.07em;
   line-height: 0.94;
 }
-.about-page > header > p:last-child,
 .content-page-header > p:last-child {
   max-width: 620px;
   margin: 28px 0 0;
   color: var(--ink-soft);
   font-size: 1.1rem;
 }
-.about-sections,
 .document-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   margin-top: 56px;
 }
-.about-sections section,
 .document-grid section {
   padding: 24px;
   border-right: 1px solid var(--line);
 }
-.about-sections section:first-child,
 .document-grid section:first-child {
   border-left: 1px solid var(--line);
 }
-.about-sections span {
-  color: var(--signal);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-}
-.about-sections h2,
 .document-grid h2 {
   margin: 42px 0 12px;
   font-family: var(--display);
@@ -383,7 +361,6 @@ html[data-theme="dark"] .theme-icon-moon {
   font-weight: 500;
   line-height: 1;
 }
-.about-sections p,
 .document-grid p {
   margin: 0;
   color: var(--ink-soft);
@@ -581,15 +558,6 @@ html[data-theme="dark"] .theme-icon-moon {
     padding-top: 12px;
     border-top: 1px solid var(--line-soft);
   }
-  .studio-hero {
-    grid-template-columns: 1fr;
-    gap: 72px;
-    padding-block: 76px 96px;
-  }
-  .studio-window {
-    width: min(680px, 94%);
-    justify-self: center;
-  }
 }
 
 @media (max-width: 720px) {
@@ -598,9 +566,6 @@ html[data-theme="dark"] .theme-icon-moon {
   }
   .header-inner {
     gap: 14px;
-  }
-  .brand-lockup small {
-    display: none;
   }
   .header-actions {
     grid-column: 1 / -1;
@@ -611,87 +576,18 @@ html[data-theme="dark"] .theme-icon-moon {
     gap: 18px;
     font-size: 0.78rem;
   }
-  .studio-hero {
-    padding-block: 60px 76px;
-  }
-  .studio-hero h1 {
-    font-size: clamp(3.35rem, 15vw, 5.2rem);
-  }
-  .studio-window {
-    width: calc(100% - 12px);
-    transform: none;
-  }
-  .studio-window::after {
-    display: none;
-  }
-  .studio-window-topbar {
-    padding-inline: 12px;
-    font-size: 0.54rem;
-  }
-  .studio-window-body {
-    min-height: 410px;
-    padding: 24px 18px 18px;
-  }
-  .studio-product-row {
-    grid-template-columns: 24px 1fr;
-    gap: 10px;
-  }
-  .studio-product-status {
-    grid-column: 2;
-    margin-top: -12px;
-    padding-bottom: 10px;
-  }
-  .studio-cat-dock .brand-companion-image {
-    width: 116px;
-    height: 116px;
-  }
-  .hero-actions {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .product-grid {
-    grid-template-columns: 1fr;
-    margin-top: 36px;
-  }
-  .product-card-title-row {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .about-page,
   .content-page {
     padding-block: 70px 90px;
   }
-  .studio-contact {
-    padding-block: 76px;
-  }
-  .studio-contact-inner {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-  .about-sections,
-  .document-grid,
-  .principle-grid {
+  .document-grid {
     grid-template-columns: 1fr;
   }
-  .about-sections section,
   .document-grid section {
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
-  .about-sections section:first-child,
   .document-grid section:first-child {
     border-left: 1px solid var(--line);
-  }
-  .principle-grid article,
-  .principle-grid article:first-child {
-    min-height: auto;
-    border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-    border-left: 1px solid rgba(255, 255, 255, 0.35);
-  }
-  .principle-grid article:last-child {
-    border-bottom: 0;
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;

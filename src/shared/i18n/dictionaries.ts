@@ -13,7 +13,6 @@ interface Dictionary {
   meta: { title: string; description: string };
   nav: {
     products: string;
-    about: string;
     menu: string;
     language: string;
   };
@@ -30,11 +29,9 @@ interface Dictionary {
     titleAccent: string;
     intro: string;
     primaryCta: string;
-    secondaryCta: string;
     proofOne: string;
     proofTwo: string;
     proofThree: string;
-    productsEyebrow: string;
     productsTitle: string;
     productsIntro: string;
     principleEyebrow: string;
@@ -50,12 +47,6 @@ interface Dictionary {
     boriShelfLabel: string;
     boriContactLabel: string;
   };
-  about: {
-    eyebrow: string;
-    title: string;
-    intro: string;
-    sections: readonly { title: string; body: string }[];
-  };
   privacy: {
     title: string;
     updated: string;
@@ -69,9 +60,7 @@ interface Dictionary {
   footer: {
     statement: string;
     products: string;
-    company: string;
     legal: string;
-    about: string;
     privacy: string;
     terms: string;
     contact: string;
@@ -87,7 +76,6 @@ const en: Dictionary = {
   },
   nav: {
     products: "Products",
-    about: "About",
     menu: "Menu",
     language: "Language",
   },
@@ -105,11 +93,9 @@ const en: Dictionary = {
     intro:
       "We make focused apps and quiet digital experiences that earn a place in daily life.",
     primaryCta: "See the products",
-    secondaryCta: "How we work",
     proofOne: "Apps / products / experiments",
     proofTwo: "Built by PixelLogic",
     proofThree: "Care over noise",
-    productsEyebrow: "THE STUDIO SHELF",
     productsTitle: "A few things you can use.",
     productsIntro: "Real products and public apps, made with the same care.",
     principleEyebrow: "HOW WE BUILD",
@@ -167,26 +153,6 @@ const en: Dictionary = {
     boriShelfLabel: "BORI'S PICKS",
     boriContactLabel: "BORI SAYS HELLO",
   },
-  about: {
-    eyebrow: "ABOUT PIXELLOGIC",
-    title: "A small studio for useful, human software.",
-    intro:
-      "PixelLogic is an independent product studio exploring the space between everyday utility and quiet delight.",
-    sections: [
-      {
-        title: "What we make",
-        body: "Apps that help people remember, plan and keep going. Small digital experiences that teach us what to build next.",
-      },
-      {
-        title: "How we work",
-        body: "We keep the product surface focused, treat states and accessibility as part of the design, and prefer a small clear idea over a large noisy feature list.",
-      },
-      {
-        title: "Why the name",
-        body: "PixelLogic is a balance: warm details on top of dependable systems. Every product should feel welcoming at first touch and trustworthy over time.",
-      },
-    ],
-  },
   privacy: {
     title: "Privacy Policy",
     updated: "Updated September 21, 2026",
@@ -226,9 +192,7 @@ const en: Dictionary = {
   footer: {
     statement: "Small products. Made with care.",
     products: "Products",
-    company: "Studio",
     legal: "Legal",
-    about: "About",
     privacy: "Privacy",
     terms: "Terms",
     contact: "Contact",
@@ -239,12 +203,10 @@ const en: Dictionary = {
 const ko: Dictionary = {
   meta: {
     title: "PixelLogic — 작지만 오래 쓰는 제품을 만들어요",
-    description:
-      "PixelLogic은 일상에 오래 남는 앱과 디지털 제품을 만드는 작은 제품 스튜디오예요.",
+    description: "PixelLogic은 일상에 오래 남는 앱과 디지털 제품을 만들어요.",
   },
   nav: {
     products: "제품",
-    about: "스튜디오",
     menu: "메뉴",
     language: "언어",
   },
@@ -261,11 +223,9 @@ const ko: Dictionary = {
     titleAccent: "만들어요.",
     intro: "일상에 필요한 앱과 다음을 배우는 작은 디지털 경험을 만들어요.",
     primaryCta: "제품 보기",
-    secondaryCta: "만드는 방식",
     proofOne: "앱 / 제품 / 실험",
     proofTwo: "PixelLogic에서 만들어요",
     proofThree: "소음보다 세심함",
-    productsEyebrow: "STUDIO SHELF",
     productsTitle: "지금 만날 수 있는 제품들",
     productsIntro: "실제 배포된 PixelLogic 앱과 디지털 제품들이에요.",
     principleEyebrow: "HOW WE BUILD",
@@ -322,26 +282,6 @@ const ko: Dictionary = {
     boriShelfLabel: "보리가 고른 제품",
     boriContactLabel: "보리가 인사해요",
   },
-  about: {
-    eyebrow: "ABOUT PIXELLOGIC",
-    title: "유용하고 사람다운 소프트웨어를 만드는 작은 스튜디오예요.",
-    intro:
-      "PixelLogic은 일상의 유용함과 조용한 즐거움 사이를 탐색하는 독립 제품 스튜디오예요.",
-    sections: [
-      {
-        title: "무엇을 만들어요",
-        body: "기억하고, 계획하고, 계속 나아가도록 돕는 앱과 작은 디지털 경험을 만들어요.",
-      },
-      {
-        title: "어떻게 만들어요",
-        body: "화면은 분명하게, 상태와 접근성은 처음부터 함께 설계해요. 크고 시끄러운 기능 목록보다 작고 명확한 생각을 믿어요.",
-      },
-      {
-        title: "이름에 담은 뜻",
-        body: "PixelLogic은 따뜻한 디테일과 믿을 수 있는 시스템의 균형이에요. 처음엔 반갑고, 오래 쓸수록 든든한 제품을 만들어요.",
-      },
-    ],
-  },
   privacy: {
     title: "개인정보처리방침",
     updated: "2026년 9월 21일 업데이트",
@@ -366,7 +306,7 @@ const ko: Dictionary = {
     sections: [
       {
         title: "사이트 이용",
-        body: "이 사이트는 PixelLogic의 제품과 스튜디오를 소개하는 공간이에요. 개별 앱이나 서비스에 들어가면 제품별 약관이 적용될 수 있어요.",
+        body: "이 사이트는 PixelLogic의 제품을 소개하는 공간이에요. 개별 앱이나 서비스에 들어가면 제품별 약관이 적용될 수 있어요.",
       },
       {
         title: "제품 상태",
@@ -381,9 +321,7 @@ const ko: Dictionary = {
   footer: {
     statement: "작지만 오래 쓰는 제품을 만들어요.",
     products: "제품",
-    company: "스튜디오",
     legal: "법적 안내",
-    about: "소개",
     privacy: "개인정보",
     terms: "약관",
     contact: "문의",
@@ -395,11 +333,10 @@ const ja: Dictionary = {
   meta: {
     title: "PixelLogic — 小さく、丁寧につくるプロダクト",
     description:
-      "PixelLogicは、日々の暮らしに長く残るアプリとデジタルプロダクトをつくる小さなスタジオです。",
+      "PixelLogicは、日々の暮らしに長く残るアプリとデジタルプロダクトをつくります。",
   },
   nav: {
     products: "プロダクト",
-    about: "スタジオ",
     menu: "メニュー",
     language: "言語",
   },
@@ -416,11 +353,9 @@ const ja: Dictionary = {
     titleAccent: "つくる。",
     intro: "毎日に役立つアプリと、次を学ぶ小さなデジタル体験をつくっています。",
     primaryCta: "プロダクトを見る",
-    secondaryCta: "つくり方を見る",
     proofOne: "アプリ / プロダクト / 実験",
     proofTwo: "PixelLogicで制作",
     proofThree: "ノイズより丁寧さ",
-    productsEyebrow: "STUDIO SHELF",
     productsTitle: "いま使えるプロダクト",
     productsIntro:
       "実際に公開しているPixelLogicのアプリとデジタルプロダクトです。",
@@ -478,26 +413,6 @@ const ja: Dictionary = {
     boriShelfLabel: "ボリのおすすめ",
     boriContactLabel: "ボリからごあいさつ",
   },
-  about: {
-    eyebrow: "ABOUT PIXELLOGIC",
-    title: "役立ち、そして人らしいソフトウェアをつくる小さなスタジオです。",
-    intro:
-      "PixelLogicは、日常の役立ちやすさと静かな楽しさの間を探る独立系プロダクトスタジオです。",
-    sections: [
-      {
-        title: "つくるもの",
-        body: "覚える、計画する、続けることを助けるアプリと、次を学ぶ小さなデジタル体験をつくります。",
-      },
-      {
-        title: "つくり方",
-        body: "画面を明確にし、状態とアクセシビリティを最初から設計します。大きく騒がしい機能一覧より、小さく明確な考えを信じています。",
-      },
-      {
-        title: "名前に込めたこと",
-        body: "PixelLogicは、あたたかいディテールと信頼できるシステムのバランスです。最初は親しみやすく、長く使うほど安心できるものをつくります。",
-      },
-    ],
-  },
   privacy: {
     title: "プライバシーポリシー",
     updated: "2026年9月21日更新",
@@ -522,7 +437,7 @@ const ja: Dictionary = {
     sections: [
       {
         title: "サイトの利用",
-        body: "このサイトはPixelLogicのプロダクトとスタジオを紹介する場所です。個別のアプリやサービスでは、プロダクトごとの規約が適用される場合があります。",
+        body: "このサイトはPixelLogicのプロダクトを紹介する場所です。個別のアプリやサービスでは、プロダクトごとの規約が適用される場合があります。",
       },
       {
         title: "プロダクトの状態",
@@ -537,9 +452,7 @@ const ja: Dictionary = {
   footer: {
     statement: "小さく、丁寧につくる。",
     products: "プロダクト",
-    company: "スタジオ",
     legal: "Legal",
-    about: "概要",
     privacy: "プライバシー",
     terms: "規約",
     contact: "お問い合わせ",

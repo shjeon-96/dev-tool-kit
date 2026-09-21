@@ -87,7 +87,7 @@ export function GET() {
           <span>APPS</span>
           <span>CARE</span>
           <span>PRODUCTS</span>
-          <span>STUDIO</span>
+          <span>BORI</span>
         </div>
       </div>
       <div

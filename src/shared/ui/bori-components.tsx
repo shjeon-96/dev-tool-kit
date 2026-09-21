@@ -3,11 +3,7 @@
 import Link from "next/link";
 import * as UI from "@pixellogic/ui/react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import {
-  PRODUCT_LINKS,
-  localizedPath,
-  type Locale,
-} from "@/shared/config/site";
+import { PRODUCT_LINKS } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
 import { BoriCompanion } from "@/shared/ui/brand-assets";
 
@@ -103,26 +99,22 @@ function BoriProductCard({
 }
 
 export function BoriHomeHero({
-  locale,
   eyebrow,
   title,
   titleAccent,
   intro,
   primaryCta,
-  secondaryCta,
   proof,
   products,
   heroLabel,
   heroMessage,
   shelfLabel,
 }: {
-  locale: Locale;
   eyebrow: string;
   title: string;
   titleAccent: string;
   intro: string;
   primaryCta: string;
-  secondaryCta: string;
   proof: readonly string[];
   products: readonly ProductCopy[];
   heroLabel: string;
@@ -144,15 +136,6 @@ export function BoriHomeHero({
               >
                 {primaryCta}
                 <ArrowRight aria-hidden="true" size={18} />
-              </Link>
-              <Link
-                className={UI.buttonVariants({
-                  variant: "outline",
-                  size: "lg",
-                })}
-                href={localizedPath(locale, "about")}
-              >
-                {secondaryCta}
               </Link>
             </UI.Stack>
           }

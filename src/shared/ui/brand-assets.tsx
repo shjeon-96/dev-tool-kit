@@ -56,13 +56,12 @@ export function PixelLogicMark() {
   );
 }
 
-export function PixelLogicLockup({ compact = false }: { compact?: boolean }) {
+export function PixelLogicLockup() {
   return (
-    <span className={`brand-lockup${compact ? " is-compact" : ""}`}>
+    <span className="brand-lockup">
       <PixelLogicMark />
       <span>
         <strong>PixelLogic</strong>
-        {!compact ? <small>PRODUCT STUDIO</small> : null}
       </span>
     </span>
   );

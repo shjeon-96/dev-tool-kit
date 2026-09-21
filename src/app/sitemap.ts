@@ -10,7 +10,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date("2026-07-15T00:00:00.000Z");
   const staticPaths = [
     { path: "", priority: 1 },
-    { path: "about", priority: 0.6 },
     { path: "privacy", priority: 0.4 },
     { path: "terms", priority: 0.4 },
   ] as const;

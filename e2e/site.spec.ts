@@ -52,13 +52,6 @@ test.describe("multilingual PixelLogic homepage", () => {
     });
   }
 
-  test("keeps the PixelLogic studio page reachable", async ({ page }) => {
-    await page.goto("/en/about");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "studio",
-    );
-  });
-
   test("keeps the site shell and product shelf in sync with the theme", async ({
     page,
   }) => {

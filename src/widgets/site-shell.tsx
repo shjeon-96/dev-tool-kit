@@ -35,9 +35,6 @@ export function SiteHeader({
           <Link href={localizedPath(locale, "#products")}>
             {dictionary.nav.products}
           </Link>
-          <Link href={localizedPath(locale, "about")}>
-            {dictionary.nav.about}
-          </Link>
         </nav>
 
         <div className="header-actions">
@@ -63,7 +60,7 @@ export function SiteFooter({
     <footer className="site-footer">
       <div className="shell footer-grid">
         <div className="footer-brand">
-          <PixelLogicLockup compact />
+          <PixelLogicLockup />
           <p>{dictionary.footer.statement}</p>
         </div>
 
@@ -74,13 +71,9 @@ export function SiteFooter({
           </Link>
         </div>
         <div>
-          <p className="footer-label">{dictionary.footer.company}</p>
-          <Link href={localizedPath(locale, "about")}>
-            {dictionary.footer.about}
-          </Link>
+          <p className="footer-label">{dictionary.footer.contact}</p>
           <a href={`mailto:${SITE_EMAIL}`}>
-            {dictionary.footer.contact}{" "}
-            <ArrowUpRight aria-hidden="true" size={13} />
+            {SITE_EMAIL} <ArrowUpRight aria-hidden="true" size={13} />
           </a>
         </div>
         <div>

@@ -35,13 +35,11 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <main id="main-content">
       <BoriHomeHero
-        locale={locale}
         eyebrow={dictionary.home.eyebrow}
         title={dictionary.home.title}
         titleAccent={dictionary.home.titleAccent}
         intro={dictionary.home.intro}
         primaryCta={dictionary.home.primaryCta}
-        secondaryCta={dictionary.home.secondaryCta}
         proof={[dictionary.home.proofOne, dictionary.home.proofTwo]}
         products={dictionary.home.products}
         heroLabel={dictionary.home.boriHeroLabel}

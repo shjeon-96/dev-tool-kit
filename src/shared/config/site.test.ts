@@ -26,15 +26,15 @@ describe("site locale helpers", () => {
 
   it("builds localized paths with or without a nested path", () => {
     expect(localizedPath("ko")).toBe("/ko");
-    expect(localizedPath("ja", "about")).toBe("/ja/about");
+    expect(localizedPath("ja", "privacy")).toBe("/ja/privacy");
     expect(localizedPath("en", "/privacy")).toBe("/en/privacy");
   });
 
   it("builds canonical alternates for every supported locale", () => {
-    expect(localeAlternates("about")).toEqual({
-      en: `${SITE_URL}/en/about`,
-      ko: `${SITE_URL}/ko/about`,
-      ja: `${SITE_URL}/ja/about`,
+    expect(localeAlternates("privacy")).toEqual({
+      en: `${SITE_URL}/en/privacy`,
+      ko: `${SITE_URL}/ko/privacy`,
+      ja: `${SITE_URL}/ja/privacy`,
     });
   });
 });
