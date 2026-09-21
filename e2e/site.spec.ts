@@ -17,7 +17,7 @@ test.describe("multilingual PixelLogic homepage", () => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("main")).toBeVisible();
-      await expect(page.locator(".product-card-shell")).toHaveCount(3);
+      await expect(page.getByTestId("bori-product-card")).toHaveCount(3);
       await expect(
         page.getByRole("heading", { name: "Weight History" }),
       ).toBeVisible();

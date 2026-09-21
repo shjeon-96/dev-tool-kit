@@ -33,55 +33,23 @@ export function PixelLogicLockup({ compact = false }: { compact?: boolean }) {
 export function BoriCompanion({
   className,
   priority = false,
+  width = 1254,
+  height = 1254,
 }: {
   className?: string;
   priority?: boolean;
+  width?: number;
+  height?: number;
 }) {
   return (
     <Image
       className={`brand-companion-image${className ? ` ${className}` : ""}`}
       src={BORI_ASSET.src}
       alt="PixelLogic 보리 캐릭터"
-      width={1254}
-      height={1254}
+      width={width}
+      height={height}
       priority={priority}
     />
-  );
-}
-
-export function BoriHeroGuide({
-  label,
-  message,
-}: {
-  label: string;
-  message: string;
-}) {
-  return (
-    <div className="bori-hero-guide">
-      <BoriCompanion className="bori-hero-character" priority />
-      <div>
-        <span className="bori-component-label">{label}</span>
-        <strong>{message}</strong>
-      </div>
-    </div>
-  );
-}
-
-export function BoriShelfNote({ label }: { label: string }) {
-  return (
-    <div className="bori-shelf-note">
-      <BoriCompanion className="bori-shelf-character" />
-      <span className="bori-component-label">{label}</span>
-    </div>
-  );
-}
-
-export function BoriContactNote({ label }: { label: string }) {
-  return (
-    <div className="bori-contact-note">
-      <BoriCompanion className="bori-contact-character" />
-      <span className="bori-component-label">{label}</span>
-    </div>
   );
 }
 
