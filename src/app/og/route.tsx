@@ -1,106 +1,48 @@
 import { ImageResponse } from "next/og";
+import { SITE_NAME } from "@/shared/config/site";
+import { getDictionary } from "@/shared/i18n/dictionaries";
 
 export function GET() {
+  const home = getDictionary("en").home;
+
   return new ImageResponse(
     <div
       style={{
         width: "100%",
         height: "100%",
         display: "flex",
-        color: "#171813",
-        background: "#f2efe6",
-        fontFamily: "serif",
-        border: "24px solid #171813",
-        padding: "66px",
-        position: "relative",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        // OG 렌더러는 홈페이지의 CSS 변수를 읽지 못해 기존 브랜드 색을 직접 사용한다.
+        background: "#fffbf6",
+        color: "#39281f",
+        fontFamily: "sans-serif",
+        padding: "64px 76px",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
+      <strong style={{ fontSize: 32 }}>{SITE_NAME}</strong>
+      <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "24px",
-            fontFamily: "monospace",
+            width: 92,
+            height: 8,
+            borderRadius: 4,
+            background: "#f3aa8c",
           }}
-        >
-          <div
-            style={{
-              width: "74px",
-              height: "74px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fffdf5",
-              background: "#171813",
-              boxShadow: "8px 8px 0 #f05a28",
-              fontSize: "24px",
-            }}
-          >
-            W/
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <strong style={{ fontSize: "30px" }}>PIXELLOGIC</strong>
-            <span style={{ fontSize: "15px", letterSpacing: "4px" }}>
-              SMALL PRODUCTS / MADE WITH CARE
-            </span>
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span
-            style={{
-              color: "#f05a28",
-              fontFamily: "monospace",
-              fontSize: "19px",
-              letterSpacing: "4px",
-            }}
-          >
-            FAST / PRIVATE / PRECISE
-          </span>
-          <div
-            style={{
-              maxWidth: "920px",
-              marginTop: "18px",
-              fontSize: "92px",
-              lineHeight: 0.92,
-              letterSpacing: "-5px",
-            }}
-          >
-            Small products for a brighter everyday.
-          </div>
-        </div>
+        />
         <div
           style={{
-            display: "flex",
-            gap: "34px",
-            fontFamily: "monospace",
-            fontSize: "17px",
+            maxWidth: 1040,
+            fontSize: 88,
+            fontWeight: 700,
+            lineHeight: 1.02,
+            letterSpacing: -3,
           }}
         >
-          <span>APPS</span>
-          <span>APPS</span>
-          <span>CARE</span>
-          <span>PRODUCTS</span>
-          <span>BORI</span>
+          {`${home.title} ${home.titleAccent}`}
         </div>
+        <div style={{ fontSize: 24, opacity: 0.8 }}>{home.intro}</div>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          top: "66px",
-          right: "66px",
-          width: "150px",
-          height: "150px",
-          border: "2px solid #2f55d4",
-          borderRadius: "50%",
-        }}
-      />
     </div>,
     { width: 1200, height: 630 },
   );

@@ -254,6 +254,7 @@ summary:focus-visible {
 }
 .bori-product-shelf {
   padding-top: 0;
+  scroll-margin-top: calc(68px + var(--pl-space-lg));
 }
 .bori-product-grid {
   display: grid;
@@ -376,6 +377,17 @@ summary:focus-visible {
 .document-grid p {
   margin: 0;
   color: var(--pl-muted-foreground);
+}
+.document-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pl-space-lg);
+  margin-top: var(--pl-space-sm);
+}
+.document-links a {
+  color: var(--pl-primary-pressed);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .site-footer {

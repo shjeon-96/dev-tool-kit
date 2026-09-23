@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { getDictionary } from "@/shared/i18n/dictionaries";
-import {
-  SITE_EMAIL,
-  SITE_NAME,
-  localizedPath,
-  type Locale,
-} from "@/shared/config/site";
+import { SITE_EMAIL, localizedPath, type Locale } from "@/shared/config/site";
 import { PixelLogicLockup } from "@/shared/ui/brand-assets";
 import { ThemeToggle } from "@/shared/ui/theme-toggle";
 import { LanguageSwitcher } from "./language-switcher";
@@ -26,12 +21,12 @@ export function SiteHeader({
         <Link
           className="brand-link"
           href={localizedPath(locale)}
-          aria-label={`${SITE_NAME} home`}
+          aria-label={dictionary.nav.home}
         >
           <PixelLogicLockup />
         </Link>
 
-        <nav className="primary-nav" aria-label="Primary navigation">
+        <nav className="primary-nav" aria-label={dictionary.nav.primary}>
           <Link href={localizedPath(locale, "#products")}>
             {dictionary.nav.products}
           </Link>

@@ -1,4 +1,8 @@
 import { type Locale, type ProductId } from "@/shared/config/site";
+import {
+  GOOGLE_ADS_PRIVACY_URL,
+  GOOGLE_ADS_SETTINGS_URL,
+} from "@/shared/config/adsense";
 
 export interface ProductCopy {
   id: ProductId;
@@ -14,6 +18,8 @@ interface Dictionary {
     products: string;
     menu: string;
     language: string;
+    home: string;
+    primary: string;
   };
   common: {
     skipToContent: string;
@@ -51,7 +57,11 @@ interface Dictionary {
   privacy: {
     title: string;
     updated: string;
-    sections: readonly { title: string; body: string }[];
+    sections: readonly {
+      title: string;
+      body: string;
+      links?: readonly { label: string; href: string }[];
+    }[];
   };
   boriCleanerPrivacy: {
     title: string;
@@ -84,6 +94,8 @@ const en: Dictionary = {
     products: "Products",
     menu: "Menu",
     language: "Language",
+    home: "PixelLogic home",
+    primary: "Primary navigation",
   },
   common: {
     skipToContent: "Skip to content",
@@ -177,11 +189,19 @@ const en: Dictionary = {
   },
   privacy: {
     title: "Privacy Policy",
-    updated: "Updated September 21, 2026",
+    updated: "Updated September 23, 2026",
     sections: [
       {
         title: "This website",
         body: "This website presents PixelLogic products and links to their own product surfaces. We do not ask for an account to browse this site.",
+      },
+      {
+        title: "Advertising and cookies",
+        body: "This site loads Google AdSense. Google and its advertising partners may use cookies or similar technologies to show and measure ads, including ads based on visits to this and other sites. You can manage personalized Google ads in My Ad Center.",
+        links: [
+          { label: "Google advertising privacy", href: GOOGLE_ADS_PRIVACY_URL },
+          { label: "My Ad Center", href: GOOGLE_ADS_SETTINGS_URL },
+        ],
       },
       {
         title: "Product-specific information",
@@ -257,6 +277,8 @@ const ko: Dictionary = {
     products: "제품",
     menu: "메뉴",
     language: "언어",
+    home: "PixelLogic 홈",
+    primary: "주 메뉴",
   },
   common: {
     skipToContent: "본문으로 건너뛰기",
@@ -349,11 +371,19 @@ const ko: Dictionary = {
   },
   privacy: {
     title: "개인정보처리방침",
-    updated: "2026년 9월 21일 업데이트",
+    updated: "2026년 9월 23일 업데이트",
     sections: [
       {
         title: "이 웹사이트",
         body: "이 사이트는 PixelLogic 제품을 소개하고 각 제품 화면으로 연결하는 쇼케이스예요. 사이트를 둘러보기 위해 계정이 필요하지 않아요.",
+      },
+      {
+        title: "광고와 쿠키",
+        body: "이 사이트는 Google AdSense를 불러와요. Google과 광고 파트너는 이 사이트나 다른 사이트의 방문 기록을 바탕으로 광고를 제공하고 측정하기 위해 쿠키 등의 기술을 사용할 수 있어요. Google 맞춤 광고는 내 광고 센터에서 관리할 수 있어요.",
+        links: [
+          { label: "Google 광고 개인정보 안내", href: GOOGLE_ADS_PRIVACY_URL },
+          { label: "내 광고 센터", href: GOOGLE_ADS_SETTINGS_URL },
+        ],
       },
       {
         title: "제품별 안내",
@@ -430,6 +460,8 @@ const ja: Dictionary = {
     products: "プロダクト",
     menu: "メニュー",
     language: "言語",
+    home: "PixelLogic ホーム",
+    primary: "メインナビゲーション",
   },
   common: {
     skipToContent: "本文へ移動",
@@ -523,11 +555,22 @@ const ja: Dictionary = {
   },
   privacy: {
     title: "プライバシーポリシー",
-    updated: "2026年9月21日更新",
+    updated: "2026年9月23日更新",
     sections: [
       {
         title: "このサイト",
         body: "このサイトはPixelLogicのプロダクトを紹介し、それぞれのプロダクトへ案内するショーケースです。閲覧にアカウントは必要ありません。",
+      },
+      {
+        title: "広告と Cookie",
+        body: "このサイトでは Google AdSense を読み込みます。Google と広告パートナーは、このサイトや他のサイトへの訪問に基づく広告の表示と効果測定のため、Cookie などの技術を使用する場合があります。Google のパーソナライズ広告はマイ アド センターで管理できます。",
+        links: [
+          {
+            label: "Google の広告とプライバシー",
+            href: GOOGLE_ADS_PRIVACY_URL,
+          },
+          { label: "マイ アド センター", href: GOOGLE_ADS_SETTINGS_URL },
+        ],
       },
       {
         title: "プロダクトごとの案内",

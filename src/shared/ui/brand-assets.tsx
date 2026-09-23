@@ -1,45 +1,47 @@
 import Image from "next/image";
 
+export const BORI_ASSET_SOURCE = { id: "cream-cat", version: "1.0.0" } as const;
+
 export const BORI_ASSETS = {
   neutral: {
     id: "neutral",
     src: "/brand/cream-cat-neutral.png",
-    sha256: "41f546d33f6fa67b2847dd4cedbea281b6775f1d17811ff50108c50b45d92734",
+    sha256: "5f907374e5b4961f19591446bff576caa893706be411287b1330ecd15c5ed5fb",
   },
   welcome: {
     id: "welcome",
     src: "/brand/bori/welcome.png",
-    sha256: "5ea37ba1bad9d559af8b6c041a2df3681fe6f490a535fdc5d636af56ba902bac",
+    sha256: "0dd8186ed4a22026014b00db4786a81b3f1e07ef1c55b3ba31d02eea0cfb564d",
   },
   wave: {
     id: "wave",
     src: "/brand/bori/wave.png",
-    sha256: "da0b5d2d748cb00848f93e96d597634e66c21d6ee14d529d2d526852536bd7cb",
+    sha256: "7851ec5f0e79fd466ebc64abe2c2e38f9fd76584f3e74fb81345af102e7e5d77",
   },
   planning: {
     id: "planning",
     src: "/brand/bori/planning.png",
-    sha256: "2b147d7d747c5a2d43b29b45dbb414af3e2f4c1a9d4d183ebf33ae5aa246c94e",
+    sha256: "ebdbfce999ffc5e83d57d0d22a099e90cd6aeb32bb7ee172a212690a187371bb",
   },
   success: {
     id: "success",
     src: "/brand/bori/success.png",
-    sha256: "75399c68dc8f09a4128a69f4a9e936e28c2204292c85680bbb59cdb987133683",
+    sha256: "cf3765ea03cc63558dffcdfc40bd789c3075929c7192c39a8a349e2d80943767",
   },
   wellnessCheckup: {
     id: "wellness-checkup",
     src: "/brand/bori/wellness-checkup.png",
-    sha256: "b789e0e6a26a89ffeb14085e48d2fbb4f49b07bca9e84a14925e56c786035264",
+    sha256: "00f0d2c16ac602f314c0090117045dd8b687ca2f8eaac30b58b796325767fcea",
   },
   fitnessRunning: {
     id: "fitness-running",
     src: "/brand/bori/fitness-running.png",
-    sha256: "c8b2983dfe5690ad262cc3c1535344096fcf691b6e6d046bb01a912c09591500",
+    sha256: "e39488efa7388823fb43721cdcf7f74bce218375c96a434f2a9168c47550151d",
   },
   workProjectPlan: {
     id: "work-project-plan",
     src: "/brand/bori/work-project-plan.png",
-    sha256: "56aee1a6a9d0d2603ea5a265de2a504b45b33dd8d6c3857f350ea8def74eb128",
+    sha256: "57677e8b4060b420ba34bf85c309d04cb9294187a6973d360cb7b678ec227ae2",
   },
 } as const;
 
