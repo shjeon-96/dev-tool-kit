@@ -13,6 +13,7 @@ import {
 } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
 import {
+  HeroScene,
   PixelLogicAppIcon,
   ProductScreens,
   ProductVisual,
@@ -140,6 +141,8 @@ function BoriProductCard({
             linkLabels={linkLabels}
             badges={badges}
           >
+            {/* PDS 요청: https://github.com/shjeon-96/pixellogic-design-system/issues/10
+                가벼운 이동은 TextButton이지만 링크로 그릴 수 없어 LinkButton을 쓴다. */}
             <LinkButton
               href={localizedPath(locale, `work/${productSlug(product.id)}`)}
             >
@@ -158,13 +161,11 @@ export function BoriHomeHero({
   titleAccent,
   intro,
   primaryCta,
-  products,
 }: {
   title: string;
   titleAccent: string;
   intro: string;
   primaryCta: string;
-  products: readonly ProductCopy[];
 }) {
   return (
     <UI.Hero
@@ -176,16 +177,7 @@ export function BoriHomeHero({
           <ArrowRight aria-hidden="true" size={18} />
         </LinkButton>
       }
-      media={
-        <ul className="bori-hero-apps">
-          {products.map((product) => (
-            <li key={product.id}>
-              <PixelLogicAppIcon product={product.id} width={56} height={56} />
-              <span>{product.name}</span>
-            </li>
-          ))}
-        </ul>
-      }
+      media={<HeroScene />}
     />
   );
 }
@@ -320,10 +312,10 @@ export function ProductDetail({
             <PixelLogicAppIcon product={product.id} width={72} height={72} />
             <UI.Stack gap="xs">
               <p className="bori-meta">{product.meta}</p>
-              <h1 className="product-detail-title">{product.name}</h1>
+              <h1 className="page-title">{product.name}</h1>
             </UI.Stack>
           </UI.Stack>
-          <p className="product-detail-description">{product.description}</p>
+          <p className="page-intro">{product.description}</p>
           <UI.StatusBadge tone="success">{product.status}</UI.StatusBadge>
           <ProductLinks
             product={product.id}
@@ -368,6 +360,87 @@ export function ProductDetail({
             />
           ) : null}
         </div>
+      </UI.MarketingSection>
+    </>
+  );
+}
+
+export function ProcessSections({
+  locale,
+  copy,
+  products,
+}: {
+  locale: Locale;
+  copy: {
+    title: string;
+    intro: string;
+    scope: string;
+    stepsTitle: string;
+    steps: readonly { title: string; body: string }[];
+    proofTitle: string;
+    proof: readonly string[];
+    stackTitle: string;
+  };
+  products: readonly ProductCopy[];
+}) {
+  // 제품 상세 페이지의 스택을 기술별로 모은다. 새 제품을 넣으면 여기도 따라온다.
+  const stack = new Map<string, ProductCopy[]>();
+  for (const product of products) {
+    for (const tool of PRODUCT_FACTS[product.id].stack) {
+      stack.set(tool, [...(stack.get(tool) ?? []), product]);
+    }
+  }
+
+  return (
+    <>
+      <UI.MarketingSection>
+        <UI.Stack gap="md" align="start">
+          <h1 className="page-title">{copy.title}</h1>
+          <p className="page-intro">{copy.intro}</p>
+          <p className="page-intro">{copy.scope}</p>
+        </UI.Stack>
+      </UI.MarketingSection>
+      <UI.MarketingSection title={copy.stepsTitle} tone="muted">
+        <ol className="process-steps">
+          {copy.steps.map((step) => (
+            <li key={step.title}>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))}
+        </ol>
+      </UI.MarketingSection>
+      <UI.MarketingSection title={copy.proofTitle}>
+        <ul className="bori-principle-grid">
+          {copy.proof.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </UI.MarketingSection>
+      <UI.MarketingSection title={copy.stackTitle}>
+        <ul className="bori-principle-grid">
+          {[...stack].map(([tool, used]) => (
+            <li key={tool}>
+              <h3>{tool}</h3>
+              <p>
+                {used.map((product, index) => (
+                  <span key={product.id}>
+                    {index > 0 ? " · " : null}
+                    <a
+                      className="text-link"
+                      href={localizedPath(
+                        locale,
+                        `work/${productSlug(product.id)}`,
+                      )}
+                    >
+                      {product.name}
+                    </a>
+                  </span>
+                ))}
+              </p>
+            </li>
+          ))}
+        </ul>
       </UI.MarketingSection>
     </>
   );

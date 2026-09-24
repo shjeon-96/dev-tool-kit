@@ -22,10 +22,12 @@ interface Dictionary {
   meta: { title: string; description: string };
   nav: {
     products: string;
-    menu: string;
+    openMenu: string;
+    closeMenu: string;
     language: string;
     home: string;
     primary: string;
+    process: string;
   };
   common: {
     skipToContent: string;
@@ -69,6 +71,18 @@ interface Dictionary {
     updated: string;
     sections: readonly { title: string; body: string }[];
   };
+  process: {
+    title: string;
+    intro: string;
+    scope: string;
+    stepsTitle: string;
+    steps: readonly { title: string; body: string }[];
+    proofTitle: string;
+    proof: readonly string[];
+    stackTitle: string;
+    ctaTitle: string;
+    ctaBody: string;
+  };
   work: {
     viewDetails: string;
     products: string;
@@ -80,6 +94,7 @@ interface Dictionary {
     launched: string;
   };
   footer: {
+    nav: string;
     products: string;
     privacy: string;
     terms: string;
@@ -96,10 +111,12 @@ const en: Dictionary = {
   },
   nav: {
     products: "Products",
-    menu: "Menu",
+    openMenu: "Open menu",
+    closeMenu: "Close menu",
     language: "Language",
     home: "PixelLogic home",
     primary: "Primary navigation",
+    process: "How we work",
   },
   common: {
     skipToContent: "Skip to content",
@@ -280,6 +297,47 @@ const en: Dictionary = {
       },
     ],
   },
+  process: {
+    title: "How we work",
+    intro:
+      "We build apps and web products with an AI-assisted workflow, and share a first working result within one week of starting.",
+    scope: "iOS and Android apps, and web services.",
+    stepsTitle: "What happens when you ask us to build something",
+    steps: [
+      { title: "Talk", body: "Tell us by email what you want to build." },
+      {
+        title: "Scope and quote",
+        body: "We list the screens and features for the first version and quote from that list.",
+      },
+      {
+        title: "Build",
+        body: "We build with an AI-assisted workflow and share a first result you can actually tap through within one week of starting.",
+      },
+      {
+        title: "Review and fix",
+        body: "We review the result together and fix what needs fixing.",
+      },
+      {
+        title: "Launch",
+        body: "We handle App Store and Google Play submission and review, or deploy to the web.",
+      },
+      {
+        title: "After launch",
+        body: "We fix bugs for the period agreed in the quote; ongoing maintenance is arranged separately.",
+      },
+    ],
+    proofTitle: "What we have built and shipped",
+    proof: [
+      "Four apps released and maintained on the App Store and Google Play.",
+      "Three web services deployed: the Weight History and Sol Scheduler web apps, and Orbit.",
+      "Our own design system, PixelLogic UI, used by this site and Sol Scheduler.",
+      "This site and PixelLogic Blocks support English, Korean and Japanese.",
+    ],
+    stackTitle: "Tools we use",
+    ctaTitle: "Have something you want to build?",
+    ctaBody:
+      "Send us the idea as it is. We will start by sorting out the scope together.",
+  },
   work: {
     viewDetails: "View details",
     products: "Products",
@@ -291,6 +349,7 @@ const en: Dictionary = {
     launched: "Launched",
   },
   footer: {
+    nav: "Site links",
     products: "Products",
     privacy: "Privacy",
     terms: "Terms",
@@ -306,10 +365,12 @@ const ko: Dictionary = {
   },
   nav: {
     products: "제품",
-    menu: "메뉴",
+    openMenu: "메뉴 열기",
+    closeMenu: "메뉴 닫기",
     language: "언어",
     home: "PixelLogic 홈",
     primary: "주 메뉴",
+    process: "진행 방식",
   },
   common: {
     skipToContent: "본문으로 건너뛰기",
@@ -489,6 +550,43 @@ const ko: Dictionary = {
       },
     ],
   },
+  process: {
+    title: "이렇게 만들어요",
+    intro:
+      "앱과 웹을 AI 워크플로우로 빠르게 만들고, 착수 후 1주 안에 첫 결과물을 보여 드려요.",
+    scope: "iOS·Android 앱과 웹 서비스를 만들어요.",
+    stepsTitle: "의뢰하면 이렇게 진행돼요",
+    steps: [
+      { title: "상담", body: "숨고 메시지나 메일로 만들고 싶은 것을 들어요." },
+      {
+        title: "범위 정리와 견적",
+        body: "첫 버전에 넣을 화면과 기능을 목록으로 정리하고, 그 목록으로 견적을 드려요.",
+      },
+      {
+        title: "개발",
+        body: "AI 워크플로우로 만들고, 착수 후 1주 안에 실제로 눌러 볼 수 있는 첫 결과물을 공유해요.",
+      },
+      { title: "검수와 수정", body: "결과물을 함께 확인하고 고쳐요." },
+      {
+        title: "출시",
+        body: "App Store·Google Play 등록과 심사 대응, 또는 웹 배포까지 해요.",
+      },
+      {
+        title: "출시 뒤",
+        body: "견적 때 정한 기간 동안 버그를 고치고, 이후 유지보수는 따로 협의해요.",
+      },
+    ],
+    proofTitle: "직접 만들고 출시했어요",
+    proof: [
+      "App Store와 Google Play에 앱 4개를 출시해 운영하고 있어요.",
+      "웹 서비스 3개를 배포했어요. Weight History·Sol Scheduler 웹 앱과 Orbit이에요.",
+      "자체 디자인 시스템(PixelLogic UI)을 만들어 이 사이트와 Sol Scheduler에 쓰고 있어요.",
+      "이 사이트와 PixelLogic Blocks는 한국어·영어·일본어를 지원해요.",
+    ],
+    stackTitle: "쓰는 기술",
+    ctaTitle: "만들고 싶은 게 있나요?",
+    ctaBody: "생각하신 그대로 보내 주세요. 범위 정리부터 같이 시작해요.",
+  },
   work: {
     viewDetails: "자세히 보기",
     products: "제품",
@@ -500,6 +598,7 @@ const ko: Dictionary = {
     launched: "출시",
   },
   footer: {
+    nav: "사이트 링크",
     products: "제품",
     privacy: "개인정보",
     terms: "약관",
@@ -516,10 +615,12 @@ const ja: Dictionary = {
   },
   nav: {
     products: "プロダクト",
-    menu: "メニュー",
+    openMenu: "メニューを開く",
+    closeMenu: "メニューを閉じる",
     language: "言語",
     home: "PixelLogic ホーム",
     primary: "メインナビゲーション",
+    process: "進め方",
   },
   common: {
     skipToContent: "本文へ移動",
@@ -703,6 +804,43 @@ const ja: Dictionary = {
       },
     ],
   },
+  process: {
+    title: "つくり方",
+    intro:
+      "アプリとWebをAIワークフローで素早くつくり、着手から1週間以内に最初の成果物をお見せします。",
+    scope: "iOS・Androidアプリと、Webサービスをつくります。",
+    stepsTitle: "ご依頼からの流れ",
+    steps: [
+      { title: "相談", body: "つくりたいものをメールでお聞かせください。" },
+      {
+        title: "範囲の整理と見積もり",
+        body: "最初のバージョンに入れる画面と機能を一覧にまとめ、その一覧で見積もりを出します。",
+      },
+      {
+        title: "開発",
+        body: "AIワークフローでつくり、着手から1週間以内に実際に触れる最初の成果物を共有します。",
+      },
+      { title: "確認と修正", body: "成果物を一緒に確認し、直します。" },
+      {
+        title: "リリース",
+        body: "App Store・Google Playへの登録と審査対応、またはWebへの公開まで行います。",
+      },
+      {
+        title: "リリース後",
+        body: "見積もりで決めた期間はバグを修正し、その後の保守は別途ご相談します。",
+      },
+    ],
+    proofTitle: "自分たちでつくり、リリースしてきたもの",
+    proof: [
+      "App StoreとGoogle Playで4つのアプリをリリースし、運営しています。",
+      "3つのWebサービスを公開しています。Weight History・Sol SchedulerのWebアプリとOrbitです。",
+      "独自のデザインシステム(PixelLogic UI)をつくり、このサイトとSol Schedulerで使っています。",
+      "このサイトとPixelLogic Blocksは日本語・英語・韓国語に対応しています。",
+    ],
+    stackTitle: "使っている技術",
+    ctaTitle: "つくりたいものはありますか?",
+    ctaBody: "考えているままお送りください。範囲の整理から一緒に始めます。",
+  },
   work: {
     viewDetails: "詳しく見る",
     products: "プロダクト",
@@ -714,6 +852,7 @@ const ja: Dictionary = {
     launched: "リリース",
   },
   footer: {
+    nav: "サイトリンク",
     products: "プロダクト",
     privacy: "プライバシー",
     terms: "規約",

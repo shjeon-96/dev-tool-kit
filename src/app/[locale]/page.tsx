@@ -40,7 +40,6 @@ export default async function HomePage({ params }: PageProps) {
         titleAccent={dictionary.home.titleAccent}
         intro={dictionary.home.intro}
         primaryCta={dictionary.home.primaryCta}
-        products={dictionary.home.products}
       />
       <BoriProductShelf
         title={dictionary.home.productsTitle}

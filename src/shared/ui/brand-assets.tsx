@@ -216,6 +216,15 @@ function ScreenshotFrame({ src, sizes }: { src: string; sizes: string }) {
   );
 }
 
+// 히어로 장면: 제품 카드 표지와 겹치지 않는 실제 화면 한 장(Weight History 차트).
+// 고양이가 많은 화면은 솔라와 겹쳐 보여 고르지 않는다.
+export function HeroScene() {
+  const shot = PRODUCT_SCREENSHOTS.weightHistory?.shots[2];
+  return shot ? (
+    <ScreenshotFrame src={shot.src} sizes="(max-width: 720px) 70vw, 280px" />
+  ) : null;
+}
+
 export function ProductVisual({ product }: { product: ProductAppIcon }) {
   const cover = PRODUCT_SCREENSHOTS[product]?.shots[0];
 

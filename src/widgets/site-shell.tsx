@@ -19,6 +19,11 @@ export function SiteHeader({
 }) {
   return (
     <UI.MarketingNav
+      labels={{
+        nav: dictionary.nav.primary,
+        openMenu: dictionary.nav.openMenu,
+        closeMenu: dictionary.nav.closeMenu,
+      }}
       brand={
         <Link
           className="brand-link"
@@ -32,6 +37,10 @@ export function SiteHeader({
         {
           label: dictionary.nav.products,
           href: localizedPath(locale, "#products"),
+        },
+        {
+          label: dictionary.nav.process,
+          href: localizedPath(locale, "process"),
         },
       ]}
       actions={
@@ -56,11 +65,16 @@ export function SiteFooter({
 }) {
   return (
     <UI.MarketingFooter
+      navLabel={dictionary.footer.nav}
       brand={<PixelLogicLockup />}
       links={[
         {
           label: dictionary.footer.products,
           href: localizedPath(locale, "#products"),
+        },
+        {
+          label: dictionary.nav.process,
+          href: localizedPath(locale, "process"),
         },
         { label: dictionary.footer.contact, href: `mailto:${SITE_EMAIL}` },
         {

@@ -100,8 +100,8 @@ summary:focus-visible {
   background: var(--pl-foreground);
 }
 .brand-mark svg {
-  width: 24px;
-  height: 24px;
+  width: var(--pl-size-icon-large);
+  height: var(--pl-size-icon-large);
   fill: currentColor;
 }
 .brand-lockup strong {
@@ -136,22 +136,6 @@ summary:focus-visible {
 }
 
 /* Home */
-.bori-hero-apps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--pl-space-lg) var(--pl-space-xl);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: var(--pl-font-size-caption);
-  font-weight: var(--pl-font-weight-semibold);
-}
-.bori-hero-apps li {
-  display: grid;
-  justify-items: start;
-  gap: var(--pl-space-sm);
-}
-
 .bori-product-grid {
   display: grid;
   /* 제품 수가 아니라 폭으로 열을 정한다. 앱이 늘어도 CSS를 고칠 일이 없다. */
@@ -204,13 +188,13 @@ summary:focus-visible {
 }
 
 /* Product detail */
-.product-detail-title {
+.page-title {
   margin: 0;
   font-size: var(--pl-font-size-display);
   font-weight: var(--pl-font-weight-bold);
   line-height: var(--pl-line-height-tight);
 }
-.product-detail-description {
+.page-intro {
   max-width: 36em;
   margin: 0;
   color: var(--pl-muted-foreground);
@@ -242,6 +226,45 @@ summary:focus-visible {
 }
 .product-facts {
   max-width: 36em;
+}
+
+/* Process */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--pl-space-xl) var(--pl-space-xxl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+.process-steps li {
+  padding-top: var(--pl-space-lg);
+  border-top: 1px solid var(--pl-border);
+  counter-increment: step;
+}
+/* 순서가 있는 단계라 번호를 둔다(헌법 S-25). */
+.process-steps li::before {
+  content: counter(step);
+  color: var(--pl-primary-pressed);
+  font-size: var(--pl-font-size-label);
+  font-weight: var(--pl-font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.process-steps h3 {
+  margin: var(--pl-space-sm) 0;
+  font-size: var(--pl-font-size-heading);
+  font-weight: var(--pl-font-weight-semibold);
+  line-height: var(--pl-line-height-snug);
+}
+.process-steps p {
+  margin: 0;
+  color: var(--pl-muted-foreground);
+}
+.text-link {
+  color: var(--pl-primary-pressed);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 /* Policy pages */

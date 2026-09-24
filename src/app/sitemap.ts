@@ -12,6 +12,7 @@ import {
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
     { path: "", priority: 1 },
+    { path: "process", priority: 0.8 },
     { path: "privacy", priority: 0.4 },
     { path: "bori-cleaner/privacy", priority: 0.4 },
     { path: "terms", priority: 0.4 },
