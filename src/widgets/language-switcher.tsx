@@ -15,7 +15,7 @@ export function LanguageSwitcher({
   const pathname = usePathname();
 
   return (
-    <div className="language-switcher" aria-label={label}>
+    <nav className="language-switcher" aria-label={label}>
       <Languages aria-hidden="true" size={16} />
       {LOCALES.map((locale) => {
         const segments = pathname.split("/");
@@ -34,6 +34,6 @@ export function LanguageSwitcher({
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

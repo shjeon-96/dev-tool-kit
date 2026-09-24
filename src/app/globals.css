@@ -48,7 +48,7 @@ a {
 }
 a:focus-visible,
 summary:focus-visible {
-  outline: 2px solid var(--pl-primary);
+  outline: 2px solid var(--pl-focus);
   outline-offset: 3px;
   border-radius: var(--pl-radius-sm);
 }
@@ -63,9 +63,9 @@ summary:focus-visible {
 .skip-link {
   position: fixed;
   z-index: 200;
-  top: 12px;
-  left: 12px;
-  padding: 10px 16px;
+  top: var(--pl-space-md);
+  left: var(--pl-space-md);
+  padding: var(--pl-space-sm) var(--pl-space-lg);
   border-radius: var(--pl-radius-control);
   color: var(--pl-background);
   background: var(--pl-foreground);
@@ -186,7 +186,7 @@ summary:focus-visible {
 }
 .bori-hero-copy .pl-description {
   margin-top: var(--pl-space-lg);
-  font-size: 1.125rem;
+  font-size: var(--pl-font-size-body);
 }
 .bori-proof {
   display: flex;

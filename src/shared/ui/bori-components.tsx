@@ -248,7 +248,7 @@ export function BoriContactSection({
               <h2 id="contact">{title}</h2>
               <p className="bori-guide-description">{description}</p>
             </UI.Stack>
-            <LinkButton href={`mailto:${email}`} size="lg" variant="default">
+            <LinkButton href={`mailto:${email}`} size="lg" variant="outline">
               {cta}
               <ArrowUpRight aria-hidden="true" size={18} />
             </LinkButton>
