@@ -278,14 +278,10 @@ summary:focus-visible {
   border-radius: var(--pl-radius-control);
   background: var(--pl-muted);
 }
-/* The capture peeks up from the bottom edge; the panel crops the rest. */
-.product-visual-phone {
+.product-visual-device {
   align-self: start;
   width: 58%;
-  height: auto;
   margin-top: var(--pl-space-xl);
-  border: 5px solid var(--pl-foreground);
-  border-radius: 26px;
 }
 
 .bori-principles {

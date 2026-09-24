@@ -1,4 +1,5 @@
 import Image from "next/image";
+import * as UI from "@pixellogic/ui/react";
 
 export const BORI_ASSET_SOURCE = { id: "cream-cat", version: "1.0.0" } as const;
 
@@ -173,14 +174,9 @@ export function ProductVisual({ product }: { product: ProductAppIcon }) {
   return (
     <div className="product-visual">
       {screenshot ? (
-        <Image
-          className="product-visual-phone"
-          src={screenshot.src}
-          alt=""
-          width={660}
-          height={1434}
-          sizes="(max-width: 820px) 60vw, 220px"
-        />
+        <div className="product-visual-device">
+          <UI.DeviceFrame src={screenshot.src} />
+        </div>
       ) : (
         <BoriCompanion asset={PRODUCT_BORI[product]} width={168} height={168} />
       )}
