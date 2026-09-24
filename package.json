@@ -41,7 +41,7 @@
     ]
   },
   "dependencies": {
-    "@pixellogic/ui": "file:vendor/pixellogic-ui-0.4.1.tgz",
+    "@pixellogic/ui": "npm:@shjeon-96/pixellogic-ui@1.26.1",
     "@tanstack/react-table": "^9.2.4",
     "babel-plugin-react-compiler": "^1.0.0",
     "class-variance-authority": "^0.7.1",
