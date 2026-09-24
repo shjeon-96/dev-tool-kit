@@ -1,7 +1,10 @@
 import type { MetadataRoute } from "next";
 import {
   LOCALES,
+  PRODUCT_LINKS,
   SITE_URL,
+  productSlug,
+  type ProductId,
   localeAlternates,
   localizedPath,
 } from "@/shared/config/site";
@@ -12,7 +15,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "privacy", priority: 0.4 },
     { path: "bori-cleaner/privacy", priority: 0.4 },
     { path: "terms", priority: 0.4 },
-  ] as const;
+    ...(Object.keys(PRODUCT_LINKS) as ProductId[]).map((id) => ({
+      path: `work/${productSlug(id)}`,
+      priority: 0.8,
+    })),
+  ];
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of LOCALES) {

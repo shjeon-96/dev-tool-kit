@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, SITE_EMAIL } from "@/shared/config/site";
-import { getDictionary } from "@/shared/i18n/dictionaries";
+import { getDictionary, productLinkLabels } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import {
   BoriContactSection,
@@ -9,6 +9,7 @@ import {
   BoriPrinciplesSection,
   BoriProductShelf,
 } from "@/shared/ui/bori-components";
+import { storeBadgeSources } from "@/shared/ui/brand-assets";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -35,42 +36,28 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <main id="main-content">
       <BoriHomeHero
-        eyebrow={dictionary.home.eyebrow}
         title={dictionary.home.title}
         titleAccent={dictionary.home.titleAccent}
         intro={dictionary.home.intro}
         primaryCta={dictionary.home.primaryCta}
-        proof={[
-          dictionary.home.proofOne,
-          dictionary.home.proofTwo,
-          dictionary.home.proofThree,
-        ]}
         products={dictionary.home.products}
-        heroLabel={dictionary.home.boriHeroLabel}
-        heroMessage={dictionary.home.boriHeroMessage}
-        heroDescription={dictionary.home.boriHeroBody}
       />
       <BoriProductShelf
         title={dictionary.home.productsTitle}
         description={dictionary.home.productsIntro}
         products={dictionary.home.products}
-        shelfLabel={dictionary.home.boriShelfLabel}
-        linkLabels={{
-          appStore: dictionary.common.appStore,
-          googlePlay: dictionary.common.googlePlay,
-          web: dictionary.common.webApp,
-          publicPage: dictionary.common.publicPage,
-        }}
+        locale={locale}
+        linkLabels={productLinkLabels(dictionary)}
+        badges={storeBadgeSources(locale)}
+        detailsLabel={dictionary.work.viewDetails}
       />
       <BoriPrinciplesSection
         title={dictionary.home.principleTitle}
-        description={dictionary.home.principleEyebrow}
         principles={dictionary.home.principles}
       />
       <BoriContactSection
         title={dictionary.home.contactTitle}
         description={dictionary.home.contactBody}
-        label={dictionary.home.boriContactLabel}
         cta={dictionary.home.contactCta}
         email={SITE_EMAIL}
       />

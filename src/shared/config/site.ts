@@ -41,6 +41,41 @@ export const PRODUCT_LINKS = {
   },
 } as const satisfies Record<string, Partial<Record<ProductLinkKind, string>>>;
 
+// 스택은 제품 저장소의 package.json·pubspec.yaml로, 출시일은 App Store
+// releaseDate로 확인한 값만 적는다. 확인할 수 없으면 비워 둔다.
+export const PRODUCT_FACTS = {
+  weightHistory: {
+    stack: ["Flutter", "Firebase", "Next.js"],
+    launched: "2025-08-06",
+  },
+  solScheduler: {
+    stack: ["React Native (Expo)", "Firebase"],
+    launched: "2024-01-24",
+  },
+  oneSecondRun: {
+    stack: ["Flutter", "SwiftUI", "ActivityKit"],
+    launched: "2026-08-17",
+  },
+  blockBlast: {
+    stack: ["React Native (Expo)", "Firebase", "RevenueCat"],
+    launched: "2026-09-12",
+  },
+  orbit: { stack: ["Next.js", "Supabase"], launched: undefined },
+} as const satisfies Record<
+  ProductId,
+  { stack: readonly string[]; launched: string | undefined }
+>;
+
+export function productSlug(id: ProductId) {
+  return id.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+}
+
+export function productFromSlug(slug: string): ProductId | undefined {
+  return (Object.keys(PRODUCT_LINKS) as ProductId[]).find(
+    (id) => productSlug(id) === slug,
+  );
+}
+
 export const LOCALES = ["en", "ko", "ja"] as const;
 export type Locale = (typeof LOCALES)[number];
 export type ProductId = keyof typeof PRODUCT_LINKS;

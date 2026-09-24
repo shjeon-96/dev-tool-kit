@@ -2,7 +2,7 @@
 
 홈페이지에 앱을 하나 더 올릴 때 무엇을 어디에 넣는지, 레이아웃이 어디까지 버티는지 정리한 문서다. 디자인 규칙 자체는 [design.md](./design.md)에 있다.
 
-## 1. 손대는 파일은 4개다
+## 1. 손대는 파일은 5개다
 
 순서대로 하면 타입 오류가 길잡이가 된다.
 
@@ -33,15 +33,10 @@ export const PRODUCT_APP_ICONS = {
     sha256: "<shasum -a 256 결과>",
   },
 } as const;
-
-const PRODUCT_BORI: Record<ProductAppIcon, BoriAsset> = {
-  newProduct: "success",
-};
 ```
 
-- 이 둘은 `Record<ProductAppIcon, ...>`이라 빠뜨리면 컴파일 오류가 난다.
 - 아이콘은 `public/brand/products/<product>.png`에 넣는다. 원본은 앱 저장소의 iOS AppIcon 1024를 쓴다.
-- 스크린샷(`PRODUCT_SCREENSHOTS`)은 선택이다. 없으면 `PRODUCT_BORI`의 Bori 일러스트가 대신 나오고 카드 크기는 같다. 등록 기준은 design.md 4번을 따른다.
+- 스크린샷(`PRODUCT_SCREENSHOTS`)은 선택이다. 없으면 큰 앱 아이콘이 대신 나오고 카드 크기는 같다. 등록 기준은 design.md 4번을 따른다.
 - `source`와 `sha256`은 나중에 원본을 다시 찾기 위한 것이다. 반드시 채운다.
 
 ### (3) `src/shared/i18n/dictionaries.ts` — 문구 (en / ko / ja 3곳)
@@ -53,6 +48,8 @@ const PRODUCT_BORI: Record<ProductAppIcon, BoriAsset> = {
   status: "Live app",
   description: "한 문장으로 무엇을 해주는 앱인지.",
   meta: "APP / CATEGORY",
+  highlights: ["스토어 설명에 있는 기능 한 줄", "...", "..."],
+  screens: ["첫 스크린샷 이름", "..."],
 }
 ```
 
@@ -60,8 +57,16 @@ const PRODUCT_BORI: Record<ProductAppIcon, BoriAsset> = {
 - `name`은 번역하지 않는다. 제품명은 세 언어에서 같다.
 - `status`는 번역한다. 확인된 사실만 쓴다(design.md 6번, CLAUDE.md 6번).
 - `meta`는 대문자 `APP / 분류` 형식을 따른다.
+- `highlights`는 상세 페이지의 "이런 일을 해요" 3줄이다. 스토어 설명이나 운영 중인 사이트에 있는 기능만 쓴다.
+- `screens`는 `PRODUCT_SCREENSHOTS`의 화면 순서와 같은 개수로 쓴다.
 
-### (4) `public/brand/products/<product>.png` — 아이콘 파일
+### (4) `src/shared/config/site.ts`의 `PRODUCT_FACTS` — 상세 페이지의 만든 방식
+
+- `stack`은 제품 저장소의 `package.json`·`pubspec.yaml`에서 확인한 것만 쓴다.
+- `launched`는 App Store lookup의 `releaseDate`다. 확인할 수 없으면 `undefined`로 둔다.
+- 상세 페이지 주소는 제품 ID에서 자동으로 만든다(`weightHistory` → `/work/weight-history`). 사이트맵에도 자동으로 들어간다.
+
+### (5) `public/brand/products/<product>.png` — 아이콘 파일
 
 원본 저장소에서 복사한다. 다른 저장소는 읽기만 한다.
 

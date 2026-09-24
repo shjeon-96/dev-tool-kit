@@ -1,4 +1,8 @@
-import { type Locale, type ProductId } from "@/shared/config/site";
+import {
+  type Locale,
+  type ProductId,
+  type ProductLinkKind,
+} from "@/shared/config/site";
 import {
   GOOGLE_ADS_PRIVACY_URL,
   GOOGLE_ADS_SETTINGS_URL,
@@ -10,6 +14,8 @@ export interface ProductCopy {
   status: string;
   description: string;
   meta: string;
+  highlights: readonly string[];
+  screens: readonly string[];
 }
 
 interface Dictionary {
@@ -30,17 +36,12 @@ interface Dictionary {
     publicPage: string;
   };
   home: {
-    eyebrow: string;
     title: string;
     titleAccent: string;
     intro: string;
     primaryCta: string;
-    proofOne: string;
-    proofTwo: string;
-    proofThree: string;
     productsTitle: string;
     productsIntro: string;
-    principleEyebrow: string;
     principleTitle: string;
     principles: readonly { title: string; body: string }[];
     products: readonly ProductCopy[];
@@ -48,11 +49,6 @@ interface Dictionary {
     contactTitle: string;
     contactBody: string;
     contactCta: string;
-    boriHeroLabel: string;
-    boriHeroMessage: string;
-    boriHeroBody: string;
-    boriShelfLabel: string;
-    boriContactLabel: string;
   };
   privacy: {
     title: string;
@@ -73,10 +69,18 @@ interface Dictionary {
     updated: string;
     sections: readonly { title: string; body: string }[];
   };
-  footer: {
-    statement: string;
+  work: {
+    viewDetails: string;
     products: string;
-    legal: string;
+    highlights: string;
+    screens: string;
+    build: string;
+    stack: string;
+    platforms: string;
+    launched: string;
+  };
+  footer: {
+    products: string;
     privacy: string;
     terms: string;
     contact: string;
@@ -106,18 +110,13 @@ const en: Dictionary = {
     publicPage: "Public page",
   },
   home: {
-    eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "Small products",
     titleAccent: "for a brighter everyday.",
     intro:
       "We make focused apps for health, routines, play and the small ways people connect.",
     primaryCta: "See the products",
-    proofOne: "Apps / products / experiments",
-    proofTwo: "Built by PixelLogic",
-    proofThree: "One care standard",
     productsTitle: "A few things you can use.",
     productsIntro: "Real products and public apps, made with the same care.",
-    principleEyebrow: "ONE PRODUCT MINDSET",
     principleTitle: "Different days, one steady point of view.",
     principles: [
       {
@@ -141,6 +140,12 @@ const en: Dictionary = {
         description:
           "A calmer way to record weight, understand trends and keep moving toward a goal.",
         meta: "APP / HEALTH RECORDS",
+        highlights: [
+          "Log your weight with just a number, then fine-tune it with ±0.1 kg and ±1 kg buttons.",
+          "See how your weight changes over a week, a year or all time.",
+          "Keep your average, recent change and dated history in one place.",
+        ],
+        screens: ["Record", "Weight forecast", "Chart", "History"],
       },
       {
         id: "solScheduler",
@@ -149,6 +154,12 @@ const en: Dictionary = {
         description:
           "A focused calendar for schedules, tasks and the rhythm of everyday plans.",
         meta: "APP / TIME & ROUTINE",
+        highlights: [
+          "See holidays and multi-day events at a glance on a monthly calendar.",
+          "Keep track of plans with repeating events and reminders, and check off to-dos by priority.",
+          "Decorate dates with cat stickers and check your schedule from a home screen widget.",
+        ],
+        screens: ["Calendar", "Stickers", "To-dos", "Settings"],
       },
       {
         id: "oneSecondRun",
@@ -157,6 +168,12 @@ const en: Dictionary = {
         description:
           "A daily running ritual that grows by one second at a time.",
         meta: "APP / DAILY PRACTICE",
+        highlights: [
+          "Start at a comfortable time, and each day's target grows by one second.",
+          "No GPS, pace charts or account. Just finish today's timer.",
+          "Streaks, history, local reminders and a Live Activity timer on the Dynamic Island.",
+        ],
+        screens: ["Today", "Timer", "History", "Start time"],
       },
       {
         id: "blockBlast",
@@ -165,6 +182,12 @@ const en: Dictionary = {
         description:
           "An 8×8 block puzzle about placing pieces, clearing lines and keeping a combo.",
         meta: "APP / PUZZLE",
+        highlights: [
+          "Place blocks on an 8×8 board and clear full rows and columns.",
+          "Every ten placements brings a new theme and scoring rule, and longer combos earn bigger bonuses.",
+          "Play endless or take one daily challenge, with no account needed.",
+        ],
+        screens: ["Line clear", "Next pieces", "Personal best"],
       },
       {
         id: "orbit",
@@ -173,6 +196,12 @@ const en: Dictionary = {
         description:
           "A playful quiz for sharing questions with friends and discovering how they see you.",
         meta: "WEB / SOCIAL QUIZ",
+        highlights: [
+          "Answer a few questions and Orbit turns them into a quiz about you.",
+          "Share one link. Friends open the quiz directly, with no app or sign-in.",
+          "See who knows you best and turn each answer into a conversation.",
+        ],
+        screens: ["Landing page", "How it works"],
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -180,12 +209,6 @@ const en: Dictionary = {
     contactBody:
       "Tell us what you are making, noticing or trying to make better.",
     contactCta: "Say hello",
-    boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
-    boriHeroMessage: "Small products, a little more heart.",
-    boriHeroBody:
-      "Bori is PixelLogic's little guide. We make apps that bring a little more calm to everyday routines.",
-    boriShelfLabel: "BORI'S PICKS",
-    boriContactLabel: "BORI SAYS HELLO",
   },
   privacy: {
     title: "Privacy Policy",
@@ -257,10 +280,18 @@ const en: Dictionary = {
       },
     ],
   },
-  footer: {
-    statement: "Small products. Made with care.",
+  work: {
+    viewDetails: "View details",
     products: "Products",
-    legal: "Legal",
+    highlights: "What it does",
+    screens: "Screens",
+    build: "How it's built",
+    stack: "Stack",
+    platforms: "Platforms",
+    launched: "Launched",
+  },
+  footer: {
+    products: "Products",
     privacy: "Privacy",
     terms: "Terms",
     contact: "Contact",
@@ -289,18 +320,13 @@ const ko: Dictionary = {
     publicPage: "공개 안내",
   },
   home: {
-    eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "작지만 오래 쓰는 제품을",
     titleAccent: "만들어요.",
     intro:
       "건강을 기록하고, 시간을 정리하고, 좋은 습관을 이어가도록 돕는 앱을 만들어요.",
     primaryCta: "제품 보기",
-    proofOne: "앱 / 제품 / 실험",
-    proofTwo: "PixelLogic에서 만들어요",
-    proofThree: "하나의 세심한 기준",
     productsTitle: "지금 만날 수 있는 제품들",
     productsIntro: "실제 배포된 PixelLogic 앱과 디지털 제품들이에요.",
-    principleEyebrow: "ONE PRODUCT MINDSET",
     principleTitle: "서로 다른 하루를 하나의 마음으로 이어가요.",
     principles: [
       {
@@ -324,6 +350,12 @@ const ko: Dictionary = {
         description:
           "체중을 기록하고 흐름을 살펴보며 목표까지 이어가도록 돕는 앱이에요.",
         meta: "APP / HEALTH RECORDS",
+        highlights: [
+          "숫자만 입력하면 바로 기록되고, ±0.1kg·±1kg 버튼으로 빠르게 고쳐요.",
+          "1주일부터 1년, 전체 기간까지 몸무게 변화를 그래프로 봐요.",
+          "평균 체중, 최근 변화량, 날짜별 기록을 한곳에서 관리해요.",
+        ],
+        screens: ["기록", "체중 예측", "차트", "히스토리"],
       },
       {
         id: "solScheduler",
@@ -332,6 +364,12 @@ const ko: Dictionary = {
         description:
           "일정과 할 일을 정리하고 하루의 리듬을 이어가는 캘린더 앱이에요.",
         meta: "APP / TIME & ROUTINE",
+        highlights: [
+          "월간 달력에서 공휴일과 여러 날에 걸친 일정을 한눈에 봐요.",
+          "반복 일정과 알림으로 중요한 약속을 챙기고, 할 일은 우선순위대로 체크해요.",
+          "고양이 스티커로 날짜를 꾸미고, 홈 화면 위젯에서 일정을 확인해요.",
+        ],
+        screens: ["달력", "스티커", "할 일", "설정"],
       },
       {
         id: "oneSecondRun",
@@ -339,6 +377,12 @@ const ko: Dictionary = {
         status: "스토어에서 만나요",
         description: "매일 1초씩 늘어나는 달리기 루틴을 만드는 앱이에요.",
         meta: "APP / DAILY PRACTICE",
+        highlights: [
+          "편한 시간으로 시작하면 다음 날 목표가 1초씩 늘어나요.",
+          "GPS, 페이스 차트, 계정 없이 오늘의 타이머만 끝내면 돼요.",
+          "연속 기록과 히스토리, 알림, Dynamic Island의 Live Activity 타이머를 지원해요.",
+        ],
+        screens: ["오늘", "타이머", "기록", "시작 시간"],
       },
       {
         id: "blockBlast",
@@ -347,6 +391,12 @@ const ko: Dictionary = {
         description:
           "블록을 놓고 줄을 지우며 콤보를 이어가는 8×8 퍼즐 게임이에요.",
         meta: "APP / PUZZLE",
+        highlights: [
+          "8×8 보드에 블록을 놓고 가로줄과 세로줄을 지워요.",
+          "10번 배치할 때마다 테마와 배점 규칙이 바뀌고, 콤보가 이어질수록 보너스가 커져요.",
+          "무한 모드와 하루 한 번의 데일리 도전이 있고, 회원가입 없이 바로 즐겨요.",
+        ],
+        screens: ["줄 지우기", "다음 조각", "최고 기록"],
       },
       {
         id: "orbit",
@@ -355,6 +405,12 @@ const ko: Dictionary = {
         description:
           "친구에게 퀴즈를 보내고 서로가 나를 어떻게 보는지 알아가는 서비스예요.",
         meta: "WEB / SOCIAL QUIZ",
+        highlights: [
+          "몇 가지 질문에 답하면 나에 대한 퀴즈가 만들어져요.",
+          "링크 하나로 친구에게 보내면, 친구는 앱이나 로그인 없이 바로 풀어요.",
+          "누가 나를 가장 잘 아는지 확인하고, 답을 새로운 대화로 이어가요.",
+        ],
+        screens: ["소개 페이지", "이용 방법"],
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -362,12 +418,6 @@ const ko: Dictionary = {
     contactBody:
       "만들고 있거나, 발견했거나, 더 나아지게 만들고 싶은 이야기를 들려 주세요.",
     contactCta: "이야기 나누기",
-    boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
-    boriHeroMessage: "작은 제품도, 오래 쓰는 마음으로 만들어요.",
-    boriHeroBody:
-      "보리는 PixelLogic의 작은 안내자예요. 매일 쓰는 앱이 조금 더 차분하고 따뜻하게 남기를 바라요.",
-    boriShelfLabel: "보리가 고른 제품",
-    boriContactLabel: "보리가 인사해요",
   },
   privacy: {
     title: "개인정보처리방침",
@@ -439,10 +489,18 @@ const ko: Dictionary = {
       },
     ],
   },
-  footer: {
-    statement: "작지만 오래 쓰는 제품을 만들어요.",
+  work: {
+    viewDetails: "자세히 보기",
     products: "제품",
-    legal: "법적 안내",
+    highlights: "이런 일을 해요",
+    screens: "화면",
+    build: "만든 방식",
+    stack: "기술",
+    platforms: "플랫폼",
+    launched: "출시",
+  },
+  footer: {
+    products: "제품",
     privacy: "개인정보",
     terms: "약관",
     contact: "문의",
@@ -472,19 +530,14 @@ const ja: Dictionary = {
     publicPage: "公開ページ",
   },
   home: {
-    eyebrow: "PIXELLOGIC / MADE WITH CARE",
     title: "小さく、丁寧に",
     titleAccent: "つくる。",
     intro:
       "健康を記録し、時間を整え、続く習慣をつくるためのアプリをつくっています。",
     primaryCta: "プロダクトを見る",
-    proofOne: "アプリ / プロダクト / 実験",
-    proofTwo: "PixelLogicで制作",
-    proofThree: "ひとつの丁寧な基準",
     productsTitle: "いま使えるプロダクト",
     productsIntro:
       "実際に公開しているPixelLogicのアプリとデジタルプロダクトです。",
-    principleEyebrow: "ONE PRODUCT MINDSET",
     principleTitle: "違う毎日に、ひとつの確かな視点を。",
     principles: [
       {
@@ -508,6 +561,12 @@ const ja: Dictionary = {
         description:
           "体重を記録し、変化を確認しながら目標へ進むためのアプリです。",
         meta: "APP / HEALTH RECORDS",
+        highlights: [
+          "数字を入れるだけで記録でき、±0.1kg・±1kgボタンで素早く調整できます。",
+          "1週間から1年、全期間まで体重の変化をグラフで確認できます。",
+          "平均体重、最近の変化、日付ごとの記録をまとめて管理できます。",
+        ],
+        screens: ["記録", "体重予測", "グラフ", "履歴"],
       },
       {
         id: "solScheduler",
@@ -516,6 +575,12 @@ const ja: Dictionary = {
         description:
           "予定とタスクを整理し、毎日のリズムを続けるカレンダーアプリです。",
         meta: "APP / TIME & ROUTINE",
+        highlights: [
+          "月間カレンダーで祝日や複数日にわたる予定をひと目で確認できます。",
+          "繰り返し予定と通知で大切な約束を忘れず、やることは優先度順にチェックできます。",
+          "猫のステッカーで日付を飾り、ホーム画面のウィジェットで予定を確認できます。",
+        ],
+        screens: ["カレンダー", "ステッカー", "やること", "設定"],
       },
       {
         id: "oneSecondRun",
@@ -523,6 +588,12 @@ const ja: Dictionary = {
         status: "ストアで配信中",
         description: "毎日1秒ずつ伸びるランニングの習慣をつくるアプリです。",
         meta: "APP / DAILY PRACTICE",
+        highlights: [
+          "無理のない時間から始めると、翌日の目標が1秒ずつ伸びます。",
+          "GPSもペースグラフもアカウントも不要。今日のタイマーを終えるだけです。",
+          "連続記録と履歴、ローカル通知、Dynamic IslandのLive Activityタイマーに対応しています。",
+        ],
+        screens: ["今日", "タイマー", "履歴", "開始時間"],
       },
       {
         id: "blockBlast",
@@ -531,6 +602,12 @@ const ja: Dictionary = {
         description:
           "ブロックを置き、ラインを消しながらコンボをつなぐ8×8パズルです。",
         meta: "APP / PUZZLE",
+        highlights: [
+          "8×8のボードにブロックを置いて、縦横のラインを消します。",
+          "10回配置するごとにテーマと得点ルールが変わり、コンボが続くほどボーナスが増えます。",
+          "エンドレスと1日1回のデイリー挑戦があり、会員登録なしですぐ遊べます。",
+        ],
+        screens: ["ライン消去", "次のピース", "ベスト記録"],
       },
       {
         id: "orbit",
@@ -539,6 +616,12 @@ const ja: Dictionary = {
         description:
           "友だちにクイズを送り、お互いがどう見ているかを楽しむサービスです。",
         meta: "WEB / SOCIAL QUIZ",
+        highlights: [
+          "いくつかの質問に答えると、あなたについてのクイズができます。",
+          "リンクひとつで友だちに送れて、友だちはアプリやログインなしですぐ解けます。",
+          "誰があなたを一番よく知っているかを確かめ、答えを新しい会話につなげます。",
+        ],
+        screens: ["紹介ページ", "使い方"],
       },
     ],
     contactEyebrow: "START A CONVERSATION",
@@ -546,12 +629,6 @@ const ja: Dictionary = {
     contactBody:
       "つくっていること、気づいたこと、もっと良くしたいことを聞かせてください。",
     contactCta: "話しかける",
-    boriHeroLabel: "BORI / PIXELLOGIC GUIDE",
-    boriHeroMessage: "小さなプロダクトに、もう少しあたたかさを。",
-    boriHeroBody:
-      "ボリはPixelLogicの小さな案内役です。毎日使うアプリが、少し落ち着いてあたたかく残るようにつくっています。",
-    boriShelfLabel: "ボリのおすすめ",
-    boriContactLabel: "ボリからごあいさつ",
   },
   privacy: {
     title: "プライバシーポリシー",
@@ -626,10 +703,18 @@ const ja: Dictionary = {
       },
     ],
   },
-  footer: {
-    statement: "小さく、丁寧につくる。",
+  work: {
+    viewDetails: "詳しく見る",
     products: "プロダクト",
-    legal: "Legal",
+    highlights: "できること",
+    screens: "画面",
+    build: "つくり方",
+    stack: "技術",
+    platforms: "プラットフォーム",
+    launched: "リリース",
+  },
+  footer: {
+    products: "プロダクト",
     privacy: "プライバシー",
     terms: "規約",
     contact: "お問い合わせ",
@@ -641,4 +726,15 @@ const DICTIONARIES: Record<Locale, Dictionary> = { en, ko, ja };
 
 export function getDictionary(locale: Locale): Dictionary {
   return DICTIONARIES[locale];
+}
+
+export function productLinkLabels(
+  dictionary: Dictionary,
+): Record<ProductLinkKind, string> {
+  return {
+    appStore: dictionary.common.appStore,
+    googlePlay: dictionary.common.googlePlay,
+    web: dictionary.common.webApp,
+    publicPage: dictionary.common.publicPage,
+  };
 }

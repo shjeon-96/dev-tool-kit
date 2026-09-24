@@ -1,52 +1,6 @@
 import Image from "next/image";
 import * as UI from "@pixellogic/ui/react";
-
-export const BORI_ASSET_SOURCE = { id: "cream-cat", version: "1.0.0" } as const;
-
-export const BORI_ASSETS = {
-  neutral: {
-    id: "neutral",
-    src: "/brand/cream-cat-neutral.png",
-    sha256: "5f907374e5b4961f19591446bff576caa893706be411287b1330ecd15c5ed5fb",
-  },
-  welcome: {
-    id: "welcome",
-    src: "/brand/bori/welcome.png",
-    sha256: "0dd8186ed4a22026014b00db4786a81b3f1e07ef1c55b3ba31d02eea0cfb564d",
-  },
-  wave: {
-    id: "wave",
-    src: "/brand/bori/wave.png",
-    sha256: "7851ec5f0e79fd466ebc64abe2c2e38f9fd76584f3e74fb81345af102e7e5d77",
-  },
-  planning: {
-    id: "planning",
-    src: "/brand/bori/planning.png",
-    sha256: "ebdbfce999ffc5e83d57d0d22a099e90cd6aeb32bb7ee172a212690a187371bb",
-  },
-  success: {
-    id: "success",
-    src: "/brand/bori/success.png",
-    sha256: "cf3765ea03cc63558dffcdfc40bd789c3075929c7192c39a8a349e2d80943767",
-  },
-  wellnessCheckup: {
-    id: "wellness-checkup",
-    src: "/brand/bori/wellness-checkup.png",
-    sha256: "00f0d2c16ac602f314c0090117045dd8b687ca2f8eaac30b58b796325767fcea",
-  },
-  fitnessRunning: {
-    id: "fitness-running",
-    src: "/brand/bori/fitness-running.png",
-    sha256: "e39488efa7388823fb43721cdcf7f74bce218375c96a434f2a9168c47550151d",
-  },
-  workProjectPlan: {
-    id: "work-project-plan",
-    src: "/brand/bori/work-project-plan.png",
-    sha256: "57677e8b4060b420ba34bf85c309d04cb9294187a6973d360cb7b678ec227ae2",
-  },
-} as const;
-
-export type BoriAsset = keyof typeof BORI_ASSETS;
+import type { Locale } from "@/shared/config/site";
 
 export const PRODUCT_APP_ICONS = {
   weightHistory: {
@@ -78,25 +32,136 @@ export const PRODUCT_APP_ICONS = {
 
 export type ProductAppIcon = keyof typeof PRODUCT_APP_ICONS;
 
-// Only store-grade captures of the shipped app belong here. A product without
-// one falls back to its Bori illustration (see docs/design.md).
+// Only captures of the shipped product belong here: the App Store listing
+// screenshots (itunes lookup screenshotUrls, 660w), or for a web-only product a
+// capture of its live site. The first one is the product card image. A product
+// without any falls back to its app icon (see docs/design.md).
+// Captions are `screens` in dictionaries.ts, in the same order.
+type Screenshot = { src: string; sha256: string };
+
 export const PRODUCT_SCREENSHOTS: Partial<
-  Record<ProductAppIcon, { src: string; source: string; sha256: string }>
+  Record<ProductAppIcon, { source: string; shots: readonly Screenshot[] }>
 > = {
+  weightHistory: {
+    source: "App Store id6749294913 (1.0.8)",
+    shots: [
+      {
+        src: "/brand/screenshots/weight-history/01-record.png",
+        sha256:
+          "5f311333a9cea216d9e611691b17417541aa8dd8697e5d8d5460372f87173088",
+      },
+      {
+        src: "/brand/screenshots/weight-history/02-forecast.png",
+        sha256:
+          "c8cb6dbcf70dcd3b6b0ab9b66a78ad03e8f979fb981a52eb63295471809bf5c8",
+      },
+      {
+        src: "/brand/screenshots/weight-history/03-chart.png",
+        sha256:
+          "fb76062cd61573907ff74ea1df914ed5e3d5f6533ea2dc0db737cf70c12adac1",
+      },
+      {
+        src: "/brand/screenshots/weight-history/04-history.png",
+        sha256:
+          "81f37c0d17293f9e9385e5ee15dd45a40df7f76133f8dd301394b22646aa7cea",
+      },
+    ],
+  },
+  solScheduler: {
+    source: "App Store id6476537626 (227.0.0)",
+    shots: [
+      {
+        src: "/brand/screenshots/sol-scheduler/01-calendar.png",
+        sha256:
+          "6844e36b9c3c099f436733d841367984750d947041ec04df0fa8ca9cac2e20a2",
+      },
+      {
+        src: "/brand/screenshots/sol-scheduler/02-stickers.png",
+        sha256:
+          "c1b491dd20978455faffd7d8534d4881d51a2a23f672520f39fdef3e931c44dd",
+      },
+      {
+        src: "/brand/screenshots/sol-scheduler/03-todos.png",
+        sha256:
+          "639c22a0d5a67ab8bb31df988484f524688d41c2b401189f4eb295f2be016852",
+      },
+      {
+        src: "/brand/screenshots/sol-scheduler/04-settings.png",
+        sha256:
+          "67edf567c99bc6dbc5c305105620fcc390001b4de1f9131abbf71e30f596f2c4",
+      },
+    ],
+  },
   oneSecondRun: {
-    src: "/brand/screenshots/one-second-run.png",
-    source: "running-app marketing/app-store/iphone-69/02-today.png (660w)",
-    sha256: "f4cb92a01cd2691feabcbed0ff6f84dfa1533f23b9d51884b480bdfba32d90d0",
+    source: "App Store id6763670652 (1.0.0)",
+    shots: [
+      {
+        src: "/brand/screenshots/one-second-run/01-today.png",
+        sha256:
+          "777b2d43b50210ebab6a92642eed5f9d70398d73dce95b6f78d62d096606d90f",
+      },
+      {
+        src: "/brand/screenshots/one-second-run/02-timer.png",
+        sha256:
+          "e44054b675d297592a2ec45619de3d66e62e893532320654e896bee69225cc31",
+      },
+      {
+        src: "/brand/screenshots/one-second-run/03-history.png",
+        sha256:
+          "9840457d2e839dee28f886d937c86185f0b0c7e10bb15ac66fc69de1f2644071",
+      },
+      {
+        src: "/brand/screenshots/one-second-run/04-start.png",
+        sha256:
+          "0df6d1af3d4b04eaba503f6638e657d72986d5e37833b860a75055f5d3896660",
+      },
+    ],
+  },
+  blockBlast: {
+    source: "App Store id6808668810 (1.0.12)",
+    shots: [
+      {
+        src: "/brand/screenshots/pixellogic-blocks/01-clear.png",
+        sha256:
+          "2d7f64eff29b39f8a5f5196e563982292cfcc88b03062dc88622d879b76e7ca9",
+      },
+      {
+        src: "/brand/screenshots/pixellogic-blocks/02-next.png",
+        sha256:
+          "199f57c47ed46b7bba9434a13ec208328366ee46ad6c4bdd32b5bcc5981e351c",
+      },
+      {
+        src: "/brand/screenshots/pixellogic-blocks/03-best.png",
+        sha256:
+          "82d380bf11b6f752ae5bc8247d2aebc89611517a9332510ba6c13d4a9fea89cc",
+      },
+    ],
+  },
+  orbit: {
+    source: "https://orbit.web-toolkit.app, 393pt mobile capture (2026-09-24)",
+    shots: [
+      {
+        src: "/brand/screenshots/orbit/01-landing.png",
+        sha256:
+          "4962109f66ef235dc3f6789bb4ca04f199ff379ba1e7554e01fe726961a0104d",
+      },
+      {
+        src: "/brand/screenshots/orbit/02-how-it-works.png",
+        sha256:
+          "d301eb6f614a38e6414e6de1ca1297327af51485875e8803e38b057e763a7db6",
+      },
+    ],
   },
 };
 
-const PRODUCT_BORI: Record<ProductAppIcon, BoriAsset> = {
-  weightHistory: "wellnessCheckup",
-  solScheduler: "workProjectPlan",
-  oneSecondRun: "fitnessRunning",
-  blockBlast: "success",
-  orbit: "welcome",
-};
+// Official badges from Apple's and Google's badge tools, unedited apart from
+// trimming Google's transparent margin. See docs/design.md.
+export function storeBadgeSources(locale: Locale) {
+  return {
+    appStore: `/brand/badges/app-store-${locale}.svg`,
+    googlePlay: `/brand/badges/google-play-${locale}.png`,
+  };
+}
 
 export function PixelLogicMark() {
   return (
@@ -117,31 +182,6 @@ export function PixelLogicLockup() {
         <strong>PixelLogic</strong>
       </span>
     </span>
-  );
-}
-
-export function BoriCompanion({
-  asset = "neutral",
-  className,
-  priority = false,
-  width = 1254,
-  height = 1254,
-}: {
-  asset?: BoriAsset;
-  className?: string;
-  priority?: boolean;
-  width?: number;
-  height?: number;
-}) {
-  return (
-    <Image
-      className={`brand-companion-image${className ? ` ${className}` : ""}`}
-      src={BORI_ASSETS[asset].src}
-      alt=""
-      width={width}
-      height={height}
-      priority={priority}
-    />
   );
 }
 
@@ -168,26 +208,53 @@ export function PixelLogicAppIcon({
   );
 }
 
+function ScreenshotFrame({ src, sizes }: { src: string; sizes: string }) {
+  return (
+    <UI.DeviceFrame>
+      <Image src={src} alt="" width={660} height={1434} sizes={sizes} />
+    </UI.DeviceFrame>
+  );
+}
+
 export function ProductVisual({ product }: { product: ProductAppIcon }) {
-  const screenshot = PRODUCT_SCREENSHOTS[product];
+  const cover = PRODUCT_SCREENSHOTS[product]?.shots[0];
 
   return (
     <div className="product-visual">
-      {screenshot ? (
+      {cover ? (
         <div className="product-visual-device">
-          <UI.DeviceFrame>
-            <Image
-              src={screenshot.src}
-              alt=""
-              width={660}
-              height={1434}
-              sizes="(max-width: 820px) 60vw, 220px"
-            />
-          </UI.DeviceFrame>
+          <ScreenshotFrame
+            src={cover.src}
+            sizes="(max-width: 820px) 60vw, 220px"
+          />
         </div>
       ) : (
-        <BoriCompanion asset={PRODUCT_BORI[product]} width={168} height={168} />
+        <PixelLogicAppIcon product={product} width={120} height={120} />
       )}
     </div>
+  );
+}
+
+export function ProductScreens({
+  product,
+  captions,
+}: {
+  product: ProductAppIcon;
+  captions: readonly string[];
+}) {
+  const shots = PRODUCT_SCREENSHOTS[product]?.shots ?? [];
+
+  return (
+    <ul className="product-screens">
+      {shots.map((shot, index) => (
+        <li key={shot.src}>
+          <ScreenshotFrame
+            src={shot.src}
+            sizes="(max-width: 720px) 60vw, 240px"
+          />
+          <span>{captions[index]}</span>
+        </li>
+      ))}
+    </ul>
   );
 }
