@@ -175,7 +175,15 @@ export function ProductVisual({ product }: { product: ProductAppIcon }) {
     <div className="product-visual">
       {screenshot ? (
         <div className="product-visual-device">
-          <UI.DeviceFrame src={screenshot.src} />
+          <UI.DeviceFrame>
+            <Image
+              src={screenshot.src}
+              alt=""
+              width={660}
+              height={1434}
+              sizes="(max-width: 820px) 60vw, 220px"
+            />
+          </UI.DeviceFrame>
         </div>
       ) : (
         <BoriCompanion asset={PRODUCT_BORI[product]} width={168} height={168} />
