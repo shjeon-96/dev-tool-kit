@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import * as UI from "@pixellogic/ui/react";
 import { isLocale } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
-import { PolicyDocument } from "@/shared/ui/policy-document";
+import { legalDocumentSections } from "@/shared/lib/legal-document";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -28,10 +29,12 @@ export default async function PrivacyPage({ params }: PageProps) {
   if (!isLocale(locale)) notFound();
   const copy = getDictionary(locale).privacy;
   return (
-    <PolicyDocument
-      title={copy.title}
-      updated={copy.updated}
-      sections={copy.sections}
-    />
+    <main id="main-content">
+      <UI.LegalDocument
+        title={copy.title}
+        description={copy.updated}
+        sections={legalDocumentSections(copy.sections)}
+      />
+    </main>
   );
 }

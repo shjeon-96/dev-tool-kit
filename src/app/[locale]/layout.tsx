@@ -44,7 +44,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body>
-        <PixelLogicProvider>
+        <PixelLogicProvider locale={rawLocale}>
           {process.env.NODE_ENV === "production" ? (
             <Script
               id="google-adsense"

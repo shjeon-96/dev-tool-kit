@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import * as UI from "@pixellogic/ui/react";
 import { isLocale } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
+import { legalDocumentSections } from "@/shared/lib/legal-document";
 import { createPageMetadata } from "@/shared/lib/metadata";
-import { PolicyDocument } from "@/shared/ui/policy-document";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -28,10 +29,12 @@ export default async function TermsPage({ params }: PageProps) {
   if (!isLocale(locale)) notFound();
   const copy = getDictionary(locale).terms;
   return (
-    <PolicyDocument
-      title={copy.title}
-      updated={copy.updated}
-      sections={copy.sections}
-    />
+    <main id="main-content">
+      <UI.LegalDocument
+        title={copy.title}
+        description={copy.updated}
+        sections={legalDocumentSections(copy.sections)}
+      />
+    </main>
   );
 }

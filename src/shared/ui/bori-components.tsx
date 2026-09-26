@@ -91,10 +91,15 @@ function ProductLinks({
           {children}
           {(Object.entries(pages) as [ProductLinkKind, string][]).map(
             ([kind, url]) => (
-              <LinkButton key={kind} href={url}>
+              <UI.TextButton
+                key={kind}
+                variant="arrow"
+                tone="muted"
+                href={url}
+                external={url.startsWith("http")}
+              >
                 {linkLabels[kind]}
-                <ArrowUpRight aria-hidden="true" size={14} />
-              </LinkButton>
+              </UI.TextButton>
             ),
           )}
         </UI.Stack>
@@ -141,14 +146,13 @@ function BoriProductCard({
             linkLabels={linkLabels}
             badges={badges}
           >
-            {/* PDS 요청: https://github.com/shjeon-96/pixellogic-design-system/issues/10
-                가벼운 이동은 TextButton이지만 링크로 그릴 수 없어 LinkButton을 쓴다. */}
-            <LinkButton
+            <UI.TextButton
+              variant="arrow"
+              tone="muted"
               href={localizedPath(locale, `work/${productSlug(product.id)}`)}
             >
               {detailsLabel}
-              <ArrowRight aria-hidden="true" size={14} />
-            </LinkButton>
+            </UI.TextButton>
           </ProductLinks>
         </UI.Stack>
       </UI.CardFooter>
