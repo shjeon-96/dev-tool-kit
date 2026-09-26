@@ -10,7 +10,7 @@ import {
 } from "@/shared/config/site";
 import { getDictionary, productLinkLabels } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
-import { ProductDetail } from "@/shared/ui/bori-components";
+import { ProductDetail } from "@/shared/ui/sola-components";
 import { storeBadgeSources } from "@/shared/ui/brand-assets";
 
 interface PageProps {

@@ -25,7 +25,7 @@ PixelLogic 홈페이지의 화면을 고칠 때 지키는 규칙이다. 규칙�
 | `AppStoreBadges`                           | 스토어 링크. `public/brand/badges`의 공식 배지(en/ko/ja)                                              |
 | `DeviceFrame`                              | 확인된 제품 스크린샷                                                                                  |
 
-- 라벨과 카테고리는 `.bori-meta` 텍스트로 쓴다. `Badge`, `ListRow`는 쓰지 않는다.
+- 라벨과 카테고리는 `.sola-meta` 텍스트로 쓴다. `Badge`, `ListRow`는 쓰지 않는다.
 - 순서가 없는 목록(원칙)에 번호를 붙이지 않는다. 제목 위 장식용 eyebrow도 달지 않는다.
 - 솔라는 `Hero` 밖(섹션 머리, 카드, 약관 페이지)에 두지 않는다. 키트 NATIVE_RULES의 "솔라 등장 지도"를 따른다.
 - 같은 정보를 한 화면에 두 번 보여주지 않는다. 제품 목록은 제품 선반 한 곳에만 있다.
@@ -35,7 +35,7 @@ PixelLogic 홈페이지의 화면을 고칠 때 지키는 규칙이다. 규칙�
 ## 3. 이동은 항상 진짜 링크다
 
 - 스토어, 웹앱, 메일 등 어디로 가는 요소는 `<a href>`로 만든다. `onClick`에서 `window.open`이나 `location.href`를 쓰지 않는다.
-- 모든 버튼은 `UI.Button`으로 만든다. 이동하는 버튼은 `bori-components.tsx`의 `LinkButton`을 쓴다. `UI.Button asChild`로 자식 `<a href>`를 감싼 얇은 래퍼이고, 외부 링크에는 `target`과 `rel`을 붙인다.
+- 모든 버튼은 `UI.Button`으로 만든다. 이동하는 버튼은 `sola-components.tsx`의 `LinkButton`을 쓴다. `UI.Button asChild`로 자식 `<a href>`를 감싼 얇은 래퍼이고, 외부 링크에는 `target`과 `rel`을 붙인다.
 - `UI.buttonVariants`를 직접 쓰지 않는다. `asChild`가 같은 일을 하면서 `data-*` 속성까지 맞춰 준다.
 
 **이유.** `onClick` 이동은 새 탭 열기, 링크 복사, 검색 크롤링이 모두 안 된다.
@@ -59,7 +59,7 @@ PixelLogic 홈페이지의 화면을 고칠 때 지키는 규칙이다. 규칙�
 - 컴포넌트 안에 사용자에게 보이는 문자열을 직접 쓰지 않는다. `aria-label`도 포함한다.
 - 장식용 이미지(앱 아이콘, 스크린샷)는 `alt=""`로 둔다.
 
-**이유.** 히어로에 영문 문구가 하드코딩돼 있어 ko/ja 페이지에도 영어로 나왔고, Bori의 `alt`는 en/ja 페이지에서도 한국어였다.
+**이유.** 히어로에 영문 문구가 하드코딩돼 있어 ko/ja 페이지에도 영어로 나왔고, 솔라의 `alt`는 en/ja 페이지에서도 한국어였다.
 
 ## 6. 타이포그래피
 

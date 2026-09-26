@@ -4,11 +4,11 @@ import { isLocale, SITE_EMAIL } from "@/shared/config/site";
 import { getDictionary, productLinkLabels } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import {
-  BoriContactSection,
-  BoriHomeHero,
-  BoriPrinciplesSection,
-  BoriProductShelf,
-} from "@/shared/ui/bori-components";
+  SolaContactSection,
+  SolaHomeHero,
+  SolaPrinciplesSection,
+  SolaProductShelf,
+} from "@/shared/ui/sola-components";
 import { storeBadgeSources } from "@/shared/ui/brand-assets";
 
 interface PageProps {
@@ -35,13 +35,13 @@ export default async function HomePage({ params }: PageProps) {
 
   return (
     <main id="main-content">
-      <BoriHomeHero
+      <SolaHomeHero
         title={dictionary.home.title}
         titleAccent={dictionary.home.titleAccent}
         intro={dictionary.home.intro}
         primaryCta={dictionary.home.primaryCta}
       />
-      <BoriProductShelf
+      <SolaProductShelf
         title={dictionary.home.productsTitle}
         description={dictionary.home.productsIntro}
         products={dictionary.home.products}
@@ -50,11 +50,11 @@ export default async function HomePage({ params }: PageProps) {
         badges={storeBadgeSources(locale)}
         detailsLabel={dictionary.work.viewDetails}
       />
-      <BoriPrinciplesSection
+      <SolaPrinciplesSection
         title={dictionary.home.principleTitle}
         principles={dictionary.home.principles}
       />
-      <BoriContactSection
+      <SolaContactSection
         title={dictionary.home.contactTitle}
         description={dictionary.home.contactBody}
         cta={dictionary.home.contactCta}

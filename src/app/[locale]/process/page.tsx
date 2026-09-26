@@ -4,9 +4,9 @@ import { SITE_EMAIL, isLocale } from "@/shared/config/site";
 import { getDictionary } from "@/shared/i18n/dictionaries";
 import { createPageMetadata } from "@/shared/lib/metadata";
 import {
-  BoriContactSection,
+  SolaContactSection,
   ProcessSections,
-} from "@/shared/ui/bori-components";
+} from "@/shared/ui/sola-components";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -38,7 +38,7 @@ export default async function ProcessPage({ params }: PageProps) {
         copy={dictionary.process}
         products={dictionary.home.products}
       />
-      <BoriContactSection
+      <SolaContactSection
         title={dictionary.process.ctaTitle}
         description={dictionary.process.ctaBody}
         cta={dictionary.home.contactCta}

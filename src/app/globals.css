@@ -121,17 +121,17 @@ summary:focus-visible {
 }
 
 /* Home */
-.bori-product-grid {
+.sola-product-grid {
   display: grid;
   /* 제품 수가 아니라 폭으로 열을 정한다. 앱이 늘어도 CSS를 고칠 일이 없다. */
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--pl-space-xl);
 }
-.bori-product-card .pl-card-title,
-.bori-product-card [data-slot="card-title"] {
+.sola-product-card .pl-card-title,
+.sola-product-card [data-slot="card-title"] {
   font-size: var(--pl-font-size-heading);
 }
-.bori-product-card [data-slot="card-footer"] {
+.sola-product-card [data-slot="card-footer"] {
   margin-top: auto;
 }
 .product-visual {
@@ -149,7 +149,7 @@ summary:focus-visible {
   margin-top: var(--pl-space-xl);
 }
 
-.bori-principle-grid {
+.sola-principle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: var(--pl-space-xxl);
@@ -157,17 +157,17 @@ summary:focus-visible {
   padding: 0;
   list-style: none;
 }
-.bori-principle-grid li {
+.sola-principle-grid li {
   padding-top: var(--pl-space-lg);
   border-top: 1px solid var(--pl-border);
 }
-.bori-principle-grid h3 {
+.sola-principle-grid h3 {
   margin: 0 0 var(--pl-space-sm);
   font-size: var(--pl-font-size-heading);
   font-weight: var(--pl-font-weight-semibold);
   line-height: var(--pl-line-height-snug);
 }
-.bori-principle-grid p {
+.sola-principle-grid p {
   margin: 0;
   color: var(--pl-muted-foreground);
 }

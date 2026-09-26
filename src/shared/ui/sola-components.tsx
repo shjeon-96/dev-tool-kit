@@ -89,7 +89,7 @@ function ProductPageLinks({
   );
 }
 
-function BoriProductCard({
+function SolaProductCard({
   locale,
   product,
   linkLabels,
@@ -103,7 +103,7 @@ function BoriProductCard({
   detailsLabel: string;
 }) {
   return (
-    <UI.Card className="bori-product-card" data-testid="bori-product-card">
+    <UI.Card className="sola-product-card" data-testid="sola-product-card">
       <ProductVisual product={product.id} />
       <UI.CardHeader>
         <UI.Stack gap="md">
@@ -136,7 +136,7 @@ function BoriProductCard({
   );
 }
 
-export function BoriHomeHero({
+export function SolaHomeHero({
   title,
   titleAccent,
   intro,
@@ -165,7 +165,7 @@ export function BoriHomeHero({
   );
 }
 
-export function BoriProductShelf({
+export function SolaProductShelf({
   locale,
   title,
   description,
@@ -184,9 +184,9 @@ export function BoriProductShelf({
 }) {
   return (
     <UI.MarketingSection id="products" title={title} description={description}>
-      <div className="bori-product-grid">
+      <div className="sola-product-grid">
         {products.map((product) => (
-          <BoriProductCard
+          <SolaProductCard
             key={product.id}
             locale={locale}
             product={product}
@@ -200,7 +200,7 @@ export function BoriProductShelf({
   );
 }
 
-export function BoriPrinciplesSection({
+export function SolaPrinciplesSection({
   title,
   principles,
 }: {
@@ -219,7 +219,7 @@ export function BoriPrinciplesSection({
   );
 }
 
-export function BoriContactSection({
+export function SolaContactSection({
   title,
   description,
   cta,
@@ -394,7 +394,7 @@ export function ProcessSections({
         <UI.FeatureList items={copy.proof.map((label) => ({ label }))} />
       </UI.MarketingSection>
       <UI.MarketingSection title={copy.stackTitle}>
-        <ul className="bori-principle-grid">
+        <ul className="sola-principle-grid">
           {[...stack].map(([tool, used]) => (
             <li key={tool}>
               <h3>{tool}</h3>
