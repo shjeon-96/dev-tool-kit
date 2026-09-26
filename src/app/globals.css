@@ -66,14 +66,6 @@ summary:focus-visible {
 .skip-link:focus {
   transform: translateY(0);
 }
-.bori-meta {
-  margin: 0;
-  color: var(--pl-muted-foreground);
-  font-size: var(--pl-font-size-caption);
-  font-weight: var(--pl-font-weight-semibold);
-  letter-spacing: var(--pl-letter-spacing-wide);
-  line-height: var(--pl-line-height-snug);
-}
 
 .brand-link {
   width: fit-content;
@@ -181,17 +173,6 @@ summary:focus-visible {
 }
 
 /* Product detail */
-.page-title {
-  margin: 0;
-  font-size: var(--pl-font-size-display);
-  font-weight: var(--pl-font-weight-bold);
-  line-height: var(--pl-line-height-tight);
-}
-.page-intro {
-  max-width: 36em;
-  margin: 0;
-  color: var(--pl-muted-foreground);
-}
 .product-screens {
   display: grid;
   grid-auto-flow: column;
@@ -253,11 +234,6 @@ summary:focus-visible {
 .process-steps p {
   margin: 0;
   color: var(--pl-muted-foreground);
-}
-.text-link {
-  color: var(--pl-primary-pressed);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
 }
 
 @media (prefers-reduced-motion: reduce) {

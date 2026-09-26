@@ -11,9 +11,7 @@ import {
 export interface ProductCopy {
   id: ProductId;
   name: string;
-  status: string;
   description: string;
-  meta: string;
   highlights: readonly string[];
   screens: readonly string[];
 }
@@ -54,7 +52,7 @@ interface Dictionary {
   };
   privacy: {
     title: string;
-    updated: string;
+    updatedAt: string;
     sections: readonly {
       title: string;
       body: string;
@@ -63,12 +61,12 @@ interface Dictionary {
   };
   boriCleanerPrivacy: {
     title: string;
-    updated: string;
+    updatedAt: string;
     sections: readonly { title: string; body: string }[];
   };
   terms: {
     title: string;
-    updated: string;
+    updatedAt: string;
     sections: readonly { title: string; body: string }[];
   };
   process: {
@@ -86,6 +84,7 @@ interface Dictionary {
   work: {
     viewDetails: string;
     products: string;
+    breadcrumb: string;
     highlights: string;
     screens: string;
     build: string;
@@ -153,10 +152,8 @@ const en: Dictionary = {
       {
         id: "weightHistory",
         name: "Weight History",
-        status: "Live app",
         description:
           "A calmer way to record weight, understand trends and keep moving toward a goal.",
-        meta: "APP / HEALTH RECORDS",
         highlights: [
           "Log your weight with just a number, then fine-tune it with ±0.1 kg and ±1 kg buttons.",
           "See how your weight changes over a week, a year or all time.",
@@ -167,10 +164,8 @@ const en: Dictionary = {
       {
         id: "solScheduler",
         name: "Sol Scheduler",
-        status: "Live app",
         description:
           "A focused calendar for schedules, tasks and the rhythm of everyday plans.",
-        meta: "APP / TIME & ROUTINE",
         highlights: [
           "See holidays and multi-day events at a glance on a monthly calendar.",
           "Keep track of plans with repeating events and reminders, and check off to-dos by priority.",
@@ -181,10 +176,8 @@ const en: Dictionary = {
       {
         id: "oneSecondRun",
         name: "One Second Run",
-        status: "Available now",
         description:
           "A daily running ritual that grows by one second at a time.",
-        meta: "APP / DAILY PRACTICE",
         highlights: [
           "Start at a comfortable time, and each day's target grows by one second.",
           "No GPS, pace charts or account. Just finish today's timer.",
@@ -195,10 +188,8 @@ const en: Dictionary = {
       {
         id: "blockBlast",
         name: "PixelLogic Blocks",
-        status: "Available now",
         description:
           "An 8×8 block puzzle about placing pieces, clearing lines and keeping a combo.",
-        meta: "APP / PUZZLE",
         highlights: [
           "Place blocks on an 8×8 board and clear full rows and columns.",
           "Every ten placements brings a new theme and scoring rule, and longer combos earn bigger bonuses.",
@@ -209,10 +200,8 @@ const en: Dictionary = {
       {
         id: "orbit",
         name: "Orbit: Who Knows You?",
-        status: "Open on the web",
         description:
           "A playful quiz for sharing questions with friends and discovering how they see you.",
-        meta: "WEB / SOCIAL QUIZ",
         highlights: [
           "Answer a few questions and Orbit turns them into a quiz about you.",
           "Share one link. Friends open the quiz directly, with no app or sign-in.",
@@ -229,7 +218,7 @@ const en: Dictionary = {
   },
   privacy: {
     title: "Privacy Policy",
-    updated: "Updated September 23, 2026",
+    updatedAt: "2026-09-23",
     sections: [
       {
         title: "This website",
@@ -255,7 +244,7 @@ const en: Dictionary = {
   },
   boriCleanerPrivacy: {
     title: "Bori Cleaner Privacy Policy",
-    updated: "Updated September 21, 2026",
+    updatedAt: "2026-09-21",
     sections: [
       {
         title: "What Bori Cleaner does",
@@ -281,7 +270,7 @@ const en: Dictionary = {
   },
   terms: {
     title: "Terms of Use",
-    updated: "Updated September 21, 2026",
+    updatedAt: "2026-09-21",
     sections: [
       {
         title: "Use of the site",
@@ -341,6 +330,7 @@ const en: Dictionary = {
   work: {
     viewDetails: "View details",
     products: "Products",
+    breadcrumb: "Page location",
     highlights: "What it does",
     screens: "Screens",
     build: "How it's built",
@@ -407,10 +397,8 @@ const ko: Dictionary = {
       {
         id: "weightHistory",
         name: "Weight History",
-        status: "배포 중",
         description:
           "체중을 기록하고 흐름을 살펴보며 목표까지 이어가도록 돕는 앱이에요.",
-        meta: "APP / HEALTH RECORDS",
         highlights: [
           "숫자만 입력하면 바로 기록되고, ±0.1kg·±1kg 버튼으로 빠르게 고쳐요.",
           "1주일부터 1년, 전체 기간까지 몸무게 변화를 그래프로 봐요.",
@@ -421,10 +409,8 @@ const ko: Dictionary = {
       {
         id: "solScheduler",
         name: "Sol Scheduler",
-        status: "배포 중",
         description:
           "일정과 할 일을 정리하고 하루의 리듬을 이어가는 캘린더 앱이에요.",
-        meta: "APP / TIME & ROUTINE",
         highlights: [
           "월간 달력에서 공휴일과 여러 날에 걸친 일정을 한눈에 봐요.",
           "반복 일정과 알림으로 중요한 약속을 챙기고, 할 일은 우선순위대로 체크해요.",
@@ -435,9 +421,7 @@ const ko: Dictionary = {
       {
         id: "oneSecondRun",
         name: "One Second Run",
-        status: "스토어에서 만나요",
         description: "매일 1초씩 늘어나는 달리기 루틴을 만드는 앱이에요.",
-        meta: "APP / DAILY PRACTICE",
         highlights: [
           "편한 시간으로 시작하면 다음 날 목표가 1초씩 늘어나요.",
           "GPS, 페이스 차트, 계정 없이 오늘의 타이머만 끝내면 돼요.",
@@ -448,10 +432,8 @@ const ko: Dictionary = {
       {
         id: "blockBlast",
         name: "PixelLogic Blocks",
-        status: "스토어에서 만나요",
         description:
           "블록을 놓고 줄을 지우며 콤보를 이어가는 8×8 퍼즐 게임이에요.",
-        meta: "APP / PUZZLE",
         highlights: [
           "8×8 보드에 블록을 놓고 가로줄과 세로줄을 지워요.",
           "10번 배치할 때마다 테마와 배점 규칙이 바뀌고, 콤보가 이어질수록 보너스가 커져요.",
@@ -462,10 +444,8 @@ const ko: Dictionary = {
       {
         id: "orbit",
         name: "Orbit: Who Knows You?",
-        status: "웹에서 만나요",
         description:
           "친구에게 퀴즈를 보내고 서로가 나를 어떻게 보는지 알아가는 서비스예요.",
-        meta: "WEB / SOCIAL QUIZ",
         highlights: [
           "몇 가지 질문에 답하면 나에 대한 퀴즈가 만들어져요.",
           "링크 하나로 친구에게 보내면, 친구는 앱이나 로그인 없이 바로 풀어요.",
@@ -482,7 +462,7 @@ const ko: Dictionary = {
   },
   privacy: {
     title: "개인정보처리방침",
-    updated: "2026년 9월 23일 업데이트",
+    updatedAt: "2026-09-23",
     sections: [
       {
         title: "이 웹사이트",
@@ -508,7 +488,7 @@ const ko: Dictionary = {
   },
   boriCleanerPrivacy: {
     title: "보리 클리너 개인정보처리방침",
-    updated: "2026년 9월 21일 업데이트",
+    updatedAt: "2026-09-21",
     sections: [
       {
         title: "보리 클리너가 하는 일",
@@ -534,7 +514,7 @@ const ko: Dictionary = {
   },
   terms: {
     title: "이용약관",
-    updated: "2026년 9월 21일 업데이트",
+    updatedAt: "2026-09-21",
     sections: [
       {
         title: "사이트 이용",
@@ -590,6 +570,7 @@ const ko: Dictionary = {
   work: {
     viewDetails: "자세히 보기",
     products: "제품",
+    breadcrumb: "현재 위치",
     highlights: "이런 일을 해요",
     screens: "화면",
     build: "만든 방식",
@@ -658,10 +639,8 @@ const ja: Dictionary = {
       {
         id: "weightHistory",
         name: "Weight History",
-        status: "公開中",
         description:
           "体重を記録し、変化を確認しながら目標へ進むためのアプリです。",
-        meta: "APP / HEALTH RECORDS",
         highlights: [
           "数字を入れるだけで記録でき、±0.1kg・±1kgボタンで素早く調整できます。",
           "1週間から1年、全期間まで体重の変化をグラフで確認できます。",
@@ -672,10 +651,8 @@ const ja: Dictionary = {
       {
         id: "solScheduler",
         name: "Sol Scheduler",
-        status: "公開中",
         description:
           "予定とタスクを整理し、毎日のリズムを続けるカレンダーアプリです。",
-        meta: "APP / TIME & ROUTINE",
         highlights: [
           "月間カレンダーで祝日や複数日にわたる予定をひと目で確認できます。",
           "繰り返し予定と通知で大切な約束を忘れず、やることは優先度順にチェックできます。",
@@ -686,9 +663,7 @@ const ja: Dictionary = {
       {
         id: "oneSecondRun",
         name: "One Second Run",
-        status: "ストアで配信中",
         description: "毎日1秒ずつ伸びるランニングの習慣をつくるアプリです。",
-        meta: "APP / DAILY PRACTICE",
         highlights: [
           "無理のない時間から始めると、翌日の目標が1秒ずつ伸びます。",
           "GPSもペースグラフもアカウントも不要。今日のタイマーを終えるだけです。",
@@ -699,10 +674,8 @@ const ja: Dictionary = {
       {
         id: "blockBlast",
         name: "PixelLogic Blocks",
-        status: "ストアで配信中",
         description:
           "ブロックを置き、ラインを消しながらコンボをつなぐ8×8パズルです。",
-        meta: "APP / PUZZLE",
         highlights: [
           "8×8のボードにブロックを置いて、縦横のラインを消します。",
           "10回配置するごとにテーマと得点ルールが変わり、コンボが続くほどボーナスが増えます。",
@@ -713,10 +686,8 @@ const ja: Dictionary = {
       {
         id: "orbit",
         name: "Orbit: Who Knows You?",
-        status: "ウェブで公開中",
         description:
           "友だちにクイズを送り、お互いがどう見ているかを楽しむサービスです。",
-        meta: "WEB / SOCIAL QUIZ",
         highlights: [
           "いくつかの質問に答えると、あなたについてのクイズができます。",
           "リンクひとつで友だちに送れて、友だちはアプリやログインなしですぐ解けます。",
@@ -733,7 +704,7 @@ const ja: Dictionary = {
   },
   privacy: {
     title: "プライバシーポリシー",
-    updated: "2026年9月23日更新",
+    updatedAt: "2026-09-23",
     sections: [
       {
         title: "このサイト",
@@ -762,7 +733,7 @@ const ja: Dictionary = {
   },
   boriCleanerPrivacy: {
     title: "ボリクリーナー プライバシーポリシー",
-    updated: "2026年9月21日更新",
+    updatedAt: "2026-09-21",
     sections: [
       {
         title: "ボリクリーナーについて",
@@ -788,7 +759,7 @@ const ja: Dictionary = {
   },
   terms: {
     title: "利用規約",
-    updated: "2026年9月21日更新",
+    updatedAt: "2026-09-21",
     sections: [
       {
         title: "サイトの利用",
@@ -844,6 +815,7 @@ const ja: Dictionary = {
   work: {
     viewDetails: "詳しく見る",
     products: "プロダクト",
+    breadcrumb: "現在の位置",
     highlights: "できること",
     screens: "画面",
     build: "つくり方",

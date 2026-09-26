@@ -22,89 +22,70 @@ import {
 type ProductLinkLabels = Record<ProductLinkKind, string>;
 type StoreBadgeSources = { appStore: string; googlePlay: string };
 
-function LinkButton({
-  href,
-  size = "sm",
-  variant = "outline",
-  children,
-}: {
-  href: string;
-  size?: "sm" | "lg";
-  variant?: "default" | "outline";
-  children: React.ReactNode;
-}) {
-  const external = href.startsWith("http");
-
-  return (
-    <UI.Button asChild size={size} variant={variant}>
-      <a
-        href={href}
-        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      >
-        {children}
-      </a>
-    </UI.Button>
-  );
-}
-
-function ProductLinks({
+function StoreBadges({
   product,
   linkLabels,
   badges,
-  children,
 }: {
   product: ProductId;
   linkLabels: ProductLinkLabels;
   badges: StoreBadgeSources;
-  children?: React.ReactNode;
 }) {
-  const links: Partial<Record<ProductLinkKind, string>> =
+  const { appStore, googlePlay }: Partial<Record<ProductLinkKind, string>> =
     PRODUCT_LINKS[product];
-  const { appStore, googlePlay, ...pages } = links;
+  if (!appStore && !googlePlay) return null;
 
   return (
-    <>
-      {appStore || googlePlay ? (
-        <UI.AppStoreBadges
-          appStore={
-            appStore
-              ? {
-                  href: appStore,
-                  src: badges.appStore,
-                  alt: linkLabels.appStore,
-                }
-              : undefined
-          }
-          googlePlay={
-            googlePlay
-              ? {
-                  href: googlePlay,
-                  src: badges.googlePlay,
-                  alt: linkLabels.googlePlay,
-                }
-              : undefined
-          }
-        />
-      ) : null}
-      {children || Object.keys(pages).length > 0 ? (
-        <UI.Stack direction="row" gap="sm">
-          {children}
-          {(Object.entries(pages) as [ProductLinkKind, string][]).map(
-            ([kind, url]) => (
-              <UI.TextButton
-                key={kind}
-                variant="arrow"
-                tone="muted"
-                href={url}
-                external={url.startsWith("http")}
-              >
-                {linkLabels[kind]}
-              </UI.TextButton>
-            ),
-          )}
-        </UI.Stack>
-      ) : null}
-    </>
+    <UI.AppStoreBadges
+      appStore={
+        appStore
+          ? {
+              href: appStore,
+              src: badges.appStore,
+              alt: linkLabels.appStore,
+            }
+          : undefined
+      }
+      googlePlay={
+        googlePlay
+          ? {
+              href: googlePlay,
+              src: badges.googlePlay,
+              alt: linkLabels.googlePlay,
+            }
+          : undefined
+      }
+    />
+  );
+}
+
+// 스토어 밖 페이지(웹 앱 등)는 상세 페이지에만 둔다. 카드에는 상세 보기 하나만 남겨 글자 버튼이 늘어서지 않게 한다.
+function ProductPageLinks({
+  product,
+  linkLabels,
+}: {
+  product: ProductId;
+  linkLabels: ProductLinkLabels;
+}) {
+  const entries = (
+    Object.entries(PRODUCT_LINKS[product]) as [ProductLinkKind, string][]
+  ).filter(([kind]) => kind !== "appStore" && kind !== "googlePlay");
+  if (entries.length === 0) return null;
+
+  return (
+    <UI.Stack direction="row" gap="sm">
+      {entries.map(([kind, url]) => (
+        <UI.TextButton
+          key={kind}
+          variant="arrow"
+          tone="muted"
+          href={url}
+          external={url.startsWith("http")}
+        >
+          {linkLabels[kind]}
+        </UI.TextButton>
+      ))}
+    </UI.Stack>
   );
 }
 
@@ -128,32 +109,27 @@ function BoriProductCard({
         <UI.Stack gap="md">
           <UI.Stack direction="row" align="center" gap="md">
             <PixelLogicAppIcon product={product.id} width={48} height={48} />
-            <UI.Stack gap="xs">
-              <p className="bori-meta">{product.meta}</p>
-              <UI.CardTitle role="heading" aria-level={3}>
-                {product.name}
-              </UI.CardTitle>
-            </UI.Stack>
+            <UI.CardTitle role="heading" aria-level={3}>
+              {product.name}
+            </UI.CardTitle>
           </UI.Stack>
           <UI.CardDescription>{product.description}</UI.CardDescription>
         </UI.Stack>
       </UI.CardHeader>
       <UI.CardFooter>
         <UI.Stack gap="md" align="start">
-          <UI.StatusBadge tone="success">{product.status}</UI.StatusBadge>
-          <ProductLinks
+          <StoreBadges
             product={product.id}
             linkLabels={linkLabels}
             badges={badges}
+          />
+          <UI.TextButton
+            variant="arrow"
+            tone="muted"
+            href={localizedPath(locale, `work/${productSlug(product.id)}`)}
           >
-            <UI.TextButton
-              variant="arrow"
-              tone="muted"
-              href={localizedPath(locale, `work/${productSlug(product.id)}`)}
-            >
-              {detailsLabel}
-            </UI.TextButton>
-          </ProductLinks>
+            {detailsLabel}
+          </UI.TextButton>
         </UI.Stack>
       </UI.CardFooter>
     </UI.Card>
@@ -176,10 +152,13 @@ export function BoriHomeHero({
       title={`${title} ${titleAccent}`}
       description={intro}
       actions={
-        <LinkButton href="#products" size="lg" variant="default">
+        <UI.Button
+          href="#products"
+          size="lg"
+          endContent={<ArrowRight aria-hidden="true" size={18} />}
+        >
           {primaryCta}
-          <ArrowRight aria-hidden="true" size={18} />
-        </LinkButton>
+        </UI.Button>
       }
       media={<HeroScene />}
     />
@@ -230,14 +209,12 @@ export function BoriPrinciplesSection({
 }) {
   return (
     <UI.MarketingSection title={title} tone="muted">
-      <ul className="bori-principle-grid">
-        {principles.map((principle) => (
-          <li key={principle.title}>
-            <h3>{principle.title}</h3>
-            <p>{principle.body}</p>
-          </li>
-        ))}
-      </ul>
+      <UI.FeatureGrid
+        items={principles.map((principle) => ({
+          title: principle.title,
+          description: principle.body,
+        }))}
+      />
     </UI.MarketingSection>
   );
 }
@@ -255,10 +232,14 @@ export function BoriContactSection({
 }) {
   return (
     <UI.MarketingSection title={title} description={description}>
-      <LinkButton href={`mailto:${email}`} size="lg" variant="outline">
+      <UI.Button
+        href={`mailto:${email}`}
+        size="lg"
+        variant="outline"
+        endContent={<ArrowUpRight aria-hidden="true" size={18} />}
+      >
         {cta}
-        <ArrowUpRight aria-hidden="true" size={18} />
-      </LinkButton>
+      </UI.Button>
     </UI.MarketingSection>
   );
 }
@@ -280,6 +261,7 @@ export function ProductDetail({
   product: ProductCopy;
   labels: {
     products: string;
+    breadcrumb: string;
     highlights: string;
     screens: string;
     build: string;
@@ -299,7 +281,7 @@ export function ProductDetail({
     <>
       <UI.MarketingSection>
         <UI.Stack gap="xl" align="start">
-          <UI.Breadcrumb>
+          <UI.Breadcrumb aria-label={labels.breadcrumb}>
             <UI.BreadcrumbList>
               <UI.BreadcrumbItem>
                 <UI.BreadcrumbLink href={localizedPath(locale, "#products")}>
@@ -312,31 +294,26 @@ export function ProductDetail({
               </UI.BreadcrumbItem>
             </UI.BreadcrumbList>
           </UI.Breadcrumb>
-          <UI.Stack direction="row" align="center" gap="lg">
-            <PixelLogicAppIcon product={product.id} width={72} height={72} />
-            <UI.Stack gap="xs">
-              <p className="bori-meta">{product.meta}</p>
-              <h1 className="page-title">{product.name}</h1>
-            </UI.Stack>
-          </UI.Stack>
-          <p className="page-intro">{product.description}</p>
-          <UI.StatusBadge tone="success">{product.status}</UI.StatusBadge>
-          <ProductLinks
+          <PixelLogicAppIcon product={product.id} width={72} height={72} />
+          <UI.PageHeader
+            title={product.name}
+            description={product.description}
+          />
+          <StoreBadges
             product={product.id}
             linkLabels={linkLabels}
             badges={badges}
           />
+          <ProductPageLinks product={product.id} linkLabels={linkLabels} />
         </UI.Stack>
       </UI.MarketingSection>
       <UI.MarketingSection title={labels.screens} tone="muted">
         <ProductScreens product={product.id} captions={product.screens} />
       </UI.MarketingSection>
       <UI.MarketingSection title={labels.highlights}>
-        <ul className="bori-principle-grid">
-          {product.highlights.map((highlight) => (
-            <li key={highlight}>{highlight}</li>
-          ))}
-        </ul>
+        <UI.FeatureList
+          items={product.highlights.map((label) => ({ label }))}
+        />
       </UI.MarketingSection>
       <UI.MarketingSection title={labels.build}>
         <div className="product-facts">
@@ -398,11 +375,10 @@ export function ProcessSections({
   return (
     <>
       <UI.MarketingSection>
-        <UI.Stack gap="md" align="start">
-          <h1 className="page-title">{copy.title}</h1>
-          <p className="page-intro">{copy.intro}</p>
-          <p className="page-intro">{copy.scope}</p>
-        </UI.Stack>
+        <UI.PageHeader
+          title={copy.title}
+          description={`${copy.intro} ${copy.scope}`}
+        />
       </UI.MarketingSection>
       <UI.MarketingSection title={copy.stepsTitle} tone="muted">
         <ol className="process-steps">
@@ -415,11 +391,7 @@ export function ProcessSections({
         </ol>
       </UI.MarketingSection>
       <UI.MarketingSection title={copy.proofTitle}>
-        <ul className="bori-principle-grid">
-          {copy.proof.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
+        <UI.FeatureList items={copy.proof.map((label) => ({ label }))} />
       </UI.MarketingSection>
       <UI.MarketingSection title={copy.stackTitle}>
         <ul className="bori-principle-grid">
@@ -430,15 +402,15 @@ export function ProcessSections({
                 {used.map((product, index) => (
                   <span key={product.id}>
                     {index > 0 ? " · " : null}
-                    <a
-                      className="text-link"
+                    <UI.TextButton
+                      variant="underline"
                       href={localizedPath(
                         locale,
                         `work/${productSlug(product.id)}`,
                       )}
                     >
                       {product.name}
-                    </a>
+                    </UI.TextButton>
                   </span>
                 ))}
               </p>

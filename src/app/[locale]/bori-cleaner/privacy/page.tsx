@@ -33,7 +33,7 @@ export default async function BoriCleanerPrivacyPage({ params }: PageProps) {
     <main id="main-content">
       <UI.LegalDocument
         title={copy.title}
-        description={copy.updated}
+        updatedAt={copy.updatedAt}
         sections={legalDocumentSections(copy.sections)}
       />
     </main>
