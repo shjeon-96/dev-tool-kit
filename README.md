@@ -1,3 +1,5 @@
+> 이 저장소는 보관됐어요. 사이트는 [pixellogic-design-system](https://github.com/shjeon-96/pixellogic-design-system) 모노레포의 `apps/web-toolkit`으로 옮겼고, Vercel도 그 저장소에서 배포해요(2026-09-27).
+
 # PixelLogic homepage
 
 The multilingual PixelLogic product-studio homepage. It presents the studio's apps and digital products in English, Korean and Japanese.
