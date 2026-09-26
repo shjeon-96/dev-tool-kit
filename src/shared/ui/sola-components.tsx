@@ -13,6 +13,11 @@ import {
 } from "@/shared/config/site";
 import type { ProductCopy } from "@/shared/i18n/dictionaries";
 import {
+  APP_DOCUMENT_KINDS,
+  findAppDocument,
+  type AppDocumentKind,
+} from "@/shared/legal/app-documents";
+import {
   HeroScene,
   PixelLogicAppIcon,
   ProductScreens,
@@ -83,6 +88,37 @@ function ProductPageLinks({
           external={url.startsWith("http")}
         >
           {linkLabels[kind]}
+        </UI.TextButton>
+      ))}
+    </UI.Stack>
+  );
+}
+
+function ProductDocumentLinks({
+  locale,
+  product,
+  labels,
+}: {
+  locale: Locale;
+  product: ProductId;
+  labels: Record<AppDocumentKind, string>;
+}) {
+  const slug = productSlug(product);
+  const kinds = APP_DOCUMENT_KINDS.filter((kind) =>
+    findAppDocument(slug, locale, kind),
+  );
+  if (kinds.length === 0) return null;
+
+  return (
+    <UI.Stack direction="row" gap="lg">
+      {kinds.map((kind) => (
+        <UI.TextButton
+          key={kind}
+          variant="underline"
+          tone="muted"
+          href={localizedPath(locale, `work/${slug}/${kind}`)}
+        >
+          {labels[kind]}
         </UI.TextButton>
       ))}
     </UI.Stack>
@@ -268,6 +304,7 @@ export function ProductDetail({
     stack: string;
     platforms: string;
     launched: string;
+    documents: Record<AppDocumentKind, string>;
   };
   linkLabels: ProductLinkLabels;
   badges: StoreBadgeSources;
@@ -341,6 +378,11 @@ export function ProductDetail({
             />
           ) : null}
         </div>
+        <ProductDocumentLinks
+          locale={locale}
+          product={product.id}
+          labels={labels.documents}
+        />
       </UI.MarketingSection>
     </>
   );

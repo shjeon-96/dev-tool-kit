@@ -15,7 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "", priority: 1 },
     { path: "process", priority: 0.8 },
     { path: "privacy", priority: 0.4 },
-    { path: "bori-cleaner/privacy", priority: 0.4 },
     { path: "terms", priority: 0.4 },
     ...(Object.keys(PRODUCT_LINKS) as ProductId[]).map((id) => ({
       path: `work/${productSlug(id)}`,
