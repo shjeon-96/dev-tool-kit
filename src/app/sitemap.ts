@@ -8,6 +8,7 @@ import {
   localeAlternates,
   localizedPath,
 } from "@/shared/config/site";
+import { appDocumentEntries } from "@/shared/legal/app-documents";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
@@ -32,6 +33,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: { languages: localeAlternates(page.path) },
       });
     }
+  }
+
+  // 앱 문서는 언어마다 있는 것만 싣는다.
+  for (const { locale, slug, kind } of appDocumentEntries()) {
+    entries.push({
+      url: `${SITE_URL}${localizedPath(locale, `work/${slug}/${kind}`)}`,
+      changeFrequency: "monthly",
+      priority: 0.4,
+    });
   }
 
   return entries;

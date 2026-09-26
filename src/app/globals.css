@@ -149,6 +149,15 @@ summary:focus-visible {
   margin-top: var(--pl-space-xl);
 }
 
+/* PDS LegalDocument 본문은 목록 스타일이 없어 preflight가 점을 지운다. */
+.pl-legal-body ul {
+  display: grid;
+  gap: var(--pl-space-xs);
+  margin: 0;
+  padding-inline-start: var(--pl-space-lg);
+  list-style: disc;
+}
+
 .sola-principle-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));

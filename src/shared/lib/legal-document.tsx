@@ -2,7 +2,8 @@ import * as UI from "@pixellogic/ui/react";
 
 type LegalCopySection = {
   title: string;
-  body: string;
+  body?: string | readonly string[];
+  items?: readonly string[];
   links?: readonly { label: string; href: string }[];
 };
 
@@ -12,7 +13,16 @@ export function legalDocumentSections(sections: readonly LegalCopySection[]) {
     title: section.title,
     body: (
       <>
-        <p>{section.body}</p>
+        {[section.body ?? []].flat().map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+        {section.items?.length ? (
+          <ul>
+            {section.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        ) : null}
         {section.links?.length ? (
           <UI.Stack direction="row" gap="lg">
             {section.links.map((link) => (
