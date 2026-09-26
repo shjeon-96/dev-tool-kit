@@ -1,10 +1,12 @@
+import { SITE_EMAIL } from "@/shared/config/site";
 import type { AppDocument, AppDocumentKind } from "./app-documents";
 
 // 원본: weight-history-nextjs 저장소 src/app/[locale]/privacy/page.tsx (2025-11-30 커밋,
 // https://weight-history-nextjs.vercel.app/privacy 게시본과 같음). 원본은 한국어 하드코딩이라
 // 모든 locale에서 같은 한국어를 보여서 ko만 옮긴다. 원본에 변경일이 없어 시행일을 함께 쓴다.
-// 이용약관·지원 페이지는 원본에 없다.
-const UPDATED = "2025-07-30";
+// 이용약관·지원 페이지는 원본에 없다. 2026-09-26 문의처를 PixelLogic 메일로 통일했다.
+const EFFECTIVE = "2025-07-30";
+const UPDATED = "2026-09-26";
 
 export const WEIGHT_HISTORY_DOCUMENTS: {
   ko: Pick<Record<AppDocumentKind, AppDocument>, "privacy">;
@@ -14,7 +16,7 @@ export const WEIGHT_HISTORY_DOCUMENTS: {
       title: "몸무게 기록 개인정보 처리방침",
       description: "본 방침은 2025년 7월 30일부터 시행됩니다.",
       lead: "본 방침은 2025년 7월 30일부터 시행됩니다.",
-      effectiveAt: UPDATED,
+      effectiveAt: EFFECTIVE,
       updatedAt: UPDATED,
       sections: [
         {
@@ -91,7 +93,7 @@ export const WEIGHT_HISTORY_DOCUMENTS: {
           body: [
             "개인정보보호 담당자",
             "담당부서: 개발팀",
-            "연락처: tmdgns8937@naver.com",
+            `연락처: ${SITE_EMAIL}`,
             "처리시간: 영업일 기준 3일 이내 회신",
           ],
         },

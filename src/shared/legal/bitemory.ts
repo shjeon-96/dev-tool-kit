@@ -1,11 +1,12 @@
 import { SITE_EMAIL } from "@/shared/config/site";
 import type { AppDocument } from "./app-documents";
 
-// 원본: bitemory 저장소 web/src/app/privacy/page.tsx·support/page.tsx (시행일 2026-09-12,
-// config/public-surfaces.json effectiveDate). 게시 중인 https://pixellogic-bitemory.vercel.app
-// 내용(커밋 9e7b0f9)을 옮겼다. 저장소의 2026-09-16 카카오 로그인 반영분은 아직 게시되지 않아 넣지 않았다.
+// 원본: bitemory 저장소 web/src/app/privacy/page.tsx·support/page.tsx·components/policy-ui.tsx와
+// config/public-surfaces.json (시행일 2026-09-12 effectiveDate, 최종 수정 2026-09-16 커밋 f7c98fd).
+// 게시 중이던 이전 버전(커밋 9e7b0f9)을 대체하며, 카카오 로그인 반영분까지 옮겼다.
 // 계정 삭제 안내 페이지는 이 사이트에 없어서 기존 주소로 연결한다.
-const UPDATED = "2026-09-12";
+const EFFECTIVE = "2026-09-12";
+const UPDATED = "2026-09-16";
 const DELETE_ACCOUNT_URL =
   "https://pixellogic-bitemory.vercel.app/delete-account";
 const contactHref = (subject: string) =>
@@ -19,7 +20,7 @@ export const BITEMORY_DOCUMENTS: {
       title: "Bitemory 개인정보처리방침",
       description: "내 기록이 어디에 쓰이고, 어떻게 관리되는지 알려드려요.",
       lead: "내 기록이 어디에 쓰이고, 어떻게 관리되는지 알려드려요.",
-      effectiveAt: UPDATED,
+      effectiveAt: EFFECTIVE,
       updatedAt: UPDATED,
       sections: [
         {
@@ -29,7 +30,7 @@ export const BITEMORY_DOCUMENTS: {
             "사진·음성·위치·건강 데이터는 해당 기능을 선택할 때 필요한 범위로 처리해요. 선택 기능을 사용하지 않거나 권한을 거절하면 그 기능의 이용이 제한될 수 있지만, 직접 입력하는 기록 등 다른 기능은 계속 이용할 수 있어요.",
           ],
           items: [
-            "로그인 · Apple 또는 Google이 제공하는 계정 식별자, 이메일, 프로필 정보와 로그인 세션을 처리해요. 계정 식별·로그인 유지·본인 확인에 사용하며, Bitemory가 소셜 계정의 비밀번호를 직접 수집하지는 않아요.",
+            "로그인 · Apple, Google 또는 카카오가 제공하는 계정 식별자, 이메일, 프로필 정보와 로그인 세션을 처리해요. 계정 식별·로그인 유지·본인 확인에 사용하며, Bitemory가 소셜 계정의 비밀번호를 직접 수집하지는 않아요. 카카오 계정은 동의 범위에 따라 이메일이 제공되지 않을 수 있어요.",
             "식사와 음식 기억 · 음식명·제품·양·식사 날짜와 구분, 영양정보, 별칭·기본 양, 저장한 식사와 확정한 수정 이력을 저장해요. 식사 기록, 반복 기록, 음식 기억, 영양 계산과 개인화에 사용해요.",
             "목표와 체중 · 설정한 열량·영양소 목표와 체중·기록 날짜를 처리해요. 목표 비교와 기록의 변화를 보여주기 위해 사용해요. 건강 앱에서 가져온 체중은 아래 건강 데이터 항목을 따로 확인해 주세요.",
             "생활 기록 · 레시피·조리법·식단 계획·장보기 목록과 메모·구매 상태, 재고·입력한 기한·비용, 단식 시간 기록을 저장해요. 해당 기록의 조회·계산·관리를 위해 사용해요.",
@@ -111,7 +112,7 @@ export const BITEMORY_DOCUMENTS: {
             "OpenRouter · AI 요청을 중계하고 모델 제공자로 전달해요. 위 AI 항목에 설명한 요청 내용을 처리해요. OpenRouter는 미국 사업자이며, 선택되는 모델 제공자와 처리 위치는 요청의 경로에 따라 달라질 수 있어요.",
             "RevenueCat · 스토어 구매·복원과 구독 이용권을 확인해요. Bitemory 계정 식별자, 구매·상품·영수증/거래 및 SDK 기술 정보를 처리해요. Bitemory는 이메일, 식사 내용 또는 건강 기록을 고객 속성으로 전송하지 않아요. RevenueCat은 미국 사업자예요.",
             "Apple·Google · 소셜 로그인, 기기 음성 인식, 건강 연결 및 스토어 결제를 제공해요. 사용한 기능에 필요한 계정·기기·거래·권한 정보를 각 제공자의 정책에 따라 처리해요.",
-            "Kakao·Open Food Facts · 주변 장소 및 식품 조회를 제공해요. 전송 항목은 위 위치·식품 조회 설명과 같아요. Kakao는 대한민국, Open Food Facts는 프랑스의 서비스 운영자예요.",
+            "Kakao·Open Food Facts · 소셜 로그인과 주변 장소·식품 조회를 제공해요. 로그인에는 위 로그인 항목의 계정 정보를, 장소·식품 조회에는 위 위치·식품 조회 설명과 같은 항목을 전송해요. Kakao는 대한민국, Open Food Facts는 프랑스의 서비스 운영자예요.",
             "Vercel · 이 정책·지원 웹사이트를 호스팅해요. 페이지 제공과 보안을 위한 IP 주소, 요청 시각, 기기·브라우저 등 접속 정보를 처리할 수 있어요. Vercel은 미국 사업자이며 글로벌 네트워크를 사용해요.",
           ],
           links: [
@@ -212,7 +213,7 @@ export const BITEMORY_DOCUMENTS: {
       title: "무엇을 도와드릴까요?",
       description: "기록, 구독, 개인정보에 관해 PixelLogic에 문의할 수 있어요.",
       lead: "기록, 구독, 개인정보에 관해 PixelLogic에 문의할 수 있어요.",
-      updatedAt: UPDATED,
+      updatedAt: EFFECTIVE,
       sections: [
         {
           title: "이메일로 문의하기",

@@ -1,10 +1,11 @@
+import { SITE_EMAIL } from "@/shared/config/site";
 import type { AppDocument } from "./app-documents";
 
 // 원본: image-to-pdf 저장소 web/app/privacy/page.tsx·support/page.tsx (최종 업데이트 2026-04-19).
 // 게시 중인 https://soripdf-web.vercel.app 과 같다. 지원 페이지에는 날짜가 없어 파일의
-// 마지막 커밋일(2026-04-19)을 쓴다. 문의 메일은 원본의 주소를 그대로 둔다.
-const UPDATED = "2026-04-19";
-const EMAIL = "tmdgns8937@naver.com";
+// 마지막 커밋일(2026-04-19)을 썼다. 2026-09-26 문의처를 PixelLogic 메일로 통일했다.
+const UPDATED = "2026-09-26";
+const EMAIL = SITE_EMAIL;
 
 export const SORIPDF_DOCUMENTS: {
   ko: { privacy: AppDocument; support: AppDocument };

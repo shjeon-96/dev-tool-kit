@@ -1,11 +1,11 @@
 import type { AppDocument, AppDocumentKind } from "./app-documents";
 
-// 원본: https://website-navy-gamma-54.vercel.app/privacy, /support 게시본 (2026-09-26 확인).
-// running-app 저장소 website/privacy.html·support.html(2026-08-15 커밋)은 게시본보다 새 문구
-// (ATT·Your Choices·보존 기간, 배너 광고 삭제)지만 배포되지 않아 사용자가 본 게시본을 옮긴다.
-// 개인정보 처리방침은 게시본의 "Last updated: April 25, 2026"을 쓰고, 지원 페이지는 날짜가
-// 없어 저장소 support.html의 마지막 커밋 날짜를 쓴다.
-const PRIVACY_UPDATED = "2026-04-25";
+// 원본: running-app 저장소 website/privacy.html·support.html (HEAD, 2026-08-15 커밋).
+// 사용자가 저장소 최신본을 게시하기로 해, 예전 게시본(website-navy-gamma-54.vercel.app,
+// "Last updated: April 25, 2026")을 대체한다. 개인정보 처리방침은 원본의
+// "Last updated: August 13, 2026"을 쓰고, 지원 페이지는 날짜가 없어 support.html의
+// 마지막 커밋 날짜를 쓴다.
+const PRIVACY_UPDATED = "2026-08-13";
 const SUPPORT_UPDATED = "2026-08-15";
 
 export const ONE_SECOND_RUN_DOCUMENTS: {
@@ -21,19 +21,35 @@ export const ONE_SECOND_RUN_DOCUMENTS: {
         {
           title: "Overview",
           body: [
-            "One Second Run is a running habit timer. The app is designed to work without an account and without collecting location, health, pace, calorie, or contact information.",
+            "One Second Run is a running habit timer. The app is designed to work without an account and without route tracking, precise GPS, health, pace, calorie, or contact information.",
           ],
         },
         {
           title: "Data Stored On Device",
           body: [
             "The app stores your start time, daily increase setting, reminder preference, streak, run history, and optional notes locally on your device.",
+            "Run history and current progress are kept until you reset progress or remove the app. Other app settings remain until you remove the app. Resetting progress in Settings deletes run history and current progress. Removing the app deletes the remaining app data from the device. One Second Run has no account or server copy from which this data can be recovered.",
           ],
         },
         {
           title: "Advertising",
           body: [
-            "One Second Run uses Google AdMob. Rewarded ads may be shown before resetting progress, before choosing a new start time, and after completing today's run. A banner ad may appear on the Settings screen. Google may process advertising identifiers and device information according to Google's advertising policies.",
+            "One Second Run uses Google AdMob. Rewarded ads may be shown before resetting progress, before choosing a new start time, and after completing today's run. Google may process advertising identifiers, device information, approximate location derived from IP address, ad interaction data, and diagnostic information according to Google's advertising policies.",
+            "On first launch the app asks for permission through Apple's App Tracking Transparency framework before the advertising identifier (IDFA) is used for tracking. If permission is denied, the app still works and ads are still shown, but they are not personalised using the advertising identifier. You can change this at any time in Settings › Privacy & Security › Tracking.",
+            "Where required, Google's consent form asks for your advertising choices before ads are requested and makes privacy options available in the app. Advertising data is handled by Google under the Google Privacy Policy, including Google's security safeguards, retention practices, and privacy controls. One Second Run does not receive a copy of your on-device run history through AdMob.",
+          ],
+          links: [
+            {
+              label: "Google Privacy Policy",
+              href: "https://policies.google.com/privacy",
+            },
+          ],
+        },
+        {
+          title: "Your Choices",
+          body: [
+            "You can withdraw iOS tracking permission at any time in Settings › Privacy & Security › Tracking. You can disable notifications in system Settings. These choices do not prevent use of the timer or locally stored run history.",
+            "To delete run history and current progress, use Reset and choose start time in the app's Settings screen. To delete all locally stored app data, remove the app from your device. For Google's advertising data and controls, use the privacy tools linked from the Google Privacy Policy above.",
           ],
         },
         {
@@ -66,6 +82,7 @@ export const ONE_SECOND_RUN_DOCUMENTS: {
           title: "Resetting progress",
           body: [
             "You can reset progress and choose a new start time from Settings. These actions may require watching a rewarded ad. A rewarded ad may also appear after completing today's run.",
+            "Resetting deletes run history and current progress, but keeps app settings. To delete all locally stored app data, remove the app from your device. There is no account or server backup to restore.",
           ],
         },
       ],
